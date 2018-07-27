@@ -1,0 +1,48 @@
+<div class="container-fluid" ng-controller="dslCtrl">
+    <div class="row">
+        <div class="col-md-8 mt-3">
+            <textarea name="" ng-model="query_string" class="form-control" id="" cols="30" rows="3"></textarea>
+            <button class="btn btn-secondary mt-2" ng-click="run_query()">Submit Query</button>
+            <!--<p class="small">Type and press Enter</p>-->
+
+            <div class="card mt-3" ng-if="query_result">
+                <div class="card-header">
+                    Query Result
+                </div>
+                <div class="card-body">
+
+                    <div class="" ng-repeat="node in query_result">
+                        <h6>
+                            <a ng-click="show_node($index)">{{node.id}}:{{node.label}} ({{node.type}} )</a>
+                        </h6>
+
+
+                    </div>
+
+                    <div id="outputArea"></div>
+                    <div id="messageArea"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="card mt-3">
+                <div class="card-header">
+                    Node/Edge Details
+                </div>
+                <div class="card-body">
+
+                    <div ng-repeat="(k,v) in current_node">
+                        <p ng-if="k != 'properties'"><strong>{{k}}</strong>: {{v}}</p>
+                        <div ng-if="k == 'properties'">
+                            <h6 class="text-uppercase"><strong>Properties:</strong></h6>
+                            <p ng-repeat="(kk, vv) in v"><strong>{{kk}}</strong>: {{vv[0].value}}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
