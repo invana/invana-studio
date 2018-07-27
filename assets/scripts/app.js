@@ -2,11 +2,11 @@ var app = angular.module("invanaGraphApp", ["ngRoute"]);
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "/assets/templates/main.html",
+            templateUrl: "assets/templates/main.html",
             controller: "dslCtrl"
         })
         .when("/help", {
-            templateUrl: "/assets/templates/help.html"
+            templateUrl: "assets/templates/help.html"
         });
 });
 
