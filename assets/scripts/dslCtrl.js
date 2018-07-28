@@ -76,7 +76,8 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
 
 
     $scope.run_query = function () {
-        run_websocket_request($scope.query_string, $scope.server_url, "query")
+        run_websocket_request($scope.query_string, $scope.server_url, "query");
+        $scope.show_table();
 
     };
 
