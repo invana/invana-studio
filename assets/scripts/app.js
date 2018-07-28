@@ -7,6 +7,9 @@ app.config(function ($routeProvider) {
         })
         .when("/help", {
             templateUrl: "assets/templates/help.html"
+        })
+        .when("/schema", {
+            templateUrl: "assets/templates/schema.html"
         });
 });
 

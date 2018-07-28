@@ -1,8 +1,9 @@
-app.controller('dslCtrl', function ($scope, $rootScope) {
+app.controller('schemaCtrl', function ($scope, $rootScope) {
 
     $scope.query_result = null;
-    $scope.current_node = null;
-    $scope.query_string = "g.V()";
+    // $scope.vertex_list = [];
+    //
+    // $scope.edge_list = [];
 
     function uuidv4() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -11,7 +12,7 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
         });
     }
 
-    function run_websocket_request(gremlin_query, server_url) {
+    function run_websocket_request(gremlin_query, server_url, label_type) {
         $('#messageArea').html('<p class="text-muted">(loading)</p>');
 
         var msg = {
@@ -23,7 +24,7 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
                 "bindings": {},
                 "language": "gremlin-groovy"
             }
-        }
+        };
         var ws = new WebSocket(server_url);
 
         var data = JSON.stringify(msg);
@@ -37,46 +38,37 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
             console.log('Connection error using websocket');
             console.log(err);
 
-            $('#outputArea').html("<p> Connection error using websocket</p>"
+            alert("<p> Connection error using websocket</p>"
                 + "<p> Cannot connect to " + server_url + " </p>");
-            $('#messageArea').html('');
 
 
         };
         ws.onmessage = function (event) {
-            console.log("onmessage received", event.data);
+            console.log("onmessage received", label_type, event.data,);
             var response = JSON.parse(event.data);
             var data = response.result.data;
-            console.log(data, response);
-            if (data == null) {
-
-                $('#outputArea').html(response.status.message);
-                $('#messageArea').html('Server error. No data.');
-                return 1;
-
-            } else {
-                $('#messageArea').html('');
-                $('#outputArea').html(data);
-                $scope.query_result = data;
-                console.log("$scope.query_result", $scope.query_result);
+            console.log(label_type, data, response);
+            if (label_type === "vertex") {
+                $scope.vertex_list = data;
+            }
+            else {
+                $scope.edge_list = data;
 
             }
-                        $scope.$apply()
+            $scope.$apply()
 
         };
-
 
     }
 
 
     $scope.run_query = function () {
-        run_websocket_request($scope.query_string, $scope.server_url)
+        run_websocket_request("g.V().label().dedup();", $scope.server_url, "vertex")
+        run_websocket_request("g.E().label().dedup();", $scope.server_url, "edge")
 
     };
+    $scope.run_query();
+    // $scope.run_query();
 
-    $scope.show_node = function (i) {
-        console.log("show_node", i);
-        $scope.current_node = $scope.query_result[i];
-    }
 
 });

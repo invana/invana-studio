@@ -8,3 +8,9 @@ the gremlin server URL if needed and You can make the gremlin queries and get th
 
 
 ![Screen shot](./docs/screenshot-1.png)
+
+
+#### References:
+
+- http://gremlindocs.spmallette.documentup.com/
+- https://github.com/tinkerpop/gremlin/wiki/Gremlin-Steps
