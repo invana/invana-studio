@@ -13,6 +13,7 @@ app.controller('schemaCtrl', function ($scope, $rootScope) {
     }
 
     function run_websocket_request(gremlin_query, server_url, label_type) {
+        console.log("gremlin_query", gremlin_query);
         $('#messageArea').html('<p class="text-muted">(loading)</p>');
 
         var msg = {
@@ -51,8 +52,12 @@ app.controller('schemaCtrl', function ($scope, $rootScope) {
             if (label_type === "vertex") {
                 $scope.vertex_list = data;
             }
-            else {
+            else if (label_type === "edge") {
                 $scope.edge_list = data;
+            }
+            else if (label_type === "delete_vertex") {
+                run_websocket_request("g.V().label().dedup();", $scope.server_url, "vertex")
+                run_websocket_request("g.E().label().dedup();", $scope.server_url, "edge")
 
             }
             $scope.$apply()
@@ -65,10 +70,14 @@ app.controller('schemaCtrl', function ($scope, $rootScope) {
     $scope.run_query = function () {
         run_websocket_request("g.V().label().dedup();", $scope.server_url, "vertex")
         run_websocket_request("g.E().label().dedup();", $scope.server_url, "edge")
-
     };
     $scope.run_query();
-    // $scope.run_query();
+    $scope.delete_vertex = function (label) {
+        console.log("delete_vertex", label);
+        run_websocket_request("g.V().hasLabel('" + label + "').drop().iterate();" +
+            "g.tx().commit();", $scope.server_url, "delete_vertex")
+
+    };
 
 
 });
