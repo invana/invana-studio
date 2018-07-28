@@ -2,3 +2,10 @@ a{
     color: #d23971 !important;
     cursor: pointer !important;
 }
+.card-header{
+    font-weight: bold !important;
+
+}
+body, html{
+    font-size: 14px;
+}

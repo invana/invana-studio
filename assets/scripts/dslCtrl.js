@@ -11,7 +11,7 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
         });
     }
 
-    function run_websocket_request(gremlin_query, server_url) {
+    function run_websocket_request(gremlin_query, server_url, query_type) {
         $('#messageArea').html('<p class="text-muted">(loading)</p>');
 
         var msg = {
@@ -48,20 +48,26 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
             var response = JSON.parse(event.data);
             var data = response.result.data;
             console.log(data, response);
-            if (data == null) {
+            if (query_type === "query") {
+                if (data == null) {
 
-                $('#outputArea').html(response.status.message);
-                $('#messageArea').html('Server error. No data.');
-                return 1;
+                    $('#outputArea').html(response.status.message);
+                    $('#messageArea').html('Server error. No data.');
+                    return 1;
 
-            } else {
-                $('#messageArea').html('');
-                $('#outputArea').html(data);
-                $scope.query_result = data;
-                console.log("$scope.query_result", $scope.query_result);
+                } else {
+                    $('#messageArea').html('');
+                    $('#outputArea').html(data);
+                    $scope.query_result = data;
+                    console.log("$scope.query_result", $scope.query_result);
 
+                }
             }
-                        $scope.$apply()
+            else if (query_type === "get_vertices") {
+                $scope.vertex_list = data;
+            }
+            $scope.$apply();
+            $scope.show_table();
 
         };
 
@@ -70,7 +76,7 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
 
 
     $scope.run_query = function () {
-        run_websocket_request($scope.query_string, $scope.server_url)
+        run_websocket_request($scope.query_string, $scope.server_url, "query")
 
     };
 
@@ -78,5 +84,63 @@ app.controller('dslCtrl', function ($scope, $rootScope) {
         console.log("show_node", i);
         $scope.current_node = $scope.query_result[i];
     }
+    run_websocket_request("g.V().label().dedup();", $scope.server_url, "get_vertices");
+
+
+    $scope.show_vertex_data = function (vertex_class) {
+        query = "g.V().hasLabel('" + vertex_class + "');"
+        $scope.query_string = query;
+
+        run_websocket_request(query, $scope.server_url, "query");
+    };
+
+    $scope.shall_show_table = true;
+    // $scope.shall_show_pretty = false;
+    $scope.shall_show_graph = false;
+
+    $scope.show_table = function () {
+        $('.nav-result .nav-link').removeClass("active");
+        $('#show-table').addClass("active");
+        // $scope.result_tabulated_data = angular.copy($scope.query_result);
+        $scope.shall_show_table = true;
+        // $scope.shall_show_pretty = false;
+        $scope.shall_show_graph = false;
+
+    };
+
+
+    // $scope.show_pretty = function () {
+    //     console.log("show_pretty");
+    //     $('.nav-result .nav-link').removeClass("active");
+    //     $('#show-pretty').addClass("active");
+    //     $scope.shall_show_table = false;
+    //     $scope.shall_show_pretty = true;
+    //     $scope.shall_show_graph = false;
+    // };
+
+    $scope.show_graph = function () {
+        $('.nav-result .nav-link').removeClass("active")
+        $('#show-graph').addClass("active");
+        $scope.shall_show_table = false;
+        // $scope.shall_show_pretty = false;
+        $scope.shall_show_graph = true;
+
+    };
+
+    $scope.delete_current_node = function (node_type, node_id) {
+        console.log(node_type, node_id);
+        if (node_type === "vertex") {
+            query = "g.V(" + node_id + ").drop()";
+            $scope.query_string = query;
+            run_websocket_request(query, $scope.server_url, "delete_vertex");
+        } else if (node_type === "edge") {
+            query = "g.E(" + node_id + ").drop()";
+            $scope.query_string = query;
+
+            run_websocket_request(query, $scope.server_url, "delete_edge");
+
+        }
+    };
+
 
 });
