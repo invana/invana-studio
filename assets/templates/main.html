@@ -15,7 +15,7 @@
             </div>
         </nav>
         <div class="col-md-7 mt-3">
-            <textarea name="" ng-bind="query_string" class="form-control" id="" cols="30" rows="3"></textarea>
+            <textarea name="" ng-model="query_string" class="form-control" id="" cols="30" rows="3"></textarea>
             <button class="btn btn-secondary mt-2" ng-click="run_query()">Submit Query</button>
             <!--<p class="small">Type and press Enter</p>-->
 
@@ -82,8 +82,8 @@
                             <!--</tr>-->
                             <!--</thead>-->
                             <tbody>
-                            <tr ng-repeat="node in query_result" id="{{node.type}}-{{node.id}}">
-                                <td><a ng-click="show_node($index)">{{node.id}}</a></td>
+                            <tr ng-repeat="node in query_result" id="{{node.type}}-{{node.id}}" ng-mouseover="show_node($index)">
+                                <td><a >{{node.id}}</a></td>
                                 <td>  <span class="badge badge-primary" title="{{node.id}}">
                                     <span ng-if="node.type == 'vertex'">V:</span>
                                     <span ng-if="node.type == 'edge'">E:</span>{{node.label}}
