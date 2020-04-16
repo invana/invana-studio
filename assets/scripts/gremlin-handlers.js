@@ -34,22 +34,29 @@ class GremlinResponseHandlers {
     }
 
 
+    convert_edge_to_json(edg) {
+
+    }
+
+
     process(response) {
         let request_id = response.request_id;
         let data = response.result.data;
         let items = data['@value'];
         let _this = this;
-        let vertices = [];
-        let edges = [];
+        let nodes = [];
         items.forEach(function (item) {
             if (item['@type'] === "g:Vertex") {
                 let d = _this.convert_vertex_to_json(item);
-                vertices.push(d);
+                d['_type'] = "g:Vertex";
+                nodes.push(d);
+            } else if (item['@type'] === "g:Edge") {
+                let d = _this.convert_edge_to_json(item);
+                d['_type'] = "g:Edge";
+
+                nodes.push(d);
             }
         })
-        return {
-            "vertices": vertices,
-            "edges": edges
-        }
+        return nodes
     }
 }

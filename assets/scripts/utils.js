@@ -19,6 +19,9 @@ function hide_loading() {
 }
 
 function get_heading_fields(json_data) {
+    if (json_data.length  === 0){
+        return []
+    }
     let first_row = json_data[0];
     return Object.keys(first_row)
 }

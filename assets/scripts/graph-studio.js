@@ -12,8 +12,8 @@ $(document).ready(function () {
         let json_data = response_handler.process(response)
         console.log("json_data", json_data)
 
-        let heading_fields = get_heading_fields(json_data['vertices']);
-        table.render("#data-table-table", heading_fields, json_data['vertices']);
+        let heading_fields = get_heading_fields(json_data);
+        table.render("#data-table-table", heading_fields, json_data);
 
     }
     let gremlinConnector = new GremlinConnector(GREMLIN_SERVER_URL, onMessageReceived);
