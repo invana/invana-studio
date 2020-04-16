@@ -8,11 +8,58 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/styles/bootstrap.min.css">
     <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="assets/ui-components/tables/tables.css">
 
     <title>Graph Studio</title>
 </head>
 <body>
+<style>
+    .loader-spin {
+        border: 16px solid #e5e5e5;
+        border-radius: 50%;
+        border-top: 16px solid #5c4ee6;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 1s linear infinite; /* Safari */
+        animation: spin 1s linear infinite;
+        margin-top: 20%;
+        margin-left: 45%;
+    }
 
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .page-loading {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 1000;
+        background: rgba(255, 255, 251, 0.68);
+    }
+
+</style>
+<div class="page-loading" style="display: none">
+    <div class="loader-spin"></div>
+    <p class="text-center">Loading ...</p>
+</div>
+
+<!-- page loading html ends -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light  shadow">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +95,25 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-md-10"></div>
+            <div class="col-md-10">
+
+
+                <!-- start -->
+
+
+                <div class="data-table-wrapper mt-3">
+                    <div class="data-table-scroller">
+                        <table class=" data-table-table table table-bordered" id="data-table-table">
+                            <thead class="thead-light">
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- end -->
+            </div>
             <div class="col-md-2 canvas-right-section"></div>
         </div>
     </div>
@@ -58,6 +123,7 @@
 </body>
 
 <script src="assets/vendors/jquery-3.3.1.min.js"></script>
+<script src="assets/ui-components/tables/tables.js"></script>
 <script src="assets/scripts/utils.js"></script>
 <script src="assets/scripts/socket.js"></script>
 <script src="assets/scripts/graph-studio.js"></script>

@@ -8,3 +8,12 @@ function uuidv4() {
         return v.toString(16);
     });
 }
+
+function show_loading() {
+    $(".page-loading").show();
+}
+
+function hide_loading() {
+    $(".page-loading").hide();
+
+}
