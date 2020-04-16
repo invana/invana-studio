@@ -40,7 +40,7 @@ class GremlinResponseHandlers {
         let items = data['@value'];
         let _this = this;
         let vertices = [];
-        let nodes = [];
+        let edges = [];
         items.forEach(function (item) {
             if (item['@type'] === "g:Vertex") {
                 let d = _this.convert_vertex_to_json(item);
@@ -49,7 +49,7 @@ class GremlinResponseHandlers {
         })
         return {
             "vertices": vertices,
-            "nodes": nodes
+            "edges": edges
         }
     }
 }

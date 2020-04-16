@@ -94,11 +94,11 @@
 }
 
 .data-table-scroller {
-    margin-left: 271px;
+    margin-left: 171px;
     overflow-x: scroll;
     overflow-y: visible;
     padding-bottom: 5px;
-    width: calc(100% - 271px);
+    width: calc(100% - 171px);
 }
 
 .data-table-table .data-table-sticky-col {
@@ -107,6 +107,10 @@
     left: 0;
     position: absolute;
     top: auto;
-    width: 270px;
+    width: 170px;
     background-color: #e9ecef !important;
 }
+.data-table-table .data-table-label-col {
+
+    width: 140px;
+ }

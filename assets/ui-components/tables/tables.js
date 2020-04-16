@@ -28,11 +28,10 @@ class Table {
         let tr = $("<tr></tr>");
         var cell_html = null;
         cell_html = "td";
-        var cell_class = null;
         let _this = this;
         table_headings.forEach(function (key, i) {
             let cell_class = (key === "id") ? ' class="data-table-sticky-col"' : "";
-            let v = (key === "payload" || key === "sender_info" || key === "receiver_info") ? _this.stringify_json(row_data[key]) : row_data[key];
+            let v = (typeof row_data[key] === "object") ? _this.stringify_json(row_data[key]) : row_data[key] || "";
             const row_datum_html = '<span class="cell-content">' + v + '</span>';
             tr.append("<" + cell_html + cell_class + " data-cell-fieldname='" + key + "'>" +
                 row_datum_html + "</" + cell_html + ">");
@@ -44,7 +43,7 @@ class Table {
         const cell_html = "th";
         let tr = $("<tr></tr>");
         table_headings.forEach(function (field_name) {
-            let cell_class = (field_name === "id") ? ' class="data-table-sticky-col"' : "";
+            let cell_class = (field_name === "id") ? ' class="data-table-sticky-col"':  (field_name === "label") ? ' class="data-table-label-col"'  : "";
             let cell_heading_content = '<span class="cell-content">' + field_name + '</span>';
             tr.append("<" + cell_html + cell_class + " data-cell-fieldname='" + field_name + "'>" + cell_heading_content + "</" + cell_html + ">");
         });
@@ -64,10 +63,9 @@ class Table {
         thead.append(tr);
 
         let _this = this;
-        if (table_data.length > 0) {
-            $(table_selector + " tbody").html("");
-
-            table_data.forEach(function (row) {
+        if (table_rows.length > 0) {
+            tbody.html("");
+            table_rows.forEach(function (row) {
                 let row_html = _this.create_row(row, table_headings);
                 tbody.append(row_html);
             });

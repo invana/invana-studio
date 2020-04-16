@@ -17,3 +17,8 @@ function hide_loading() {
     $(".page-loading").hide();
 
 }
+
+function get_heading_fields(json_data) {
+    let first_row = json_data[0];
+    return Object.keys(first_row)
+}
