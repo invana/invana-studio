@@ -7,8 +7,9 @@ $(document).ready(function () {
         console.log("onMessageReceived", data);
 
     }
-    let socket = new GremlinServer(GREMLIN_SERVER_URL, onMessageReceived)
-    console.log(socket.ws);
+    let socket = new setup_gremlin_server_socket(GREMLIN_SERVER_URL, onMessageReceived)
+    console.log(socket);
+
     let onHeaderQuerySubmit = function (e) {
         e.preventDefault();
         let query = $('#header-query-form [name="query"]').val();
@@ -23,7 +24,9 @@ $(document).ready(function () {
                 "language": "gremlin-groovy"
             }
         }
-        socket.send(msg);
+        // socket.send(msg);
+        socket.send(JSON.stringify(msg), {mask: true});
+
     }
 
 
