@@ -1,0 +1,55 @@
+a {
+    color: #d23971 !important;
+    cursor: pointer !important;
+}
+
+.card-header {
+    font-weight: bold !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+nav {
+    /*background: #1b1e21;*/
+}
+
+body, html {
+    font-size: 14px;
+}
+
+.server-connected {
+    width: 10px;
+    height: 10px;
+    background: green;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.server-not-connected {
+    width: 10px;
+    height: 10px;
+    background: red;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+div#notifications-div {
+    position: fixed;
+    bottom: 0;
+
+}
+
+nav {
+    z-index: 1000;
+}
+
+.canvas-section {
+    height: calc(100vh - 35px);
+}
+
+.canvas-right-section {
+    height: calc(100vh - 35px);
+    background: #efefef;
+}

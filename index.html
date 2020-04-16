@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/styles/main.css">
+
+    <title>Graph Studio | Invana</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light  shadow">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#">Graph Studio | Invana</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <!--   <li class="nav-item active">
+                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+               </li>
+            -->
+        </ul>
+        <form class=" w-100" id="header-query-form">
+            <input name="query" class="form-control form-control-dark rounded-0" type="text"
+                   placeholder="g.V().limit(5).toList()"
+                   value="g.V().limit(5).toList()"
+                   aria-label="Query the Graph">
+        </form>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="#connection-status" id="connection-status"><span></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#settings">settings</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<section class="canvas-section">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-10"></div>
+            <div class="col-md-2 canvas-right-section"></div>
+        </div>
+    </div>
+</section>
+<div id="notifications-div"></div>
+
+</body>
+
+<script src="assets/vendors/jquery-3.3.1.min.js"></script>
+<script src="assets/scripts/utils.js"></script>
+<script src="assets/scripts/socket.js"></script>
+<script src="assets/scripts/graph-studio.js"></script>
+
+</html>
