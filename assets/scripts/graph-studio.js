@@ -2,12 +2,16 @@ $(document).ready(function () {
 
     var GREMLIN_SERVER_URL = "ws://127.0.0.1:8182/gremlin"
 
+    let response_handler = new GremlinResponseHandlers();
     let onMessageReceived = function (event) {
-        let data = JSON.parse(event.data);
-        console.log("onMessageReceived", data);
+        let response = JSON.parse(event.data);
+        console.log("onMessageReceived", response);
+
+        let json_data = response_handler.process(response)
+        console.log("json_data", json_data)
 
     }
-    let gremlinConnector = new  GremlinConnector(GREMLIN_SERVER_URL, onMessageReceived)
+    let gremlinConnector = new GremlinConnector(GREMLIN_SERVER_URL, onMessageReceived)
     console.log(gremlinConnector);
 
     let onHeaderQuerySubmit = function (e) {

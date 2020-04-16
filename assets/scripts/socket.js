@@ -20,14 +20,12 @@ class GremlinConnector {
         show_notification("Connecting to gremlin server url :" + gremlin_server_url);
 
         ws.onopen = function (event) {
-            console.log("ws.open", event);
             show_notification("Connected to Server");
             $("#connection-status span").removeClass().addClass("server-connected").attr("title", "Connected");
         };
 
         ws.onmessage = function (event) {
             show_notification("Message Received");
-            console.log("ws.onmessage", event);
             message_callback(event);
         };
 
