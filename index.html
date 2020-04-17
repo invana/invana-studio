@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/styles/bootstrap.min.css">
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="assets/ui-components/tables/tables.css">
+    <link rel="stylesheet" href="assets/ui-components/graph/graph.css">
 
     <title>Graph Studio</title>
 </head>
@@ -111,6 +112,9 @@
                         </table>
                     </div>
                 </div>
+
+
+                <svg id="svg"></svg>
                 <div class="clearfix"></div>
                 <!-- end -->
             </div>
@@ -123,8 +127,13 @@
 </body>
 
 <script src="assets/vendors/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
 <script src="assets/scripts/utils.js"></script>
 <script src="assets/ui-components/tables/tables.js"></script>
+<script src="assets/ui-components/graph/example-data.js"></script>
+<script src="assets/ui-components/graph/graph.js"></script>
 <script src="assets/scripts/gremlin-handlers.js"></script>
 <script src="assets/scripts/socket.js"></script>
 <script src="assets/scripts/graph-studio.js"></script>
