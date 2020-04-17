@@ -12,9 +12,18 @@ $(document).ready(function () {
         console.log("onMessageReceived", response);
         let json_data = response_handler.process(response)
         console.log("json_data", json_data)
-        let heading_fields = get_heading_fields(json_data);
-        table.render("#data-table-table", heading_fields, json_data);
+
+        // TODO - if table rendering is needed ;
+        /*
+         let heading_fields = get_heading_fields(json_data);
+         table.render("#data-table-table", heading_fields, json_data);
+
+         */
         show_notification("Rendered graph data");
+        let _ = response_handler.seperate_vertices_and_edges(json_data);
+        let vertices = _[0];
+        let edges = _[1];
+        graph_canvas.draw(vertices, edges);
 
     }
     let gremlinConnector = new GremlinConnector(GREMLIN_SERVER_URL, onMessageReceived);
@@ -41,7 +50,6 @@ $(document).ready(function () {
     }
 
     $("#header-query-form").submit(onHeaderQuerySubmit);
-    graph_canvas.draw(response_data['nodes'], response_data['edges']);
 
 
 })

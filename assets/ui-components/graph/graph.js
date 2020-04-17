@@ -16,7 +16,7 @@ class VertexUtils {
         node.append("circle")
             .attr("r", 10)
             .style("fill", function (d, i) {
-                return _this.color_schema(i);
+                return _this.color_schema(d.label);
             })
 
         node.append("title")
@@ -27,7 +27,7 @@ class VertexUtils {
         node.append("text")
             .attr("dy", -3)
             .text(function (d) {
-                return d.name + ":" + d.label;
+                return d.name;
             });
 
         return node
@@ -59,7 +59,7 @@ class EdgeUtils {
 
         link.append("title")
             .text(function (d) {
-                return d.type;
+                return d.label;
             });
 
         let edge_paths = this.canvas.selectAll(".edgepath")
@@ -98,7 +98,7 @@ class EdgeUtils {
             .style("pointer-events", "none")
             .attr("startOffset", "50%")
             .text(function (d) {
-                return d.type
+                return d.label
             });
 
         return [link, edge_paths, edge_labels];
@@ -165,11 +165,59 @@ class DataGraphCanvas {
     }
 
     add_vertices(vertices) {
+        this.add_legend(vertices)
         return this.vertex_utils.add(vertices);
     }
 
     add_edges(edges) {
         return this.edge_utils.add(edges);
+    }
+
+    add_legend(vertices) {
+        let _this = this;
+        let legend = this.canvas.append("g")
+            .attr("class", "legend")
+            .attr("height", 0)
+            .attr("width", 0)
+            .attr('transform', 'translate(20,250)');
+
+
+        let legend_list = [];
+        for (let i = 0; i < vertices.length; i++) {
+            for (let j = 0; j < vertices.length; j++) {
+                if (vertices[i].label === vertices[j].label && legend_list.indexOf(vertices[i].label) === -1) {
+                    legend_list.push(vertices[i].label);
+                }
+            }
+        }
+        console.log(" legend_list  ", legend_list);
+        this.canvas.selectAll('.symbol')
+            .data(legend_list)
+            // .attr('class','symbol')
+            .enter()
+            .append('circle')
+            .attr('class', 'symbol')
+            .attr('transform', function (d, i) {
+                return 'translate(' + (20) + ',' + ((i * 20) + 10) + ')';
+            })
+            .attr('r', 10)
+            .style("fill", function (d, i) {
+                return _this.color_schema(d);
+            })
+
+        // d3.selectAll('.label').exit().remove();
+        this.canvas.selectAll('.label')
+            .data(legend_list)
+            .enter()
+            .append('text')
+            .attr("x", "40")
+            .attr("y", function (d, i) {
+                return ((i * 20) + 15);
+            })
+            .text(function (d) {
+                return d;
+            });
+
     }
 
     draw(vertices, edges) {

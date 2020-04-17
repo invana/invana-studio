@@ -20,7 +20,7 @@ class GremlinResponseHandlers {
             throw "Not a vertex error. check if this is of g:Vertex type:: " + JSON.stringify(vtx);
         }
         let d = {};
-        d['_type'] = "g:Vertex";
+        d['type'] = "g:Vertex";
         let _this = this;
         d.id = vtx['@value'].id['@value'];
         d.label = vtx['@value'].label;
@@ -58,7 +58,7 @@ class GremlinResponseHandlers {
         }
         let _this = this;
         let d = {};
-        d['_type'] = "g:Edge";
+        d['type'] = "g:Edge";
         d['label'] = edg['@value']['label'];
         d['id'] = edg['@value'].id['@value']['relationId'];
         d['inV'] = edg['@value'].inV['@value'];
@@ -120,5 +120,21 @@ class GremlinResponseHandlers {
         let request_id = response.request_id;
         let data = response.result.data;
         return this.convert_list_to_json(data);
+    }
+
+    seperate_vertices_and_edges(data) {
+        console.log(data);
+        let vertices = [];
+        let edges = [];
+        data.forEach(function (d) {
+            if (d['type'] === "g:Vertex") {
+                vertices.push(d);
+            } else if (d['type'] === "g:Edge") {
+                d.source = d.inV;
+                d.target = d.outV;
+                edges.push(d);
+            }
+        });
+        return [vertices, edges]
     }
 }
