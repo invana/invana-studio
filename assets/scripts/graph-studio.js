@@ -22,19 +22,23 @@ $(document).ready(function () {
         e.preventDefault();
         let query = $('#header-query-form [name="query"]').val();
         console.log("query is ", query);
-        let msg = {
-            "requestId": uuidv4(),
-            "op": "eval",
-            "processor": "",
-            "args": {
-                "gremlin": query,
-                "bindings": {},
-                "language": "gremlin-groovy"
-            }
-        }
-        // socket.send(msg);
-        gremlinConnector.send(msg);
 
+        if (query) {
+            let msg = {
+                "requestId": uuidv4(),
+                "op": "eval",
+                "processor": "",
+                "args": {
+                    "gremlin": query,
+                    "bindings": {},
+                    "language": "gremlin-groovy"
+                }
+            }
+            // socket.send(msg);
+            gremlinConnector.send(msg);
+        }else{
+            alert("Query cannot be Blank");
+        }
     }
 
 
