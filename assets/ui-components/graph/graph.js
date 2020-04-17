@@ -105,7 +105,6 @@ class EdgeUtils {
 
     }
 
-
     remove(edge) {
 
     }
@@ -159,7 +158,7 @@ class DataGraphCanvas {
         return d3.forceSimulation()
             .force("link", d3.forceLink().id(function (d) {
                 return d.id;
-            }).distance(100).strength(2))
+            }).distance(100).strength(1.6))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2));
     }
@@ -221,6 +220,11 @@ class DataGraphCanvas {
     }
 
     draw(vertices, edges) {
+
+
+        this.canvas.selectAll("*").remove();
+        $("g").remove();
+        $("line").remove();
 
         let _this = this;
         console.log("vertices " + vertices.length + "; edges " + edges.length);
