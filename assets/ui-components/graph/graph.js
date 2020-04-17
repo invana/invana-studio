@@ -75,20 +75,20 @@ class DataGraphCanvas {
             .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2));
     }
 
-    add_vertex(vertex) {
+    add_vertices(vertex) {
         this.vertex_utils.add(vertex);
     }
 
-    add_edge(vertex) {
+    add_edges(vertex) {
         this.vertex_utils.add(vertex);
     }
 
-    draw(nodes, links) {
+    draw(vertices, edges) {
 
         let _this = this;
-        console.log("Nodes " + nodes.length + "; Links " + links.length);
+        console.log("vertices " + vertices.length + "; edges " + edges.length);
         let link = this.canvas.selectAll(".link")
-            .data(links)
+            .data(edges)
             .enter()
             .append("line")
             .attr("class", "link")
@@ -99,8 +99,8 @@ class DataGraphCanvas {
                 return d.type;
             });
 
-        let edgepaths = this.canvas.selectAll(".edgepath")
-            .data(links)
+        let edge_paths = this.canvas.selectAll(".edgepath")
+            .data(edges)
             .enter()
             .append('path')
             .attrs({
@@ -113,8 +113,8 @@ class DataGraphCanvas {
             })
             .style("pointer-events", "none");
 
-        let edgelabels = this.canvas.selectAll(".edgelabel")
-            .data(links)
+        let edge_labels = this.canvas.selectAll(".edgelabel")
+            .data(edges)
             .enter()
             .append('text')
             .style("pointer-events", "none")
@@ -127,7 +127,7 @@ class DataGraphCanvas {
                 'fill': '#aaa'
             });
 
-        edgelabels.append('textPath')
+        edge_labels.append('textPath')
             .attr('xlink:href', function (d, i) {
                 return '#edgepath' + i
             })
@@ -139,7 +139,7 @@ class DataGraphCanvas {
             });
 
         let node = this.canvas.selectAll(".node")
-            .data(nodes)
+            .data(vertices)
             .enter()
             .append("g")
             .attr("class", "node")
@@ -167,15 +167,15 @@ class DataGraphCanvas {
             });
 
         let ticked = function () {
-            _this.ticked_actual(node, link, edgepaths, edgelabels);
+            _this.ticked_actual(node, link, edge_paths, edge_labels);
         }
 
         this.simulation
-            .nodes(nodes)
+            .nodes(vertices)
             .on("tick", ticked);
 
         this.simulation.force("link")
-            .links(links);
+            .links(edges);
     }
 
     dragstarted(d) {
@@ -193,7 +193,7 @@ class DataGraphCanvas {
         d.fy = d3.event.y;
     }
 
-    ticked_actual(node, link, edgepaths, edgelabels) {
+    ticked_actual(node, link, edge_paths, edge_labels) {
         link
             .attr("x1", function (d) {
                 return d.source.x;
@@ -213,11 +213,11 @@ class DataGraphCanvas {
                 return "translate(" + d.x + ", " + d.y + ")";
             });
 
-        edgepaths.attr('d', function (d) {
+        edge_paths.attr('d', function (d) {
             return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
         });
 
-        edgelabels.attr('transform', function (d) {
+        edge_labels.attr('transform', function (d) {
             if (d.target.x < d.source.x) {
                 let bbox = this.getBBox();
 
