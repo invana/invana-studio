@@ -5,7 +5,7 @@ $(document).ready(function () {
     let response_handler = new GremlinResponseHandlers();
     let table = new Table();
 
-    let graph_canvas = new DataGraphCanvas() //
+    let graph_canvas = new DataGraphCanvas("#svg") //
 
     let onMessageReceived = function (event) {
         let response = JSON.parse(event.data);
@@ -41,8 +41,7 @@ $(document).ready(function () {
     }
 
     $("#header-query-form").submit(onHeaderQuerySubmit);
-
-    graph_canvas.render_graph(response_data)
+    graph_canvas.draw(response_data['nodes'], response_data['edges']);
 
 
 })
