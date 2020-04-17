@@ -35,10 +35,10 @@ body, html {
     border-radius: 50%;
 }
 
-div#notifications-div {
+#notifications-div {
     position: fixed;
     bottom: 0;
-
+    /*right: 10px;*/
 }
 
 nav {

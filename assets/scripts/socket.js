@@ -39,7 +39,7 @@ class GremlinConnector {
         // An event listener to be called when the connection is closed.
         ws.onclose = function (err) {
             console.log('Connection error using websocket', err);
-            let retry_in = 5;
+            let retry_in = 10;
             show_notification("Connection Closed");
             $("#connection-status span").removeClass().addClass("server-not-connected").attr("title", "Connection Closed");
 
