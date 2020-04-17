@@ -93,6 +93,8 @@ class DataGraphCanvas {
     }
 
 
+
+
     transform(d) {
         return "translate(" + d.x + "," + d.y + ")";
     }
@@ -184,6 +186,92 @@ class DataGraphCanvas {
             .start();
     }
 
+    setup_legend(svg, nodes){
+        var legend = svg.append("g")
+                .attr("class", "legend")
+                .attr("height", 0)
+                .attr("width", 0)
+                .attr('transform', 'translate(20,250)');
+
+
+            var legend_list = [];
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = 0; j < nodes.length; j++) {
+                    if (nodes[i].label === nodes[j].label && legend_list.indexOf(nodes[i].label) === -1) {
+                        legend_list.push(nodes[i].label);
+                    }
+                }
+            }
+            // var legend_nodes = d3.selectAll('.symbol');
+
+
+            // console.log("legend_list array: ", legend_list, legend_nodes);
+            // legend_nodes.remove()
+
+            // d3.selectAll('.symbol').remove()
+
+            svg.selectAll('.symbol')
+                .data(legend_list)
+                // .attr('class','symbol')
+                .enter()
+                .append('circle')
+                .attr('class', 'symbol')
+                .attr('transform', function (d, i) {
+                    return 'translate(' + (20) + ',' + ((i * 20) + 10) + ')';
+                })
+                .attr('r', 10)
+                .style("fill", function (d) {
+                    //   return "black";
+                    if (d === "Customers") {
+                        return "blue";
+                    }
+                    else if (d === "Countries") {
+                        return "green";
+                    }
+                    else if (d === "Profiles") {
+                        return "pink";
+                    }
+                    else if (d === "Hotels") {
+                        return "red";
+                    }
+                    else if (d === "Restaurants") {
+                        return "violet";
+                    }
+                    else if (d === "Monuments") {
+                        return "indigo";
+                    }
+                    else if (d === "Castles") {
+                        return "yellow";
+                    }
+                    else if (d === "Theatres") {
+                        return "orange";
+                    }
+                    else if (d === "ArchaeologicalSites") {
+                        return "black";
+                    }
+                    else if (d === "Reviews") {
+                        return "cyan";
+                    }
+                    else if (d === "Orders") {
+                        return "lavender";
+                    }
+                });
+
+            // d3.selectAll('.label').exit().remove();
+            svg.selectAll('.label')
+                .data(legend_list)
+                .enter()
+                .append('text')
+                .attr("x", "40")
+                .attr("y", function (d, i) {
+                    return ((i * 20) + 15);
+                })
+                .text(function (d) {
+                    return d;
+                });
+
+
+    }
 
     setup_graph_canvas(nodes, edges) {
         let _this = this;
@@ -203,6 +291,8 @@ class DataGraphCanvas {
             return data
         }()
 
+
+        this.setup_legend(svg, nodes);
 
         let NODE_ID_TO_LINK_IDS = function () {
             let data = {}
