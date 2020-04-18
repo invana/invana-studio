@@ -24,14 +24,23 @@ $(document).ready(function () {
         let vertices = _[0];
         let edges = _[1];
         graph_canvas.draw(vertices, edges);
+        hide_loading();
 
     }
     let gremlinConnector = new GremlinConnector(GREMLIN_SERVER_URL, onMessageReceived);
 
-    let onHeaderQuerySubmit = function (e) {
-        e.preventDefault();
-        let query = $('#header-query-form [name="query"]').val();
-        console.log("query is ", query);
+
+    let addQueryToUrl = function (query) {
+        let u = new URL(location.href);
+        var searchParams = new URLSearchParams(window.location.search)
+        searchParams.set("query", query);
+        if (window.history.replaceState) {
+            //prevents browser from storing history with each change:
+            window.history.replaceState({}, null, u.origin + "/?" + searchParams.toString());
+        }
+    }
+
+    let submitQuery = function (query) {
         if (query) {
             let msg = {
                 "requestId": uuidv4(),
@@ -43,13 +52,30 @@ $(document).ready(function () {
                     "language": "gremlin-groovy"
                 }
             }
+            show_loading()
+            addQueryToUrl(query);
             gremlinConnector.send(msg);
         } else {
             alert("Query cannot be Blank");
         }
     }
+    let onPageLoadInitQuery = function () {
+        let query = new URLSearchParams(window.location.search).get("query");
+        submitQuery(query);
+
+    }
+    let onHeaderQuerySubmit = function (e) {
+        e.preventDefault();
+        let query = $('#header-query-form [name="query"]').val();
+        console.log("query is ", query);
+        submitQuery(query);
+    }
 
     $("#header-query-form").submit(onHeaderQuerySubmit);
+
+    gremlinConnector.ws.addEventListener('open', function (event) {
+        onPageLoadInitQuery();
+    });
 
 
 })
