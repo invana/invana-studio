@@ -19,7 +19,7 @@ $(document).ready(function () {
          table.render("#data-table-table", heading_fields, json_data);
 
          */
-        show_notification("Rendered graph data");
+        show_notification("Rendered graph");
         let _ = response_handler.seperate_vertices_and_edges(json_data);
         let vertices = _[0];
         let edges = _[1];
