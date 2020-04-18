@@ -40,28 +40,32 @@ $(document).ready(function () {
         }
     }
 
-    let submitQuery = function (query) {
-        if (query) {
-            let msg = {
-                "requestId": uuidv4(),
-                "op": "eval",
-                "processor": "",
-                "args": {
-                    "gremlin": query,
-                    "bindings": {},
-                    "language": "gremlin-groovy"
-                }
-            }
-            show_loading()
-            addQueryToUrl(query);
-            gremlinConnector.send(msg);
-        } else {
+    let submitQuery = function (query, validate_query) {
+
+        if (validate_query && !query) {
             alert("Query cannot be Blank");
+        } else {
+            if (query) { // soft ignore
+                let msg = {
+                    "requestId": uuidv4(),
+                    "op": "eval",
+                    "processor": "",
+                    "args": {
+                        "gremlin": query,
+                        "bindings": {},
+                        "language": "gremlin-groovy"
+                    }
+                }
+                show_loading()
+                $('[name="query"]').val(query);
+                addQueryToUrl(query);
+                gremlinConnector.send(msg);
+            }
         }
     }
     let onPageLoadInitQuery = function () {
         let query = new URLSearchParams(window.location.search).get("query");
-        submitQuery(query);
+        submitQuery(query, false);
 
     }
     let onHeaderQuerySubmit = function (e) {
