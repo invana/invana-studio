@@ -138,11 +138,11 @@ class DataGraphCanvas {
 
     setup_canvas(html_selector_id) {
         // Per-type markers, as they don't inherit styles.
-        let svg =  d3.select(html_selector_id);
-            // .call(d3.zoom().on("zoom", function () {
-            //     svg.attr("transform", d3.event.transform)
-            // }))
-            // .on("dblclick.zoom", null)   // double click zoom has been disabled since
+        let svg =  d3.select(html_selector_id)
+            .call(d3.zoom().on("zoom", function () {
+                svg.attr("transform", d3.event.transform)
+            }))
+            .on("dblclick.zoom", null)   // double click zoom has been disabled since
             // we want double click to be reserved for highlighting neighbor nodes
         return svg;
 
