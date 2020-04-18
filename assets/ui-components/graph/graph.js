@@ -14,7 +14,7 @@ class VertexUtils {
 
 
         node.append("circle")
-            .attr("r", 5)
+            .attr("r", 10)
             .style("fill", function (d, i) {
                 return _this.color_schema(d.label);
             })
@@ -138,7 +138,14 @@ class DataGraphCanvas {
 
     setup_canvas(html_selector_id) {
         // Per-type markers, as they don't inherit styles.
-        return d3.select(html_selector_id);
+        let svg =  d3.select(html_selector_id);
+            // .call(d3.zoom().on("zoom", function () {
+            //     svg.attr("transform", d3.event.transform)
+            // }))
+            // .on("dblclick.zoom", null)   // double click zoom has been disabled since
+            // we want double click to be reserved for highlighting neighbor nodes
+        return svg;
+
     }
 
     clear_canvas() {
@@ -170,7 +177,7 @@ class DataGraphCanvas {
         return d3.forceSimulation()
             .force("link", d3.forceLink().id(function (d) {
                 return d.id;
-            }).distance(100).strength(1))
+            }).distance(150).strength(2))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2));
     }
@@ -294,20 +301,19 @@ class DataGraphCanvas {
         this.clear_canvas();
         console.log("vertices " + vertices.length + "; edges " + edges.length);
 
+        let _ = this.add_edges(edges);
+        let link = _[0];
+        let edgepaths = _[1];
+        let edgelabels = _[2];
 
         let node = this.add_vertices(vertices);
 
 
         node.call(d3.drag()
-                .on("start", dragstarted)
-                .on("drag", _this.dragged)
-            //.on("end", dragended)
+            .on("start", dragstarted)
+            .on("drag", _this.dragged)
+            .on("end", dragended)
         );
-
-        let _ = this.add_edges(edges);
-        let link = _[0];
-        let edgepaths = _[1];
-        let edgelabels = _[2];
 
 
         function dragstarted(d) {
@@ -318,6 +324,14 @@ class DataGraphCanvas {
             }
             d.fx = d.x;
             d.fy = d.y;
+        }
+
+        function dragended(d) {
+            if (!d3.event.active){
+                _this.simulation.alphaTarget(0);
+            }
+            d.fx = null;
+            d.fy = null;
         }
 
 

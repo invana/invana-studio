@@ -5,7 +5,7 @@ $(document).ready(function () {
     let response_handler = new GremlinResponseHandlers();
     let table = new Table();
 
-    let graph_canvas = new DataGraphCanvas("#svg") //
+    let graph_canvas = new DataGraphCanvas("#graph-area") //
 
     let onMessageReceived = function (event) {
         let response = JSON.parse(event.data);
