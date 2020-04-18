@@ -61,3 +61,8 @@
 #graph-area-wrapper{
     overflow: hidden;
 }
+
+.full-screen{
+    width: 100%;
+    height: 100%;
+}

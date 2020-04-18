@@ -129,21 +129,24 @@ class DataGraphCanvas {
 
         // canvas_width and canvas_height should be assigned as
         // soon as possible before any other methods being called.
-        this.canvas_width = this.canvas.attr("width");
-        this.canvas_height = this.canvas.attr("height");
+        let _ = document.querySelector(html_selector_id).getBoundingClientRect();
+        this.canvas_width = _.width;
+        this.canvas_height = _.height;
         this.simulation = this.setup_simulation();
+
 
     }
 
 
     setup_canvas(html_selector_id) {
         // Per-type markers, as they don't inherit styles.
-        let svg =  d3.select(html_selector_id)
+        let svg = d3.select(html_selector_id)
             .call(d3.zoom().on("zoom", function () {
                 svg.attr("transform", d3.event.transform)
             }))
             .on("dblclick.zoom", null)   // double click zoom has been disabled since
-            // we want double click to be reserved for highlighting neighbor nodes
+        // we want double click to be reserved for highlighting neighbor nodes
+
         return svg;
 
     }
@@ -194,15 +197,17 @@ class DataGraphCanvas {
 
     add_vertex_legend(vertices) {
         let _this = this;
+        let edges_legend_height = document.querySelector(".edges-legend").getBoundingClientRect().height;
+
         let legend = this.canvas.append("g")
-            .attr("class", "vertices-legend")
+            .attr("class", "vertices-legend exclude-from-zoom")
             .attr("height", 0)
             .attr("width", 0)
-            .attr('transform', 'translate(20,250)');
+            .attr('transform', 'translate(' + (this.canvas_width - 100) + ',' + (edges_legend_height + 30) + ')');
 
+        // d3.selectAll(".exclude-from-zoom").attr("transform", "scale(" + d3.event.scale + ")");
 
         let legend_vertices_list = [];
-
         vertices.forEach(function (vertex) {
             if (legend_vertices_list.indexOf(vertex.label) === -1) {
                 legend_vertices_list.push(vertex.label)
@@ -240,11 +245,13 @@ class DataGraphCanvas {
 
     add_edge_legend(edges) {
         let _this = this;
+
+
         let legend = this.canvas.append("g")
-            .attr("class", "edge-legend")
+            .attr("class", "edges-legend  exclude-from-zoom")
             .attr("height", 0)
             .attr("width", 0)
-        // .attr('transform', 'translate(20,250)');
+            .attr('transform', 'translate(' + (this.canvas_width - 100) + ',30)');
 
 
         let legend_edges_list = [];
@@ -327,7 +334,7 @@ class DataGraphCanvas {
         }
 
         function dragended(d) {
-            if (!d3.event.active){
+            if (!d3.event.active) {
                 _this.simulation.alphaTarget(0);
             }
             d.fx = null;
