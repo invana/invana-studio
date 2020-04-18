@@ -17,7 +17,7 @@ class VertexUtils {
             .attr("r", 10)
             .style("fill", function (d, i) {
                 return _this.color_schema(d.label);
-            })
+            }).style("cursor", "pointer")
 
         node.append("title")
             .text(function (d) {
