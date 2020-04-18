@@ -203,9 +203,8 @@ class DataGraphCanvas {
             .attr("class", "vertices-legend exclude-from-zoom")
             .attr("height", 0)
             .attr("width", 0)
-            .attr('transform', 'translate(' + (this.canvas_width - 100) + ',' + (edges_legend_height + 30) + ')');
+            .attr('transform', 'translate(' + (this.canvas_width - 100) + ',' + (edges_legend_height + 35) + ')');
 
-        // d3.selectAll(".exclude-from-zoom").attr("transform", "scale(" + d3.event.scale + ")");
 
         let legend_vertices_list = [];
         vertices.forEach(function (vertex) {
@@ -228,7 +227,6 @@ class DataGraphCanvas {
                 return _this.color_schema(d);
             })
 
-        // d3.selectAll('.label').exit().remove();
         legend.selectAll('.label')
             .data(legend_vertices_list)
             .enter()
@@ -261,27 +259,19 @@ class DataGraphCanvas {
             }
         })
 
-        console.log("legend_edges_list", legend_edges_list)
-
-
-        legend.selectAll('.legend-edge')
+        legend.selectAll('.symbol')
             .data(legend_edges_list)
             .enter()
-            .append('line')
-            .attrs({
-                'class': 'edgepath',
-                'fill-opacity': 0,
-                'stroke-opacity': 0,
-                // "stroke": "2px",
-                'id': function (d, i) {
-                    return 'edgepath' + i
-                }
+            .append('rect')
+            .attrs({ width: 10, height: 4})
+
+            .attr('class', 'symbol')
+            .attr('transform', function (d, i) {
+                return 'translate(' + (15) + ',' + ((i * 20) + 10) + ')';
             })
-            .style("pointer-events", "none")
             .style("fill", function (d, i) {
                 return _this.color_schema(d);
             })
-
 
         legend.selectAll('.label')
             .data(legend_edges_list)
