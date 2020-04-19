@@ -2,6 +2,20 @@ class Table {
 
     /*
 
+      <!--
+                <div class="data-table-wrapper mt-3">
+                    <div class="data-table-scroller">
+                        <table class=" data-table-table table table-bordered" id="data-table-table">
+                            <thead class="thead-light">
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+ -->
+
+
     Example Usage :
         var table_headings = ["id", "name", "age"];
         var table_data = [

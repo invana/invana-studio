@@ -21,7 +21,11 @@ class GremlinConnector {
 
         ws.onopen = function (event) {
             show_notification("Connected to Server");
-            $("#connection-status span").removeClass().addClass("server-connected").attr("title", "Connected");
+            $("#connection-status span")
+                .removeClass()
+                .addClass("server-connected")
+                .html("Connected Successfully")
+                .attr("title", "Connected");
         };
 
         ws.onmessage = function (event) {
@@ -33,7 +37,11 @@ class GremlinConnector {
         ws.onerror = function (err) {
             console.log('Connection error using websocket', err);
             show_notification("Something went wrong");
-            $("#connection-status span").removeClass().addClass("server-not-connected").attr("title", "Unable to Connect");
+            $("#connection-status span")
+                .removeClass()
+                .addClass("server-not-connected")
+                .html("Connected closed")
+                .attr("title", "Unable to Connect");
         };
 
         // An event listener to be called when the connection is closed.
@@ -41,7 +49,12 @@ class GremlinConnector {
             console.log('Connection error using websocket', err);
             let retry_in = 10;
             show_notification("Connection Closed");
-            $("#connection-status span").removeClass().addClass("server-not-connected").attr("title", "Connection Closed");
+            $("#connection-status span")
+                .removeClass()
+                .addClass("server-not-connected")
+                .html("Connected closed")
+
+                .attr("title", "Connection Closed");
 
 
             let i = 1;

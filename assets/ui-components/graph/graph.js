@@ -114,6 +114,31 @@ class EdgeUtils {
 }
 
 
+class GraphControls {
+
+
+    hideVertexLabels() {
+        $("g.node text").hide();
+    }
+
+    showVertexLabels() {
+        $("g.node text").show();
+    }
+
+    hideEdgeLabels() {
+        $(".edgelabel").hide();
+    }
+
+    showEdgeLabels() {
+        $(".edgelabel").show();
+    }
+
+    center() {
+
+    }
+
+}
+
 class DataGraphCanvas {
 
     // Reference: http://bl.ocks.org/fancellu/2c782394602a93921faff74e594d1bb1
@@ -133,10 +158,10 @@ class DataGraphCanvas {
         this.canvas_width = _.width;
         this.canvas_height = _.height;
         this.simulation = this.setup_simulation();
+        this.controls = new GraphControls();
 
 
     }
-
 
     setup_canvas(html_selector_id) {
         // Per-type markers, as they don't inherit styles.
@@ -177,11 +202,26 @@ class DataGraphCanvas {
     }
 
     setup_simulation() {
+
+
+        let forceCollide = d3.forceCollide()
+            .radius(function (d) {
+                return d.radius + 1.2;
+            })
+            .iterations(1);
+        const forceX = d3.forceX(this.canvas_width / 2).strength(0.015);
+        const forceY = d3.forceY(this.canvas_height / 2).strength(0.015);
+
+
         return d3.forceSimulation()
             .force("link", d3.forceLink().id(function (d) {
                 return d.id;
-            }).distance(150).strength(2))
-            .force("charge", d3.forceManyBody())
+            })
+                .distance(150).strength(2))
+            .force("charge", d3.forceManyBody().strength(-30))
+            .force("collide", forceCollide)
+            .force('x', forceX)
+            .force('y', forceY)
             .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2));
     }
 
@@ -263,7 +303,7 @@ class DataGraphCanvas {
             .data(legend_edges_list)
             .enter()
             .append('rect')
-            .attrs({ width: 10, height: 4})
+            .attrs({width: 10, height: 4})
 
             .attr('class', 'symbol')
             .attr('transform', function (d, i) {

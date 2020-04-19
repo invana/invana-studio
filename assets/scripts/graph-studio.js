@@ -82,4 +82,19 @@ $(document).ready(function () {
     });
 
 
+    $('[name="vertex_label_toggle"]').change(function () {
+        if ($(this).is(":checked")) {
+            graph_canvas.controls.showVertexLabels()
+        } else {
+            graph_canvas.controls.hideVertexLabels()
+        }
+    });
+    $('[name="edge_label_toggle"]').change(function () {
+        if ($(this).is(":checked")) {
+            graph_canvas.controls.showEdgeLabels()
+        } else {
+            graph_canvas.controls.hideEdgeLabels()
+        }
+    });
+
 })

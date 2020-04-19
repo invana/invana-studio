@@ -20,24 +20,33 @@ body, html {
 }
 
 .server-connected {
-    width: 10px;
-    height: 10px;
-    background: green;
+    /*width: 10px;*/
+    /*height: 10px;*/
+    color: green;
+    font-size: 10px;
+
     display: inline-block;
     border-radius: 50%;
 }
 
 .server-not-connected {
-    width: 10px;
-    height: 10px;
-    background: red;
+    /*width: 10px;*/
+    /*height: 10px;*/
+    color: red;
+    font-size: 10px;
     display: inline-block;
     border-radius: 50%;
 }
 
+#connection-status {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+}
+
 #notifications-div {
     position: fixed;
-    bottom: 0;
+    bottom: 12px;
     font-size: 10px;
     /*right: 10px;*/
 }

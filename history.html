@@ -70,15 +70,12 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <div class="dropdown">
             <a href="javascript:void(0);" class=" mr-3" type="button" id="dropdownMenuButton"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bars"></i>
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i class="fas fa-bars"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/history"><i class="fas fa-history"></i> History</a>
-                <a class="dropdown-item" href="/settings"><i class="fas fa-cog"></i> Settings</a>
-                <a class="dropdown-item" target="_blank"
-                   href="https://github.com/invanalabs/invana-graph-studio">About</a>
-
+                <a class="dropdown-item" href="/history">History</a>
+                <a class="dropdown-item" href="/about">About</a>
             </div>
         </div>
         <a class="navbar-brand" href="/">Graph Studio</a>
@@ -91,13 +88,16 @@
         <form class=" w-100" id="header-query-form">
             <input name="query" class="form-control form-control-dark rounded-0" type="text"
                    placeholder="Query the Graph here. Example: g.V().limit(5).toList()"
+                   value="g.V().limit(5).toList()"
                    aria-label="Query the Graph">
         </form>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <!--            <li class="nav-item">
-                            <a class="nav-link" href="#connection-status" id="connection-status"><span></span></a>
-                        </li>
-            -->
+            <li class="nav-item">
+                <a class="nav-link" href="#connection-status" id="connection-status"><span></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#settings"><i class="fas fa-cog"></i></a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -106,47 +106,16 @@
 <section class="canvas-section">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 canvas-right-section">
-
-                <label for="vertex_label_toggle">
-                    <input type="checkbox" name="vertex_label_toggle" checked> Show Vertex Labels
-                </label>
-                <br>
-                <label for="edge_label_toggle">
-                    <input type="checkbox" name="edge_label_toggle" checked> Show Edge Labels
-                </label>
-
-                <br>
-            </div>
+            <div class="col-md-2 canvas-right-section"></div>
 
             <div class="col-md-10">
-                <!-- start -->
 
-                <!--
-                          <div class="data-table-wrapper mt-3">
-                              <div class="data-table-scroller">
-                                  <table class=" data-table-table table table-bordered" id="data-table-table">
-                                      <thead class="thead-light">
-                                      </thead>
-                                      <tbody>
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
-           -->
-                <div id="graph-area-wrapper" class="full-screen">
-                    <svg id="graph-area" width="100%" height="100%">
-                    </svg>
-                </div>
-
-                <div class="clearfix"></div>
-                <!-- end -->
             </div>
         </div>
     </div>
 </section>
 <div id="notifications-div"></div>
-<div id="connection-status"><span></span></div>
+
 </body>
 
 <script src="assets/vendors/jquery-3.3.1.min.js"></script>
@@ -157,7 +126,6 @@
 
 <script src="assets/scripts/utils.js"></script>
 <script src="assets/ui-components/tables/tables.js"></script>
-<script src="assets/ui-components/graph/graph.js"></script>
 <script src="assets/scripts/gremlin-handlers.js"></script>
 <script src="assets/scripts/socket.js"></script>
 <script src="assets/scripts/graph-studio.js"></script>
