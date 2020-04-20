@@ -4,14 +4,17 @@ class VertexUtils {
         this.color_schema = color_schema;
     }
 
-    add(vertices) {
+
+    add(vertices, gremlin_canvas) {
         let _this = this;
         let node = this.canvas.selectAll(".node")
             .data(vertices)
             .enter()
             .append("g")
             .attr("class", "node")
-
+            .on("mouseover", function (d) {
+                gremlin_canvas.onNodeHoverIn(d);
+            })
 
         node.append("circle")
             .attr("r", 10)
@@ -116,7 +119,6 @@ class EdgeUtils {
 
 class GraphControls {
 
-
     hideVertexLabels() {
         $("g.node text").hide();
     }
@@ -144,8 +146,6 @@ class DataGraphCanvas {
     // Reference: http://bl.ocks.org/fancellu/2c782394602a93921faff74e594d1bb1
     constructor(html_selector_id) {
         this.html_selector_id = html_selector_id;
-
-
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
 
         this.canvas = this.setup_canvas(html_selector_id);
@@ -159,7 +159,8 @@ class DataGraphCanvas {
         this.canvas_height = _.height;
         this.simulation = this.setup_simulation();
         this.controls = new GraphControls();
-
+        this.NODE_ID_TO_LINK_IDS = {};
+        this.LINK_ID_TO_LINK = {};
 
     }
 
@@ -225,9 +226,68 @@ class DataGraphCanvas {
             .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2));
     }
 
+
+    getAdjacentNodeIds(nodeId) {
+        let _this = this;
+        let connectedLinkIds = this.NODE_ID_TO_LINK_IDS[nodeId] || new Set()
+        let data = new Set([nodeId])
+        connectedLinkIds.forEach(linkId => {
+            let link = _this.getLink(linkId)
+            data.add(link.source.id)
+            data.add(link.target.id)
+        })
+        return data
+    }
+
+    getLink(linkId) {
+        return this.LINK_ID_TO_LINK[linkId];
+    }
+
+    get_LINK_ID_TO_LINK(edges) {
+        let data = {}
+        edges.forEach(edge => {
+            data[edge.id] = edge
+        })
+        return data
+    }
+
+    get_NODE_ID_TO_LINK_IDS(edges) {
+        let data = {}
+        edges.forEach(edge => {
+            data[edge.source.id] = data[edge.source.id] || new Set()
+            data[edge.target.id] = data[edge.target.id] || new Set()
+            data[edge.source.id].add(edge.id)
+            data[edge.target.id].add(edge.id)
+        })
+        return data
+    }
+
+    getAdjacentLinkIds(nodeId) {
+        return this.NODE_ID_TO_LINK_IDS[nodeId] || new Set()
+    }
+
+    onNodeHoverIn(selectedNode) {
+        let nodeElements = this.canvas.selectAll('.node circle')
+        let linkElements = this.canvas.selectAll('.link')
+
+
+        let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id)
+        nodeElements.style('opacity', function (nodeElement) {
+            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1'
+        })
+
+        let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id)
+        console.log("adjacentLinkIds", adjacentLinkIds);
+        linkElements.style('opacity', function (linkElement) {
+            return adjacentLinkIds.has(linkElement.id) ? '1' : '0.1'
+        })
+        console.log("onNodeHoverIn", selectedNode);
+        // tip.show(selectedNode)
+    }
+
     add_vertices(vertices) {
         this.add_vertex_legend(vertices)
-        return this.vertex_utils.add(vertices);
+        return this.vertex_utils.add(vertices, this);
     }
 
     add_edges(edges) {
@@ -254,11 +314,11 @@ class DataGraphCanvas {
         })
 
         console.log(" legend_vertices_list  ", legend_vertices_list);
-        legend.selectAll('.symbol')
+        legend.selectAll('.legend-circle')
             .data(legend_vertices_list)
             .enter()
             .append('circle')
-            .attr('class', 'symbol')
+            .attr('class', 'legend-circle')
             .attr('transform', function (d, i) {
                 return 'translate(' + (20) + ',' + ((i * 20) + 10) + ')';
             })
@@ -299,13 +359,13 @@ class DataGraphCanvas {
             }
         })
 
-        legend.selectAll('.symbol')
+        legend.selectAll('.legend-rect')
             .data(legend_edges_list)
             .enter()
             .append('rect')
             .attrs({width: 10, height: 4})
 
-            .attr('class', 'symbol')
+            .attr('class', 'legend-rect')
             .attr('transform', function (d, i) {
                 return 'translate(' + (15) + ',' + ((i * 20) + 10) + ')';
             })
@@ -335,6 +395,7 @@ class DataGraphCanvas {
 
 
         let _this = this;
+
         this.clear_canvas();
         console.log("vertices " + vertices.length + "; edges " + edges.length);
 
@@ -344,7 +405,6 @@ class DataGraphCanvas {
         let edgelabels = _[2];
 
         let node = this.add_vertices(vertices);
-
 
         node.call(d3.drag()
             .on("start", dragstarted)
@@ -416,6 +476,10 @@ class DataGraphCanvas {
             });
         }
 
+        this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges)
+        this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
+        console.log("LINK_ID_TO_LINK", this.LINK_ID_TO_LINK);
+        console.log("NODE_ID_TO_LINK_IDS", this.NODE_ID_TO_LINK_IDS);
     }
 
 
