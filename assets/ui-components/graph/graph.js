@@ -15,6 +15,10 @@ class VertexUtils {
             .on("mouseover", function (d) {
                 gremlin_canvas.onNodeHoverIn(d);
             })
+            .on("mouseout", function (d) {
+                gremlin_canvas.onNodeHoverOut(d);
+            })
+
 
         node.append("circle")
             .attr("r", 10)
@@ -266,9 +270,22 @@ class DataGraphCanvas {
         return this.NODE_ID_TO_LINK_IDS[nodeId] || new Set()
     }
 
+
+    onNodeHoverOut(selectedNode) {
+        let nodeElements = this.canvas.selectAll('.node circle')
+        let linkElements = this.canvas.selectAll('.link')
+        let linkLabels = this.canvas.selectAll('.edgelabel')
+
+        nodeElements.style('opacity', '1')
+        linkElements.style('opacity', '1')
+        linkLabels.style('opacity', '1')
+
+    }
+
     onNodeHoverIn(selectedNode) {
         let nodeElements = this.canvas.selectAll('.node circle')
         let linkElements = this.canvas.selectAll('.link')
+        let linkLabels = this.canvas.selectAll('.edgelabel')
 
 
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id)
@@ -277,9 +294,12 @@ class DataGraphCanvas {
         })
 
         let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id)
-        console.log("adjacentLinkIds", adjacentLinkIds);
         linkElements.style('opacity', function (linkElement) {
             return adjacentLinkIds.has(linkElement.id) ? '1' : '0.1'
+        })
+
+        linkLabels.style('opacity', function (linkLabel) {
+            return adjacentLinkIds.has(linkLabel.id) ? '1' : '0.1'
         })
         console.log("onNodeHoverIn", selectedNode);
         // tip.show(selectedNode)
