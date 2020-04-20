@@ -272,7 +272,7 @@ class DataGraphCanvas {
 
 
     onNodeHoverOut(selectedNode) {
-        let nodeElements = this.canvas.selectAll('.node circle')
+        let nodeElements = this.canvas.selectAll('.node')
         let linkElements = this.canvas.selectAll('.link')
         let linkLabels = this.canvas.selectAll('.edgelabel')
 
@@ -283,7 +283,7 @@ class DataGraphCanvas {
     }
 
     onNodeHoverIn(selectedNode) {
-        let nodeElements = this.canvas.selectAll('.node circle')
+        let nodeElements = this.canvas.selectAll('.node')
         let linkElements = this.canvas.selectAll('.link')
         let linkLabels = this.canvas.selectAll('.edgelabel')
 
