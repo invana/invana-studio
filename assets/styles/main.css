@@ -43,6 +43,12 @@ body, html {
     bottom: 0px;
     left: 0;
 }
+#selected-data-properties{
+    position: fixed;
+    bottom: 0px;
+    left: 220px;
+    font-family: "Courier New";
+}
 
 #notifications-div {
     position: fixed;

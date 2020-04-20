@@ -43,7 +43,8 @@
 /*    pointer-events: none;*/
 /*}*/
 
-.node {
+.node , .edgepath, .edgelabel, .link{
+    cursor: pointer;
 }
 
 .link {

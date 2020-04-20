@@ -55,14 +55,25 @@ class EdgeUtils {
 
     }
 
-    add(edges) {
+    add(edges, gremlin_canvas) {
 
         let link = this.canvas.selectAll(".link")
+
             .data(edges)
             .enter()
             .append("line")
             .attr("class", "link")
             .attr('marker-end', 'url(#arrowhead)')
+            .on('mouseover', function (d) {
+                gremlin_canvas.onLinkMoveHover(d);
+            })
+            .on('mouseout', function (d) {
+                gremlin_canvas.onLinkMoveOut(d);
+            })
+            .attr('id', function (d, i) {
+                return 'link-' + d.id
+            })
+            .style('stroke-width', 2)
 
         link.append("title")
             .text(function (d) {
@@ -78,11 +89,10 @@ class EdgeUtils {
                 'fill-opacity': 0,
                 'stroke-opacity': 0,
                 'id': function (d, i) {
-                    return 'edgepath' + i
+                    return 'edgepath-' + d.id
                 },
                 "fill": "#aaa"
             })
-
             .style("pointer-events", "none");
 
         let edgelabels = this.canvas.selectAll(".edgelabel")
@@ -93,7 +103,7 @@ class EdgeUtils {
             .attrs({
                 'class': 'edgelabel',
                 'id': function (d, i) {
-                    return 'edgelabel' + i
+                    return 'edgelabel-' + d.id
                 },
                 'font-size': 10,
                 'fill': '#aaa'
@@ -101,7 +111,7 @@ class EdgeUtils {
 
         edgelabels.append('textPath')
             .attr('xlink:href', function (d, i) {
-                return '#edgepath' + i
+                return '#edgepath-' + d.id
             })
             .style("text-anchor", "middle")
             .style("pointer-events", "none")
@@ -194,8 +204,8 @@ class DataGraphCanvas {
                 'refX': 13,
                 'refY': 0,
                 'orient': 'auto',
-                'markerWidth': 13,
-                'markerHeight': 13,
+                'markerWidth': 7,
+                'markerHeight': 7,
                 'xoverflow': 'visible'
             })
             .append('svg:path')
@@ -279,10 +289,70 @@ class DataGraphCanvas {
         nodeElements.style('opacity', '1')
         linkElements.style('opacity', '1')
         linkLabels.style('opacity', '1')
+        this.hideProperties();
+
+    }
+
+    showProperties(selected) {
+
+        let data = Object.assign({}, selected);
+
+        delete data.x;
+        delete data.y;
+        delete data.vy;
+        delete data.vx;
+        delete data.fx;
+        delete data.fy;
+        delete data.index;
+        delete data.source;
+        delete data.target;
+        delete data.outV;
+        delete data.inV;
+        delete data.inVLabel;
+        delete data.OutVLabel;
+        document.getElementById("selected-data-properties").innerHTML = JSON.stringify(data);
+    }
+
+    hideProperties() {
+        document.getElementById("selected-data-properties").innerHTML = '';
 
     }
 
 
+    onLinkMoveHover(selectedLink) {
+        console.log("onLinkMoveHover", selectedLink)
+        let nodeElements = this.canvas.selectAll('.node')
+        let linkElements = this.canvas.selectAll('.link')
+
+        linkElements.style('opacity', function (linkElement) {
+            return selectedLink.id === linkElement.id ? '1' : '0.1'
+        })
+
+        let linkData = this.LINK_ID_TO_LINK[selectedLink.id]
+        let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id])
+
+        nodeElements.style('opacity', function (nodeElement) {
+            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1'
+        })
+
+
+
+        d3.select('#link-' + selectedLink.id).style('stroke', "black")
+        this.showProperties(selectedLink)
+
+    }
+
+    onLinkMoveOut(selectedLink) {
+        let nodeElements = this.canvas.selectAll('.node')
+        let linkElements = this.canvas.selectAll('.link')
+
+        nodeElements.style('opacity', '1')
+        linkElements.style('opacity', '1')
+
+
+        d3.select('#link-' + selectedLink.id).style('stroke', "#999")
+        this.hideProperties()
+    }
 
     onNodeHoverIn(selectedNode) {
         let nodeElements = this.canvas.selectAll('.node')
@@ -304,7 +374,7 @@ class DataGraphCanvas {
             return adjacentLinkIds.has(linkLabel.id) ? '1' : '0.1'
         })
         console.log("onNodeHoverIn", selectedNode);
-        // tip.show(selectedNode)
+        this.showProperties(selectedNode)
     }
 
     add_vertices(vertices) {
@@ -314,7 +384,7 @@ class DataGraphCanvas {
 
     add_edges(edges) {
         this.add_edge_legend(edges)
-        return this.edge_utils.add(edges);
+        return this.edge_utils.add(edges, this);
     }
 
     add_vertex_legend(vertices) {
