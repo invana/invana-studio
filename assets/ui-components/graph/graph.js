@@ -282,6 +282,8 @@ class DataGraphCanvas {
 
     }
 
+
+
     onNodeHoverIn(selectedNode) {
         let nodeElements = this.canvas.selectAll('.node')
         let linkElements = this.canvas.selectAll('.link')

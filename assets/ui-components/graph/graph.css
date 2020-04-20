@@ -52,17 +52,22 @@
     stroke-width: 1px;
 }
 
+.node, .link, .edgelabel {
+    transition: opacity .15s ease-in-out;
+    -moz-transition: opacity .15s ease-in-out;
+    -webkit-transition: opacity .15s ease-in-out;
+}
 
 #svg {
     width: 100% !important;
     height: 100% !important;;
 }
 
-#graph-area-wrapper{
+#graph-area-wrapper {
     overflow: hidden;
 }
 
-.full-screen{
+.full-screen {
     width: 100%;
     height: 100%;
 }
