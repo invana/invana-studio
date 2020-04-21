@@ -40,7 +40,7 @@ class GremlinConnector {
             $("#connection-status span")
                 .removeClass()
                 .addClass("server-not-connected")
-                .html("Connected closed")
+                .html("Connection closed")
                 .attr("title", "Unable to Connect");
         };
 
@@ -52,7 +52,7 @@ class GremlinConnector {
             $("#connection-status span")
                 .removeClass()
                 .addClass("server-not-connected")
-                .html("Connected closed")
+                .html("Connection closed")
 
                 .attr("title", "Connection Closed");
 
