@@ -149,9 +149,41 @@ class GraphControls {
         $(".edgelabel").show();
     }
 
-    center() {
+    center(gremlin_canvas) {
+        // TODO - not completed
+        // console.log("Centering the canvas")
+        // gremlin_canvas.simulation.stop();
+        // gremlin_canvas.simulation.force("charge", function(){
+        //      return d3.forceManyBody().strength(-30)
+        // });
+        // gremlin_canvas.simulation.start();
 
+
+        let root = gremlin_canvas.canvas;
+        var bounds = root.node().getBBox();
+        var parent = root.node().parentElement;
+        var fullWidth = parent.clientWidth || parent.parentNode.clientWidth,
+            fullHeight = parent.clientHeight || parent.parentNode.clientHeight;
+        var width = bounds.width,
+            height = bounds.height;
+        var midX = bounds.x + width / 2,
+            midY = bounds.y + height / 2;
+        if (width === 0 || height === 0) return; // nothing to fit
+        var scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
+        var translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+        let transitionDuration = 100;
+
+
+        var transform = d3.zoomIdentity
+            .translate(translate[0], translate[1])
+            .scale(scale);
+
+        gremlin_canvas
+            .transition()
+            .duration(transitionDuration || 0) // milliseconds
+            .call(zoom.transform, transform);
     }
+
 
 }
 
@@ -218,12 +250,12 @@ class DataGraphCanvas {
 
     setup_simulation() {
 
-
+        let _this = this;
         let forceCollide = d3.forceCollide()
             .radius(function (d) {
                 return d.radius + 1.2;
             })
-            .iterations(1);
+            .iterations(1000); /// TODO - revisit this
         const forceX = d3.forceX(this.canvas_width / 2).strength(0.015);
         const forceY = d3.forceY(this.canvas_height / 2).strength(0.015);
 
@@ -233,13 +265,17 @@ class DataGraphCanvas {
                 return d.id;
             })
                 .distance(150).strength(2))
-            .force("charge", d3.forceManyBody().strength(-30))
+            .force("charge", _this.getSimulationCharge)
             .force("collide", forceCollide)
             .force('x', forceX)
             .force('y', forceY)
             .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2));
     }
 
+
+    getSimulationCharge() {
+        return d3.forceManyBody().strength(-30)
+    }
 
     getAdjacentNodeIds(nodeId) {
         let _this = this;
@@ -334,7 +370,6 @@ class DataGraphCanvas {
         nodeElements.style('opacity', function (nodeElement) {
             return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1'
         })
-
 
 
         d3.select('#link-' + selectedLink.id).style('stroke', "black")
@@ -523,6 +558,9 @@ class DataGraphCanvas {
             d.fy = null;
         }
 
+        d3.select('#center-canvas').on('click', function () {
+            _this.controls.center(_this);
+        })
 
         this.simulation
             .nodes(vertices)
