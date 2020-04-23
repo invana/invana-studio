@@ -84,17 +84,21 @@ class GremlinResponseHandlers {
 
     convert_list_to_json(list_item) {
 
-        if (list_item['@type'] !== "g:List") {
-            throw "Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item);
+        if (list_item && "@type" in list_item) {
+            if (list_item['@type'] !== "g:List") {
+                throw "Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item);
+            }
         }
         let _this = this;
         let items = [];
-        list_item['@value'].forEach(function (item) {
-            let data_list = _this.process_item(item);
-            data_list.forEach(function (datum) {
-                items.push(datum);
-            });
-        })
+        if (list_item && '@value' in list_item) {
+            list_item['@value'].forEach(function (item) {
+                let data_list = _this.process_item(item);
+                data_list.forEach(function (datum) {
+                    items.push(datum);
+                });
+            })
+        }
         return items;
 
     }
@@ -102,16 +106,17 @@ class GremlinResponseHandlers {
     process_item(item) {
         // this is very useful to route to the respective renderers;
         let _this = this;
-
-        if (item['@type'] === "g:Vertex") {
-            let _ = _this.convert_vertex_to_json(item);
-            return [_];
-        } else if (item['@type'] === "g:Edge") {
-            let _ = _this.convert_edge_to_json(item);
-            return [_];
-        } else if (item['@type'] === "g:List") {
-            console.log("=======items", item);
-            return _this.convert_list_to_json(item);
+        if (item && '@type' in item) {
+            if (item['@type'] === "g:Vertex") {
+                let _ = _this.convert_vertex_to_json(item);
+                return [_];
+            } else if (item['@type'] === "g:Edge") {
+                let _ = _this.convert_edge_to_json(item);
+                return [_];
+            } else if (item['@type'] === "g:List") {
+                console.log("=======items", item);
+                return _this.convert_list_to_json(item);
+            }
         }
 
     }
@@ -123,18 +128,19 @@ class GremlinResponseHandlers {
     }
 
     seperate_vertices_and_edges(data) {
-        console.log(data);
         let vertices = [];
         let edges = [];
-        data.forEach(function (d) {
-            if (d['type'] === "g:Vertex") {
-                vertices.push(d);
-            } else if (d['type'] === "g:Edge") {
-                d.source = d.inV;
-                d.target = d.outV;
-                edges.push(d);
-            }
-        });
+        if (data) {
+            data.forEach(function (d) {
+                if (d['type'] === "g:Vertex") {
+                    vertices.push(d);
+                } else if (d['type'] === "g:Edge") {
+                    d.source = d.inV;
+                    d.target = d.outV;
+                    edges.push(d);
+                }
+            });
+        }
         return [vertices, edges]
     }
 }
