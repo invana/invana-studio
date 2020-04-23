@@ -74,6 +74,8 @@ class EdgeUtils {
                 return 'link-' + d.id
             })
             .style('stroke-width', 2)
+            .style('stroke-color', "#222")
+
 
         link.append("title")
             .text(function (d) {
@@ -256,15 +258,16 @@ class DataGraphCanvas {
                 return d.radius + 1.2;
             })
             .iterations(1); /// TODO - revisit this
-        const forceX = d3.forceX(this.canvas_width / 2).strength(0.015);
-        const forceY = d3.forceY(this.canvas_height / 2).strength(0.015);
+        const forceX = d3.forceX(this.canvas_width / 2).strength(0.055);
+        const forceY = d3.forceY(this.canvas_height / 2).strength(0.055);
+
 
 
         return d3.forceSimulation()
             .force("link", d3.forceLink().id(function (d) {
                 return d.id;
             })
-                .distance(150).strength(2))
+                .distance(150).strength(1))
             .force("charge", _this.getSimulationCharge())
             .force("collide", forceCollide)
             .force('x', forceX)
@@ -274,7 +277,7 @@ class DataGraphCanvas {
 
 
     getSimulationCharge() {
-        return d3.forceManyBody().strength(-30)
+        return d3.forceManyBody().strength(-300)
     }
 
     getAdjacentNodeIds(nodeId) {
