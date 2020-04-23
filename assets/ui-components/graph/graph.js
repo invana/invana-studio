@@ -255,7 +255,7 @@ class DataGraphCanvas {
             .radius(function (d) {
                 return d.radius + 1.2;
             })
-            .iterations(1000); /// TODO - revisit this
+            .iterations(1); /// TODO - revisit this
         const forceX = d3.forceX(this.canvas_width / 2).strength(0.015);
         const forceY = d3.forceY(this.canvas_height / 2).strength(0.015);
 
@@ -265,7 +265,7 @@ class DataGraphCanvas {
                 return d.id;
             })
                 .distance(150).strength(2))
-            .force("charge", _this.getSimulationCharge)
+            .force("charge", _this.getSimulationCharge())
             .force("collide", forceCollide)
             .force('x', forceX)
             .force('y', forceY)
