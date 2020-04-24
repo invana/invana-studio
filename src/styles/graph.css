@@ -1,56 +1,68 @@
-/*text {*/
-/*    font: 10px sans-serif;*/
-/*}*/
+html, body {
+    margin: 0;
+}
 
-/*.d3-tip {*/
-/*    line-height: 1;*/
-/*    font-weight: bold;*/
-/*    padding: 12px;*/
-/*    background: rgba(0, 0, 0, 0.8);*/
-/*    color: #fff;*/
-/*    border-radius: 2px;*/
-/*}*/
+.invana-graph-viewer {
+    margin: 0;
+    padding: 0;
+}
 
-/*!* Creates a small triangle extender for the tooltip *!*/
-/*.d3-tip:after {*/
-/*    box-sizing: border-box;*/
-/*    display: inline;*/
-/*    font-size: 10px;*/
-/*    width: 100%;*/
-/*    line-height: 1;*/
-/*    color: rgba(0, 0, 0, 0.8);*/
-/*    content: "\25BC";*/
-/*    position: absolute;*/
-/*    text-align: center;*/
-/*}*/
+.invana-graph-viewer .invana-graph-viewer-nav {
+    height: 40px;
+    /*background: green;*/
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0.5rem 1rem !important;
+}
 
-/*!* Style northward tooltips differently *!*/
-/*.d3-tip.n:after {*/
-/*    margin: -1px 0 0 0;*/
-/*    top: 100%;*/
-/*    left: 0;*/
-/*}*/
+.invana-graph-viewer .invana-graph-viewer-query {
+    width: calc(100% - 230px);
+    float: left;
+}
 
-/*.menu-segment {*/
-/*    fill: #4679bd;*/
-/*}*/
 
-/*.menu-segment:hover {*/
-/*    fill: #5689cd;*/
-/*}*/
+.invana-graph-viewer .invana-graph-viewer-nav-brand h3 {
+    padding: 10px 12px;
+    font-size: 16px;
+    vertical-align: middle;
+    margin: 0;
+    font-weight: bold;
+}
 
-/*.menu-icon {*/
-/*    pointer-events: none;*/
-/*}*/
+.invana-graph-viewer .invana-graph-viewer-nav-brand {
+    width: 200px;
+    float: left;
+}
 
-.node , .edgepath, .edgelabel, .link{
+.invana-graph-viewer #header-query-form input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #efefef;
+    background: #353535;
+    color: white;
+}
+
+
+.invana-graph-viewer #properties-div {
+    background: rgba(82, 82, 82, 0.13);
+    height: calc(100vh - 35px);
+    width: 300px;
+    position: fixed;
+    right: 0;
+    top: 33px;
+    padding: 20px 10px;
+    z-index: 10000;
+    display: none;
+}
+
+
+.node, .edgepath, .edgelabel, .link {
     cursor: pointer;
 }
 
 .link {
-    stroke: #999;
+    /*stroke: #999;*/
     stroke-opacity: .6;
-    stroke-width: 1px;
+    /*stroke-width: 1px;*/
 }
 
 .node, .link, .edgelabel {

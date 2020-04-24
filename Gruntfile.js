@@ -27,7 +27,7 @@ module.exports = function (grunt) {
             },
         },
         watch: {
-            files: ['Gruntfile.js', 'src/**/*.js',],
+            files: ['Gruntfile.js', 'src/**/*.js', "src/**/*.css"],
             tasks: ['jshint', 'concat', 'concat_css'],
 
         }

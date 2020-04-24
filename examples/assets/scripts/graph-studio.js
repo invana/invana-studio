@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let GREMLIN_SERVER_URL = "ws://127.0.0.1:8182/gremlin";
+    let GREMLIN_SERVER_URL = "ws://192.168.0.10:8182/gremlin";
 
     let response_handler = new GremlinResponseHandlers();
 

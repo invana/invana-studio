@@ -21,7 +21,7 @@ class VertexUtils {
 
 
         node.append("circle")
-            .attr("r", 10)
+            .attr("r", 20)
             .style("fill", function (d, i) {
                 return _this.color_schema(d.label);
             }).style("cursor", "pointer");
@@ -74,8 +74,7 @@ class EdgeUtils {
                 return 'link-' + d.id;
             })
             .style('stroke-width', 2)
-            .style('stroke-color', "#222");
-
+            .style('stroke', "#222");
 
         link.append("title")
             .text(function (d) {
@@ -93,7 +92,7 @@ class EdgeUtils {
                 'id': function (d, i) {
                     return 'edgepath-' + d.id;
                 },
-                "fill": "#aaa"
+                "fill": "#222"
             })
             .style("pointer-events", "none");
 
@@ -197,6 +196,9 @@ class DataGraphCanvas {
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
 
         this.canvas = this.setup_canvas(html_selector_id);
+
+        this.properties_canvas = d3.select("#properties-div");
+        this.legend_canvas = d3.select("#legend-div");
         this.edge_utils = new EdgeUtils(this.canvas, this.color_schema);
         this.vertex_utils = new VertexUtils(this.canvas, this.color_schema);
 
@@ -235,7 +237,7 @@ class DataGraphCanvas {
             .attrs({
                 'id': 'arrowhead',
                 'viewBox': '-0 -5 10 10',
-                'refX': 13,
+                'refX': 23,
                 'refY': 0,
                 'orient': 'auto',
                 'markerWidth': 7,
@@ -346,11 +348,13 @@ class DataGraphCanvas {
         delete data.inV;
         delete data.inVLabel;
         delete data.OutVLabel;
-        document.getElementById("selected-data-properties").innerHTML = JSON.stringify(data);
+        document.getElementById("properties-div").style.display = "block";
+        document.getElementById("properties-div").innerHTML = JSON.stringify(data, null, "\t");
     }
 
     hideProperties() {
-        document.getElementById("selected-data-properties").innerHTML = '';
+        document.getElementById("properties-div").style.display = "none";
+        document.getElementById("properties-div").innerHTML = '';
 
     }
 

@@ -5,12 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js">
-    <link rel="stylesheet" href="assets/ui-components/graph/graph.css">
+    <link rel="stylesheet" href="http://localhost:8081/dist/graph.css">
 
     <title>Graph Studio</title>
 </head>
@@ -61,106 +58,39 @@
     <p class="text-center">Loading ...</p>
 </div>
 
-<!-- page loading html ends -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light  shadow">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <div class="dropdown">
-            <a href="javascript:void(0);" class=" mr-3" type="button" id="dropdownMenuButton"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/history"><i class="fas fa-history"></i> History</a>
-                <a class="dropdown-item" href="/settings"><i class="fas fa-cog"></i> Settings</a>
-                <a class="dropdown-item" target="_blank"
-                   href="https://github.com/invanalabs/invana-graph-studio">About</a>
+<div class="invana-graph-viewer">
 
-            </div>
+    <nav class="invana-graph-viewer-nav">
+        <div class="invana-graph-viewer-nav-brand">
+            <h3>Graph Studio</h3>
         </div>
-        <a class="navbar-brand" href="/">Graph Studio</a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <!--   <li class="nav-item active">
-                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-               </li>
-            -->
-        </ul>
-        <form class=" w-100" id="header-query-form">
-            <input name="query" class="form-control form-control-dark rounded-0" type="text"
-                   placeholder="Query the Graph here. Example: g.V().limit(5).toList()"
-                   aria-label="Query the Graph">
-        </form>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <!--            <li class="nav-item">
-                            <a class="nav-link" href="#connection-status" id="connection-status"><span></span></a>
-                        </li>
-            -->
-        </ul>
-    </div>
-</nav>
-
-
-<section class="canvas-section">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 canvas-right-section">
-
-                <label for="vertex_label_toggle">
-                    <input type="checkbox" name="vertex_label_toggle" checked> Show Vertex Labels
-                </label>
-                <br>
-                <label for="edge_label_toggle">
-                    <input type="checkbox" name="edge_label_toggle" checked> Show Edge Labels
-                </label>
-                <button class="btn btn-secondary btn-block" id="center-canvas">center</button>
-
-                <br>
-            </div>
-
-            <div class="col-md-10">
-                <!-- start -->
-
-                <!--
-                          <div class="data-table-wrapper mt-3">
-                              <div class="data-table-scroller">
-                                  <table class=" data-table-table table table-bordered" id="data-table-table">
-                                      <thead class="thead-light">
-                                      </thead>
-                                      <tbody>
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
-           -->
-                <div id="graph-area-wrapper" class="full-screen">
-                    <svg id="graph-area" width="100%" height="100%">
-                    </svg>
-                </div>
-
-                <div class="clearfix"></div>
-                <!-- end -->
-            </div>
+        <div class="invana-graph-viewer-query">
+            <form  id="header-query-form">
+                <input name="query" type="text" placeholder="Query the Graph here. Example: g.V().limit(5).toList()">
+            </form>
         </div>
-    </div>
-</section>
-<div id="notifications-div"></div>
-<div id="connection-status"><span></span></div>
-<div id="selected-data-properties"><span></span></div>
+
+    </nav>
+    <section class="canvas-section">
+        <div id="graph-area-wrapper" class="full-screen">
+            <svg id="graph-area" width="100%" height="100%">
+            </svg>
+        </div>
+    </section>
+    <div id="legend-div"></div>
+    <div id="properties-div"></div>
+    <div id="notifications-div"></div>
+    <div id="connection-status"><span></span></div>
+</div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 
 <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
 <script src="https://d3js.org/d3-selection-multi.v1.js"></script>
 
 <script src="assets/scripts/utils.js"></script>
-<script src="assets/ui-components/graph/graph.js"></script>
+<script src="http://localhost:8081/dist/graph.js"></script>
 <script src="assets/scripts/gremlin-handlers.js"></script>
 <script src="assets/scripts/socket.js"></script>
 <script src="assets/scripts/graph-studio.js"></script>
