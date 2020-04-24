@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         jshint: {
-            files: ['./Gruntfile.js', './src/**/*.js'],
+            files: ['Gruntfile.js', 'src/**/*.js'],
             options: {
                 'esversion': 6,
             }
@@ -13,8 +13,8 @@ module.exports = function (grunt) {
                 separator: ';',
             },
             dist: {
-                src: ['./src/**/*.js',],
-                dest: './dist/graph.js',
+                src: ['src/**/*.js',],
+                dest: 'dist/graph.js',
             },
         },
         concat_css: {
@@ -22,8 +22,8 @@ module.exports = function (grunt) {
                 // Task-specific options go here.
             },
             all: {
-                src: ["./src/**/*.css"],
-                dest: "./dist/graph.css"
+                src: ["src/**/*.css"],
+                dest: "dist/graph.css"
             },
         },
         watch: {

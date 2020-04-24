@@ -42,8 +42,14 @@ html, body {
 }
 
 
+.invana-graph-viewer #legend-div {
+    position: fixed;
+    left: 0;
+    top: 40px;
+}
+
 .invana-graph-viewer #properties-div {
-    background: rgba(82, 82, 82, 0.13);
+    /*background: rgba(82, 82, 82, 0.13);*/
     height: calc(100vh - 35px);
     width: 300px;
     position: fixed;

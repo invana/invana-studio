@@ -198,7 +198,7 @@ class DataGraphCanvas {
         this.canvas = this.setup_canvas(html_selector_id);
 
         this.properties_canvas = d3.select("#properties-div");
-        this.legend_canvas = d3.select("#legend-div");
+        this.legend_canvas = d3.select("#legend-div svg");
         this.edge_utils = new EdgeUtils(this.canvas, this.color_schema);
         this.vertex_utils = new VertexUtils(this.canvas, this.color_schema);
 
@@ -430,11 +430,11 @@ class DataGraphCanvas {
         let _this = this;
         let edges_legend_height = document.querySelector(".edges-legend").getBoundingClientRect().height;
 
-        let legend = this.canvas.append("g")
+        let legend = this.legend_canvas.append("g")
             .attr("class", "vertices-legend exclude-from-zoom")
             .attr("height", 0)
             .attr("width", 0)
-            .attr('transform', 'translate(' + (this.canvas_width - 100) + ',' + (edges_legend_height + 35) + ')');
+            .attr('transform', 'translate(' + (10) + ',' + (edges_legend_height + 35) + ')');
 
 
         let legend_vertices_list = [];
@@ -476,12 +476,11 @@ class DataGraphCanvas {
         let _this = this;
 
 
-        let legend = this.canvas.append("g")
+        let legend = this.legend_canvas.append("g")
             .attr("class", "edges-legend  exclude-from-zoom")
             .attr("height", 0)
             .attr("width", 0)
-            .attr('transform', 'translate(' + (this.canvas_width - 100) + ',30)');
-
+            .attr('transform', 'translate(' + ( 10) + ',30)');
 
         let legend_edges_list = [];
         edges.forEach(function (edge) {
