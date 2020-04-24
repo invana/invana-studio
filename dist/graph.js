@@ -349,7 +349,7 @@ class DataGraphCanvas {
         delete data.inVLabel;
         delete data.OutVLabel;
         document.getElementById("properties-div").style.display = "block";
-        document.getElementById("properties-div").innerHTML = JSON.stringify(data, null, "\t");
+        document.getElementById("properties-div").innerHTML = JSON.stringify(data, null, 2);
     }
 
     hideProperties() {
