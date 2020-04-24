@@ -3,7 +3,7 @@ $(document).ready(function () {
     let GREMLIN_SERVER_URL = "ws://127.0.0.1:8182/gremlin";
 
     let response_handler = new GremlinResponseHandlers();
-    let table = new Table();
+
 
     let graph_canvas = new DataGraphCanvas("#graph-area") //
 
@@ -13,12 +13,6 @@ $(document).ready(function () {
         let json_data = response_handler.process(response)
         console.log("json_data", json_data)
 
-        // TODO - if table rendering is needed ;
-        /*
-         let heading_fields = get_heading_fields(json_data);
-         table.render("#data-table-table", heading_fields, json_data);
-
-         */
         show_notification("Rendered graph");
         let _ = response_handler.seperate_vertices_and_edges(json_data);
         let vertices = _[0];

@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
+
         jshint: {
             files: ['./Gruntfile.js', './src/**/*.js'],
             options: {
@@ -36,8 +37,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-concat-css');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['jshint', 'concat', 'concat_css']);
+    grunt.registerTask('build', ['jshint', 'concat', 'concat_css',]);
 
 };
