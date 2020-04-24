@@ -42,7 +42,6 @@ class VertexUtils {
     }
 
     remove(vertex) {
-
     }
 
 }

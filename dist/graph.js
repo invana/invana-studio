@@ -83,7 +83,6 @@ Array.prototype.extend = function (other_array) {
     }
 
     remove(vertex) {
-
     }
 
 }
@@ -914,16 +913,54 @@ class DataGraphCanvas {
 
 
 ;class InvanaKnowledgeGraphUI {
-    constructor(gremlin_server_url, html_Selector_id) {
+
+    constructor(gremlin_server_url, html_selector_id) {
 
         this.GREMLIN_SERVER_URL = gremlin_server_url; //"ws://127.0.0.1:8182/gremlin";
-        this.html_Selector_id = html_Selector_id;
+        this.html_selector_id = html_selector_id;
+        this.canvas_selector_id = "#graph-area";
+    }
 
+    init_html() {
+        let html_structure = "<div class=\"invana-graph-viewer\">\n" +
+            "    <div class=\"page-loading\" style=\"display: none\">\n" +
+            "        <div class=\"loader-spin\"></div>\n" +
+            "        <p class=\"text-center\">Loading ...</p>\n" +
+            "    </div>\n" +
+            "    <nav class=\"invana-graph-viewer-nav\">\n" +
+            "        <div class=\"invana-graph-viewer-nav-brand\">\n" +
+            "            <h3>Graph Studio</h3>\n" +
+            "        </div>\n" +
+            "        <div class=\"invana-graph-viewer-query\">\n" +
+            "            <form id=\"header-query-form\">\n" +
+            "                <input name=\"query\" type=\"text\" placeholder=\"Query the Graph here. Example: g.V().limit(5).toList()\">\n" +
+            "            </form>\n" +
+            "        </div>\n" +
+            "\n" +
+            "    </nav>\n" +
+            "    <section class=\"canvas-section\">\n" +
+            "        <div id=\"graph-area-wrapper\" class=\"full-screen\">\n" +
+            "            <svg id=\"graph-area\" width=\"100%\" height=\"100%\">\n" +
+            "            </svg>\n" +
+            "        </div>\n" +
+            "    </section>\n" +
+            "    <div id=\"legend-div\">\n" +
+            "        <svg></svg>\n" +
+            "    </div>\n" +
+            "    <pre id=\"properties-div\"></pre>\n" +
+            "    <div id=\"controls-div\">\n" +
+            "    </div>\n" +
+            "    <div id=\"notifications-div\"></div>\n" +
+            "    <div id=\"connection-status\"><span></span></div>\n" +
+            "</div>";
+
+        $(this.html_selector_id).html($(html_structure));
 
     }
 
     start() {
-        let graph_canvas = new DataGraphCanvas(this.html_Selector_id);
+        this.init_html();
+        let graph_canvas = new DataGraphCanvas(this.canvas_selector_id);
         let response_handler = new GremlinResponseHandlers();
 
         let onMessageReceived = function (event) {

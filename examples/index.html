@@ -1,61 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
     <link rel="stylesheet" href="http://localhost:8081/dist/graph.css">
     <title>Graph Studio</title>
 </head>
 <body>
-
-
-<div class="invana-graph-viewer">
-    <div class="page-loading" style="display: none">
-        <div class="loader-spin"></div>
-        <p class="text-center">Loading ...</p>
-    </div>
-    <nav class="invana-graph-viewer-nav">
-        <div class="invana-graph-viewer-nav-brand">
-            <h3>Graph Studio</h3>
-        </div>
-        <div class="invana-graph-viewer-query">
-            <form id="header-query-form">
-                <input name="query" type="text" placeholder="Query the Graph here. Example: g.V().limit(5).toList()">
-            </form>
-        </div>
-
-    </nav>
-    <section class="canvas-section">
-        <div id="graph-area-wrapper" class="full-screen">
-            <svg id="graph-area" width="100%" height="100%">
-            </svg>
-        </div>
-    </section>
-    <div id="legend-div">
-        <svg></svg>
-    </div>
-    <pre id="properties-div"></pre>
-    <div id="controls-div">
-    </div>
-    <div id="notifications-div"></div>
-    <div id="connection-status"><span></span></div>
-</div>
+<div id="graph-ui"></div>
 </body>
-
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
 <script src="https://d3js.org/d3-selection-multi.v1.js"></script>
-
 <script src="http://localhost:8081/dist/graph.js"></script>
 <script>
     $(document).ready(function () {
-
         let gremlin_url = "ws://127.0.0.1:8182/gremlin";
-        let canvas_selector = "#graph-area";
+        let canvas_selector = "#graph-ui";
         let graph = new InvanaKnowledgeGraphUI(gremlin_url, canvas_selector)
         graph.start();
     });
 </script>
-
-
 </html>
