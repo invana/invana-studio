@@ -1,9 +1,27 @@
 module.exports = function (grunt) {
 
+
+    let js_files = [
+        "src/scripts/utils.js",
+        "src/scripts/d3.graph.js",
+        "src/scripts/gremlin-serializer.js",
+        "src/scripts/socket.js",
+        "src/scripts/graph-studio.js",
+    ];
+
+    let file_to_watch = [
+        "src/scripts/utils.js",
+        "src/scripts/d3.graph.js",
+        "src/scripts/gremlin-serializer.js",
+        "src/scripts/socket.js",
+        "src/scripts/graph-studio.js",
+        "src/styles/*.css"
+
+    ];
     grunt.initConfig({
 
         jshint: {
-            files: ['Gruntfile.js', 'src/**/*.js'],
+            files: js_files,
             options: {
                 'esversion': 6,
             }
@@ -13,7 +31,7 @@ module.exports = function (grunt) {
                 separator: ';',
             },
             dist: {
-                src: ['src/**/*.js',],
+                src: js_files,
                 dest: 'dist/graph.js',
             },
         },
@@ -27,7 +45,7 @@ module.exports = function (grunt) {
             },
         },
         watch: {
-            files: ['Gruntfile.js', 'src/**/*.js', "src/**/*.css"],
+            files: file_to_watch,
             tasks: ['jshint', 'concat', 'concat_css'],
 
         }

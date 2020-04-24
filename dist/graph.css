@@ -1,7 +1,3 @@
-html, body {
-    margin: 0;
-}
-
 .invana-graph-viewer {
     margin: 0;
     padding: 0;
@@ -157,4 +153,57 @@ html, body {
 
 .text-center {
     text-align: center;
+}
+body, html {
+    font-size: 14px;
+    margin: 0;
+}
+
+.server-connected {
+    /*width: 10px;*/
+    /*height: 10px;*/
+    color: green;
+    font-size: 10px;
+
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.server-not-connected {
+    /*width: 10px;*/
+    /*height: 10px;*/
+    color: red;
+    font-size: 10px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+#connection-status {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+}
+
+#selected-data-properties {
+    position: fixed;
+    bottom: 0px;
+    left: 220px;
+    font-family: "Courier New";
+}
+
+#notifications-div {
+    position: fixed;
+    bottom: 12px;
+    font-size: 10px;
+    /*right: 10px;*/
+}
+
+
+.canvas-section {
+    height: calc(100vh - 35px);
+}
+
+.canvas-right-section {
+    height: calc(100vh - 35px);
+    background: #efefef;
 }

@@ -65,7 +65,7 @@ class GremlinConnector {
 
                     if (i > retry_in) {
                         clearInterval(timer);
-                        _this.ws = _this.setup_gremlin_server_socket(gremlin_server_url, message_callback)
+                        _this.ws = _this.setup_gremlin_server_socket(gremlin_server_url, message_callback);
 
                     }
                 }
@@ -81,7 +81,7 @@ class GremlinConnector {
     }
 
     send(msg) {
-        console.log("sending the query message", msg)
+        console.log("sending the query message", msg);
         this.ws.send(JSON.stringify(msg), {mask: true});
     }
 

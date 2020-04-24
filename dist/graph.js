@@ -1,4 +1,45 @@
-class VertexUtils {
+function show_notification(txt) {
+    document.getElementById("notifications-div").innerText = txt;
+}
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+function show_loading() {
+    $(".page-loading").show();
+}
+
+function hide_loading() {
+    $(".page-loading").hide();
+
+}
+
+function get_heading_fields(json_data) {
+    if (json_data.length === 0) {
+        return [];
+    }
+    let first_row = json_data[0];
+    return Object.keys(first_row);
+}
+
+Array.prototype.extend = function (other_array) {
+    /*
+    lets you extend array like this
+    var a = [1,2,3];
+    var b = [5,4,3];
+    a.extend(b);
+
+     */
+    /* You should include a test to check whether other_array really is an array */
+    other_array.forEach(function (v) {
+        this.push(v);
+    }, this);
+};
+;class VertexUtils {
 
     constructor(canvas, color_schema) {
         this.canvas = canvas;
@@ -636,3 +677,331 @@ class DataGraphCanvas {
 
 }
 
+;class GremlinResponseHandlers {
+
+
+    convert_vertex_property_to_json(property) {
+
+        let _single_prop = property[0];
+        if (_single_prop['@type'] !== "g:VertexProperty") {
+            throw "Not a VertexProperty error. check if this is of g:VertexProperty type:: " + JSON.stringify(property);
+        }
+        let d = {};
+        let value = _single_prop['@value'].value;
+        d[_single_prop['@value'].label] = (typeof value === "string") ? value : value['@value'];
+        return d;
+
+    }
+
+
+    convert_vertex_to_json(vtx) {
+        if (vtx['@type'] !== "g:Vertex") {
+            throw "Not a vertex error. check if this is of g:Vertex type:: " + JSON.stringify(vtx);
+        }
+        let d = {};
+        d.type = "g:Vertex";
+        let _this = this;
+        d.id = vtx['@value'].id['@value'];
+        d.label = vtx['@value'].label;
+        let properties = vtx['@value'].properties;
+        if (properties) {
+            Object.keys(properties).forEach(function (key) {
+                let property = properties[key];
+                let _ = _this.convert_vertex_property_to_json(property);
+                d[key] = _[key];
+            });
+        }
+
+        return d;
+
+    }
+
+
+    convert_edge_property_to_json(property) {
+
+        let _single_prop = property;
+        if (_single_prop['@type'] !== "g:Property") {
+            throw "Not a g:Property error. check if this is of g:Property type:: " + JSON.stringify(property);
+        }
+        let d = {};
+        let value = _single_prop['@value'].value;
+        d[_single_prop['@value'].key] = (typeof value === "string") ? value : value['@value'];
+        return d;
+
+    }
+
+
+    convert_edge_to_json(edg) {
+        if (edg['@type'] !== "g:Edge") {
+            throw "Not a edge error. check if this is of g:Edge type:: " + JSON.stringify(edg);
+        }
+        let _this = this;
+        let d = {};
+        d.type = "g:Edge";
+        d.label = edg['@value'].label;
+        d.id = edg['@value'].id['@value'].relationId;
+        d.inV = edg['@value'].inV['@value'];
+        d.inVLabel = edg['@value'].inVLabel;
+        d.outV = edg['@value'].outV['@value'];
+        d.outVLabel = edg['@value'].outVLabel;
+
+        let properties = edg['@value'].properties;
+
+        if (properties) {
+            Object.keys(properties).forEach(function (key) {
+                let property = properties[key];
+                let _ = _this.convert_edge_property_to_json(property);
+                d[key] = _[key];
+            });
+
+        }
+
+        return d;
+
+    }
+
+
+    convert_list_to_json(list_item) {
+
+        if (list_item && "@type" in list_item) {
+            if (list_item['@type'] !== "g:List") {
+                throw "Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item);
+            }
+        }
+        let _this = this;
+        let items = [];
+        if (list_item && '@value' in list_item) {
+            list_item['@value'].forEach(function (item) {
+                let data_list = _this.process_item(item);
+                data_list.forEach(function (datum) {
+                    items.push(datum);
+                });
+            });
+        }
+        return items;
+
+    }
+
+    process_item(item) {
+        // this is very useful to route to the respective renderers;
+        let _this = this;
+        if (item && '@type' in item) {
+            if (item['@type'] === "g:Vertex") {
+                let _ = _this.convert_vertex_to_json(item);
+                return [_];
+            } else if (item['@type'] === "g:Edge") {
+                let _ = _this.convert_edge_to_json(item);
+                return [_];
+            } else if (item['@type'] === "g:List") {
+                console.log("=======items", item);
+                return _this.convert_list_to_json(item);
+            }
+        }
+
+    }
+
+    process(response) {
+        let request_id = response.request_id;
+        let data = response.result.data;
+        return this.convert_list_to_json(data);
+    }
+
+    seperate_vertices_and_edges(data) {
+        let vertices = [];
+        let edges = [];
+        if (data) {
+            data.forEach(function (d) {
+                if (d.type === "g:Vertex") {
+                    vertices.push(d);
+                } else if (d.type === "g:Edge") {
+                    d.source = d.inV;
+                    d.target = d.outV;
+                    edges.push(d);
+                }
+            });
+        }
+        return [vertices, edges];
+    }
+};class GremlinConnector {
+
+    setup_gremlin_server_socket(gremlin_server_url, message_callback) {
+        /*
+        Usage:
+
+
+        let onMessageReceived = function (event) {
+            let data = JSON.parse(event.data);
+            console.log("onMessageReceived", data);
+
+        }
+        let socket = new setup_gremlin_server_socket(GREMLIN_SERVER_URL, onMessageReceived)
+
+
+         */
+
+        let _this = this;
+        let ws = new WebSocket(gremlin_server_url);
+        show_notification("Connecting to gremlin server url :" + gremlin_server_url);
+
+        ws.onopen = function (event) {
+            show_notification("Connected to Server");
+            $("#connection-status span")
+                .removeClass()
+                .addClass("server-connected")
+                .html("Connected Successfully")
+                .attr("title", "Connected");
+        };
+
+        ws.onmessage = function (event) {
+            show_notification("Message Received");
+            message_callback(event);
+        };
+
+        // An event listener to be called when an error occurs.
+        ws.onerror = function (err) {
+            console.log('Connection error using websocket', err);
+            show_notification("Something went wrong");
+            $("#connection-status span")
+                .removeClass()
+                .addClass("server-not-connected")
+                .html("Connection closed")
+                .attr("title", "Unable to Connect");
+        };
+
+        // An event listener to be called when the connection is closed.
+        ws.onclose = function (err) {
+            console.log('Connection error using websocket', err);
+            let retry_in = 10;
+            show_notification("Connection Closed");
+            $("#connection-status span")
+                .removeClass()
+                .addClass("server-not-connected")
+                .html("Connection closed")
+
+                .attr("title", "Connection Closed");
+
+
+            let i = 1;
+            let timer = setInterval((function () {
+
+                    show_notification("Connection Attempt Failed. Waited " + i + "s of " + (retry_in) + "s 'retry in' time...");
+                    i += 1;
+
+                    if (i > retry_in) {
+                        clearInterval(timer);
+                        _this.ws = _this.setup_gremlin_server_socket(gremlin_server_url, message_callback);
+
+                    }
+                }
+            ).bind(this), 1000); // retry in 5 seconds
+
+
+        };
+        return ws;
+    }
+
+    constructor(gremlin_server_url, message_callback) {
+        this.ws = this.setup_gremlin_server_socket(gremlin_server_url, message_callback);
+    }
+
+    send(msg) {
+        console.log("sending the query message", msg);
+        this.ws.send(JSON.stringify(msg), {mask: true});
+    }
+
+}
+
+
+
+;$(document).ready(function () {
+
+    let GREMLIN_SERVER_URL = "ws://192.168.0.10:8182/gremlin";
+    let response_handler = new GremlinResponseHandlers();
+
+
+    let graph_canvas = new DataGraphCanvas("#graph-area");
+
+    let onMessageReceived = function (event) {
+        let response = JSON.parse(event.data);
+        console.log("onMessageReceived", response);
+        let json_data = response_handler.process(response);
+        console.log("json_data", json_data);
+
+        show_notification("Rendered graph");
+        let _ = response_handler.seperate_vertices_and_edges(json_data);
+        let vertices = _[0];
+        let edges = _[1];
+        graph_canvas.draw(vertices, edges);
+        hide_loading();
+
+    };
+    let gremlinConnector = new GremlinConnector(GREMLIN_SERVER_URL, onMessageReceived);
+
+
+    let addQueryToUrl = function (query) {
+        let u = new URL(location.href);
+        var searchParams = new URLSearchParams(window.location.search);
+        searchParams.set("query", query);
+        if (window.history.replaceState) {
+            //prevents browser from storing history with each change:
+            window.history.replaceState({}, null, u.origin + "/?" + searchParams.toString());
+        }
+    };
+
+    let submitQuery = function (query, validate_query) {
+
+        if (validate_query && !query) {
+            alert("Query cannot be Blank");
+        } else {
+            if (query) { // soft ignore
+                let msg = {
+                    "requestId": uuidv4(),
+                    "op": "eval",
+                    "processor": "",
+                    "args": {
+                        "gremlin": query,
+                        "bindings": {},
+                        "language": "gremlin-groovy"
+                    }
+                };
+                show_loading();
+                $('[name="query"]').val(query);
+                addQueryToUrl(query);
+                gremlinConnector.send(msg);
+            }
+        }
+    };
+    let onPageLoadInitQuery = function () {
+        let query = new URLSearchParams(window.location.search).get("query");
+        submitQuery(query, false);
+
+    };
+    let onHeaderQuerySubmit = function (e) {
+        e.preventDefault();
+        let query = $('#header-query-form [name="query"]').val();
+        console.log("query is ", query);
+        submitQuery(query);
+    };
+
+    $("#header-query-form").submit(onHeaderQuerySubmit);
+
+    gremlinConnector.ws.addEventListener('open', function (event) {
+        onPageLoadInitQuery();
+    });
+
+
+    $('[name="vertex_label_toggle"]').change(function () {
+        if ($(this).is(":checked")) {
+            graph_canvas.controls.showVertexLabels();
+        } else {
+            graph_canvas.controls.hideVertexLabels();
+        }
+    });
+    $('[name="edge_label_toggle"]').change(function () {
+        if ($(this).is(":checked")) {
+            graph_canvas.controls.showEdgeLabels();
+        } else {
+            graph_canvas.controls.hideEdgeLabels();
+        }
+    });
+});

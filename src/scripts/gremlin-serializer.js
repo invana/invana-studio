@@ -3,13 +3,13 @@ class GremlinResponseHandlers {
 
     convert_vertex_property_to_json(property) {
 
-        let _single_prop = property[0]
+        let _single_prop = property[0];
         if (_single_prop['@type'] !== "g:VertexProperty") {
             throw "Not a VertexProperty error. check if this is of g:VertexProperty type:: " + JSON.stringify(property);
         }
         let d = {};
-        let value = _single_prop['@value'].value
-        d[_single_prop['@value'].label] = (typeof value === "string") ? value : value['@value']
+        let value = _single_prop['@value'].value;
+        d[_single_prop['@value'].label] = (typeof value === "string") ? value : value['@value'];
         return d;
 
     }
@@ -20,7 +20,7 @@ class GremlinResponseHandlers {
             throw "Not a vertex error. check if this is of g:Vertex type:: " + JSON.stringify(vtx);
         }
         let d = {};
-        d['type'] = "g:Vertex";
+        d.type = "g:Vertex";
         let _this = this;
         d.id = vtx['@value'].id['@value'];
         d.label = vtx['@value'].label;
@@ -28,8 +28,8 @@ class GremlinResponseHandlers {
         if (properties) {
             Object.keys(properties).forEach(function (key) {
                 let property = properties[key];
-                let _ = _this.convert_vertex_property_to_json(property)
-                d[key] = _[key]
+                let _ = _this.convert_vertex_property_to_json(property);
+                d[key] = _[key];
             });
         }
 
@@ -40,13 +40,13 @@ class GremlinResponseHandlers {
 
     convert_edge_property_to_json(property) {
 
-        let _single_prop = property
+        let _single_prop = property;
         if (_single_prop['@type'] !== "g:Property") {
             throw "Not a g:Property error. check if this is of g:Property type:: " + JSON.stringify(property);
         }
         let d = {};
-        let value = _single_prop['@value'].value
-        d[_single_prop['@value'].key] = (typeof value === "string") ? value : value['@value']
+        let value = _single_prop['@value'].value;
+        d[_single_prop['@value'].key] = (typeof value === "string") ? value : value['@value'];
         return d;
 
     }
@@ -58,21 +58,21 @@ class GremlinResponseHandlers {
         }
         let _this = this;
         let d = {};
-        d['type'] = "g:Edge";
-        d['label'] = edg['@value']['label'];
-        d['id'] = edg['@value'].id['@value']['relationId'];
-        d['inV'] = edg['@value'].inV['@value'];
-        d['inVLabel'] = edg['@value'].inVLabel;
-        d['outV'] = edg['@value'].outV['@value'];
-        d['outVLabel'] = edg['@value'].outVLabel;
+        d.type = "g:Edge";
+        d.label = edg['@value'].label;
+        d.id = edg['@value'].id['@value'].relationId;
+        d.inV = edg['@value'].inV['@value'];
+        d.inVLabel = edg['@value'].inVLabel;
+        d.outV = edg['@value'].outV['@value'];
+        d.outVLabel = edg['@value'].outVLabel;
 
         let properties = edg['@value'].properties;
 
         if (properties) {
             Object.keys(properties).forEach(function (key) {
                 let property = properties[key];
-                let _ = _this.convert_edge_property_to_json(property)
-                d[key] = _[key]
+                let _ = _this.convert_edge_property_to_json(property);
+                d[key] = _[key];
             });
 
         }
@@ -97,7 +97,7 @@ class GremlinResponseHandlers {
                 data_list.forEach(function (datum) {
                     items.push(datum);
                 });
-            })
+            });
         }
         return items;
 
@@ -132,15 +132,15 @@ class GremlinResponseHandlers {
         let edges = [];
         if (data) {
             data.forEach(function (d) {
-                if (d['type'] === "g:Vertex") {
+                if (d.type === "g:Vertex") {
                     vertices.push(d);
-                } else if (d['type'] === "g:Edge") {
+                } else if (d.type === "g:Edge") {
                     d.source = d.inV;
                     d.target = d.outV;
                     edges.push(d);
                 }
             });
         }
-        return [vertices, edges]
+        return [vertices, edges];
     }
 }
