@@ -2,11 +2,9 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         jshint: {
-            files: ['Gruntfile.js', 'src/**/*.js'],
+            files: ['./Gruntfile.js', './src/**/*.js'],
             options: {
-                globals: {
-                    jQuery: true
-                }
+                'esversion': 6,
             }
         },
         concat: {
@@ -14,8 +12,8 @@ module.exports = function (grunt) {
                 separator: ';',
             },
             dist: {
-                src: ['src/**/*.js',],
-                dest: 'dist/graph.js',
+                src: ['./src/**/*.js',],
+                dest: './dist/graph.js',
             },
         },
         concat_css: {
@@ -23,13 +21,14 @@ module.exports = function (grunt) {
                 // Task-specific options go here.
             },
             all: {
-                src: ["src/**/*.css"],
-                dest: "dist/graph.css"
+                src: ["./src/**/*.css"],
+                dest: "./dist/graph.css"
             },
         },
         watch: {
-            files: ['<%= jshint.files %>'],
-            tasks: ['jshint']
+            files: ['Gruntfile.js', 'src/**/*.js',],
+            tasks: ['jshint', 'concat', 'concat_css'],
+
         }
     });
 
@@ -38,7 +37,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-concat-css');
 
-    grunt.registerTask('default', ['jshint']);
-    grunt.registerTask('watch', ['watch']);
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('build', ['jshint', 'concat', 'concat_css']);
 
 };

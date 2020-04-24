@@ -17,14 +17,14 @@ class VertexUtils {
             })
             .on("mouseout", function (d) {
                 gremlin_canvas.onNodeHoverOut(d);
-            })
+            });
 
 
         node.append("circle")
             .attr("r", 10)
             .style("fill", function (d, i) {
                 return _this.color_schema(d.label);
-            }).style("cursor", "pointer")
+            }).style("cursor", "pointer");
 
         node.append("title")
             .text(function (d) {
@@ -37,7 +37,7 @@ class VertexUtils {
                 return d.name;
             });
 
-        return node
+        return node;
 
     }
 
@@ -71,10 +71,10 @@ class EdgeUtils {
                 gremlin_canvas.onLinkMoveOut(d);
             })
             .attr('id', function (d, i) {
-                return 'link-' + d.id
+                return 'link-' + d.id;
             })
             .style('stroke-width', 2)
-            .style('stroke-color', "#222")
+            .style('stroke-color', "#222");
 
 
         link.append("title")
@@ -91,7 +91,7 @@ class EdgeUtils {
                 'fill-opacity': 0,
                 'stroke-opacity': 0,
                 'id': function (d, i) {
-                    return 'edgepath-' + d.id
+                    return 'edgepath-' + d.id;
                 },
                 "fill": "#aaa"
             })
@@ -105,7 +105,7 @@ class EdgeUtils {
             .attrs({
                 'class': 'edgelabel',
                 'id': function (d, i) {
-                    return 'edgelabel-' + d.id
+                    return 'edgelabel-' + d.id;
                 },
                 'font-size': 10,
                 'fill': '#aaa'
@@ -113,13 +113,13 @@ class EdgeUtils {
 
         edgelabels.append('textPath')
             .attr('xlink:href', function (d, i) {
-                return '#edgepath-' + d.id
+                return '#edgepath-' + d.id;
             })
             .style("text-anchor", "middle")
             .style("pointer-events", "none")
             .attr("startOffset", "50%")
             .text(function (d) {
-                return d.label
+                return d.label;
             });
 
         return [link, edgepaths, edgelabels];
@@ -216,9 +216,9 @@ class DataGraphCanvas {
         // Per-type markers, as they don't inherit styles.
         let svg = d3.select(html_selector_id)
             .call(d3.zoom().on("zoom", function () {
-                svg.attr("transform", d3.event.transform)
+                svg.attr("transform", d3.event.transform);
             }))
-            .on("dblclick.zoom", null)   // double click zoom has been disabled since
+            .on("dblclick.zoom", null);   // double click zoom has been disabled since
         // we want double click to be reserved for highlighting neighbor nodes
 
         return svg;
@@ -246,8 +246,6 @@ class DataGraphCanvas {
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
             .attr('fill', '#999')
             .style('stroke', 'none');
-
-
     }
 
     setup_simulation() {
@@ -276,19 +274,19 @@ class DataGraphCanvas {
 
 
     getSimulationCharge() {
-        return d3.forceManyBody().strength(-300)
+        return d3.forceManyBody().strength(-300);
     }
 
     getAdjacentNodeIds(nodeId) {
         let _this = this;
-        let connectedLinkIds = this.NODE_ID_TO_LINK_IDS[nodeId] || new Set()
-        let data = new Set([nodeId])
+        let connectedLinkIds = this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
+        let data = new Set([nodeId]);
         connectedLinkIds.forEach(linkId => {
-            let link = _this.getLink(linkId)
-            data.add(link.source.id)
-            data.add(link.target.id)
-        })
-        return data
+            let link = _this.getLink(linkId);
+            data.add(link.source.id);
+            data.add(link.target.id);
+        });
+        return data;
     }
 
     getLink(linkId) {
@@ -296,37 +294,37 @@ class DataGraphCanvas {
     }
 
     get_LINK_ID_TO_LINK(edges) {
-        let data = {}
+        let data = {};
         edges.forEach(edge => {
-            data[edge.id] = edge
-        })
-        return data
+            data[edge.id] = edge;
+        });
+        return data;
     }
 
     get_NODE_ID_TO_LINK_IDS(edges) {
-        let data = {}
+        let data = {};
         edges.forEach(edge => {
-            data[edge.source.id] = data[edge.source.id] || new Set()
-            data[edge.target.id] = data[edge.target.id] || new Set()
-            data[edge.source.id].add(edge.id)
-            data[edge.target.id].add(edge.id)
-        })
-        return data
+            data[edge.source.id] = data[edge.source.id] || new Set();
+            data[edge.target.id] = data[edge.target.id] || new Set();
+            data[edge.source.id].add(edge.id);
+            data[edge.target.id].add(edge.id);
+        });
+        return data;
     }
 
     getAdjacentLinkIds(nodeId) {
-        return this.NODE_ID_TO_LINK_IDS[nodeId] || new Set()
+        return this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
     }
 
 
     onNodeHoverOut(selectedNode) {
-        let nodeElements = this.canvas.selectAll('.node')
-        let linkElements = this.canvas.selectAll('.link')
-        let linkLabels = this.canvas.selectAll('.edgelabel')
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
+        let linkLabels = this.canvas.selectAll('.edgelabel');
 
-        nodeElements.style('opacity', '1')
-        linkElements.style('opacity', '1')
-        linkLabels.style('opacity', '1')
+        nodeElements.style('opacity', '1');
+        linkElements.style('opacity', '1');
+        linkLabels.style('opacity', '1');
         this.hideProperties();
 
     }
@@ -358,69 +356,69 @@ class DataGraphCanvas {
 
 
     onLinkMoveHover(selectedLink) {
-        console.log("onLinkMoveHover", selectedLink)
-        let nodeElements = this.canvas.selectAll('.node')
-        let linkElements = this.canvas.selectAll('.link')
+        console.log("onLinkMoveHover", selectedLink);
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
 
         linkElements.style('opacity', function (linkElement) {
-            return selectedLink.id === linkElement.id ? '1' : '0.1'
-        })
+            return selectedLink.id === linkElement.id ? '1' : '0.1';
+        });
 
-        let linkData = this.LINK_ID_TO_LINK[selectedLink.id]
-        let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id])
+        let linkData = this.LINK_ID_TO_LINK[selectedLink.id];
+        let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
 
         nodeElements.style('opacity', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1'
-        })
+            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1';
+        });
 
 
-        d3.select('#link-' + selectedLink.id).style('stroke', "black")
-        this.showProperties(selectedLink)
+        d3.select('#link-' + selectedLink.id).style('stroke', "black");
+        this.showProperties(selectedLink);
 
     }
 
     onLinkMoveOut(selectedLink) {
-        let nodeElements = this.canvas.selectAll('.node')
-        let linkElements = this.canvas.selectAll('.link')
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
 
-        nodeElements.style('opacity', '1')
-        linkElements.style('opacity', '1')
+        nodeElements.style('opacity', '1');
+        linkElements.style('opacity', '1');
 
 
-        d3.select('#link-' + selectedLink.id).style('stroke', "#999")
-        this.hideProperties()
+        d3.select('#link-' + selectedLink.id).style('stroke', "#999");
+        this.hideProperties();
     }
 
     onNodeHoverIn(selectedNode) {
-        let nodeElements = this.canvas.selectAll('.node')
-        let linkElements = this.canvas.selectAll('.link')
-        let linkLabels = this.canvas.selectAll('.edgelabel')
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
+        let linkLabels = this.canvas.selectAll('.edgelabel');
 
 
-        let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id)
+        let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
         nodeElements.style('opacity', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1'
-        })
+            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1';
+        });
 
-        let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id)
+        let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id);
         linkElements.style('opacity', function (linkElement) {
-            return adjacentLinkIds.has(linkElement.id) ? '1' : '0.1'
-        })
+            return adjacentLinkIds.has(linkElement.id) ? '1' : '0.1';
+        });
 
         linkLabels.style('opacity', function (linkLabel) {
-            return adjacentLinkIds.has(linkLabel.id) ? '1' : '0.1'
-        })
+            return adjacentLinkIds.has(linkLabel.id) ? '1' : '0.1';
+        });
         console.log("onNodeHoverIn", selectedNode);
-        this.showProperties(selectedNode)
+        this.showProperties(selectedNode);
     }
 
     add_vertices(vertices) {
-        this.add_vertex_legend(vertices)
+        this.add_vertex_legend(vertices);
         return this.vertex_utils.add(vertices, this);
     }
 
     add_edges(edges) {
-        this.add_edge_legend(edges)
+        this.add_edge_legend(edges);
         return this.edge_utils.add(edges, this);
     }
 
@@ -438,9 +436,9 @@ class DataGraphCanvas {
         let legend_vertices_list = [];
         vertices.forEach(function (vertex) {
             if (legend_vertices_list.indexOf(vertex.label) === -1) {
-                legend_vertices_list.push(vertex.label)
+                legend_vertices_list.push(vertex.label);
             }
-        })
+        });
 
         console.log(" legend_vertices_list  ", legend_vertices_list);
         legend.selectAll('.legend-circle')
@@ -454,7 +452,7 @@ class DataGraphCanvas {
             .attr('r', 10)
             .style("fill", function (d, i) {
                 return _this.color_schema(d);
-            })
+            });
 
         legend.selectAll('.label')
             .data(legend_vertices_list)
@@ -484,9 +482,9 @@ class DataGraphCanvas {
         let legend_edges_list = [];
         edges.forEach(function (edge) {
             if (legend_edges_list.indexOf(edge.label) === -1) {
-                legend_edges_list.push(edge.label)
+                legend_edges_list.push(edge.label);
             }
-        })
+        });
 
         legend.selectAll('.legend-rect')
             .data(legend_edges_list)
@@ -500,7 +498,7 @@ class DataGraphCanvas {
             })
             .style("fill", function (d, i) {
                 return _this.color_schema(d);
-            })
+            });
 
         legend.selectAll('.label')
             .data(legend_edges_list)
@@ -516,7 +514,6 @@ class DataGraphCanvas {
             .text(function (d) {
                 return d;
             });
-
 
     }
 
@@ -545,8 +542,7 @@ class DataGraphCanvas {
         function dragstarted(d) {
             // let _this = this;
             if (!d3.event.active) {
-                console.log("this.simulation", this);
-                _this.simulation.alphaTarget(0.3).restart()
+                _this.simulation.alphaTarget(0.3).restart();
             }
             d.fx = d.x;
             d.fy = d.y;
@@ -562,7 +558,7 @@ class DataGraphCanvas {
 
         d3.select('#center-canvas').on('click', function () {
             _this.controls.center(_this);
-        })
+        });
 
         this.simulation
             .nodes(vertices)
@@ -586,6 +582,7 @@ class DataGraphCanvas {
                     return d.target.y;
                 });
 
+
             node
                 .attr("transform", function (d) {
                     return "translate(" + d.x + ", " + d.y + ")";
@@ -608,7 +605,9 @@ class DataGraphCanvas {
             });
         }
 
-        this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges)
+
+
+        this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges);
         this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
         console.log("LINK_ID_TO_LINK", this.LINK_ID_TO_LINK);
         console.log("NODE_ID_TO_LINK_IDS", this.NODE_ID_TO_LINK_IDS);
