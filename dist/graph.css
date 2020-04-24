@@ -77,14 +77,22 @@ html, body {
     line-height: 1.4rem;
 }
 
+.node circle:hover {
+    stroke: #cbcbcb;
+    stroke-width: 3px;
+}
 
 .node, .edgepath, .edgelabel, .link {
     cursor: pointer;
 }
 
+.edgelabel {
+    /*stroke: red;*/
+}
+
 .link {
     /*stroke: #999;*/
-    stroke-opacity: .6;
+    /*stroke-opacity: .6;*/
     /*stroke-width: 1px;*/
 }
 
@@ -146,6 +154,7 @@ html, body {
     z-index: 1000;
     background: rgba(255, 255, 251, 0.68);
 }
-.text-center{
+
+.text-center {
     text-align: center;
 }

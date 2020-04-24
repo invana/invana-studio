@@ -74,7 +74,7 @@ class EdgeUtils {
                 return 'link-' + d.id;
             })
             .style('stroke-width', 2)
-            .style('stroke', "#222");
+            .style('stroke', "#999");
 
         link.append("title")
             .text(function (d) {
@@ -92,7 +92,7 @@ class EdgeUtils {
                 'id': function (d, i) {
                     return 'edgepath-' + d.id;
                 },
-                "fill": "#222"
+                "fill": "#999"
             })
             .style("pointer-events", "none");
 
@@ -106,8 +106,8 @@ class EdgeUtils {
                 'id': function (d, i) {
                     return 'edgelabel-' + d.id;
                 },
-                'font-size': 10,
-                'fill': '#aaa'
+                'font-size': 12,
+                'fill': '#999'
             });
 
         edgelabels.append('textPath')
@@ -246,7 +246,7 @@ class DataGraphCanvas {
             })
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#999')
+            .attr('fill', '#666')
             .style('stroke', 'none');
     }
 
@@ -322,13 +322,7 @@ class DataGraphCanvas {
 
 
     onNodeHoverOut(selectedNode) {
-        let nodeElements = this.canvas.selectAll('.node');
-        let linkElements = this.canvas.selectAll('.link');
-        let linkLabels = this.canvas.selectAll('.edgelabel');
-
-        nodeElements.style('opacity', '1');
-        linkElements.style('opacity', '1');
-        linkLabels.style('opacity', '1');
+        this.resetNodeHighlight(selectedNode);
         this.hideProperties();
 
     }
@@ -391,11 +385,22 @@ class DataGraphCanvas {
         linkElements.style('opacity', '1');
 
 
-        d3.select('#link-' + selectedLink.id).style('stroke', "#999");
+        d3.select('#link-' + selectedLink.id).style('stroke', "#666");
         this.hideProperties();
     }
 
-    onNodeHoverIn(selectedNode) {
+    resetNodeHighlight(selectedNode) {
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
+        let linkLabels = this.canvas.selectAll('.edgelabel');
+
+        nodeElements.style('opacity', '1');
+        linkElements.style('opacity', '1');
+        linkLabels.style('opacity', '1');
+    }
+
+    highlightHoveredNodesAndEdges(selectedNode) {
+        // this is performance intensive operation
         let nodeElements = this.canvas.selectAll('.node');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
@@ -414,6 +419,11 @@ class DataGraphCanvas {
         linkLabels.style('opacity', function (linkLabel) {
             return adjacentLinkIds.has(linkLabel.id) ? '1' : '0.1';
         });
+    }
+
+
+    onNodeHoverIn(selectedNode) {
+        this.highlightHoveredNodesAndEdges(selectedNode);
         console.log("onNodeHoverIn", selectedNode);
         this.showProperties(selectedNode);
     }
