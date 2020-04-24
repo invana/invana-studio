@@ -4,6 +4,7 @@ class VertexUtils {
         this.color_schema = color_schema;
     }
 
+
     add(vertices, gremlin_canvas) {
         let _this = this;
         let node = this.canvas.selectAll(".node")
@@ -259,7 +260,6 @@ class DataGraphCanvas {
             .iterations(1); /// TODO - revisit this
         const forceX = d3.forceX(this.canvas_width / 2).strength(0.055);
         const forceY = d3.forceY(this.canvas_height / 2).strength(0.055);
-
 
 
         return d3.forceSimulation()
