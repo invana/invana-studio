@@ -258,8 +258,8 @@ class DataGraphCanvas {
                 return d.radius + 1.2;
             })
             .iterations(1); /// TODO - revisit this
-        const forceX = d3.forceX(this.canvas_width / 2).strength(0.055);
-        const forceY = d3.forceY(this.canvas_height / 2).strength(0.055);
+        const forceX = d3.forceX(this.canvas_width / 2).strength(0.040);
+        const forceY = d3.forceY(this.canvas_height / 2).strength(0.040);
 
 
         return d3.forceSimulation()
@@ -271,7 +271,9 @@ class DataGraphCanvas {
             .force("collide", forceCollide)
             .force('x', forceX)
             .force('y', forceY)
-            .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2));
+            .force("center", d3.forceCenter(this.canvas_width / 2, this.canvas_height / 2))
+            .velocityDecay(0.4)
+            .alphaTarget(0.1);
     }
 
 
@@ -480,7 +482,7 @@ class DataGraphCanvas {
             .attr("class", "edges-legend  exclude-from-zoom")
             .attr("height", 0)
             .attr("width", 0)
-            .attr('transform', 'translate(' + ( 10) + ',30)');
+            .attr('transform', 'translate(' + (10) + ',30)');
 
         let legend_edges_list = [];
         edges.forEach(function (edge) {

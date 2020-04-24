@@ -21,7 +21,7 @@ html, body {
 
 .invana-graph-viewer .invana-graph-viewer-nav-brand h3 {
     padding: 10px 12px;
-    font-size: 16px;
+    font-size: 18px;
     vertical-align: middle;
     margin: 0;
     font-weight: bold;
@@ -46,6 +46,20 @@ html, body {
     position: fixed;
     left: 0;
     top: 40px;
+}
+
+.invana-graph-viewer #controls-div button {
+    margin-top: 10px;
+    float: right;
+    /*margin-right: 10px;*/
+}
+
+.invana-graph-viewer #controls-div {
+    position: fixed;
+    top: 40px;
+    right: 5px;
+    width: 200px;
+    height: 30px;
 }
 
 .invana-graph-viewer #properties-div {
@@ -92,4 +106,46 @@ html, body {
 .full-screen {
     width: 100%;
     height: 100%;
+}
+
+.loader-spin {
+    border: 16px solid #e5e5e5;
+    border-radius: 50%;
+    border-top: 16px solid #5c4ee6;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+    margin-top: 20%;
+    margin-left: 45%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.page-loading {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    background: rgba(255, 255, 251, 0.68);
+}
+.text-center{
+    text-align: center;
 }

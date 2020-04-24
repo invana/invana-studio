@@ -6,66 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="assets/styles/main.css">
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js">-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js">-->
     <link rel="stylesheet" href="http://localhost:8081/dist/graph.css">
 
     <title>Graph Studio</title>
 </head>
 <body>
-<style>
-    .loader-spin {
-        border: 16px solid #e5e5e5;
-        border-radius: 50%;
-        border-top: 16px solid #5c4ee6;
-        width: 120px;
-        height: 120px;
-        -webkit-animation: spin 1s linear infinite; /* Safari */
-        animation: spin 1s linear infinite;
-        margin-top: 20%;
-        margin-left: 45%;
-    }
 
-    /* Safari */
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    .page-loading {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        z-index: 1000;
-        background: rgba(255, 255, 251, 0.68);
-    }
-
-</style>
-<div class="page-loading" style="display: none">
-    <div class="loader-spin"></div>
-    <p class="text-center">Loading ...</p>
-</div>
 
 <div class="invana-graph-viewer">
+    <div class="page-loading" style="display: none">
+        <div class="loader-spin"></div>
+        <p class="text-center">Loading ...</p>
+    </div>
 
     <nav class="invana-graph-viewer-nav">
         <div class="invana-graph-viewer-nav-brand">
             <h3>Graph Studio</h3>
         </div>
         <div class="invana-graph-viewer-query">
-            <form  id="header-query-form">
+            <form id="header-query-form">
                 <input name="query" type="text" placeholder="Query the Graph here. Example: g.V().limit(5).toList()">
             </form>
         </div>
@@ -77,8 +37,13 @@
             </svg>
         </div>
     </section>
-    <div id="legend-div"><svg></svg></div>
+    <div id="legend-div">
+        <svg></svg>
+    </div>
     <pre id="properties-div"></pre>
+    <div id="controls-div">
+        <button>center</button>
+    </div>
     <div id="notifications-div"></div>
     <div id="connection-status"><span></span></div>
 </div>
