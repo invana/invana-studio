@@ -74,46 +74,44 @@
     line-height: 1.4rem;
 }
 
-.node circle:hover {
+.invana-graph-viewer .node circle:hover {
     stroke: #cbcbcb;
     stroke-width: 3px;
 }
 
-.node, .edgepath, .edgelabel, .link {
+.invana-graph-viewer .node,
+.invana-graph-viewer .edgepath,
+.invana-graph-viewer .edgelabel,
+.invana-graph-viewer .link {
     cursor: pointer;
 }
 
-.edgelabel {
-    /*stroke: red;*/
-}
 
-.link {
-    /*stroke: #999;*/
-    /*stroke-opacity: .6;*/
-    /*stroke-width: 1px;*/
-}
 
-.node, .link, .edgelabel {
+
+.invana-graph-viewer .node,
+.invana-graph-viewer .link,
+.invana-graph-viewer .edgelabel {
     transition: opacity .15s ease-in-out;
     -moz-transition: opacity .15s ease-in-out;
     -webkit-transition: opacity .15s ease-in-out;
 }
 
-#svg {
+.invana-graph-viewer #svg {
     width: 100% !important;
     height: 100% !important;;
 }
 
-#graph-area-wrapper {
+.invana-graph-viewer #graph-area-wrapper {
     overflow: hidden;
 }
 
-.full-screen {
+.invana-graph-viewer .full-screen {
     width: 100%;
     height: 100%;
 }
 
-.loader-spin {
+.invana-graph-viewer .loader-spin {
     border: 16px solid #e5e5e5;
     border-radius: 50%;
     border-top: 16px solid #5c4ee6;
