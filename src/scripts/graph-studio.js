@@ -70,7 +70,7 @@ class InvanaKnowledgeGraphUI {
             searchParams.set("query", query);
             if (window.history.replaceState) {
                 //prevents browser from storing history with each change:
-                window.history.replaceState({}, null, u.origin + "/?" + searchParams.toString());
+                window.history.replaceState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
             }
         };
 

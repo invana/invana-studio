@@ -17,6 +17,9 @@ class VertexUtils {
             })
             .on("mouseout", function (d) {
                 gremlin_canvas.onNodeHoverOut(d);
+            })
+            .on("click", function (d) {
+                gremlin_canvas.onNodeClicked(this, d);
             });
 
 
@@ -317,6 +320,150 @@ class DataGraphCanvas {
 
     getAdjacentLinkIds(nodeId) {
         return this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
+    }
+
+    expandInLinksAndNodes(selectedNode) {
+        console.log("expandInLinksAndNodes", selectedNode);
+
+    }
+
+    expandOutLinksAndNodes(selectedNode) {
+        console.log("expandOutLinksAndNodes", selectedNode);
+
+    }
+
+    onNodeClicked(thisnode, selectedNode) {
+        console.log("onNodeClicked", selectedNode);
+        let _this = this;
+        let thisNode = d3.select(thisnode);
+
+        this.legend_canvas.selectAll(".node");
+        // .style("fill", function (d) {
+        //     return fill(d.group);
+        // });
+        d3.select(".menu").remove();
+
+        // thisNode.attr('r', 25).style("fill", "lightcoral");
+
+        var menuDataSet = [{
+            id: 101,
+            option_name: "not-assigned",
+            title: "not assigned",
+            html: "I1"
+        }, {
+            id: 102,
+            option_name: "out-links",
+            title: "out links",
+            html: "&rarr;"
+        }, {
+            id: 103,
+            option_name: "not-assigned",
+            title: "not assigned",
+            html: "I3"
+        }, {
+            id: 104,
+            option_name: "not-assigned",
+            title: "not assigned",
+            html: "I4"
+        }, {
+            id: 105,
+            option_name: "in-links",
+            title: "in links",
+            html: "&larr;"
+        }, {
+            id: 105,
+            option_name: "not-assigned",
+            title: "not assigned",
+            html: "I6"
+        }];
+
+        // Barvy menu
+        var pie = d3.pie()
+            .sort(null)
+            .value(function (d) {
+                return Object.keys(menuDataSet).length;
+            }); // zde je nutnÃ© zadat celkovou populaci - poÄetz prvkÅ¯ v
+
+        // Menu
+        var widthMenu = 180,
+            heightMenu = 180,
+            radiusMenu = Math.min(widthMenu, heightMenu) / 2;
+
+        // Arc setting
+        var arc = d3.arc()
+            .innerRadius(radiusMenu - 70)
+            .outerRadius(radiusMenu - 35);
+
+        // Graph space
+        var svgMenu = thisNode.append("svg")
+            .attr("width", widthMenu)
+            .attr("height", heightMenu)
+            .attr("class", "menu")
+            .attr("x", -90)
+            .attr("y", -90)
+            .append("g")
+            .attr("transform", "translate(" + widthMenu / 2 + "," + heightMenu / 2 + ")");
+
+
+        // Prepare graph and load data
+        var g = svgMenu.selectAll(".arc")
+            .data(pie(menuDataSet))
+            .enter()
+            .append("g")
+            .attr("class", "arc")
+            .on("click", function (arch_node) {
+                console.log("You clicked on: ", arch_node.data.option_name, " and its id is: ", arch_node.data.id);
+                console.log("Its node is: ", selectedNode);
+                if (arch_node.data.option_name === "out-links") {
+                    _this.expandOutLinksAndNodes(selectedNode);
+                } else if (arch_node.data.option_name === "in-links") {
+                    _this.expandInLinksAndNodes(selectedNode);
+                } else {
+                    alert("not implemented");
+                }
+            });
+        // .on("mouseover", function(d) {tip.hide(d);});
+
+        // Add colors
+        var path = g.append("path")
+            .attr("d", arc)
+            .attr("fill", function (d) {
+                return "#333333"; // color(d.data.size);
+            });
+
+        // Add labels
+        var labels = g.append("text")
+            .attr("transform", function (d) {
+                return "translate(" + arc.centroid(d) + ")";
+            })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .html(function (d) {
+                return d.data.html;
+            })
+            .attr("stroke", function (d) {
+                return "#ffffff"; // color(d.data.size);
+            });
+        // .on("mouseenter", tip.hide);
+
+
+        // Add hover action
+        path.on("mouseenter", function (d, i) {
+            // tip.hide(d);
+            d3.select(this)
+                .attr("fill", "#555555")
+                .attr("cursor", "pointer")
+                .attr("class", "on");
+        });
+
+        path.on("mouseout", function (d) {
+            d3.select(this)
+                .attr("fill", function (d) {
+                    return "#333333";
+                })
+                .attr("class", "off");
+        });
+
     }
 
 

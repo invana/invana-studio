@@ -79,6 +79,12 @@
     stroke-width: 3px;
 }
 
+.invana-graph-viewer .link:hover ,
+.invana-graph-viewer .edgepath:hover
+{
+    stroke: #cbcbcb;
+    stroke-width: 3px;
+}
 .invana-graph-viewer .node,
 .invana-graph-viewer .edgepath,
 .invana-graph-viewer .edgelabel,
@@ -96,6 +102,7 @@
     -moz-transition: opacity .15s ease-in-out;
     -webkit-transition: opacity .15s ease-in-out;
 }
+
 
 .invana-graph-viewer #svg {
     width: 100% !important;
