@@ -3,6 +3,10 @@ module.exports = function (grunt) {
 
     let js_files = [
         "src/scripts/utils.js",
+        "src/scripts/vertex_handler.js",
+        "src/scripts/edge_handler.js",
+        "src/scripts/controls_handler.js",
+
         "src/scripts/d3.graph.js",
         "src/scripts/gremlin-serializer.js",
         "src/scripts/socket.js",
@@ -11,12 +15,16 @@ module.exports = function (grunt) {
 
     let file_to_watch = [
         "src/scripts/utils.js",
+        "src/scripts/vertex_handler.js",
+        "src/scripts/edge_handler.js",
+        "src/scripts/controls_handler.js",
+
         "src/scripts/d3.graph.js",
         "src/scripts/gremlin-serializer.js",
         "src/scripts/socket.js",
         "src/scripts/graph-studio.js",
-        "src/styles/*.css"
 
+        "src/styles/*.css"
     ];
     grunt.initConfig({
 

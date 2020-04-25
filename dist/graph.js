@@ -86,11 +86,9 @@ Array.prototype.extend = function (other_array) {
     }
 
     remove(vertex) {
+
     }
-
-}
-
-class EdgeUtils {
+};class EdgeUtils {
 
     constructor(canvas, color_schema) {
         this.canvas = canvas;
@@ -174,8 +172,7 @@ class EdgeUtils {
 
 }
 
-
-class GraphControls {
+;class GraphControls {
 
     hideVertexLabels() {
         $("g.node text").hide();
@@ -230,8 +227,7 @@ class GraphControls {
 
 
 }
-
-class DataGraphCanvas {
+;class DataGraphCanvas {
 
     // Reference: http://bl.ocks.org/fancellu/2c782394602a93921faff74e594d1bb1
     constructor(html_selector_id) {
