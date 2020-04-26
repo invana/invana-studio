@@ -6,6 +6,8 @@ class InvanaKnowledgeGraphUI {
         this.html_selector_id = html_selector_id;
         this.canvas_selector_id = "#graph-area";
         this.gremlinConnector = null;
+        this.init_html();
+        this.graph_canvas = new DataGraphCanvas(this.canvas_selector_id, this);
     }
 
     init_html() {
@@ -103,8 +105,7 @@ class InvanaKnowledgeGraphUI {
 
     start() {
         let _this = this;
-        this.init_html();
-        let graph_canvas = new DataGraphCanvas(this.canvas_selector_id, this);
+
         let gremlin_response_serializers = new GremlinResponseSerializers();
 
         let onMessageReceived = function (event) {
@@ -117,7 +118,7 @@ class InvanaKnowledgeGraphUI {
             let _ = gremlin_response_serializers.seperate_vertices_and_edges(json_data);
             let vertices = _[0];
             let edges = _[1];
-            graph_canvas.draw(vertices, edges);
+            _this.graph_canvas.draw(vertices, edges);
             hide_loading();
 
         };
@@ -136,19 +137,20 @@ class InvanaKnowledgeGraphUI {
     }
 }
 
-$(document).ready(function () {
-    $('[name="vertex_label_toggle"]').change(function () {
-        if ($(this).is(":checked")) {
-            graph_canvas.controls.showVertexLabels();
-        } else {
-            graph_canvas.controls.hideVertexLabels();
-        }
-    });
-    $('[name="edge_label_toggle"]').change(function () {
-        if ($(this).is(":checked")) {
-            graph_canvas.controls.showEdgeLabels();
-        } else {
-            graph_canvas.controls.hideEdgeLabels();
-        }
-    });
-});
+// $(document).ready(function () {
+//
+//     $('[name="vertex_label_toggle"]').change(function () {
+//         if ($(this).is(":checked")) {
+//             graph_canvas.controls.showVertexLabels();
+//         } else {
+//             graph_canvas.controls.hideVertexLabels();
+//         }
+//     });
+//     $('[name="edge_label_toggle"]').change(function () {
+//         if ($(this).is(":checked")) {
+//             graph_canvas.controls.showEdgeLabels();
+//         } else {
+//             graph_canvas.controls.hideEdgeLabels();
+//         }
+//     });
+// });

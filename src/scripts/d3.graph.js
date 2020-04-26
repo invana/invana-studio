@@ -9,10 +9,14 @@ class DataGraphCanvas {
         this.vertices_list = [];
         this.edges_list = [];
 
-        this.canvas = this.setup_canvas(html_selector_id);
-
         this.properties_canvas = d3.select("#properties-div");
         this.legend_canvas = d3.select("#legend-div svg");
+
+        this.canvas = this.setup_canvas(html_selector_id);
+
+
+
+
         this.edge_utils = new EdgeUtils(this.canvas, this.color_schema);
         this.vertex_utils = new VertexUtils(this.canvas, this.color_schema);
 
@@ -25,6 +29,7 @@ class DataGraphCanvas {
         this.controls = new GraphControls();
         this.NODE_ID_TO_LINK_IDS = {};
         this.LINK_ID_TO_LINK = {};
+        this.remove_everything();
 
     }
 
@@ -38,14 +43,19 @@ class DataGraphCanvas {
             .on("dblclick.zoom", null)   // double click zoom has been disabled since
             // we want double click to be reserved for highlighting neighbor nodes
             .append("g").attr("class", "everything");
+
+
         return svg;
 
     }
 
-    clear_canvas() {
-
+    remove_everything() {
         this.legend_canvas.selectAll("*").remove();
         this.canvas.selectAll("*").remove();
+    }
+
+    clear_canvas() {
+        this.remove_everything();
 
         this.canvas.append('defs').append('marker')
             .attrs({

@@ -238,10 +238,14 @@ Array.prototype.extend = function (other_array) {
         this.vertices_list = [];
         this.edges_list = [];
 
-        this.canvas = this.setup_canvas(html_selector_id);
-
         this.properties_canvas = d3.select("#properties-div");
         this.legend_canvas = d3.select("#legend-div svg");
+
+        this.canvas = this.setup_canvas(html_selector_id);
+
+
+
+
         this.edge_utils = new EdgeUtils(this.canvas, this.color_schema);
         this.vertex_utils = new VertexUtils(this.canvas, this.color_schema);
 
@@ -254,6 +258,7 @@ Array.prototype.extend = function (other_array) {
         this.controls = new GraphControls();
         this.NODE_ID_TO_LINK_IDS = {};
         this.LINK_ID_TO_LINK = {};
+        this.remove_everything();
 
     }
 
@@ -267,14 +272,19 @@ Array.prototype.extend = function (other_array) {
             .on("dblclick.zoom", null)   // double click zoom has been disabled since
             // we want double click to be reserved for highlighting neighbor nodes
             .append("g").attr("class", "everything");
+
+
         return svg;
 
     }
 
-    clear_canvas() {
-
+    remove_everything() {
         this.legend_canvas.selectAll("*").remove();
         this.canvas.selectAll("*").remove();
+    }
+
+    clear_canvas() {
+        this.remove_everything();
 
         this.canvas.append('defs').append('marker')
             .attrs({
@@ -1254,6 +1264,8 @@ Array.prototype.extend = function (other_array) {
         this.html_selector_id = html_selector_id;
         this.canvas_selector_id = "#graph-area";
         this.gremlinConnector = null;
+        this.init_html();
+        this.graph_canvas = new DataGraphCanvas(this.canvas_selector_id, this);
     }
 
     init_html() {
@@ -1351,8 +1363,7 @@ Array.prototype.extend = function (other_array) {
 
     start() {
         let _this = this;
-        this.init_html();
-        let graph_canvas = new DataGraphCanvas(this.canvas_selector_id, this);
+
         let gremlin_response_serializers = new GremlinResponseSerializers();
 
         let onMessageReceived = function (event) {
@@ -1365,7 +1376,7 @@ Array.prototype.extend = function (other_array) {
             let _ = gremlin_response_serializers.seperate_vertices_and_edges(json_data);
             let vertices = _[0];
             let edges = _[1];
-            graph_canvas.draw(vertices, edges);
+            _this.graph_canvas.draw(vertices, edges);
             hide_loading();
 
         };
@@ -1384,19 +1395,20 @@ Array.prototype.extend = function (other_array) {
     }
 }
 
-$(document).ready(function () {
-    $('[name="vertex_label_toggle"]').change(function () {
-        if ($(this).is(":checked")) {
-            graph_canvas.controls.showVertexLabels();
-        } else {
-            graph_canvas.controls.hideVertexLabels();
-        }
-    });
-    $('[name="edge_label_toggle"]').change(function () {
-        if ($(this).is(":checked")) {
-            graph_canvas.controls.showEdgeLabels();
-        } else {
-            graph_canvas.controls.hideEdgeLabels();
-        }
-    });
-});
+// $(document).ready(function () {
+//
+//     $('[name="vertex_label_toggle"]').change(function () {
+//         if ($(this).is(":checked")) {
+//             graph_canvas.controls.showVertexLabels();
+//         } else {
+//             graph_canvas.controls.hideVertexLabels();
+//         }
+//     });
+//     $('[name="edge_label_toggle"]').change(function () {
+//         if ($(this).is(":checked")) {
+//             graph_canvas.controls.showEdgeLabels();
+//         } else {
+//             graph_canvas.controls.hideEdgeLabels();
+//         }
+//     });
+// });
