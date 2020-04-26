@@ -530,10 +530,14 @@ Array.prototype.extend = function (other_array) {
             .attr("title", function (d) {
                 return d.data.title;
             })
-            .attr("stroke", function (d) {
-                return "#ffffff"; // color(d.data.size);
+            .attr("stroke", "#ffffff");
+
+
+           g.append("title")
+            .text(function (d) {
+                console.log(d);
+                return d.data.title;
             });
-        // .on("mouseenter", tip.hide);
 
 
         // Add hover action
