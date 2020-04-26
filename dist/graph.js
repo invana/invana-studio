@@ -881,10 +881,6 @@ Array.prototype.extend = function (other_array) {
             );
 
 
-        function lock_node_position(d) {
-
-        }
-
         function dragged(d) {
             d.fx = d3.event.x;
             d.fy = d3.event.y;
@@ -900,11 +896,9 @@ Array.prototype.extend = function (other_array) {
         }
 
         function dragended(d) {
-            // if (!d3.event.active) {
-            //     _this.simulation.alphaTarget(0);
-            // }
-            console.log("======= dragended", d);
-            // d.fixed = true;
+            if (!d3.event.active) {
+                _this.simulation.alphaTarget(0);
+            }
             _this.simulation.alpha(0.3).restart();
 
             // d.fx = null;
