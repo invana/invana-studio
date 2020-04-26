@@ -52,6 +52,7 @@ class EdgeUtils {
             .enter()
             .append('text')
             .style("pointer-events", "none")
+            .attr("dy", -2) //Move the text up/ down
             .attrs({
                 'class': 'edgelabel',
                 'id': function (d, i) {
@@ -66,6 +67,8 @@ class EdgeUtils {
                 return '#edgepath-' + d.id;
             })
             .style("text-anchor", "middle")
+            // .style("text-transform", "uppercase")
+            .style("background", "#ffffff")
             .style("pointer-events", "none")
             .attr("startOffset", "50%")
             .text(function (d) {

@@ -146,6 +146,7 @@ Array.prototype.extend = function (other_array) {
             .enter()
             .append('text')
             .style("pointer-events", "none")
+            .attr("dy", -2) //Move the text up/ down
             .attrs({
                 'class': 'edgelabel',
                 'id': function (d, i) {
@@ -160,6 +161,8 @@ Array.prototype.extend = function (other_array) {
                 return '#edgepath-' + d.id;
             })
             .style("text-anchor", "middle")
+            // .style("text-transform", "uppercase")
+            .style("background", "#ffffff")
             .style("pointer-events", "none")
             .attr("startOffset", "50%")
             .text(function (d) {
@@ -288,7 +291,16 @@ Array.prototype.extend = function (other_array) {
         this.canvas.selectAll("*").remove();
     }
 
+
+    reset_canvas_data() {
+        // reset the this.vert
+        this.vertices_list = [];
+        this.edges_list = [];
+    }
+
     clear_canvas() {
+        // removes everything from the board.
+
         this.remove_everything();
 
         this.canvas.append('defs').append('marker')
@@ -533,7 +545,7 @@ Array.prototype.extend = function (other_array) {
             .attr("stroke", "#ffffff");
 
 
-           g.append("title")
+        g.append("title")
             .text(function (d) {
                 console.log(d);
                 return d.data.title;
@@ -822,6 +834,7 @@ Array.prototype.extend = function (other_array) {
         this.render_graph(overall_vertices, overall_edges);
 
     }
+
 
     render_graph(vertices, edges) {
         // add this data to the existing data
@@ -1337,15 +1350,19 @@ Array.prototype.extend = function (other_array) {
     }
 
 
-    submitQuery(query, validate_query, shall_update_url, rerender_canvas) {
+    submitQuery(query, validate_query, shall_update_url, clear_canvas) {
+        let _this = this;
+
         if (typeof shall_update_url === "undefined") {
             shall_update_url = true;
         }
-        if (typeof rerender_canvas === "undefined") {
-            rerender_canvas = true;
+        if (typeof clear_canvas === "undefined") {
+            clear_canvas = false;
         }
-        console.log("=====shall_update_url", shall_update_url);
-        let _this = this;
+
+        if (clear_canvas) {
+            this.graph_canvas.reset_canvas_data();
+        }
         if (validate_query && !query) {
             alert("Query cannot be Blank");
         } else {
@@ -1381,7 +1398,7 @@ Array.prototype.extend = function (other_array) {
         e.preventDefault();
         let query = $('#header-query-form [name="query"]').val();
         console.log("query is ", query);
-        _this.submitQuery(query, false, true);
+        _this.submitQuery(query, false, true, true);
     }
 
     start() {

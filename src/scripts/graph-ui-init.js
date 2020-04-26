@@ -59,15 +59,19 @@ class InvanaKnowledgeGraphUI {
     }
 
 
-    submitQuery(query, validate_query, shall_update_url, rerender_canvas) {
+    submitQuery(query, validate_query, shall_update_url, clear_canvas) {
+        let _this = this;
+
         if (typeof shall_update_url === "undefined") {
             shall_update_url = true;
         }
-        if (typeof rerender_canvas === "undefined") {
-            rerender_canvas = true;
+        if (typeof clear_canvas === "undefined") {
+            clear_canvas = false;
         }
-        console.log("=====shall_update_url", shall_update_url);
-        let _this = this;
+
+        if (clear_canvas) {
+            this.graph_canvas.reset_canvas_data();
+        }
         if (validate_query && !query) {
             alert("Query cannot be Blank");
         } else {
@@ -103,7 +107,7 @@ class InvanaKnowledgeGraphUI {
         e.preventDefault();
         let query = $('#header-query-form [name="query"]').val();
         console.log("query is ", query);
-        _this.submitQuery(query, false, true);
+        _this.submitQuery(query, false, true, true);
     }
 
     start() {

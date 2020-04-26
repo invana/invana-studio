@@ -55,7 +55,16 @@ class DataGraphCanvas {
         this.canvas.selectAll("*").remove();
     }
 
+
+    reset_canvas_data() {
+        // reset the this.vert
+        this.vertices_list = [];
+        this.edges_list = [];
+    }
+
     clear_canvas() {
+        // removes everything from the board.
+
         this.remove_everything();
 
         this.canvas.append('defs').append('marker')
@@ -300,7 +309,7 @@ class DataGraphCanvas {
             .attr("stroke", "#ffffff");
 
 
-           g.append("title")
+        g.append("title")
             .text(function (d) {
                 console.log(d);
                 return d.data.title;
@@ -589,6 +598,7 @@ class DataGraphCanvas {
         this.render_graph(overall_vertices, overall_edges);
 
     }
+
 
     render_graph(vertices, edges) {
         // add this data to the existing data
