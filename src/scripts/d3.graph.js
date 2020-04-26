@@ -28,24 +28,24 @@ class DataGraphCanvas {
 
     }
 
+
     setup_canvas(html_selector_id) {
         // Per-type markers, as they don't inherit styles.
         let svg = d3.select(html_selector_id)
             .call(d3.zoom().on("zoom", function () {
                 svg.attr("transform", d3.event.transform);
             }))
-            .on("dblclick.zoom", null);   // double click zoom has been disabled since
-        // we want double click to be reserved for highlighting neighbor nodes
-
+            .on("dblclick.zoom", null)   // double click zoom has been disabled since
+            // we want double click to be reserved for highlighting neighbor nodes
+            .append("g").attr("class", "everything");
         return svg;
 
     }
 
     clear_canvas() {
 
+        this.legend_canvas.selectAll("*").remove();
         this.canvas.selectAll("*").remove();
-        $("g").remove();
-        $("line").remove();
 
         this.canvas.append('defs').append('marker')
             .attrs({
@@ -62,6 +62,7 @@ class DataGraphCanvas {
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
             .attr('fill', '#666')
             .style('stroke', 'none');
+
     }
 
     setup_simulation() {
@@ -418,6 +419,7 @@ class DataGraphCanvas {
     }
 
     add_vertex_legend(vertices) {
+
         let _this = this;
         let edges_legend_height = document.querySelector(".edges-legend").getBoundingClientRect().height;
 
