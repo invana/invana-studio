@@ -1,6 +1,6 @@
 # graph.js
 
-Library for building Knowledge Graph UIs for the responses from Gremlin servers (Apache Tinkerpop standards)
+Library for building Knowledge Graph UIs for the responses from Gremlin servers (Apache Tinkerpop standards). Light weight library below 24Kb. 
 
 ![Demo Image](docs/demo.png)
 

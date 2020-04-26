@@ -56,6 +56,29 @@ module.exports = function (grunt) {
             files: file_to_watch,
             tasks: ['jshint', 'concat', 'concat_css'],
 
+        },
+        terser: {
+            options: {
+                compress: {
+                    drop_console: true
+                }
+            },
+            prod: {
+                files: {
+                    'dist/graph.min.js': ['dist/graph.js']
+                }
+            }
+        },
+        cssmin: {
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: 'dist',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'dist',
+                    ext: '.min.css'
+                }]
+            }
         }
     });
 
@@ -63,9 +86,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-concat-css');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+    grunt.loadNpmTasks('grunt-terser');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['jshint', 'concat', 'concat_css',]);
+    grunt.registerTask('build', ['jshint', 'concat', 'concat_css', "terser:prod", "cssmin:prod"]);
 
 };
