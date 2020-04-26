@@ -2,6 +2,8 @@
 
 Library for building Knowledge Graph UIs for the responses from Gremlin servers (Apache Tinkerpop standards)
 
+![Demo Image](docs/demo.png)
+
 
 ## Usage 
 
@@ -31,6 +33,7 @@ Library for building Knowledge Graph UIs for the responses from Gremlin servers 
 </html>
 
 ```
+
 
 
 ## Internal Events 
