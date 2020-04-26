@@ -52,7 +52,7 @@ class EdgeUtils {
             .enter()
             .append('text')
             .style("pointer-events", "none")
-            .attr("dy", -2) //Move the text up/ down
+            .attr("dy", -3) //Move the text up/ down
             .attrs({
                 'class': 'edgelabel',
                 'id': function (d, i) {

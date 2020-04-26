@@ -3,17 +3,20 @@
     padding: 0;
 }
 
+.invana-graph-viewer #copy-right-info-div {
+    position: fixed;
+    right: 10px;
+    height: 10px;
+    bottom: 20px;
+    opacity: .5;
+    font-size: 1.3rem;
+}
+
 .invana-graph-viewer .invana-graph-viewer-nav {
     height: 40px;
     /*background: green;*/
     box-shadow: rgba(0, 0, 0, 0.15) 0px 0.5rem 1rem !important;
 }
-
-.invana-graph-viewer .invana-graph-viewer-query {
-    width: calc(100% - 230px);
-    float: left;
-}
-
 
 .invana-graph-viewer .invana-graph-viewer-nav-brand h3 {
     padding: 10px 12px;
@@ -29,7 +32,7 @@
 }
 
 .invana-graph-viewer #header-query-form input {
-    width: 100%;
+    width: calc(100% - 26px);
     padding: 10px 12px;
     font-size: 14px;
     border: 1px solid #efefef;
@@ -78,20 +81,18 @@
     stroke-width: 3px;
 }
 
-.invana-graph-viewer .link:hover ,
-.invana-graph-viewer .edgepath:hover
-{
+.invana-graph-viewer .link:hover,
+.invana-graph-viewer .edgepath:hover {
     stroke: #cbcbcb;
     stroke-width: 3px;
 }
+
 .invana-graph-viewer .node,
 .invana-graph-viewer .edgepath,
 .invana-graph-viewer .edgelabel,
 .invana-graph-viewer .link {
     cursor: pointer;
 }
-
-
 
 
 .invana-graph-viewer .node,
@@ -186,8 +187,8 @@ body, html {
 
 .invana-graph-viewer #connection-status {
     position: fixed;
-    bottom: 0px;
-    left: 0;
+    bottom: 5px;
+    left: 5px;
 }
 
 .invana-graph-viewer #selected-data-properties {
@@ -199,9 +200,9 @@ body, html {
 
 .invana-graph-viewer #notifications-div {
     position: fixed;
-    bottom: 12px;
+    bottom: 18px;
     font-size: 10px;
-    /*right: 10px;*/
+    left: 5px;
 }
 
 

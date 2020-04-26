@@ -24,8 +24,8 @@ body, html {
 
 .invana-graph-viewer #connection-status {
     position: fixed;
-    bottom: 0px;
-    left: 0;
+    bottom: 5px;
+    left: 5px;
 }
 
 .invana-graph-viewer #selected-data-properties {
@@ -37,9 +37,9 @@ body, html {
 
 .invana-graph-viewer #notifications-div {
     position: fixed;
-    bottom: 12px;
+    bottom: 18px;
     font-size: 10px;
-    /*right: 10px;*/
+    left: 5px;
 }
 
 

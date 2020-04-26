@@ -147,7 +147,7 @@ Array.prototype.extend = function (other_array) {
             .enter()
             .append('text')
             .style("pointer-events", "none")
-            .attr("dy", -2) //Move the text up/ down
+            .attr("dy", -3) //Move the text up/ down
             .attrs({
                 'class': 'edgelabel',
                 'id': function (d, i) {
@@ -1332,9 +1332,6 @@ Array.prototype.extend = function (other_array) {
             "        <p class=\"text-center\">Loading ...</p>\n" +
             "    </div>\n" +
             "    <nav class=\"invana-graph-viewer-nav\">\n" +
-            "        <div class=\"invana-graph-viewer-nav-brand\">\n" +
-            "            <h3>Graph Studio</h3>\n" +
-            "        </div>\n" +
             "        <div class=\"invana-graph-viewer-query\">\n" +
             "            <form id=\"header-query-form\">\n" +
             "                <input name=\"query\" type=\"text\" placeholder=\"Query the Graph here. Example: g.V().limit(5).toList()\">\n" +
@@ -1356,6 +1353,7 @@ Array.prototype.extend = function (other_array) {
             "    </div>\n" +
             "    <div id=\"notifications-div\"></div>\n" +
             "    <div id=\"connection-status\"><span></span></div>\n" +
+            "    <div id=\"copy-right-info-div\">Invana Graph UI</div>\n" +
             "</div>";
 
         $(this.html_selector_id).html($(html_structure));

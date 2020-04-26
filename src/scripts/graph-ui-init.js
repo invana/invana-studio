@@ -17,9 +17,6 @@ class InvanaKnowledgeGraphUI {
             "        <p class=\"text-center\">Loading ...</p>\n" +
             "    </div>\n" +
             "    <nav class=\"invana-graph-viewer-nav\">\n" +
-            "        <div class=\"invana-graph-viewer-nav-brand\">\n" +
-            "            <h3>Graph Studio</h3>\n" +
-            "        </div>\n" +
             "        <div class=\"invana-graph-viewer-query\">\n" +
             "            <form id=\"header-query-form\">\n" +
             "                <input name=\"query\" type=\"text\" placeholder=\"Query the Graph here. Example: g.V().limit(5).toList()\">\n" +
@@ -41,6 +38,7 @@ class InvanaKnowledgeGraphUI {
             "    </div>\n" +
             "    <div id=\"notifications-div\"></div>\n" +
             "    <div id=\"connection-status\"><span></span></div>\n" +
+            "    <div id=\"copy-right-info-div\">Invana Graph UI</div>\n" +
             "</div>";
 
         $(this.html_selector_id).html($(html_structure));
