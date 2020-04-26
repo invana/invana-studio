@@ -52,6 +52,7 @@ class DataGraphCanvas {
 
     remove_everything() {
         this.legend_canvas.selectAll("*").remove();
+        d3.select(".everything").selectAll("*").remove();
         this.canvas.selectAll("*").remove();
     }
 
@@ -113,7 +114,7 @@ class DataGraphCanvas {
 
 
     getSimulationCharge() {
-        return d3.forceManyBody().strength(-300);
+        return d3.forceManyBody().strength(-1000);
     }
 
     getAdjacentNodeIds(nodeId) {

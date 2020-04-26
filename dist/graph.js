@@ -288,6 +288,7 @@ Array.prototype.extend = function (other_array) {
 
     remove_everything() {
         this.legend_canvas.selectAll("*").remove();
+        d3.select(".everything").selectAll("*").remove();
         this.canvas.selectAll("*").remove();
     }
 
@@ -349,7 +350,7 @@ Array.prototype.extend = function (other_array) {
 
 
     getSimulationCharge() {
-        return d3.forceManyBody().strength(-300);
+        return d3.forceManyBody().strength(-1000);
     }
 
     getAdjacentNodeIds(nodeId) {
