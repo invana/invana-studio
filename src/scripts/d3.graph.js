@@ -15,8 +15,6 @@ class DataGraphCanvas {
         this.canvas = this.setup_canvas(html_selector_id);
 
 
-
-
         this.edge_utils = new EdgeUtils(this.canvas, this.color_schema);
         this.vertex_utils = new VertexUtils(this.canvas, this.color_schema);
 
@@ -43,6 +41,11 @@ class DataGraphCanvas {
             .on("dblclick.zoom", null)   // double click zoom has been disabled since
             // we want double click to be reserved for highlighting neighbor nodes
             .append("g").attr("class", "everything");
+
+        svg.select('*:not(circle), *:not(line), *:not(path), *:not(text), *:not(link)').on("click", function () {
+            console.log("===>>>> canvas g clicked");
+            d3.select(".node-menu").remove();
+        });
         return svg;
 
     }
@@ -173,13 +176,17 @@ class DataGraphCanvas {
 
     }
 
+    closeNodeMenu(selectedNode) {
+        console.log("closeNodeMenu clicked", selectedNode);
+        d3.select(".node-menu").remove();
+    }
 
     onNodeClicked(thisnode, selectedNode) {
-        console.log("onNodeClicked", selectedNode);
+        console.log("onNodeClicked:: thisnode : selectedNode", thisnode, selectedNode);
         let _this = this;
-        let thisNode = d3.select(thisnode);
-
-        this.legend_canvas.selectAll(".node");
+        let thisNode = d3.select("#node-" + selectedNode.id);
+        console.log("thisNode is", thisNode);
+        // this.legend_canvas.selectAll(".node");
         // .style("fill", function (d) {
         //     return fill(d.group);
         // });
@@ -204,9 +211,9 @@ class DataGraphCanvas {
             html: "."
         }, {
             id: 104,
-            option_name: "not-assigned",
-            title: "not assigned",
-            html: "."
+            option_name: "close-node-menu",
+            title: "Close Menu",
+            html: "&#x2715;"
         }, {
             id: 105,
             option_name: "in-links",
@@ -245,14 +252,16 @@ class DataGraphCanvas {
             .attr("y", -90)
             .append("g")
             .attr("transform", "translate(" + widthMenu / 2 + "," + heightMenu / 2 + ")");
-
-
         // Prepare graph and load data
         var g = svgMenu.selectAll(".arc")
             .data(pie(menuDataSet))
             .enter()
             .append("g")
             .attr("class", "arc")
+            .attr("title", function (d) {
+
+                return d.title;
+            })
             .on("click", function (arch_node) {
                 console.log("You clicked on: ", arch_node.data.option_name, " and its id is: ", arch_node.data.id);
                 console.log("Its node is: ", selectedNode);
@@ -260,6 +269,8 @@ class DataGraphCanvas {
                     _this.expandOutLinksAndNodes(selectedNode);
                 } else if (arch_node.data.option_name === "in-links") {
                     _this.expandInLinksAndNodes(selectedNode);
+                } else if (arch_node.data.option_name === "close-node-menu") {
+                    _this.closeNodeMenu(selectedNode);
                 } else {
                     alert("not implemented");
                 }
@@ -282,6 +293,9 @@ class DataGraphCanvas {
             .style("text-anchor", "middle")
             .html(function (d) {
                 return d.data.html;
+            })
+            .attr("title", function (d) {
+                return d.data.title;
             })
             .attr("stroke", function (d) {
                 return "#ffffff"; // color(d.data.size);

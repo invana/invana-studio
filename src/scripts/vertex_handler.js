@@ -12,6 +12,17 @@ class VertexUtils {
             .enter()
             .append("g")
             .attr("class", "node")
+            .attr("id", function(d){
+                return "node-" + d.id;
+            });
+
+
+        node.append("circle")
+            .attr("r", 20)
+            .style("fill", function (d, i) {
+                return _this.color_schema(d.label);
+            })
+            .style("cursor", "pointer")
             .on("mouseover", function (d) {
                 gremlin_canvas.onNodeHoverIn(d);
             })
@@ -21,13 +32,6 @@ class VertexUtils {
             .on("click", function (d) {
                 gremlin_canvas.onNodeClicked(this, d);
             });
-
-
-        node.append("circle")
-            .attr("r", 20)
-            .style("fill", function (d, i) {
-                return _this.color_schema(d.label);
-            }).style("cursor", "pointer");
 
         node.append("title")
             .text(function (d) {

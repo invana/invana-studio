@@ -59,9 +59,12 @@ class InvanaKnowledgeGraphUI {
     }
 
 
-    submitQuery(query, validate_query, shall_update_url) {
+    submitQuery(query, validate_query, shall_update_url, rerender_canvas) {
         if (typeof shall_update_url === "undefined") {
             shall_update_url = true;
+        }
+        if (typeof rerender_canvas === "undefined") {
+            rerender_canvas = true;
         }
         console.log("=====shall_update_url", shall_update_url);
         let _this = this;
