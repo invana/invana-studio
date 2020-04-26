@@ -5,6 +5,7 @@ class VertexUtils {
         this.color_schema = color_schema;
     }
 
+
     add(vertices, gremlin_canvas) {
         let _this = this;
         let node = this.canvas.selectAll(".node")
@@ -12,7 +13,7 @@ class VertexUtils {
             .enter()
             .append("g")
             .attr("class", "node")
-            .attr("id", function(d){
+            .attr("id", function (d) {
                 return "node-" + d.id;
             });
 

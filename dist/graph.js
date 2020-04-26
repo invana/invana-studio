@@ -46,6 +46,7 @@ Array.prototype.extend = function (other_array) {
         this.color_schema = color_schema;
     }
 
+
     add(vertices, gremlin_canvas) {
         let _this = this;
         let node = this.canvas.selectAll(".node")
@@ -53,7 +54,7 @@ Array.prototype.extend = function (other_array) {
             .enter()
             .append("g")
             .attr("class", "node")
-            .attr("id", function(d){
+            .attr("id", function (d) {
                 return "node-" + d.id;
             });
 
@@ -336,9 +337,9 @@ Array.prototype.extend = function (other_array) {
 
         return d3.forceSimulation()
             .force("link", d3.forceLink().id(function (d) {
-                return d.id;
-            })
-                .distance(150).strength(1))
+                    return d.id;
+                }).distance(150).strength(1)
+            )
             .force("charge", _this.getSimulationCharge())
             .force("collide", forceCollide)
             .force('x', forceX)
@@ -427,6 +428,15 @@ Array.prototype.extend = function (other_array) {
         d3.select(".node-menu").remove();
     }
 
+    releaseNodeLock(selectedNode) {
+        console.log("releaseNodeLock clicked", selectedNode);
+        selectedNode.fixed = false;
+        selectedNode.fx = null;
+        selectedNode.fy = null;
+        this.simulation.alpha(0.3).restart();
+
+    }
+
     onNodeClicked(thisnode, selectedNode) {
         console.log("onNodeClicked:: thisnode : selectedNode", thisnode, selectedNode);
         let _this = this;
@@ -466,10 +476,10 @@ Array.prototype.extend = function (other_array) {
             title: "in links",
             html: "&rarr;"
         }, {
-            id: 105,
-            option_name: "not-assigned",
-            title: "not assigned",
-            html: "."
+            id: 106,
+            option_name: "release-lock",
+            title: "Release Lock",
+            html: "&#x1f513;"
         }];
 
         // Barvy menu
@@ -517,6 +527,8 @@ Array.prototype.extend = function (other_array) {
                     _this.expandInLinksAndNodes(selectedNode);
                 } else if (arch_node.data.option_name === "close-node-menu") {
                     _this.closeNodeMenu(selectedNode);
+                } else if (arch_node.data.option_name === "release-lock") {
+                    _this.releaseNodeLock(selectedNode);
                 } else {
                     alert("not implemented");
                 }
@@ -852,28 +864,51 @@ Array.prototype.extend = function (other_array) {
 
         let node = this.add_vertices(vertices);
 
-        node.call(d3.drag()
-            .on("start", dragstarted)
-            .on("drag", _this.dragged)
-            .on("end", dragended)
-        );
 
+        node
+            .on("dblclick", function (d) {
+                console.log("dblclick this, d", this, d);
+                // d3.select(this).classed("fixed", d.fixed = false);
+                d.fixed = false;
+                if (!d3.event.active) {
+                    _this.simulation.alphaTarget(0.3).restart();
+                }
+            })
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended)
+            );
+
+
+        function lock_node_position(d) {
+
+        }
+
+        function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
 
         function dragstarted(d) {
-            // let _this = this;
             if (!d3.event.active) {
                 _this.simulation.alphaTarget(0.3).restart();
             }
             d.fx = d.x;
             d.fy = d.y;
+
         }
 
         function dragended(d) {
-            if (!d3.event.active) {
-                _this.simulation.alphaTarget(0);
-            }
-            d.fx = null;
-            d.fy = null;
+            // if (!d3.event.active) {
+            //     _this.simulation.alphaTarget(0);
+            // }
+            console.log("======= dragended", d);
+            // d.fixed = true;
+            _this.simulation.alpha(0.3).restart();
+
+            // d.fx = null;
+            // d.fy = null;
         }
 
         d3.select('#center-canvas').on('click', function () {
@@ -930,12 +965,6 @@ Array.prototype.extend = function (other_array) {
         this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
         // console.log("LINK_ID_TO_LINK", this.LINK_ID_TO_LINK);
         // console.log("NODE_ID_TO_LINK_IDS", this.NODE_ID_TO_LINK_IDS);
-    }
-
-
-    dragged(d) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
     }
 
 
