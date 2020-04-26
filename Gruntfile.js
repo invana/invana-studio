@@ -10,7 +10,7 @@ module.exports = function (grunt) {
         "src/scripts/d3.graph.js",
         "src/scripts/gremlin-serializer.js",
         "src/scripts/socket.js",
-        "src/scripts/graph-studio.js",
+        "src/scripts/graph-ui-init.js",
     ];
 
     let file_to_watch = [
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
         "src/scripts/d3.graph.js",
         "src/scripts/gremlin-serializer.js",
         "src/scripts/socket.js",
-        "src/scripts/graph-studio.js",
+        "src/scripts/graph-ui-init.js",
 
         "src/styles/*.css"
     ];

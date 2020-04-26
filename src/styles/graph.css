@@ -150,7 +150,8 @@
 }
 
 .page-loading {
-    height: 100%;
+    height: calc(100% - 41px);
+    margin-top: 40px;
     width: 100%;
     position: absolute;
     z-index: 1000;

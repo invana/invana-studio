@@ -230,9 +230,13 @@ Array.prototype.extend = function (other_array) {
 ;class DataGraphCanvas {
 
     // Reference: http://bl.ocks.org/fancellu/2c782394602a93921faff74e594d1bb1
-    constructor(html_selector_id) {
+    constructor(html_selector_id, graph_ui) {
         this.html_selector_id = html_selector_id;
+        this.graph_ui = graph_ui;
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
+
+        this.vertices_list = [];
+        this.edges_list = [];
 
         this.canvas = this.setup_canvas(html_selector_id);
 
@@ -361,13 +365,34 @@ Array.prototype.extend = function (other_array) {
 
     expandInLinksAndNodes(selectedNode) {
         console.log("expandInLinksAndNodes", selectedNode);
+        console.log("graph_ui", this.graph_ui);
+        // TODO - improve performance of the query.
+
+
+        let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
+            "edges = g.V(" + selectedNode.id + ").outE().dedup().toList(); " +
+            "other_nodes = g.V(" + selectedNode.id + ").outE().otherV().dedup().toList();" +
+            "[other_nodes,edges,node]";
+
+        this.graph_ui.submitQuery(query_string, false, false);
+
+        return false;
 
     }
 
     expandOutLinksAndNodes(selectedNode) {
         console.log("expandOutLinksAndNodes", selectedNode);
+        console.log("graph_ui", this.graph_ui);
+        // TODO - improve performance of the query.
+        let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
+            "edges = g.V(" + selectedNode.id + ").inE().dedup().toList(); " +
+            "other_nodes = g.V(" + selectedNode.id + ").inE().otherV().dedup().toList();" +
+            "[other_nodes,edges,node]";
+        this.graph_ui.submitQuery(query_string, false, false);
+        return false;
 
     }
+
 
     onNodeClicked(thisnode, selectedNode) {
         console.log("onNodeClicked", selectedNode);
@@ -386,7 +411,7 @@ Array.prototype.extend = function (other_array) {
             id: 101,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I1"
+            html: "."
         }, {
             id: 102,
             option_name: "out-links",
@@ -396,22 +421,22 @@ Array.prototype.extend = function (other_array) {
             id: 103,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I3"
+            html: "."
         }, {
             id: 104,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I4"
+            html: "."
         }, {
             id: 105,
             option_name: "in-links",
             title: "in links",
-            html: "&larr;"
+            html: "&rarr;"
         }, {
             id: 105,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I6"
+            html: "."
         }];
 
         // Barvy menu
@@ -607,7 +632,7 @@ Array.prototype.extend = function (other_array) {
 
     onNodeHoverIn(selectedNode) {
         this.highlightHoveredNodesAndEdges(selectedNode);
-        console.log("onNodeHoverIn", selectedNode);
+        // console.log("onNodeHoverIn", selectedNode);
         this.showProperties(selectedNode);
     }
 
@@ -715,8 +740,62 @@ Array.prototype.extend = function (other_array) {
 
     }
 
-    draw(vertices, edges) {
 
+    check_is_node_already_exist(node, existing_nodes) {
+        var is_exist = false;
+        existing_nodes.forEach(function (d) {
+            if (d.id === node.id) {
+                console.log(d.id, node.id, "=====================");
+                is_exist = true;
+                return is_exist;
+            }
+        });
+        return is_exist;
+    }
+
+    check_is_edge_already_exist(node, existing_links) {
+        var is_exist = false;
+        existing_links.forEach(function (d) {
+            if (d.id === node.id) {
+                is_exist = true;
+                return is_exist;
+            }
+        });
+        return is_exist;
+    }
+
+
+    draw(new_vertices, new_edges) {
+
+        let _this = this;
+
+        var overall_vertices = this.vertices_list;
+        var overall_edges = this.edges_list;
+        new_edges.forEach(function (d) {
+            let is_exist = _this.check_is_edge_already_exist(d, overall_edges);
+            if (!is_exist) {
+                overall_edges.push(d);
+            }
+
+        });
+        new_vertices.forEach(function (d) {
+            let is_exist = _this.check_is_node_already_exist(d, overall_vertices);
+            console.log("is_exist", is_exist, d);
+            if (!is_exist) {
+                overall_vertices.push(d);
+            }
+        });
+        console.log("after update_graph_data", overall_vertices, overall_edges);
+
+        this.vertices_list = overall_vertices;
+        this.edges_list = overall_edges;
+
+        this.render_graph(overall_vertices, overall_edges);
+
+    }
+
+    render_graph(vertices, edges) {
+        // add this data to the existing data
 
         let _this = this;
 
@@ -819,7 +898,7 @@ Array.prototype.extend = function (other_array) {
 
 }
 
-;class GremlinResponseHandlers {
+;class GremlinResponseSerializers {
 
 
     convert_vertex_property_to_json(property) {
@@ -902,12 +981,77 @@ Array.prototype.extend = function (other_array) {
 
     }
 
+    convert_set_to_json(set_item) {
+
+        if (set_item && "@type" in set_item) {
+            if (set_item['@type'] !== "g:Set") {
+                throw "Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item);
+            }
+        }
+        let _this = this;
+        let items = [];
+        if (set_item && '@value' in set_item) {
+            set_item['@value'].forEach(function (item) {
+                // TODO - NOT IMPLEMENTED - because no use case found yet.
+                // let data_list = _this.process_item(item);
+                // data_list.forEach(function (datum) {
+                //     items.push(datum);
+                // });
+            });
+        }
+        return items;
+
+    }
 
     convert_list_to_json(list_item) {
-
+        console.log("convert_list_to_json list_item", list_item);
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:List") {
                 throw "Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item);
+            }
+        }
+        let _this = this;
+        let items = [];
+        if (list_item && '@value' in list_item) {
+            list_item['@value'].forEach(function (item) {
+                let data_list = _this.process_item(item);
+                console.log("data_list", data_list);
+                data_list.forEach(function (datum) {
+                    items.push(datum);
+                });
+            });
+        }
+        return items;
+
+    }
+
+    convert_bulkset_to_json(list_item) {
+        console.log("Bulkset", list_item);
+        if (list_item && "@type" in list_item) {
+            if (list_item['@type'] !== "g:BulkSet") {
+                throw "Not a g:BulkSet error. check if this is of g:BulkSet type:: " + JSON.stringify(list_item);
+            }
+        }
+        let _this = this;
+        let items = [];
+        if (list_item && '@value' in list_item) {
+            list_item['@value'].forEach(function (item) {
+                let data_list = _this.process_item(item);
+                console.log("====datalist", data_list, item);
+                data_list.forEach(function (datum) {
+                    items.push(datum);
+                });
+            });
+        }
+        return items;
+
+    }
+
+    convert_map_to_json(list_item) {
+
+        if (list_item && "@type" in list_item) {
+            if (list_item['@type'] !== "g:Map") {
+                throw "Not a g:Map error. check if this is of g:Map type:: " + JSON.stringify(list_item);
             }
         }
         let _this = this;
@@ -924,10 +1068,42 @@ Array.prototype.extend = function (other_array) {
 
     }
 
+
+    convert_path_to_json(path_item) {
+
+        if (path_item && "@type" in path_item) {
+            if (path_item['@type'] !== "g:Path") {
+                throw "Not a g:Path error. check if this is of g:Path type:: " + JSON.stringify(path_item);
+            }
+        }
+        let _this = this;
+        let items = [];
+        if (path_item && '@value' in path_item) {
+            if ("objects" in path_item['@value']) {
+                path_item['@value'].objects['@value'].forEach(function (item) {
+                    let data_list = _this.process_item(item);
+                    data_list.forEach(function (datum) {
+                        items.push(datum);
+                    });
+                });
+            } else if ("labels" in path_item['@value']) {
+                path_item['@value'].labels['@value'].forEach(function (item) {
+                    let data_list = _this.process_item(item);
+                    data_list.forEach(function (datum) {
+                        items.push(datum);
+                    });
+                });
+            }
+        }
+        return items;
+
+    }
+
     process_item(item) {
         // this is very useful to route to the respective renderers;
         let _this = this;
-        if (item && '@type' in item) {
+        console.log("process item", typeof item, item);
+        if (item && typeof item === "object" && '@type' in item) {
             if (item['@type'] === "g:Vertex") {
                 let _ = _this.convert_vertex_to_json(item);
                 return [_];
@@ -937,7 +1113,23 @@ Array.prototype.extend = function (other_array) {
             } else if (item['@type'] === "g:List") {
                 console.log("=======items", item);
                 return _this.convert_list_to_json(item);
+            } else if (item['@type'] === "g:Path") {
+                console.log("=======items", item);
+                return _this.convert_path_to_json(item);
+            } else if (item['@type'] === "g:Set") {
+                console.log("=======items", item);
+                return _this.convert_set_to_json(item);
+            } else if (item['@type'] === "g:BulkSet") {
+                console.log("=======items", item);
+                return _this.convert_bulkset_to_json(item);
+            } else if (item['@type'] === "g:Map") {
+                console.log("=======items", item);
+                return _this.convert_map_to_json(item);
+            }else{
+                return [];
             }
+        }else{
+            return [];
         }
 
     }
@@ -1062,6 +1254,7 @@ Array.prototype.extend = function (other_array) {
         this.GREMLIN_SERVER_URL = gremlin_server_url; //"ws://127.0.0.1:8182/gremlin";
         this.html_selector_id = html_selector_id;
         this.canvas_selector_id = "#graph-area";
+        this.gremlinConnector = null;
     }
 
     init_html() {
@@ -1101,75 +1294,91 @@ Array.prototype.extend = function (other_array) {
 
     }
 
+    addQueryToUrl(query) {
+        let u = new URL(location.href);
+        var searchParams = new URLSearchParams(window.location.search);
+        searchParams.set("query", query);
+        if (window.history.replaceState) {
+            //prevents browser from storing history with each change:
+            // no history will be added with replaceState
+            window.history.pushState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
+        }
+    }
+
+
+    submitQuery(query, validate_query, shall_update_url) {
+        if (typeof shall_update_url === "undefined") {
+            shall_update_url = true;
+        }
+        console.log("=====shall_update_url", shall_update_url);
+        let _this = this;
+        if (validate_query && !query) {
+            alert("Query cannot be Blank");
+        } else {
+            if (query) { // soft ignore
+                let msg = {
+                    "requestId": uuidv4(),
+                    "op": "eval",
+                    "processor": "",
+                    "args": {
+                        "gremlin": query,
+                        "bindings": {},
+                        "language": "gremlin-groovy"
+                    }
+                };
+                show_loading();
+                if (shall_update_url === true) {
+                    _this.addQueryToUrl(query);
+                    $('[name="query"]').val(query);
+                }
+                _this.gremlinConnector.send(msg);
+            }
+        }
+    }
+
+    onPageLoadInitQuery() {
+        let query = new URLSearchParams(window.location.search).get("query");
+        this.submitQuery(query, false, true);
+
+    }
+
+    onHeaderQuerySubmit(_this, e) {
+
+        e.preventDefault();
+        let query = $('#header-query-form [name="query"]').val();
+        console.log("query is ", query);
+        _this.submitQuery(query, false, true);
+    }
+
     start() {
+        let _this = this;
         this.init_html();
-        let graph_canvas = new DataGraphCanvas(this.canvas_selector_id);
-        let response_handler = new GremlinResponseHandlers();
+        let graph_canvas = new DataGraphCanvas(this.canvas_selector_id, this);
+        let gremlin_response_serializers = new GremlinResponseSerializers();
 
         let onMessageReceived = function (event) {
             let response = JSON.parse(event.data);
             console.log("onMessageReceived", response);
-            let json_data = response_handler.process(response);
+            let json_data = gremlin_response_serializers.process(response);
             console.log("json_data", json_data);
 
             show_notification("Rendered graph");
-            let _ = response_handler.seperate_vertices_and_edges(json_data);
+            let _ = gremlin_response_serializers.seperate_vertices_and_edges(json_data);
             let vertices = _[0];
             let edges = _[1];
             graph_canvas.draw(vertices, edges);
             hide_loading();
 
         };
-        let gremlinConnector = new GremlinConnector(this.GREMLIN_SERVER_URL, onMessageReceived);
-        let addQueryToUrl = function (query) {
-            let u = new URL(location.href);
-            var searchParams = new URLSearchParams(window.location.search);
-            searchParams.set("query", query);
-            if (window.history.replaceState) {
-                //prevents browser from storing history with each change:
-                window.history.replaceState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
-            }
-        };
+        this.gremlinConnector = new GremlinConnector(this.GREMLIN_SERVER_URL, onMessageReceived);
 
-        let submitQuery = function (query, validate_query) {
 
-            if (validate_query && !query) {
-                alert("Query cannot be Blank");
-            } else {
-                if (query) { // soft ignore
-                    let msg = {
-                        "requestId": uuidv4(),
-                        "op": "eval",
-                        "processor": "",
-                        "args": {
-                            "gremlin": query,
-                            "bindings": {},
-                            "language": "gremlin-groovy"
-                        }
-                    };
-                    show_loading();
-                    $('[name="query"]').val(query);
-                    addQueryToUrl(query);
-                    gremlinConnector.send(msg);
-                }
-            }
-        };
-        let onPageLoadInitQuery = function () {
-            let query = new URLSearchParams(window.location.search).get("query");
-            submitQuery(query, false);
+        $("#header-query-form").submit(function (e) {
+            _this.onHeaderQuerySubmit(_this, e);
+        });
 
-        };
-        let onHeaderQuerySubmit = function (e) {
-            e.preventDefault();
-            let query = $('#header-query-form [name="query"]').val();
-            console.log("query is ", query);
-            submitQuery(query);
-        };
-
-        $("#header-query-form").submit(onHeaderQuerySubmit);
-
-        gremlinConnector.ws.addEventListener('open', function (event) {
-            onPageLoadInitQuery();
+        this.gremlinConnector.ws.addEventListener('open', function (event) {
+            _this.onPageLoadInitQuery();
         });
 
 

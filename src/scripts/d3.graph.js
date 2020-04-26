@@ -1,9 +1,13 @@
 class DataGraphCanvas {
 
     // Reference: http://bl.ocks.org/fancellu/2c782394602a93921faff74e594d1bb1
-    constructor(html_selector_id) {
+    constructor(html_selector_id, graph_ui) {
         this.html_selector_id = html_selector_id;
+        this.graph_ui = graph_ui;
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
+
+        this.vertices_list = [];
+        this.edges_list = [];
 
         this.canvas = this.setup_canvas(html_selector_id);
 
@@ -132,13 +136,34 @@ class DataGraphCanvas {
 
     expandInLinksAndNodes(selectedNode) {
         console.log("expandInLinksAndNodes", selectedNode);
+        console.log("graph_ui", this.graph_ui);
+        // TODO - improve performance of the query.
+
+
+        let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
+            "edges = g.V(" + selectedNode.id + ").outE().dedup().toList(); " +
+            "other_nodes = g.V(" + selectedNode.id + ").outE().otherV().dedup().toList();" +
+            "[other_nodes,edges,node]";
+
+        this.graph_ui.submitQuery(query_string, false, false);
+
+        return false;
 
     }
 
     expandOutLinksAndNodes(selectedNode) {
         console.log("expandOutLinksAndNodes", selectedNode);
+        console.log("graph_ui", this.graph_ui);
+        // TODO - improve performance of the query.
+        let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
+            "edges = g.V(" + selectedNode.id + ").inE().dedup().toList(); " +
+            "other_nodes = g.V(" + selectedNode.id + ").inE().otherV().dedup().toList();" +
+            "[other_nodes,edges,node]";
+        this.graph_ui.submitQuery(query_string, false, false);
+        return false;
 
     }
+
 
     onNodeClicked(thisnode, selectedNode) {
         console.log("onNodeClicked", selectedNode);
@@ -157,7 +182,7 @@ class DataGraphCanvas {
             id: 101,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I1"
+            html: "."
         }, {
             id: 102,
             option_name: "out-links",
@@ -167,22 +192,22 @@ class DataGraphCanvas {
             id: 103,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I3"
+            html: "."
         }, {
             id: 104,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I4"
+            html: "."
         }, {
             id: 105,
             option_name: "in-links",
             title: "in links",
-            html: "&larr;"
+            html: "&rarr;"
         }, {
             id: 105,
             option_name: "not-assigned",
             title: "not assigned",
-            html: "I6"
+            html: "."
         }];
 
         // Barvy menu
@@ -378,7 +403,7 @@ class DataGraphCanvas {
 
     onNodeHoverIn(selectedNode) {
         this.highlightHoveredNodesAndEdges(selectedNode);
-        console.log("onNodeHoverIn", selectedNode);
+        // console.log("onNodeHoverIn", selectedNode);
         this.showProperties(selectedNode);
     }
 
@@ -486,8 +511,62 @@ class DataGraphCanvas {
 
     }
 
-    draw(vertices, edges) {
 
+    check_is_node_already_exist(node, existing_nodes) {
+        var is_exist = false;
+        existing_nodes.forEach(function (d) {
+            if (d.id === node.id) {
+                console.log(d.id, node.id, "=====================");
+                is_exist = true;
+                return is_exist;
+            }
+        });
+        return is_exist;
+    }
+
+    check_is_edge_already_exist(node, existing_links) {
+        var is_exist = false;
+        existing_links.forEach(function (d) {
+            if (d.id === node.id) {
+                is_exist = true;
+                return is_exist;
+            }
+        });
+        return is_exist;
+    }
+
+
+    draw(new_vertices, new_edges) {
+
+        let _this = this;
+
+        var overall_vertices = this.vertices_list;
+        var overall_edges = this.edges_list;
+        new_edges.forEach(function (d) {
+            let is_exist = _this.check_is_edge_already_exist(d, overall_edges);
+            if (!is_exist) {
+                overall_edges.push(d);
+            }
+
+        });
+        new_vertices.forEach(function (d) {
+            let is_exist = _this.check_is_node_already_exist(d, overall_vertices);
+            console.log("is_exist", is_exist, d);
+            if (!is_exist) {
+                overall_vertices.push(d);
+            }
+        });
+        console.log("after update_graph_data", overall_vertices, overall_edges);
+
+        this.vertices_list = overall_vertices;
+        this.edges_list = overall_edges;
+
+        this.render_graph(overall_vertices, overall_edges);
+
+    }
+
+    render_graph(vertices, edges) {
+        // add this data to the existing data
 
         let _this = this;
 
