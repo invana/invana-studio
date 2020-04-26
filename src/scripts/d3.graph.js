@@ -518,7 +518,6 @@ class DataGraphCanvas {
         var is_exist = false;
         existing_nodes.forEach(function (d) {
             if (d.id === node.id) {
-                console.log(d.id, node.id, "=====================");
                 is_exist = true;
                 return is_exist;
             }
@@ -553,12 +552,10 @@ class DataGraphCanvas {
         });
         new_vertices.forEach(function (d) {
             let is_exist = _this.check_is_node_already_exist(d, overall_vertices);
-            console.log("is_exist", is_exist, d);
             if (!is_exist) {
                 overall_vertices.push(d);
             }
         });
-        console.log("after update_graph_data", overall_vertices, overall_edges);
 
         this.vertices_list = overall_vertices;
         this.edges_list = overall_edges;
@@ -658,8 +655,8 @@ class DataGraphCanvas {
 
         this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges);
         this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
-        console.log("LINK_ID_TO_LINK", this.LINK_ID_TO_LINK);
-        console.log("NODE_ID_TO_LINK_IDS", this.NODE_ID_TO_LINK_IDS);
+        // console.log("LINK_ID_TO_LINK", this.LINK_ID_TO_LINK);
+        // console.log("NODE_ID_TO_LINK_IDS", this.NODE_ID_TO_LINK_IDS);
     }
 
 
