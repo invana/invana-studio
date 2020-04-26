@@ -43,8 +43,6 @@ class DataGraphCanvas {
             .on("dblclick.zoom", null)   // double click zoom has been disabled since
             // we want double click to be reserved for highlighting neighbor nodes
             .append("g").attr("class", "everything");
-
-
         return svg;
 
     }
@@ -185,7 +183,7 @@ class DataGraphCanvas {
         // .style("fill", function (d) {
         //     return fill(d.group);
         // });
-        d3.select(".menu").remove();
+        d3.select(".node-menu").remove();
 
         // thisNode.attr('r', 25).style("fill", "lightcoral");
 
@@ -242,7 +240,7 @@ class DataGraphCanvas {
         var svgMenu = thisNode.append("svg")
             .attr("width", widthMenu)
             .attr("height", heightMenu)
-            .attr("class", "menu")
+            .attr("class", "node-menu")
             .attr("x", -90)
             .attr("y", -90)
             .append("g")
