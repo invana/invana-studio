@@ -48,6 +48,10 @@
     top: 40px;
 }
 
+.invana-graph-viewer #legend-div svg {
+    height: calc(100vh - 40px);
+}
+
 .invana-graph-viewer #controls-div button {
     margin-top: 10px;
     float: right;
