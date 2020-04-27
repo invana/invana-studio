@@ -584,10 +584,17 @@ class DataGraphCanvas {
     }
 
 
+    renderGraphStats() {
+        $("#canvas-stats").text(
+            this.vertices_list.length + " nodes; " +
+            this.edges_list.length + " edges; "
+        );
+    }
+
+
     draw(new_vertices, new_edges) {
 
         let _this = this;
-
         var overall_vertices = this.vertices_list;
         var overall_edges = this.edges_list;
         new_edges.forEach(function (d) {
@@ -614,7 +621,7 @@ class DataGraphCanvas {
 
     render_graph(vertices, edges) {
         // add this data to the existing data
-
+        this.renderGraphStats();
         let _this = this;
 
         this.clear_canvas();

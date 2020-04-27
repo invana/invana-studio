@@ -821,10 +821,17 @@ Array.prototype.extend = function (other_array) {
     }
 
 
+    renderGraphStats() {
+        $("#canvas-stats").text(
+            this.vertices_list.length + " nodes; " +
+            this.edges_list.length + " edges; "
+        );
+    }
+
+
     draw(new_vertices, new_edges) {
 
         let _this = this;
-
         var overall_vertices = this.vertices_list;
         var overall_edges = this.edges_list;
         new_edges.forEach(function (d) {
@@ -851,7 +858,7 @@ Array.prototype.extend = function (other_array) {
 
     render_graph(vertices, edges) {
         // add this data to the existing data
-
+        this.renderGraphStats();
         let _this = this;
 
         this.clear_canvas();
@@ -1328,7 +1335,7 @@ Array.prototype.extend = function (other_array) {
     init_html() {
         let html_structure = "<div class=\"invana-graph-viewer\">\n" +
             "    <div class=\"page-loading\" style=\"display: none\">\n" +
-            "        <div class=\"loader-spin\"></div>\n" +
+            "        <div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>\n" +
             "        <p class=\"text-center\">Loading ...</p>\n" +
             "    </div>\n" +
             "    <nav class=\"invana-graph-viewer-nav\">\n" +
@@ -1354,6 +1361,7 @@ Array.prototype.extend = function (other_array) {
             "    <div id=\"notifications-div\"></div>\n" +
             "    <div id=\"connection-status\"><span></span></div>\n" +
             "    <div id=\"copy-right-info-div\">Invana Graph UI</div>\n" +
+            "    <div id=\"canvas-stats\"></div>\n" +
             "</div>";
 
         $(this.html_selector_id).html($(html_structure));

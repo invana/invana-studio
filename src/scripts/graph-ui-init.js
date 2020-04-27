@@ -13,7 +13,7 @@ class InvanaKnowledgeGraphUI {
     init_html() {
         let html_structure = "<div class=\"invana-graph-viewer\">\n" +
             "    <div class=\"page-loading\" style=\"display: none\">\n" +
-            "        <div class=\"loader-spin\"></div>\n" +
+            "        <div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>\n" +
             "        <p class=\"text-center\">Loading ...</p>\n" +
             "    </div>\n" +
             "    <nav class=\"invana-graph-viewer-nav\">\n" +
@@ -39,6 +39,7 @@ class InvanaKnowledgeGraphUI {
             "    <div id=\"notifications-div\"></div>\n" +
             "    <div id=\"connection-status\"><span></span></div>\n" +
             "    <div id=\"copy-right-info-div\">Invana Graph UI</div>\n" +
+            "    <div id=\"canvas-stats\"></div>\n" +
             "</div>";
 
         $(this.html_selector_id).html($(html_structure));

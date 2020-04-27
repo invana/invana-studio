@@ -44,10 +44,10 @@ body, html {
 
 
 .canvas-section {
-    height: calc(100vh - 35px);
+    height: calc(100vh - 40px);
 }
 
 .canvas-right-section {
-    height: calc(100vh - 35px);
+    height: calc(100vh - 40px);
     background: #efefef;
 }

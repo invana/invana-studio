@@ -7,9 +7,19 @@
     position: fixed;
     right: 10px;
     height: 10px;
-    bottom: 20px;
-    opacity: .5;
+    bottom: 33px;
+    opacity: 0.25;
     font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.invana-graph-viewer #canvas-stats {
+    position: fixed;
+    right: 10px;
+    height: 10px;
+    bottom: 10px;
+    font-size: 12px;
+    /*opacity: .5;*/
 }
 
 .invana-graph-viewer .invana-graph-viewer-nav {
@@ -122,39 +132,79 @@
     height: 100%;
 }
 
-.invana-graph-viewer .loader-spin {
-    border: 16px solid #e5e5e5;
-    border-radius: 50%;
-    border-top: 16px solid #5c4ee6;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 1s linear infinite; /* Safari */
-    animation: spin 1s linear infinite;
-    margin-top: 20%;
-    margin-left: 45%;
+.invana-graph-viewer .page-loading p {
+    color: #666;
 }
+
 
 /* Safari */
-@-webkit-keyframes spin {
+.lds-ellipsis {
+    display: block;
+    position: relative;
+    width: 80px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #1659ac;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
     0% {
-        -webkit-transform: rotate(0deg);
+        transform: scale(0);
     }
     100% {
-        -webkit-transform: rotate(360deg);
+        transform: scale(1);
     }
 }
 
-@keyframes spin {
+@keyframes lds-ellipsis3 {
     0% {
-        transform: rotate(0deg);
+        transform: scale(1);
     }
     100% {
-        transform: rotate(360deg);
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(24px, 0);
     }
 }
 
 .page-loading {
-    height: calc(100% - 41px);
+    height: calc(100% - 45px);
     margin-top: 40px;
     width: 100%;
     position: absolute;
@@ -211,10 +261,10 @@ body, html {
 
 
 .canvas-section {
-    height: calc(100vh - 35px);
+    height: calc(100vh - 40px);
 }
 
 .canvas-right-section {
-    height: calc(100vh - 35px);
+    height: calc(100vh - 40px);
     background: #efefef;
 }
