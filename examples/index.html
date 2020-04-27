@@ -13,7 +13,7 @@
 <script src="http://localhost:8081/dist/graph.js"></script>
 <script>
     $(document).ready(function () {
-        let gremlin_url = "ws://127.0.0.1:8182/gremlin";
+        let gremlin_url = "ws://192.168.0.10:8182/gremlin";
         let canvas_selector = "#graph-ui";
         let graph = new InvanaKnowledgeGraphUI(gremlin_url, canvas_selector)
         graph.start();
