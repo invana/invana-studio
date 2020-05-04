@@ -19,8 +19,10 @@ export default class GraphViewer extends React.Component {
             "links": [],
             "freshQuery": true,
             "gremlinQuery": "",
+
             "isConnected2Server": "",
-            "statusMessage": ""
+            "statusMessage": "",
+            "errorMessage": ""
         };
     }
 
@@ -105,39 +107,54 @@ export default class GraphViewer extends React.Component {
         let response = JSON.parse(event.data);
 
         console.log("onmessage received", response);
-        let result = _this.gremlin_serializer.process(response);
-        let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
+
+        if (response.status.code === 200) {
+            _this.updateStatusMessage("Query Successfully Responded.");
+            _this.setState({
+                "errorMessage": null
+            })
+            let result = _this.gremlin_serializer.process(response);
+            let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
 
 
-        // use the data from current query only as this is a fresh query.
-        let existingNodes = _[0];
-        let existingLinks = _[1];
+            // use the data from current query only as this is a fresh query.
+            let existingNodes = _[0];
+            let existingLinks = _[1];
 
 
-        if (this.state.freshQuery === false) {
-            // extend the graph if this is not fresh query.
+            if (this.state.freshQuery === false) {
+                // extend the graph if this is not fresh query.
 
-            existingNodes = _this.state.nodes;
-            existingLinks = _this.state.links;
+                existingNodes = _this.state.nodes;
+                existingLinks = _this.state.links;
 
-            _[0].forEach(function (d) {
-                let is_exist = _this.checkIfNodeAlreadyExist(d, existingNodes);
-                if (!is_exist) {
-                    existingNodes.push(d);
-                }
+                _[0].forEach(function (d) {
+                    let is_exist = _this.checkIfNodeAlreadyExist(d, existingNodes);
+                    if (!is_exist) {
+                        existingNodes.push(d);
+                    }
+                });
+
+                _[1].forEach(function (d) {
+                    let is_exist = _this.checkIfEdgeAlreadyExist(d, existingLinks);
+                    if (!is_exist) {
+                        existingLinks.push(d);
+                    }
+                });
+            }
+            _this.setState({
+                nodes: existingNodes,
+                links: existingLinks
             });
 
-            _[1].forEach(function (d) {
-                let is_exist = _this.checkIfEdgeAlreadyExist(d, existingLinks);
-                if (!is_exist) {
-                    existingLinks.push(d);
-                }
-            });
+        } else {
+
+            _this.setState({
+                "errorMessage": JSON.stringify(response,),
+                "statusMessage": "Query Successfully Responded." +
+                    " But returned non 200 status[" + response.status.code + "]"
+            })
         }
-        _this.setState({
-            nodes: existingNodes,
-            links: existingLinks
-        });
 
 
     }
@@ -214,7 +231,7 @@ export default class GraphViewer extends React.Component {
 
         this.ws.onmessage = function (event) {
             _this.processGremlinResponseEvent(event);
-            _this.updateStatusMessage("Query Successfully Responded.");
+            // _this.updateStatusMessage("Query Successfully Responded.");
 
         };
 
@@ -271,8 +288,11 @@ export default class GraphViewer extends React.Component {
 
 
                 <NotificationDiv/>
-                <ConnectionStatus statusMessage={this.state.statusMessage}
-                                  isConnected2Server={this.state.isConnected2Server}/>
+                <ConnectionStatus
+                    statusMessage={this.state.statusMessage}
+                    isConnected2Server={this.state.isConnected2Server}
+                    errorMessage={this.state.errorMessage}
+                />
                 <CopyRightInfo/>
 
             </div>

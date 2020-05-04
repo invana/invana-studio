@@ -43,8 +43,18 @@ export class ConnectionStatus extends React.Component {
         this.startRenderingConnectionStatus();
 
         console.log("=================== Rendering the Viewer ===================");
+
+
+
         return (
-            <div id="connection-status"><span>{this.props.statusMessage}</span></div>
+            <div id="connection-status">
+                <span>{this.props.statusMessage}</span>
+                { this.props.errorMessage ? (
+                    <div id={"errorMessage"}>{this.props.errorMessage}</div>
+                ) : (
+                    <span></span>
+                )}
+            </div>
         )
     }
 }

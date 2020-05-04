@@ -82,3 +82,13 @@ div#canvas-stats {
     display: inline-block;
     border-radius: 50%;
 }
+
+#errorMessage {
+    padding: 10px;
+    background: #f5deb3;
+    line-height: 1.3rem;
+    display: block;
+    height: 300px;
+    font-size: 12px;
+    overflow-y: scroll;
+}
