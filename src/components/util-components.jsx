@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import * as d3 from "d3";
-import {GREMLIN_SERVER_URL, uuidv4} from "../config";
+import React from 'react';
+
 
 export default function CanvasStatsCanvas(props) {
     return <div id={"canvas-stats"}>{props.nodes_count} nodes; {props.links_count} edges;</div>;
@@ -14,8 +13,40 @@ export function NotificationDiv(props) {
     return <div id="notifications-div"></div>;
 }
 
-export function ConnectionStatus(props) {
-    return <div id="connection-status"><span>{props.statusMessage}</span></div>;
+
+export class ConnectionStatus extends React.Component {
+
+
+    startRenderingConnectionStatus() {
+        console.log("======isConnected2Server, ", this.props);
+        let connectionElement = document.querySelector("#connection-status span");
+
+        if (connectionElement) {
+            if (this.props.isConnected2Server === true) {
+                connectionElement.className = "server-connected";
+                // connectionElement.innerHTML = this.state.statusMessage;
+                connectionElement.title = "Connected";
+            } else if (this.props.isConnected2Server === false) {
+                connectionElement.className = "server-not-connected";
+                // connectionElement.innerHTML = this.state.statusMessage;
+                connectionElement.title = "Unable to Connect";
+            } else {
+                connectionElement.className = "";
+                // connectionElement.innerHTML = this.state.statusMessage;
+                connectionElement.title = "";
+            }
+        }
+
+    }
+
+    render() {
+        this.startRenderingConnectionStatus();
+
+        console.log("=================== Rendering the Viewer ===================");
+        return (
+            <div id="connection-status"><span>{this.props.statusMessage}</span></div>
+        )
+    }
 }
 
 

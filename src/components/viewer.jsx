@@ -4,12 +4,12 @@ import './viewer.css';
 import GremlinResponseSerializers from './gremlin-serializer';
 import GraphCanvas from './canvas';
 import {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
-import {GremlinConnector} from "./gremlin-connector";
 import {GREMLIN_SERVER_URL, uuidv4} from "../config";
 
 export default class GraphViewer extends React.Component {
 
     gremlin_serializer = new GremlinResponseSerializers();
+    ws = this.createNewWebsocket();
 
     constructor() {
         // This component can load
@@ -17,23 +17,27 @@ export default class GraphViewer extends React.Component {
         this.state = {
             "nodes": [],
             "links": [],
+            "freshQuery": true,
             "gremlinQuery": "",
             "isConnected2Server": "",
-            "statusMessage": "",
-            "ws": null
+            "statusMessage": ""
         };
+    }
+
+    createNewWebsocket() {
+        return new WebSocket(GREMLIN_SERVER_URL);
     }
 
     updateQueryInput(query) {
         document.querySelector('input[type="text"]').value = query;
     }
 
-    queryGremlinServer(query, update_url) {
+    queryGremlinServer(query, freshQuery) {
         let _this = this;
-        if (typeof update_url === "undefined") {
-            update_url = false;
+        if (typeof freshQuery === "undefined") {
+            freshQuery = false;
         }
-        console.log("queryGremlinServer ::: update_url, query", update_url, query);
+        console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
 
         this.setState({
             "gremlinQuery": query
@@ -51,21 +55,26 @@ export default class GraphViewer extends React.Component {
         };
 
         let data = JSON.stringify(msg);
-        if (this.state.ws.readyState === 1) {
-            _this.state.ws.send(data, {mask: true});
+        if (this.ws.readyState === 1) {
+            _this.ws.send(data, {mask: true});
+
             _this.updateStatusMessage("Sending a Query")
         } else {
-            _this.state.ws.onopen = function () {
-                _this.state.ws.send(data, {mask: true});
+            _this.ws.onopen = function () {
+                _this.ws.send(data, {mask: true});
                 _this.updateStatusMessage("Sending a Query")
 
             };
         }
 
-        if (update_url === true) {
+        if (freshQuery === true) {
             this.addQueryToUrl(query);
             this.updateQueryInput(query);
+
         }
+        _this.setState({
+            "freshQuery": freshQuery
+        })
 
     }
 
@@ -91,7 +100,6 @@ export default class GraphViewer extends React.Component {
         return is_exist;
     }
 
-
     processGremlinResponseEvent(event) {
         let _this = this;
         let response = JSON.parse(event.data);
@@ -100,27 +108,38 @@ export default class GraphViewer extends React.Component {
         let result = _this.gremlin_serializer.process(response);
         let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
 
-        let existingNodes = _this.state.nodes;
-        let existingLinks = _this.state.links;
 
-        _[0].forEach(function (d) {
-            let is_exist = _this.checkIfNodeAlreadyExist(d, existingNodes);
-            if (!is_exist) {
-                existingNodes.push(d);
-            }
-        });
+        // use the data from current query only as this is a fresh query.
+        let existingNodes = _[0];
+        let existingLinks = _[1];
 
-        _[1].forEach(function (d) {
-            let is_exist = _this.checkIfEdgeAlreadyExist(d, existingLinks);
-            if (!is_exist) {
-                existingLinks.push(d);
-            }
-        });
 
+        if (this.state.freshQuery === false) {
+            // extend the graph if this is not fresh query.
+
+            existingNodes = _this.state.nodes;
+            existingLinks = _this.state.links;
+
+            _[0].forEach(function (d) {
+                let is_exist = _this.checkIfNodeAlreadyExist(d, existingNodes);
+                if (!is_exist) {
+                    existingNodes.push(d);
+                }
+            });
+
+            _[1].forEach(function (d) {
+                let is_exist = _this.checkIfEdgeAlreadyExist(d, existingLinks);
+                if (!is_exist) {
+                    existingLinks.push(d);
+                }
+            });
+        }
         _this.setState({
             nodes: existingNodes,
             links: existingLinks
         });
+
+
     }
 
     addQueryToUrl(query) {
@@ -138,24 +157,22 @@ export default class GraphViewer extends React.Component {
 
     onPageLoadInitQuery() {
         let query = new URLSearchParams(window.location.search).get("query");
-        if (this.state.ws) {
+        if (this.ws) {
             this.queryGremlinServer(query, true);
         }
 
     }
 
     componentDidMount() {
-        this.onPageLoadInitQuery();
-        this.setState({
-            "ws": this.setupGremlinServer()
-        })
 
+        this.setupGremlinServer()
+        this.onPageLoadInitQuery()
     }
 
     onFormSubmit(e) {
         e.preventDefault();
         let query = e.target.query.value;
-        if (query && this.state.ws) {
+        if (query && this.ws) {
             this.queryGremlinServer(query, true);
         }
     }
@@ -188,77 +205,53 @@ export default class GraphViewer extends React.Component {
          */
 
         let _this = this;
-        let ws = new WebSocket(GREMLIN_SERVER_URL);
 
-        ws.onopen = function (event) {
+        this.ws.onopen = function (event) {
             console.log("ws-opened");
             _this.setConnected2Gremlin()
         };
 
-        ws.onmessage = function (event) {
+        this.ws.onmessage = function (event) {
             _this.processGremlinResponseEvent(event);
             _this.updateStatusMessage("Query Successfully Responded.");
 
         };
 
         // An event listener to be called when an error occurs.
-        ws.onerror = function (err) {
+        this.ws.onerror = function (err) {
             console.log('Connection error using websocket', err);
             _this.updateStatusMessage("Failed with error" + JSON.stringify(err));
 
         };
 
         // An event listener to be called when the connection is closed.
-        ws.onclose = function (err) {
+        this.ws.onclose = function (err) {
             console.log('Connection error using websocket', err);
-            let retry_in = 10;
-
             _this.setDisconnectedFromGremlin();
 
-            let i = 1;
-            let timer = setInterval((function () {
+            // let retry_in = 10;
 
-                    _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (retry_in) + "s 'retry in' time...");
-                    i += 1;
 
-                    if (i > retry_in) {
-                        clearInterval(timer);
-                        _this.ws = _this.setupGremlinServer();
-
-                    }
-                }
-            ).bind(this), 1000); // retry in 5 seconds
+            // let i = 1;
+            // let timer = setInterval((function () {
+            //
+            //         _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (retry_in) + "s 'retry in' time...");
+            //         i += 1;
+            //
+            //         if (i > retry_in) {
+            //             clearInterval(timer);
+            //             _this.ws = _this.setupGremlinServer();
+            //
+            //         }
+            //     }
+            // ).bind(this), 1000); // retry in 5 seconds
 
 
         };
-        return ws;
-    }
-
-    startRenderingConnectionStatus() {
-        console.log("isConnected2Server, ", this.state);
-        let connectionElement = document.querySelector("#connection-status span");
-
-        if (connectionElement) {
-            if (this.state.isConnected2Server === true) {
-                connectionElement.className = "server-connected";
-                // connectionElement.innerHTML = this.state.statusMessage;
-                connectionElement.title = "Connected";
-            } else if (this.state.isConnected2Server === false) {
-                connectionElement.className = "server-not-connected";
-                // connectionElement.innerHTML = this.state.statusMessage;
-                connectionElement.title = "Unable to Connect";
-            } else {
-                connectionElement.className = "";
-                // connectionElement.innerHTML = this.state.statusMessage;
-                connectionElement.title = "";
-            }
-        }
-
     }
 
 
     render() {
-        this.startRenderingConnectionStatus();
 
         console.log("=================== Rendering the Viewer ===================");
         return (
@@ -271,12 +264,12 @@ export default class GraphViewer extends React.Component {
                 <GraphCanvas
                     nodes={this.state.nodes} links={this.state.links}
                     queryGremlinServer={this.queryGremlinServer.bind(this)}
-                    // updateStatusMessage={this.updateStatusMessage.bind(this)}
                 />
 
 
                 <NotificationDiv/>
-                <ConnectionStatus statusMessage={this.state.statusMessage}/>
+                <ConnectionStatus statusMessage={this.state.statusMessage}
+                                  isConnected2Server={this.state.isConnected2Server}/>
                 <CopyRightInfo/>
 
             </div>
