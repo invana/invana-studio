@@ -2,7 +2,9 @@ import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
-import CanvasStatsCanvas, {PropertiesCanvas, ConnectionStatus, LegendCanvas} from "./util-components";
+import CanvasStatsCanvas, {
+    PropertiesCanvas, LegendCanvas
+} from "./util-components";
 
 export default class GraphCanvas extends React.Component {
 
@@ -459,7 +461,7 @@ export default class GraphCanvas extends React.Component {
     }
 
     removeEverythingInCanvas() {
-        console.log("removeEverythingInCanvas" );
+        console.log("removeEverythingInCanvas");
         d3.select(".everything").selectAll("*").remove();
         this.state.canvas.selectAll("*").remove();
     }
@@ -644,9 +646,9 @@ export default class GraphCanvas extends React.Component {
             <div>
                 <svg className={"main-canvas"}></svg>
                 <CanvasStatsCanvas nodes_count={nodes_count} links_count={links_count}/>
-                <PropertiesCanvas/>
+                <PropertiesCanvas />
                 <LegendCanvas nodes={this.props.nodes} links={this.props.links}/>
-                <ConnectionStatus/>
+
             </div>
         )
     }

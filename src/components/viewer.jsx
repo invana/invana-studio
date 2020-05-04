@@ -4,6 +4,7 @@ import './viewer.css';
 import GremlinResponseSerializers from './gremlin-serializer';
 import GraphCanvas from './canvas';
 import {GREMLIN_SERVER_URL, uuidv4} from "../config";
+import {ConnectionStatus, CopyRightInfo, NotificationDiv} from "./util-components";
 
 
 export default class GraphViewer extends React.Component {
@@ -104,7 +105,7 @@ export default class GraphViewer extends React.Component {
                 }
             });
 
-             _[1].forEach(function (d) {
+            _[1].forEach(function (d) {
                 let is_exist = _this.checkIfEdgeAlreadyExist(d, existingLinks);
                 if (!is_exist) {
                     existingLinks.push(d);
@@ -162,6 +163,10 @@ export default class GraphViewer extends React.Component {
                 </div>
                 <GraphCanvas nodes={this.state.nodes} links={this.state.links}
                              queryGremlinServer={this.queryGremlinServer.bind(this)}/>
+
+                <ConnectionStatus/>
+                <NotificationDiv/>
+                <CopyRightInfo/>
             </div>
         )
     }

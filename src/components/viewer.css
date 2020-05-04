@@ -26,10 +26,12 @@ svg.main-canvas {
 
 
 div#canvas-stats {
+    position: fixed;
+    right: 10px;
+    height: 10px;
     bottom: 10px;
-    position: absolute;
-    left: 10px;
     font-size: 12px;
+    color: #999999;
 }
 
 #legend-div {
@@ -41,4 +43,16 @@ div#canvas-stats {
 
 #legend-div svg {
     height: calc(100vh - 40px);
+    font-size: 12px;
+}
+
+
+#copy-right-info-div {
+    position: fixed;
+    right: 10px;
+    height: 10px;
+    bottom: 33px;
+    opacity: 0.25;
+    font-size: 1.3rem;
+    font-weight: bolder;
 }

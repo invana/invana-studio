@@ -17,6 +17,10 @@ export function ConnectionStatus(props) {
     return <div id="connection-status"><span></span></div>;
 }
 
+export function CopyRightInfo(props) {
+    return <div id="copy-right-info-div">Invana Graph UI</div>;
+}
+
 
 export class LegendCanvas extends React.Component {
 
