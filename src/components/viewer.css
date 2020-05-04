@@ -6,16 +6,17 @@
 
 .search-div form input {
     padding: 9px 15px;
-    font-size: 14px;
+    font-size: 16px;
     border: none;
     width: calc(100% - 30px);
-    background: #444444;
-    color: #efefef;
+    background: #efefef;
+    color: #555555;
+    /*border-bottom: 1px solid #999999;*/
 }
 
 .search-div form input:hover,
 .search-div form input:focus {
-    background: #333333;
+    background: #efefef;
 }
 
 svg.main-canvas {

@@ -35,13 +35,11 @@ export default class GraphCanvas extends React.Component {
 
     }
 
-
     onNodeHoverIn(selectedNode) {
         this.highlightHoveredNodesAndEdges(selectedNode);
         // console.log("onNodeHoverIn", selectedNode);
         // this.showProperties(selectedNode);
     }
-
 
     getAdjacentNodeIds(nodeId) {
         let _this = this;
@@ -122,7 +120,6 @@ export default class GraphCanvas extends React.Component {
         this.state.simulation.alpha(0.3).restart();
 
     }
-
 
     onNodeClicked(thisnode, selectedNode) {
         console.log("onNodeClicked:: thisnode : selectedNode", thisnode, selectedNode);
@@ -241,7 +238,6 @@ export default class GraphCanvas extends React.Component {
 
         g.append("title")
             .text(function (d) {
-                console.log(d);
                 return d.data.title;
             });
 
@@ -265,8 +261,7 @@ export default class GraphCanvas extends React.Component {
 
     }
 
-
-    add_vertices(vertices) {
+    addVertices(vertices) {
 
         console.log("VertexUtils.add", vertices, this.state.canvas);
         let _this = this;
@@ -331,7 +326,6 @@ export default class GraphCanvas extends React.Component {
         // this.showProperties(selectedLink);
 
     }
-
 
     onLinkMoveOut(selectedLink) {
         let nodeElements = this.state.canvas.selectAll('.node');
@@ -449,7 +443,6 @@ export default class GraphCanvas extends React.Component {
     }
 
     setupCanvas() {
-        //
         let svg = d3.select(this.html_selector_id)
             .call(d3.zoom().on("zoom", function () {
                 svg.attr("transform", d3.event.transform);
@@ -463,15 +456,12 @@ export default class GraphCanvas extends React.Component {
             d3.select(".node-menu").remove();
         });
         return svg;
-
     }
 
     removeEverythingInCanvas() {
-        // this.legend_canvas.selectAll("*").remove();
-        // this.properties_canvas.selectAll("*").remove();
+        console.log("removeEverythingInCanvas" );
         d3.select(".everything").selectAll("*").remove();
         this.state.canvas.selectAll("*").remove();
-
     }
 
     setupMarker() {
@@ -495,41 +485,28 @@ export default class GraphCanvas extends React.Component {
     startFreshCanvas() {
         // removes everything from the board.
         console.log("=======startFreshCanvas this.state", this.state);
-
         if (this.state.canvas) {
             this.removeEverythingInCanvas();
             this.setupMarker();
         }
-
-
     }
 
     startRenderingGraph(nodes, links) {
         // add this data to the existing data
         console.log("^^^^^^^^startRenderingGraph^^^^^^^^^", this.state.canvas);
-
         let vertices = nodes;
         let edges = links;
-
-
         let _this = this;
-
         this.startFreshCanvas();
-        console.log("vertices " + vertices.length + "; edges " + edges.length);
-
         let _ = this.addEdges(edges);
-        console.log("&&&&&&&&&&&&&", _)
         let link = _[0];
         let edgepaths = _[1];
         let edgelabels = _[2];
 
-        let node = this.add_vertices(vertices);
-
+        let node = this.addVertices(vertices);
 
         node
             .on("dblclick", function (d) {
-                console.log("dblclick this, d", this, d);
-                // d3.select(this).classed("fixed", d.fixed = false);
                 d.fixed = false;
                 if (!d3.event.active) {
                     _this.state.simulation.alphaTarget(0.3).restart();
@@ -561,7 +538,6 @@ export default class GraphCanvas extends React.Component {
                 _this.state.simulation.alphaTarget(0);
             }
             _this.state.simulation.alpha(0.3).restart();
-
             // d.fx = null;
             // d.fy = null;
         }
@@ -619,12 +595,10 @@ export default class GraphCanvas extends React.Component {
         this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges);
         this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
 
-
-        // console.log("LINK_ID_TO_LINK", this.LINK_ID_TO_LINK);
-        // console.log("NODE_ID_TO_LINK_IDS", this.NODE_ID_TO_LINK_IDS);
     }
 
     get_LINK_ID_TO_LINK(edges) {
+        // TODO - revist the name
         let data = {};
         edges.forEach(edge => {
             data[edge.id] = edge;
@@ -633,6 +607,7 @@ export default class GraphCanvas extends React.Component {
     }
 
     get_NODE_ID_TO_LINK_IDS(edges) {
+        // TODO - revist the name
         let data = {};
         edges.forEach(edge => {
             data[edge.source.id] = data[edge.source.id] || new Set();
@@ -645,35 +620,20 @@ export default class GraphCanvas extends React.Component {
 
     componentDidMount() {
 
-
         let canvas = this.setupCanvas();
-        let _ = document.querySelector("body").getBoundingClientRect();
+        let _ = document.querySelector(this.html_selector_id).getBoundingClientRect();
         let simulation = this.setupSimulation(_.width, _.height);
-
 
         this.setState({
             canvas: canvas,
             color_schema: d3.scaleOrdinal(d3.schemeCategory10),
             simulation: simulation
-
         })
-        console.log("Canvas componentDidMount here");
-        console.log("GraphCanvas this.state", this.state);
-        console.log("GraphCanvas this.props", this.props);
-
-
-        // canvas_width and canvas_height should be assigned as
-        // soon as possible before any other methods being called.
-
-        // this.removeEverythingInCanvas();
-
-        console.log("this.state.canvas", this.state.canvas);
 
     }
 
     render() {
         console.log("<<<<<<<<< rendering GraphCanvas", this.props);
-
         let nodes_count = this.props.nodes.length;
         let links_count = this.props.links.length;
         if (this.state.canvas && this.state.simulation) {

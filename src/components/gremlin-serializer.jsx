@@ -104,7 +104,7 @@ export default class GremlinResponseSerializers {
     }
 
     convert_list_to_json(list_item) {
-        console.log("convert_list_to_json list_item", list_item);
+        // console.log("convert_list_to_json list_item", list_item);
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:List") {
                 throw "Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item);
@@ -115,7 +115,7 @@ export default class GremlinResponseSerializers {
         if (list_item && '@value' in list_item) {
             list_item['@value'].forEach(function (item) {
                 let data_list = _this.process_item(item);
-                console.log("data_list", data_list);
+                // console.log("data_list", data_list);
                 data_list.forEach(function (datum) {
                     items.push(datum);
                 });
@@ -126,7 +126,7 @@ export default class GremlinResponseSerializers {
     }
 
     convert_bulkset_to_json(list_item) {
-        console.log("Bulkset", list_item);
+        // console.log("Bulkset", list_item);
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:BulkSet") {
                 throw "Not a g:BulkSet error. check if this is of g:BulkSet type:: " + JSON.stringify(list_item);
@@ -137,7 +137,7 @@ export default class GremlinResponseSerializers {
         if (list_item && '@value' in list_item) {
             list_item['@value'].forEach(function (item) {
                 let data_list = _this.process_item(item);
-                console.log("====datalist", data_list, item);
+                // console.log("====datalist", data_list, item);
                 data_list.forEach(function (datum) {
                     items.push(datum);
                 });
@@ -202,7 +202,7 @@ export default class GremlinResponseSerializers {
     process_item(item) {
         // this is very useful to route to the respective renderers;
         let _this = this;
-        console.log("process item", typeof item, item);
+        // console.log("process item", typeof item, item);
         if (item && typeof item === "object" && '@type' in item) {
             if (item['@type'] === "g:Vertex") {
                 let _ = _this.convert_vertex_to_json(item);
@@ -211,19 +211,19 @@ export default class GremlinResponseSerializers {
                 let _ = _this.convert_edge_to_json(item);
                 return [_];
             } else if (item['@type'] === "g:List") {
-                console.log("=======items", item);
+                // console.log("=======items", item);
                 return _this.convert_list_to_json(item);
             } else if (item['@type'] === "g:Path") {
-                console.log("=======items", item);
+                // console.log("=======items", item);
                 return _this.convert_path_to_json(item);
             } else if (item['@type'] === "g:Set") {
-                console.log("=======items", item);
+                // console.log("=======items", item);
                 return _this.convert_set_to_json(item);
             } else if (item['@type'] === "g:BulkSet") {
-                console.log("=======items", item);
+                // console.log("=======items", item);
                 return _this.convert_bulkset_to_json(item);
             } else if (item['@type'] === "g:Map") {
-                console.log("=======items", item);
+                // console.log("=======items", item);
                 return _this.convert_map_to_json(item);
             }else{
                 return [];

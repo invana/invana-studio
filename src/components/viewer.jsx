@@ -91,14 +91,11 @@ export default class GraphViewer extends React.Component {
         this.ws.onmessage = function (event) {
             let response = JSON.parse(event.data);
             console.log("onmessage received", response);
-
-
             let result = _this.gremlin_serializer.process(response);
             let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
 
             let existingNodes = _this.state.nodes;
             let existingLinks = _this.state.links;
-
 
             _[0].forEach(function (d) {
                 let is_exist = _this.checkIfNodeAlreadyExist(d, existingNodes);
@@ -107,15 +104,12 @@ export default class GraphViewer extends React.Component {
                 }
             });
 
-
              _[1].forEach(function (d) {
                 let is_exist = _this.checkIfEdgeAlreadyExist(d, existingLinks);
                 if (!is_exist) {
                     existingLinks.push(d);
                 }
-
             });
-
 
             _this.setState({
                 nodes: existingNodes,
@@ -159,7 +153,6 @@ export default class GraphViewer extends React.Component {
 
     render() {
         console.log("=================== Rendering the Viewer ===================");
-        console.log("this.state", this.state);
         return (
             <div>
                 <div className="search-div">
