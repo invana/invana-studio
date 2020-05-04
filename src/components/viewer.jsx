@@ -209,6 +209,7 @@ export default class GraphViewer extends React.Component {
         this.ws.onopen = function (event) {
             console.log("ws-opened");
             _this.setConnected2Gremlin()
+
         };
 
         this.ws.onmessage = function (event) {
@@ -229,22 +230,24 @@ export default class GraphViewer extends React.Component {
             console.log('Connection error using websocket', err);
             _this.setDisconnectedFromGremlin();
 
-            // let retry_in = 10;
+            let retry_in = 10;
 
 
-            // let i = 1;
-            // let timer = setInterval((function () {
-            //
-            //         _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (retry_in) + "s 'retry in' time...");
-            //         i += 1;
-            //
-            //         if (i > retry_in) {
-            //             clearInterval(timer);
-            //             _this.ws = _this.setupGremlinServer();
-            //
-            //         }
-            //     }
-            // ).bind(this), 1000); // retry in 5 seconds
+            let i = 1;
+            let timer = setInterval((function () {
+
+                    _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (retry_in) + "s 'retry in' time...");
+                    i += 1;
+
+                    if (i > retry_in) {
+                        clearInterval(timer);
+
+                        _this.ws = _this.createNewWebsocket();
+                        _this.setupGremlinServer();
+
+                    }
+                }
+            ).bind(this), 1000); // retry in 5 seconds
 
 
         };
