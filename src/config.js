@@ -1,4 +1,3 @@
-export const INVANA_GRAPH_API_HOST = "http://127.0.0.1:5001";
 export const GREMLIN_SERVER_URL = "ws://127.0.0.1:8182/gremlin";
 
 

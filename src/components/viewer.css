@@ -6,7 +6,7 @@
 
 .search-div form input {
     padding: 9px 15px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     width: calc(100% - 30px);
     background: #efefef;
@@ -55,4 +55,30 @@ div#canvas-stats {
     opacity: 0.25;
     font-size: 1.3rem;
     font-weight: bolder;
+
+}
+
+#connection-status {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+    font-size: 12px;
+}
+
+#connection-status .server-connected {
+
+    color: green;
+    font-size: 10px;
+
+    display: inline-block;
+    border-radius: 50%;
+}
+
+#connection-status .server-not-connected {
+    /*width: 10px;*/
+    /*height: 10px;*/
+    color: red;
+    font-size: 10px;
+    display: inline-block;
+    border-radius: 50%;
 }

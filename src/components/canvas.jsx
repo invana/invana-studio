@@ -3,8 +3,9 @@ import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
 import CanvasStatsCanvas, {
-    PropertiesCanvas, LegendCanvas
+    PropertiesCanvas
 } from "./util-components";
+import {LegendCanvas} from "./legend";
 
 export default class GraphCanvas extends React.Component {
 
@@ -597,6 +598,7 @@ export default class GraphCanvas extends React.Component {
         this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges);
         this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
 
+
     }
 
     get_LINK_ID_TO_LINK(edges) {
@@ -646,7 +648,7 @@ export default class GraphCanvas extends React.Component {
             <div>
                 <svg className={"main-canvas"}></svg>
                 <CanvasStatsCanvas nodes_count={nodes_count} links_count={links_count}/>
-                <PropertiesCanvas />
+                <PropertiesCanvas/>
                 <LegendCanvas nodes={this.props.nodes} links={this.props.links}/>
 
             </div>
