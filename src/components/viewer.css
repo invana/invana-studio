@@ -1,0 +1,43 @@
+
+.search-div {
+    height: 35px;
+    /*background: red;*/
+}
+
+.search-div form input {
+    padding: 9px 15px;
+    font-size: 14px;
+    border: none;
+    width: calc(100% - 30px);
+    background: #444444;
+    color: #efefef;
+}
+
+.search-div form input:hover,
+.search-div form input:focus {
+    background: #333333;
+}
+
+svg.main-canvas {
+    width: 100%;
+    height: calc(100vh - 38px);
+}
+
+
+div#canvas-stats {
+    bottom: 10px;
+    position: absolute;
+    left: 10px;
+    font-size: 12px;
+}
+
+#legend-div {
+    position: fixed;
+    left: 0;
+    top: 40px;
+    z-index: -10;
+}
+
+#legend-div svg {
+    height: calc(100vh - 40px);
+}
