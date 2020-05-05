@@ -5,9 +5,6 @@ export default function CanvasStatsCanvas(props) {
     return <div id={"canvas-stats"}>{props.nodes_count} nodes; {props.links_count} edges;</div>;
 }
 
-export function PropertiesCanvas(props) {
-    return <pre id="properties-div"></pre>;
-}
 
 export function NotificationDiv(props) {
     return <div id="notifications-div"></div>;
@@ -15,7 +12,6 @@ export function NotificationDiv(props) {
 
 
 export class ConnectionStatus extends React.Component {
-
 
     startRenderingConnectionStatus() {
         console.log("======isConnected2Server, ", this.props);
@@ -45,11 +41,10 @@ export class ConnectionStatus extends React.Component {
         console.log("=================== Rendering the Viewer ===================");
 
 
-
         return (
             <div id="connection-status">
                 <span>{this.props.statusMessage}</span>
-                { this.props.errorMessage ? (
+                {this.props.errorMessage ? (
                     <div id={"errorMessage"}>{this.props.errorMessage}</div>
                 ) : (
                     <span></span>

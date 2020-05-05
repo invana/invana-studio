@@ -2,9 +2,8 @@ import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
-import CanvasStatsCanvas, {
-    PropertiesCanvas
-} from "./util-components";
+import CanvasStatsCanvas from "./util-components";
+import {PropertiesCanvas} from "./properties";
 import {LegendCanvas} from "./legend";
 
 export default class GraphCanvas extends React.Component {
@@ -18,7 +17,9 @@ export default class GraphCanvas extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            canvas: null
+            canvas: null,
+            properties: {},
+            showProperties: false
         }
     }
 
@@ -34,14 +35,29 @@ export default class GraphCanvas extends React.Component {
 
     onNodeHoverOut(selectedNode) {
         this.resetNodeHighlight(selectedNode);
-        // this.hideProperties(); TODO - revist this
+        this.hideProperties(); //TODO - revist this
 
     }
 
     onNodeHoverIn(selectedNode) {
         this.highlightHoveredNodesAndEdges(selectedNode);
         // console.log("onNodeHoverIn", selectedNode);
-        // this.showProperties(selectedNode);
+        this.showProperties(selectedNode);
+    }
+
+    showProperties(properties) {
+        this.setState({
+            "properties": properties,
+            "showProperties": true
+        })
+    }
+
+    hideProperties() {
+        this.setState({
+            "properties": {},
+            "showProperties": false
+
+        })
     }
 
     getAdjacentNodeIds(nodeId) {
@@ -326,7 +342,7 @@ export default class GraphCanvas extends React.Component {
 
 
         d3.select('#link-' + selectedLink.id).style('stroke', "black");
-        // this.showProperties(selectedLink);
+        this.showProperties(selectedLink);
 
     }
 
@@ -339,7 +355,7 @@ export default class GraphCanvas extends React.Component {
 
 
         d3.select('#link-' + selectedLink.id).style('stroke', "#666");
-        // this.hideProperties();
+        this.hideProperties();
     }
 
     addEdges(edges) {
@@ -648,7 +664,7 @@ export default class GraphCanvas extends React.Component {
             <div>
                 <svg className={"main-canvas"}></svg>
                 <CanvasStatsCanvas nodes_count={nodes_count} links_count={links_count}/>
-                <PropertiesCanvas/>
+                <PropertiesCanvas properties={this.state.properties}/>
                 <LegendCanvas nodes={this.props.nodes} links={this.props.links}/>
 
             </div>

@@ -98,3 +98,21 @@ div#canvas-stats {
     font-size: 12px;
     overflow-y: scroll;
 }
+
+#properties-div {
+    /*background: rgba(105, 105, 105, 0.88);*/
+    height: calc(100vh - 55px);
+    width: 300px;
+    position: fixed;
+    right: 0;
+    top: 23px;
+    padding: 10px 10px;
+    z-index: 10000;
+    display: none;
+    color: #555555;
+    font-size: 12px;
+    line-height: 1.2rem;
+    word-wrap: break-word;
+    font-family: Courier;
+
+}
