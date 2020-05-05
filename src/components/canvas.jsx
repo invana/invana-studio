@@ -23,7 +23,7 @@ export default class GraphCanvas extends React.Component {
             properties: {},
             showProperties: false,
             nodes: [],
-            links:[]
+            links: []
         }
     }
 
@@ -50,10 +50,10 @@ export default class GraphCanvas extends React.Component {
     }
 
     showProperties(properties) {
-        // this.setState({
-        //     "properties": properties,
-        //     "showProperties": true
-        // })
+        this.setState({
+            "properties": properties,
+            "showProperties": true
+        })
     }
 
     hideProperties() {
@@ -487,21 +487,25 @@ export default class GraphCanvas extends React.Component {
     }
 
     setupMarker() {
-        this.state.canvas.append('defs').append('marker')
-            .attrs({
-                'id': 'arrowhead',
-                'viewBox': '-0 -5 10 10',
-                'refX': 23,
-                'refY': 0,
-                'orient': 'auto',
-                'markerWidth': 7,
-                'markerHeight': 7,
-                'xoverflow': 'visible'
-            })
-            .append('svg:path')
-            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#666')
-            .style('stroke', 'none');
+
+        if (document.querySelectorAll('#arrowhead').length === 0) {
+            this.state.canvas.append('defs').append('marker')
+                .attrs({
+                    'id': 'arrowhead',
+                    'viewBox': '-0 -5 10 10',
+                    'refX': 23,
+                    'refY': 0,
+                    'orient': 'auto',
+                    'markerWidth': 7,
+                    'markerHeight': 7,
+                    'xoverflow': 'visible'
+                })
+                .append('svg:path')
+                .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+                .attr('fill', '#666')
+                .style('stroke', 'none');
+        }
+
     }
 
     startFreshCanvas() {
@@ -515,17 +519,24 @@ export default class GraphCanvas extends React.Component {
 
     startRenderingGraph(nodes, links) {
         // add this data to the existing data
+        this.startFreshCanvas();
+
         console.log("^^^^^^^^startRenderingGraph^^^^^^^^^", this.state.canvas);
+
         let vertices = nodes;
         let edges = links;
         let _this = this;
-        this.startFreshCanvas();
+
         let _ = this.addEdges(edges);
         let link = _[0];
         let edgepaths = _[1];
         let edgelabels = _[2];
 
         let node = this.addVertices(vertices);
+
+
+        this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges);
+        this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
 
         node
             .on("dblclick", function (d) {
@@ -614,12 +625,7 @@ export default class GraphCanvas extends React.Component {
         }
 
 
-        this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges);
-        this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
-
-
     }
-
 
     get_LINK_ID_TO_LINK(edges) {
         // TODO - revist the name
@@ -658,30 +664,52 @@ export default class GraphCanvas extends React.Component {
 
     }
 
+    checkIfChanged(prev, current) {
+        return (prev !== current);
+
+    }
 
     componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.nodes !== prevProps.nodes || this.props.links !== prevProps.links) {
-            this.setState({
-                "links": this.props.links,
-                "nodes": this.props.nodes
-            })
+        // // Typical usage (don't forget to compare props):
+        // console.log("componentDidUpdate===== this.props", this.props,);
+        // console.log("componentDidUpdate===== prevProps", prevProps);
+        if (
+            this.checkIfChanged(this.props.nodes, prevProps.nodes) ||
+            this.checkIfChanged(this.props.links, prevProps.links)
+        ) {
+            console.log("========componentDidUpdate============updated")
+             this.startRenderingGraph(this.props.nodes, this.props.links)
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+
+        // if (this.props.nodes === nextProps.nodes && this.props.links === nextProps.links) {
+        //     console.log("shouldComponentUpdate ==== DONT reload")
+        //     return false; // DONT re-render if nodes and links are same.
+        // } else {
+        //     console.log("shouldComponentUpdate ==== reload")
+        //     if (this.state.canvas) {
+        //         this.startRenderingGraph(this.props.nodes, this.props.links)
+        //     }
+        //     return true;
+        // }
+            return true;
+
     }
 
     render() {
         console.log("<<<<<<<<< rendering GraphCanvas", this.state);
-
-        if (this.state.canvas && this.state.simulation) {
-            this.startRenderingGraph(this.state.nodes, this.state.links);
-        }
+        // if (this.canvas && this.simulation) {
+        //     this.startRenderingGraph(this.props.nodes, this.props.links);
+        // }
 
         return (
             <div>
                 <svg className={"main-canvas"}></svg>
-                <CanvasStatsCanvas nodes_count={this.state.nodes.length} links_count={this.state.links.length}/>
+                <CanvasStatsCanvas nodes_count={this.props.nodes.length} links_count={this.props.links.length}/>
                 <PropertiesCanvas properties={this.state.properties}/>
-                <LegendCanvas nodes={this.state.nodes} links={this.state.links}/>
+                <LegendCanvas nodes={this.props.nodes} links={this.props.links}/>
 
             </div>
         )
