@@ -2,9 +2,6 @@ import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
-import CanvasStatsCanvas from "./util-components";
-import {PropertiesCanvas} from "./properties";
-import {LegendCanvas} from "./legend";
 
 export default class GraphCanvas extends React.Component {
 
@@ -17,13 +14,8 @@ export default class GraphCanvas extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log("========props", props, this.props)
         this.state = {
             canvas: null,
-            properties: {},
-            showProperties: false,
-            nodes: [],
-            links: []
         }
     }
 
@@ -50,17 +42,17 @@ export default class GraphCanvas extends React.Component {
     }
 
     showProperties(properties) {
-        this.setState({
-            "properties": properties,
+        this.props.setSelectedData({
+            "selectedData": properties,
             "showProperties": true
         })
     }
 
     hideProperties() {
-        // this.setState({
-        //     "properties": {},
-        //     "showProperties": false
-        // })
+        this.props.setSelectedData({
+            "selectedData": {},
+            "showProperties": false
+        })
     }
 
     getAdjacentNodeIds(nodeId) {
@@ -657,9 +649,8 @@ export default class GraphCanvas extends React.Component {
         this.setState({
             canvas: canvas,
             color_schema: d3.scaleOrdinal(d3.schemeCategory10),
-            simulation: simulation,
-            properties: {},
-            showProperties: false,
+            simulation: simulation
+
         });
 
     }
@@ -673,28 +664,28 @@ export default class GraphCanvas extends React.Component {
         // // Typical usage (don't forget to compare props):
         // console.log("componentDidUpdate===== this.props", this.props,);
         // console.log("componentDidUpdate===== prevProps", prevProps);
-        if (
-            this.checkIfChanged(this.props.nodes, prevProps.nodes) ||
-            this.checkIfChanged(this.props.links, prevProps.links)
-        ) {
-            console.log("========componentDidUpdate============updated")
+        // if (
+        //     this.checkIfChanged(this.props.nodes, prevProps.nodes) ||
+        //     this.checkIfChanged(this.props.links, prevProps.links)
+        // ) {
              this.startRenderingGraph(this.props.nodes, this.props.links)
-        }
+        // }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
 
-        // if (this.props.nodes === nextProps.nodes && this.props.links === nextProps.links) {
-        //     console.log("shouldComponentUpdate ==== DONT reload")
-        //     return false; // DONT re-render if nodes and links are same.
-        // } else {
+        if (this.props.nodes.length === nextProps.nodes.length && this.props.links.length === nextProps.links.length) {
+            console.log("shouldComponentUpdate ==== DONT reload")
+            return false; // DONT re-render if nodes and links are same.
+        }
+        // else {
         //     console.log("shouldComponentUpdate ==== reload")
         //     if (this.state.canvas) {
         //         this.startRenderingGraph(this.props.nodes, this.props.links)
         //     }
         //     return true;
         // }
-            return true;
+        return true;
 
     }
 
@@ -705,13 +696,9 @@ export default class GraphCanvas extends React.Component {
         // }
 
         return (
-            <div>
-                <svg className={"main-canvas"}></svg>
-                <CanvasStatsCanvas nodes_count={this.props.nodes.length} links_count={this.props.links.length}/>
-                <PropertiesCanvas properties={this.state.properties}/>
-                <LegendCanvas nodes={this.props.nodes} links={this.props.links}/>
 
-            </div>
+                <svg className={"main-canvas"}></svg>
+
         )
     }
 }

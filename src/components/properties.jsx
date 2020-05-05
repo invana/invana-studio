@@ -5,7 +5,7 @@ export class PropertiesCanvas extends React.Component {
 
     getCleanedData() {
         // removes position attributes etc.
-        let data = Object.assign({}, this.props.properties);
+        let data = Object.assign({}, this.props.selectedData);
 
         if (data.type) {
             let properties = data.properties;

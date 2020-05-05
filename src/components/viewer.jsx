@@ -3,8 +3,11 @@ import './viewer.css';
 
 import GremlinResponseSerializers from './gremlin-serializer';
 import GraphCanvas from './canvas';
-import {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
+import CanvasStatsCanvas, {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
 import {GREMLIN_SERVER_URL, uuidv4} from "../config";
+import {PropertiesCanvas} from "./properties";
+import {LegendCanvas} from "./legend";
+
 
 export default class GraphViewer extends React.Component {
 
@@ -22,7 +25,11 @@ export default class GraphViewer extends React.Component {
 
             "isConnected2Server": "",
             "statusMessage": "",
-            "errorMessage": ""
+            "errorMessage": "",
+
+
+            "showProperties": false,
+            "selectedData": {}
         };
     }
 
@@ -108,7 +115,7 @@ export default class GraphViewer extends React.Component {
 
         console.log("onmessage received", response);
 
-        if (response.status.code === 200) {
+        if (response.status.code >= 200 || response.stat.code  < 300) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setState({
                 "errorMessage": null
@@ -214,6 +221,10 @@ export default class GraphViewer extends React.Component {
         })
     }
 
+    setSelectedData(data){
+        this.setState({...data})
+    }
+
     setupGremlinServer() {
         /*
         Usage:
@@ -284,8 +295,12 @@ export default class GraphViewer extends React.Component {
                 <GraphCanvas
                     nodes={this.state.nodes} links={this.state.links}
                     queryGremlinServer={this.queryGremlinServer.bind(this)}
+                    setSelectedData={this.setSelectedData.bind(this)}
                 />
 
+                <CanvasStatsCanvas nodes_count={this.state.nodes.length} links_count={this.state.links.length}/>
+                <PropertiesCanvas selectedData={this.state.selectedData} showProperties={this.state.showProperties}/>
+                <LegendCanvas nodes={this.state.nodes} links={this.state.links}/>
 
                 <NotificationDiv/>
                 <ConnectionStatus

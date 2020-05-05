@@ -23,6 +23,7 @@
 svg.main-canvas {
     width: 100%;
     height: calc(100vh - 38px);
+    background: #3b3e4c;
 }
 
 
@@ -63,6 +64,7 @@ div#canvas-stats {
     bottom: 5px;
     left: 0;
     font-size: 12px;
+    color: #efefef;
 }
 
 #connection-status span {
@@ -72,7 +74,7 @@ div#canvas-stats {
 
 #connection-status .server-connected {
 
-    color: green;
+    color: #9ac59a;
     font-size: 10px;
 
     display: inline-block;
@@ -82,7 +84,7 @@ div#canvas-stats {
 #connection-status .server-not-connected {
     /*width: 10px;*/
     /*height: 10px;*/
-    color: red;
+    color: #ce7c7c;
     font-size: 10px;
     display: inline-block;
     border-radius: 50%;
@@ -108,12 +110,14 @@ div#canvas-stats {
     top: 36px;
     z-index: 10000;
     display: none;
-    color: #555555;
+    /*color: #555555;*/
     font-size: 12px;
     line-height: 1.2rem;
     word-wrap: break-word;
     font-family: Courier;
     border-left: 1px solid #efefef;
+        background: #23252d;
+    color: #d2d2d2;
 
 }
 
