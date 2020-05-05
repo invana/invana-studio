@@ -5,19 +5,18 @@
 }
 
 .search-div form input {
-    padding: 9px 15px;
-    font-size: 14px;
+padding: 9px 15px;
+    font-size: 13px;
     border: none;
     width: calc(100% - 30px);
-    background: #e5e5e5;
-    color: #353535;
-
-    /*border-bottom: 1px solid #999999;*/
+    background: #1f222f;
+    color: #efefef;
+    font-family: Courier;
 }
 
 .search-div form input:hover,
 .search-div form input:focus {
-    background: #e5e5e5;
+    background: #1f222f;
 }
 
 svg.main-canvas {
@@ -56,6 +55,7 @@ div#canvas-stats {
     opacity: 0.25;
     font-size: 1.3rem;
     font-weight: 600;
+    color: #efefef;
 
 }
 

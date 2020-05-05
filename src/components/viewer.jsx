@@ -7,12 +7,14 @@ import CanvasStatsCanvas, {CopyRightInfo, NotificationDiv, ConnectionStatus} fro
 import {GREMLIN_SERVER_URL, uuidv4} from "../config";
 import {PropertiesCanvas} from "./properties";
 import {LegendCanvas} from "./legend";
+import ErrorBoundary from "./error-boundary";
 
 
 export default class GraphViewer extends React.Component {
 
     gremlin_serializer = new GremlinResponseSerializers();
     ws = this.createNewWebsocket();
+    isDataChanged = true;
 
     constructor() {
         // This component can load
@@ -88,26 +90,44 @@ export default class GraphViewer extends React.Component {
     }
 
     checkIfNodeAlreadyExist(node, existingNodes) {
-        var is_exist = false;
         existingNodes.forEach(function (d) {
             if (d.id === node.id) {
-                is_exist = true;
-                return is_exist;
+                return true;
             }
         });
-        return is_exist;
+        return false;
     }
 
     checkIfEdgeAlreadyExist(node, existing_links) {
-        var is_exist = false;
         existing_links.forEach(function (d) {
             if (d.id === node.id) {
-                is_exist = true;
-                return is_exist;
+                return true;
             }
         });
-        return is_exist;
+        return false;
     }
+
+    get_LINK_ID_TO_LINK(edges) {
+        // TODO - revist the name
+        let data = {};
+        edges.forEach(edge => {
+            data[edge.id] = edge;
+        });
+        return data;
+    }
+
+    get_NODE_ID_TO_LINK_IDS(edges) {
+        // TODO - revist the name
+        let data = {};
+        edges.forEach(edge => {
+            data[edge.source.id || edge.source] = data[edge.source.id || edge.source] || new Set();
+            data[edge.target.id || edge.target] = data[edge.target.id || edge.target] || new Set();
+            data[edge.source.id || edge.source].add(edge.id);
+            data[edge.target.id || edge.target].add(edge.id);
+        });
+        return data;
+    }
+
 
     processGremlinResponseEvent(event) {
         let _this = this;
@@ -115,7 +135,7 @@ export default class GraphViewer extends React.Component {
 
         console.log("onmessage received", response);
 
-        if (response.status.code >= 200 || response.stat.code  < 300) {
+        if (response.status.code === 200 || response.stat.code === 206) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setState({
                 "errorMessage": null
@@ -135,23 +155,28 @@ export default class GraphViewer extends React.Component {
                 existingNodes = _this.state.nodes;
                 existingLinks = _this.state.links;
 
+
+                console.log("==================existingNodes", existingNodes)
+
                 _[0].forEach(function (d) {
-                    let is_exist = _this.checkIfNodeAlreadyExist(d, existingNodes);
-                    if (!is_exist) {
+                    if (! _this.checkIfNodeAlreadyExist(d, existingNodes)) {
                         existingNodes.push(d);
                     }
                 });
 
                 _[1].forEach(function (d) {
-                    let is_exist = _this.checkIfEdgeAlreadyExist(d, existingLinks);
-                    if (!is_exist) {
+                    if (!_this.checkIfEdgeAlreadyExist(d, existingLinks)) {
                         existingLinks.push(d);
                     }
                 });
             }
+
+            _this.isDataChanged = true;
             _this.setState({
                 nodes: existingNodes,
-                links: existingLinks
+                links: existingLinks,
+                NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(existingLinks),
+                LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(existingLinks)
             });
 
         } else {
@@ -164,6 +189,10 @@ export default class GraphViewer extends React.Component {
         }
 
 
+    }
+
+    componentDidUpdate(prevProps) {
+        this.isDataChanged = false;
     }
 
     addQueryToUrl(query) {
@@ -221,7 +250,7 @@ export default class GraphViewer extends React.Component {
         })
     }
 
-    setSelectedData(data){
+    setSelectedData(data) {
         this.setState({...data})
     }
 
@@ -285,6 +314,7 @@ export default class GraphViewer extends React.Component {
     render() {
 
         console.log("=================== Rendering the Viewer ===================");
+        console.log("======= viewer this.state", this.state);
         return (
             <div>
                 <div className="search-div">
@@ -292,11 +322,18 @@ export default class GraphViewer extends React.Component {
                         <input type="text" name="query" placeholder="g.V().limit(5)"/>
                     </form>
                 </div>
-                <GraphCanvas
-                    nodes={this.state.nodes} links={this.state.links}
-                    queryGremlinServer={this.queryGremlinServer.bind(this)}
-                    setSelectedData={this.setSelectedData.bind(this)}
-                />
+                <ErrorBoundary>
+
+                    <GraphCanvas
+                        nodes={this.state.nodes}
+                        links={this.state.links}
+                        NODE_ID_TO_LINK_IDS={this.state.NODE_ID_TO_LINK_IDS}
+                        LINK_ID_TO_LINK={this.state.LINK_ID_TO_LINK}
+                        queryGremlinServer={this.queryGremlinServer.bind(this)}
+                        setSelectedData={this.setSelectedData.bind(this)}
+                        isDataChanged={this.isDataChanged}
+                    />
+                </ErrorBoundary>
 
                 <CanvasStatsCanvas nodes_count={this.state.nodes.length} links_count={this.state.links.length}/>
                 <PropertiesCanvas selectedData={this.state.selectedData} showProperties={this.state.showProperties}/>

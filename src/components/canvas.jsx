@@ -6,8 +6,8 @@ import GraphControls from "./controls-handler";
 export default class GraphCanvas extends React.Component {
 
     html_selector_id = ".main-canvas";
-    NODE_ID_TO_LINK_IDS = {};
-    LINK_ID_TO_LINK = {};
+    // NODE_ID_TO_LINK_IDS = {};
+    // LINK_ID_TO_LINK = {};
     controls = new GraphControls();
 
 
@@ -20,9 +20,9 @@ export default class GraphCanvas extends React.Component {
     }
 
     resetNodeHighlight(selectedNode) {
-        let nodeElements = this.state.canvas.selectAll('.node');
-        let linkElements = this.state.canvas.selectAll('.link');
-        let linkLabels = this.state.canvas.selectAll('.edgelabel');
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
+        let linkLabels = this.canvas.selectAll('.edgelabel');
 
         nodeElements.style('opacity', '1');
         linkElements.style('opacity', '1');
@@ -42,25 +42,25 @@ export default class GraphCanvas extends React.Component {
     }
 
     showProperties(properties) {
-        this.props.setSelectedData({
-            "selectedData": properties,
-            "showProperties": true
-        })
+        // this.props.setSelectedData({
+        //     "selectedData": properties,
+        //     "showProperties": true
+        // })
     }
 
     hideProperties() {
-        this.props.setSelectedData({
-            "selectedData": {},
-            "showProperties": false
-        })
+        // this.props.setSelectedData({
+        //     "selectedData": {},
+        //     "showProperties": false
+        // })
     }
 
     getAdjacentNodeIds(nodeId) {
         let _this = this;
-        let connectedLinkIds = this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
+        let connectedLinkIds = this.props.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
         let data = new Set([nodeId]);
         connectedLinkIds.forEach(linkId => {
-            let link = _this.LINK_ID_TO_LINK[linkId];
+            let link = _this.props.LINK_ID_TO_LINK[linkId];
             data.add(link.source.id);
             data.add(link.target.id);
         });
@@ -69,9 +69,9 @@ export default class GraphCanvas extends React.Component {
 
     highlightHoveredNodesAndEdges(selectedNode) {
         // this is performance intensive operation
-        let nodeElements = this.state.canvas.selectAll('.node');
-        let linkElements = this.state.canvas.selectAll('.link');
-        let linkLabels = this.state.canvas.selectAll('.edgelabel');
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
+        let linkLabels = this.canvas.selectAll('.edgelabel');
 
 
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
@@ -90,7 +90,7 @@ export default class GraphCanvas extends React.Component {
     }
 
     getAdjacentLinkIds(nodeId) {
-        return this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
+        return this.props.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
     }
 
     expandInLinksAndNodes(selectedNode) {
@@ -131,7 +131,7 @@ export default class GraphCanvas extends React.Component {
         selectedNode.fixed = false;
         selectedNode.fx = null;
         selectedNode.fy = null;
-        this.state.simulation.alpha(0.3).restart();
+        this.simulation.alpha(0.3).restart();
 
     }
 
@@ -277,9 +277,9 @@ export default class GraphCanvas extends React.Component {
 
     addVertices(vertices) {
 
-        console.log("VertexUtils.add", vertices, this.state.canvas);
+        console.log("VertexUtils.add", vertices, this.canvas);
         let _this = this;
-        let node = this.state.canvas.selectAll(".node")
+        let node = this.canvas.selectAll(".node")
             .data(vertices)
             .enter()
             .append("g")
@@ -292,7 +292,7 @@ export default class GraphCanvas extends React.Component {
         node.append("circle")
             .attr("r", 20)
             .style("fill", function (d, i) {
-                return _this.state.color_schema(d.label);
+                return _this.color_schema(d.label);
             })
             .style("cursor", "pointer")
             .on("mouseover", function (d) {
@@ -321,14 +321,14 @@ export default class GraphCanvas extends React.Component {
 
     onLinkMoveHover(selectedLink) {
         console.log("onLinkMoveHover", selectedLink);
-        let nodeElements = this.state.canvas.selectAll('.node');
-        let linkElements = this.state.canvas.selectAll('.link');
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
 
         linkElements.style('opacity', function (linkElement) {
             return selectedLink.id === linkElement.id ? '1' : '0.1';
         });
 
-        let linkData = this.LINK_ID_TO_LINK[selectedLink.id];
+        let linkData = this.props.LINK_ID_TO_LINK[selectedLink.id];
         let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
 
         nodeElements.style('opacity', function (nodeElement) {
@@ -342,8 +342,8 @@ export default class GraphCanvas extends React.Component {
     }
 
     onLinkMoveOut(selectedLink) {
-        let nodeElements = this.state.canvas.selectAll('.node');
-        let linkElements = this.state.canvas.selectAll('.link');
+        let nodeElements = this.canvas.selectAll('.node');
+        let linkElements = this.canvas.selectAll('.link');
 
         nodeElements.style('opacity', '1');
         linkElements.style('opacity', '1');
@@ -356,7 +356,7 @@ export default class GraphCanvas extends React.Component {
     addEdges(edges) {
 
         let _this = this
-        let link = this.state.canvas.selectAll(".link")
+        let link = this.canvas.selectAll(".link")
 
             .data(edges)
             .enter()
@@ -380,7 +380,7 @@ export default class GraphCanvas extends React.Component {
                 return d.label;
             });
 
-        let edgepaths = this.state.canvas.selectAll(".edgepath")
+        let edgepaths = this.canvas.selectAll(".edgepath")
             .data(edges)
             .enter()
             .append('path')
@@ -395,7 +395,7 @@ export default class GraphCanvas extends React.Component {
             })
             .style("pointer-events", "none");
 
-        let edgelabels = this.state.canvas.selectAll(".edgelabel")
+        let edgelabels = this.canvas.selectAll(".edgelabel")
             .data(edges)
             .enter()
             .append('text')
@@ -443,9 +443,12 @@ export default class GraphCanvas extends React.Component {
         }
 
         return d3.forceSimulation()
-            .force("link", d3.forceLink().id(function (d) {
+            .force("link", d3.forceLink()
+                .id(function (d) {
+                    console.log("=================link", d);
                     return d.id;
-                }).distance(150).strength(1)
+                })
+                .distance(150).strength(1)
             )
             .force("charge", getSimulationCharge())
             .force("collide", forceCollide)
@@ -458,12 +461,14 @@ export default class GraphCanvas extends React.Component {
 
     setupCanvas() {
         let svg = d3.select(this.html_selector_id)
+        // .selectAll("*").remove()
             .call(d3.zoom().on("zoom", function () {
                 svg.attr("transform", d3.event.transform);
             }))
             .on("dblclick.zoom", null)   // double click zoom has been disabled since
             // we want double click to be reserved for highlighting neighbor nodes
-            .append("g").attr("class", "everything");
+            .append("g")
+            .attr("class", "everything");
 
         // on clicking on any node or link, remove the context menu that is opened in the canvas.
         svg.select('*:not(circle), *:not(line), *:not(path), *:not(text), *:not(link)').on("click", function () {
@@ -472,48 +477,55 @@ export default class GraphCanvas extends React.Component {
         return svg;
     }
 
-    removeEverythingInCanvas() {
+    removeEverythingInCanvas(canvas) {
         console.log("removeEverythingInCanvas");
-        d3.select(".everything").selectAll("*").remove();
-        this.state.canvas.selectAll("*").remove();
+        // d3.select(".everything").remove();
+        canvas.selectAll(".everything").remove();
+        canvas.selectAll("*").remove();
+        d3.select(this.html_selector_id).selectAll("*").remove();
+        return canvas;
     }
 
-    setupMarker() {
+    setupMarker(canvas) {
 
-        if (document.querySelectorAll('#arrowhead').length === 0) {
-            this.state.canvas.append('defs').append('marker')
-                .attrs({
-                    'id': 'arrowhead',
-                    'viewBox': '-0 -5 10 10',
-                    'refX': 23,
-                    'refY': 0,
-                    'orient': 'auto',
-                    'markerWidth': 7,
-                    'markerHeight': 7,
-                    'xoverflow': 'visible'
-                })
-                .append('svg:path')
-                .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-                .attr('fill', '#666')
-                .style('stroke', 'none');
-        }
+        canvas.append('defs').append('marker')
+            .attrs({
+                'id': 'arrowhead',
+                'viewBox': '-0 -5 10 10',
+                'refX': 23,
+                'refY': 0,
+                'orient': 'auto',
+                'markerWidth': 7,
+                'markerHeight': 7,
+                'xoverflow': 'visible'
+            })
+            .append('svg:path')
+            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+            .attr('fill', '#666')
+            .style('stroke', 'none');
+        return canvas;
 
     }
 
     startFreshCanvas() {
         // removes everything from the board.
-        console.log("=======startFreshCanvas this.state", this.state);
-        if (this.state.canvas) {
-            this.removeEverythingInCanvas();
-            this.setupMarker();
-        }
+        // console.log("=======startFreshCanvas this.state", this.state);
+        // if (this.canvas) {
+        //     this.removeEverythingInCanvas();
+        //     this.setupMarker();
+        // }
+        let canvas = this.setupCanvas();
+        // canvas = this.removeEverythingInCanvas(canvas);
+        return this.setupMarker(canvas);
     }
 
     startRenderingGraph(nodes, links) {
         // add this data to the existing data
-        this.startFreshCanvas();
 
-        console.log("^^^^^^^^startRenderingGraph^^^^^^^^^", this.state.canvas);
+
+        console.log("^^^^^^^^startRenderingGraph^^^^^^^^^", this.canvas);
+        console.log("^^^^^^^^startRenderingGraph^^^^^^^^^ nodes", nodes.length);
+        console.log("^^^^^^^^startRenderingGraph^^^^^^^^^ links", links.length);
 
         let vertices = nodes;
         let edges = links;
@@ -527,14 +539,11 @@ export default class GraphCanvas extends React.Component {
         let node = this.addVertices(vertices);
 
 
-        this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(edges);
-        this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(edges);
-
         node
             .on("dblclick", function (d) {
                 d.fixed = false;
                 if (!d3.event.active) {
-                    _this.state.simulation.alphaTarget(0.3).restart();
+                    _this.simulation.alphaTarget(0.3).restart();
                 }
             })
             .call(d3.drag()
@@ -551,7 +560,7 @@ export default class GraphCanvas extends React.Component {
 
         function dragstarted(d) {
             if (!d3.event.active) {
-                _this.state.simulation.alphaTarget(0.3).restart();
+                _this.simulation.alphaTarget(0.3).restart();
             }
             d.fx = d.x;
             d.fy = d.y;
@@ -560,9 +569,9 @@ export default class GraphCanvas extends React.Component {
 
         function dragended(d) {
             if (!d3.event.active) {
-                _this.state.simulation.alphaTarget(0);
+                _this.simulation.alphaTarget(0);
             }
-            _this.state.simulation.alpha(0.3).restart();
+            _this.simulation.alpha(0.3).restart();
             // d.fx = null;
             // d.fy = null;
         }
@@ -571,11 +580,11 @@ export default class GraphCanvas extends React.Component {
             _this.controls.center(_this);
         });
 
-        this.state.simulation
+        this.simulation
             .nodes(vertices)
             .on("tick", ticked);
 
-        this.state.simulation.force("link")
+        this.simulation.force("link")
             .links(edges);
 
         function ticked() {
@@ -619,46 +628,26 @@ export default class GraphCanvas extends React.Component {
 
     }
 
-    get_LINK_ID_TO_LINK(edges) {
-        // TODO - revist the name
-        let data = {};
-        edges.forEach(edge => {
-            data[edge.id] = edge;
-        });
-        return data;
-    }
-
-    get_NODE_ID_TO_LINK_IDS(edges) {
-        // TODO - revist the name
-        let data = {};
-        edges.forEach(edge => {
-            data[edge.source.id] = data[edge.source.id] || new Set();
-            data[edge.target.id] = data[edge.target.id] || new Set();
-            data[edge.source.id].add(edge.id);
-            data[edge.target.id].add(edge.id);
-        });
-        return data;
-    }
 
     componentDidMount() {
+        this.canvas = this.startFreshCanvas();
+        // this.startFreshCanvas();
+        let canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
 
-        let canvas = this.setupCanvas();
-        let _ = document.querySelector(this.html_selector_id).getBoundingClientRect();
-        let simulation = this.setupSimulation(_.width, _.height);
+        this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
+        this.simulation = this.setupSimulation(canvasDimensions.width, canvasDimensions.height);
 
-        this.setState({
-            canvas: canvas,
-            color_schema: d3.scaleOrdinal(d3.schemeCategory10),
-            simulation: simulation
 
-        });
+        this.startRenderingGraph(this.props.nodes, this.props.links);
 
     }
 
-    checkIfChanged(prev, current) {
-        return (prev !== current);
-
+    componentWillUnmount() {
+        // this.canvas = null;
+        // this.color_schema = null;
+        // this.simulation = null;
     }
+
 
     componentDidUpdate(prevProps) {
         // // Typical usage (don't forget to compare props):
@@ -668,24 +657,16 @@ export default class GraphCanvas extends React.Component {
         //     this.checkIfChanged(this.props.nodes, prevProps.nodes) ||
         //     this.checkIfChanged(this.props.links, prevProps.links)
         // ) {
-             this.startRenderingGraph(this.props.nodes, this.props.links)
+
+        // this.removeEverythingInCanvas(this.canvas);
+        this.startRenderingGraph(this.props.nodes, this.props.links)
         // }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
 
-        if (this.props.nodes.length === nextProps.nodes.length && this.props.links.length === nextProps.links.length) {
-            console.log("shouldComponentUpdate ==== DONT reload")
-            return false; // DONT re-render if nodes and links are same.
-        }
-        // else {
-        //     console.log("shouldComponentUpdate ==== reload")
-        //     if (this.state.canvas) {
-        //         this.startRenderingGraph(this.props.nodes, this.props.links)
-        //     }
-        //     return true;
-        // }
-        return true;
+        return nextProps.isDataChanged
+
 
     }
 
@@ -695,9 +676,11 @@ export default class GraphCanvas extends React.Component {
         //     this.startRenderingGraph(this.props.nodes, this.props.links);
         // }
 
+        let canvasClass = this.html_selector_id.replace(".", "");
+
         return (
 
-                <svg className={"main-canvas"}></svg>
+            <svg className={canvasClass}></svg>
 
         )
     }
