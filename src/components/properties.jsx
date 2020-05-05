@@ -60,7 +60,7 @@ export class PropertiesCanvas extends React.Component {
                     {
                         Object.keys(cleanedData.properties).map((propKey) => {
                             return (
-                                <div className='singleProperty'>
+                                <div className={'singleProperty'} key={cleanedData.id + "-" +propKey}>
                                     <div className={"propertyData"}>
                                         <h6 className={"propertyKey"}>{propKey}</h6> :
                                         {cleanedData.properties[propKey]}

@@ -9,14 +9,15 @@
     font-size: 14px;
     border: none;
     width: calc(100% - 30px);
-    background: #efefef;
-    color: #555555;
+    background: #e5e5e5;
+    color: #353535;
+
     /*border-bottom: 1px solid #999999;*/
 }
 
 .search-div form input:hover,
 .search-div form input:focus {
-    background: #efefef;
+    background: #e5e5e5;
 }
 
 svg.main-canvas {
@@ -125,9 +126,10 @@ div#canvas-stats {
 
 .propertyHeading {
     font-size: 12px;
-    background: #f5f5f5;
+    background: #7d8296;
     margin: 0;
     padding: 5px 10px;
+    color: white;
 
 }
 
