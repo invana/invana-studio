@@ -56,7 +56,6 @@ export default class GraphCanvas extends React.Component {
         this.setState({
             "properties": {},
             "showProperties": false
-
         })
     }
 

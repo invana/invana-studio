@@ -101,12 +101,11 @@ div#canvas-stats {
 
 #properties-div {
     /*background: rgba(105, 105, 105, 0.88);*/
-    height: calc(100vh - 55px);
+    height: calc(100vh - 36px);
     width: 300px;
     position: fixed;
     right: 0;
-    top: 23px;
-    padding: 10px 10px;
+    top: 36px;
     z-index: 10000;
     display: none;
     color: #555555;
@@ -114,5 +113,25 @@ div#canvas-stats {
     line-height: 1.2rem;
     word-wrap: break-word;
     font-family: Courier;
+    border-left: 1px solid #efefef;
+
+}
+
+.propertyKey {
+    display: inline;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.propertyHeading {
+    font-size: 12px;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 5px 10px;
+
+}
+
+.propertiesList {
+    padding: 10px 10px;
 
 }
