@@ -8,21 +8,7 @@ export class PropertiesCanvas extends React.Component {
         let data = Object.assign({}, this.props.properties);
 
         if (data.type) {
-
-
-            delete data.x;
-            delete data.y;
-            delete data.vy;
-            delete data.vx;
-            delete data.fx;
-            delete data.fy;
-            delete data.index;
-            delete data.source;
-            delete data.target;
-            delete data.outV;
-            delete data.inV;
-            delete data.inVLabel;
-            delete data.OutVLabel;
+            let properties = data.properties;
 
 
             let cleanedData = {};
@@ -30,17 +16,8 @@ export class PropertiesCanvas extends React.Component {
             cleanedData.type = data.type.replace("g:", "");
             cleanedData.id = data.id;
 
-            // // delete the label and id from actual data
-            // delete data.id;
-            // delete data.label;
+            cleanedData.properties = properties;
 
-            cleanedData.properties = {};
-
-            Object.keys(data).forEach(function (propKey) {
-                if (propKey !== "id" || propKey !== "label" || propKey !== "type") {
-                    cleanedData.properties[propKey] = data[propKey];
-                }
-            })
 
             return cleanedData;
         } else {

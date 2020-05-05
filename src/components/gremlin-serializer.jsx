@@ -25,11 +25,12 @@ export default class GremlinResponseSerializers {
         d.id = vtx['@value'].id['@value'];
         d.label = vtx['@value'].label;
         let properties = vtx['@value'].properties;
+        d.properties = {}
         if (properties) {
             Object.keys(properties).forEach(function (key) {
                 let property = properties[key];
                 let _ = _this.convert_vertex_property_to_json(property);
-                d[key] = _[key];
+                d.properties[key] = _[key];
             });
         }
 
@@ -67,12 +68,12 @@ export default class GremlinResponseSerializers {
         d.outVLabel = edg['@value'].outVLabel;
 
         let properties = edg['@value'].properties;
-
+        d.properties = {}
         if (properties) {
             Object.keys(properties).forEach(function (key) {
                 let property = properties[key];
                 let _ = _this.convert_edge_property_to_json(property);
-                d[key] = _[key];
+                d.properties[key] = _[key];
             });
 
         }

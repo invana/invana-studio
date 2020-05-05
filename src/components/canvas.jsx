@@ -16,10 +16,14 @@ export default class GraphCanvas extends React.Component {
 
     constructor(props) {
         super(props);
+
+        console.log("========props", props, this.props)
         this.state = {
             canvas: null,
             properties: {},
-            showProperties: false
+            showProperties: false,
+            nodes: [],
+            links:[]
         }
     }
 
@@ -46,17 +50,17 @@ export default class GraphCanvas extends React.Component {
     }
 
     showProperties(properties) {
-        this.setState({
-            "properties": properties,
-            "showProperties": true
-        })
+        // this.setState({
+        //     "properties": properties,
+        //     "showProperties": true
+        // })
     }
 
     hideProperties() {
-        this.setState({
-            "properties": {},
-            "showProperties": false
-        })
+        // this.setState({
+        //     "properties": {},
+        //     "showProperties": false
+        // })
     }
 
     getAdjacentNodeIds(nodeId) {
@@ -311,13 +315,13 @@ export default class GraphCanvas extends React.Component {
 
         node.append("title")
             .text(function (d) {
-                return d.id;
+                return d.properties.name || d.id;
             });
 
         node.append("text")
             .attr("dy", -3)
             .text(function (d) {
-                return d.name;
+                return d.properties.name || d.id;
             });
 
         return node;
@@ -616,6 +620,7 @@ export default class GraphCanvas extends React.Component {
 
     }
 
+
     get_LINK_ID_TO_LINK(edges) {
         // TODO - revist the name
         let data = {};
@@ -646,25 +651,37 @@ export default class GraphCanvas extends React.Component {
         this.setState({
             canvas: canvas,
             color_schema: d3.scaleOrdinal(d3.schemeCategory10),
-            simulation: simulation
-        })
+            simulation: simulation,
+            properties: {},
+            showProperties: false,
+        });
 
     }
 
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.nodes !== prevProps.nodes || this.props.links !== prevProps.links) {
+            this.setState({
+                "links": this.props.links,
+                "nodes": this.props.nodes
+            })
+        }
+    }
+
     render() {
-        console.log("<<<<<<<<< rendering GraphCanvas", this.props);
-        let nodes_count = this.props.nodes.length;
-        let links_count = this.props.links.length;
+        console.log("<<<<<<<<< rendering GraphCanvas", this.state);
+
         if (this.state.canvas && this.state.simulation) {
-            this.startRenderingGraph(this.props.nodes, this.props.links);
+            this.startRenderingGraph(this.state.nodes, this.state.links);
         }
 
         return (
             <div>
                 <svg className={"main-canvas"}></svg>
-                <CanvasStatsCanvas nodes_count={nodes_count} links_count={links_count}/>
+                <CanvasStatsCanvas nodes_count={this.state.nodes.length} links_count={this.state.links.length}/>
                 <PropertiesCanvas properties={this.state.properties}/>
-                <LegendCanvas nodes={this.props.nodes} links={this.props.links}/>
+                <LegendCanvas nodes={this.state.nodes} links={this.state.links}/>
 
             </div>
         )

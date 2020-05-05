@@ -51,8 +51,7 @@ div#canvas-stats {
 #copy-right-info-div {
     position: fixed;
     right: 10px;
-    height: 10px;
-    bottom: 33px;
+    bottom: 25px;
     opacity: 0.25;
     font-size: 1.3rem;
     font-weight: 600;
