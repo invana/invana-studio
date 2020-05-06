@@ -136,7 +136,7 @@ export default class GraphViewer extends React.Component {
 
         console.log("onmessage received", response);
 
-        if (response.status.code === 200 || response.stat.code === 206) {
+        if (response.status.code === 200 || response.status.code === 206) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setState({
                 "errorMessage": null
