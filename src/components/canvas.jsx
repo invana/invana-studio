@@ -460,8 +460,9 @@ export default class GraphCanvas extends React.Component {
     }
 
     setupCanvas() {
+        d3.select(this.html_selector_id).selectAll("*").remove();
         let svg = d3.select(this.html_selector_id)
-        // .selectAll("*").remove()
+            // .selectAll("*").remove()
             .call(d3.zoom().on("zoom", function () {
                 svg.attr("transform", d3.event.transform);
             }))
@@ -514,6 +515,7 @@ export default class GraphCanvas extends React.Component {
         //     this.removeEverythingInCanvas();
         //     this.setupMarker();
         // }
+        // this.removeEverythingInCanvas();
         let canvas = this.setupCanvas();
         // canvas = this.removeEverythingInCanvas(canvas);
         return this.setupMarker(canvas);
@@ -630,15 +632,9 @@ export default class GraphCanvas extends React.Component {
 
 
     componentDidMount() {
-        this.canvas = this.startFreshCanvas();
-        // this.startFreshCanvas();
-        let canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
-
-        this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
-        this.simulation = this.setupSimulation(canvasDimensions.width, canvasDimensions.height);
 
 
-        this.startRenderingGraph(this.props.nodes, this.props.links);
+        // this.startRenderingGraph(this.props.nodes, this.props.links);
 
     }
 
@@ -659,6 +655,11 @@ export default class GraphCanvas extends React.Component {
         // ) {
 
         // this.removeEverythingInCanvas(this.canvas);
+        this.canvas = this.startFreshCanvas();
+        let canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
+        this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
+        this.simulation = this.setupSimulation(canvasDimensions.width, canvasDimensions.height);
+
         this.startRenderingGraph(this.props.nodes, this.props.links)
         // }
     }

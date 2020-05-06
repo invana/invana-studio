@@ -68,20 +68,17 @@ export default class GraphViewer extends React.Component {
         let data = JSON.stringify(msg);
         if (this.ws.readyState === 1) {
             _this.ws.send(data, {mask: true});
-
             _this.updateStatusMessage("Sending a Query")
         } else {
             _this.ws.onopen = function () {
                 _this.ws.send(data, {mask: true});
                 _this.updateStatusMessage("Sending a Query")
-
             };
         }
 
         if (freshQuery === true) {
             this.addQueryToUrl(query);
             this.updateQueryInput(query);
-
         }
         _this.setState({
             "freshQuery": freshQuery
@@ -91,7 +88,7 @@ export default class GraphViewer extends React.Component {
 
     checkIfNodeAlreadyExist(node, existingNodes) {
         existingNodes.forEach(function (d) {
-            console.log("====checkifNode: d, node", d, node)
+            console.log("====checkifNode: d, node", d.id, node.id)
             if (d.id === node.id) {
                 console.log("====checkifNode: TRUE")
                 return true;
@@ -102,9 +99,9 @@ export default class GraphViewer extends React.Component {
         return false;
     }
 
-    checkIfEdgeAlreadyExist(node, existing_links) {
+    checkIfEdgeAlreadyExist(link, existing_links) {
         existing_links.forEach(function (d) {
-            if (d.id === node.id) {
+            if (d.id === link.id) {
                 return true;
             }
         });
@@ -156,29 +153,20 @@ export default class GraphViewer extends React.Component {
                 const existingNodes = _this.state.nodes;
                 const existingLinks = _this.state.links;
 
-                let newNodes = [];
-                let newLinks = [];
-                // console.log("==================existingNodes", existingNodes)
+                let overallNodes = _.nodes.concat(existingNodes);
+                let overallLinks = _.links.concat(existingLinks);
 
-                _.nodes.forEach(function (d) {
-                    if (_this.checkIfNodeAlreadyExist(d, existingNodes) === false) {
-                        newNodes.push(d);
-                    }
-                });
+                const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
+                const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
 
-                _.links.forEach(function (d) {
-                    if (_this.checkIfEdgeAlreadyExist(d, existingLinks) === false) {
-                        newLinks.push(d);
-                    }
-                });
-                let overallNodes = newNodes.concat(existingNodes);
-                let overallLinks = newLinks.concat(existingLinks);
+
                 _this.setState({
-                    nodes: overallNodes,
-                    links: overallLinks,
-                    NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(overallLinks),
-                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(overallLinks)
+                    nodes: uniqueNodes,
+                    links: uniqueLinks,
+                    NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(uniqueLinks),
+                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(uniqueLinks)
                 });
+
             } else {
                 // use the data from current query only as this is a fresh query.
                 let existingNodes = _.nodes;
@@ -329,7 +317,7 @@ export default class GraphViewer extends React.Component {
     render() {
 
         console.log("=================== Rendering the Viewer ===================");
-        console.log("======= viewer this.state", this.state);
+        console.log("======= viewer this.state", this.state.nodes.length, this.state.links.length);
 
 
         return (
