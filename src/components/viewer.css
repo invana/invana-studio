@@ -169,3 +169,26 @@ div#canvas-stats {
     padding-top: 3px;
     padding-bottom: 3px;
 }
+
+
+input[type="text"]:focus {
+    outline: none;
+    /*box-shadow: 0px 0px 5px #61C5FA;*/
+    /*border: 1px solid #5AB0DB;*/
+    box-shadow: none;
+    border: none;
+}
+
+input[type="text"]:hover {
+    border: 1px solid #999;
+    /*border-radius: 5px;*/
+}
+
+input[type="text"]:focus:hover {
+    outline: none;
+    /*box-shadow: 0px 0px 5px #61C5FA;*/
+    /*border: 1px solid #5AB0DB;*/
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+}
