@@ -390,8 +390,10 @@ export default class GraphCanvas extends React.Component {
                 'stroke-opacity': 0,
                 'id': function (d, i) {
                     return 'edgepath-' + d.id;
-                },
-                "fill": "#999"
+                }
+            })
+            .style("fill", function (d, i) {
+                return _this.color_schema(d);
             })
             .style("pointer-events", "none");
 
@@ -401,13 +403,15 @@ export default class GraphCanvas extends React.Component {
             .append('text')
             .style("pointer-events", "none")
             .attr("dy", -3) //Move the text up/ down
+            .style("fill", function (d, i) {
+                return _this.color_schema(d);
+            })
             .attrs({
                 'class': 'edgelabel',
                 'id': function (d, i) {
                     return 'edgelabel-' + d.id;
                 },
                 'font-size': 12,
-                'fill': '#999'
             });
 
         edgelabels.append('textPath')
@@ -419,6 +423,9 @@ export default class GraphCanvas extends React.Component {
             .style("background", "#ffffff")
             .style("pointer-events", "none")
             .attr("startOffset", "50%")
+            .style("fill", function (d, i) {
+                return _this.color_schema(d);
+            })
             .text(function (d) {
                 return d.label;
             });
