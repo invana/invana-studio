@@ -54,35 +54,39 @@ export default class GraphViewer extends React.Component {
             "gremlinQuery": query
         })
 
-        let msg = {
-            "requestId": uuidv4(),
-            "op": "eval",
-            "processor": "",
-            "args": {
-                "gremlin": query,
-                "bindings": {},
-                "language": "gremlin-groovy"
-            }
-        };
 
-        let data = JSON.stringify(msg);
-        if (this.ws.readyState === 1) {
-            _this.ws.send(data, {mask: true});
-            _this.updateStatusMessage("Sending a Query")
-        } else {
-            _this.ws.onopen = function () {
+        if (query) {
+
+            let msg = {
+                "requestId": uuidv4(),
+                "op": "eval",
+                "processor": "",
+                "args": {
+                    "gremlin": query,
+                    "bindings": {},
+                    "language": "gremlin-groovy"
+                }
+            };
+
+            let data = JSON.stringify(msg);
+            if (this.ws.readyState === 1) {
                 _this.ws.send(data, {mask: true});
                 _this.updateStatusMessage("Sending a Query")
-            };
-        }
+            } else {
+                _this.ws.onopen = function () {
+                    _this.ws.send(data, {mask: true});
+                    _this.updateStatusMessage("Sending a Query")
+                };
+            }
 
-        if (freshQuery === true) {
-            this.addQueryToUrl(query);
-            this.updateQueryInput(query);
+            if (freshQuery === true) {
+                this.addQueryToUrl(query);
+                this.updateQueryInput(query);
+            }
+            _this.setState({
+                "freshQuery": freshQuery
+            })
         }
-        _this.setState({
-            "freshQuery": freshQuery
-        })
 
     }
 
