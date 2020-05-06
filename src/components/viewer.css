@@ -180,7 +180,7 @@ input[type="text"]:focus {
 }
 
 input[type="text"]:hover {
-    border: 1px solid #999;
+    /*border: 1px solid #999;*/
     /*border-radius: 5px;*/
 }
 
