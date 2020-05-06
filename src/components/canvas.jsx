@@ -665,13 +665,13 @@ export default class GraphCanvas extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
 
-        return nextProps.isDataChanged
-
+        // return nextProps.isDataChanged
+        return true;
 
     }
 
     render() {
-        console.log("<<<<<<<<< rendering GraphCanvas", this.state);
+        console.log("<<<<<<<<< rendering GraphCanvas", this.props.nodes.length, this.props.links.length);
         // if (this.canvas && this.simulation) {
         //     this.startRenderingGraph(this.props.nodes, this.props.links);
         // }

@@ -66,8 +66,8 @@ export default class GremlinResponseSerializers {
         d.inVLabel = edg['@value'].inVLabel;
         d.outV = edg['@value'].outV['@value'];
         d.outVLabel = edg['@value'].outVLabel;
-        d.source = d.outV
-        d.target = d.inV
+        d.source = d.inV;
+        d.target = d.outV;
 
         let properties = edg['@value'].properties;
         d.properties = {}
@@ -256,6 +256,6 @@ export default class GremlinResponseSerializers {
                 }
             });
         }
-        return [vertices, edges];
+        return {"nodes": vertices, "links": edges};
     }
 }

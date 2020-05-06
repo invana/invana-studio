@@ -1,4 +1,6 @@
-
+ body{
+    background: #3b3e4c;
+}
 .search-div {
     height: 35px;
     /*background: red;*/

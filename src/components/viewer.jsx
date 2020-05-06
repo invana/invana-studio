@@ -91,9 +91,13 @@ export default class GraphViewer extends React.Component {
 
     checkIfNodeAlreadyExist(node, existingNodes) {
         existingNodes.forEach(function (d) {
+            console.log("====checkifNode: d, node", d, node)
             if (d.id === node.id) {
+                console.log("====checkifNode: TRUE")
                 return true;
             }
+            console.log("====checkifNode: type validation", typeof d.id, typeof node.id);
+
         });
         return false;
     }
@@ -143,41 +147,52 @@ export default class GraphViewer extends React.Component {
             let result = _this.gremlin_serializer.process(response);
             let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
 
-
-            // use the data from current query only as this is a fresh query.
-            let existingNodes = _[0];
-            let existingLinks = _[1];
-
+            console.log("==================query response ", _.nodes.length, _.links.length);
+            _this.isDataChanged = true;
 
             if (this.state.freshQuery === false) {
                 // extend the graph if this is not fresh query.
 
-                existingNodes = _this.state.nodes;
-                existingLinks = _this.state.links;
+                const existingNodes = _this.state.nodes;
+                const existingLinks = _this.state.links;
 
+                let newNodes = [];
+                let newLinks = [];
+                // console.log("==================existingNodes", existingNodes)
 
-                console.log("==================existingNodes", existingNodes)
-
-                _[0].forEach(function (d) {
-                    if (! _this.checkIfNodeAlreadyExist(d, existingNodes)) {
-                        existingNodes.push(d);
+                _.nodes.forEach(function (d) {
+                    if (_this.checkIfNodeAlreadyExist(d, existingNodes) === false) {
+                        newNodes.push(d);
                     }
                 });
 
-                _[1].forEach(function (d) {
-                    if (!_this.checkIfEdgeAlreadyExist(d, existingLinks)) {
-                        existingLinks.push(d);
+                _.links.forEach(function (d) {
+                    if (_this.checkIfEdgeAlreadyExist(d, existingLinks) === false) {
+                        newLinks.push(d);
                     }
                 });
+                let overallNodes = newNodes.concat(existingNodes);
+                let overallLinks = newLinks.concat(existingLinks);
+                _this.setState({
+                    nodes: overallNodes,
+                    links: overallLinks,
+                    NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(overallLinks),
+                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(overallLinks)
+                });
+            } else {
+                // use the data from current query only as this is a fresh query.
+                let existingNodes = _.nodes;
+                let existingLinks = _.links;
+
+                _this.setState({
+                    nodes: existingNodes,
+                    links: existingLinks,
+                    NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(existingLinks),
+                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(existingLinks)
+                });
+
             }
 
-            _this.isDataChanged = true;
-            _this.setState({
-                nodes: existingNodes,
-                links: existingLinks,
-                NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(existingLinks),
-                LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(existingLinks)
-            });
 
         } else {
 
@@ -315,6 +330,8 @@ export default class GraphViewer extends React.Component {
 
         console.log("=================== Rendering the Viewer ===================");
         console.log("======= viewer this.state", this.state);
+
+
         return (
             <div>
                 <div className="search-div">
