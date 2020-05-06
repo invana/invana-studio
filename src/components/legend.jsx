@@ -55,9 +55,7 @@ export class LegendCanvas extends React.Component {
             .attr("y", function (d, i) {
                 return ((i * 20) + 15);
             })
-            .style("fill", function (d, i) {
-                return "#efefef"; //_this.state.color_schema(d);
-            })
+            .style("fill", "#efefef")
             .text(function (d) {
                 return d;
             });
@@ -86,7 +84,7 @@ export class LegendCanvas extends React.Component {
             .data(legend_edges_list)
             .enter()
             .append('rect')
-            .attrs({width: 10, height: 4})
+            .attrs({width: 10, height: 2})
 
             .attr('class', 'legend-rect')
             .attr('transform', function (d, i) {
@@ -104,8 +102,8 @@ export class LegendCanvas extends React.Component {
             .attr("y", function (d, i) {
                 return ((i * 20) + 15);
             })
-            .style("fill", function (d) {
-                return "#efefef;";// _this.state.color_schema(d);
+            .attr("fill", function (d) {
+                return "#efefef";// _this.state.color_schema(d);
             })
             .text(function (d) {
                 return d;
