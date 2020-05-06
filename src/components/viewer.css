@@ -1,13 +1,14 @@
- body{
+body {
     background: #3b3e4c;
 }
+
 .search-div {
     height: 35px;
     /*background: red;*/
 }
 
 .search-div form input {
-padding: 9px 15px;
+    padding: 9px 15px;
     font-size: 13px;
     border: none;
     width: calc(100% - 30px);
@@ -118,7 +119,7 @@ div#canvas-stats {
     word-wrap: break-word;
     font-family: Courier;
     border-left: 1px solid #efefef;
-        background: #23252d;
+    background: #23252d;
     color: #d2d2d2;
 
 }
@@ -141,4 +142,10 @@ div#canvas-stats {
 .propertiesList {
     padding: 10px 10px;
 
+}
+
+.singleProperty {
+    border-bottom: 1px solid #2f313c;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }

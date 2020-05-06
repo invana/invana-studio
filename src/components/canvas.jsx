@@ -31,28 +31,26 @@ export default class GraphCanvas extends React.Component {
 
     onNodeHoverOut(selectedNode) {
         this.resetNodeHighlight(selectedNode);
-        this.hideProperties(); //TODO - revist this
 
     }
 
     onNodeHoverIn(selectedNode) {
         this.highlightHoveredNodesAndEdges(selectedNode);
         // console.log("onNodeHoverIn", selectedNode);
-        this.showProperties(selectedNode);
     }
 
     showProperties(properties) {
-        // this.props.setSelectedData({
-        //     "selectedData": properties,
-        //     "showProperties": true
-        // })
+        this.props.setSelectedData({
+            "selectedData": properties,
+            "showProperties": true
+        })
     }
 
     hideProperties() {
-        // this.props.setSelectedData({
-        //     "selectedData": {},
-        //     "showProperties": false
-        // })
+        this.props.setSelectedData({
+            "selectedData": {},
+            "showProperties": false
+        })
     }
 
     getAdjacentNodeIds(nodeId) {
@@ -123,6 +121,7 @@ export default class GraphCanvas extends React.Component {
 
     closeNodeMenu(selectedNode) {
         console.log("closeNodeMenu clicked", selectedNode);
+        this.hideProperties();
         d3.select(".node-menu").remove();
     }
 
@@ -272,6 +271,7 @@ export default class GraphCanvas extends React.Component {
                 })
                 .attr("class", "off");
         });
+        this.showProperties(selectedNode);
 
     }
 
@@ -673,8 +673,8 @@ export default class GraphCanvas extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
 
-        // return nextProps.isDataChanged
-        return true;
+        return nextProps.isDataChanged
+        // return true;
 
     }
 
