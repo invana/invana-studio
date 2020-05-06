@@ -25,7 +25,6 @@ body {
 svg.main-canvas {
     width: 100%;
     height: calc(100vh - 38px);
-    background: #3b3e4c;
 }
 
 
@@ -42,7 +41,7 @@ div#canvas-stats {
     position: fixed;
     left: 0;
     top: 40px;
-    z-index: 0;
+    z-index: -10;
 }
 
 #legend-div svg {
@@ -120,7 +119,7 @@ div#canvas-stats {
     word-wrap: break-word;
     font-family: Courier;
     border-left: 1px solid #212329;
-    background: #23252d;
+    background: rgba(35, 37, 45, .7);
     color: #d2d2d2;
 
 }

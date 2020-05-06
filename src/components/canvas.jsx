@@ -284,6 +284,7 @@ export default class GraphCanvas extends React.Component {
             .enter()
             .append("g")
             .attr("class", "node")
+            .style("z-index", "100")
             .attr("id", function (d) {
                 return "node-" + d.id;
             });
@@ -295,6 +296,7 @@ export default class GraphCanvas extends React.Component {
                 return _this.color_schema(d.label);
             })
             .style("cursor", "pointer")
+            .style("z-index", "100")
             .on("mouseover", function (d) {
                 _this.onNodeHoverIn(d);
             })
