@@ -32,14 +32,45 @@ export class PropertiesCanvas extends React.Component {
         return (
             <div id="properties-div"
                  style={{display: Object.keys(cleanedData).length > 1 ? 'block' : 'none'}}>
-                <h5 className={"propertyHeading"}> {cleanedData.type}::{cleanedData.label}::{cleanedData.id}</h5>
+                <div className={"propertyHeading"}>
+                    <span className={"itemLabel"}>{cleanedData.label}</span>
+                    {cleanedData.properties.name || cleanedData.id}
+
+                </div>
+                <div className="propertiesList mainDetails">
+
+
+                    <div className={'singleProperty'} key={cleanedData.id}>
+                        <div className={"propertyData"}>
+                            <h6 className={"propertyKey"}>id:</h6>
+                            {cleanedData.id}
+                        </div>
+                    </div>
+                    <div className={'singleProperty'} key={cleanedData.type}>
+                        <div className={"propertyData"}>
+                            <h6 className={"propertyKey"}>type:</h6>
+                            {cleanedData.type}
+                        </div>
+                    </div>
+                    <div className={'singleProperty'} key={cleanedData.label}>
+                        <div className={"propertyData"}>
+                            <h6 className={"propertyKey"}>label:</h6>
+                            {cleanedData.label}
+                        </div>
+                    </div>
+                </div>
                 <div className="propertiesList">
+                    <div className={'singleProperty heading'} key={"properties-list"}>
+                        <div className={"propertyData"}>
+                            <h6 className={"propertyKey "}>PROPERTIES</h6>
+                        </div>
+                    </div>
                     {
                         Object.keys(cleanedData.properties).map((propKey) => {
                             return (
-                                <div className={'singleProperty'} key={cleanedData.id + "-" +propKey}>
+                                <div className={'singleProperty'} key={cleanedData.id + "-" + propKey}>
                                     <div className={"propertyData"}>
-                                        <h6 className={"propertyKey"}>{propKey}</h6> :
+                                        <h6 className={"propertyKey"}>{propKey}:</h6>
                                         {cleanedData.properties[propKey]}
                                     </div>
                                 </div>

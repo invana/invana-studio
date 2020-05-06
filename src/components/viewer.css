@@ -106,11 +106,11 @@ div#canvas-stats {
 
 #properties-div {
     /*background: rgba(105, 105, 105, 0.88);*/
-    height: calc(100vh - 36px);
+    height: calc(100vh - 33px);
     width: 300px;
     position: fixed;
     right: 0;
-    top: 36px;
+    top: 33px;
     z-index: 10000;
     display: none;
     /*color: #555555;*/
@@ -118,7 +118,7 @@ div#canvas-stats {
     line-height: 1.2rem;
     word-wrap: break-word;
     font-family: Courier;
-    border-left: 1px solid #efefef;
+    border-left: 1px solid #212329;
     background: #23252d;
     color: #d2d2d2;
 
@@ -128,20 +128,40 @@ div#canvas-stats {
     display: inline;
     font-weight: bold;
     font-size: 12px;
+    margin-right: 8px;
 }
 
 .propertyHeading {
     font-size: 12px;
-    background: #7d8296;
-    margin: 0;
-    padding: 5px 10px;
+    background: #333333;
     color: white;
+
+    padding: 3px 0;
+    width: 100%;
 
 }
 
-.propertiesList {
-    padding: 10px 10px;
+.propertyHeading .itemLabel {
+    background: #7d8296;
+    padding: 5px 10px;
+    padding-bottom: 6px;
+    margin-right: 10px;
+}
 
+.propertiesList {
+    padding: 0 10px;
+
+}
+
+.propertiesList.mainDetails {
+    background: #1e2027;
+}
+
+.singleProperty.heading {
+    background: black;
+    margin-left: -10px;
+    padding: 5px 10px;
+    margin-right: -10px;
 }
 
 .singleProperty {

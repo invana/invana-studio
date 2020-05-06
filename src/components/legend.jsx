@@ -104,7 +104,7 @@ export class LegendCanvas extends React.Component {
             .attr("y", function (d, i) {
                 return ((i * 20) + 15);
             })
-            .style("fill", function (d, i) {
+            .style("fill", function (d) {
                 return "#efefef;";// _this.state.color_schema(d);
             })
             .text(function (d) {

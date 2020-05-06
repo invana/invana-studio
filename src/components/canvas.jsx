@@ -314,6 +314,15 @@ export default class GraphCanvas extends React.Component {
             .attr("dy", -3)
             .text(function (d) {
                 return d.properties.name || d.id;
+            })
+            .style("fill", function (d, i) {
+                return "#ececec";
+            })
+            .style("font-size", function (d, i) {
+                return "12px";
+            })
+            .style("font-weight", function (d, i) {
+                return "bold";
             });
 
         return node;
