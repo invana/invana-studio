@@ -35,8 +35,6 @@ export default class AboutView extends React.Component {
                     <p>
                         <a style={marginRight} target={"_blank"}
                            href="https://github.com/invanalabs/graph-explorer">@github</a>
-                        | <a style={marginRight} target={"_blank"}
-                             href="https://github.com/invanalabs/graph-explorer">@slack</a>
 
                     </p>
 

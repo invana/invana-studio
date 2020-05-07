@@ -107,7 +107,7 @@ div#canvas-stats {
     color: #353535;
 }
 
-#properties-div {
+#SelectedDataDiv {
     /*background: rgba(105, 105, 105, 0.88);*/
     height: calc(100vh - 33px);
     width: 300px;
@@ -134,7 +134,7 @@ div#canvas-stats {
     margin-right: 8px;
 }
 
-.propertyHeading {
+.SelectedDataHeading {
     font-size: 12px;
     background: #333333;
     color: white;
@@ -144,19 +144,19 @@ div#canvas-stats {
 
 }
 
-.propertyHeading .itemLabel {
+.SelectedDataHeading .itemLabel {
     background: #7d8296;
     padding: 5px 10px;
     padding-bottom: 6px;
     margin-right: 10px;
 }
 
-.propertiesList {
+.SelectedDataList {
     padding: 0 10px;
 
 }
 
-.propertiesList.mainDetails {
+.SelectedDataList.mainDetails {
     background: #1e2027;
 }
 

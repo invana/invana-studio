@@ -1,6 +1,6 @@
 import React from "react";
 
-export class PropertiesCanvas extends React.Component {
+export class SelectedDataCanvas extends React.Component {
 
 
     getCleanedData() {
@@ -30,14 +30,14 @@ export class PropertiesCanvas extends React.Component {
         let cleanedData = this.getCleanedData();
 
         return (
-            <div id="properties-div"
+            <div id="SelectedDataDiv"
                  style={{display: Object.keys(cleanedData).length > 1 ? 'block' : 'none'}}>
-                <div className={"propertyHeading"}>
+                <div className={"SelectedDataHeading"}>
                     <span className={"itemLabel"}>{cleanedData.label}</span>
                     {cleanedData.properties.name || cleanedData.id}
 
                 </div>
-                <div className="propertiesList mainDetails">
+                <div className="SelectedDataList mainDetails">
 
 
                     <div className={'singleProperty'} key={cleanedData.id}>
@@ -59,7 +59,7 @@ export class PropertiesCanvas extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="propertiesList">
+                <div className="SelectedDataList">
                     <div className={'singleProperty heading'} key={"properties-list"}>
                         <div className={"propertyData"}>
                             <h6 className={"propertyKey "}>PROPERTIES</h6>

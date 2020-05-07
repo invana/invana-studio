@@ -28,12 +28,13 @@ export default class Navigation extends React.Component {
         return (
             <div id="main-navigation" style={mainNavigationStyle}>
                 <ul style={mainNavUl}>
-                    <li style={mainNavLi}><a style={mainNavLiA} href="/">hom</a></li>
-                    <li style={mainNavLi}><a style={mainNavLiA} href="/management">set</a></li>
+                    <li style={mainNavLi}><a style={mainNavLiA} href="/">home</a></li>
+                    <li style={mainNavLi}><a style={mainNavLiA} href="/management">settings</a></li>
                     <li style={mainNavLi}><a style={mainNavLiA} href="/about">About</a></li>
                     <li style={mainNavLi}>
-                        <a style={mainNavLiA} target={"_blank"}
-                                             href="https://github.com/invanalabs/graph-explorer">Bug</a></li>
+                        <a style={mainNavLiA}
+                           target={"_blank"}
+                           href="https://github.com/invanalabs/graph-explorer/issues">Support</a></li>
                 </ul>
             </div>
         )
