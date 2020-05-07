@@ -13,11 +13,12 @@ a{
 .search-div form input {
     padding: 9px 15px;
     font-size: 13px;
-    border: none;
     width: calc(100% - 30px);
     background: #1f222f;
     color: #efefef;
     font-family: Courier;
+    border:none;
+    border-bottom: 1px solid #4e5261;
 }
 
 .search-div form input:hover,
@@ -42,8 +43,8 @@ div#canvas-stats {
 
 #legend-div {
     position: fixed;
-    left: 0;
-    top: 40px;
+    left: 42px;
+    top: 34px;
     z-index: -10;
 }
 

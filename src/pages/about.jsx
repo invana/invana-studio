@@ -1,6 +1,6 @@
 import React from "react";
 import LeftNav from "../components/core/left-nav";
-
+import MainContent from "../components/core/main-content";
 
 const aboutDiv = {
     "maxWidth": "600px",
@@ -28,17 +28,18 @@ export default class AboutView extends React.Component {
         return (
             <div className="App">
                 <LeftNav/>
-                <div style={aboutDiv}>
-                    <h1 style={{"margin": "0"}}>{this.state.title}</h1>
-                    <p>Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.</p>
-                    <p>
-                        <a style={marginRight} target={"_new"}
-                           href="https://github.com/invanalabs/graph-explorer">@github</a>
+                <MainContent>
+                    <div style={aboutDiv}>
+                        <h1 style={{"margin": "0"}}>{this.state.title}</h1>
+                        <p>Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.</p>
+                        <p>
+                            <a style={marginRight} target={"_new"}
+                               href="https://github.com/invanalabs/graph-explorer">@github</a>
 
-                    </p>
+                        </p>
+                    </div>
+                </MainContent>
 
-
-                </div>
             </div>
         );
     }
