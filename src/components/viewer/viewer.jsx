@@ -4,7 +4,7 @@ import '../viewer.css';
 import GremlinResponseSerializers from './gremlin-serializer';
 import GraphCanvas from './canvas';
 import CanvasStatsCanvas, {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
-import {GREMLIN_SERVER_URL, uuidv4} from "../../config";
+import {GREMLIN_SERVER_URL, UUIDGenerator} from "../../config";
 import {SelectedDataCanvas} from "./selected-data";
 import {LegendCanvas} from "./legend";
 import ErrorBoundary from "./error-boundary";
@@ -58,7 +58,7 @@ export default class GraphViewer extends React.Component {
         if (query) {
 
             let msg = {
-                "requestId": uuidv4(),
+                "requestId": UUIDGenerator(),
                 "op": "eval",
                 "processor": "",
                 "args": {

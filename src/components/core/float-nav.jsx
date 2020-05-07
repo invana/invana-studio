@@ -20,7 +20,7 @@ const mainNavLiA = {
     "fontSize": "12px"
 
 }
-export default class Navigation extends React.Component {
+export default class FloatNav extends React.Component {
 
 
     render() {
@@ -30,6 +30,7 @@ export default class Navigation extends React.Component {
                 <ul style={mainNavUl}>
                     <li style={mainNavLi}><a style={mainNavLiA} href="/">home</a></li>
                     <li style={mainNavLi}><a style={mainNavLiA} href="/management">settings</a></li>
+                    <li style={mainNavLi}><a style={mainNavLiA} href="/console">Console</a></li>
                     <li style={mainNavLi}><a style={mainNavLiA} href="/about">About</a></li>
                     <li style={mainNavLi}>
                         <a style={mainNavLiA}

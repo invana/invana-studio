@@ -3,14 +3,12 @@ import FloatNav from "../components/core/float-nav";
 import HeaderNav from "../components/core/header-nav";
 
 
-
-
-export default class ManagementView extends React.Component {
+export default class ConsoleView extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            "title": "Graph Data Management"
+            "title": "Console"
         }
     }
 

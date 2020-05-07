@@ -1,6 +1,5 @@
 import React from "react";
-import Navigation from "../components/core/navigation";
-import HeaderNav from "../components/core/header-nav";
+import FloatNav from "../components/core/float-nav";
 
 
 const aboutDiv = {
@@ -28,7 +27,7 @@ export default class AboutView extends React.Component {
     render() {
         return (
             <div className="App">
-                <Navigation/>
+                <FloatNav/>
                 <div style={aboutDiv}>
                     <h1 style={{"margin": "0"}}>{this.state.title}</h1>
                     <p>Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.</p>
