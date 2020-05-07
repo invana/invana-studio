@@ -1,5 +1,6 @@
 import React from "react";
-
+import {faHome, faTerminal, faCog, faQuestionCircle, faBug} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const mainNavigationStyle = {
     position: 'fixed',
@@ -30,7 +31,8 @@ const mainNavUlBottom = {
     "padding": "0",
     "margin": "0",
     "position": "absolute",
-    "bottom": "0"
+    "bottom": "0",
+    "width": "100%"
 }
 const mainNavLiA = {
     "color": "#efefef",
@@ -39,7 +41,7 @@ const mainNavLiA = {
 
 }
 const LogoCls = {
-    "background": "red",
+    "background": "#333",
     // "display": "block",
     "height": "33px",
     "display": "flex",
@@ -54,19 +56,41 @@ export default class LeftNav extends React.Component {
         return (
             <div id="main-navigation" style={mainNavigationStyle}>
                 <ul style={mainNavUl}>
-                    <li style={LogoCls}><a style={mainNavLiA} href="/">home</a></li>
-                    <li style={mainNavLi}><a style={mainNavLiA} href="/">home</a></li>
-                    <li style={mainNavLi}><a style={mainNavLiA} href="/management">settings</a></li>
-                    <li style={mainNavLi}><a style={mainNavLiA} href="/console">Console</a></li>
+                    <li style={LogoCls}>
+                        <a style={mainNavLiA} href="/">
+                        </a>
+                    </li>
+                    <a style={mainNavLiA} href="/" title={"Graph Visualiser"}>
+                        <li style={mainNavLi}>
+                            <FontAwesomeIcon icon={faHome}/>
+                        </li>
+                    </a>
+                    <a style={mainNavLiA} href="/console" title={"Query Console"}>
+                        <li style={mainNavLi}>
+                            <FontAwesomeIcon icon={faTerminal}/>
+                        </li>
+                    </a>
+                    <a style={mainNavLiA} href="/management" title={"Management"}>
+                        <li style={mainNavLi}>
+                            <FontAwesomeIcon icon={faCog}/>
+                        </li>
+                    </a>
 
                 </ul>
                 <ul style={mainNavUlBottom}>
 
-                    <li style={mainNavLi}><a style={mainNavLiA} href="/about">About</a></li>
-                    <li style={mainNavLi}>
-                        <a style={mainNavLiA}
-                           target={"_new"}
-                           href="https://github.com/invanalabs/graph-explorer/issues">Support</a></li>
+                    <a style={mainNavLiA} href="/about" title={"Support/Documentation"}>
+                        <li style={mainNavLi}>
+                            <FontAwesomeIcon icon={faQuestionCircle}/>
+                        </li>
+                    </a>
+                    <a style={mainNavLiA}
+                       target={"_new"} title={"Support / Report Issues"}
+                       href="https://github.com/invanalabs/graph-explorer/issues">
+                        <li style={mainNavLi}>
+                            <FontAwesomeIcon icon={faBug}/>
+                        </li>
+                    </a>
                 </ul>
             </div>
         )
