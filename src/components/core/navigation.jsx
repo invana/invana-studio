@@ -30,6 +30,10 @@ export default class Navigation extends React.Component {
                 <ul style={mainNavUl}>
                     <li style={mainNavLi}><a style={mainNavLiA} href="/">hom</a></li>
                     <li style={mainNavLi}><a style={mainNavLiA} href="/management">set</a></li>
+                    <li style={mainNavLi}><a style={mainNavLiA} href="/about">About</a></li>
+                    <li style={mainNavLi}>
+                        <a style={mainNavLiA} target={"_blank"}
+                                             href="https://github.com/invanalabs/graph-explorer">Bug</a></li>
                 </ul>
             </div>
         )

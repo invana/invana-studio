@@ -1,10 +1,10 @@
 import React from 'react';
-import './viewer.css';
+import '../viewer.css';
 
 import GremlinResponseSerializers from './gremlin-serializer';
 import GraphCanvas from './canvas';
 import CanvasStatsCanvas, {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
-import {GREMLIN_SERVER_URL, uuidv4} from "../config";
+import {GREMLIN_SERVER_URL, uuidv4} from "../../config";
 import {PropertiesCanvas} from "./properties";
 import {LegendCanvas} from "./legend";
 import ErrorBoundary from "./error-boundary";

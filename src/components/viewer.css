@@ -1,7 +1,10 @@
 body {
     background: #3b3e4c;
+    color: #b3b3b3;
 }
-
+a{
+    color: #efefef;
+}
 .search-div {
     height: 35px;
     /*background: red;*/

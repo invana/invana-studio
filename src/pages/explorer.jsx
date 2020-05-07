@@ -1,6 +1,6 @@
-import GraphViewer from "../components/viewer";
+import GraphViewer from "../components/viewer/viewer";
 import React from "react";
-import Navigation from "../components/navigation"
+import Navigation from "../components/core/navigation"
 
 export default function GraphExplorerView() {
     return (

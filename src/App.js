@@ -1,9 +1,9 @@
 import React, {Suspense, lazy} from 'react';
-import GraphViewer from './components/viewer';
+import GraphViewer from './components/viewer/viewer';
 import './App.css';
 import GraphExplorerView from "./pages/explorer";
 import ManagementView from "./pages/management";
-
+import AboutView from "./pages/about";
 import {
     BrowserRouter as Router,
     Switch,
@@ -23,6 +23,7 @@ export default class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={GraphExplorerView}/>
                         <Route path="/management" component={ManagementView}/>
+                        <Route path="/about" component={AboutView}/>
                     </Switch>
                 </Suspense>
             </Router>
