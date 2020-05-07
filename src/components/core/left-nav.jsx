@@ -3,8 +3,12 @@ import React from "react";
 
 const mainNavigationStyle = {
     position: 'fixed',
-    bottom: '40px',
-    left: '10px'
+    left: '0',
+    top: '10px',
+    width: '40px',
+    borderRight: '1px solid #1f2230',
+    backgroundColor: '#1f2230',
+    height: '100vh'
 };
 const mainNavLi = {
     "display": "block",
@@ -20,7 +24,7 @@ const mainNavLiA = {
     "fontSize": "12px"
 
 }
-export default class FloatNav extends React.Component {
+export default class LeftNav extends React.Component {
 
 
     render() {
@@ -34,7 +38,7 @@ export default class FloatNav extends React.Component {
                     <li style={mainNavLi}><a style={mainNavLiA} href="/about">About</a></li>
                     <li style={mainNavLi}>
                         <a style={mainNavLiA}
-                           target={"_blank"}
+                           target={"_new"}
                            href="https://github.com/invanalabs/graph-explorer/issues">Support</a></li>
                 </ul>
             </div>

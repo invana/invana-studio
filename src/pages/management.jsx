@@ -1,5 +1,5 @@
 import React from "react";
-import FloatNav from "../components/core/float-nav";
+import LeftNav from "../components/core/left-nav";
 import HeaderNav from "../components/core/header-nav";
 
 
@@ -18,7 +18,7 @@ export default class ManagementView extends React.Component {
         return (
             <div className="App">
                 <HeaderNav title={this.state.title}/>
-                <FloatNav/>
+                <LeftNav/>
             </div>
         );
     }

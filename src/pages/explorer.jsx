@@ -1,12 +1,12 @@
 import GraphViewer from "../components/viewer/viewer";
 import React from "react";
-import FloatNav from "../components/core/float-nav"
+import LeftNav from "../components/core/left-nav"
 
 export default function GraphExplorerView() {
     return (
         <div className="App">
             <GraphViewer/>
-            <FloatNav />
+            <LeftNav />
         </div>
     );
 }

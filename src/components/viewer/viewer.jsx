@@ -90,28 +90,6 @@ export default class GraphViewer extends React.Component {
 
     }
 
-    checkIfNodeAlreadyExist(node, existingNodes) {
-        existingNodes.forEach(function (d) {
-            console.log("====checkifNode: d, node", d.id, node.id)
-            if (d.id === node.id) {
-                console.log("====checkifNode: TRUE")
-                return true;
-            }
-            console.log("====checkifNode: type validation", typeof d.id, typeof node.id);
-
-        });
-        return false;
-    }
-
-    checkIfEdgeAlreadyExist(link, existing_links) {
-        existing_links.forEach(function (d) {
-            if (d.id === link.id) {
-                return true;
-            }
-        });
-        return false;
-    }
-
     get_LINK_ID_TO_LINK(edges) {
         // TODO - revist the name
         let data = {};
@@ -311,7 +289,7 @@ export default class GraphViewer extends React.Component {
 
                     }
                 }
-            ).bind(this), 1000); // retry in 5 seconds
+            ), 1000); // retry in 5 seconds
 
 
         };

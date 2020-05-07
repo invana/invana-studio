@@ -1,5 +1,5 @@
 import React from "react";
-import FloatNav from "../components/core/float-nav";
+import LeftNav from "../components/core/left-nav";
 
 
 const aboutDiv = {
@@ -27,12 +27,12 @@ export default class AboutView extends React.Component {
     render() {
         return (
             <div className="App">
-                <FloatNav/>
+                <LeftNav/>
                 <div style={aboutDiv}>
                     <h1 style={{"margin": "0"}}>{this.state.title}</h1>
                     <p>Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.</p>
                     <p>
-                        <a style={marginRight} target={"_blank"}
+                        <a style={marginRight} target={"_new"}
                            href="https://github.com/invanalabs/graph-explorer">@github</a>
 
                     </p>

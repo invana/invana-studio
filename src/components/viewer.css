@@ -67,9 +67,10 @@ div#canvas-stats {
 #connection-status {
     position: fixed;
     bottom: 5px;
-    left: 0;
+    left: 40px;
     font-size: 12px;
     color: #efefef;
+    z-index: 10;
 }
 
 #connection-status span {
