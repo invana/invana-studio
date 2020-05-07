@@ -8,7 +8,7 @@ const mainNavigationStyle = {
     top: '0',
     width: '40px',
     borderRight: '1px solid #1f2230',
-    backgroundColor: '#1f2230',
+    backgroundColor: '#222222',
     height: '100vh',
     boxShadow: "-2px 1px 6px 1px #1f2230"
 };

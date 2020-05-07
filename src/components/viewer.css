@@ -1,10 +1,13 @@
 body {
     background: #3b3e4c;
     color: #b3b3b3;
+    font-size: 14px;
 }
-a{
+
+a {
     color: #efefef;
 }
+
 .search-div {
     height: 35px;
     /*background: red;*/
@@ -17,7 +20,7 @@ a{
     background: #1f222f;
     color: #efefef;
     font-family: Courier;
-    border:none;
+    border: none;
     border-bottom: 1px solid #4e5261;
 }
 
@@ -196,4 +199,9 @@ input[type="text"]:focus:hover {
     border-radius: 0;
     box-shadow: none;
     border: none;
+}
+
+
+svg:not(:root).svg-inline--fa {
+    color: #b0b0b0;
 }

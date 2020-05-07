@@ -14,6 +14,15 @@ const marginRight = {
     "marginRight": "20px"
 }
 
+const small = {
+    "background": "#47ab4e",
+    "color": "#3b3e4c",
+    "fontSize": "16px",
+    "padding": "2px 4px",
+    "marginLeft": "6px",
+    "paddingBottom": "0"
+}
+
 
 export default class AboutView extends React.Component {
 
@@ -30,7 +39,9 @@ export default class AboutView extends React.Component {
                 <LeftNav/>
                 <MainContent>
                     <div style={aboutDiv}>
-                        <h1 style={{"margin": "0"}}>{this.state.title}</h1>
+                        <h1 style={{"margin": "0"}}>{this.state.title}
+                            <small style={small}>Beta</small>
+                        </h1>
                         <p>Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.</p>
                         <p>
                             <a style={marginRight} target={"_new"}
