@@ -14,7 +14,7 @@ const textAreaCls = {
     "background": "#212427",
     "border": "1px solid #2f2f2f",
     "resize": "none",
-    "color": "white",
+    "color": "#efefef",
     "padding": "15px",
     "fontSize": "16px"
 }
