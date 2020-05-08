@@ -179,7 +179,7 @@ div#canvas-stats {
 }
 
 
-input[type="text"]:focus {
+input[type="text"]:focus, textarea[type="text"]:focus {
     outline: none;
     /*box-shadow: 0px 0px 5px #61C5FA;*/
     /*border: 1px solid #5AB0DB;*/
@@ -187,12 +187,12 @@ input[type="text"]:focus {
     border: none;
 }
 
-input[type="text"]:hover {
+input[type="text"]:hover, textarea[type="text"]:hover {
     /*border: 1px solid #999;*/
     /*border-radius: 5px;*/
 }
 
-input[type="text"]:focus:hover {
+input[type="text"]:focus:hover, textarea:focus:hover {
     outline: none;
     /*box-shadow: 0px 0px 5px #61C5FA;*/
     /*border: 1px solid #5AB0DB;*/
