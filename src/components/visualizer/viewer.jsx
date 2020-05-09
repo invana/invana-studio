@@ -4,17 +4,17 @@ import '../viewer.css';
 import GremlinResponseSerializers from './gremlin-serializer';
 import GraphCanvas from './canvas';
 import CanvasStatsCanvas, {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
-import {GREMLIN_SERVER_URL, UUIDGenerator} from "../../config";
 import {SelectedDataCanvas} from "./selected-data";
 import {LegendCanvas} from "./legend";
 import ErrorBoundary from "./error-boundary";
+import GremlinConnectorViewBase from "../core/gremlin-connector";
 
 
-export default class GraphViewer extends React.Component {
+export default class GraphViewer extends GremlinConnectorViewBase {
 
     gremlin_serializer = new GremlinResponseSerializers();
-    ws = this.createNewWebsocket();
     isDataChanged = true;
+
 
     constructor() {
         // This component can load
@@ -22,73 +22,12 @@ export default class GraphViewer extends React.Component {
         this.state = {
             "nodes": [],
             "links": [],
-            "freshQuery": true,
-            "gremlinQuery": "",
-
-            "isConnected2Server": "",
-            "statusMessage": "",
-            "errorMessage": "",
-
-
             "showProperties": false,
             "selectedData": {}
         };
     }
 
-    createNewWebsocket() {
-        return new WebSocket(GREMLIN_SERVER_URL);
-    }
 
-    updateQueryInput(query) {
-        document.querySelector('input[type="text"]').value = query;
-    }
-
-    queryGremlinServer(query, freshQuery) {
-        let _this = this;
-        if (typeof freshQuery === "undefined") {
-            freshQuery = false;
-        }
-        console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
-
-        this.setState({
-            "gremlinQuery": query
-        })
-
-
-        if (query) {
-
-            let msg = {
-                "requestId": UUIDGenerator(),
-                "op": "eval",
-                "processor": "",
-                "args": {
-                    "gremlin": query,
-                    "bindings": {},
-                    "language": "gremlin-groovy"
-                }
-            };
-
-            let data = JSON.stringify(msg);
-            if (this.ws.readyState === 1) {
-                _this.ws.send(data, {mask: true});
-                _this.updateStatusMessage("Sending a Query")
-            } else {
-                _this.ws.onopen = function () {
-                    _this.ws.send(data, {mask: true});
-                    _this.updateStatusMessage("Sending a Query")
-                };
-            }
-
-            if (freshQuery === true) {
-                this.addQueryToUrl(query);
-                this.updateQueryInput(query);
-            }
-            _this.setState({
-                "freshQuery": freshQuery
-            })
-        }
-
-    }
 
     get_LINK_ID_TO_LINK(edges) {
         // TODO - revist the name
@@ -180,26 +119,7 @@ export default class GraphViewer extends React.Component {
         this.isDataChanged = false;
     }
 
-    addQueryToUrl(query) {
-        let u = new URL(window.location.href);
-        let searchParams = new URLSearchParams(window.location.search);
-        searchParams.set("query", query);
-        if (window.history.replaceState) {
-            //prevents browser from storing history with each change:
-            // no history will be added with replaceState
-            window.history.pushState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
-        }
 
-
-    }
-
-    onPageLoadInitQuery() {
-        let query = new URLSearchParams(window.location.search).get("query");
-        if (this.ws) {
-            this.queryGremlinServer(query, true);
-        }
-
-    }
 
     componentDidMount() {
 
@@ -215,84 +135,10 @@ export default class GraphViewer extends React.Component {
         }
     }
 
-    updateStatusMessage(statusMessage) {
-        this.setState({
-            "statusMessage": statusMessage
-        })
-    }
 
-    setConnected2Gremlin() {
-        this.setState({
-            "isConnected2Server": true,
-            "statusMessage": "Connected to Server"
-        })
-    }
-
-    setDisconnectedFromGremlin() {
-        this.setState({
-            "isConnected2Server": false,
-            "statusMessage": "Disconnected from Server"
-        })
-    }
 
     setSelectedData(data) {
         this.setState({...data})
-    }
-
-    setupGremlinServer() {
-        /*
-        Usage:
-
-
-         */
-
-        let _this = this;
-
-        this.ws.onopen = function (event) {
-            console.log("ws-opened");
-            _this.setConnected2Gremlin()
-
-        };
-
-        this.ws.onmessage = function (event) {
-            _this.processGremlinResponseEvent(event);
-            // _this.updateStatusMessage("Query Successfully Responded.");
-
-        };
-
-        // An event listener to be called when an error occurs.
-        this.ws.onerror = function (err) {
-            console.log('Connection error using websocket', err);
-            _this.updateStatusMessage("Failed with error" + JSON.stringify(err));
-
-        };
-
-        // An event listener to be called when the connection is closed.
-        this.ws.onclose = function (err) {
-            console.log('Connection error using websocket', err);
-            _this.setDisconnectedFromGremlin();
-
-            let retry_in = 10;
-
-
-            let i = 1;
-            let timer = setInterval((function () {
-
-                    _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (retry_in) + "s 'retry in' time...");
-                    i += 1;
-
-                    if (i > retry_in) {
-                        clearInterval(timer);
-
-                        _this.ws = _this.createNewWebsocket();
-                        _this.setupGremlinServer();
-
-                    }
-                }
-            ), 1000); // retry in 5 seconds
-
-
-        };
     }
 
 
