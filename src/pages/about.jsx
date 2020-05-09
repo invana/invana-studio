@@ -42,7 +42,10 @@ export default class AboutView extends React.Component {
                         <h1 style={{"margin": "0"}}>{this.state.title}
                             <small style={small}>Beta</small>
                         </h1>
-                        <p>Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.</p>
+                        <p>
+                            Opensource Graph Data
+                            Visualiser for Graph Databases and <a style={{"color": " inherit"}} href="https://invana.io">Invana Graph.</a>
+</p>
                         <p>
                             <a style={marginRight} target={"_new"}
                                href="https://github.com/invanalabs/graph-explorer">@github</a>
