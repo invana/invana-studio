@@ -101,7 +101,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                         <div style={textAreaDiv}>
                             <form style={{"height": "100%"}} action="" onSubmit={this.onFormSubmit.bind(this)}>
                                <textarea style={textAreaCls} name="query"
-                                         id="" cols="30" rows="10">{JSON.stringify(this.state)}
+                                         id="" cols="30" rows="10">
                                </textarea>
                                 <button style={submitButtonCls} type={"sumbit"}>Submit</button>
 
