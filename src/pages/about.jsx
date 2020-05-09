@@ -46,6 +46,8 @@ export default class AboutView extends React.Component {
                         <p>
                             <a style={marginRight} target={"_new"}
                                href="https://github.com/invanalabs/graph-explorer">@github</a>
+                            <a style={marginRight} target={"_new"}
+                               href="https://invana.io/graph-explorer/">@documentation</a>
 
                         </p>
                     </div>
