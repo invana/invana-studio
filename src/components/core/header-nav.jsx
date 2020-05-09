@@ -2,7 +2,7 @@ import React from "react";
 
 const headerNavigation = {
     "background": "#333333",
-    "padding": "9px 1rem",
+    "padding": "7px 1rem",
     "boxShadow": "0 2px 1px 0 rgb(58, 58, 58)",
 }
 const headerNavigationH1 = {
