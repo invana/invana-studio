@@ -98,13 +98,17 @@ export class LegendCanvas extends React.Component {
             .enter()
             .append('rect')
             .attrs({width: 10, height: 2})
-
             .attr('class', 'legend-rect')
             .attr('transform', function (d, i) {
                 return 'translate(' + (15) + ',' + ((i * 20) + 10) + ')';
             })
             .style("fill", function (d, i) {
-                return _this.state.color_schema(d);
+                // return _this.state.color_schema(d);
+                if (_this.getLabelConfig(d)) {
+                    return _this.getLabelConfig(d).bgColor;
+                } else {
+                    return "#efefef";
+                }
             });
 
         legend.selectAll('.label')

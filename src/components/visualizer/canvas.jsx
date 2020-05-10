@@ -2,6 +2,7 @@ import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
+import {DefaultHoverOpacity} from "../../config";
 
 export default class GraphCanvas extends React.Component {
 
@@ -130,7 +131,7 @@ export default class GraphCanvas extends React.Component {
         selectedNode.fixed = false;
         selectedNode.fx = null;
         selectedNode.fy = null;
-        this.simulation.alpha(0.3).restart();
+        this.simulation.alpha(DefaultHoverOpacity).restart();
 
     }
 
@@ -287,6 +288,8 @@ export default class GraphCanvas extends React.Component {
     addVertices(vertices) {
 
         console.log("VertexUtils.add", vertices, this.canvas);
+
+
         let _this = this;
         let node = this.canvas.selectAll(".node")
             .data(vertices)
@@ -298,6 +301,10 @@ export default class GraphCanvas extends React.Component {
                 return "node-" + d.id;
             });
 
+        // let  clipPath = node.append("clipPath")
+        //     .attr("id", function (d) {
+        //         return "node-clippath-" + d.id
+        //     })
 
         node.append("circle")
             .attr("r", 20)
@@ -309,7 +316,17 @@ export default class GraphCanvas extends React.Component {
                     return "#efefef";
                 }
             })
+
+            .style("stroke-width", "3px")
             .style("cursor", "pointer")
+            .style("stroke", function (d) {
+
+                if (_this.getLabelConfig(d.label)) {
+                    return _this.getLabelConfig(d.label).borderColor;
+                } else {
+                    return _this.getLabelConfig(d.label).bgColor;
+                }
+            })
             .style("z-index", "100")
             .on("mouseover", function (d) {
                 _this.onNodeHoverIn(d);
@@ -321,10 +338,32 @@ export default class GraphCanvas extends React.Component {
                 _this.onNodeClicked(this, d);
             });
 
+        node.append("image")
+            .attr("width", "20")
+            .attr("height", "20")
+            .attr("dx", "20")
+            .attr("xlink:href", function (d) {
+                if (_this.getLabelConfig(d.label)) {
+                    let vertexLabelconfig = _this.getLabelConfig(d.label);
+                    if (d[vertexLabelconfig.bgImagePropertyKey]) {
+                        return d[vertexLabelconfig.bgImagePropertyKey];
+                    }
+                }
+                return "https://css-tricks.com/wp-content/uploads/2019/01/me-black-white-80x80.jpg";
+
+            })
+            .attr("clip-path", function (d) {
+                return "url(#node-clippath-" + d.id + ")";
+            })
+
         node.append("title")
             .text(function (d) {
                 return d.properties.name || d.id;
             });
+        // <image width="500" height="350"
+        //        xlink:href="https://www.tutorialspoint.com/videotutorials/images/coding_ground_home.jpg"
+        //        clip-path="url(#myCircle)"/>
+
 
         node.append("text")
             .attr("dy", -3)
@@ -332,13 +371,16 @@ export default class GraphCanvas extends React.Component {
                 return d.properties.name || d.id;
             })
             .style("fill", function (d, i) {
-                return "#ececec";
+                return "#bfbfbf";
             })
             .style("font-size", function (d, i) {
                 return "12px";
             })
             .style("font-weight", function (d, i) {
                 return "bold";
+            })
+            .style("text-shadow", function (d, i) {
+                return "1px 1px #999999";
             });
 
         return node;
@@ -577,7 +619,7 @@ export default class GraphCanvas extends React.Component {
             .on("dblclick", function (d) {
                 d.fixed = false;
                 if (!d3.event.active) {
-                    _this.simulation.alphaTarget(0.3).restart();
+                    _this.simulation.alphaTarget(DefaultHoverOpacity).restart();
                 }
             })
             .call(d3.drag()
@@ -594,7 +636,7 @@ export default class GraphCanvas extends React.Component {
 
         function dragstarted(d) {
             if (!d3.event.active) {
-                _this.simulation.alphaTarget(0.3).restart();
+                _this.simulation.alphaTarget(DefaultHoverOpacity).restart();
             }
             d.fx = d.x;
             d.fy = d.y;
@@ -605,7 +647,7 @@ export default class GraphCanvas extends React.Component {
             if (!d3.event.active) {
                 _this.simulation.alphaTarget(0);
             }
-            _this.simulation.alpha(0.3).restart();
+            _this.simulation.alpha(DefaultHoverOpacity).restart();
             // d.fx = null;
             // d.fy = null;
         }

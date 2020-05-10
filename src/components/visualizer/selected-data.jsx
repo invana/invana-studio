@@ -9,16 +9,11 @@ export class SelectedDataCanvas extends React.Component {
 
         if (data.type) {
             let properties = data.properties;
-
-
             let cleanedData = {};
             cleanedData.label = data.label;
             cleanedData.type = data.type.replace("g:", "");
             cleanedData.id = data.id;
-
             cleanedData.properties = properties;
-
-
             return cleanedData;
         } else {
             return {"properties": {}};
