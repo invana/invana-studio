@@ -258,7 +258,6 @@ export default class GraphCanvas extends React.Component {
 
         // Add hover action
         path.on("mouseenter", function (d, i) {
-            // tip.hide(d);
             d3.select(this)
                 .attr("fill", "#555555")
                 .attr("cursor", "pointer")
@@ -375,7 +374,6 @@ export default class GraphCanvas extends React.Component {
             .attr('y', 0)
             .attr('width', 40)
             .attr('height', 40);
-
 
 
         node.append("title")
@@ -533,24 +531,23 @@ export default class GraphCanvas extends React.Component {
 
         let getSimulationCharge = function () {
             return d3.forceManyBody()
-                .strength(-300);
+                .strength(-240);
         }
 
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
-                    console.log("=================link", d);
                     return d.id;
                 })
-                .distance(150).strength(1)
+                .distance(180).strength(1)
             )
             .force("charge", getSimulationCharge())
             .force("collide", forceCollide)
             .force('x', forceX)
             .force('y', forceY)
             .force("center", d3.forceCenter(canvas_width / 2, canvas_height / 2))
-            // .velocityDecay(0.4)
-            // .alphaTarget(0.1);
+        // .velocityDecay(0.4)
+        // .alphaTarget(0.1);
     }
 
     setupCanvas() {
@@ -570,15 +567,6 @@ export default class GraphCanvas extends React.Component {
             d3.select(".node-menu").remove();
         });
         return svg;
-    }
-
-    removeEverythingInCanvas(canvas) {
-        console.log("removeEverythingInCanvas");
-        // d3.select(".everything").remove();
-        canvas.selectAll(".everything").remove();
-        canvas.selectAll("*").remove();
-        d3.select(this.html_selector_id).selectAll("*").remove();
-        return canvas;
     }
 
     setupMarker(canvas) {
@@ -603,25 +591,12 @@ export default class GraphCanvas extends React.Component {
     }
 
     startFreshCanvas() {
-        // removes everything from the board.
-        // console.log("=======startFreshCanvas this.state", this.state);
-        // if (this.canvas) {
-        //     this.removeEverythingInCanvas();
-        //     this.setupMarker();
-        // }
-        // this.removeEverythingInCanvas();
         let canvas = this.setupCanvas();
-        // canvas = this.removeEverythingInCanvas(canvas);
         return this.setupMarker(canvas);
     }
 
     startRenderingGraph(nodes, links) {
         // add this data to the existing data
-
-
-        console.log("^^^^^^^^startRenderingGraph^^^^^^^^^", this.canvas);
-        console.log("^^^^^^^^startRenderingGraph^^^^^^^^^ nodes", nodes.length);
-        console.log("^^^^^^^^startRenderingGraph^^^^^^^^^ links", links.length);
 
         let vertices = nodes;
         let edges = links;
@@ -725,54 +700,22 @@ export default class GraphCanvas extends React.Component {
     }
 
 
-    componentDidMount() {
-
-
-        // this.startRenderingGraph(this.props.nodes, this.props.links);
-
-    }
-
-    componentWillUnmount() {
-        // this.canvas = null;
-        // this.color_schema = null;
-        // this.simulation = null;
-    }
-
-
     componentDidUpdate(prevProps) {
-        // // Typical usage (don't forget to compare props):
-        // console.log("componentDidUpdate===== this.props", this.props,);
-        // console.log("componentDidUpdate===== prevProps", prevProps);
-        // if (
-        //     this.checkIfChanged(this.props.nodes, prevProps.nodes) ||
-        //     this.checkIfChanged(this.props.links, prevProps.links)
-        // ) {
 
-        // this.removeEverythingInCanvas(this.canvas);
         this.canvas = this.startFreshCanvas();
         this.canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
         this.startRenderingGraph(this.props.nodes, this.props.links)
-        // }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-
         return nextProps.isDataChanged
-        // return true;
-
     }
 
     render() {
-        console.log("<<<<<<<<< rendering GraphCanvas", this.props.nodes.length, this.props.links.length);
-        // if (this.canvas && this.simulation) {
-        //     this.startRenderingGraph(this.props.nodes, this.props.links);
-        // }
-
         let canvasClass = this.html_selector_id.replace(".", "");
-
         return (
 
             <svg className={canvasClass}></svg>
