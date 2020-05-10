@@ -28,7 +28,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     }
 
 
-
     get_LINK_ID_TO_LINK(edges) {
         // TODO - revist the name
         let data = {};
@@ -107,6 +106,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
 
             _this.setState({
                 "errorMessage": JSON.stringify(response,),
+                "showErrorMessage": true,
                 "statusMessage": "Query Successfully Responded." +
                     " But returned non 200 status[" + response.status.code + "]"
             })
@@ -115,10 +115,15 @@ export default class GraphViewer extends GremlinConnectorViewBase {
 
     }
 
+
+
     componentDidUpdate(prevProps) {
         this.isDataChanged = false;
     }
 
+    updateQueryInput(query) {
+        document.querySelector('input[type="text"]').value = query;
+    }
 
 
     componentDidMount() {
@@ -134,7 +139,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             this.queryGremlinServer(query, true);
         }
     }
-
 
 
     setSelectedData(data) {
@@ -176,7 +180,9 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                 <ConnectionStatus
                     statusMessage={this.state.statusMessage}
                     isConnected2Server={this.state.isConnected2Server}
+                    showErrorMessage={this.state.showErrorMessage}
                     errorMessage={this.state.errorMessage}
+                    closeErrorMessage={this.closeErrorMessage.bind(this)}
                 />
                 <CopyRightInfo/>
 

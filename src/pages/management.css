@@ -1,0 +1,40 @@
+table{
+    border:1px solid #2f313c;
+}
+table thead tr{
+    border-bottom: 1px solid #2f313c;
+}
+table thead{
+    background: #333542;
+}
+th, td{
+    padding:5px 15px;
+    text-align: left;
+}
+h2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+input {
+    padding: 3px 10px;
+    border: 1px solid #999 !important
+}
+
+button{
+    padding: 4px 10px;
+    border-radius: 0;
+    margin-left: 5px;
+    background: yellowgreen;
+}
+.node-coloring{
+    width: 20px;
+    height: 20px;
+    background: rebeccapurple;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 30rem;
+    border: 2px solid;
+
+}

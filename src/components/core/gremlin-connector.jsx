@@ -16,7 +16,8 @@ export default class GremlinConnectorViewBase extends React.Component {
             "gremlinQuery": "",
             "isConnected2Server": "",
             "statusMessage": "",
-            "errorMessage": ""
+            "errorMessage": "",
+            "showErrorMessage": true
 
         };
     }
@@ -124,6 +125,13 @@ export default class GremlinConnectorViewBase extends React.Component {
         this.setState({
             "isConnected2Server": true,
             "statusMessage": "Connected to Server"
+        })
+    }
+
+    closeErrorMessage() {
+        this.setState({
+            "showErrorMessage": false,
+
         })
     }
 

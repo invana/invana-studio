@@ -39,6 +39,7 @@ const submitButtonCls = {
     borderRadius: "2px",
     padding: "7px 20px",
     background: "#1a1b1b",
+    marginLeft: "0",
     color: "#999",
     borderColor: "#222"
 }
@@ -83,6 +84,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
 
             _this.setState({
                 "errorMessage": JSON.stringify(response,),
+                "showErrorMessage": true,
                 "statusMessage": "Query Successfully Responded." +
                     " But returned non 200 status[" + response.status.code + "]"
             })
@@ -120,7 +122,10 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                     <ConnectionStatus
                         statusMessage={this.state.statusMessage}
                         isConnected2Server={this.state.isConnected2Server}
+                        showErrorMessage={this.state.showErrorMessage}
                         errorMessage={this.state.errorMessage}
+                        closeErrorMessage={this.closeErrorMessage.bind(this)}
+
                     />
                     <CopyRightInfo/>
                 </MainContent>

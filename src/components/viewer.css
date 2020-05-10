@@ -75,6 +75,8 @@ div#canvas-stats {
     font-size: 12px;
     color: #efefef;
     z-index: 10;
+    max-width: 100%;
+
 }
 
 #connection-status span {
@@ -105,7 +107,7 @@ div#canvas-stats {
     background: #f5deb3;
     line-height: 1.3rem;
     display: block;
-    width: 100%;
+    max-width: 100%;
     height: 300px;
     font-size: 12px;
     overflow-y: scroll;
@@ -204,4 +206,15 @@ input[type="text"]:focus, textarea:focus {
 
 svg:not(:root).svg-inline--fa {
     color: #b0b0b0;
+}
+
+.errorHideBtn {
+    /*right: 0;*/
+    position: absolute;
+    top: 20px;
+    padding: 2px 4px;
+    background: none;
+    border: 1px solid #666666;
+    cursor: pointer;
+    marginTop: 5px ;
 }
