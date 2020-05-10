@@ -28,10 +28,12 @@ export default class GremlinConnectorViewBase extends React.Component {
         return new WebSocket(GREMLIN_SERVER_URL);
     }
 
+
     componentDidMount() {
 
-        this.setupGremlinServer()
-        this.onPageLoadInitQuery()
+        this.setupGremlinServer();
+        this.onPageLoadInitQuery();
+
     }
 
     updateStatusMessage(statusMessage) {
@@ -142,12 +144,15 @@ export default class GremlinConnectorViewBase extends React.Component {
         })
     }
 
-    queryGremlinServer(query, freshQuery) {
+    queryGremlinServer(query, freshQuery, queryId) {
         let _this = this;
         if (typeof freshQuery === "undefined") {
             freshQuery = false;
         }
-        console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
+        if (typeof queryId === "undefined") {
+            queryId = "";
+        }
+        console.log("queryGremlinServer ::: freshQuery, query", freshQuery, queryId, query);
 
         this.setState({
             "gremlinQuery": query

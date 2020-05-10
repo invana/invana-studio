@@ -23,10 +23,17 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             "nodes": [],
             "links": [],
             "showProperties": false,
-            "selectedData": {}
+            "selectedData": {},
+            "labelsConfig": null
         };
     }
 
+    getLabelsConfigFromStorage() {
+        // labels
+        this.setState({
+            "labelsConfig": ""
+        })
+    }
 
     get_LINK_ID_TO_LINK(edges) {
         // TODO - revist the name
@@ -116,13 +123,12 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     }
 
 
-
     componentDidUpdate(prevProps) {
         this.isDataChanged = false;
     }
 
     updateQueryInput(query) {
-        document.querySelector('input[type="text"]').value = query;
+        document.querySelector('input').value = query;
     }
 
 
@@ -130,13 +136,15 @@ export default class GraphViewer extends GremlinConnectorViewBase {
 
         this.setupGremlinServer()
         this.onPageLoadInitQuery()
+        this.getLabelsConfigFromStorage();
     }
 
     onFormSubmit(e) {
         e.preventDefault();
+        let queryId = "mainQuery";
         let query = e.target.query.value;
         if (query && this.ws) {
-            this.queryGremlinServer(query, true);
+            this.queryGremlinServer(query, true, queryId,);
         }
     }
 
