@@ -308,13 +308,22 @@ export default class GraphCanvas extends React.Component {
 
         node.append("circle")
             .attr("r", 20)
+            // .attr("cx", this.canvasDimensions.width/2)
+            // .attr("cy", this.canvasDimensions.width/2)
             .style("fill", function (d, i) {
 
                 if (_this.getLabelConfig(d.label)) {
-                    return _this.getLabelConfig(d.label).bgColor;
-                } else {
-                    return "#efefef";
+                    let vertexLabelconfig = _this.getLabelConfig(d.label);
+                    if (vertexLabelconfig && vertexLabelconfig.bgImagePropertyKey) {
+                        return "url(#pattern-node-" + d.id + ")";
+                    } else if (vertexLabelconfig && vertexLabelconfig.bgImageUrl) {
+                        return "url(#pattern-node-" + d.id + ")";
+                    } else {
+                        return vertexLabelconfig.bgColor;
+                    }
                 }
+
+
             })
 
             .style("stroke-width", "3px")
@@ -338,10 +347,17 @@ export default class GraphCanvas extends React.Component {
                 _this.onNodeClicked(this, d);
             });
 
-        node.append("image")
-            .attr("width", "20")
-            .attr("height", "20")
-            .attr("dx", "20")
+
+        node.append('svg:defs').append('svg:pattern')
+            .attr("id", function (d) {
+                return "pattern-node-" + d.id + "";
+            })
+
+            .attr('patternUnits', 'objectBoundingBox')
+            .attr('width', 40)
+            .attr('height', 40)
+            .append('svg:image')
+            // .attr('xlink:href', '/images/tile-worldwide.png')
             .attr("xlink:href", function (d) {
                 if (_this.getLabelConfig(d.label)) {
                     let vertexLabelconfig = _this.getLabelConfig(d.label);
@@ -354,9 +370,34 @@ export default class GraphCanvas extends React.Component {
                 return "";
 
             })
-            .attr("clip-path", function (d) {
-                return "url(#node-clippath-" + d.id + ")";
-            })
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', 40)
+            .attr('height', 40);
+
+
+        // node.append("svg:image")
+        //     .attr("width", "25")
+        //     .attr("height", "25")
+        //     // .attr("x", 0)
+        //     // .attr("y", 0)
+        //     .attr("x", "-12.5")
+        //     .attr("y", "-12.5")
+        //     .attr("xlink:href", function (d) {
+        //         if (_this.getLabelConfig(d.label)) {
+        //             let vertexLabelconfig = _this.getLabelConfig(d.label);
+        //             if (vertexLabelconfig && vertexLabelconfig.bgImagePropertyKey) {
+        //                 return vertexLabelconfig.bgImagePropertyKey;
+        //             } else if (vertexLabelconfig && vertexLabelconfig.bgImageUrl) {
+        //                 return vertexLabelconfig.bgImageUrl;
+        //             }
+        //         }
+        //         return "";
+        //
+        //     })
+        //     .attr("clip-path", function (d) {
+        //         return "url(#node-clippath-" + d.id + ")";
+        //     })
 
         node.append("title")
             .text(function (d) {
@@ -368,12 +409,13 @@ export default class GraphCanvas extends React.Component {
 
 
         node.append("text")
-            .attr("dy", -3)
+            .attr("dy", -16)
+            .attr("dx", 6)
             .text(function (d) {
                 return d.properties.name || d.id;
             })
             .style("fill", function (d, i) {
-                return "#bfbfbf";
+                return "#c1c1c1";
             })
             .style("font-size", function (d, i) {
                 return "12px";
@@ -382,7 +424,7 @@ export default class GraphCanvas extends React.Component {
                 return "bold";
             })
             .style("text-shadow", function (d, i) {
-                return "1px 1px #999999";
+                return "1px 1px #424242";
             });
 
         return node;
@@ -732,9 +774,9 @@ export default class GraphCanvas extends React.Component {
 
         // this.removeEverythingInCanvas(this.canvas);
         this.canvas = this.startFreshCanvas();
-        let canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
+        this.canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
-        this.simulation = this.setupSimulation(canvasDimensions.width, canvasDimensions.height);
+        this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
         this.startRenderingGraph(this.props.nodes, this.props.links)
         // }
