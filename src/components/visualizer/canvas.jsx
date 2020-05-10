@@ -2,7 +2,7 @@ import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
-import {DefaultHoverOpacity} from "../../config";
+import {DefaultHoverOpacity, DefaultNodeBgColor} from "../../config";
 
 export default class GraphCanvas extends React.Component {
 
@@ -301,6 +301,17 @@ export default class GraphCanvas extends React.Component {
                 return "node-" + d.id;
             });
 
+        node.append("circle")
+            .attr("r", 20)
+            .style("fill", function (d, i) {
+
+                if (_this.getLabelConfig(d.label)) {
+                    let vertexLabelconfig = _this.getLabelConfig(d.label);
+                    if (vertexLabelconfig) {
+                        return vertexLabelconfig.bgColor;
+                    }
+                }
+            })
 
         node.append("circle")
             .attr("r", 20)
@@ -323,9 +334,9 @@ export default class GraphCanvas extends React.Component {
             .style("stroke", function (d) {
 
                 if (_this.getLabelConfig(d.label)) {
-                    return _this.getLabelConfig(d.label).borderColor;
+                    return _this.getLabelConfig(d.label).bgColor; // TODO - make this color darker ?
                 } else {
-                    return _this.getLabelConfig(d.label).bgColor;
+                    return DefaultNodeBgColor;
                 }
             })
             .style("z-index", "100")
@@ -349,12 +360,11 @@ export default class GraphCanvas extends React.Component {
             .attr('width', 40)
             .attr('height', 40)
             .append('svg:image')
-            // .attr('xlink:href', '/images/tile-worldwide.png')
             .attr("xlink:href", function (d) {
                 if (_this.getLabelConfig(d.label)) {
                     let vertexLabelconfig = _this.getLabelConfig(d.label);
                     if (vertexLabelconfig && vertexLabelconfig.bgImagePropertyKey) {
-                        return vertexLabelconfig.bgImagePropertyKey;
+                        return d.properties[vertexLabelconfig.bgImagePropertyKey];
                     } else if (vertexLabelconfig && vertexLabelconfig.bgImageUrl) {
                         return vertexLabelconfig.bgImageUrl;
                     }

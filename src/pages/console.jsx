@@ -35,13 +35,14 @@ const codeDiv = {
 }
 
 const submitButtonCls = {
-    width: "calc(100% + 2px)",
+    // width: "calc(100% + 2px)",
     borderRadius: "2px",
     padding: "7px 20px",
     background: "#1a1b1b",
     marginLeft: "0",
     color: "#999",
-    borderColor: "#222"
+    borderColor: "#222",
+    float: "right"
 }
 export default class ConsoleView extends GremlinConnectorViewBase {
 

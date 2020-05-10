@@ -75,8 +75,7 @@ div#canvas-stats {
     font-size: 12px;
     color: #efefef;
     z-index: 10;
-    width: 100%;
-
+    width: calc(100% - 40px);
 }
 
 #connection-status span {
@@ -107,7 +106,7 @@ div#canvas-stats {
     background: #f5deb3;
     line-height: 1.3rem;
     display: block;
-    max-width: 100%;
+    /*max-width: 100%;*/
     height: 300px;
     font-size: 12px;
     overflow-y: scroll;
@@ -128,6 +127,7 @@ div#canvas-stats {
     line-height: 1.2rem;
     word-wrap: break-word;
     font-family: Courier;
+    overflow: scroll;
     border-left: 1px solid #212329;
     background: rgba(35, 37, 45, .7);
     color: #d2d2d2;
@@ -216,5 +216,5 @@ svg:not(:root).svg-inline--fa {
     background: none;
     border: 1px solid #666666;
     cursor: pointer;
-    marginTop: 5px ;
+    marginTop: 5px;
 }
