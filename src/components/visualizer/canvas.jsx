@@ -532,7 +532,8 @@ export default class GraphCanvas extends React.Component {
         const forceY = d3.forceY(canvas_height / 2).strength(0.040);
 
         let getSimulationCharge = function () {
-            return d3.forceManyBody().strength(-1000);
+            return d3.forceManyBody()
+                .strength(-300);
         }
 
         return d3.forceSimulation()
@@ -548,8 +549,8 @@ export default class GraphCanvas extends React.Component {
             .force('x', forceX)
             .force('y', forceY)
             .force("center", d3.forceCenter(canvas_width / 2, canvas_height / 2))
-            .velocityDecay(0.4)
-            .alphaTarget(0.1);
+            // .velocityDecay(0.4)
+            // .alphaTarget(0.1);
     }
 
     setupCanvas() {
