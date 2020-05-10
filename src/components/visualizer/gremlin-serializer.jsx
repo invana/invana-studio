@@ -228,10 +228,10 @@ export default class GremlinResponseSerializers {
             } else if (item['@type'] === "g:Map") {
                 // console.log("=======items", item);
                 return _this.convert_map_to_json(item);
-            }else{
+            } else {
                 return [];
             }
-        }else{
+        } else {
             return [];
         }
 
@@ -243,17 +243,28 @@ export default class GremlinResponseSerializers {
         return this.convert_list_to_json(data);
     }
 
-    seperate_vertices_and_edges(data) {
+    seperate_vertices_and_edges(data, ignoreManagement) {
+        if (typeof ignoreManagement === "undefined") {
+            ignoreManagement = true;
+        }
         let vertices = [];
         let edges = [];
         if (data) {
             data.forEach(function (d) {
-                if (d.type === "g:Vertex") {
-                    vertices.push(d);
-                } else if (d.type === "g:Edge") {
-
-                    edges.push(d);
+                if (ignoreManagement) {
+                    if (d.type === "g:Vertex" && d.label !== "InvanaManagement") {
+                        vertices.push(d);
+                    } else if (d.type === "g:Edge" && d.label !== "InvanaManagement") {
+                        edges.push(d);
+                    }
+                } else {
+                    if (d.type === "g:Vertex") {
+                        vertices.push(d);
+                    } else if (d.type === "g:Edge") {
+                        edges.push(d);
+                    }
                 }
+
             });
         }
         return {"nodes": vertices, "links": edges};

@@ -83,7 +83,7 @@ export default class ManagementView extends GremlinConnectorViewBase {
 
     serializeManagementVerticesData(response) {
         let result = this.gremlin_serializer.process(response);
-        let _ = this.gremlin_serializer.seperate_vertices_and_edges(result);
+        let _ = this.gremlin_serializer.seperate_vertices_and_edges(result, false);
         console.log("=======serializeManagementVerticesData", _);
 
         return _.nodes;
