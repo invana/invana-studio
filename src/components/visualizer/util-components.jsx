@@ -44,7 +44,7 @@ export class ConnectionStatus extends React.Component {
         return (
             <div id="connection-status">
                 <span>{this.props.statusMessage}</span>
-                { this.props.showErrorMessage ?
+                { this.props.showErrorMessage && this.props.errorMessage ?
                     (
                         <div id={"errorMessage"}>
                             <button onClick={this.props.closeErrorMessage} className={"errorHideBtn"}>dismiss message</button>
