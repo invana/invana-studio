@@ -4,6 +4,7 @@ import GraphExplorerView from "./pages/explorer";
 import ManagementView from "./pages/management";
 import AboutView from "./pages/about";
 import Console from "./pages/console";
+import LandingPageView from "./pages/index";
 import {
     BrowserRouter as Router,
     Switch,
@@ -19,7 +20,8 @@ export default class App extends React.Component {
             <Router>
                 <Suspense fallback={<div>Loading...</div>}>
                     <Switch>
-                        <Route exact path="/" component={GraphExplorerView}/>
+                        <Route exact path="/" component={LandingPageView}/>
+                        <Route exact path="/explorer" component={GraphExplorerView}/>
                         <Route path="/management" component={ManagementView}/>
                         <Route path="/about" component={AboutView}/>
                         <Route path="/console" component={Console}/>

@@ -144,15 +144,13 @@ export default class GremlinConnectorViewBase extends React.Component {
         })
     }
 
-    queryGremlinServer(query, freshQuery, queryId) {
+    queryGremlinServer(query, freshQuery) {
         let _this = this;
         if (typeof freshQuery === "undefined") {
             freshQuery = false;
         }
-        if (typeof queryId === "undefined") {
-            queryId = "";
-        }
-        console.log("queryGremlinServer ::: freshQuery, query", freshQuery, queryId, query);
+
+        console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
 
         this.setState({
             "gremlinQuery": query
@@ -173,6 +171,7 @@ export default class GremlinConnectorViewBase extends React.Component {
             };
 
             let data = JSON.stringify(msg);
+            console.log("Query long one", data);
             if (this.ws.readyState === 1) {
                 _this.ws.send(data, {mask: true});
                 _this.updateStatusMessage("Sending a Query")

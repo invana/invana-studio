@@ -275,6 +275,15 @@ export default class GraphCanvas extends React.Component {
 
     }
 
+    getLabelConfig(label) {
+        try {
+            return this.props.nodeLabels[label];
+
+        } catch (e) {
+            return null;
+        }
+    }
+
     addVertices(vertices) {
 
         console.log("VertexUtils.add", vertices, this.canvas);
@@ -293,7 +302,12 @@ export default class GraphCanvas extends React.Component {
         node.append("circle")
             .attr("r", 20)
             .style("fill", function (d, i) {
-                return _this.color_schema(d.label);
+
+                if (_this.getLabelConfig(d.label)) {
+                    return _this.getLabelConfig(d.label).bgColor;
+                } else {
+                    return "#efefef";
+                }
             })
             .style("cursor", "pointer")
             .style("z-index", "100")

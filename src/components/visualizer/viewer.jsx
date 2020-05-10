@@ -8,6 +8,9 @@ import {SelectedDataCanvas} from "./selected-data";
 import {LegendCanvas} from "./legend";
 import ErrorBoundary from "./error-boundary";
 import GremlinConnectorViewBase from "../core/gremlin-connector";
+import {
+    InvanaManagementLabel
+} from "../../config";
 
 
 export default class GraphViewer extends GremlinConnectorViewBase {
@@ -16,24 +19,30 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     isDataChanged = true;
 
 
+    getDataFromStorage(itemKey){
+        try{
+             return JSON.parse(localStorage.getItem(itemKey))
+        }catch (e) {
+            return null;
+        }
+    }
+
     constructor() {
         // This component can load
         super();
+
         this.state = {
             "nodes": [],
             "links": [],
             "showProperties": false,
             "selectedData": {},
-            "labelsConfig": null
+            "labelsConfig": null,
+            "nodeLabels": this.getDataFromStorage("nodeLabels"),
+            "linklabels": this.getDataFromStorage("linklabels"),
+
         };
     }
 
-    getLabelsConfigFromStorage() {
-        // labels
-        this.setState({
-            "labelsConfig": ""
-        })
-    }
 
     get_LINK_ID_TO_LINK(edges) {
         // TODO - revist the name
@@ -65,14 +74,13 @@ export default class GraphViewer extends GremlinConnectorViewBase {
 
         if (response.status.code === 200 || response.status.code === 206) {
             _this.updateStatusMessage("Query Successfully Responded.");
-            _this.setState({
-                "errorMessage": null
-            })
+
             let result = _this.gremlin_serializer.process(response);
             let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
 
             console.log("==================query response ", _.nodes.length, _.links.length);
             _this.isDataChanged = true;
+
 
             if (this.state.freshQuery === false) {
                 // extend the graph if this is not fresh query.
@@ -91,7 +99,9 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     nodes: uniqueNodes,
                     links: uniqueLinks,
                     NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(uniqueLinks),
-                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(uniqueLinks)
+                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(uniqueLinks),
+                    errorMessage: null
+
                 });
 
             } else {
@@ -103,7 +113,9 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     nodes: existingNodes,
                     links: existingLinks,
                     NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(existingLinks),
-                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(existingLinks)
+                    LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(existingLinks),
+                    errorMessage: null
+
                 });
 
             }
@@ -136,15 +148,14 @@ export default class GraphViewer extends GremlinConnectorViewBase {
 
         this.setupGremlinServer()
         this.onPageLoadInitQuery()
-        this.getLabelsConfigFromStorage();
+        // this.getLabelsConfigFromStorage();
     }
 
     onFormSubmit(e) {
         e.preventDefault();
-        let queryId = "mainQuery";
         let query = e.target.query.value;
         if (query && this.ws) {
-            this.queryGremlinServer(query, true, queryId,);
+            this.queryGremlinServer(query, true);
         }
     }
 
@@ -177,12 +188,19 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                         queryGremlinServer={this.queryGremlinServer.bind(this)}
                         setSelectedData={this.setSelectedData.bind(this)}
                         isDataChanged={this.isDataChanged}
+                        nodeLabels={this.state.nodeLabels}
+                        linkLabels={this.state.linkLabels}
                     />
                 </ErrorBoundary>
 
                 <CanvasStatsCanvas nodes_count={this.state.nodes.length} links_count={this.state.links.length}/>
                 <SelectedDataCanvas selectedData={this.state.selectedData} showProperties={this.state.showProperties}/>
-                <LegendCanvas nodes={this.state.nodes} links={this.state.links}/>
+                <LegendCanvas
+                    nodes={this.state.nodes}
+                    links={this.state.links}
+                    nodeLabels={this.state.nodeLabels}
+                    linkLabels={this.state.linkLabels}
+                />
 
                 <NotificationDiv/>
                 <ConnectionStatus

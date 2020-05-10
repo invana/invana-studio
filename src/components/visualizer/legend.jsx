@@ -8,15 +8,23 @@ export class LegendCanvas extends React.Component {
         super(props);
         this.state = {
             legend_canvas: null,
-            color_schema: d3.scaleOrdinal(d3.schemeCategory10)
         }
 
+    }
+
+    getLabelConfig(label) {
+        try {
+            return this.props.nodeLabels[label];
+
+        } catch (e) {
+            return null;
+        }
     }
 
     add_vertex_legend(vertices) {
 
         let _this = this;
-
+        console.log("_this.props.nodeLabels", _this.props.nodeLabels)
         this.clearNodeLegendCanvas();
         let edges_legend_height = document.querySelector(".edges-legend").getBoundingClientRect().height;
 
@@ -44,7 +52,12 @@ export class LegendCanvas extends React.Component {
             })
             .attr('r', 10)
             .style("fill", function (d, i) {
-                return _this.state.color_schema(d);
+                console.log("********", d);
+                if (_this.getLabelConfig(d)) {
+                    return _this.getLabelConfig(d).bgColor;
+                } else {
+                    return "#efefef";
+                }
             });
 
         legend.selectAll('.label')
