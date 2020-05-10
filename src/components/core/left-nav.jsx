@@ -56,10 +56,13 @@ export default class LeftNav extends React.Component {
         return (
             <div id="main-navigation" style={mainNavigationStyle}>
                 <ul style={mainNavUl}>
-                    <li style={LogoCls}>
-                        <a style={mainNavLiA} href="/">
-                        </a>
-                    </li>
+                    {/*<a style={mainNavLiA} href="/">*/}
+                    {/*    <li style={mainNavLiA}>*/}
+                    {/*        <FontAwesomeIcon icon={faHome}/>*/}
+                    {/*    </li>*/}
+                    {/*</a>*/}
+
+
                     <a style={mainNavLiA} href="/" title={"Graph Visualiser"}>
                         <li style={mainNavLi}>
                             <FontAwesomeIcon icon={faHome}/>

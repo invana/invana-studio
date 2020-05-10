@@ -301,15 +301,9 @@ export default class GraphCanvas extends React.Component {
                 return "node-" + d.id;
             });
 
-        // let  clipPath = node.append("clipPath")
-        //     .attr("id", function (d) {
-        //         return "node-clippath-" + d.id
-        //     })
 
         node.append("circle")
             .attr("r", 20)
-            // .attr("cx", this.canvasDimensions.width/2)
-            // .attr("cy", this.canvasDimensions.width/2)
             .style("fill", function (d, i) {
 
                 if (_this.getLabelConfig(d.label)) {
@@ -322,8 +316,6 @@ export default class GraphCanvas extends React.Component {
                         return vertexLabelconfig.bgColor;
                     }
                 }
-
-
             })
 
             .style("stroke-width", "3px")
@@ -368,7 +360,6 @@ export default class GraphCanvas extends React.Component {
                     }
                 }
                 return "";
-
             })
             .attr('x', 0)
             .attr('y', 0)
@@ -376,37 +367,11 @@ export default class GraphCanvas extends React.Component {
             .attr('height', 40);
 
 
-        // node.append("svg:image")
-        //     .attr("width", "25")
-        //     .attr("height", "25")
-        //     // .attr("x", 0)
-        //     // .attr("y", 0)
-        //     .attr("x", "-12.5")
-        //     .attr("y", "-12.5")
-        //     .attr("xlink:href", function (d) {
-        //         if (_this.getLabelConfig(d.label)) {
-        //             let vertexLabelconfig = _this.getLabelConfig(d.label);
-        //             if (vertexLabelconfig && vertexLabelconfig.bgImagePropertyKey) {
-        //                 return vertexLabelconfig.bgImagePropertyKey;
-        //             } else if (vertexLabelconfig && vertexLabelconfig.bgImageUrl) {
-        //                 return vertexLabelconfig.bgImageUrl;
-        //             }
-        //         }
-        //         return "";
-        //
-        //     })
-        //     .attr("clip-path", function (d) {
-        //         return "url(#node-clippath-" + d.id + ")";
-        //     })
 
         node.append("title")
             .text(function (d) {
                 return d.properties.name || d.id;
             });
-        // <image width="500" height="350"
-        //        xlink:href="https://www.tutorialspoint.com/videotutorials/images/coding_ground_home.jpg"
-        //        clip-path="url(#myCircle)"/>
-
 
         node.append("text")
             .attr("dy", -16)
@@ -614,13 +579,13 @@ export default class GraphCanvas extends React.Component {
                 'refX': 23,
                 'refY': 0,
                 'orient': 'auto',
-                'markerWidth': 7,
-                'markerHeight': 7,
+                'markerWidth': 8,
+                'markerHeight': 9,
                 'xoverflow': 'visible'
             })
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#666')
+            .attr('fill', '#efefef')
             .style('stroke', 'none');
         return canvas;
 
