@@ -345,11 +345,13 @@ export default class GraphCanvas extends React.Component {
             .attr("xlink:href", function (d) {
                 if (_this.getLabelConfig(d.label)) {
                     let vertexLabelconfig = _this.getLabelConfig(d.label);
-                    if (d[vertexLabelconfig.bgImagePropertyKey]) {
-                        return d[vertexLabelconfig.bgImagePropertyKey];
+                    if (vertexLabelconfig && vertexLabelconfig.bgImagePropertyKey) {
+                        return vertexLabelconfig.bgImagePropertyKey;
+                    } else if (vertexLabelconfig && vertexLabelconfig.bgImageUrl) {
+                        return vertexLabelconfig.bgImageUrl;
                     }
                 }
-                return "https://css-tricks.com/wp-content/uploads/2019/01/me-black-white-80x80.jpg";
+                return "";
 
             })
             .attr("clip-path", function (d) {
