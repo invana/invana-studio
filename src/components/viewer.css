@@ -156,6 +156,9 @@ div#canvas-stats {
     padding: 5px 10px;
     padding-bottom: 6px;
     margin-right: 10px;
+     text-shadow: 1px 1px #424242;
+    /*color: #888888;*/
+    font-weight: bold;
 }
 
 .SelectedDataList {

@@ -31,7 +31,8 @@ export class SelectedDataCanvas extends React.Component {
             selectedDataColorSchema = nodeLabelsColoring[cleanedData.label];
         } else if (cleanedData.type === "Edge") {
             selectedDataColorSchema = linkLabelsColoring[cleanedData.label];
-        } else {
+        }
+        if (!selectedDataColorSchema) {
             selectedDataColorSchema = {bgColor: "#7d8296"};
         }
 
