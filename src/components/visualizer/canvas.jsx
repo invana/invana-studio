@@ -232,7 +232,7 @@ export default class GraphCanvas extends React.Component {
         var path = g.append("path")
             .attr("d", arc)
             .attr("fill", function (d) {
-                return "#333333"; // color(d.data.size);
+                // return "#333333"; // color(d.data.size);
             });
 
         // Add labels
@@ -260,7 +260,7 @@ export default class GraphCanvas extends React.Component {
         // Add hover action
         path.on("mouseenter", function (d, i) {
             d3.select(this)
-                .attr("fill", "#555555")
+                // .attr("fill", "#555555")
                 .attr("cursor", "pointer")
                 .attr("class", "on");
         });
@@ -268,7 +268,7 @@ export default class GraphCanvas extends React.Component {
         path.on("mouseout", function (d) {
             d3.select(this)
                 .attr("fill", function (d) {
-                    return "#333333";
+                    // return "#333333";
                 })
                 .attr("class", "off");
         });
@@ -276,7 +276,7 @@ export default class GraphCanvas extends React.Component {
 
     }
 
-    getNodeLabelconfig(label) {
+    getNodeLabelConfig(label) {
         try {
             return this.props.nodeLabels[label];
 
@@ -285,12 +285,12 @@ export default class GraphCanvas extends React.Component {
         }
     }
 
-    getLinkLabelconfig(label) {
+    getLinkLabelConfig(label) {
         try {
             return this.props.linkLabels[label];
 
         } catch (e) {
-            return {bgColor: DefaultNodeBgColor};
+            return {pathColor: DefaultLinkPathColor, linkTextColor: DefaultLinkTextColor };
         }
     }
 
@@ -314,10 +314,10 @@ export default class GraphCanvas extends React.Component {
             .attr("r", 20)
             .style("fill", function (d, i) {
 
-                if (_this.getNodeLabelconfig(d.label)) {
-                    let vertexLabelconfig = _this.getNodeLabelconfig(d.label);
-                    if (vertexLabelconfig) {
-                        return vertexLabelconfig.bgColor;
+                if (_this.getNodeLabelConfig(d.label)) {
+                    let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
+                    if (vertexLabelConfig) {
+                        return vertexLabelConfig.bgColor;
                     }
                 }
             })
@@ -326,14 +326,14 @@ export default class GraphCanvas extends React.Component {
             .attr("r", 20)
             .style("fill", function (d, i) {
 
-                if (_this.getNodeLabelconfig(d.label)) {
-                    let vertexLabelconfig = _this.getNodeLabelconfig(d.label);
-                    if (vertexLabelconfig && vertexLabelconfig.bgImagePropertyKey) {
+                if (_this.getNodeLabelConfig(d.label)) {
+                    let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
+                    if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
                         return "url(#pattern-node-" + d.id + ")";
-                    } else if (vertexLabelconfig && vertexLabelconfig.bgImageUrl) {
+                    } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
                         return "url(#pattern-node-" + d.id + ")";
                     } else {
-                        return vertexLabelconfig.bgColor;
+                        return vertexLabelConfig.bgColor;
                     }
                 }
             })
@@ -342,8 +342,8 @@ export default class GraphCanvas extends React.Component {
             .style("cursor", "pointer")
             .style("stroke", function (d) {
 
-                if (_this.getNodeLabelconfig(d.label)) {
-                    return LightenDarkenColor(_this.getNodeLabelconfig(d.label).bgColor, -50); // TODO - make this color darker ?
+                if (_this.getNodeLabelConfig(d.label)) {
+                    return LightenDarkenColor(_this.getNodeLabelConfig(d.label).bgColor, -50); // TODO - make this color darker ?
                 } else {
                     return DefaultNodeBgColor;
                 }
@@ -370,12 +370,12 @@ export default class GraphCanvas extends React.Component {
             .attr('height', 40)
             .append('svg:image')
             .attr("xlink:href", function (d) {
-                if (_this.getNodeLabelconfig(d.label)) {
-                    let vertexLabelconfig = _this.getNodeLabelconfig(d.label);
-                    if (vertexLabelconfig && vertexLabelconfig.bgImagePropertyKey) {
-                        return d.properties[vertexLabelconfig.bgImagePropertyKey];
-                    } else if (vertexLabelconfig && vertexLabelconfig.bgImageUrl) {
-                        return vertexLabelconfig.bgImageUrl;
+                if (_this.getNodeLabelConfig(d.label)) {
+                    let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
+                    if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
+                        return d.properties[vertexLabelConfig.bgImagePropertyKey];
+                    } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
+                        return vertexLabelConfig.bgImageUrl;
                     }
                 }
                 return "";
@@ -470,10 +470,10 @@ export default class GraphCanvas extends React.Component {
             .style('cursor', 'pointer')
             .style('stroke', DefaultLinkPathColor);
 
-        link.append("title")
-            .text(function (d) {
-                return d.label;
-            });
+        // link.append("title")
+        //     .text(function (d) {
+        //         return d.label;
+        //     });
 
         let edgepaths = this.canvas.selectAll(".edgepath")
             .data(edges)
@@ -489,7 +489,7 @@ export default class GraphCanvas extends React.Component {
             })
             .style("fill", function (d, i) {
                 // return _this.color_schema(d);
-                let linkLabelConfig = _this.getLinkLabelconfig(d.label);
+                let linkLabelConfig = _this.getLinkLabelConfig(d.label);
                 if (linkLabelConfig) {
                     return linkLabelConfig.pathColor;
                 } else {
@@ -508,7 +508,7 @@ export default class GraphCanvas extends React.Component {
             .attr("dy", -3) //Move the text up/ down
             .style("fill", function (d, i) {
                 // return _this.color_schema(d);
-                let linkLabelConfig = _this.getLinkLabelconfig(d.label);
+                let linkLabelConfig = _this.getLinkLabelConfig(d.label);
                 if (linkLabelConfig) {
                     return linkLabelConfig.linkTextColor;
                 } else {
@@ -534,7 +534,7 @@ export default class GraphCanvas extends React.Component {
             .attr("startOffset", "50%")
             .style("fill", function (d, i) {
                 // return _this.color_schema(d);
-                let linkLabelConfig = _this.getLinkLabelconfig(d.label);
+                let linkLabelConfig = _this.getLinkLabelConfig(d.label);
                 if (linkLabelConfig) {
                     return linkLabelConfig.linkTextColor;
                 } else {

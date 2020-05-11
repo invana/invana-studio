@@ -38,7 +38,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             "selectedData": {},
             "labelsConfig": null,
             "nodeLabels": this.getDataFromStorage("nodeLabels"),
-            "linklabels": this.getDataFromStorage("linklabels"),
+            "linkLabels": this.getDataFromStorage("linkLabels"),
 
         };
     }
@@ -77,7 +77,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
 
             let result = _this.gremlin_serializer.process(response);
             let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
-
             console.log("==================query response ", _.nodes.length, _.links.length);
             _this.isDataChanged = true;
 

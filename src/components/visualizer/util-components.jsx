@@ -62,7 +62,7 @@ export class ConnectionStatus extends React.Component {
 
 
 export function CopyRightInfo(props) {
-    return <div id="copy-right-info-div">Invana Graph UI</div>;
+    return <div id="copy-right-info-div">Invana Graph</div>;
 }
 
 
