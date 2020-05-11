@@ -156,7 +156,7 @@ div#canvas-stats {
     padding: 5px 10px;
     padding-bottom: 6px;
     margin-right: 10px;
-     text-shadow: 1px 1px #424242;
+    text-shadow: 1px 1px #424242;
     /*color: #888888;*/
     font-weight: bold;
 }
@@ -219,5 +219,25 @@ svg:not(:root).svg-inline--fa {
     background: none;
     border: 1px solid #666666;
     cursor: pointer;
-    marginTop: 5px;
+    margin-top: 5px;
+}
+
+
+button {
+    padding: 15px 25px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #222222;
+}
+
+button:hover {
+    background-color: #888888
+}
+
+button:active {
+    background-color: #888888;
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
 }

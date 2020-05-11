@@ -9,7 +9,7 @@ import {ConnectionStatus, CopyRightInfo} from "../components/visualizer/util-com
 const textAreaDiv = {
     "width": "calc(50% - 30px)",
     "float": "left",
-    "height": "calc(100vh - 42px)"
+    "height": "calc(100vh - 60px)"
 }
 const textAreaCls = {
     "width": "calc(100% - 30px)",
