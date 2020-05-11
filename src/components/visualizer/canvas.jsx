@@ -485,8 +485,8 @@ export default class GraphCanvas extends React.Component {
             .append('path')
             .attrs({
                 'class': 'edgepath',
-                'fill-opacity': 0,
-                'stroke-opacity': 0,
+                // 'fill-opacity': 0,
+                // 'stroke-opacity': 0,
                 'id': function (d, i) {
                     return 'edgepath-' + d.id;
                 }
@@ -499,9 +499,9 @@ export default class GraphCanvas extends React.Component {
                 } else {
                     return DefaultLinkPathColor;
                 }
-
-
             })
+            // .style("stroke", "#777")
+            // .style("stroke-width", "2px")
             .style("pointer-events", "none");
 
         let edgelabels = this.canvas.selectAll(".edgelabel")
@@ -511,7 +511,6 @@ export default class GraphCanvas extends React.Component {
             .style("pointer-events", "none")
             .attr("dy", -3) //Move the text up/ down
             .style("fill", function (d, i) {
-                // return _this.color_schema(d);
                 let linkLabelConfig = _this.getLinkLabelConfig(d.label);
                 if (linkLabelConfig) {
                     return linkLabelConfig.linkTextColor;
