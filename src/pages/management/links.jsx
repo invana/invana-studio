@@ -7,8 +7,8 @@ import GremlinConnectorViewBase from "../../components/core/gremlin-connector";
 import {ConnectionStatus, CopyRightInfo} from "../../components/visualizer/util-components";
 import GremlinResponseSerializers from "../../components/visualizer/gremlin-serializer";
 import {
-    InvanaManagementLabel, DefaultNodeBgColor,
-    DefaultNodeBorderColor, DefaultNodeBgPropertyKey
+    InvanaManagementLabel,
+    DefaultLinkPathColor, DefaultLinkTextColor, UUIDGenerator
 } from "../../config";
 
 
@@ -53,9 +53,8 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                 ".orElseGet{g.addV('" + InvanaManagementLabel + "')" +
                 ".property('name','" + key + "')" +
                 ".property('type','Edge')" +
-                ".property('bgColor','" + DefaultNodeBgColor + "')" +
-                ".property('bgImagePropertyKey','" + DefaultNodeBgPropertyKey + "')" +
-                ".property('borderColor','" + DefaultNodeBorderColor + "')" +
+                ".property('pathColor','" + DefaultLinkPathColor + "')" +
+                ".property('linkTextColor','" + DefaultLinkTextColor + "')" +
                 ".next()};"
         })
         query = query + 'g.V().hasLabel("' + InvanaManagementLabel + '").has("type","Edge").toList()';
@@ -114,11 +113,8 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
         e.preventDefault();
         console.log("formdata", e.target);
         let query = "update = g.V(" + parseInt(e.target.uid.value) + ")" +
-            ".property('bgColor', '" + e.target.bgColor.value + "')" +
-            ".property('bgImageUrl', '" + e.target.bgImageUrl.value + "')" +
-            ".property('bgImagePropertyKey', '" + e.target.bgImagePropertyKey.value + "')" +
-            ".property('borderColor', '" + e.target.borderColor.value + "');";
-
+            ".property('pathColor', '" + e.target.pathColor.value + "')" +
+            ".property('linkTextColor', '" + e.target.linkTextColor.value + "').;";
         if (query && this.ws) {
             this.queryGremlinServer(query, false);
         }
@@ -146,27 +142,20 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                                       onSubmit={this.onVertexFormSubmit.bind(this)}>
                                     <div className={'link-coloring'}
                                          style={{
-                                             "backgroundColor": link.properties.bgColor,
-                                             "borderColor": link.properties.borderColor
+                                             "backgroundColor": link.properties.pathColor,
                                          }}>&nbsp;</div>
                                     <input type="text" name={"name"} readOnly={"readonly"}
                                            defaultValue={link.properties.name}/>
                                     <input type="hidden" name={"label"} defaultValue={link.label}/>
                                     <input type="hidden" name={"uid"} defaultValue={link.id}/>
 
-                                    <input type="text" name={"bgColor"} maxLength={7} minLength={7}
-                                           placeholder={"bgColor"}
-                                           defaultValue={link.properties.bgColor}/>
-                                    <input type="text" name={"borderColor"} maxLength={7} minLength={7}
-                                           placeholder={"borderColor"}
-                                           defaultValue={link.properties.borderColor}/>
+                                    <input type="text" name={"pathColor"} maxLength={7} minLength={7}
+                                           placeholder={"pathColor"}
+                                           defaultValue={link.properties.linkTextColor}/>
+                                    <input type="text" name={"linkTextColor"} maxLength={7} minLength={7}
+                                           placeholder={"linkTextColor"}
+                                           defaultValue={link.properties.linkTextColor}/>
 
-                                    <input type="text" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
-                                           defaultValue={link.properties.bgImageUrl || ""}/>
-
-                                    <input type="text" name={"bgImagePropertyKey"}
-                                           placeholder={"bgImagePropertyKey (optional)"}
-                                           defaultValue={link.properties.bgImagePropertyKey || ""}/>
 
 
                                     <button type={"submit"}>update</button>

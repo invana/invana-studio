@@ -74,9 +74,9 @@ export class LegendCanvas extends React.Component {
             .style("stroke", function (d) {
 
                 if (_this.getNodeLabelConfig(d.label)) {
-                    return LightenDarkenColor(_this.getNodeLabelConfig(d.label).bgColor, -40); // TODO - make this color darker ?
+                    return LightenDarkenColor(_this.getNodeLabelConfig(d.label).bgColor, -50); // TODO - make this color darker ?
                 } else {
-                    return LightenDarkenColor(DefaultNodeBgColor, -40);
+                    return LightenDarkenColor(DefaultNodeBgColor, -50);
                 }
             })
 

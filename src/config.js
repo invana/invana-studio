@@ -6,6 +6,8 @@ export const DefaultNodeBgColor = "#9c9c9c";
 export const DefaultNodeBorderColor = "#777777";
 export const DefaultNodeBgPropertyKey = ""; // make sure this key is string.
 
+export const DefaultLinkPathColor = "#c9c9c9";
+export const DefaultLinkTextColor = "#c9c9c9";
 
 export const DefaultHoverOpacity = 0.8;
 // export function uuidv4() {

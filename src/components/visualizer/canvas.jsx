@@ -2,7 +2,7 @@ import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
-import {DefaultHoverOpacity, DefaultNodeBgColor} from "../../config";
+import {DefaultHoverOpacity, DefaultNodeBgColor, DefaultLinkTextColor, DefaultLinkPathColor} from "../../config";
 import {LightenDarkenColor} from "../core/utils";
 
 export default class GraphCanvas extends React.Component {
@@ -343,7 +343,7 @@ export default class GraphCanvas extends React.Component {
             .style("stroke", function (d) {
 
                 if (_this.getNodeLabelconfig(d.label)) {
-                    return LightenDarkenColor(_this.getNodeLabelconfig(d.label).bgColor, -40); // TODO - make this color darker ?
+                    return LightenDarkenColor(_this.getNodeLabelconfig(d.label).bgColor, -50); // TODO - make this color darker ?
                 } else {
                     return DefaultNodeBgColor;
                 }
@@ -467,7 +467,8 @@ export default class GraphCanvas extends React.Component {
                 return 'link-' + d.id;
             })
             .style('stroke-width', 2)
-            .style('stroke', "#999");
+            .style('cursor', 'pointer')
+            .style('stroke', DefaultLinkPathColor);
 
         link.append("title")
             .text(function (d) {
@@ -488,9 +489,11 @@ export default class GraphCanvas extends React.Component {
             })
             .style("fill", function (d, i) {
                 // return _this.color_schema(d);
-                let linkLabelconfig = _this.getLinkLabelconfig(d.label);
-                if (linkLabelconfig) {
-                    return linkLabelconfig.bgColor;
+                let linkLabelConfig = _this.getLinkLabelconfig(d.label);
+                if (linkLabelConfig) {
+                    return linkLabelConfig.pathColor;
+                } else {
+                    return DefaultLinkPathColor;
                 }
 
 
@@ -505,9 +508,11 @@ export default class GraphCanvas extends React.Component {
             .attr("dy", -3) //Move the text up/ down
             .style("fill", function (d, i) {
                 // return _this.color_schema(d);
-                let linkLabelconfig = _this.getLinkLabelconfig(d.label);
-                if (linkLabelconfig) {
-                    return linkLabelconfig.bgColor;
+                let linkLabelConfig = _this.getLinkLabelconfig(d.label);
+                if (linkLabelConfig) {
+                    return linkLabelConfig.linkTextColor;
+                } else {
+                    return DefaultLinkTextColor;
                 }
             })
             .attrs({
@@ -529,9 +534,12 @@ export default class GraphCanvas extends React.Component {
             .attr("startOffset", "50%")
             .style("fill", function (d, i) {
                 // return _this.color_schema(d);
-                let linkLabelconfig = _this.getLinkLabelconfig(d.label);
-                if (linkLabelconfig) {
-                    return linkLabelconfig.bgColor;
+                let linkLabelConfig = _this.getLinkLabelconfig(d.label);
+                if (linkLabelConfig) {
+                    return linkLabelConfig.linkTextColor;
+                } else {
+                    return DefaultLinkTextColor;
+
                 }
             })
             .text(function (d) {
@@ -608,7 +616,7 @@ export default class GraphCanvas extends React.Component {
             })
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#efefef')
+            .attr('fill', DefaultNodeBgColor)
             .style('stroke', 'none');
         return canvas;
 

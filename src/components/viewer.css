@@ -228,16 +228,17 @@ button {
     text-align: center;
     cursor: pointer;
     outline: none;
-    color: #fff;
+    color: #efefef;
     background-color: #222222;
+    border-color: #222222;
 }
 
 button:hover {
-    background-color: #888888
+    background-color: #333333;
 }
 
 button:active {
-    background-color: #888888;
-    box-shadow: 0 2px #666;
+    background-color: #666666;
+    box-shadow: 0 2px #777777;
     transform: translateY(2px);
 }
