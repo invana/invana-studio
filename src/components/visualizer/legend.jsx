@@ -1,5 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
+import {LightenDarkenColor} from "../core/utils";
+import {DefaultNodeBgColor} from "../../config";
 
 export class LegendCanvas extends React.Component {
 
@@ -12,16 +14,25 @@ export class LegendCanvas extends React.Component {
 
     }
 
-    getLabelConfig(label) {
+    getLinkLabelConfig(label) {
         try {
-            return this.props.nodeLabels[label];
+            return this.props.linkLabels[label];
 
         } catch (e) {
             return null;
         }
     }
 
-    add_vertex_legend(vertices) {
+    getNodeLabelConfig(label) {
+        try {
+            return this.props.nodeLabels[label];
+
+        } catch (e) {
+            return {bgColor: DefaultNodeBgColor};
+        }
+    }
+
+    addVertexLegend(vertices) {
 
         let _this = this;
         console.log("_this.props.nodeLabels", _this.props.nodeLabels)
@@ -48,17 +59,26 @@ export class LegendCanvas extends React.Component {
             .append('circle')
             .attr('class', 'legend-circle')
             .attr('transform', function (d, i) {
-                return 'translate(' + (20) + ',' + ((i * 20) + 10) + ')';
+                return 'translate(' + (20) + ',' + (((i * 20) + 10) + (i * 5)) + ')';
             })
             .attr('r', 10)
             .style("fill", function (d, i) {
-                console.log("********", d);
-                if (_this.getLabelConfig(d)) {
-                    return _this.getLabelConfig(d).bgColor;
+                if (_this.getNodeLabelConfig(d)) {
+                    return _this.getNodeLabelConfig(d).bgColor;
                 } else {
-                    return "#efefef";
+                    return DefaultNodeBgColor;
                 }
-            });
+            })
+            .style("stroke-width", "3px")
+            .style("cursor", "pointer")
+            .style("stroke", function (d) {
+
+                if (_this.getNodeLabelConfig(d.label)) {
+                    return LightenDarkenColor(_this.getNodeLabelConfig(d.label).bgColor, -40); // TODO - make this color darker ?
+                } else {
+                    return LightenDarkenColor(DefaultNodeBgColor, -40);
+                }
+            })
 
         legend.selectAll('.label')
             .data(legend_vertices_list)
@@ -66,7 +86,7 @@ export class LegendCanvas extends React.Component {
             .append('text')
             .attr("x", "40")
             .attr("y", function (d, i) {
-                return ((i * 20) + 15);
+                return (((i * 20) + 15) + (i * 5));
             })
             .style("fill", "#efefef")
             .text(function (d) {
@@ -104,8 +124,8 @@ export class LegendCanvas extends React.Component {
             })
             .style("fill", function (d, i) {
                 // return _this.state.color_schema(d);
-                if (_this.getLabelConfig(d)) {
-                    return _this.getLabelConfig(d).bgColor;
+                if (_this.getLinkLabelConfig(d)) {
+                    return _this.getLinkLabelConfig(d).bgColor;
                 } else {
                     return "#efefef";
                 }
@@ -152,7 +172,7 @@ export class LegendCanvas extends React.Component {
         if (this.state.legend_canvas) {
             console.log("startRendering LegendCanvas<<<<<<>>>>>>>>>>>>>>>><<<<<<")
             this.add_edge_legend(this.props.links);
-            this.add_vertex_legend(this.props.nodes);
+            this.addVertexLegend(this.props.nodes);
         }
 
 

@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
 import {DefaultHoverOpacity, DefaultNodeBgColor} from "../../config";
+import {LightenDarkenColor} from "../core/utils";
 
 export default class GraphCanvas extends React.Component {
 
@@ -342,7 +343,7 @@ export default class GraphCanvas extends React.Component {
             .style("stroke", function (d) {
 
                 if (_this.getNodeLabelconfig(d.label)) {
-                    return _this.getNodeLabelconfig(d.label).bgColor; // TODO - make this color darker ?
+                    return LightenDarkenColor(_this.getNodeLabelconfig(d.label).bgColor, -40); // TODO - make this color darker ?
                 } else {
                     return DefaultNodeBgColor;
                 }

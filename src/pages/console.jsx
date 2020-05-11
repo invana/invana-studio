@@ -72,7 +72,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
 
         console.log("onmessage received", response);
 
-        if (response.status.code === 200 || response.status.code === 206) {
+        if (response.status.code) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setState({
                 "errorMessage": null,
