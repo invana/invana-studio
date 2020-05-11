@@ -19,12 +19,12 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
     constructor(props) {
         super(props);
         this.state = {
-            "title": "Nodes Management",
+            "title": "Nodes | Management",
             "links": []
         }
     }
 
-    getVerticesManagement() {
+    getEdgesData() {
         this.queryGremlinServer("links=g.E().label().groupCount().toList(); [ links]", false)
     }
 
@@ -36,9 +36,7 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                 cleaned_data[item] = _list[i + 1]['@value']
             }
         })
-
-        return cleaned_data
-
+        return cleaned_data;
     }
 
 
@@ -106,7 +104,7 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
 
     componentDidMount() {
         super.componentDidMount.apply(this);
-        this.getVerticesManagement();
+        this.getEdgesData();
     }
 
     // onPropertyChanged(vertex, propertyKey) {
@@ -138,6 +136,7 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                         <ul className={"nav"}>
                             <li><a href="/management/nodes">Nodes</a></li>
                             <li><a href="/management/links">Links</a></li>
+                            <li><a href="/management/settings">Settings</a></li>
                         </ul>
                         <hr/>
 
@@ -145,7 +144,7 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                             this.state.links.map((link, index) => (
                                 <form style={{"marginBottom": "5px"}} action="" key={link.properties.name + "-form"}
                                       onSubmit={this.onVertexFormSubmit.bind(this)}>
-                                    <div className={'node-coloring'}
+                                    <div className={'link-coloring'}
                                          style={{
                                              "backgroundColor": link.properties.bgColor,
                                              "borderColor": link.properties.borderColor
@@ -179,7 +178,6 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                         {/*    </tbody>*/}
                         {/*</table>*/}
                     </div>
-                    {JSON.stringify(this.state.result)}
                     <ConnectionStatus
                         statusMessage={this.state.statusMessage}
                         isConnected2Server={this.state.isConnected2Server}

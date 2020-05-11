@@ -19,7 +19,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
     constructor(props) {
         super(props);
         this.state = {
-            "title": "Nodes Management",
+            "title": "Nodes | Management",
             "vertices": []
         }
     }
@@ -137,6 +137,8 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                         <ul className={"nav"}>
                             <li><a href="/management/nodes">Nodes</a></li>
                             <li><a href="/management/links">Links</a></li>
+                            <li><a href="/management/settings">Settings</a></li>
+
                         </ul>
                         <hr/>
 
@@ -150,7 +152,8 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                                              style={{
                                                  "backgroundColor": vertex.properties.bgColor,
                                                  "borderColor": vertex.properties.borderColor
-                                             }}>&nbsp;</div>
+                                             }}>&nbsp;
+                                        </div>
                                         <input type="text" name={"name"} readOnly={"readonly"}
                                                defaultValue={vertex.properties.name}/>
                                         <input type="hidden" name={"label"} defaultValue={vertex.label}/>
@@ -181,7 +184,6 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                         {/*    </tbody>*/}
                         {/*</table>*/}
                     </div>
-                    {JSON.stringify(this.state.result)}
                     <ConnectionStatus
                         statusMessage={this.state.statusMessage}
                         isConnected2Server={this.state.isConnected2Server}

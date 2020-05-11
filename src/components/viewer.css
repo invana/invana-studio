@@ -16,7 +16,7 @@ a {
 .search-div form input {
     padding: 9px 15px;
     font-size: 13px;
-    width: calc(100% - 30px);
+    width: calc(100% - 32px);
     background: #1f222f;
     color: #efefef;
     font-family: Courier;
@@ -115,11 +115,11 @@ div#canvas-stats {
 
 #SelectedDataDiv {
     /*background: rgba(105, 105, 105, 0.88);*/
-    height: calc(100vh - 33px);
+    height: calc(100vh - 36px);
     width: 300px;
     position: fixed;
     right: 0;
-    top: 33px;
+    top: 36px;
     z-index: 10000;
     display: none;
     /*color: #555555;*/

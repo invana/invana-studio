@@ -26,18 +26,22 @@ button{
     padding: 4px 10px;
     border-radius: 0;
     margin-left: 5px;
-    background: yellowgreen;
 }
 .node-coloring{
     width: 20px;
     height: 20px;
-    background: rebeccapurple;
     display: inline-block;
     margin-right: 5px;
     border-radius: 30rem;
     border: 2px solid;
-
 }
+.link-coloring{
+    width: 30px;
+    height: 5px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
 hr{
     border-color: #6f6f6f;
 }
