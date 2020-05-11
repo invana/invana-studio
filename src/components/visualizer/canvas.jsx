@@ -232,7 +232,11 @@ export default class GraphCanvas extends React.Component {
         var path = g.append("path")
             .attr("d", arc)
             .attr("fill", function (d) {
-                // return "#333333"; // color(d.data.size);
+                return "#333333"; // color(d.data.size);
+            })
+            .attr("stroke-width", "2px")
+            .attr("stroke", function (d) {
+                return "#333333"; // color(d.data.size);
             });
 
         // Add labels
@@ -260,7 +264,7 @@ export default class GraphCanvas extends React.Component {
         // Add hover action
         path.on("mouseenter", function (d, i) {
             d3.select(this)
-                // .attr("fill", "#555555")
+                .attr("fill", "#555555")
                 .attr("cursor", "pointer")
                 .attr("class", "on");
         });
@@ -268,7 +272,7 @@ export default class GraphCanvas extends React.Component {
         path.on("mouseout", function (d) {
             d3.select(this)
                 .attr("fill", function (d) {
-                    // return "#333333";
+                    return "#333333";
                 })
                 .attr("class", "off");
         });
@@ -290,7 +294,7 @@ export default class GraphCanvas extends React.Component {
             return this.props.linkLabels[label];
 
         } catch (e) {
-            return {pathColor: DefaultLinkPathColor, linkTextColor: DefaultLinkTextColor };
+            return {pathColor: DefaultLinkPathColor, linkTextColor: DefaultLinkTextColor};
         }
     }
 
