@@ -23,12 +23,29 @@ export class SelectedDataCanvas extends React.Component {
 
     render() {
         let cleanedData = this.getCleanedData();
+        let nodeLabelsColoring = JSON.parse(localStorage.getItem('nodeLabels'));
+        let linkLabelsColoring = JSON.parse(localStorage.getItem('linkLabels'));
+        let selectedDataColorSchema = {};
+
+        if (cleanedData.type === "Vertex") {
+            selectedDataColorSchema = nodeLabelsColoring[cleanedData.label];
+        } else if (cleanedData.type === "Edge") {
+            selectedDataColorSchema = linkLabelsColoring[cleanedData.label];
+        } else {
+            selectedDataColorSchema = {bgColor: "#7d8296"};
+        }
+
 
         return (
             <div id="SelectedDataDiv"
                  style={{display: Object.keys(cleanedData).length > 1 ? 'block' : 'none'}}>
                 <div className={"SelectedDataHeading"}>
-                    <span className={"itemLabel"}>{cleanedData.label}</span>
+                    <span className={"itemLabel"} style={{
+                        "backgroundColor":
+                        selectedDataColorSchema.bgColor
+                    }}>
+                        {cleanedData.label}
+                    </span>
                     {cleanedData.properties.name || cleanedData.id}
 
                 </div>
