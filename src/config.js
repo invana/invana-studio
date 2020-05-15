@@ -17,6 +17,30 @@ export const DefaultHoverOpacity = 0.8;
 //     });
 // }
 
+
+
+// generic
+export const showLabelDefaultChoice = true;
+export const DefaultCanvasBackgroundColor = "#333333";
+
+// node specific
+export const nodeRadius = 24;
+export const nodeFillColor = "#c46363";
+export const nodeTxtColor = "#efefef";
+export const nodeStrokeColor = "#4385b8";
+export const nodeStrokeWidth = 5;
+export const nodeLabelColor = "#ffffff"
+export const nodeLabelBgColor = "#333333";
+
+// link specific
+export const linkDistance = 300;
+export const linkCurvature = .55;
+export const linkStrokeWidth = '2px';
+export const linkFillColor = "#727272";
+export const linkTextColor = "#efefef";
+
+
+
 export const UUIDGenerator = () =>
     ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)

@@ -2,7 +2,7 @@ import React from 'react';
 import '../viewer.css';
 
 import GremlinResponseSerializers from './gremlin-serializer';
-import GraphCanvas from './canvas';
+import GraphCanvas from './graph-ui';
 import CanvasStatsCanvas, {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
 import {SelectedDataCanvas} from "./selected-data";
 import {LegendCanvas} from "./legend";
