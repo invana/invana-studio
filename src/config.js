@@ -9,7 +9,12 @@ export const DefaultNodeBgPropertyKey = ""; // make sure this key is string.
 export const DefaultLinkPathColor = "#c9c9c9";
 export const DefaultLinkTextColor = "#c9c9c9";
 
+
 export const DefaultHoverOpacity = 0.8;
+
+
+export const                  linkCurvature = .85;
+
 // export function uuidv4() {
 //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
 //         var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);

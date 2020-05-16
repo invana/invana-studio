@@ -2,7 +2,13 @@ import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
-import {DefaultHoverOpacity, DefaultNodeBgColor, DefaultLinkTextColor, DefaultLinkPathColor} from "../../config";
+import {
+    DefaultHoverOpacity,
+    DefaultNodeBgColor,
+    DefaultLinkTextColor,
+    DefaultLinkPathColor,
+    linkCurvature
+} from "../../config";
 import {LightenDarkenColor} from "../core/utils";
 import {prepareLinksDataForCurves, prepareNodesDataWithOptions} from "./canvas-utils";
 
@@ -287,7 +293,6 @@ export default class GraphCanvas extends React.Component {
     }
 
 
-
     addVertices(nodesData) {
 
         console.log("VertexUtils.add", nodesData);
@@ -480,11 +485,12 @@ export default class GraphCanvas extends React.Component {
     addEdges(edges) {
 
         let _this = this
-        const linkDistance = 300;
-        const linkCurvature = .55;
+
         const linkStrokeWidth = '2px';
         const linkFillColor = "#727272";
         const linkTextColor = "#efefef";
+        const nodeRadius = 24;
+        const nodeStrokeWidth = 5;
 
 
         let links = this.canvas
@@ -493,6 +499,30 @@ export default class GraphCanvas extends React.Component {
             .enter().append("g")
             .attr("cursor", "pointer")
 
+
+        links
+            .append("svg:marker")
+            .attr("id", (d, i) => "link-arrow-" + d.id)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refY", 0)
+            // .attr("refX", function (d, i) {
+            //     console.log("=====marker", d);
+            //     return d.target.meta.shapeOptions.radius
+            //         - (d.target.meta.shapeOptions.radius / 4)
+            //         + d.target.meta.shapeOptions.strokeWidth
+            //
+            // })
+            .attr("refX", (d, i) => (nodeRadius - (nodeRadius / 4) + nodeStrokeWidth))
+
+
+            .attr("fill", (d) => linkFillColor)
+            .attr("stroke", (d) => linkFillColor)
+            .attr("markerWidth", 10)
+            .attr("markerHeight", 10)
+            .attr("orient", "auto")
+
+            .append("svg:path")
+            .attr("d", "M0,-5L10,0L0,5");
 
         const linkPaths = links
             .append("path")
@@ -679,9 +709,7 @@ export default class GraphCanvas extends React.Component {
                 });
 
 
-
             function linkArc(d) {
-                const linkCurvature = .85;
 
                 let dx = (d.target.x - d.source.x),
                     dy = (d.target.y - d.source.y),
