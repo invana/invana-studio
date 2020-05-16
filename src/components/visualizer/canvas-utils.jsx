@@ -72,7 +72,6 @@ export function prepareLinksDataForCurves(links) {
 }
 
 
-
 export function prepareNodesDataWithOptions(nodes, options) {
     /*
         options = {
@@ -107,7 +106,8 @@ export function prepareNodesDataWithOptions(nodes, options) {
     let nodesCleaned = [];
     nodes.forEach(function (nodeData, index) {
 
-        let node = Object.assign({}, nodeData)
+        // let node = Object.assign({}, nodeData)
+        let node = nodeData;
         // check if options data has node.label meta data or set defaults.
         if (node.label in options) {
             node.meta = Object.assign({}, options[node.label]);
@@ -165,6 +165,12 @@ export function prepareNodesDataWithOptions(nodes, options) {
             node.meta.bgImageUrl = node.properties[node.meta.bgImagePropertyKey];
         }
         // nodesCleaned.push(JSON.parse(JSON.stringify(node)))
+        if (node.target) {
+            delete node.target
+        }
+        if (node.source) {
+            delete node.source
+        }
         nodesCleaned.push(node)
     });
 

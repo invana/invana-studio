@@ -314,109 +314,194 @@ export default class GraphCanvas extends React.Component {
             .style("z-index", "100")
             .attr("id", function (d) {
                 return "node-" + d.id;
+            })
+            .on("mouseover", (d) => this.onNodeHoverIn(d))
+            .on("mouseout", (d) => this.onNodeHoverOut(d))
+            .on("click", (d) => this.onNodeClicked(_this, d))
+
+
+        // node first circle
+        node.append("circle")
+            .attr("r", (d) => d.meta.shapeOptions.radius)
+            .attr("fill", (d) => d.meta.shapeOptions.fillColor)
+            .attr("stroke", (d) => d.meta.shapeOptions.strokeColor)
+            .attr("stroke-width", (d) => d.meta.shapeOptions.strokeWidth);
+
+
+        // for bgImageUrl
+        node.append('g')
+            .attr("class", "bgImageUrl")
+            .attr('transform', function (d) {
+                    const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
+                    const dx = -1 * (side / 2) * 1.5;
+                    // const dx = d.meta.shapeOptions.radius - (side / 2) * (2.5);
+                    // const dy = d.meta.shapeOptions.radius - (side / 2) * (2.5) * (2.5 / 3) - 4;
+                    return 'translate(' + [dx, dx] + ')'
+                }
+            )
+            .append("foreignObject")
+            .attr("width", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4) * 2) // side
+            .style("font-size", function (d) {
+                return "12px";
+            })
+            .attr("height", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4) * 2) // side
+            .append("xhtml:body")
+
+            .style("background-color", "transparent")
+            .append("xhtml:span")
+            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("background-color", "transparent")
+            .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
+            .html(function (d) {
+                const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4) * 1.5;
+                if (d.meta.bgImageUrl) {
+                    return "<img src='" + d.meta.bgImageUrl + "' style='width: " + side + "px; border-radius: 3rem;' />"
+                }
+            })
+
+        // node bgImageUrl CAP ; this will create a border ring around the image on top of it. creating clean UI
+        node.append("circle")
+            .attr("class", "bgImageUrlCap")
+            .attr("r", (d) => d.meta.shapeOptions.radius)
+            .attr("fill", "transparent")
+            .attr("stroke", (d) => d.meta.shapeOptions.strokeColor)
+            .attr("stroke-width", (d) => d.meta.shapeOptions.strokeWidth + 1);
+
+
+        // for nodeBgHtml - this will be on top of background image
+        node.append('g')
+            .attr("class", "nodeHTML")
+            .attr('transform', function (d) {
+                    const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
+                    const dx = -1 * (side / 2);
+                    // const dx = d.meta.shapeOptions.radius - (side / 2) * (2.5);
+                    // const dy = d.meta.shapeOptions.radius - (side / 2) * (2.5) * (2.5 / 3) - 4;
+                    return 'translate(' + [dx, dx] + ')'
+                }
+            )
+            .append("foreignObject")
+            .attr("width", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
+            .style("font-size", function (d) {
+                return "12px";
+            })
+            .attr("height", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
+            .append("xhtml:body")
+            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("font-size", "16px") // make this dynamic based on the node radius also
+            // .style("font-weight", "bold")
+            .style("background-color", "transparent")
+            .append("xhtml:span")
+            .style("text-align", "center")
+            .style("display", "block")
+            .style("vertical-align", "middle")
+
+            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("background-color", "transparent")
+            .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
+            .html(function (d) {
+                if (d.meta.shapeOptions.inShapeHTML && !d.meta.bgImageUrl) {
+                    return d.meta.shapeOptions.inShapeHTML
+                }
             });
 
-        node.append("circle")
-            .attr("r", 20)
-            .style("fill", function (d, i) {
-
-                if (_this.getNodeLabelConfig(d.label)) {
-                    let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
-                    if (vertexLabelConfig) {
-                        return vertexLabelConfig.bgColor;
-                    }
+        //
+        node.append('g')
+            .attr("class", "tagHTML")
+            .attr('transform', function (d) {
+                    const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
+                    const dx = (side / 2);
+                    // const dx = d.meta.shapeOptions.radius - (side / 2) * (2.5);
+                    // const dy = d.meta.shapeOptions.radius - (side / 2) * (2.5) * (2.5 / 3) - 4;
+                    return 'translate(' + [dx, dx - (d.meta.shapeOptions.radius / 4) + d.meta.shapeOptions.strokeWidth] + ')'
                 }
+            )
+            .append("foreignObject")
+            .attr("width", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
+            .style("font-size", function (d) {
+                return "12px";
             })
-
-        node.append("circle")
-            .attr("r", 20)
-            .style("fill", function (d, i) {
-
-                if (_this.getNodeLabelConfig(d.label)) {
-                    let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
-                    if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
-                        return "url(#pattern-node-" + d.id + ")";
-                    } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
-                        return "url(#pattern-node-" + d.id + ")";
-                    } else {
-                        return vertexLabelConfig.bgColor;
-                    }
-                }
-            })
-
-            .style("stroke-width", "3px")
-            .style("cursor", "pointer")
-            .style("stroke", function (d) {
-
-                if (_this.getNodeLabelConfig(d.label)) {
-                    return LightenDarkenColor(_this.getNodeLabelConfig(d.label).bgColor, -50); // TODO - make this color darker ?
-                } else {
-                    return DefaultNodeBgColor;
-                }
-            })
-            .style("z-index", "100")
-            .on("mouseover", function (d) {
-                _this.onNodeHoverIn(d);
-            })
-            .on("mouseout", function (d) {
-                _this.onNodeHoverOut(d);
-            })
-            .on("click", function (d) {
-                _this.onNodeClicked(this, d);
-            });
-
-
-        node.append('svg:defs').append('svg:pattern')
-            .attr("id", function (d) {
-                return "pattern-node-" + d.id + "";
-            })
-
-            .attr('patternUnits', 'objectBoundingBox')
-            .attr('width', 40)
-            .attr('height', 40)
-            .append('svg:image')
-            .attr("xlink:href", function (d) {
-                if (_this.getNodeLabelConfig(d.label)) {
-                    let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
-                    if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
-                        return d.properties[vertexLabelConfig.bgImagePropertyKey];
-                    } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
-                        return vertexLabelConfig.bgImageUrl;
-                    }
-                }
-                return "";
-            })
-            .attr('x', 0)
-            .attr('y', 0)
-            .attr('width', 40)
-            .attr('height', 40);
+            .attr("height", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
+            .append("xhtml:body")
+            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("font-size", "16px") // make this dynamic based on the node radius also
+            // .style("font-weight", "bold")
+            .style("background-color", "transparent")
+            .append("xhtml:span")
+            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("background-color", "transparent")
+            .html((d) => "<i class=\"fas fa-globe-africa\"></i>");
 
 
         node.append("title")
             .text(function (d) {
-                return d.properties.name || d.id;
-            });
-
+                return d.meta.labelOptions.labelText || d.id;
+            })
         node.append("text")
             .attr("dy", -16)
             .attr("dx", 6)
-            .text(function (d) {
-                return d.properties.name || d.id;
-            })
-            .style("fill", function (d, i) {
-                return "#c1c1c1";
-            })
-            .style("font-size", function (d, i) {
-                return "12px";
-            })
-            .style("font-weight", function (d, i) {
-                return "bold";
-            })
-            .style("text-shadow", function (d, i) {
-                return "1px 1px #424242";
-            });
+            .text((d) => d.meta.labelOptions.labelText || d.id)
+            .attr("stroke", (d) => d.meta.labelOptions.labelColor)
+            .attr("fill", (d) => d.meta.labelOptions.labelColor)
+            .style("font-size", (d) => "12px")
+            .style("display", (d) => (d.meta.labelOptions.showLabel) ? "block" : "none")
+        // .style("text-shadow", function (d, i) {
+        //     return "1px 1px " + d3.rgb(d.meta.labelOptions.labelColor).darker(1);
+        // });
+
 
         return node;
+
+        // node.append('svg:defs').append('svg:pattern')
+        //     .attr("id", function (d) {
+        //         return "pattern-node-" + d.id + "";
+        //     })
+        //
+        //     .attr('patternUnits', 'objectBoundingBox')
+        //     .attr('width', 40)
+        //     .attr('height', 40)
+        //     .append('svg:image')
+        //     .attr("xlink:href", function (d) {
+        //         if (_this.getNodeLabelConfig(d.label)) {
+        //             let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
+        //             if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
+        //                 return d.properties[vertexLabelConfig.bgImagePropertyKey];
+        //             } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
+        //                 return vertexLabelConfig.bgImageUrl;
+        //             }
+        //         }
+        //         return "";
+        //     })
+        //     .attr('x', 0)
+        //     .attr('y', 0)
+        //     .attr('width', 40)
+        //     .attr('height', 40);
+        //
+        //
+        // node.append("title")
+        //     .text(function (d) {
+        //         return d.properties.name || d.id;
+        //     });
+        //
+        // node.append("text")
+        //     .attr("dy", -16)
+        //     .attr("dx", 6)
+        //     .text(function (d) {
+        //         return d.properties.name || d.id;
+        //     })
+        //     .style("fill", function (d, i) {
+        //         return "#c1c1c1";
+        //     })
+        //     .style("font-size", function (d, i) {
+        //         return "12px";
+        //     })
+        //     .style("font-weight", function (d, i) {
+        //         return "bold";
+        //     })
+        //     .style("text-shadow", function (d, i) {
+        //         return "1px 1px #424242";
+        //     });
+        //
+        // return node;
     }
 
     onLinkMoveHover(selectedLink) {
@@ -812,8 +897,8 @@ export default class GraphCanvas extends React.Component {
 
 
         let linksData = prepareLinksDataForCurves(this.props.links);
-        // let nodesData = prepareNodesDataWithOptions(this.props.nodes, {});
-        let nodesData = this.props.nodes;
+        let nodesData = prepareNodesDataWithOptions(this.props.nodes, {});
+        // let nodesData = this.props.nodes;
 
         this.startRenderingGraph(nodesData, linksData)
     }
