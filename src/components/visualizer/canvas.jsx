@@ -4,6 +4,7 @@ import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
 import {DefaultHoverOpacity, DefaultNodeBgColor, DefaultLinkTextColor, DefaultLinkPathColor} from "../../config";
 import {LightenDarkenColor} from "../core/utils";
+import {prepareLinksDataForCurves, prepareNodesDataWithOptions} from "./canvas-utils";
 
 export default class GraphCanvas extends React.Component {
 
@@ -298,14 +299,15 @@ export default class GraphCanvas extends React.Component {
         }
     }
 
-    addVertices(vertices) {
+    addVertices(nodesData) {
 
-        console.log("VertexUtils.add", vertices, this.canvas);
+        console.log("VertexUtils.add", nodesData);
 
 
         let _this = this;
+
         let node = this.canvas.selectAll(".node")
-            .data(vertices)
+            .data(nodesData)
             .enter()
             .append("g")
             .attr("class", "node")
@@ -454,102 +456,151 @@ export default class GraphCanvas extends React.Component {
     addEdges(edges) {
 
         let _this = this
-        let link = this.canvas.selectAll(".link")
+        const linkDistance = 300;
+        const linkCurvature = .55;
+        const linkStrokeWidth = '2px';
+        const linkFillColor = "#727272";
+        const linkTextColor = "#efefef";
 
+
+        let links = this.canvas
+            .selectAll("g.links")
             .data(edges)
-            .enter()
-            .append("line")
-            .attr("class", "link")
-            .attr('marker-end', 'url(#arrowhead)')
-            .on('mouseover', function (d) {
-                _this.onLinkMoveHover(d);
-            })
-            .on('mouseout', function (d) {
-                _this.onLinkMoveOut(d);
-            })
-            .attr('id', function (d, i) {
-                return 'link-' + d.id;
-            })
-            .style('stroke-width', 2)
-            .style('cursor', 'pointer')
-            .style('stroke', DefaultLinkPathColor);
+            .enter().append("g")
+            .attr("cursor", "pointer")
 
-        // link.append("title")
+
+        const linkPaths = links
+            .append("path")
+            .attr("id", function (d, i) {
+                return "link-" + i;
+            })
+            .attr("association-id", function (d, i) {
+                return "link-" + d.target + "-" + d.source;
+            })
+            .attr("sameIndexCorrected", function (d, i) {
+                return d.sameIndexCorrected;
+            })
+            .attr('stroke', linkFillColor)
+            .attr("stroke-width", linkStrokeWidth)
+            .attr("fill", "transparent")
+            // .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
+            .attr('marker-end', (d, i) => 'url(#arrowhead)')
+            .on("mouseover", (d) => _this.onLinkMoveHover(d))
+            .on("mouseout", (d) => _this.onLinkMoveOut(d))
+
+
+        const linkText = links
+            .append("text")
+            .attr("dy", -4)
+            .append("textPath")
+            .attr("xlink:href", function (d, i) {
+                return "#link-" + i;
+            })
+            .style("text-anchor", "middle")
+            .attr("startOffset", "50%")
+            .attr('fill', linkTextColor) // TODO add .meta for links also
+            .attr('stroke', linkTextColor)
+            .text((d, i) => `${d.label || d.id}`);
+        return [links, linkPaths, linkText];
+
+
+        // let link = this.canvas.selectAll(".link")
+        //
+        //     .data(edges)
+        //     .enter()
+        //     .append("line")
+        //     .attr("class", "link")
+        //     .attr('marker-end', 'url(#arrowhead)')
+        //     .on('mouseover', function (d) {
+        //         _this.onLinkMoveHover(d);
+        //     })
+        //     .on('mouseout', function (d) {
+        //         _this.onLinkMoveOut(d);
+        //     })
+        //     .attr('id', function (d, i) {
+        //         return 'link-' + d.id;
+        //     })
+        //     .style('stroke-width', 2)
+        //     .style('cursor', 'pointer')
+        //     .style('stroke', DefaultLinkPathColor);
+        //
+        // // link.append("title")
+        // //     .text(function (d) {
+        // //         return d.label;
+        // //     });
+        //
+        // let edgepaths = this.canvas.selectAll(".edgepath")
+        //     .data(edges)
+        //     .enter()
+        //     .append('path')
+        //     .attrs({
+        //         'class': 'edgepath',
+        //         // 'fill-opacity': 0,
+        //         // 'stroke-opacity': 0,
+        //         'id': function (d, i) {
+        //             return 'edgepath-' + d.id;
+        //         }
+        //     })
+        //     .style("fill", function (d, i) {
+        //         // return _this.color_schema(d);
+        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
+        //         if (linkLabelConfig) {
+        //             return linkLabelConfig.pathColor;
+        //         } else {
+        //             return DefaultLinkPathColor;
+        //         }
+        //     })
+        //     // .style("stroke", "#777")
+        //     // .style("stroke-width", "2px")
+        //     .style("pointer-events", "none");
+        //
+        // let edgelabels = this.canvas.selectAll(".edgelabel")
+        //     .data(edges)
+        //     .enter()
+        //     .append('text')
+        //     .style("pointer-events", "none")
+        //     .attr("dy", -3) //Move the text up/ down
+        //     .style("fill", function (d, i) {
+        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
+        //         if (linkLabelConfig) {
+        //             return linkLabelConfig.linkTextColor;
+        //         } else {
+        //             return DefaultLinkTextColor;
+        //         }
+        //     })
+        //     .attrs({
+        //         'class': 'edgelabel',
+        //         'id': function (d, i) {
+        //             return 'edgelabel-' + d.id;
+        //         },
+        //         'font-size': 12,
+        //     });
+        //
+        // edgelabels.append('textPath')
+        //     .attr('xlink:href', function (d, i) {
+        //         return '#edgepath-' + d.id;
+        //     })
+        //     .style("text-anchor", "middle")
+        //     // .style("text-transform", "uppercase")
+        //     .style("background", "#ffffff")
+        //     .style("pointer-events", "none")
+        //     .attr("startOffset", "50%")
+        //     .style("fill", function (d, i) {
+        //         // return _this.color_schema(d);
+        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
+        //         if (linkLabelConfig) {
+        //             return linkLabelConfig.linkTextColor;
+        //         } else {
+        //             return DefaultLinkTextColor;
+        //
+        //         }
+        //     })
         //     .text(function (d) {
         //         return d.label;
         //     });
-
-        let edgepaths = this.canvas.selectAll(".edgepath")
-            .data(edges)
-            .enter()
-            .append('path')
-            .attrs({
-                'class': 'edgepath',
-                // 'fill-opacity': 0,
-                // 'stroke-opacity': 0,
-                'id': function (d, i) {
-                    return 'edgepath-' + d.id;
-                }
-            })
-            .style("fill", function (d, i) {
-                // return _this.color_schema(d);
-                let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-                if (linkLabelConfig) {
-                    return linkLabelConfig.pathColor;
-                } else {
-                    return DefaultLinkPathColor;
-                }
-            })
-            // .style("stroke", "#777")
-            // .style("stroke-width", "2px")
-            .style("pointer-events", "none");
-
-        let edgelabels = this.canvas.selectAll(".edgelabel")
-            .data(edges)
-            .enter()
-            .append('text')
-            .style("pointer-events", "none")
-            .attr("dy", -3) //Move the text up/ down
-            .style("fill", function (d, i) {
-                let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-                if (linkLabelConfig) {
-                    return linkLabelConfig.linkTextColor;
-                } else {
-                    return DefaultLinkTextColor;
-                }
-            })
-            .attrs({
-                'class': 'edgelabel',
-                'id': function (d, i) {
-                    return 'edgelabel-' + d.id;
-                },
-                'font-size': 12,
-            });
-
-        edgelabels.append('textPath')
-            .attr('xlink:href', function (d, i) {
-                return '#edgepath-' + d.id;
-            })
-            .style("text-anchor", "middle")
-            // .style("text-transform", "uppercase")
-            .style("background", "#ffffff")
-            .style("pointer-events", "none")
-            .attr("startOffset", "50%")
-            .style("fill", function (d, i) {
-                // return _this.color_schema(d);
-                let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-                if (linkLabelConfig) {
-                    return linkLabelConfig.linkTextColor;
-                } else {
-                    return DefaultLinkTextColor;
-
-                }
-            })
-            .text(function (d) {
-                return d.label;
-            });
-
-        return [link, edgepaths, edgelabels];
+        //
+        // return [link, edgepaths, edgelabels];
 
 
     }
@@ -653,9 +704,9 @@ export default class GraphCanvas extends React.Component {
                 }
             })
             .call(d3.drag()
-                .on("start", dragstarted)
+                .on("start", dragStarted)
                 .on("drag", dragged)
-                .on("end", dragended)
+                .on("end", dragEnded)
             );
 
 
@@ -664,7 +715,7 @@ export default class GraphCanvas extends React.Component {
             d.fy = d3.event.y;
         }
 
-        function dragstarted(d) {
+        function dragStarted(d) {
             if (!d3.event.active) {
                 _this.simulation.alphaTarget(DefaultHoverOpacity).restart();
             }
@@ -673,7 +724,7 @@ export default class GraphCanvas extends React.Component {
 
         }
 
-        function dragended(d) {
+        function dragEnded(d) {
             if (!d3.event.active) {
                 _this.simulation.alphaTarget(0);
             }
@@ -714,9 +765,26 @@ export default class GraphCanvas extends React.Component {
                     return "translate(" + d.x + ", " + d.y + ")";
                 });
 
-            edgepaths.attr('d', function (d) {
-                return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
-            });
+            // edgepaths.attr('d', function (d) {
+            //     return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
+            // });
+
+
+            function linkArc(d) {
+                const linkCurvature = .55;
+
+                let dx = (d.target.x - d.source.x),
+                    dy = (d.target.y - d.source.y),
+                    dr = Math.sqrt(dx * dx + dy * dy),
+                    unevenCorrection = (d.sameUneven ? 0 : 0.5),
+                    arc = ((dr * d.maxSameHalf) / (d.sameIndexCorrected - unevenCorrection)) * linkCurvature;
+                if (d.sameMiddleLink) {
+                    arc = 0;
+                }
+                return "M" + d.source.x + "," + d.source.y + "A" + arc + "," + arc + " 0 0," + d.sameArcDirection + " " + d.target.x + "," + d.target.y;
+            }
+
+            edgepaths.attr("d", (d) => linkArc(d))
 
             edgelabels.attr('transform', function (d) {
                 if (d.target.x < d.source.x) {
@@ -742,7 +810,12 @@ export default class GraphCanvas extends React.Component {
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
-        this.startRenderingGraph(this.props.nodes, this.props.links)
+
+        let linksData = prepareLinksDataForCurves(this.props.links);
+        // let nodesData = prepareNodesDataWithOptions(this.props.nodes, {});
+        let nodesData = this.props.nodes;
+
+        this.startRenderingGraph(nodesData, linksData)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
