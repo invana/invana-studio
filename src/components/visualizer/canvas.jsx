@@ -129,9 +129,18 @@ export default class GraphCanvas extends React.Component {
     }
 
     closeNodeMenu(selectedNode) {
-        console.log("closeNodeMenu clicked", selectedNode);
+        console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
+
+
         this.hideProperties();
-        d3.select(".node-menu").remove();
+        setTimeout(function () {
+            d3.select(".node-menu").selectAll("*").remove();
+            if (document.querySelector(".node-menu")) {
+                document.querySelector(".node-menu").remove();
+            }
+        }, 50);
+
+
     }
 
     releaseNodeLock(selectedNode) {
