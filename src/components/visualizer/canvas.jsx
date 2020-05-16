@@ -184,8 +184,14 @@ export default class GraphCanvas extends React.Component {
             }); // zde je nutnÃ© zadat celkovou populaci - poÄetz prvkÅ¯ v
 
         // Menu
-        var widthMenu = 180,
-            heightMenu = 180,
+        // var widthMenu = (selectedNode.meta.shapeOptions.radius + selectedNode.meta.shapeOptions.strokeWidth) * 7,
+        //     heightMenu = (selectedNode.meta.shapeOptions.radius + selectedNode.meta.shapeOptions.strokeWidth)  * 7,
+        //     radiusMenu = Math.min(widthMenu, heightMenu) / 2;
+
+
+        // Menu
+        var widthMenu = 200,
+            heightMenu = 200,
             radiusMenu = Math.min(widthMenu, heightMenu) / 2;
 
         // Arc setting
@@ -198,8 +204,8 @@ export default class GraphCanvas extends React.Component {
             .attr("width", widthMenu)
             .attr("height", heightMenu)
             .attr("class", "node-menu")
-            .attr("x", -90)
-            .attr("y", -90)
+            .attr("x", -100)
+            .attr("y", -100)
             .append("g")
             .attr("transform", "translate(" + widthMenu / 2 + "," + heightMenu / 2 + ")");
         // Prepare graph and load data
@@ -227,7 +233,6 @@ export default class GraphCanvas extends React.Component {
                     alert("not implemented");
                 }
             });
-        // .on("mouseover", function(d) {tip.hide(d);});
 
         // Add colors
         var path = g.append("path")
@@ -281,23 +286,7 @@ export default class GraphCanvas extends React.Component {
 
     }
 
-    getNodeLabelConfig(label) {
-        try {
-            return this.props.nodeLabels[label];
 
-        } catch (e) {
-            return {bgColor: DefaultNodeBgColor};
-        }
-    }
-
-    getLinkLabelConfig(label) {
-        try {
-            return this.props.linkLabels[label];
-
-        } catch (e) {
-            return {pathColor: DefaultLinkPathColor, linkTextColor: DefaultLinkTextColor};
-        }
-    }
 
     addVertices(nodesData) {
 
@@ -451,57 +440,7 @@ export default class GraphCanvas extends React.Component {
 
         return node;
 
-        // node.append('svg:defs').append('svg:pattern')
-        //     .attr("id", function (d) {
-        //         return "pattern-node-" + d.id + "";
-        //     })
-        //
-        //     .attr('patternUnits', 'objectBoundingBox')
-        //     .attr('width', 40)
-        //     .attr('height', 40)
-        //     .append('svg:image')
-        //     .attr("xlink:href", function (d) {
-        //         if (_this.getNodeLabelConfig(d.label)) {
-        //             let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
-        //             if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
-        //                 return d.properties[vertexLabelConfig.bgImagePropertyKey];
-        //             } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
-        //                 return vertexLabelConfig.bgImageUrl;
-        //             }
-        //         }
-        //         return "";
-        //     })
-        //     .attr('x', 0)
-        //     .attr('y', 0)
-        //     .attr('width', 40)
-        //     .attr('height', 40);
-        //
-        //
-        // node.append("title")
-        //     .text(function (d) {
-        //         return d.properties.name || d.id;
-        //     });
-        //
-        // node.append("text")
-        //     .attr("dy", -16)
-        //     .attr("dx", 6)
-        //     .text(function (d) {
-        //         return d.properties.name || d.id;
-        //     })
-        //     .style("fill", function (d, i) {
-        //         return "#c1c1c1";
-        //     })
-        //     .style("font-size", function (d, i) {
-        //         return "12px";
-        //     })
-        //     .style("font-weight", function (d, i) {
-        //         return "bold";
-        //     })
-        //     .style("text-shadow", function (d, i) {
-        //         return "1px 1px #424242";
-        //     });
-        //
-        // return node;
+
     }
 
     onLinkMoveHover(selectedLink) {
@@ -588,104 +527,6 @@ export default class GraphCanvas extends React.Component {
             .attr('stroke', linkTextColor)
             .text((d, i) => `${d.label || d.id}`);
         return [links, linkPaths, linkText];
-
-
-        // let link = this.canvas.selectAll(".link")
-        //
-        //     .data(edges)
-        //     .enter()
-        //     .append("line")
-        //     .attr("class", "link")
-        //     .attr('marker-end', 'url(#arrowhead)')
-        //     .on('mouseover', function (d) {
-        //         _this.onLinkMoveHover(d);
-        //     })
-        //     .on('mouseout', function (d) {
-        //         _this.onLinkMoveOut(d);
-        //     })
-        //     .attr('id', function (d, i) {
-        //         return 'link-' + d.id;
-        //     })
-        //     .style('stroke-width', 2)
-        //     .style('cursor', 'pointer')
-        //     .style('stroke', DefaultLinkPathColor);
-        //
-        // // link.append("title")
-        // //     .text(function (d) {
-        // //         return d.label;
-        // //     });
-        //
-        // let edgepaths = this.canvas.selectAll(".edgepath")
-        //     .data(edges)
-        //     .enter()
-        //     .append('path')
-        //     .attrs({
-        //         'class': 'edgepath',
-        //         // 'fill-opacity': 0,
-        //         // 'stroke-opacity': 0,
-        //         'id': function (d, i) {
-        //             return 'edgepath-' + d.id;
-        //         }
-        //     })
-        //     .style("fill", function (d, i) {
-        //         // return _this.color_schema(d);
-        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-        //         if (linkLabelConfig) {
-        //             return linkLabelConfig.pathColor;
-        //         } else {
-        //             return DefaultLinkPathColor;
-        //         }
-        //     })
-        //     // .style("stroke", "#777")
-        //     // .style("stroke-width", "2px")
-        //     .style("pointer-events", "none");
-        //
-        // let edgelabels = this.canvas.selectAll(".edgelabel")
-        //     .data(edges)
-        //     .enter()
-        //     .append('text')
-        //     .style("pointer-events", "none")
-        //     .attr("dy", -3) //Move the text up/ down
-        //     .style("fill", function (d, i) {
-        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-        //         if (linkLabelConfig) {
-        //             return linkLabelConfig.linkTextColor;
-        //         } else {
-        //             return DefaultLinkTextColor;
-        //         }
-        //     })
-        //     .attrs({
-        //         'class': 'edgelabel',
-        //         'id': function (d, i) {
-        //             return 'edgelabel-' + d.id;
-        //         },
-        //         'font-size': 12,
-        //     });
-        //
-        // edgelabels.append('textPath')
-        //     .attr('xlink:href', function (d, i) {
-        //         return '#edgepath-' + d.id;
-        //     })
-        //     .style("text-anchor", "middle")
-        //     // .style("text-transform", "uppercase")
-        //     .style("background", "#ffffff")
-        //     .style("pointer-events", "none")
-        //     .attr("startOffset", "50%")
-        //     .style("fill", function (d, i) {
-        //         // return _this.color_schema(d);
-        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-        //         if (linkLabelConfig) {
-        //             return linkLabelConfig.linkTextColor;
-        //         } else {
-        //             return DefaultLinkTextColor;
-        //
-        //         }
-        //     })
-        //     .text(function (d) {
-        //         return d.label;
-        //     });
-        //
-        // return [link, edgepaths, edgelabels];
 
 
     }
@@ -830,19 +671,6 @@ export default class GraphCanvas extends React.Component {
             .links(edges);
 
         function ticked() {
-            link
-                .attr("x1", function (d) {
-                    return d.source.x;
-                })
-                .attr("y1", function (d) {
-                    return d.source.y;
-                })
-                .attr("x2", function (d) {
-                    return d.target.x;
-                })
-                .attr("y2", function (d) {
-                    return d.target.y;
-                });
 
 
             node
@@ -850,9 +678,6 @@ export default class GraphCanvas extends React.Component {
                     return "translate(" + d.x + ", " + d.y + ")";
                 });
 
-            // edgepaths.attr('d', function (d) {
-            //     return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
-            // });
 
 
             function linkArc(d) {
@@ -871,17 +696,7 @@ export default class GraphCanvas extends React.Component {
 
             edgepaths.attr("d", (d) => linkArc(d))
 
-            edgelabels.attr('transform', function (d) {
-                if (d.target.x < d.source.x) {
-                    let bbox = this.getBBox();
 
-                    let rx = bbox.x + bbox.width / 2;
-                    let ry = bbox.y + bbox.height / 2;
-                    return 'rotate(180 ' + rx + ' ' + ry + ')';
-                } else {
-                    return 'rotate(0)';
-                }
-            });
         }
 
 
