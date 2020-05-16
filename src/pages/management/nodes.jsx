@@ -10,7 +10,7 @@ import {
     InvanaManagementLabel, DefaultNodeBgColor,
     DefaultNodeBorderColor, DefaultNodeBgPropertyKey
 } from "../../config";
-
+import {prepareNodesDataWithOptions} from "../../components/visualizer/canvas-utils";
 
 export default class NodesManagementView extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
