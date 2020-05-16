@@ -17,7 +17,7 @@ import {
     DefaultLinkTextColor,
     DefaultLinkPathColor,
     linkCurvature,
-    linkFillColor, linkStrokeWidth, linkTextColor, nodeRadius, nodeStrokeWidth
+    linkFillColor, linkStrokeWidth, linkTextColor, nodeRadius, nodeStrokeWidth, linkDistance
 } from "../../config";
 import {LightenDarkenColor} from "../core/utils";
 
@@ -322,6 +322,7 @@ export default class GraphCanvas extends React.Component {
         let _this = this;
 
         let nodes = this.canvas
+            .append("g").attr("class", "nodes")
             .selectAll("g.nodes")
             .data(vertices)
             .enter().append("g")
@@ -618,6 +619,7 @@ export default class GraphCanvas extends React.Component {
         let _this = this
 
         let links = this.canvas
+            .append("g").attr("class", "links")
             .selectAll("g.links")
             .data(linksData)
             .enter().append("g")
@@ -626,7 +628,7 @@ export default class GraphCanvas extends React.Component {
         const linkPaths = links
             .append("path")
             .attr("id", function (d, i) {
-                return "link-" + i;
+                return "link-" + d.id;
             })
             .attr("association-id", function (d, i) {
                 return "link-" + (d.target.id || d.target) + "-" + (d.source.id || d.source);
@@ -637,15 +639,13 @@ export default class GraphCanvas extends React.Component {
             .attr('stroke', linkFillColor)
             .attr("stroke-width", linkStrokeWidth)
             .attr("fill", "transparent")
-            .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
+            .attr('marker-end', (d, i) => 'url(#link-arrow-' + d.id + ')')
             .on("mouseover", (d) => _this.onLinkMoveHover(d))
             .on("mouseout", (d) => _this.onLinkMoveOut(d));
 
-        links.append("svg:defs").selectAll("marker")
-            .data(linksData)
-            .enter()
+        links.append("svg:defs")
             .append("svg:marker")
-            .attr("id", (d, i) => "link-arrow-" + i)
+            .attr("id", (d, i) => "link-arrow-" + d.id)
             .attr("viewBox", "0 -5 10 10")
             .attr("refY", 0)
             .attr("refX", (d, i) => (nodeRadius - (nodeRadius / 4) + nodeStrokeWidth))
@@ -663,7 +663,7 @@ export default class GraphCanvas extends React.Component {
             .attr("dy", -4)
             .append("textPath")
             .attr("xlink:href", function (d, i) {
-                return "#link-" + i;
+                return "#link-" + d.id;
             })
             .style("text-anchor", "middle")
             .attr("startOffset", "50%")
@@ -782,27 +782,25 @@ export default class GraphCanvas extends React.Component {
 
         let getSimulationCharge = function () {
             return d3.forceManyBody()
-                .strength(-240);
+                .strength(-600);
         }
 
         return d3.forceSimulation()
-            .force("link", d3.forceLink()
-                .id(function (d) {
-                    return d.id;
-                })
-                .distance(180).strength(1)
-            )
+
             .force("charge", getSimulationCharge())
             .force("collide", forceCollide)
             .force('x', forceX)
             .force('y', forceY)
             .force("center", d3.forceCenter(canvas_width / 2, canvas_height / 2))
-        // .velocityDecay(0.4)
-        // .alphaTarget(0.1);
+            // .velocityDecay(0.4)
+            .alphaTarget(0.1);
     }
 
     setupCanvas() {
         d3.select(this.html_selector_id).selectAll("*").remove();
+
+        d3.select(this.html_selector_id).selectAll('g').remove();
+
         let svg = d3.select(this.html_selector_id)
             // .selectAll("*").remove()
             .call(d3.zoom().on("zoom", function () {
@@ -814,9 +812,9 @@ export default class GraphCanvas extends React.Component {
             .attr("class", "everything");
 
         // on clicking on any node or link, remove the context menu that is opened in the canvas.
-        svg.select('*:not(circle), *:not(line), *:not(path), *:not(text), *:not(link)').on("click", function () {
-            d3.select(".node-menu").remove();
-        });
+        // svg.select('*:not(circle), *:not(line), *:not(path), *:not(text), *:not(link)').on("click", function () {
+        //     d3.select(".node-menu").remove();
+        // });
         return svg;
     }
 
@@ -846,7 +844,7 @@ export default class GraphCanvas extends React.Component {
         return this.setupMarker(canvas);
     }
 
-    startRenderingGraph(vertices, linksData) {
+    startRenderingGraph(nodesData, linksData) {
         // add this data to the existing data
 
 
@@ -857,7 +855,7 @@ export default class GraphCanvas extends React.Component {
         let edgepaths = _[1];
         let edgelabels = _[2];
 
-        let nodes = this.addVertices(vertices);
+        let nodes = this.addVertices(nodesData);
 
 
         nodes
@@ -902,6 +900,7 @@ export default class GraphCanvas extends React.Component {
         });
 
         function linkArc(d) {
+            // console.log("linkArc triggered", JSON.stringify(d));
             let dx = (d.target.x - d.source.x),
                 dy = (d.target.y - d.source.y),
                 dr = Math.sqrt(dx * dx + dy * dy),
@@ -910,26 +909,67 @@ export default class GraphCanvas extends React.Component {
             if (d.sameMiddleLink) {
                 arc = 0;
             }
+            console.log("linkArc", "M" + d.source.x + "," + d.source.y + "A" + arc + "," + arc + " 0 0," + d.sameArcDirection + " " + d.target.x + "," + d.target.y);
             return "M" + d.source.x + "," + d.source.y + "A" + arc + "," + arc + " 0 0," + d.sameArcDirection + " " + d.target.x + "," + d.target.y;
         }
 
         function ticked() {
-            edgepaths.attr("d", linkArc)
             // link.attr("d", linkArc)
-            nodes
-                .attr("transform", d => `translate(${d.x}, ${d.y})`);
             // link
             //     .attr("transform", d => `translate(${d.x}, ${d.y})`);
 
+
+            link
+                .attr("x1", function (d) {
+                    return d.source.x;
+                })
+                .attr("y1", function (d) {
+                    return d.source.y;
+                })
+                .attr("x2", function (d) {
+                    return d.target.x;
+                })
+                .attr("y2", function (d) {
+                    return d.target.y;
+                });
+
+            //
+
+
+            nodes
+                .attr("transform", d => `translate(${d.x}, ${d.y})`);
+
+            edgepaths.attr("d", linkArc)
+
+            // edgelabels.attr('transform', function (d) {
+            //     if (d.target.x < d.source.x) {
+            //         let bbox = this.getBBox();
+            //
+            //         let rx = bbox.x + bbox.width / 2;
+            //         let ry = bbox.y + bbox.height / 2;
+            //         return 'rotate(180 ' + rx + ' ' + ry + ')';
+            //     } else {
+            //         return 'rotate(0)';
+            //     }
+            // });
         }
 
 
         this.simulation
-            .nodes(vertices)
+            .nodes(nodesData)
             .on("tick", ticked);
+        //
+        //   this.simulation.force("link", d3.forceLink()
+        //           .id(function (d) {
+        //               return d.id;
+        //           })
+        //           .distance(180).strength(1)
+        //       ).force("link")
+        //       .links(linksData);
+        this.simulation.force("link", d3.forceLink().links(linksData)
+            .id((d, i) => d.id)
+            .distance(linkDistance));
 
-        this.simulation.force("link")
-            .links(linksData);
 
         // function ticked() {
         //     link

@@ -113,7 +113,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
     let nodesCleaned = [];
     nodes.forEach(function (nodeData, index) {
 
-        let node = Object.assign({}, nodeData)
+        let node = nodeData
         // check if options data has node.label meta data or set defaults.
         if (node.label in options) {
             node.meta = Object.assign({}, options[node.label]);
