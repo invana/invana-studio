@@ -681,7 +681,7 @@ export default class GraphCanvas extends React.Component {
 
 
             function linkArc(d) {
-                const linkCurvature = .55;
+                const linkCurvature = .85;
 
                 let dx = (d.target.x - d.source.x),
                     dy = (d.target.y - d.source.y),
