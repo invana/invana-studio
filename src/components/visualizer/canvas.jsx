@@ -83,7 +83,6 @@ export default class GraphCanvas extends React.Component {
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
 
-
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
         nodeElements.style('opacity', function (nodeElement) {
             return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1';
@@ -375,7 +374,7 @@ export default class GraphCanvas extends React.Component {
 
 
         // for nodeBgHtml - this will be on top of background image
-        node.append('g')
+        let inShapeTextNode = node.append('g')
             .attr("class", "nodeHTML")
             .attr('transform', function (d) {
                     const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
@@ -394,19 +393,38 @@ export default class GraphCanvas extends React.Component {
             .append("xhtml:body")
             .style("color", (d) => d.meta.shapeOptions.textColor)
             .style("font-size", "16px") // make this dynamic based on the node radius also
-            // .style("font-weight", "bold")
-            .style("background-color", "transparent")
-            .append("xhtml:span")
+            .style("margin", "0")
             .style("text-align", "center")
-            .style("display", "block")
-            .style("vertical-align", "middle")
+            .style("background", "transparent");
 
+        inShapeTextNode.append("xhtml:h6")
+            // .style("display", "block")
+            // .style("vertical-align", "middle")
+            .style("font-size", "10px")
+            .style("font-weight", "bold")
             .style("color", (d) => d.meta.shapeOptions.textColor)
             .style("background-color", "transparent")
             .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
+            .style("margin", "0")
+            .style("margin-top", "7px")
+
             .html(function (d) {
                 if (d.meta.shapeOptions.inShapeHTML && !d.meta.bgImageUrl) {
-                    return d.meta.shapeOptions.inShapeHTML
+                    return d.meta.shapeOptions.inShapeHTML;
+                }
+            })
+
+        inShapeTextNode.append("xhtml:small")
+            .style("text-align", "center")
+            .style("font-size", "4px")
+            .style("vertical-align", "middle")
+            .style("font-weight", "bold")
+            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("background-color", "transparent")
+            // .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
+            .html(function (d) {
+                if (d.meta.shapeOptions.inShapeHTML && !d.meta.bgImageUrl) {
+                    return d.id;
                 }
             });
 

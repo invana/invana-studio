@@ -3,6 +3,7 @@ import {
     DefaultNodeBgColor,
     DefaultLinkStrokeWidth, DefaultLinkTextColor, DefaultLinkPathColor, DefaultNodeRadius,
     DefaultNodeBorderColor, DefaultNodeStrokeWidth,
+    DefaultInShapeHTMLFn,
     DefaultNodeInShapeTextColor, DefaultLabelVisibility, DefaultNodeLabelColor
 
 } from "../../config";
@@ -103,7 +104,6 @@ export function prepareNodesDataWithOptions(nodes, options) {
         }
 
      */
-    console.log("======options", options)
     if (typeof options === "undefined") {
         options = {};
     } else if (typeof options === "string") {
@@ -121,7 +121,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
         } catch (e) {
             metaFromStorage = {}
         }
-        if (!metaFromStorage){
+        if (!metaFromStorage) {
             metaFromStorage = {}
         }
         node.meta = {"bgImageUrl": null, "nodeShape": "circle"};
@@ -145,10 +145,12 @@ export function prepareNodesDataWithOptions(nodes, options) {
         if (!node.meta.shapeOptions.textColor) {
             node.meta.shapeOptions.textColor = DefaultNodeInShapeTextColor
         }
-
         if (node.meta.shapeOptions.inShapeHTMLFn) {
-            node.meta.shapeOptions.inShapeHTML = node.meta.shapeOptions.inShapeHTMLFn(node);
+            node.meta.shapeOptions.inShapeHTML = node.meta.shapeOptions.inShapeHTMLFn(node)
+        } else {
+            node.meta.shapeOptions.inShapeHTML = DefaultInShapeHTMLFn(node);
         }
+
         // nodeLabelOptions
         if (!node.meta.labelOptions) {
             node.meta.labelOptions = {}
