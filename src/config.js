@@ -2,10 +2,10 @@ export const GREMLIN_SERVER_URL = "ws://127.0.0.1:8182/gremlin";
 
 
 export const InvanaManagementLabel = "InvanaManagement"
-export const DefaultNodeBgColor = "#4385b8";
-export const DefaultNodeBorderColor = "#777777";
+export const DefaultNodeBgColor = "#444444";
+export const DefaultNodeBorderColor = "#4385b8";
 export const DefaultNodeBgPropertyKey = ""; // make sure this key is string.
-export const DefaultNodeStrokeWidth = 5;
+export const DefaultNodeStrokeWidth = 3;
 export const DefaultNodeRadius = 24;
 export const DefaultNodeInShapeTextColor = "#dddddd"; // inside the shape
 export const DefaultNodeLabelColor = "#dddddd";

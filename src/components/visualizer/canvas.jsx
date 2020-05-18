@@ -647,7 +647,7 @@ export default class GraphCanvas extends React.Component {
             })
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', DefaultNodeBgColor)
+            .attr('fill', DefaultLinkPathColor)
             .style('stroke', 'none');
         return canvas;
 
