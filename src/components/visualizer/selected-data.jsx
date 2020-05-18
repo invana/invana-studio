@@ -23,8 +23,8 @@ export class SelectedDataCanvas extends React.Component {
 
     render() {
         let cleanedData = this.getCleanedData();
-        let nodeLabelsColoring = JSON.parse(localStorage.getItem('nodeLabels'));
-        let linkLabelsColoring = JSON.parse(localStorage.getItem('linkLabels'));
+        let nodeLabelsColoring = Object.assign({} ,JSON.parse(localStorage.getItem('nodeLabels')));
+        let linkLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('linkLabels')));
         let selectedDataColorSchema = {};
 
         if (cleanedData.type === "Vertex") {
