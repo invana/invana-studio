@@ -170,12 +170,15 @@ export function prepareNodesDataWithOptions(nodes, options) {
         if (!node.meta.tagOptions) {
             node.meta.tagOptions = {}
         }
-        if (!node.meta.tagOptions.tagHtml) {
+        if (metaFromStorage.tagHtml) {
             node.meta.tagOptions.tagHtml = metaFromStorage.tagHtml
         }
         // nodeImageOptions
         if (node.meta.bgImagePropertyKey) {
             node.meta.bgImageUrl = node.properties[node.meta.bgImagePropertyKey];
+        }
+        if (!node.meta.bgImageUrl) {
+            node.meta.bgImageUrl = metaFromStorage.bgImageUrl;
         }
         // nodesCleaned.push(JSON.parse(JSON.stringify(node)))
         if (node.target) {

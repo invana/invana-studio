@@ -24,6 +24,7 @@ export class LegendCanvas extends React.Component {
 
         let legend = this.state.legend_canvas.append("g")
             .attr("class", "vertices-legend")
+            .style("margin-top", "5px")
             .attr("height", 0)
             .attr("width", 0)
             .attr('transform', 'translate(' + (10) + ',' + (edges_legend_height + 35) + ')');
