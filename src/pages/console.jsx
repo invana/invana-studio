@@ -19,7 +19,7 @@ const textAreaCls = {
     "resize": "none",
     "color": "#efefef",
     "padding": "15px",
-    "fontSize": "16px",
+    "fontSize": "14px",
     fontFamily: "Courier"
 }
 
