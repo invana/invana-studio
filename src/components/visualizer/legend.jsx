@@ -33,7 +33,7 @@ export class LegendCanvas extends React.Component {
         let legend_vertices_list = [];
         let legend_vertices_list_ = [];
         console.log("=======vertices", vertices);
-        for(let i in vertices){
+        for (let i in vertices) {
             let vertex = vertices[i];
             if (legend_vertices_list_.indexOf(vertex.label) === -1) {
                 legend_vertices_list.push(vertex);
@@ -96,11 +96,7 @@ export class LegendCanvas extends React.Component {
             .attr('transform', function (d, i) {
                 return 'translate(' + (15) + ',' + ((i * 20) + 10) + ')';
             })
-            .style("fill", function (d, i) {
-
-                return "#efefef";
-
-            });
+            .style("fill", (d, i) => "#efefef");
 
         legend.selectAll('.label')
             .data(legend_edges_list)
@@ -141,20 +137,15 @@ export class LegendCanvas extends React.Component {
 
     startRendering() {
         if (this.state.legend_canvas) {
-            console.log("startRendering LegendCanvas<<<<<<>>>>>>>>>>>>>>>><<<<<<")
             this.addEdgeLegend(this.props.links);
             const nodeOptions = localStorage.getItem('nodeLabels');
-            console.log("======nodeOptions", nodeOptions)
             const nodesData = Object.assign({},
                 prepareNodesDataWithOptions(
                     this.props.nodes,
                     nodeOptions)
             );
-            console.log("nodesData=legend", JSON.parse(JSON.stringify(nodesData)))
             this.addVertexLegend(nodesData);
         }
-
-
     }
 
     render() {
