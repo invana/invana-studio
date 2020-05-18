@@ -35,16 +35,18 @@ export default class LandingPageView extends GremlinConnectorViewBase {
 
         let _nodes = {};
         nodesAndLinks.nodes.forEach(function (node) {
+
             _nodes[node.properties.name] = node.properties;
         })
         let _links = {};
         nodesAndLinks.links.forEach(function (link) {
-            nodesAndLinks[link.label] = link;
+            _links[link.label] = link.properties;
         })
+
+        // convert this list into dictionary.
+        console.log("=======((", _nodes,_links)
         localStorage.setItem('nodeLabels', JSON.stringify(_nodes));
         localStorage.setItem('linkLabels', JSON.stringify(_links));
-
-
     }
 
     processGremlinResponseEvent(event) {

@@ -127,6 +127,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
 
 
     render() {
+        console.log("=====Node", this.state.vertices);
         return (
             <div className="App">
 
@@ -177,7 +178,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                                         <button type={"submit"}>update</button>
 
                                     </form>
-                                ) : (<span> </span>)
+                                ) : (<span key={vertex.properties.name}> </span>)
 
                             ))
                         }

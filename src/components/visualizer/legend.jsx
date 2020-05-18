@@ -15,28 +15,9 @@ export class LegendCanvas extends React.Component {
 
     }
 
-    getLinkLabelConfig(label) {
-        try {
-            return this.props.linkLabels[label];
-
-        } catch (e) {
-            return null;
-        }
-    }
-
-    getNodeLabelConfig(label) {
-        try {
-            return this.props.nodeLabels[label];
-
-        } catch (e) {
-            return {bgColor: DefaultNodeBgColor};
-        }
-    }
-
     addVertexLegend(vertices) {
 
         let _this = this;
-        console.log("_this.props.nodeLabels", _this.props.nodeLabels)
         this.clearNodeLegendCanvas();
         let edges_legend_height = document.querySelector(".edges-legend")
             .getBoundingClientRect().height;
@@ -50,12 +31,14 @@ export class LegendCanvas extends React.Component {
 
         let legend_vertices_list = [];
         let legend_vertices_list_ = [];
-        vertices.forEach(function (vertex) {
+        console.log("=======vertices", vertices);
+        for(let i in vertices){
+            let vertex = vertices[i];
             if (legend_vertices_list_.indexOf(vertex.label) === -1) {
                 legend_vertices_list.push(vertex);
                 legend_vertices_list_.push(vertex.label)
             }
-        });
+        }
 
         legend.selectAll('.legend-circle')
             .data(legend_vertices_list)
@@ -83,7 +66,7 @@ export class LegendCanvas extends React.Component {
 
     }
 
-    add_edge_legend(edges) {
+    addEdgeLegend(edges) {
         let _this = this;
 
         this.clearLinkLegendCanvas();
@@ -158,8 +141,15 @@ export class LegendCanvas extends React.Component {
     startRendering() {
         if (this.state.legend_canvas) {
             console.log("startRendering LegendCanvas<<<<<<>>>>>>>>>>>>>>>><<<<<<")
-            this.add_edge_legend(this.props.links);
-            const nodesData = Object.assign([], prepareNodesDataWithOptions(this.props.nodes, {}));
+            this.addEdgeLegend(this.props.links);
+            const nodeOptions = localStorage.getItem('nodeLabels');
+            console.log("======nodeOptions", nodeOptions)
+            const nodesData = Object.assign({},
+                prepareNodesDataWithOptions(
+                    this.props.nodes,
+                    nodeOptions)
+            );
+            console.log("nodesData=legend", JSON.parse(JSON.stringify(nodesData)))
             this.addVertexLegend(nodesData);
         }
 

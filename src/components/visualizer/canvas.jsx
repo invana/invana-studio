@@ -6,7 +6,10 @@ import {
     DefaultHoverOpacity,
     DefaultNodeBgColor,
     DefaultLinkTextColor,
+    DefaultLinkStrokeWidth,
     DefaultLinkPathColor,
+    DefaultNodeRadius,
+    DefaultNodeStrokeWidth,
     linkCurvature
 } from "../../config";
 import {LightenDarkenColor} from "../core/utils";
@@ -432,8 +435,11 @@ export default class GraphCanvas extends React.Component {
             .append("xhtml:span")
             .style("color", (d) => d.meta.shapeOptions.textColor)
             .style("background-color", "transparent")
-            .html((d) => "<i class=\"fas fa-globe-africa\"></i>");
-
+            .html(function (d) {
+                if (d.meta.tagOptions.tagHtml) {
+                    return d.meta.tagOptions.tagHtml
+                }
+            });
 
         node.append("title")
             .text(function (d) {
@@ -482,11 +488,8 @@ export default class GraphCanvas extends React.Component {
     onLinkMoveOut(selectedLink) {
         let nodeElements = this.canvas.selectAll('.node');
         let linkElements = this.canvas.selectAll('.link');
-
         nodeElements.style('opacity', '1');
         linkElements.style('opacity', '1');
-
-
         d3.select('#link-' + selectedLink.id).style('stroke', "#666");
         this.hideProperties();
     }
@@ -494,12 +497,6 @@ export default class GraphCanvas extends React.Component {
     addEdges(edges) {
 
         let _this = this
-
-        const linkStrokeWidth = '2px';
-        const linkFillColor = "#727272";
-        const linkTextColor = "#efefef";
-        const nodeRadius = 24;
-        const nodeStrokeWidth = 5;
 
 
         let links = this.canvas
@@ -521,15 +518,12 @@ export default class GraphCanvas extends React.Component {
             //         + d.target.meta.shapeOptions.strokeWidth
             //
             // })
-            .attr("refX", (d, i) => (nodeRadius - (nodeRadius / 4) + nodeStrokeWidth))
-
-
-            .attr("fill", (d) => linkFillColor)
-            .attr("stroke", (d) => linkFillColor)
+            .attr("refX", (d, i) => (DefaultNodeRadius - (DefaultNodeRadius / 4) + DefaultLinkStrokeWidth))
+            .attr("fill", (d) => DefaultLinkPathColor)
+            .attr("stroke", (d) => DefaultLinkPathColor)
             .attr("markerWidth", 10)
             .attr("markerHeight", 10)
             .attr("orient", "auto")
-
             .append("svg:path")
             .attr("d", "M0,-5L10,0L0,5");
 
@@ -544,8 +538,8 @@ export default class GraphCanvas extends React.Component {
             .attr("sameIndexCorrected", function (d, i) {
                 return d.sameIndexCorrected;
             })
-            .attr('stroke', linkFillColor)
-            .attr("stroke-width", linkStrokeWidth)
+            .attr('stroke', DefaultLinkPathColor)
+            .attr("stroke-width", DefaultLinkStrokeWidth + "px")
             .attr("fill", "transparent")
             // .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
             .attr('marker-end', (d, i) => 'url(#arrowhead)')
@@ -562,8 +556,8 @@ export default class GraphCanvas extends React.Component {
             })
             .style("text-anchor", "middle")
             .attr("startOffset", "50%")
-            .attr('fill', linkTextColor) // TODO add .meta for links also
-            .attr('stroke', linkTextColor)
+            .attr('fill', DefaultLinkTextColor) // TODO add .meta for links also
+            .attr('stroke', DefaultLinkTextColor)
             .text((d, i) => `${d.label || d.id}`);
         return [links, linkPaths, linkText];
 
@@ -748,8 +742,9 @@ export default class GraphCanvas extends React.Component {
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
 
+        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         let linksData = prepareLinksDataForCurves(this.props.links);
-        let nodesData = prepareNodesDataWithOptions(this.props.nodes, {});
+        let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
         // let nodesData = this.props.nodes;
 
         this.startRenderingGraph(nodesData, linksData)
