@@ -1,6 +1,5 @@
 export const GREMLIN_SERVER_URL = "ws://127.0.0.1:8182/gremlin";
 
-
 export const InvanaManagementLabel = "InvanaManagement"
 export const DefaultNodeBgColor = "#444444";
 export const DefaultNodeBorderColor = "#4385b8";
@@ -13,7 +12,7 @@ export const DefaultNodeLabelColor = "#dddddd";
 export const DefaultLinkPathColor = "#c9c9c9";
 export const DefaultLinkTextColor = "#c9c9c9";
 export const DefaultLinkStrokeWidth = 2;
-
+export const DefaultLinkDistance = 180;
 
 export const DefaultInShapeHTMLFn = (node) => node.properties.name.substring(0, 10);
 

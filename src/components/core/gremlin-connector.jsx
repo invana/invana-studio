@@ -22,6 +22,9 @@ export default class GremlinConnectorViewBase extends React.Component {
         };
     }
 
+    nodes = []; // this is used to store during 206(partial data) status
+    links = [];
+
     ws = this.createNewWebsocket();
 
     createNewWebsocket() {
@@ -149,6 +152,9 @@ export default class GremlinConnectorViewBase extends React.Component {
         if (typeof freshQuery === "undefined") {
             freshQuery = false;
         }
+
+        this.nodes = [];
+        this.links = [];
 
         console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
 

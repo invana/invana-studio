@@ -10,6 +10,7 @@ import {
     DefaultLinkPathColor,
     DefaultNodeRadius,
     DefaultNodeStrokeWidth,
+    DefaultLinkDistance,
     linkCurvature
 } from "../../config";
 import {LightenDarkenColor} from "../core/utils";
@@ -83,9 +84,7 @@ export default class GraphCanvas extends React.Component {
         let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
-
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
-
         nodeElements.style('fill', function (nodeElement) {
             return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
         });
@@ -107,17 +106,12 @@ export default class GraphCanvas extends React.Component {
     expandInLinksAndNodes(selectedNode) {
         console.log("expandInLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
-
-
         let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
             "edges = g.V(" + selectedNode.id + ").outE().dedup().toList(); " +
             "other_nodes = g.V(" + selectedNode.id + ").outE().otherV().dedup().toList();" +
             "[other_nodes,edges,node]";
-
         this.props.queryGremlinServer(query_string);
-
         return false;
-
     }
 
     expandOutLinksAndNodes(selectedNode) {
@@ -129,7 +123,6 @@ export default class GraphCanvas extends React.Component {
             "[other_nodes,edges,node]";
         this.props.queryGremlinServer(query_string);
         return false;
-
     }
 
     closeNodeMenu(selectedNode) {
@@ -141,8 +134,6 @@ export default class GraphCanvas extends React.Component {
                 document.querySelector(".node-menu").remove();
             }
         }, 50);
-
-
     }
 
     releaseNodeLock(selectedNode) {
@@ -151,7 +142,6 @@ export default class GraphCanvas extends React.Component {
         selectedNode.fx = null;
         selectedNode.fy = null;
         this.simulation.alpha(DefaultHoverOpacity).restart();
-
     }
 
     onNodeClicked(thisnode, selectedNode) {
@@ -159,7 +149,6 @@ export default class GraphCanvas extends React.Component {
         let _this = this;
         let thisNode = d3.select("#node-" + selectedNode.id);
         d3.select(".node-menu").remove();
-
 
         var menuDataSet = [{
             id: 101,
@@ -205,7 +194,6 @@ export default class GraphCanvas extends React.Component {
         //     heightMenu = (selectedNode.meta.shapeOptions.radius + selectedNode.meta.shapeOptions.strokeWidth)  * 7,
         //     radiusMenu = Math.min(widthMenu, heightMenu) / 2;
 
-
         // Menu
         var widthMenu = 200,
             heightMenu = 200,
@@ -232,7 +220,6 @@ export default class GraphCanvas extends React.Component {
             .append("g")
             .attr("class", "arc")
             .attr("title", function (d) {
-
                 return d.title;
             })
             .on("click", function (arch_node) {
@@ -277,12 +264,10 @@ export default class GraphCanvas extends React.Component {
             })
             .attr("stroke", "#ffffff");
 
-
         g.append("title")
             .text(function (d) {
                 return d.data.title;
             });
-
 
         // Add hover action
         path.on("mouseenter", function (d, i) {
@@ -300,17 +285,12 @@ export default class GraphCanvas extends React.Component {
                 .attr("class", "off");
         });
         this.showProperties(selectedNode);
-
     }
 
 
     addVertices(nodesData) {
-
         console.log("VertexUtils.add", nodesData);
-
-
         let _this = this;
-
         let node = this.canvas.selectAll(".node")
             .data(nodesData)
             .enter()
@@ -324,7 +304,6 @@ export default class GraphCanvas extends React.Component {
             .on("mouseout", (d) => this.onNodeHoverOut(d))
             .on("click", (d) => this.onNodeClicked(_this, d))
 
-
         // node first circle
         node.append("circle")
             .attr("class", "circle")
@@ -332,7 +311,6 @@ export default class GraphCanvas extends React.Component {
             .attr("fill", (d) => d.meta.shapeOptions.fillColor)
             .attr("stroke", (d) => d.meta.shapeOptions.strokeColor)
             .attr("stroke-width", (d) => d.meta.shapeOptions.strokeWidth);
-
 
         // for bgImageUrl
         node.append('g')
@@ -372,7 +350,6 @@ export default class GraphCanvas extends React.Component {
             .attr("fill", "transparent")
             .attr("stroke", (d) => d.meta.shapeOptions.strokeColor)
             .attr("stroke-width", (d) => d.meta.shapeOptions.strokeWidth + 1);
-
 
         // for nodeBgHtml - this will be on top of background image
         let inShapeTextNode = node.append('g')
@@ -475,36 +452,23 @@ export default class GraphCanvas extends React.Component {
         // .style("text-shadow", function (d, i) {
         //     return "1px 1px " + d3.rgb(d.meta.labelOptions.labelColor).darker(1);
         // });
-
-
         return node;
-
-
     }
 
     onLinkMoveHover(selectedLink) {
         console.log("onLinkMoveHover", selectedLink);
         let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
-
         linkElements.style('opacity', function (linkElement) {
             return selectedLink.id === linkElement.id ? '1' : '0.1';
         });
-
-
-
         let linkData = this.props.LINK_ID_TO_LINK[selectedLink.id];
         let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
-
          nodeElements.style('fill', function (nodeElement) {
             return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
         });
-
-
-
         d3.select('#link-' + selectedLink.id).style('stroke', "black");
         this.showProperties(selectedLink);
-
     }
 
     onLinkMoveOut(selectedLink) {
@@ -518,16 +482,12 @@ export default class GraphCanvas extends React.Component {
     }
 
     addEdges(edges) {
-
         let _this = this
-
-
         let links = this.canvas
             .selectAll("g.links")
             .data(edges)
             .enter().append("g")
             .attr("cursor", "pointer")
-
 
         links
             .append("svg:marker")
@@ -569,7 +529,6 @@ export default class GraphCanvas extends React.Component {
             .on("mouseover", (d) => _this.onLinkMoveHover(d))
             .on("mouseout", (d) => _this.onLinkMoveOut(d))
 
-
         const linkText = links
             .append("text")
             .attr("dy", -4)
@@ -583,31 +542,27 @@ export default class GraphCanvas extends React.Component {
             .attr('stroke', DefaultLinkTextColor)
             .text((d, i) => `${d.label || d.id}`);
         return [links, linkPaths, linkText];
-
-
     }
 
     setupSimulation(canvas_width, canvas_height) {
-
         let forceCollide = d3.forceCollide()
             .radius(function (d) {
                 return d.radius + 1.2;
             })
             .iterations(1); /// TODO - revisit this
-        const forceX = d3.forceX(canvas_width / 2).strength(0.040);
-        const forceY = d3.forceY(canvas_height / 2).strength(0.040);
+        const forceX = d3.forceX(canvas_width / 2).strength(0.10);
+        const forceY = d3.forceY(canvas_height / 2).strength(0.10);
 
         let getSimulationCharge = function () {
             return d3.forceManyBody()
-                .strength(-240);
+                .strength(-440);
         }
-
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
                     return d.id;
                 })
-                .distance(180).strength(1)
+                .distance(DefaultLinkDistance).strength(1)
             )
             .force("charge", getSimulationCharge())
             .force("collide", forceCollide)
@@ -629,7 +584,6 @@ export default class GraphCanvas extends React.Component {
             // we want double click to be reserved for highlighting neighbor nodes
             .append("g")
             .attr("class", "everything");
-
         // on clicking on any node or link, remove the context menu that is opened in the canvas.
         svg.select('*:not(circle), *:not(line), *:not(path), *:not(text), *:not(link)').on("click", function () {
             d3.select(".node-menu").remove();
@@ -638,7 +592,6 @@ export default class GraphCanvas extends React.Component {
     }
 
     setupMarker(canvas) {
-
         canvas.append('defs').append('marker')
             .attrs({
                 'id': 'arrowhead',
@@ -665,19 +618,14 @@ export default class GraphCanvas extends React.Component {
 
     startRenderingGraph(nodes, links) {
         // add this data to the existing data
-
         let vertices = nodes;
         let edges = links;
         let _this = this;
-
         let _ = this.addEdges(edges);
         let link = _[0];
         let edgepaths = _[1];
         let edgelabels = _[2];
-
         let node = this.addVertices(vertices);
-
-
         node
             .on("dblclick", function (d) {
                 d.fixed = false;
@@ -691,7 +639,6 @@ export default class GraphCanvas extends React.Component {
                 .on("end", dragEnded)
             );
 
-
         function dragged(d) {
             d.fx = d3.event.x;
             d.fy = d3.event.y;
@@ -703,7 +650,6 @@ export default class GraphCanvas extends React.Component {
             }
             d.fx = d.x;
             d.fy = d.y;
-
         }
 
         function dragEnded(d) {
@@ -727,16 +673,12 @@ export default class GraphCanvas extends React.Component {
             .links(edges);
 
         function ticked() {
-
-
             node
                 .attr("transform", function (d) {
                     return "translate(" + d.x + ", " + d.y + ")";
                 });
 
-
             function linkArc(d) {
-
                 let dx = (d.target.x - d.source.x),
                     dy = (d.target.y - d.source.y),
                     dr = Math.sqrt(dx * dx + dy * dy),
@@ -747,15 +689,9 @@ export default class GraphCanvas extends React.Component {
                 }
                 return "M" + d.source.x + "," + d.source.y + "A" + arc + "," + arc + " 0 0," + d.sameArcDirection + " " + d.target.x + "," + d.target.y;
             }
-
             edgepaths.attr("d", (d) => linkArc(d))
-
-
         }
-
-
     }
-
 
     componentDidUpdate(prevProps) {
 
@@ -764,12 +700,10 @@ export default class GraphCanvas extends React.Component {
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
-
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         let linksData = prepareLinksDataForCurves(this.props.links);
         let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
         // let nodesData = this.props.nodes;
-
         this.startRenderingGraph(nodesData, linksData)
     }
 
@@ -780,9 +714,7 @@ export default class GraphCanvas extends React.Component {
     render() {
         let canvasClass = this.html_selector_id.replace(".", "");
         return (
-
             <svg className={canvasClass}></svg>
-
         )
     }
 }
