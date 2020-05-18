@@ -134,8 +134,6 @@ export default class GraphCanvas extends React.Component {
 
     closeNodeMenu(selectedNode) {
         console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
-
-
         this.hideProperties();
         setTimeout(function () {
             d3.select(".node-menu").selectAll("*").remove();
@@ -486,19 +484,22 @@ export default class GraphCanvas extends React.Component {
 
     onLinkMoveHover(selectedLink) {
         console.log("onLinkMoveHover", selectedLink);
-        let nodeElements = this.canvas.selectAll('.node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
 
         linkElements.style('opacity', function (linkElement) {
             return selectedLink.id === linkElement.id ? '1' : '0.1';
         });
 
+
+
         let linkData = this.props.LINK_ID_TO_LINK[selectedLink.id];
         let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
 
-        nodeElements.style('opacity', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1';
+         nodeElements.style('fill', function (nodeElement) {
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
         });
+
 
 
         d3.select('#link-' + selectedLink.id).style('stroke', "black");
@@ -507,9 +508,10 @@ export default class GraphCanvas extends React.Component {
     }
 
     onLinkMoveOut(selectedLink) {
-        let nodeElements = this.canvas.selectAll('.node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
-        nodeElements.style('opacity', '1');
+
+        nodeElements.style('fill',(nodeElement)=> nodeElement.meta.shapeOptions.fillColor);
         linkElements.style('opacity', '1');
         d3.select('#link-' + selectedLink.id).style('stroke', "#666");
         this.hideProperties();
