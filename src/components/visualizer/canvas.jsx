@@ -32,11 +32,11 @@ export default class GraphCanvas extends React.Component {
     }
 
     resetNodeHighlight(selectedNode) {
-        let nodeElements = this.canvas.selectAll('.node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
 
-        nodeElements.style('opacity', '1');
+        nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor);
         linkElements.style('opacity', '1');
         linkLabels.style('opacity', '1');
     }
@@ -79,13 +79,15 @@ export default class GraphCanvas extends React.Component {
 
     highlightHoveredNodesAndEdges(selectedNode) {
         // this is performance intensive operation
-        let nodeElements = this.canvas.selectAll('.node');
+        // let nodeElements = document.querySelectorAll('.everything .node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
 
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
-        nodeElements.style('opacity', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1';
+
+        nodeElements.style('fill', function (nodeElement) {
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
         });
 
         let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id);
@@ -327,6 +329,7 @@ export default class GraphCanvas extends React.Component {
 
         // node first circle
         node.append("circle")
+            .attr("class", "circle")
             .attr("r", (d) => d.meta.shapeOptions.radius)
             .attr("fill", (d) => d.meta.shapeOptions.fillColor)
             .attr("stroke", (d) => d.meta.shapeOptions.strokeColor)
