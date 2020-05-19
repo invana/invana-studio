@@ -53,7 +53,7 @@ export default class LandingPageView extends GremlinConnectorViewBase {
 
         console.log("onmessage received", response);
 
-        if (response.status.code === 200 || response.status.code === 206) {
+        if (response.status.code >= 200 || response.status.code <= 299) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setLabelsConfigToLocalStorage(response)
             _this.setState({
