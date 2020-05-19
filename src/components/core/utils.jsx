@@ -1,11 +1,7 @@
 
 
 export function LightenDarkenColor(col, amt) {
-    /*
 
-   LightenDarkenColor("#efefef", -50); // TODO - make this color darker ?
-
-     */
     var usePound = false;
 
     if (col[0] === "#") {

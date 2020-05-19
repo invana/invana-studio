@@ -13,13 +13,14 @@ const textAreaDiv = {
 }
 const textAreaCls = {
     "width": "calc(100% - 30px)",
-    "height": "calc(100% - 54px)",
+    "height": "calc(100% - 84px)",
     "background": "#212427",
     "border": "1px solid #2f2f2f",
     "resize": "none",
     "color": "#efefef",
     "padding": "15px",
-    "fontSize": "16px"
+    "fontSize": "14px",
+    fontFamily: "Courier"
 }
 
 const ResponseDiv = {
@@ -29,13 +30,20 @@ const ResponseDiv = {
     "padding": "15px",
     "overflow": "scroll"
 }
+const para = {
+    margin: 0,
+    width: "300px",
+    fontSize: "12px",
+    marginLeft: "10px"
+}
 
 const codeDiv = {
     "fontSize": "12px"
 }
 
 const submitButtonCls = {
-    float: "right"
+    float: "right",
+    marginTop: "-15px"
 }
 export default class ConsoleView extends GremlinConnectorViewBase {
 
@@ -45,11 +53,18 @@ export default class ConsoleView extends GremlinConnectorViewBase {
             "title": "Console",
             "result": null
         }
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
+
+    handleKeyPress(e) {
+        if (e.key === 'Enter' && e.shiftKey) {
+            document.querySelector('button[type="submit"]').click();
+        }
     }
 
     onFormSubmit(e) {
         e.preventDefault();
-        let query = e.target.query.value;
+        const query = e.target.query.value;
         if (query && this.ws) {
             this.queryGremlinServer(query, true);
         }
@@ -61,21 +76,15 @@ export default class ConsoleView extends GremlinConnectorViewBase {
 
     processGremlinResponseEvent(event) {
         let _this = this;
-        let response = JSON.parse(event.data);
-
+        const response = JSON.parse(event.data);
         console.log("onmessage received", response);
-
         if (response.status.code) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setState({
                 "errorMessage": null,
                 result: JSON.stringify(response.result, null, 2)
-
             })
-
-
         } else {
-
             _this.setState({
                 "errorMessage": JSON.stringify(response,),
                 "showErrorMessage": true,
@@ -83,8 +92,6 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                     " But returned non 200 status[" + response.status.code + "]"
             })
         }
-
-
     }
 
     render() {
@@ -95,23 +102,23 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                     <HeaderNav title={this.state.title}/>
                     <div>
                         <div style={textAreaDiv}>
-                            <form style={{"height": "100%"}} action="" onSubmit={this.onFormSubmit.bind(this)}>
+                            <form style={{"height": "100%"}} action=""
+                                  onSubmit={this.onFormSubmit.bind(this)}>
                                <textarea style={textAreaCls} name="query"
+                                         onKeyUp={this.handleKeyPress}
+                                         defaultValue={"g.V().limit(5).toList()"}
                                          id="" cols="30" rows="10">
                                </textarea>
-                                <button style={submitButtonCls} type={"sumbit"}>Submit</button>
+                                <div>
+                                    <p style={para}>Shift + Enter to submit. </p>
+                                    <button style={submitButtonCls} type={"submit"}>Submit</button>
 
+                                </div>
                             </form>
-
                         </div>
                         <div style={ResponseDiv}>
-                            <pre style={codeDiv}>
-
-                                {this.state.result}
-
-                            </pre>
+                            <pre style={codeDiv}>{this.state.result}</pre>
                         </div>
-
                     </div>
                     <ConnectionStatus
                         statusMessage={this.state.statusMessage}
@@ -119,7 +126,6 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                         showErrorMessage={this.state.showErrorMessage}
                         errorMessage={this.state.errorMessage}
                         closeErrorMessage={this.closeErrorMessage.bind(this)}
-
                     />
                     <CopyRightInfo/>
                 </MainContent>

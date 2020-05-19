@@ -14,7 +14,6 @@ export function NotificationDiv(props) {
 export class ConnectionStatus extends React.Component {
 
     startRenderingConnectionStatus() {
-        console.log("======isConnected2Server, ", this.props);
         let connectionElement = document.querySelector("#connection-status span");
 
         if (connectionElement) {
@@ -52,9 +51,6 @@ export class ConnectionStatus extends React.Component {
                         </div>
                     ) : ( <span></span>)
                 }
-
-
-
             </div>
         )
     }

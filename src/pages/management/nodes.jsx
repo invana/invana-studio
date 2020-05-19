@@ -10,7 +10,7 @@ import {
     InvanaManagementLabel, DefaultNodeBgColor,
     DefaultNodeBorderColor, DefaultNodeBgPropertyKey
 } from "../../config";
-
+import {prepareNodesDataWithOptions} from "../../components/visualizer/canvas-utils";
 
 export default class NodesManagementView extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
@@ -57,6 +57,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                 ".property('bgColor','" + DefaultNodeBgColor + "')" +
                 ".property('bgImagePropertyKey','" + DefaultNodeBgPropertyKey + "')" +
                 ".property('borderColor','" + DefaultNodeBorderColor + "')" +
+                ".property('tagHtml','')" +
                 ".next()};"
         })
         query = query + 'g.V().hasLabel("' + InvanaManagementLabel + '").has("type","Vertex").toList()';
@@ -118,7 +119,8 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
             ".property('bgColor', '" + e.target.bgColor.value + "')" +
             ".property('bgImageUrl', '" + e.target.bgImageUrl.value + "')" +
             ".property('bgImagePropertyKey', '" + e.target.bgImagePropertyKey.value + "')" +
-            ".property('borderColor', '" + e.target.borderColor.value + "');";
+            ".property('borderColor', '" + e.target.borderColor.value + "')" +
+            ".property('tagHtml', '" + e.target.tagHtml.value + "');";
 
         if (query && this.ws) {
             this.queryGremlinServer(query, false);
@@ -127,6 +129,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
 
 
     render() {
+        console.log("=====Node", this.state.vertices);
         return (
             <div className="App">
 
@@ -173,11 +176,15 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                                                placeholder={"bgImagePropertyKey (optional)"}
                                                defaultValue={vertex.properties.bgImagePropertyKey || ""}/>
 
+                                        <input type="text" name={"tagHtml"}
+                                               placeholder={"tagHtml (optional)"}
+                                               defaultValue={vertex.properties.tagHtml || ""}/>
+
 
                                         <button type={"submit"}>update</button>
 
                                     </form>
-                                ) : (<span> </span>)
+                                ) : (<span key={vertex.properties.name}> </span>)
 
                             ))
                         }

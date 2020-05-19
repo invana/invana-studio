@@ -2,7 +2,7 @@ import React from 'react';
 import '../viewer.css';
 
 import GremlinResponseSerializers from './gremlin-serializer';
-import GraphCanvas from './graph-ui';
+import GraphCanvas from './canvas';
 import CanvasStatsCanvas, {CopyRightInfo, NotificationDiv, ConnectionStatus} from "./util-components";
 import {SelectedDataCanvas} from "./selected-data";
 import {LegendCanvas} from "./legend";
@@ -12,17 +12,15 @@ import {
     InvanaManagementLabel
 } from "../../config";
 
-
 export default class GraphViewer extends GremlinConnectorViewBase {
 
     gremlin_serializer = new GremlinResponseSerializers();
     isDataChanged = true;
 
-
-    getDataFromStorage(itemKey){
-        try{
-             return JSON.parse(localStorage.getItem(itemKey))
-        }catch (e) {
+    getDataFromStorage(itemKey) {
+        try {
+            return JSON.parse(localStorage.getItem(itemKey))
+        } catch (e) {
             return null;
         }
     }
@@ -30,7 +28,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     constructor() {
         // This component can load
         super();
-
         this.state = {
             "nodes": [],
             "links": [],
@@ -39,7 +36,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             "labelsConfig": null,
             "nodeLabels": this.getDataFromStorage("nodeLabels"),
             "linkLabels": this.getDataFromStorage("linkLabels"),
-
         };
     }
 
@@ -65,63 +61,65 @@ export default class GraphViewer extends GremlinConnectorViewBase {
         return data;
     }
 
-
     processGremlinResponseEvent(event) {
         let _this = this;
         let response = JSON.parse(event.data);
-
         console.log("onmessage received", response);
-
-        if (response.status.code === 200 || response.status.code === 206) {
+        if (response.status.code === 206) {
+            //
             _this.updateStatusMessage("Query Successfully Responded.");
+            const result = _this.gremlin_serializer.process(response);
+            const _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
+            this.nodes = this.nodes.concat(_.nodes);
+            this.links = this.links.concat(_.links);
 
+        } else if (response.status.code >= 200 && response.status.code <= 300) {
+            _this.updateStatusMessage("Query Successfully Responded.");
             let result = _this.gremlin_serializer.process(response);
             let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
-            console.log("==================query response ", _.nodes.length, _.links.length);
             _this.isDataChanged = true;
-
-
             if (this.state.freshQuery === false) {
                 // extend the graph if this is not fresh query.
 
-                const existingNodes = _this.state.nodes;
-                const existingLinks = _this.state.links;
+                // if
+                let existingNodes = []
+                let existingLinks = []
+                if (this.nodes.length > 0) {
+                    // check for
+                    existingNodes = _this.nodes;
+                    existingLinks = _this.nodes;
+                } else {
+                    existingNodes = _this.state.nodes;
+                    existingLinks = _this.state.links;
+                }
 
                 let overallNodes = _.nodes.concat(existingNodes);
                 let overallLinks = _.links.concat(existingLinks);
-
+                console.log("this.nodes length", this.nodes.length);
+                overallNodes = overallNodes.concat(this.nodes);
+                overallLinks = overallLinks.concat(this.links);
                 const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
                 const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
-
-
                 _this.setState({
                     nodes: uniqueNodes,
                     links: uniqueLinks,
                     NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(uniqueLinks),
                     LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(uniqueLinks),
                     errorMessage: null
-
                 });
-
             } else {
                 // use the data from current query only as this is a fresh query.
                 let existingNodes = _.nodes;
                 let existingLinks = _.links;
-
                 _this.setState({
                     nodes: existingNodes,
                     links: existingLinks,
                     NODE_ID_TO_LINK_IDS: this.get_NODE_ID_TO_LINK_IDS(existingLinks),
                     LINK_ID_TO_LINK: this.get_LINK_ID_TO_LINK(existingLinks),
                     errorMessage: null
-
                 });
-
             }
-
-
         } else {
-
             _this.setState({
                 "errorMessage": JSON.stringify(response,),
                 "showErrorMessage": true,
@@ -129,10 +127,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     " But returned non 200 status[" + response.status.code + "]"
             })
         }
-
-
     }
-
 
     componentDidUpdate(prevProps) {
         this.isDataChanged = false;
@@ -142,9 +137,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
         document.querySelector('input').value = query;
     }
 
-
     componentDidMount() {
-
         this.setupGremlinServer()
         this.onPageLoadInitQuery()
         // this.getLabelsConfigFromStorage();
@@ -158,18 +151,13 @@ export default class GraphViewer extends GremlinConnectorViewBase {
         }
     }
 
-
     setSelectedData(data) {
         this.setState({...data})
     }
 
-
     render() {
-
         console.log("=================== Rendering the Viewer ===================");
         console.log("======= viewer this.state", this.state.nodes.length, this.state.links.length);
-
-
         return (
             <div>
                 <div className="search-div">
@@ -178,7 +166,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     </form>
                 </div>
                 <ErrorBoundary>
-
                     <GraphCanvas
                         nodes={this.state.nodes}
                         links={this.state.links}
@@ -191,7 +178,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                         linkLabels={this.state.linkLabels}
                     />
                 </ErrorBoundary>
-
                 <CanvasStatsCanvas nodes_count={this.state.nodes.length} links_count={this.state.links.length}/>
                 <SelectedDataCanvas selectedData={this.state.selectedData} showProperties={this.state.showProperties}/>
                 <LegendCanvas
@@ -200,7 +186,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     nodeLabels={this.state.nodeLabels}
                     linkLabels={this.state.linkLabels}
                 />
-
                 <NotificationDiv/>
                 <ConnectionStatus
                     statusMessage={this.state.statusMessage}
@@ -210,7 +195,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     closeErrorMessage={this.closeErrorMessage.bind(this)}
                 />
                 <CopyRightInfo/>
-
             </div>
         )
     }

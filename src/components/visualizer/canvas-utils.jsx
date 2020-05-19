@@ -1,22 +1,21 @@
+// generic
 import {
-    showLabelDefaultChoice,
-    nodeRadius,
-    nodeFillColor,
-    nodeTxtColor,
-    nodeStrokeColor,
-    nodeStrokeWidth,
-    nodeLabelColor,
-    nodeLabelBgColor,
-
-
-// // link specific
-// const linkDistance = 300;
-// const linkCurvature = .55;
-// const linkStrokeWidth = '2px';
-// const linkFillColor = "#727272";
-// const linkTextColor = "#efefef";
+    DefaultNodeBgColor,
+    DefaultLinkStrokeWidth, DefaultLinkTextColor, DefaultLinkPathColor, DefaultNodeRadius,
+    DefaultNodeBorderColor, DefaultNodeStrokeWidth,
+    DefaultInShapeHTMLFn,
+    DefaultNodeInShapeTextColor, DefaultLabelVisibility, DefaultNodeLabelColor
 
 } from "../../config";
+
+// const showLabelDefaultChoice = true;
+//
+// // node specific
+// const nodeRadius = 24;
+// const nodeTxtColor = "#efefef";
+// const nodeStrokeWidth = 5;
+// const nodeLabelColor = "#ffffff"
+// const nodeLabelBgColor = "#333333";
 
 
 export function prepareLinksDataForCurves(links) {
@@ -105,49 +104,51 @@ export function prepareNodesDataWithOptions(nodes, options) {
         }
 
      */
-
     if (typeof options === "undefined") {
         options = {};
+    } else if (typeof options === "string") {
+        options = JSON.parse(options);
     }
 
     let nodesCleaned = [];
     nodes.forEach(function (nodeData, index) {
-
-        let node = nodeData
+        // let node = Object.assign({}, nodeData)
+        let node = nodeData;
         // check if options data has node.label meta data or set defaults.
-        if (node.label in options) {
-            node.meta = Object.assign({}, options[node.label]);
+        let metaFromStorage = {}
+        try {
+            metaFromStorage = options[node.label];
+        } catch (e) {
+            metaFromStorage = {}
         }
-        if (!node.meta) {
-            node.meta = {"bgImageUrl": null, "nodeShape": "circle"};
+        if (!metaFromStorage) {
+            metaFromStorage = {}
         }
+        node.meta = {"bgImageUrl": null, "nodeShape": "circle"};
+        node.meta.bgImagePropertyKey = metaFromStorage.bgImagePropertyKey;
         if (!node.meta.shapeOptions) {
             node.meta.shapeOptions = {}
         }
-
-
         // shapeOptions
         if (!node.meta.shapeOptions.radius) {
-            node.meta.shapeOptions.radius = nodeRadius
+            node.meta.shapeOptions.radius = DefaultNodeRadius
         }
         if (!node.meta.shapeOptions.strokeWidth) {
-            node.meta.shapeOptions.strokeWidth = nodeStrokeWidth
+            node.meta.shapeOptions.strokeWidth = DefaultNodeStrokeWidth
         }
         if (!node.meta.shapeOptions.strokeColor) {
-            node.meta.shapeOptions.strokeColor = nodeStrokeColor
+            node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor || DefaultNodeBorderColor
         }
         if (!node.meta.shapeOptions.fillColor) {
-            node.meta.shapeOptions.fillColor = nodeFillColor
+            node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || DefaultNodeBgColor
         }
         if (!node.meta.shapeOptions.textColor) {
-            node.meta.shapeOptions.textColor = nodeTxtColor
-        }
-
-        if (!node.meta.shapeOptions.labelBgColor) {
-            node.meta.shapeOptions.labelBgColor = nodeLabelBgColor
+            node.meta.shapeOptions.textColor = DefaultNodeInShapeTextColor
         }
         if (node.meta.shapeOptions.inShapeHTMLFn) {
-            node.meta.shapeOptions.inShapeHTML = node.meta.shapeOptions.inShapeHTMLFn(node);
+            node.meta.shapeOptions.inShapeHTML = node.meta.shapeOptions.inShapeHTMLFn(node)
+        } else {
+            node.meta.shapeOptions.inShapeHTML = DefaultInShapeHTMLFn(node);
         }
 
         // nodeLabelOptions
@@ -155,7 +156,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
             node.meta.labelOptions = {}
         }
         if (typeof node.meta.labelOptions.showLabel === "undefined") {
-            node.meta.labelOptions.showLabel = showLabelDefaultChoice
+            node.meta.labelOptions.showLabel = DefaultLabelVisibility
         }
         if (node.meta.labelOptions.labelTextFn) {
             node.meta.labelOptions.labelText = node.meta.labelOptions.labelTextFn(node);
@@ -163,14 +164,30 @@ export function prepareNodesDataWithOptions(nodes, options) {
             node.meta.labelOptions.labelText = node.properties.name || node.id;
         }
         if (!node.meta.labelOptions.labelColor) {
-            node.meta.labelOptions.labelColor = nodeLabelColor;
+            node.meta.labelOptions.labelColor = DefaultNodeLabelColor;
         }
-
+        // tagOptions
+        if (!node.meta.tagOptions) {
+            node.meta.tagOptions = {}
+        }
+        if (metaFromStorage.tagHtml) {
+            node.meta.tagOptions.tagHtml = metaFromStorage.tagHtml
+        }
         // nodeImageOptions
         if (node.meta.bgImagePropertyKey) {
             node.meta.bgImageUrl = node.properties[node.meta.bgImagePropertyKey];
         }
-        nodesCleaned.push(JSON.parse(JSON.stringify(node)))
+        if (!node.meta.bgImageUrl) {
+            node.meta.bgImageUrl = metaFromStorage.bgImageUrl;
+        }
+        // nodesCleaned.push(JSON.parse(JSON.stringify(node)))
+        if (node.target) {
+            delete node.target
+        }
+        if (node.source) {
+            delete node.source
+        }
+        nodesCleaned.push(node)
     });
 
     return nodesCleaned;

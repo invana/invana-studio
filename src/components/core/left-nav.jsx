@@ -1,5 +1,5 @@
 import React from "react";
-import {faHome, faTerminal, faCog, faQuestionCircle, faBug} from "@fortawesome/free-solid-svg-icons";
+import {faHome, faTerminal, faCog, faQuestionCircle, faBug, faHistory} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const mainNavigationStyle = {
@@ -71,6 +71,11 @@ export default class LeftNav extends React.Component {
                     <a style={mainNavLiA} href="/console" title={"Query Console"}>
                         <li style={mainNavLi}>
                             <FontAwesomeIcon icon={faTerminal}/>
+                        </li>
+                    </a>
+                    <a style={mainNavLiA} href="/history" title={"History"}>
+                        <li style={mainNavLi}>
+                            <FontAwesomeIcon icon={faHistory}/>
                         </li>
                     </a>
                     <a style={mainNavLiA} href="/management" title={"Management"}>
