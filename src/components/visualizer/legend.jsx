@@ -1,7 +1,5 @@
 import React from "react";
 import * as d3 from "d3";
-import {LightenDarkenColor} from "../core/utils";
-import {DefaultNodeBgColor} from "../../config";
 import {prepareNodesDataWithOptions} from "./canvas-utils";
 
 export class LegendCanvas extends React.Component {
@@ -16,8 +14,6 @@ export class LegendCanvas extends React.Component {
     }
 
     addVertexLegend(vertices) {
-
-        let _this = this;
         this.clearNodeLegendCanvas();
         let edges_legend_height = document.querySelector(".edges-legend")
             .getBoundingClientRect().height;
@@ -68,7 +64,6 @@ export class LegendCanvas extends React.Component {
     }
 
     addEdgeLegend(edges) {
-        let _this = this;
 
         this.clearLinkLegendCanvas();
         let legend = this.state

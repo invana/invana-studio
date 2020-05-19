@@ -8,9 +8,6 @@ import {SelectedDataCanvas} from "./selected-data";
 import {LegendCanvas} from "./legend";
 import ErrorBoundary from "./error-boundary";
 import GremlinConnectorViewBase from "../core/gremlin-connector";
-import {
-    InvanaManagementLabel
-} from "../../config";
 
 export default class GraphViewer extends GremlinConnectorViewBase {
 

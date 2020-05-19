@@ -40,14 +40,7 @@ const mainNavLiA = {
     "fontSize": "12px"
 
 }
-const LogoCls = {
-    "background": "#333",
-    // "display": "block",
-    "height": "33px",
-    "display": "flex",
-    "alignItems": "center",
-    "justifyContent": "center"
-}
+
 export default class LeftNav extends React.Component {
 
 

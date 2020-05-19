@@ -1,21 +1,14 @@
 // generic
 import {
     DefaultNodeBgColor,
-    DefaultLinkStrokeWidth, DefaultLinkTextColor, DefaultLinkPathColor, DefaultNodeRadius,
-    DefaultNodeBorderColor, DefaultNodeStrokeWidth,
+    DefaultNodeRadius,
+    DefaultNodeBorderColor,
+    DefaultNodeStrokeWidth,
     DefaultInShapeHTMLFn,
-    DefaultNodeInShapeTextColor, DefaultLabelVisibility, DefaultNodeLabelColor
-
+    DefaultNodeInShapeTextColor,
+    DefaultLabelVisibility,
+    DefaultNodeLabelColor
 } from "../../config";
-
-// const showLabelDefaultChoice = true;
-//
-// // node specific
-// const nodeRadius = 24;
-// const nodeTxtColor = "#efefef";
-// const nodeStrokeWidth = 5;
-// const nodeLabelColor = "#ffffff"
-// const nodeLabelBgColor = "#333333";
 
 
 export function prepareLinksDataForCurves(links) {
