@@ -72,6 +72,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             const _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
             this.nodes = this.nodes.concat(_.nodes);
             this.links = this.links.concat(_.links);
+
         } else if (response.status.code >= 200 && response.status.code <= 300) {
             _this.updateStatusMessage("Query Successfully Responded.");
             let result = _this.gremlin_serializer.process(response);
@@ -79,8 +80,19 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             _this.isDataChanged = true;
             if (this.state.freshQuery === false) {
                 // extend the graph if this is not fresh query.
-                const existingNodes = _this.state.nodes;
-                const existingLinks = _this.state.links;
+
+                // if
+                let existingNodes = []
+                let existingLinks = []
+                if (this.nodes.length > 0) {
+                    // check for
+                    existingNodes = _this.nodes;
+                    existingLinks = _this.nodes;
+                } else {
+                    existingNodes = _this.state.nodes;
+                    existingLinks = _this.state.links;
+                }
+
                 let overallNodes = _.nodes.concat(existingNodes);
                 let overallLinks = _.links.concat(existingLinks);
                 console.log("this.nodes length", this.nodes.length);
