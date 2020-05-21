@@ -14,7 +14,7 @@ export const DefaultLinkTextColor = "#c9c9c9";
 export const DefaultLinkStrokeWidth = 2;
 export const DefaultLinkDistance = 180;
 
-export const DefaultInShapeHTMLFn = (node) => node.properties.name.substring(0, 10);
+export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.properties.name.substring(0, 10) : node.id;
 
 export const DefaultLabelVisibility = false;
 export const DefaultHoverOpacity = 0.8;

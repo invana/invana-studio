@@ -555,7 +555,7 @@ export default class GraphCanvas extends React.Component {
 
         let getSimulationCharge = function () {
             return d3.forceManyBody()
-                .strength(-440);
+                .strength(-640);
         }
         return d3.forceSimulation()
             .force("link", d3.forceLink()
