@@ -4,6 +4,7 @@ import HeaderNav from "../components/core/header-nav";
 import MainContent from "../components/core/main-content";
 import GremlinConnectorViewBase from "../components/core/gremlin-connector";
 import {ConnectionStatus, CopyRightInfo} from "../components/visualizer/util-components";
+import ReactJson from 'react-json-view'
 
 
 const textAreaDiv = {
@@ -51,7 +52,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
         super(props);
         this.state = {
             "title": "Console",
-            "result": null
+            "result": {}
         }
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -82,7 +83,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setState({
                 "errorMessage": null,
-                result: JSON.stringify(response.result, null, 2)
+                result: response.result
             })
         } else {
             _this.setState({
@@ -117,7 +118,11 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                             </form>
                         </div>
                         <div style={ResponseDiv}>
-                            <pre style={codeDiv}>{this.state.result}</pre>
+
+
+
+                            <ReactJson  src={this.state.result}></ReactJson>
+
                         </div>
                     </div>
                     <ConnectionStatus
