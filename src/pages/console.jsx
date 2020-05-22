@@ -120,8 +120,8 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                         <div style={ResponseDiv}>
 
 
-
-                            <ReactJson  src={this.state.result}></ReactJson>
+                            <ReactJson theme="monokai" style={{"backgroundColor": "transparent"}}
+                                       src={this.state.result}></ReactJson>
 
                         </div>
                     </div>
