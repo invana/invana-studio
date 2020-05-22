@@ -6,7 +6,8 @@ import MainContent from "../../components/core/main-content";
 import GremlinConnectorViewBase from "../../components/core/gremlin-connector";
 import {ConnectionStatus, CopyRightInfo} from "../../components/visualizer/util-components";
 import GremlinResponseSerializers from "../../components/visualizer/gremlin-serializer";
- 
+import LoadingDiv from "../../components/core/loading";
+
 export default class ManagementSettingsView extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
 
@@ -51,6 +52,8 @@ export default class ManagementSettingsView extends GremlinConnectorViewBase {
 
                     />
                     <CopyRightInfo/>
+                    <LoadingDiv statusMessage={this.state.statusMessage}/>
+
                 </MainContent>
 
             </div>

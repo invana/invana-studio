@@ -8,6 +8,7 @@ import {SelectedDataCanvas} from "./selected-data";
 import {LegendCanvas} from "./legend";
 import ErrorBoundary from "./error-boundary";
 import GremlinConnectorViewBase from "../core/gremlin-connector";
+import LoadingDiv from "../core/loading";
 
 export default class GraphViewer extends GremlinConnectorViewBase {
 
@@ -155,8 +156,14 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     render() {
         console.log("=================== Rendering the Viewer ===================");
         console.log("======= viewer this.state", this.state.nodes.length, this.state.links.length);
+
+        let loadingDiv = "<div></div>";
+
+
         return (
             <div>
+
+
                 <div className="search-div">
                     <form className={"viewer-form "} action="" onSubmit={this.onFormSubmit.bind(this)}>
                         <input type="text" name="query" placeholder="g.V().limit(5)"/>
@@ -192,6 +199,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     closeErrorMessage={this.closeErrorMessage.bind(this)}
                 />
                 <CopyRightInfo/>
+                <LoadingDiv statusMessage={this.state.statusMessage} />
             </div>
         )
     }

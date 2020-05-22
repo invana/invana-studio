@@ -10,6 +10,7 @@ import {
     InvanaManagementLabel, DefaultNodeBgColor,
     DefaultNodeBorderColor, DefaultNodeBgPropertyKey
 } from "../../config";
+import LoadingDiv from "../../components/core/loading";
 
 export default class NodesManagementView extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
@@ -199,6 +200,8 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
 
                     />
                     <CopyRightInfo/>
+                    <LoadingDiv statusMessage={this.state.statusMessage}/>
+
                 </MainContent>
 
             </div>

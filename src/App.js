@@ -31,7 +31,7 @@ export default class App extends React.Component {
     render() {
         return (
             <Router>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<div style={{"color": "white"}}>Loading...</div>}>
                     <Switch>
                         <Route exact path="/" component={LandingPageView}/>
                         <Route exact path="/explorer" component={GraphExplorerView}/>

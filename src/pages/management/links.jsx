@@ -10,6 +10,7 @@ import {
     InvanaManagementLabel,
     DefaultLinkPathColor, DefaultLinkTextColor
 } from "../../config";
+import LoadingDiv from "../../components/core/loading";
 
 
 export default class LinksManagementView extends GremlinConnectorViewBase {
@@ -157,7 +158,6 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                                            defaultValue={link.properties.linkTextColor}/>
 
 
-
                                     <button type={"submit"}>update</button>
 
                                 </form>
@@ -176,6 +176,8 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
 
                     />
                     <CopyRightInfo/>
+                    <LoadingDiv statusMessage={this.state.statusMessage}/>
+
                 </MainContent>
 
             </div>

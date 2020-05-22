@@ -151,6 +151,20 @@ div#canvas-stats {
 
 }
 
+.loadingDiv {
+    height: 100vh;
+    width: 100%;
+    display: block;
+    position: fixed;
+    top: 35px;
+    background: rgba(2, 2, 2, 0.91);
+}
+.loadingDiv p{
+    font-size: 1rem;
+    color: #a9a9a9;
+    text-align: center;
+    margin-top: 45vh;
+}
 .SelectedDataHeading .itemLabel {
     background: #7d8296;
     padding: 5px 10px;

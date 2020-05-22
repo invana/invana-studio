@@ -6,6 +6,8 @@ import MainContent from "../components/core/main-content";
 export default function GraphExplorerView() {
     return (
         <div className="App">
+
+
             <LeftNav/>
             <MainContent>
                 <GraphViewer/>
