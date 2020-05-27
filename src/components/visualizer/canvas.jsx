@@ -4,12 +4,10 @@ import 'd3-selection-multi'
 import GraphControls from "./controls-handler";
 import {
     DefaultHoverOpacity,
-    DefaultNodeBgColor,
     DefaultLinkTextColor,
     DefaultLinkStrokeWidth,
     DefaultLinkPathColor,
     DefaultNodeRadius,
-    DefaultNodeStrokeWidth,
     DefaultLinkDistance,
     linkCurvature
 } from "../../config";

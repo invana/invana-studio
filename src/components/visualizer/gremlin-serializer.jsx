@@ -5,7 +5,7 @@ export default class GremlinResponseSerializers {
 
         let _single_prop = property[0];
         if (_single_prop['@type'] !== "g:VertexProperty") {
-            throw "Not a VertexProperty error. check if this is of g:VertexProperty type:: " + JSON.stringify(property);
+            throw new Error("Not a VertexProperty error. check if this is of g:VertexProperty type:: " + JSON.stringify(property));
         }
         let d = {};
         let value = _single_prop['@value'].value;
@@ -17,7 +17,7 @@ export default class GremlinResponseSerializers {
 
     convert_vertex_to_json(vtx) {
         if (vtx['@type'] !== "g:Vertex") {
-            throw "Not a vertex error. check if this is of g:Vertex type:: " + JSON.stringify(vtx);
+            throw new Error("Not a vertex error. check if this is of g:Vertex type:: " + JSON.stringify(vtx));
         }
         let d = {};
         d.type = "g:Vertex";
@@ -43,7 +43,7 @@ export default class GremlinResponseSerializers {
 
         let _single_prop = property;
         if (_single_prop['@type'] !== "g:Property") {
-            throw "Not a g:Property error. check if this is of g:Property type:: " + JSON.stringify(property);
+            throw new Error("Not a g:Property error. check if this is of g:Property type:: " + JSON.stringify(property));
         }
         let d = {};
         let value = _single_prop['@value'].value;
@@ -55,7 +55,7 @@ export default class GremlinResponseSerializers {
 
     convert_edge_to_json(edg) {
         if (edg['@type'] !== "g:Edge") {
-            throw "Not a edge error. check if this is of g:Edge type:: " + JSON.stringify(edg);
+            throw new Error("Not a edge error. check if this is of g:Edge type:: " + JSON.stringify(edg));
         }
         let _this = this;
         let d = {};
@@ -88,7 +88,7 @@ export default class GremlinResponseSerializers {
 
         if (set_item && "@type" in set_item) {
             if (set_item['@type'] !== "g:Set") {
-                throw "Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item);
+                throw new Error("Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item));
             }
         }
         let items = [];
@@ -109,7 +109,7 @@ export default class GremlinResponseSerializers {
         // console.log("convert_list_to_json list_item", list_item);
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:List") {
-                throw "Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item);
+                throw new Error("Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item));
             }
         }
         let _this = this;
@@ -131,7 +131,7 @@ export default class GremlinResponseSerializers {
         // console.log("Bulkset", list_item);
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:BulkSet") {
-                throw "Not a g:BulkSet error. check if this is of g:BulkSet type:: " + JSON.stringify(list_item);
+                throw new Error("Not a g:BulkSet error. check if this is of g:BulkSet type:: " + JSON.stringify(list_item));
             }
         }
         let _this = this;
@@ -153,7 +153,7 @@ export default class GremlinResponseSerializers {
 
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:Map") {
-                throw "Not a g:Map error. check if this is of g:Map type:: " + JSON.stringify(list_item);
+                throw new Error("Not a g:Map error. check if this is of g:Map type:: " + JSON.stringify(list_item));
             }
         }
         let _this = this;
@@ -175,7 +175,7 @@ export default class GremlinResponseSerializers {
 
         if (path_item && "@type" in path_item) {
             if (path_item['@type'] !== "g:Path") {
-                throw "Not a g:Path error. check if this is of g:Path type:: " + JSON.stringify(path_item);
+                throw new Error("Not a g:Path error. check if this is of g:Path type:: " + JSON.stringify(path_item));
             }
         }
         let _this = this;

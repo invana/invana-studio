@@ -39,10 +39,6 @@ const para = {
     marginLeft: "10px"
 }
 
-const codeDiv = {
-    "fontSize": "12px"
-}
-
 const submitButtonCls = {
     float: "right",
     marginTop: "-15px"
