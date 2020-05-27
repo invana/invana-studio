@@ -5,7 +5,7 @@ Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.
 
 ## Install on Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/node-js-getting-started/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master)
 
 ## Install using Docker
 
