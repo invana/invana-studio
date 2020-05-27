@@ -2,15 +2,15 @@
 
 ## stage1: build react
 FROM node:12 as react-build
-ARG gremlin_server_url
-ENV GREMLIN_SERVER_URL=$gremlin_server_url
+ARG GREMLIN_SERVER_URL
+ENV GREMLIN_SERVER_URL=$GREMLIN_SERVER_URL
 WORKDIR /code
 COPY . ./
 RUN npm set progress=false && \
     npm config set depth 0 && \
     npm install && \
     npm cache clean --force
-RUN REACT_APP_NOT_SECRET_CODE=$gremlin_server_url && npm run-script build
+RUN  GREMLIN_SERVER_URL=$GREMLIN_SERVER_URL && npm run-script build
 
 #
 FROM nginx:alpine

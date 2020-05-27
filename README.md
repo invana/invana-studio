@@ -15,8 +15,8 @@ docker run -p 8888:80 -d --name graph-explorer invanalabs/graph-explorer:test
 ```shell script
 git clone git@github.com:invanalabs/graph-explorer.git
 cd graph-explorer
-docker build . -t invana-graph-explorer-3 --build-arg gremlin_server_url="ws://127.0.0.1:8184/gremlin"
-docker run -p 8888:80 -d invana-graph-explorer-4
+docker build . -t invana-graph-explorer --build-arg GREMLIN_SERVER_URL="ws://127.0.0.1:8182/gremlin"
+docker run -p 8888:80 -d invana-graph-explorer
 ``
 
 ![screenshot](./screenshot.png)
