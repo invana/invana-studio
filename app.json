@@ -3,6 +3,5 @@
   "description": "Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.",
   "repository": "https://github.com/invanalabs/graph-explorer",
   "logo": "https://avatars3.githubusercontent.com/u/26816714?s=200&v=4",
-  "keywords": ["tinkerpop UI", "apache tinkerpop", "graph databases"],
-  "image": "invanalabs/graph-explorer"
+  "keywords": ["tinkerpop UI", "apache tinkerpop", "graph databases"]
 }
