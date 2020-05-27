@@ -23,3 +23,4 @@ docker build . -t invana-graph-explorer
 docker run -p 8888:80 -d invana-graph-explorer 
 ```
 
+![screenshot](./screenshot.png)

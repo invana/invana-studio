@@ -4,6 +4,7 @@ import GraphExplorerView from "./pages/explorer";
 import NodesManagementView from "./pages/management/nodes";
 import LinksManagementView from "./pages/management/links";
 import ManagementSettingsView from "./pages/management/settings";
+import HistoryView from "./pages/history";
 import AboutView from "./pages/about";
 import Console from "./pages/console";
 import LandingPageView from "./pages/index";
@@ -41,6 +42,7 @@ export default class App extends React.Component {
                         <Route exact path="/management/settings" component={ManagementSettingsView}/>
                         <Route exact path="/about" component={AboutView}/>
                         <Route exact path="/console" component={Console}/>
+                        <Route exact path="/history" component={HistoryView}/>
                         <Route component={Page404}/>
 
                     </Switch>

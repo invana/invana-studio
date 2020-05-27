@@ -8,7 +8,7 @@ import {ConnectionStatus, CopyRightInfo} from "../../components/visualizer/util-
 import GremlinResponseSerializers from "../../components/visualizer/gremlin-serializer";
 import {
     InvanaManagementLabel,
-    DefaultLinkPathColor, DefaultLinkTextColor, UUIDGenerator
+    DefaultLinkPathColor, DefaultLinkTextColor
 } from "../../config";
 
 

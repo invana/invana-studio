@@ -91,7 +91,6 @@ export default class GremlinResponseSerializers {
                 throw "Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item);
             }
         }
-        let _this = this;
         let items = [];
         if (set_item && '@value' in set_item) {
             set_item['@value'].forEach(function (item) {
@@ -238,7 +237,6 @@ export default class GremlinResponseSerializers {
     }
 
     process(response) {
-        let request_id = response.request_id;
         let data = response.result.data;
         return this.convert_list_to_json(data);
     }

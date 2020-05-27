@@ -1,7 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
-import {LightenDarkenColor} from "../core/utils";
-import {DefaultNodeBgColor} from "../../config";
+import {prepareNodesDataWithOptions} from "./canvas-utils";
 
 export class LegendCanvas extends React.Component {
 
@@ -14,44 +13,29 @@ export class LegendCanvas extends React.Component {
 
     }
 
-    getLinkLabelConfig(label) {
-        try {
-            return this.props.linkLabels[label];
-
-        } catch (e) {
-            return null;
-        }
-    }
-
-    getNodeLabelConfig(label) {
-        try {
-            return this.props.nodeLabels[label];
-
-        } catch (e) {
-            return {bgColor: DefaultNodeBgColor};
-        }
-    }
-
     addVertexLegend(vertices) {
-
-        let _this = this;
-        console.log("_this.props.nodeLabels", _this.props.nodeLabels)
         this.clearNodeLegendCanvas();
-        let edges_legend_height = document.querySelector(".edges-legend").getBoundingClientRect().height;
+        let edges_legend_height = document.querySelector(".edges-legend")
+            .getBoundingClientRect().height;
 
         let legend = this.state.legend_canvas.append("g")
             .attr("class", "vertices-legend")
+            .style("margin-top", "5px")
             .attr("height", 0)
             .attr("width", 0)
             .attr('transform', 'translate(' + (10) + ',' + (edges_legend_height + 35) + ')');
 
 
         let legend_vertices_list = [];
-        vertices.forEach(function (vertex) {
-            if (legend_vertices_list.indexOf(vertex.label) === -1) {
-                legend_vertices_list.push(vertex.label);
+        let legend_vertices_list_ = [];
+        console.log("=======vertices", vertices);
+        for (let i in vertices) {
+            let vertex = vertices[i];
+            if (legend_vertices_list_.indexOf(vertex.label) === -1) {
+                legend_vertices_list.push(vertex);
+                legend_vertices_list_.push(vertex.label)
             }
-        });
+        }
 
         legend.selectAll('.legend-circle')
             .data(legend_vertices_list)
@@ -62,54 +46,39 @@ export class LegendCanvas extends React.Component {
                 return 'translate(' + (20) + ',' + (((i * 20) + 10) + (i * 5)) + ')';
             })
             .attr('r', 10)
-            .style("fill", function (d, i) {
-                if (_this.getNodeLabelConfig(d)) {
-                    return _this.getNodeLabelConfig(d).bgColor;
-                } else {
-                    return DefaultNodeBgColor;
-                }
-            })
+            .style("fill", (d) => d.meta.shapeOptions.fillColor)
             .style("stroke-width", "3px")
             .style("cursor", "pointer")
-            .style("stroke", function (d) {
-
-                if (_this.getNodeLabelConfig(d.label)) {
-                    return LightenDarkenColor(_this.getNodeLabelConfig(d.label).bgColor, -50); // TODO - make this color darker ?
-                } else {
-                    return LightenDarkenColor(DefaultNodeBgColor, -50);
-                }
-            })
+            .style("stroke", (d) => d.meta.shapeOptions.strokeColor)
 
         legend.selectAll('.label')
             .data(legend_vertices_list)
             .enter()
             .append('text')
             .attr("x", "40")
-            .attr("y", function (d, i) {
-                return (((i * 20) + 15) + (i * 5));
-            })
-            .style("fill", "#efefef")
-            .text(function (d) {
-                return d;
-            });
+            .attr("y", (d, i) => (((i * 20) + 15) + (i * 5)))
+            .style("fill", (d) => d.meta.labelOptions.labelColor)
+            .text((d) => d.label);
 
 
     }
 
-    add_edge_legend(edges) {
-        let _this = this;
+    addEdgeLegend(edges) {
 
         this.clearLinkLegendCanvas();
-        let legend = this.state.legend_canvas.append("g")
+        let legend = this.state
+            .legend_canvas.append("g")
             .attr("class", "edges-legend")
             .attr("height", 0)
             .attr("width", 0)
             .attr('transform', 'translate(' + (10) + ',30)');
 
         let legend_edges_list = [];
+        let legend_edges_list_ = []
         edges.forEach(function (edge) {
-            if (legend_edges_list.indexOf(edge.label) === -1) {
-                legend_edges_list.push(edge.label);
+            if (legend_edges_list_.indexOf(edge.label) === -1) {
+                legend_edges_list.push(edge);
+                legend_edges_list_.push(edge.label)
             }
         });
 
@@ -122,14 +91,7 @@ export class LegendCanvas extends React.Component {
             .attr('transform', function (d, i) {
                 return 'translate(' + (15) + ',' + ((i * 20) + 10) + ')';
             })
-            .style("fill", function (d, i) {
-                // return _this.state.color_schema(d);
-                if (_this.getLinkLabelConfig(d)) {
-                    return _this.getLinkLabelConfig(d).bgColor;
-                } else {
-                    return "#efefef";
-                }
-            });
+            .style("fill", (d, i) => "#efefef");
 
         legend.selectAll('.label')
             .data(legend_edges_list)
@@ -143,7 +105,7 @@ export class LegendCanvas extends React.Component {
                 return "#efefef";// _this.state.color_schema(d);
             })
             .text(function (d) {
-                return d;
+                return d.label;
             });
 
     }
@@ -170,12 +132,15 @@ export class LegendCanvas extends React.Component {
 
     startRendering() {
         if (this.state.legend_canvas) {
-            console.log("startRendering LegendCanvas<<<<<<>>>>>>>>>>>>>>>><<<<<<")
-            this.add_edge_legend(this.props.links);
-            this.addVertexLegend(this.props.nodes);
+            this.addEdgeLegend(this.props.links);
+            const nodeOptions = localStorage.getItem('nodeLabels');
+            const nodesData = Object.assign({},
+                prepareNodesDataWithOptions(
+                    this.props.nodes,
+                    nodeOptions)
+            );
+            this.addVertexLegend(nodesData);
         }
-
-
     }
 
     render() {

@@ -1,12 +1,3 @@
-// import React from "react";
-// import * as d3 from 'd3';
-// import 'd3-selection-multi'
-// import GraphControls from "./controls-handler";
-// import {DefaultHoverOpacity, DefaultNodeBgColor, DefaultLinkTextColor, DefaultLinkPathColor} from "../../config";
-// import {LightenDarkenColor} from "../core/utils";
-import {prepareNodesDataWithOptions, prepareLinksDataForCurves} from "./canvas-utils"
-// import InvanaGraphUI from "./canvas";
-
 import React from "react";
 import * as d3 from 'd3';
 import 'd3-selection-multi'
@@ -15,11 +6,15 @@ import {
     DefaultHoverOpacity,
     DefaultNodeBgColor,
     DefaultLinkTextColor,
+    DefaultLinkStrokeWidth,
     DefaultLinkPathColor,
-    linkCurvature,
-    linkFillColor, linkStrokeWidth, linkTextColor, nodeRadius, nodeStrokeWidth
+    DefaultNodeRadius,
+    DefaultNodeStrokeWidth,
+    DefaultLinkDistance,
+    linkCurvature
 } from "../../config";
 import {LightenDarkenColor} from "../core/utils";
+import {prepareLinksDataForCurves, prepareNodesDataWithOptions} from "./canvas-utils";
 
 export default class GraphCanvas extends React.Component {
 
@@ -38,11 +33,11 @@ export default class GraphCanvas extends React.Component {
     }
 
     resetNodeHighlight(selectedNode) {
-        let nodeElements = this.canvas.selectAll('.node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
 
-        nodeElements.style('opacity', '1');
+        nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor);
         linkElements.style('opacity', '1');
         linkLabels.style('opacity', '1');
     }
@@ -85,14 +80,13 @@ export default class GraphCanvas extends React.Component {
 
     highlightHoveredNodesAndEdges(selectedNode) {
         // this is performance intensive operation
-        let nodeElements = this.canvas.selectAll('.node');
+        // let nodeElements = document.querySelectorAll('.everything .node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
-
-
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
-        nodeElements.style('opacity', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1';
+        nodeElements.style('fill', function (nodeElement) {
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
         });
 
         let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id);
@@ -112,17 +106,12 @@ export default class GraphCanvas extends React.Component {
     expandInLinksAndNodes(selectedNode) {
         console.log("expandInLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
-
-
         let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
             "edges = g.V(" + selectedNode.id + ").outE().dedup().toList(); " +
             "other_nodes = g.V(" + selectedNode.id + ").outE().otherV().dedup().toList();" +
             "[other_nodes,edges,node]";
-
         this.props.queryGremlinServer(query_string);
-
         return false;
-
     }
 
     expandOutLinksAndNodes(selectedNode) {
@@ -134,13 +123,17 @@ export default class GraphCanvas extends React.Component {
             "[other_nodes,edges,node]";
         this.props.queryGremlinServer(query_string);
         return false;
-
     }
 
     closeNodeMenu(selectedNode) {
-        console.log("closeNodeMenu clicked", selectedNode);
+        console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
         this.hideProperties();
-        d3.select(".node-menu").remove();
+        setTimeout(function () {
+            d3.select(".node-menu").selectAll("*").remove();
+            if (document.querySelector(".node-menu")) {
+                document.querySelector(".node-menu").remove();
+            }
+        }, 50);
     }
 
     releaseNodeLock(selectedNode) {
@@ -149,15 +142,13 @@ export default class GraphCanvas extends React.Component {
         selectedNode.fx = null;
         selectedNode.fy = null;
         this.simulation.alpha(DefaultHoverOpacity).restart();
-
     }
 
-    onNodeClicked(selectedNode) {
-        console.log("onNodeClicked:: thisnode : selectedNode", selectedNode);
+    onNodeClicked(thisnode, selectedNode) {
+        console.log("onNodeClicked:: thisnode : selectedNode", thisnode, selectedNode);
         let _this = this;
         let thisNode = d3.select("#node-" + selectedNode.id);
         d3.select(".node-menu").remove();
-
 
         var menuDataSet = [{
             id: 101,
@@ -199,8 +190,13 @@ export default class GraphCanvas extends React.Component {
             }); // zde je nutnÃ© zadat celkovou populaci - poÄetz prvkÅ¯ v
 
         // Menu
-        var widthMenu = 180,
-            heightMenu = 180,
+        // var widthMenu = (selectedNode.meta.shapeOptions.radius + selectedNode.meta.shapeOptions.strokeWidth) * 7,
+        //     heightMenu = (selectedNode.meta.shapeOptions.radius + selectedNode.meta.shapeOptions.strokeWidth)  * 7,
+        //     radiusMenu = Math.min(widthMenu, heightMenu) / 2;
+
+        // Menu
+        var widthMenu = 200,
+            heightMenu = 200,
             radiusMenu = Math.min(widthMenu, heightMenu) / 2;
 
         // Arc setting
@@ -213,8 +209,8 @@ export default class GraphCanvas extends React.Component {
             .attr("width", widthMenu)
             .attr("height", heightMenu)
             .attr("class", "node-menu")
-            .attr("x", -90)
-            .attr("y", -90)
+            .attr("x", -100)
+            .attr("y", -100)
             .append("g")
             .attr("transform", "translate(" + widthMenu / 2 + "," + heightMenu / 2 + ")");
         // Prepare graph and load data
@@ -224,7 +220,6 @@ export default class GraphCanvas extends React.Component {
             .append("g")
             .attr("class", "arc")
             .attr("title", function (d) {
-
                 return d.title;
             })
             .on("click", function (arch_node) {
@@ -242,7 +237,6 @@ export default class GraphCanvas extends React.Component {
                     alert("not implemented");
                 }
             });
-        // .on("mouseover", function(d) {tip.hide(d);});
 
         // Add colors
         var path = g.append("path")
@@ -270,12 +264,10 @@ export default class GraphCanvas extends React.Component {
             })
             .attr("stroke", "#ffffff");
 
-
         g.append("title")
             .text(function (d) {
                 return d.data.title;
             });
-
 
         // Add hover action
         path.on("mouseenter", function (d, i) {
@@ -293,59 +285,35 @@ export default class GraphCanvas extends React.Component {
                 .attr("class", "off");
         });
         this.showProperties(selectedNode);
-
     }
 
-    getNodeLabelConfig(label) {
-        try {
-            return this.props.nodeLabels[label];
 
-        } catch (e) {
-            return {bgColor: DefaultNodeBgColor};
-        }
-    }
-
-    getLinkLabelConfig(label) {
-        try {
-            return this.props.linkLabels[label];
-
-        } catch (e) {
-            return {pathColor: DefaultLinkPathColor, linkTextColor: DefaultLinkTextColor};
-        }
-    }
-
-    addVertices(vertices) {
-
-        console.log("VertexUtils.add", vertices, this.canvas);
-
-
+    addVertices(nodesData) {
+        console.log("VertexUtils.add", nodesData);
         let _this = this;
-
-        let nodes = this.canvas
-            .selectAll("g.nodes")
-            .data(vertices)
-            .enter().append("g")
-            .attr("id", (d) => "node-" + d.id)
-            .attr("cursor", "pointer")
+        let node = this.canvas.selectAll(".node")
+            .data(nodesData)
+            .enter()
+            .append("g")
             .attr("class", "node")
-            // .call(d3.drag()
-            //     .on("start", dragStarted)
-            //     .on("drag", dragged)
-            //     .on("end", dragEnded))
-            .on("mouseover", (d) => _this.onNodeHoverIn(d))
-            .on("mouseout", (d) => _this.onNodeHoverOut(d))
-            .on("click", (d) => _this.onNodeClicked(d));
+            .style("z-index", "100")
+            .attr("id", function (d) {
+                return "node-" + d.id;
+            })
+            .on("mouseover", (d) => this.onNodeHoverIn(d))
+            .on("mouseout", (d) => this.onNodeHoverOut(d))
+            .on("click", (d) => this.onNodeClicked(_this, d))
 
         // node first circle
-        nodes.append("circle")
+        node.append("circle")
+            .attr("class", "circle")
             .attr("r", (d) => d.meta.shapeOptions.radius)
             .attr("fill", (d) => d.meta.shapeOptions.fillColor)
             .attr("stroke", (d) => d.meta.shapeOptions.strokeColor)
             .attr("stroke-width", (d) => d.meta.shapeOptions.strokeWidth);
 
-
         // for bgImageUrl
-        nodes.append('g')
+        node.append('g')
             .attr("class", "bgImageUrl")
             .attr('transform', function (d) {
                     const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
@@ -376,16 +344,15 @@ export default class GraphCanvas extends React.Component {
             })
 
         // node bgImageUrl CAP ; this will create a border ring around the image on top of it. creating clean UI
-        nodes.append("circle")
+        node.append("circle")
             .attr("class", "bgImageUrlCap")
             .attr("r", (d) => d.meta.shapeOptions.radius)
             .attr("fill", "transparent")
             .attr("stroke", (d) => d.meta.shapeOptions.strokeColor)
             .attr("stroke-width", (d) => d.meta.shapeOptions.strokeWidth + 1);
 
-
         // for nodeBgHtml - this will be on top of background image
-        nodes.append('g')
+        let inShapeTextNode = node.append('g')
             .attr("class", "nodeHTML")
             .attr('transform', function (d) {
                     const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
@@ -404,24 +371,43 @@ export default class GraphCanvas extends React.Component {
             .append("xhtml:body")
             .style("color", (d) => d.meta.shapeOptions.textColor)
             .style("font-size", "16px") // make this dynamic based on the node radius also
-            // .style("font-weight", "bold")
-            .style("background-color", "transparent")
-            .append("xhtml:span")
+            .style("margin", "0")
             .style("text-align", "center")
-            .style("display", "block")
-            .style("vertical-align", "middle")
+            .style("background", "transparent");
 
+        inShapeTextNode.append("xhtml:h6")
+            // .style("display", "block")
+            // .style("vertical-align", "middle")
+            .style("font-size", "10px")
+            .style("font-weight", "bold")
             .style("color", (d) => d.meta.shapeOptions.textColor)
             .style("background-color", "transparent")
             .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
+            .style("margin", "0")
+            .style("margin-top", "7px")
+
             .html(function (d) {
                 if (d.meta.shapeOptions.inShapeHTML && !d.meta.bgImageUrl) {
-                    return d.meta.shapeOptions.inShapeHTML
+                    return d.meta.shapeOptions.inShapeHTML;
+                }
+            })
+
+        inShapeTextNode.append("xhtml:small")
+            .style("text-align", "center")
+            .style("font-size", "4px")
+            .style("vertical-align", "middle")
+            .style("font-weight", "bold")
+            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("background-color", "transparent")
+            // .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
+            .html(function (d) {
+                if (d.meta.shapeOptions.inShapeHTML && !d.meta.bgImageUrl) {
+                    return d.id;
                 }
             });
 
         //
-        nodes.append('g')
+        node.append('g')
             .attr("class", "tagHTML")
             .attr('transform', function (d) {
                     const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
@@ -445,14 +431,17 @@ export default class GraphCanvas extends React.Component {
             .append("xhtml:span")
             .style("color", (d) => d.meta.shapeOptions.textColor)
             .style("background-color", "transparent")
-            .html((d) => "<i class=\"fas fa-globe-africa\"></i>");
+            .html(function (d) {
+                if (d.meta.tagOptions.tagHtml) {
+                    return d.meta.tagOptions.tagHtml
+                }
+            });
 
-
-        nodes.append("title")
+        node.append("title")
             .text(function (d) {
                 return d.meta.labelOptions.labelText || d.id;
             })
-        nodes.append("text")
+        node.append("text")
             .attr("dy", -16)
             .attr("dx", 6)
             .text((d) => d.meta.labelOptions.labelText || d.id)
@@ -463,165 +452,63 @@ export default class GraphCanvas extends React.Component {
         // .style("text-shadow", function (d, i) {
         //     return "1px 1px " + d3.rgb(d.meta.labelOptions.labelColor).darker(1);
         // });
-
-        return nodes;
-
-        // let node = this.canvas.selectAll(".node")
-        //     .data(vertices)
-        //     .enter()
-        //     .append("g")
-        //     .attr("class", "node")
-        //     .style("z-index", "100")
-        //     .attr("id", function (d) {
-        //         return "node-" + d.id;
-        //     });
-        //
-        // node.append("circle")
-        //     .attr("r", 20)
-        //     .style("fill", function (d, i) {
-        //
-        //         if (_this.getNodeLabelConfig(d.label)) {
-        //             let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
-        //             if (vertexLabelConfig) {
-        //                 return vertexLabelConfig.bgColor;
-        //             }
-        //         }
-        //     })
-        //
-        // node.append("circle")
-        //     .attr("r", 20)
-        //     .style("fill", function (d, i) {
-        //
-        //         if (_this.getNodeLabelConfig(d.label)) {
-        //             let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
-        //             if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
-        //                 return "url(#pattern-node-" + d.id + ")";
-        //             } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
-        //                 return "url(#pattern-node-" + d.id + ")";
-        //             } else {
-        //                 return vertexLabelConfig.bgColor;
-        //             }
-        //         }
-        //     })
-        //
-        //     .style("stroke-width", "3px")
-        //     .style("cursor", "pointer")
-        //     .style("stroke", function (d) {
-        //
-        //         if (_this.getNodeLabelConfig(d.label)) {
-        //             return LightenDarkenColor(_this.getNodeLabelConfig(d.label).bgColor, -50); // TODO - make this color darker ?
-        //         } else {
-        //             return DefaultNodeBgColor;
-        //         }
-        //     })
-        //     .style("z-index", "100")
-        //     .on("mouseover", function (d) {
-        //         _this.onNodeHoverIn(d);
-        //     })
-        //     .on("mouseout", function (d) {
-        //         _this.onNodeHoverOut(d);
-        //     })
-        //     .on("click", function (d) {
-        //         _this.onNodeClicked(d);
-        //     });
-        //
-        //
-        // node.append('svg:defs').append('svg:pattern')
-        //     .attr("id", function (d) {
-        //         return "pattern-node-" + d.id + "";
-        //     })
-        //
-        //     .attr('patternUnits', 'objectBoundingBox')
-        //     .attr('width', 40)
-        //     .attr('height', 40)
-        //     .append('svg:image')
-        //     .attr("xlink:href", function (d) {
-        //         if (_this.getNodeLabelConfig(d.label)) {
-        //             let vertexLabelConfig = _this.getNodeLabelConfig(d.label);
-        //             if (vertexLabelConfig && vertexLabelConfig.bgImagePropertyKey) {
-        //                 return d.properties[vertexLabelConfig.bgImagePropertyKey];
-        //             } else if (vertexLabelConfig && vertexLabelConfig.bgImageUrl) {
-        //                 return vertexLabelConfig.bgImageUrl;
-        //             }
-        //         }
-        //         return "";
-        //     })
-        //     .attr('x', 0)
-        //     .attr('y', 0)
-        //     .attr('width', 40)
-        //     .attr('height', 40);
-        //
-        //
-        // node.append("title")
-        //     .text(function (d) {
-        //         return d.properties.name || d.id;
-        //     });
-        //
-        // node.append("text")
-        //     .attr("dy", -16)
-        //     .attr("dx", 6)
-        //     .text(function (d) {
-        //         return d.properties.name || d.id;
-        //     })
-        //     .style("fill", function (d, i) {
-        //         return "#c1c1c1";
-        //     })
-        //     .style("font-size", function (d, i) {
-        //         return "12px";
-        //     })
-        //     .style("font-weight", function (d, i) {
-        //         return "bold";
-        //     })
-        //     .style("text-shadow", function (d, i) {
-        //         return "1px 1px #424242";
-        //     });
-
-        // return node;
+        return node;
     }
 
     onLinkMoveHover(selectedLink) {
         console.log("onLinkMoveHover", selectedLink);
-        let nodeElements = this.canvas.selectAll('.node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
-
         linkElements.style('opacity', function (linkElement) {
             return selectedLink.id === linkElement.id ? '1' : '0.1';
         });
-
         let linkData = this.props.LINK_ID_TO_LINK[selectedLink.id];
         let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
-
-        nodeElements.style('opacity', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? '1' : '0.1';
+         nodeElements.style('fill', function (nodeElement) {
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
         });
-
-
         d3.select('#link-' + selectedLink.id).style('stroke', "black");
         this.showProperties(selectedLink);
-
     }
 
     onLinkMoveOut(selectedLink) {
-        let nodeElements = this.canvas.selectAll('.node');
+        let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
 
-        nodeElements.style('opacity', '1');
+        nodeElements.style('fill',(nodeElement)=> nodeElement.meta.shapeOptions.fillColor);
         linkElements.style('opacity', '1');
-
-
         d3.select('#link-' + selectedLink.id).style('stroke', "#666");
         this.hideProperties();
     }
 
-    addEdges(linksData) {
-
+    addEdges(edges) {
         let _this = this
-
         let links = this.canvas
             .selectAll("g.links")
-            .data(linksData)
+            .data(edges)
             .enter().append("g")
             .attr("cursor", "pointer")
+
+        links
+            .append("svg:marker")
+            .attr("id", (d, i) => "link-arrow-" + d.id)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refY", 0)
+            // .attr("refX", function (d, i) {
+            //     console.log("=====marker", d);
+            //     return d.target.meta.shapeOptions.radius
+            //         - (d.target.meta.shapeOptions.radius / 4)
+            //         + d.target.meta.shapeOptions.strokeWidth
+            //
+            // })
+            .attr("refX", (d, i) => (DefaultNodeRadius - (DefaultNodeRadius / 4) + DefaultLinkStrokeWidth))
+            .attr("fill", (d) => DefaultLinkPathColor)
+            .attr("stroke", (d) => DefaultLinkPathColor)
+            .attr("markerWidth", 10)
+            .attr("markerHeight", 10)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M0,-5L10,0L0,5");
 
         const linkPaths = links
             .append("path")
@@ -629,34 +516,18 @@ export default class GraphCanvas extends React.Component {
                 return "link-" + i;
             })
             .attr("association-id", function (d, i) {
-                return "link-" + (d.target.id || d.target) + "-" + (d.source.id || d.source);
+                return "link-" + d.target + "-" + d.source;
             })
             .attr("sameIndexCorrected", function (d, i) {
                 return d.sameIndexCorrected;
             })
-            .attr('stroke', linkFillColor)
-            .attr("stroke-width", linkStrokeWidth)
+            .attr('stroke', DefaultLinkPathColor)
+            .attr("stroke-width", DefaultLinkStrokeWidth + "px")
             .attr("fill", "transparent")
-            .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
+            // .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
+            .attr('marker-end', (d, i) => 'url(#arrowhead)')
             .on("mouseover", (d) => _this.onLinkMoveHover(d))
-            .on("mouseout", (d) => _this.onLinkMoveOut(d));
-
-        links.append("svg:defs").selectAll("marker")
-            .data(linksData)
-            .enter()
-            .append("svg:marker")
-            .attr("id", (d, i) => "link-arrow-" + i)
-            .attr("viewBox", "0 -5 10 10")
-            .attr("refY", 0)
-            .attr("refX", (d, i) => (nodeRadius - (nodeRadius / 4) + nodeStrokeWidth))
-            .attr("fill", (d) => linkFillColor)
-            .attr("stroke", (d) => linkFillColor)
-            .attr("markerWidth", 10)
-            .attr("markerHeight", 10)
-            .attr("orient", "auto")
-
-            .append("svg:path")
-            .attr("d", "M0,-5L10,0L0,5");
+            .on("mouseout", (d) => _this.onLinkMoveOut(d))
 
         const linkText = links
             .append("text")
@@ -667,130 +538,31 @@ export default class GraphCanvas extends React.Component {
             })
             .style("text-anchor", "middle")
             .attr("startOffset", "50%")
-            .attr('fill', linkTextColor) // TODO add .meta for links also
-            .attr('stroke', linkTextColor)
+            .attr('fill', DefaultLinkTextColor) // TODO add .meta for links also
+            .attr('stroke', DefaultLinkTextColor)
             .text((d, i) => `${d.label || d.id}`);
-
-
-        // let link = this.canvas.selectAll(".link")
-        //
-        //     .data(edges)
-        //     .enter()
-        //     .append("line")
-        //     .attr("class", "link")
-        //     .attr('marker-end', 'url(#arrowhead)')
-        //     .on('mouseover', function (d) {
-        //         _this.onLinkMoveHover(d);
-        //     })
-        //     .on('mouseout', function (d) {
-        //         _this.onLinkMoveOut(d);
-        //     })
-        //     .attr('id', function (d, i) {
-        //         return 'link-' + d.id;
-        //     })
-        //     .style('stroke-width', 2)
-        //     .style('cursor', 'pointer')
-        //     .style('stroke', DefaultLinkPathColor);
-        //
-        // // link.append("title")
-        // //     .text(function (d) {
-        // //         return d.label;
-        // //     });
-        //
-        // let edgepaths = this.canvas.selectAll(".edgepath")
-        //     .data(edges)
-        //     .enter()
-        //     .append('path')
-        //     .attrs({
-        //         'class': 'edgepath',
-        //         // 'fill-opacity': 0,
-        //         // 'stroke-opacity': 0,
-        //         'id': function (d, i) {
-        //             return 'edgepath-' + d.id;
-        //         }
-        //     })
-        //     .style("fill", function (d, i) {
-        //         // return _this.color_schema(d);
-        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-        //         if (linkLabelConfig) {
-        //             return linkLabelConfig.pathColor;
-        //         } else {
-        //             return DefaultLinkPathColor;
-        //         }
-        //     })
-        //     // .style("stroke", "#777")
-        //     // .style("stroke-width", "2px")
-        //     .style("pointer-events", "none");
-        //
-        // let edgelabels = this.canvas.selectAll(".edgelabel")
-        //     .data(edges)
-        //     .enter()
-        //     .append('text')
-        //     .style("pointer-events", "none")
-        //     .attr("dy", -3) //Move the text up/ down
-        //     .style("fill", function (d, i) {
-        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-        //         if (linkLabelConfig) {
-        //             return linkLabelConfig.linkTextColor;
-        //         } else {
-        //             return DefaultLinkTextColor;
-        //         }
-        //     })
-        //     .attrs({
-        //         'class': 'edgelabel',
-        //         'id': function (d, i) {
-        //             return 'edgelabel-' + d.id;
-        //         },
-        //         'font-size': 12,
-        //     });
-        //
-        // edgelabels.append('textPath')
-        //     .attr('xlink:href', function (d, i) {
-        //         return '#edgepath-' + d.id;
-        //     })
-        //     .style("text-anchor", "middle")
-        //     // .style("text-transform", "uppercase")
-        //     .style("background", "#ffffff")
-        //     .style("pointer-events", "none")
-        //     .attr("startOffset", "50%")
-        //     .style("fill", function (d, i) {
-        //         // return _this.color_schema(d);
-        //         let linkLabelConfig = _this.getLinkLabelConfig(d.label);
-        //         if (linkLabelConfig) {
-        //             return linkLabelConfig.linkTextColor;
-        //         } else {
-        //             return DefaultLinkTextColor;
-        //
-        //         }
-        //     })
-        //     .text(function (d) {
-        //         return d.label;
-        //     });
-
         return [links, linkPaths, linkText];
     }
 
     setupSimulation(canvas_width, canvas_height) {
-
         let forceCollide = d3.forceCollide()
             .radius(function (d) {
                 return d.radius + 1.2;
             })
             .iterations(1); /// TODO - revisit this
-        const forceX = d3.forceX(canvas_width / 2).strength(0.040);
-        const forceY = d3.forceY(canvas_height / 2).strength(0.040);
+        const forceX = d3.forceX(canvas_width / 2).strength(0.10);
+        const forceY = d3.forceY(canvas_height / 2).strength(0.10);
 
         let getSimulationCharge = function () {
             return d3.forceManyBody()
                 .strength(-240);
         }
-
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
                     return d.id;
                 })
-                .distance(180).strength(1)
+                .distance(DefaultLinkDistance).strength(1)
             )
             .force("charge", getSimulationCharge())
             .force("collide", forceCollide)
@@ -812,7 +584,6 @@ export default class GraphCanvas extends React.Component {
             // we want double click to be reserved for highlighting neighbor nodes
             .append("g")
             .attr("class", "everything");
-
         // on clicking on any node or link, remove the context menu that is opened in the canvas.
         svg.select('*:not(circle), *:not(line), *:not(path), *:not(text), *:not(link)').on("click", function () {
             d3.select(".node-menu").remove();
@@ -821,22 +592,21 @@ export default class GraphCanvas extends React.Component {
     }
 
     setupMarker(canvas) {
-
-        // canvas.append('defs').append('marker')
-        //     .attrs({
-        //         'id': 'arrowhead',
-        //         'viewBox': '-0 -5 10 10',
-        //         'refX': 23,
-        //         'refY': 0,
-        //         'orient': 'auto',
-        //         'markerWidth': 8,
-        //         'markerHeight': 9,
-        //         'xoverflow': 'visible'
-        //     })
-        //     .append('svg:path')
-        //     .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-        //     .attr('fill', DefaultNodeBgColor)
-        //     .style('stroke', 'none');
+        canvas.append('defs').append('marker')
+            .attrs({
+                'id': 'arrowhead',
+                'viewBox': '-0 -5 10 10',
+                'refX': 23,
+                'refY': 0,
+                'orient': 'auto',
+                'markerWidth': 8,
+                'markerHeight': 9,
+                'xoverflow': 'visible'
+            })
+            .append('svg:path')
+            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+            .attr('fill', DefaultLinkPathColor)
+            .style('stroke', 'none');
         return canvas;
 
     }
@@ -846,21 +616,17 @@ export default class GraphCanvas extends React.Component {
         return this.setupMarker(canvas);
     }
 
-    startRenderingGraph(vertices, linksData) {
+    startRenderingGraph(nodes, links) {
         // add this data to the existing data
-
-
+        let vertices = nodes;
+        let edges = links;
         let _this = this;
-
-        let _ = this.addEdges(linksData);
+        let _ = this.addEdges(edges);
         let link = _[0];
         let edgepaths = _[1];
         let edgelabels = _[2];
-
-        let nodes = this.addVertices(vertices);
-
-
-        nodes
+        let node = this.addVertices(vertices);
+        node
             .on("dblclick", function (d) {
                 d.fixed = false;
                 if (!d3.event.active) {
@@ -868,27 +634,25 @@ export default class GraphCanvas extends React.Component {
                 }
             })
             .call(d3.drag()
-                .on("start", dragstarted)
+                .on("start", dragStarted)
                 .on("drag", dragged)
-                .on("end", dragended)
+                .on("end", dragEnded)
             );
-
 
         function dragged(d) {
             d.fx = d3.event.x;
             d.fy = d3.event.y;
         }
 
-        function dragstarted(d) {
+        function dragStarted(d) {
             if (!d3.event.active) {
                 _this.simulation.alphaTarget(DefaultHoverOpacity).restart();
             }
             d.fx = d.x;
             d.fy = d.y;
-
         }
 
-        function dragended(d) {
+        function dragEnded(d) {
             if (!d3.event.active) {
                 _this.simulation.alphaTarget(0);
             }
@@ -901,77 +665,33 @@ export default class GraphCanvas extends React.Component {
             _this.controls.center(_this);
         });
 
-        function linkArc(d) {
-            let dx = (d.target.x - d.source.x),
-                dy = (d.target.y - d.source.y),
-                dr = Math.sqrt(dx * dx + dy * dy),
-                unevenCorrection = (d.sameUneven ? 0 : 0.5),
-                arc = ((dr * d.maxSameHalf) / (d.sameIndexCorrected - unevenCorrection)) * linkCurvature;
-            if (d.sameMiddleLink) {
-                arc = 0;
-            }
-            return "M" + d.source.x + "," + d.source.y + "A" + arc + "," + arc + " 0 0," + d.sameArcDirection + " " + d.target.x + "," + d.target.y;
-        }
-
-        function ticked() {
-            edgepaths.attr("d", linkArc)
-            // link.attr("d", linkArc)
-            nodes
-                .attr("transform", d => `translate(${d.x}, ${d.y})`);
-            // link
-            //     .attr("transform", d => `translate(${d.x}, ${d.y})`);
-
-        }
-
-
         this.simulation
             .nodes(vertices)
             .on("tick", ticked);
 
         this.simulation.force("link")
-            .links(linksData);
+            .links(edges);
 
-        // function ticked() {
-        //     link
-        //         .attr("x1", function (d) {
-        //             return d.source.x;
-        //         })
-        //         .attr("y1", function (d) {
-        //             return d.source.y;
-        //         })
-        //         .attr("x2", function (d) {
-        //             return d.target.x;
-        //         })
-        //         .attr("y2", function (d) {
-        //             return d.target.y;
-        //         });
-        //
-        //
-        //     node
-        //         .attr("transform", function (d) {
-        //             return "translate(" + d.x + ", " + d.y + ")";
-        //         });
-        //
-        //     edgepaths.attr('d', function (d) {
-        //         return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
-        //     });
-        //
-        //     edgelabels.attr('transform', function (d) {
-        //         if (d.target.x < d.source.x) {
-        //             let bbox = this.getBBox();
-        //
-        //             let rx = bbox.x + bbox.width / 2;
-        //             let ry = bbox.y + bbox.height / 2;
-        //             return 'rotate(180 ' + rx + ' ' + ry + ')';
-        //         } else {
-        //             return 'rotate(0)';
-        //         }
-        //     });
-        // }
+        function ticked() {
+            node
+                .attr("transform", function (d) {
+                    return "translate(" + d.x + ", " + d.y + ")";
+                });
 
-
+            function linkArc(d) {
+                let dx = (d.target.x - d.source.x),
+                    dy = (d.target.y - d.source.y),
+                    dr = Math.sqrt(dx * dx + dy * dy),
+                    unevenCorrection = (d.sameUneven ? 0 : 0.5),
+                    arc = ((dr * d.maxSameHalf) / (d.sameIndexCorrected - unevenCorrection)) * linkCurvature;
+                if (d.sameMiddleLink) {
+                    arc = 0;
+                }
+                return "M" + d.source.x + "," + d.source.y + "A" + arc + "," + arc + " 0 0," + d.sameArcDirection + " " + d.target.x + "," + d.target.y;
+            }
+            edgepaths.attr("d", (d) => linkArc(d))
+        }
     }
-
 
     componentDidUpdate(prevProps) {
 
@@ -980,13 +700,10 @@ export default class GraphCanvas extends React.Component {
         this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
-
-        const nodesData = prepareNodesDataWithOptions(this.props.nodes, {});
-        const linksData = prepareLinksDataForCurves(this.props.links);
-
-        console.log("this--nodesData==", nodesData)
-        console.log("this--linksData==", linksData)
-
+        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        let linksData = prepareLinksDataForCurves(this.props.links);
+        let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
+        // let nodesData = this.props.nodes;
         this.startRenderingGraph(nodesData, linksData)
     }
 
@@ -997,9 +714,7 @@ export default class GraphCanvas extends React.Component {
     render() {
         let canvasClass = this.html_selector_id.replace(".", "");
         return (
-
             <svg className={canvasClass}></svg>
-
         )
     }
 }

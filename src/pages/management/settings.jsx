@@ -6,12 +6,7 @@ import MainContent from "../../components/core/main-content";
 import GremlinConnectorViewBase from "../../components/core/gremlin-connector";
 import {ConnectionStatus, CopyRightInfo} from "../../components/visualizer/util-components";
 import GremlinResponseSerializers from "../../components/visualizer/gremlin-serializer";
-import {
-    InvanaManagementLabel, DefaultNodeBgColor,
-    DefaultNodeBorderColor, DefaultNodeBgPropertyKey
-} from "../../config";
-
-
+ 
 export default class ManagementSettingsView extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
 
