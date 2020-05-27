@@ -1,5 +1,5 @@
-export const GREMLIN_SERVER_URL = "ws://127.0.0.1:8182/gremlin";
 
+export const GREMLIN_SERVER_URL = process.env.GREMLIN_SERVER_URL ? process.env.GREMLIN_SERVER_URL : "ws://127.0.0.1:8182/gremlin";
 export const InvanaManagementLabel = "InvanaManagement"
 export const DefaultNodeBgColor = "#444444";
 export const DefaultNodeBorderColor = "#4385b8";
