@@ -5,7 +5,7 @@ Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.
 
 ## Install on Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/develop)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master)
 
 Get the UI graph-explorer server live in minutes. 
 **Note:** You still need gremlin server running on your local or remote.
