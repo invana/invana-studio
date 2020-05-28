@@ -2,5 +2,5 @@ build:
   docker:
     release:
        dockerfile: Dockerfile
-       target: builder
+       target: react-build
     web: Dockerfile
