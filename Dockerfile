@@ -12,8 +12,8 @@ RUN npm set progress=false && \
     npm cache clean --force
 RUN  GREMLIN_SERVER_URL=$GREMLIN_SERVER_URL && npm run-script build
 
-#
-FROM nginx:alpine
+# stage2: deploy to nginx
+FROM nginx:alpine as production
 COPY --from=react-build /code/dockerfiles/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=react-build /code/build /usr/share/nginx/html
 EXPOSE 80
