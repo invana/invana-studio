@@ -17,6 +17,11 @@
       "value": "ws://127.0.0.1:8182/gremlin",
       "description": "Gremlin server url. eg: ws://127.0.0.1:8182/gremlin. Defaults to `ws://127.0.0.1:8182/gremlin`",
       "required": false
+    },
+     "PORT": {
+      "value": 8080,
+      "description": "Port on which ui server will start",
+      "required": true
     }
   }
 }
