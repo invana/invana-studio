@@ -3,5 +3,16 @@
   "description": "Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.",
   "repository": "https://github.com/invanalabs/graph-explorer",
   "logo": "https://avatars3.githubusercontent.com/u/26816714?s=200&v=4",
-  "keywords": ["tinkerpop UI", "apache tinkerpop", "graph databases"]
+  "success_url": "/",
+  "keywords": ["graph database UI", "apache tinkerpop", "graph databases"],
+   "env": {
+    "BUILD_TYPE": {
+      "description": "`development` will retain the console logs, while `production` doesn't. Defaults to `development`",
+      "required": false
+    },
+    "GREMLIN_SERVER_URL": {
+      "description": "Gremlin server url. eg: ws://127.0.0.1:8182/gremlin. Defaults to `ws://127.0.0.1:8182/gremlin`",
+      "required": false
+    }
+  }
 }
