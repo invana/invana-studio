@@ -5,12 +5,14 @@
   "logo": "https://avatars3.githubusercontent.com/u/26816714?s=200&v=4",
   "success_url": "/",
   "keywords": ["graph database UI", "apache tinkerpop", "graph databases"],
-   "env": {
+  "env": {
     "BUILD_TYPE": {
+      "value": "development",
       "description": "`development` will retain the console logs, while `production` doesn't. Defaults to `development`",
       "required": false
     },
     "GREMLIN_SERVER_URL": {
+      "value": "ws://127.0.0.1:8182/gremlin",
       "description": "Gremlin server url. eg: ws://127.0.0.1:8182/gremlin. Defaults to `ws://127.0.0.1:8182/gremlin`",
       "required": false
     }
