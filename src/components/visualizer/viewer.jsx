@@ -157,9 +157,6 @@ export default class GraphViewer extends GremlinConnectorViewBase {
         console.log("=================== Rendering the Viewer ===================");
         console.log("======= viewer this.state", this.state.nodes.length, this.state.links.length);
 
-        let loadingDiv = "<div></div>";
-
-
         return (
             <div>
 
