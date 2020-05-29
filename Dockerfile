@@ -6,7 +6,6 @@ FROM node:12 as react-build
 WORKDIR /code
 COPY . ./
 
-RUN echo "============================port $PORT"
 RUN npm set progress=false && \
     npm config set depth 0 && \
     npm install && \
