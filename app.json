@@ -9,7 +9,7 @@
   "stack": "container",
   "env": {
      "PORT": {
-      "value": "8080",
+      "value": "8888",
       "description": "Port on which ui server will start; DONT CHANGE",
       "required": true
     }
