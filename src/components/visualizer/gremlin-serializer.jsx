@@ -66,8 +66,8 @@ export default class GremlinResponseSerializers {
         d.inVLabel = edg['@value'].inVLabel;
         d.outV = edg['@value'].outV['@value'];
         d.outVLabel = edg['@value'].outVLabel;
-        d.source = d.inV;
-        d.target = d.outV;
+        d.source = d.outV;
+        d.target = d.inV;
 
         let properties = edg['@value'].properties;
         d.properties = {}

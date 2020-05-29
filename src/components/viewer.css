@@ -226,16 +226,19 @@ svg:not(:root).svg-inline--fa {
 }
 
 .errorHideBtn {
-    /*right: 0;*/
+    left: 0;
     position: absolute;
-    top: 20px;
+    top: 16px;
+    color: black;
     padding: 2px 4px;
     background: none;
     border: 1px solid #666666;
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 0;
 }
-
+.errorHideBtn:hover{
+    background: #efefef;
+}
 
 button {
     padding: 15px 25px;

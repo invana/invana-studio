@@ -22,7 +22,7 @@ const textAreaCls = {
     "color": "#efefef",
     "padding": "15px",
     "fontSize": "14px",
-    fontFamily: "Courier"
+    "fontFamily": "Courier"
 }
 
 const ResponseDiv = {
@@ -76,7 +76,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
         let _this = this;
         const response = JSON.parse(event.data);
         console.log("onmessage received", response);
-        if (response.status.code) {
+        if (response.status.code && (response.status.code >= 200 && response.status.code < 300)) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setState({
                 "errorMessage": null,
