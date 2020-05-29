@@ -3,7 +3,7 @@
 
 if [ -z "$1" ]
   then
-    echo "No tag name specified"
+    echo "No tag name specified, a release name like PR-10, rc-1"
 fi
 
 cd ..

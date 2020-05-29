@@ -2,7 +2,7 @@
 
 Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.
 
-
+Live version of the demo is hosted on [heroku](https://graph-explorer.herokuapp.com/) 
 ## Install on Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master)
@@ -15,15 +15,15 @@ Get the UI graph-explorer server live in minutes.
 #### Use Image from Docker Cloud
 
 ```shell script
-docker run -p 8888:80 -d --name graph-explorer invanalabs/graph-explorer:test
+docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
 ```
 
 #### Build and Deploy from Code
 ```shell script
 git clone git@github.com:invanalabs/graph-explorer.git
 cd graph-explorer
-docker build . -t invana-graph-explorer --build-arg GREMLIN_SERVER_URL="ws://127.0.0.1:8182/gremlin"
-docker run -p 8888:80 -d invana-graph-explorer
+docker build . -t invana-graph-explorer 
+docker run -p 8888:8888 -d invana-graph-explorer
 ```
 
 ![screenshot](./screenshot.png)

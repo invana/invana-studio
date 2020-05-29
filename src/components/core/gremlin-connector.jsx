@@ -1,4 +1,4 @@
-import {GREMLIN_SERVER_URL, UUIDGenerator} from "../../config";
+import {GREMLIN_SERVER_URL, DefaultConnectionRetryTimeout, UUIDGenerator} from "../../config";
 import React from "react";
 
 
@@ -86,16 +86,15 @@ export default class GremlinConnectorViewBase extends React.Component {
             console.log('Connection error using websocket', err);
             _this.setDisconnectedFromGremlin();
 
-            let retry_in = 10;
 
 
             let i = 1;
             let timer = setInterval((function () {
 
-                    _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (retry_in) + "s 'retry in' time...");
+                    _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (DefaultConnectionRetryTimeout) + "s 'retry in' time...");
                     i += 1;
 
-                    if (i > retry_in) {
+                    if (i > DefaultConnectionRetryTimeout) {
                         clearInterval(timer);
 
                         _this.ws = _this.createNewWebsocket();
