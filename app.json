@@ -6,12 +6,5 @@
   "logo": "https://avatars3.githubusercontent.com/u/26816714?s=200&v=4",
   "success_url": "/",
   "keywords": ["graph database UI", "apache tinkerpop", "graph databases"],
-  "stack": "container",
-  "env": {
-     "PORT": {
-      "value": "8888",
-      "description": "Port on which ui server will start; DONT CHANGE",
-      "required": true
-    }
-  }
+  "stack": "container"
 }
