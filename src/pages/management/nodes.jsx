@@ -82,7 +82,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
             // create Management data needed if necessary.
             let _type = null;
             if (response.result.data){
-                let _type = response.result.data['@value'][0]['@type'];
+                _type = response.result.data['@value'][0]['@type'];
             }
             if (_type === "g:List") {
                 let nodeStats = this.serializeStatsData(response.result.data);
