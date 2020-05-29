@@ -19,7 +19,7 @@ export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.proper
 export const DefaultLabelVisibility = false;
 export const DefaultHoverOpacity = 0.8;
 
-
+export const DefaultConnectionRetryTimeout = 10;
 export const linkCurvature = .85;
 
 // export function uuidv4() {
