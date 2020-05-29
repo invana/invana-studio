@@ -78,7 +78,11 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
         if (response.status.code === 200 || response.status.code === 206) {
             _this.updateStatusMessage("Query Successfully Responded.");
             // create Management data needed if necessary.
-            let _type = response.result.data['@value'][0]['@type'];
+            let _type = null;
+            if (response.result.data) {
+                let _type = response.result.data['@value'][0]['@type'];
+            }
+
             if (_type === "g:List") {
                 let linkStats = this.serializeStatsData(response.result.data);
                 this.checkIfExistOrCreate(linkStats)
