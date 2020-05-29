@@ -3,6 +3,7 @@
 ## stage1: build react
 FROM node:12 as react-build
 WORKDIR /code
+ENV PORT=8888
 COPY . ./
 RUN npm set progress=false && \
     npm config set depth 0 && \
@@ -15,5 +16,5 @@ FROM nginx:alpine as production
 COPY --from=react-build /code/dockerfiles/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=react-build /code/build /usr/share/nginx/html
 #CMD ["nginx", "-g", "daemon off;"]
-EXPOSE 8888
+EXPOSE $PORT
 CMD nginx -g 'daemon off;'
