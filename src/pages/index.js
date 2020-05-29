@@ -2,6 +2,9 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import GremlinConnectorViewBase from "../components/core/gremlin-connector";
 import GremlinResponseSerializers from "../components/visualizer/gremlin-serializer";
+import {ConnectionStatus, CopyRightInfo} from "../components/visualizer/util-components";
+import LoadingDiv from "../components/core/loading";
+import MainContent from "../components/core/main-content";
 
 
 export default class LandingPageView extends GremlinConnectorViewBase {
@@ -31,20 +34,16 @@ export default class LandingPageView extends GremlinConnectorViewBase {
     setLabelsConfigToLocalStorage(response) {
         let result = this.gremlin_serializer.process(response);
         let nodesAndLinks = this.gremlin_serializer.seperate_vertices_and_edges(result, false);
-
-
         let _nodes = {};
         nodesAndLinks.nodes.forEach(function (node) {
-
             _nodes[node.properties.name] = node.properties;
         })
         let _links = {};
         nodesAndLinks.links.forEach(function (link) {
             _links[link.label] = link.properties;
         })
-
         // convert this list into dictionary.
-        console.log("=======((", _nodes,_links)
+        console.log("=======((", _nodes, _links)
         localStorage.setItem('nodeLabels', JSON.stringify(_nodes));
         localStorage.setItem('linkLabels', JSON.stringify(_links));
     }
@@ -52,19 +51,14 @@ export default class LandingPageView extends GremlinConnectorViewBase {
     processGremlinResponseEvent(event) {
         let _this = this;
         let response = JSON.parse(event.data);
-
         console.log("onmessage received", response);
-
         if (response.status.code >= 200 || response.status.code <= 299) {
             _this.updateStatusMessage("Query Successfully Responded.");
             _this.setLabelsConfigToLocalStorage(response)
             _this.setState({
                 "successLoading": true,
             })
-
-
         } else {
-
             _this.setState({
                 "errorMessage": JSON.stringify(response,),
                 "showErrorMessage": true,
@@ -72,8 +66,6 @@ export default class LandingPageView extends GremlinConnectorViewBase {
                     " But returned non 200 status[" + response.status.code + "]"
             })
         }
-
-
     }
 
 
@@ -83,7 +75,19 @@ export default class LandingPageView extends GremlinConnectorViewBase {
                 {
                     (this.state.successLoading) ? (
                         <Redirect to='/explorer'/>
-                    ) : (<span>&nbsp;</span>)
+                    ) : (
+                    <span>
+                      <ConnectionStatus
+                          statusMessage={this.state.statusMessage}
+                          isConnected2Server={this.state.isConnected2Server}
+                          showErrorMessage={this.state.showErrorMessage}
+                          errorMessage={this.state.errorMessage}
+                          closeErrorMessage={this.closeErrorMessage.bind(this)}
+                      />
+                        <CopyRightInfo/>
+                        <LoadingDiv statusMessage={this.state.statusMessage}/>
+                    </span>
+                    )
                 }
             </div>
         )
