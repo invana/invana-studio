@@ -1,0 +1,24 @@
+name: Docker Build Push
+
+on:
+  push:
+    branches:
+    - master
+    - releases/*
+  pull_request:
+    branches:
+    - master
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # Runs a single command using the runners shell
+    - name: Build Image
+      run: docker build  -t invanalabs/graph-explorer:latest -t invanalabs/graph-explorer:$(git branch | sed -n -e 's/^\* \(.*\)/\1/p') .
+    - name: Setup Docker Credentials
+      run: cat '{"Username":"${{ secrets.DOCKER_USERNAME}}", "Secret":"${{ secrets.DOCKER_PASSWORD }}"}' > $HOME/.docker/config.json
+    - name: Push to Docker
+      run: push invanalabs/graph-explorer:latest && git push invanalabs/graph-explorer:$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
