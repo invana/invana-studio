@@ -15,7 +15,7 @@ Get the UI graph-explorer server live in minutes.
 #### Use Image from Docker Cloud
 
 ```shell script
-docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer:alpha-01
+docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
 ```
 
 #### Build and Deploy from Code
