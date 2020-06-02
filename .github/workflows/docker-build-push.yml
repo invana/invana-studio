@@ -13,10 +13,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: invanalabs/graph-explorer
-        tags: latest
-        tag_with_ref: true
+    - uses: actions/checkout@v2
+    # Runs a single command using the runners shell
+    - name: Build Image
+      run: docker build  -t invanalabs/graph-explorer:latest -t invanalabs/graph-explorer:$(git branch | sed -n -e 's/^\* \(.*\)/\1/p') .
+    - name: Setup Docker Credentials
+      run: cat '{"${{ secrets.DOCKER_USERNAME}}":"${{ secrets.DOCKER_PASSWORD }}"}' > $HOME/.docker/config.json
+    - name: Push to Docker
+      run: push invanalabs/graph-explorer:latest && git push invanalabs/graph-explorer:$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
