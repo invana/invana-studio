@@ -1,5 +1,6 @@
 name: Deploy to Heroku
 
+
 on:
   push:
     branches:
@@ -13,10 +14,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: akhileshns/heroku-deploy@master # This is the action
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.0.4 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "graph-explorer"
+          heroku_app_name: "graph-explorer" #Must be unique in Heroku
           heroku_email: "rrmerugu@gmail.com"
-          buildpack: ""
+          dontuseforce: false #OPTIONAL and DEFAULT - false
+          usedocker: false #OPTIONAL and DEFAULT - false
