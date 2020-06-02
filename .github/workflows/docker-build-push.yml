@@ -18,7 +18,7 @@ jobs:
     - name: Build Image
       run: docker build  -t invanalabs/graph-explorer:latest -t invanalabs/graph-explorer:$(git branch | sed -n -e 's/^\* \(.*\)/\1/p') .
     - name: Setup Docker Credentials
-      run: cat '{"${{ secrets.DOCKER_USERNAME}}":"${{ secrets.DOCKER_PASSWORD }}"}' > $HOME/.docker/config.json
+      run: cat '{"Username":"${{ secrets.DOCKER_USERNAME}}", "Secret":"${{ secrets.DOCKER_PASSWORD }}"}' > $HOME/.docker/config.json
     - name: Push to Docker
       run: push invanalabs/graph-explorer:latest && git push invanalabs/graph-explorer:$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
