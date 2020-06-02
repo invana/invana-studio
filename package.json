@@ -16,7 +16,8 @@
     "react-dom": "^16.13.1",
     "react-json-view": "^1.19.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "babel-plugin-transform-remove-console": "^6.9.4"
   },
   "main": "electron-starter.js",
   "scripts": {

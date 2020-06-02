@@ -64,6 +64,10 @@ export default class GremlinConnectorViewBase extends React.Component {
 
         this.ws.onopen = function (event) {
             console.log("ws-opened");
+            if (window.location.pathname === "/") {
+                window.location.reload();
+            }
+
             _this.setConnected2Gremlin()
 
         };
@@ -85,7 +89,6 @@ export default class GremlinConnectorViewBase extends React.Component {
         this.ws.onclose = function (err) {
             console.log('Connection error using websocket', err);
             _this.setDisconnectedFromGremlin();
-
 
 
             let i = 1;
