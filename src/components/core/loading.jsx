@@ -42,7 +42,7 @@ export default class LoadingDiv extends React.Component {
                     ? (
                         <div className='loadingDiv' style={{"top": divHeight}}>
                             <h3>{this.props.loadingMessage}...</h3>
-                            <p>Elapsed {this.props.loadTimeCounter}s. {this.props.loadingExtraText}</p>
+                            <p>{(this.props.loadTimeCounter)? (<span>Elapsed {this.props.loadTimeCounter}s.</span>):(<span></span>)} {this.props.loadingExtraText}</p>
                             {(this.maxTimeElapsedError === true)
                                 ? (
                                     <span>Strange! this operation took more than {DefaultMaxTimeExlapsedWarninginSeconds}</span>)

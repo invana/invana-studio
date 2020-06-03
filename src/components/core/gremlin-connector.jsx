@@ -101,9 +101,9 @@ export default class GremlinConnectorViewBase extends React.Component {
         this.ws.onopen = function (event) {
             console.log("ws-opened");
             _this.setConnected2Gremlin()
-            // if (window.location.pathname === "/") {
-            //     window.location.reload();
-            // }
+            if (window.location.pathname === "/") {
+                window.location.reload();
+            }
         };
 
         this.ws.onmessage = function (event) {

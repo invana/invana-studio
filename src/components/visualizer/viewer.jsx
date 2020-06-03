@@ -72,11 +72,8 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             this.links = this.links.concat(_.links);
 
         } else if (response.status.code >= 200 && response.status.code <= 300) {
-            let timeString = (this.state.loadTimeCounter === 0) ? "less than a second" :  this.state.loadTimeCounter + "s.";
-             timeString = (this.state.loadTimeCounter === 0) ? "approximately a second" : " approximately " + this.state.loadTimeCounter + "s.";
-
-            _this.updateStatusMessage("Query Successfully Responded;" +
-                " Took " + timeString );
+            let timeString = (this.state.loadTimeCounter === 0) ? "approximately a second" : " approximately " + this.state.loadTimeCounter + "s.";
+            _this.updateStatusMessage("Query Successfully Responded;" + " Took " + timeString);
             let result = _this.gremlin_serializer.process(response);
             let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
             _this.isDataChanged = true;
@@ -201,7 +198,8 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     closeErrorMessage={this.closeErrorMessage.bind(this)}
                 />
                 <CopyRightInfo/>
-                <LoadingDiv loadingMessage={"Querying"} loadTimeCounter={this.state.loadTimeCounter} statusMessage={this.state.statusMessage}/>
+                <LoadingDiv loadingMessage={"Querying"} loadTimeCounter={this.state.loadTimeCounter}
+                            statusMessage={this.state.statusMessage}/>
             </div>
         )
     }
