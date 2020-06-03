@@ -158,19 +158,24 @@ div#canvas-stats {
     position: fixed;
     /*top: 35px;*/
     background: rgba(36, 36, 36, 0.85);
+    padding-top: 34vh;
 }
-.loadingDiv h3{
-    font-size: 1.4rem;
+
+.loadingDiv h3 {
+    margin-top: 1rem;
+    font-size: 1rem;
     color: #a9a9a9;
     text-align: center;
-    margin-top: 45vh;
+    padding-bottom: 0;
 }
-.loadingDiv p{
+
+.loadingDiv p {
     font-size: .7rem;
-    color: #656565;
+    /*color: #656565;*/
     text-align: center;
 
 }
+
 .SelectedDataHeading .itemLabel {
     background: #7d8296;
     padding: 5px 10px;
@@ -230,9 +235,11 @@ input[type="text"]:focus, textarea:focus {
 svg:not(:root).svg-inline--fa {
     color: #b0b0b0;
 }
-.errorMessage{
+
+.errorMessage {
     color: #8b3737;
 }
+
 .errorHideBtn {
     left: 0;
     position: absolute;
@@ -244,7 +251,8 @@ svg:not(:root).svg-inline--fa {
     cursor: pointer;
     margin-top: 0;
 }
-.errorHideBtn:hover{
+
+.errorHideBtn:hover {
     background: #efefef;
 }
 
