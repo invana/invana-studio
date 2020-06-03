@@ -130,7 +130,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                         closeErrorMessage={this.closeErrorMessage.bind(this)}
                     />
                     <CopyRightInfo/>
-                    <LoadingDiv statusMessage={this.state.statusMessage}/>
+                    <LoadingDiv  loadingMessage={"Querying"}  statusMessage={this.state.statusMessage}/>
 
                 </MainContent>
             </div>

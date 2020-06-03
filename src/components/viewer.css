@@ -156,14 +156,20 @@ div#canvas-stats {
     width: 100%;
     display: block;
     position: fixed;
-    top: 35px;
-    background: rgba(2, 2, 2, 0.91);
+    /*top: 35px;*/
+    background: rgba(36, 36, 36, 0.55);
 }
-.loadingDiv p{
-    font-size: 1rem;
+.loadingDiv h3{
+    font-size: 1.4rem;
     color: #a9a9a9;
     text-align: center;
     margin-top: 45vh;
+}
+.loadingDiv p{
+    font-size: .7rem;
+    color: #656565;
+    text-align: center;
+
 }
 .SelectedDataHeading .itemLabel {
     background: #7d8296;
@@ -224,7 +230,9 @@ input[type="text"]:focus, textarea:focus {
 svg:not(:root).svg-inline--fa {
     color: #b0b0b0;
 }
-
+.errorMessage{
+    color: #8b3737;
+}
 .errorHideBtn {
     left: 0;
     position: absolute;

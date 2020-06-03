@@ -1,5 +1,6 @@
 import {GREMLIN_SERVER_URL, DefaultConnectionRetryTimeout, UUIDGenerator} from "../../config";
 import React from "react";
+import {Redirect} from "react-router-dom";
 
 
 export default class GremlinConnectorViewBase extends React.Component {
@@ -10,6 +11,7 @@ export default class GremlinConnectorViewBase extends React.Component {
      */
     constructor() {
         // This component can load
+        console.log("GremlinConnectorViewBase")
         super();
         this.state = {
             "freshQuery": true,
@@ -17,7 +19,9 @@ export default class GremlinConnectorViewBase extends React.Component {
             "isConnected2Server": "",
             "statusMessage": "",
             "errorMessage": "",
-            "showErrorMessage": true
+            "isQuerying": false,
+            "showErrorMessage": true,
+
 
         };
     }
@@ -25,17 +29,31 @@ export default class GremlinConnectorViewBase extends React.Component {
     nodes = []; // this is used to store during 206(partial data) status
     links = [];
 
-    ws = this.createNewWebsocket();
 
     createNewWebsocket() {
-        return new WebSocket(GREMLIN_SERVER_URL);
+        console.log("thi.createNewWebsocket", GREMLIN_SERVER_URL);
+        if (GREMLIN_SERVER_URL) {
+            return new WebSocket(GREMLIN_SERVER_URL);
+        } else {
+            const u = new URL(window.location.href);
+            if (u.pathname !== "/") {
+                window.location.href = encodeURIComponent("/?next=" + u.pathname + u.search);
+            }
+        }
+
     }
 
 
-    componentDidMount() {
+    ws = this.createNewWebsocket()
 
-        this.setupGremlinServer();
-        this.onPageLoadInitQuery();
+
+    componentDidMount() {
+        console.log("connector base componentDidMount", GREMLIN_SERVER_URL)
+        if (GREMLIN_SERVER_URL) {
+            this.setupGremlinServer();
+            this.onPageLoadInitQuery();
+        }
+
 
     }
 
@@ -47,9 +65,8 @@ export default class GremlinConnectorViewBase extends React.Component {
 
     onPageLoadInitQuery() {
         let query = new URLSearchParams(window.location.search).get("query");
-        if (this.ws) {
-            this.queryGremlinServer(query, true);
-        }
+        this.queryGremlinServer(query, true);
+
 
     }
 
@@ -59,17 +76,15 @@ export default class GremlinConnectorViewBase extends React.Component {
 
 
          */
-
+        console.log("======setupGremlinServer")
         let _this = this;
 
         this.ws.onopen = function (event) {
             console.log("ws-opened");
-            if (window.location.pathname === "/") {
-                window.location.reload();
-            }
-
             _this.setConnected2Gremlin()
-
+            // if (window.location.pathname === "/") {
+            //     window.location.reload();
+            // }
         };
 
         this.ws.onmessage = function (event) {
@@ -161,7 +176,7 @@ export default class GremlinConnectorViewBase extends React.Component {
         console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
 
         this.setState({
-            "gremlinQuery": query
+            "gremlinQuery": query,
         })
 
 
@@ -178,25 +193,31 @@ export default class GremlinConnectorViewBase extends React.Component {
                 }
             };
 
+
             let data = JSON.stringify(msg);
             console.log("Query long one", data);
-            if (this.ws.readyState === 1) {
-                _this.ws.send(data, {mask: true});
-                _this.updateStatusMessage("Sending a Query")
-            } else {
-                _this.ws.onopen = function () {
+            if (this.ws) {
+
+
+                if (this.ws.readyState === 1) {
                     _this.ws.send(data, {mask: true});
                     _this.updateStatusMessage("Sending a Query")
-                };
+                } else {
+                    _this.ws.onopen = function () {
+                        _this.ws.send(data, {mask: true});
+                        _this.updateStatusMessage("Sending a Query")
+                    };
+                }
+
+                if (freshQuery === true) {
+                    this.addQueryToUrl(query);
+                    this.updateQueryInput(query);
+                }
+                _this.setState({
+                    "freshQuery": freshQuery
+                })
             }
 
-            if (freshQuery === true) {
-                this.addQueryToUrl(query);
-                this.updateQueryInput(query);
-            }
-            _this.setState({
-                "freshQuery": freshQuery
-            })
         }
 
     }

@@ -203,7 +203,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
 
                     />
                     <CopyRightInfo/>
-                    <LoadingDiv statusMessage={this.state.statusMessage}/>
+                    <LoadingDiv loadingMessage={"Loading"}  statusMessage={this.state.statusMessage}/>
 
                 </MainContent>
 

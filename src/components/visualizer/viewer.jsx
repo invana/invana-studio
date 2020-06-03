@@ -15,7 +15,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
     isDataChanged = true;
 
-    getDataFromStorage(itemKey) {
+    getDataFromLocalStorage(itemKey) {
         try {
             return JSON.parse(localStorage.getItem(itemKey))
         } catch (e) {
@@ -32,8 +32,8 @@ export default class GraphViewer extends GremlinConnectorViewBase {
             "showProperties": false,
             "selectedData": {},
             "labelsConfig": null,
-            "nodeLabels": this.getDataFromStorage("nodeLabels"),
-            "linkLabels": this.getDataFromStorage("linkLabels"),
+            "nodeLabels": this.getDataFromLocalStorage("nodeLabels"),
+            "linkLabels": this.getDataFromLocalStorage("linkLabels"),
         };
     }
 
@@ -136,8 +136,9 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     }
 
     componentDidMount() {
-        this.setupGremlinServer()
-        this.onPageLoadInitQuery()
+        super.componentDidMount();
+        // this.setupGremlinServer()
+        // this.onPageLoadInitQuery()
         // this.getLabelsConfigFromStorage();
     }
 
@@ -196,7 +197,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     closeErrorMessage={this.closeErrorMessage.bind(this)}
                 />
                 <CopyRightInfo/>
-                <LoadingDiv statusMessage={this.state.statusMessage} />
+                <LoadingDiv loadingMessage={"Querying"} statusMessage={this.state.statusMessage}/>
             </div>
         )
     }
