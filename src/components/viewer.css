@@ -157,7 +157,7 @@ div#canvas-stats {
     display: block;
     position: fixed;
     /*top: 35px;*/
-    background: rgba(36, 36, 36, 0.55);
+    background: rgba(36, 36, 36, 0.85);
 }
 .loadingDiv h3{
     font-size: 1.4rem;

@@ -1,4 +1,9 @@
-import {GREMLIN_SERVER_URL, DefaultConnectionRetryTimeout, UUIDGenerator} from "../../config";
+import {
+    GREMLIN_SERVER_URL,
+    DefaultConnectionRetryTimeout,
+    UUIDGenerator,
+    DefaultMaxTimeExlapsedWarninginSeconds
+} from "../../config";
 import React from "react";
 import {Redirect} from "react-router-dom";
 
@@ -21,6 +26,8 @@ export default class GremlinConnectorViewBase extends React.Component {
             "errorMessage": "",
             "isQuerying": false,
             "showErrorMessage": true,
+            loadTimeCounter: 0,
+            maxTimeElapsedError: false
 
 
         };
@@ -63,6 +70,18 @@ export default class GremlinConnectorViewBase extends React.Component {
         })
     }
 
+    _processGremlinResponseEvent(event) {
+        // wrapper to do some common chores
+        let response = JSON.parse(event.data);
+        console.log("onmessage received", response);
+        if (response.status.code !== 206) {
+            this.setState({
+                "isQuerying": false
+            })
+        }
+        this.processGremlinResponseEvent(event);
+    }
+
     onPageLoadInitQuery() {
         let query = new URLSearchParams(window.location.search).get("query");
         this.queryGremlinServer(query, true);
@@ -88,7 +107,7 @@ export default class GremlinConnectorViewBase extends React.Component {
         };
 
         this.ws.onmessage = function (event) {
-            _this.processGremlinResponseEvent(event);
+            _this._processGremlinResponseEvent(event);
             // _this.updateStatusMessage("Query Successfully Responded.");
 
         };
@@ -106,11 +125,10 @@ export default class GremlinConnectorViewBase extends React.Component {
             _this.setDisconnectedFromGremlin();
 
 
-            let i = 1;
+            let i = 0;
             let timer = setInterval((function () {
-
-                    _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (DefaultConnectionRetryTimeout) + "s 'retry in' time...");
                     i += 1;
+                    _this.updateStatusMessage("Connection Attempt Failed. Waited " + i + "s of " + (DefaultConnectionRetryTimeout) + "s 'retry in' time...");
 
                     if (i > DefaultConnectionRetryTimeout) {
                         clearInterval(timer);
@@ -164,6 +182,24 @@ export default class GremlinConnectorViewBase extends React.Component {
         })
     }
 
+    startTimer() {
+
+        let _this = this;
+        let timer = setInterval((function () {
+                console.log("Timer started xyx", _this.state.loadTimeCounter);
+                if (_this.state.isQuerying === false) {
+                    clearInterval(timer);
+                }
+                _this.setState({loadTimeCounter: _this.state.loadTimeCounter + 1, maxTimeElapsedError: false});
+                if (_this.state.loadTimeCounter >= DefaultMaxTimeExlapsedWarninginSeconds) {
+                    _this.setState({loadTimeCounter: _this.state.loadTimeCounter + 1, maxTimeElapsedError: true});
+
+                }
+            }
+        ), 1000); // retry in 5 seconds
+
+    }
+
     queryGremlinServer(query, freshQuery) {
         let _this = this;
         if (typeof freshQuery === "undefined") {
@@ -176,11 +212,14 @@ export default class GremlinConnectorViewBase extends React.Component {
         console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
 
         this.setState({
-            "gremlinQuery": query,
+            gremlinQuery: query,
+            loadTimeCounter: 0,
+            isQuerying: true
         })
 
 
         if (query) {
+            this.startTimer();
 
             let msg = {
                 "requestId": UUIDGenerator(),
@@ -197,11 +236,13 @@ export default class GremlinConnectorViewBase extends React.Component {
             let data = JSON.stringify(msg);
             console.log("Query long one", data);
             if (this.ws) {
-
+                _this.setState({
+                    "freshQuery": freshQuery
+                })
 
                 if (this.ws.readyState === 1) {
                     _this.ws.send(data, {mask: true});
-                    _this.updateStatusMessage("Sending a Query")
+                    _this.updateStatusMessage("Sending a Query");
                 } else {
                     _this.ws.onopen = function () {
                         _this.ws.send(data, {mask: true});
@@ -217,6 +258,7 @@ export default class GremlinConnectorViewBase extends React.Component {
                     "freshQuery": freshQuery
                 })
             }
+
 
         }
 

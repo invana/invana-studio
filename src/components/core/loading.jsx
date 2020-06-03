@@ -11,10 +11,10 @@ export default class LoadingDiv extends React.Component {
     }
 
     updateStatus(timerCount, maxTimeElapsedError) {
-        this.setState({
-            timerCount: timerCount,
-            maxTimeElapsedError: maxTimeElapsedError
-        })
+        // this.setState({
+        //     timerCount: timerCount,
+        //     maxTimeElapsedError: maxTimeElapsedError
+        // })
     }
 
 
@@ -23,11 +23,11 @@ export default class LoadingDiv extends React.Component {
     }
 
     //
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-        return false;
-
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //
+    //     return false;
+    //
+    // }
 
     render() {
         let _this = this;
@@ -35,15 +35,6 @@ export default class LoadingDiv extends React.Component {
         if (window.location.pathname === "/explorer") {
             divHeight = "35px";
         }
-        let i = 1;
-        // let timer = setInterval((function () {
-        //         _this.updateStatus(i, false);
-        //         i += 1;
-        //         if (i >= DefaultMaxTimeExlapsedWarninginSeconds) {
-        //             _this.updateStatus(i, true);
-        //         }
-        //     }
-        // ), 1000); // retry in 5 seconds
 
         return (
             <div>
@@ -51,7 +42,12 @@ export default class LoadingDiv extends React.Component {
                     ? (
                         <div className='loadingDiv' style={{"top": divHeight}}>
                             <h3>{this.props.loadingMessage}...</h3>
-                            <p>Elapsed {this.state.timerCount}s. {this.props.loadingExtraText}</p>
+                            <p>Elapsed {this.props.loadTimeCounter}s. {this.props.loadingExtraText}</p>
+                            {(this.maxTimeElapsedError === true)
+                                ? (
+                                    <span>Strange! this operation took more than {DefaultMaxTimeExlapsedWarninginSeconds}</span>)
+                                : (<span></span>)
+                            }
                         </div>
                     ) : (<span></span>)
                 }
