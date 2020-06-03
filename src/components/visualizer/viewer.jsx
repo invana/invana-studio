@@ -15,7 +15,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
     isDataChanged = true;
 
-    getDataFromStorage(itemKey) {
+    getDataFromLocalStorage(itemKey) {
         try {
             return JSON.parse(localStorage.getItem(itemKey))
         } catch (e) {
@@ -23,17 +23,19 @@ export default class GraphViewer extends GremlinConnectorViewBase {
         }
     }
 
-    constructor() {
+    constructor(props) {
         // This component can load
-        super();
+        super(props);
         this.state = {
             "nodes": [],
             "links": [],
             "showProperties": false,
+            showLoading: false,
+
             "selectedData": {},
             "labelsConfig": null,
-            "nodeLabels": this.getDataFromStorage("nodeLabels"),
-            "linkLabels": this.getDataFromStorage("linkLabels"),
+            "nodeLabels": this.getDataFromLocalStorage("nodeLabels"),
+            "linkLabels": this.getDataFromLocalStorage("linkLabels"),
         };
     }
 
@@ -65,14 +67,15 @@ export default class GraphViewer extends GremlinConnectorViewBase {
         console.log("onmessage received", response);
         if (response.status.code === 206) {
             //
-            _this.updateStatusMessage("Query Successfully Responded.");
+            _this.updateStatusMessage("Listing to data streaming");
             const result = _this.gremlin_serializer.process(response);
             const _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
             this.nodes = this.nodes.concat(_.nodes);
             this.links = this.links.concat(_.links);
 
         } else if (response.status.code >= 200 && response.status.code <= 300) {
-            _this.updateStatusMessage("Query Successfully Responded.");
+            let timeString = (this.state.loadTimeCounter === 0) ? "approximately a second" : " approximately " + this.state.loadTimeCounter + "s.";
+            _this.updateStatusMessage("Query Successfully Responded;" + " Took " + timeString);
             let result = _this.gremlin_serializer.process(response);
             let _ = _this.gremlin_serializer.seperate_vertices_and_edges(result);
             _this.isDataChanged = true;
@@ -80,8 +83,8 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                 // extend the graph if this is not fresh query.
 
                 // if
-                let existingNodes = []
-                let existingLinks = []
+                let existingNodes = [];
+                let existingLinks = [];
                 if (this.nodes.length > 0) {
                     // check for
                     existingNodes = _this.nodes;
@@ -136,8 +139,9 @@ export default class GraphViewer extends GremlinConnectorViewBase {
     }
 
     componentDidMount() {
-        this.setupGremlinServer()
-        this.onPageLoadInitQuery()
+        super.componentDidMount();
+        // this.setupGremlinServer()
+        // this.onPageLoadInitQuery()
         // this.getLabelsConfigFromStorage();
     }
 
@@ -196,7 +200,12 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     closeErrorMessage={this.closeErrorMessage.bind(this)}
                 />
                 <CopyRightInfo/>
-                <LoadingDiv statusMessage={this.state.statusMessage} />
+                <LoadingDiv
+                    loadingMessage={"Querying"}
+                    loadTimeCounter={this.state.loadTimeCounter}
+                    showLoading={this.state.showLoading}
+                    loadTimeCounter={this.state.loadTimeCounter}
+                />
             </div>
         )
     }

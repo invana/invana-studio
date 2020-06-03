@@ -7,7 +7,7 @@ import ManagementSettingsView from "./pages/management/settings";
 import HistoryView from "./pages/history";
 import AboutView from "./pages/about";
 import Console from "./pages/console";
-import LandingPageView from "./pages/index";
+import IndexPageView from "./pages/index";
 
 import {
     BrowserRouter as Router,
@@ -33,7 +33,7 @@ export default class App extends React.Component {
             <Router>
                 <Suspense fallback={<div style={{"color": "white"}}>Loading...</div>}>
                     <Switch>
-                        <Route exact path="/" component={LandingPageView}/>
+                        <Route exact path="/" component={IndexPageView}/>
                         <Route exact path="/explorer" component={GraphExplorerView}/>
                         <Route exact path="/management" children={<Redirect to="/management/nodes" push={true}/>}/>
 

@@ -1,5 +1,6 @@
-
-export const GREMLIN_SERVER_URL = process.env.GREMLIN_SERVER_URL ? process.env.GREMLIN_SERVER_URL : "ws://127.0.0.1:8182/gremlin";
+export const gremlinServerUrlKey = "GREMLIN_SERVER_URL";
+export const DefaultGremlinServerUrl = "ws://localhost:8182/gremlin";
+export const GREMLIN_SERVER_URL = localStorage.getItem(gremlinServerUrlKey);
 export const InvanaManagementLabel = "InvanaManagement"
 export const DefaultNodeBgColor = "#444444";
 export const DefaultNodeBorderColor = "#4385b8";
@@ -20,6 +21,7 @@ export const DefaultLabelVisibility = false;
 export const DefaultHoverOpacity = 0.8;
 
 export const DefaultConnectionRetryTimeout = 10;
+export const DefaultMaxTimeExlapsedWarninginSeconds = 180;
 export const linkCurvature = .85;
 
 // export function uuidv4() {

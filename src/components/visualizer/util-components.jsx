@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from "react-router-dom";
 
 
 export default function CanvasStatsCanvas(props) {
@@ -35,6 +36,15 @@ export class ConnectionStatus extends React.Component {
     }
 
     render() {
+        const u = new URL(window.location.href);
+
+        // if ((this.props.isConnected2Server !== true || this.props.isConnected2Server !== "")
+        //     && u.pathname !== "/") {
+        //     let nextUrl = "/?next=" + u.pathname + u.search;
+        //     return (
+        //         <Redirect to={nextUrl}/>
+        //     )
+        // }
         this.startRenderingConnectionStatus();
 
         console.log("=================== Rendering the Viewer ===================");
@@ -43,13 +53,14 @@ export class ConnectionStatus extends React.Component {
         return (
             <div id="connection-status">
                 <span>{this.props.statusMessage}</span>
-                { this.props.showErrorMessage && this.props.errorMessage ?
+                {this.props.showErrorMessage && this.props.errorMessage ?
                     (
                         <div id={"errorMessage"}>
-                            <button onClick={this.props.closeErrorMessage} className={"errorHideBtn"}>dismiss message</button>
-                            <div style={{"marginTop":"15px"}}>{this.props.errorMessage}</div>
+                            <button onClick={this.props.closeErrorMessage} className={"errorHideBtn"}>dismiss message
+                            </button>
+                            <div style={{"marginTop": "15px"}}>{this.props.errorMessage}</div>
                         </div>
-                    ) : ( <span></span>)
+                    ) : (<span></span>)
                 }
             </div>
         )
