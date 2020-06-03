@@ -3,31 +3,6 @@ import {DefaultConnectionRetryTimeout, DefaultMaxTimeExlapsedWarninginSeconds} f
 
 export default class LoadingDiv extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            "timerCount": 0
-        }
-    }
-
-    updateStatus(timerCount, maxTimeElapsedError) {
-        // this.setState({
-        //     timerCount: timerCount,
-        //     maxTimeElapsedError: maxTimeElapsedError
-        // })
-    }
-
-
-    componentDidMount() {
-        this.updateStatus(0, false)
-    }
-
-    //
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //
-    //     return false;
-    //
-    // }
 
     render() {
         let _this = this;
@@ -35,14 +10,16 @@ export default class LoadingDiv extends React.Component {
         if (window.location.pathname === "/explorer") {
             divHeight = "35px";
         }
+            console.log("this.props.showLoading", this.props.showLoading);
 
         return (
             <div>
-                {(this.props.statusMessage && this.props.statusMessage.toLowerCase().includes("sending"))
+                {(this.props.showLoading === true)
                     ? (
                         <div className='loadingDiv' style={{"top": divHeight}}>
                             <h3>{this.props.loadingMessage}...</h3>
-                            <p>{(this.props.loadTimeCounter)? (<span>Elapsed {this.props.loadTimeCounter}s.</span>):(<span></span>)} {this.props.loadingExtraText}</p>
+                            <p>{(this.props.loadTimeCounter) ? (<span>Elapsed {this.props.loadTimeCounter}s.</span>) : (
+                                <span></span>)} {this.props.loadingExtraText}</p>
                             {(this.maxTimeElapsedError === true)
                                 ? (
                                     <span>Strange! this operation took more than {DefaultMaxTimeExlapsedWarninginSeconds}</span>)

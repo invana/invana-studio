@@ -180,7 +180,7 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
 
                     />
                     <CopyRightInfo/>
-                    <LoadingDiv loadingMessage={"Loading"}  statusMessage={this.state.statusMessage}/>
+                    <LoadingDiv loadingMessage={"Loading"}  showLoading={this.state.showLoading}/>
 
                 </MainContent>
 

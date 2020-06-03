@@ -23,13 +23,15 @@ export default class GraphViewer extends GremlinConnectorViewBase {
         }
     }
 
-    constructor() {
+    constructor(props) {
         // This component can load
-        super();
+        super(props);
         this.state = {
             "nodes": [],
             "links": [],
             "showProperties": false,
+            showLoading: false,
+
             "selectedData": {},
             "labelsConfig": null,
             "nodeLabels": this.getDataFromLocalStorage("nodeLabels"),
@@ -198,8 +200,12 @@ export default class GraphViewer extends GremlinConnectorViewBase {
                     closeErrorMessage={this.closeErrorMessage.bind(this)}
                 />
                 <CopyRightInfo/>
-                <LoadingDiv loadingMessage={"Querying"} loadTimeCounter={this.state.loadTimeCounter}
-                            statusMessage={this.state.statusMessage}/>
+                <LoadingDiv
+                    loadingMessage={"Querying"}
+                    loadTimeCounter={this.state.loadTimeCounter}
+                    showLoading={this.state.showLoading}
+                    loadTimeCounter={this.state.loadTimeCounter}
+                />
             </div>
         )
     }

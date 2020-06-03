@@ -19,23 +19,20 @@ export default class GremlinConnectorViewBase extends React.Component {
         console.log("GremlinConnectorViewBase")
         super();
         this.state = {
-            "freshQuery": true,
-            "gremlinQuery": "",
-            "isConnected2Server": "",
-            "statusMessage": "",
-            "errorMessage": "",
-            "isQuerying": false,
-            "showErrorMessage": true,
+            freshQuery: true,
+            gremlinQuery: "",
+            isConnected2Server: "",
+            statusMessage: "",
+            errorMessage: "",
+            showLoading: false,
+            showErrorMessage: true,
             loadTimeCounter: 0,
             maxTimeElapsedError: false
-
-
         };
     }
 
     nodes = []; // this is used to store during 206(partial data) status
     links = [];
-
 
     createNewWebsocket() {
         console.log("thi.createNewWebsocket", GREMLIN_SERVER_URL);
@@ -47,7 +44,6 @@ export default class GremlinConnectorViewBase extends React.Component {
                 window.location.href = encodeURIComponent("/?next=" + u.pathname + u.search);
             }
         }
-
     }
 
 
@@ -55,13 +51,12 @@ export default class GremlinConnectorViewBase extends React.Component {
 
 
     componentDidMount() {
-        console.log("connector base componentDidMount", GREMLIN_SERVER_URL)
+        console.log("connector base componentDidMount", GREMLIN_SERVER_URL, this.state);
+        this.setState({"showLoading": false});
         if (GREMLIN_SERVER_URL) {
             this.setupGremlinServer();
             this.onPageLoadInitQuery();
         }
-
-
     }
 
     updateStatusMessage(statusMessage) {
@@ -76,7 +71,7 @@ export default class GremlinConnectorViewBase extends React.Component {
         console.log("onmessage received", response);
         if (response.status.code !== 206) {
             this.setState({
-                "isQuerying": false
+                "showLoading": false
             })
         }
         this.processGremlinResponseEvent(event);
@@ -187,7 +182,7 @@ export default class GremlinConnectorViewBase extends React.Component {
         let _this = this;
         let timer = setInterval((function () {
                 console.log("Timer started xyx", _this.state.loadTimeCounter);
-                if (_this.state.isQuerying === false) {
+                if (_this.state.showLoading === false) {
                     clearInterval(timer);
                 }
                 _this.setState({loadTimeCounter: _this.state.loadTimeCounter + 1, maxTimeElapsedError: false});
@@ -211,14 +206,14 @@ export default class GremlinConnectorViewBase extends React.Component {
 
         console.log("queryGremlinServer ::: freshQuery, query", freshQuery, query);
 
-        this.setState({
-            gremlinQuery: query,
-            loadTimeCounter: 0,
-            isQuerying: true
-        })
-
 
         if (query) {
+            this.setState({
+                gremlinQuery: query,
+                loadTimeCounter: 0,
+                showLoading: true
+            })
+
             this.startTimer();
 
             let msg = {

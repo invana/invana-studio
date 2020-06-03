@@ -74,13 +74,13 @@ export default class IndexPageView extends GremlinConnectorViewBase {
 
     render() {
         console.log("state.successLoading", this.state.successLoading, this.state);
-
-        console.log("=====state", this.state);
         let u = new URL(window.location.href);
 
         if (this.state.successLoading && u.searchParams.get('next')) {
+            this.setState({"showLoading": false})
             return (<Redirect to={decodeURIComponent(u.searchParams.get('next'))}/>)
         } else if (this.state.successLoading === true) {
+            this.setState({"showLoading": false})
             return (<Redirect to='/explorer'/>)
         } else {
 
@@ -89,7 +89,7 @@ export default class IndexPageView extends GremlinConnectorViewBase {
 
                 <div>
                     {
-                        (!this.state.gremlinServerUrl ) ? (
+                        (!this.state.gremlinServerUrl) ? (
                             <StartupUIComponent/>
                         ) : (
                             <div>
@@ -100,9 +100,10 @@ export default class IndexPageView extends GremlinConnectorViewBase {
                                     errorMessage={this.state.errorMessage}
                                     closeErrorMessage={this.closeErrorMessage.bind(this)}
                                 />
-                                <LoadingDiv loadingMessage={"Attempting Connection"}
-                                            loadingExtraText={"connecting to " + this.state.gremlinServerUrl}
-                                            statusMessage={this.state.statusMessage}
+                                <LoadingDiv loadingMessage={"Connecting to Gremlin Server"}
+                                            loadingExtraText={"establishing connection to " + this.state.gremlinServerUrl}
+                                            showLoading={this.state.showLoading}
+                                            loadTimeCounter={this.state.loadTimeCounter}
                                 />
                             </div>
                         )
