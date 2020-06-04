@@ -22,7 +22,7 @@
   "main": "electron-starter.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && git rev-parse HEAD > build/build.txt",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "serve -s build"
@@ -44,5 +44,17 @@
   },
   "devDependencies": {
     "server": "^1.0.27"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "transform-remove-console"
+        ]
+      }
+    }
   }
 }

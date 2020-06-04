@@ -4,6 +4,9 @@ import LeftNav from "../components/core/left-nav"
 import MainContent from "../components/core/main-content";
 
 export default function GraphExplorerView() {
+
+
+
     return (
         <div className="App">
 

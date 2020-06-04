@@ -77,7 +77,9 @@ export default class ConsoleView extends GremlinConnectorViewBase {
         const response = JSON.parse(event.data);
         console.log("onmessage received", response);
         if (response.status.code && (response.status.code >= 200 && response.status.code < 300)) {
-            _this.updateStatusMessage("Query Successfully Responded.");
+            let timeString = (this.state.loadTimeCounter === 0) ? "approximately a second" : " approximately " + this.state.loadTimeCounter + "s.";
+
+            _this.updateStatusMessage("Query Successfully Responded;" + " Took " + timeString);
             _this.setState({
                 "errorMessage": null,
                 result: response.result
@@ -130,7 +132,10 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                         closeErrorMessage={this.closeErrorMessage.bind(this)}
                     />
                     <CopyRightInfo/>
-                    <LoadingDiv statusMessage={this.state.statusMessage}/>
+                    <LoadingDiv
+                        loadTimeCounter={this.state.loadTimeCounter}
+                        loadingMessage={"Querying"}
+                        showLoading={this.state.showLoading}/>
 
                 </MainContent>
             </div>
