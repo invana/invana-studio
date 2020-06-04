@@ -22,7 +22,7 @@
   "main": "electron-starter.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && git rev-parse HEAD > build/build.txt",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "serve -s build"
