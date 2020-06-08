@@ -4,6 +4,7 @@ import GraphExplorerView from "./pages/explorer";
 import NodesManagementView from "./pages/management/nodes";
 import LinksManagementView from "./pages/management/links";
 import ManagementSettingsView from "./pages/management/settings";
+import IndexesSettingsView from "./pages/management/indexes";
 import HistoryView from "./pages/history";
 import AboutView from "./pages/about";
 import Console from "./pages/console";
@@ -40,6 +41,7 @@ export default class App extends React.Component {
                         <Route exact path="/management/nodes" component={NodesManagementView}/>
                         <Route exact path="/management/links" component={LinksManagementView}/>
                         <Route exact path="/management/settings" component={ManagementSettingsView}/>
+                        <Route exact path="/management/indexes" component={IndexesSettingsView}/>
                         <Route exact path="/about" component={AboutView}/>
                         <Route exact path="/console" component={Console}/>
                         <Route exact path="/history" component={HistoryView}/>

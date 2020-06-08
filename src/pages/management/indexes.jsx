@@ -9,14 +9,14 @@ import GremlinResponseSerializers from "../../components/visualizer/gremlin-seri
 import LoadingDiv from "../../components/core/loading";
 import ManagementNav from "./nav";
 
-export default class ManagementSettingsView extends GremlinConnectorViewBase {
+export default class IndexesSettingsView extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
 
 
     constructor(props) {
         super(props);
         this.state = {
-            "title": "Settings | Management",
+            "title": "Indexes | Management",
             "links": []
         }
     }

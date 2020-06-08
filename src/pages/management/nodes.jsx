@@ -11,6 +11,7 @@ import {
     DefaultNodeBorderColor, DefaultNodeBgPropertyKey
 } from "../../config";
 import LoadingDiv from "../../components/core/loading";
+import ManagementNav from "./nav";
 
 export default class NodesManagementView extends GremlinConnectorViewBase {
     gremlin_serializer = new GremlinResponseSerializers();
@@ -81,7 +82,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
             _this.updateStatusMessage("Query Successfully Responded.");
             // create Management data needed if necessary.
             let _type = null;
-            if (response.result.data){
+            if (response.result.data) {
                 _type = response.result.data['@value'][0]['@type'];
             }
             if (_type === "g:List") {
@@ -140,12 +141,8 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                 <MainContent>
                     <HeaderNav title={this.state.title}/>
                     <div className="" style={{"padding": "15px"}}>
-                        <ul className={"nav"}>
-                            <li><a href="/management/nodes">Nodes</a></li>
-                            <li><a href="/management/links">Links</a></li>
-                            <li><a href="/management/settings">Settings</a></li>
+                        <ManagementNav/>
 
-                        </ul>
                         <hr/>
 
                         {
@@ -203,7 +200,7 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
 
                     />
                     <CopyRightInfo/>
-                    <LoadingDiv loadingMessage={"Loading"}  showLoading={this.state.showLoading}/>
+                    <LoadingDiv loadingMessage={"Loading"} showLoading={this.state.showLoading}/>
 
                 </MainContent>
 
