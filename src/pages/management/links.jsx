@@ -146,15 +146,15 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                                          style={{
                                              "backgroundColor": link.properties.pathColor,
                                          }}>&nbsp;</div>
-                                    <input type="text" name={"name"} readOnly={"readonly"}
+                                    <input type="text" name={"name"}  spellcheck="false"  readOnly={"readonly"}
                                            defaultValue={link.properties.name}/>
-                                    <input type="hidden" name={"label"} defaultValue={link.label}/>
+                                    <input type="hidden" name={"label"}  defaultValue={link.label}/>
                                     <input type="hidden" name={"uid"} defaultValue={link.id}/>
 
-                                    <input type="text" name={"pathColor"} maxLength={7} minLength={7}
+                                    <input type="text" name={"pathColor"} spellcheck="false"  maxLength={7} minLength={7}
                                            placeholder={"pathColor"}
                                            defaultValue={link.properties.linkTextColor}/>
-                                    <input type="text" name={"linkTextColor"} maxLength={7} minLength={7}
+                                    <input type="text" name={"linkTextColor"} spellcheck="false"  maxLength={7} minLength={7}
                                            placeholder={"linkTextColor"}
                                            defaultValue={link.properties.linkTextColor}/>
 

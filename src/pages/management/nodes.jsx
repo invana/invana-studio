@@ -157,26 +157,29 @@ export default class NodesManagementView extends GremlinConnectorViewBase {
                                                  "borderColor": vertex.properties.borderColor
                                              }}>&nbsp;
                                         </div>
-                                        <input type="text" name={"name"} readOnly={"readonly"}
+                                        <input type="text" name={"name"} readOnly={"readonly"}  spellcheck="false"
                                                defaultValue={vertex.properties.name}/>
                                         <input type="hidden" name={"label"} defaultValue={vertex.label}/>
                                         <input type="hidden" name={"uid"} defaultValue={vertex.id}/>
 
                                         <input type="text" name={"bgColor"} maxLength={7} minLength={7}
-                                               placeholder={"bgColor"}
+                                               placeholder={"bgColor"}  spellcheck="false"
                                                defaultValue={vertex.properties.bgColor}/>
                                         <input type="text" name={"borderColor"} maxLength={7} minLength={7}
-                                               placeholder={"borderColor"}
+                                               placeholder={"borderColor"}  spellcheck="false"
                                                defaultValue={vertex.properties.borderColor}/>
 
                                         <input type="text" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
+                                               spellcheck="false"
                                                defaultValue={vertex.properties.bgImageUrl || ""}/>
 
                                         <input type="text" name={"bgImagePropertyKey"}
+                                               spellcheck="false"
                                                placeholder={"bgImagePropertyKey (optional)"}
                                                defaultValue={vertex.properties.bgImagePropertyKey || ""}/>
 
                                         <input type="text" name={"tagHtml"}
+                                               spellcheck="false"
                                                placeholder={"tagHtml (optional)"}
                                                defaultValue={vertex.properties.tagHtml || ""}/>
 

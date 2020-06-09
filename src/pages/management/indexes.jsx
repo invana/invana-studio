@@ -22,6 +22,44 @@ export default class IndexesSettingsView extends GremlinConnectorViewBase {
     }
 
 
+    processGremlinResponseEvent(event) {
+        let _this = this;
+        let response = JSON.parse(event.data);
+        console.log("onmessage received", response);
+        if (response.status.code >= 200 || response.status.code < 300) {
+            _this.updateStatusMessage("Query Successfully Responded.");
+            // create Management data needed if necessary.
+            let _type = null;
+            if (response.result.data) {
+                _type = response.result.data['@value'][0]['@type'];
+            }
+
+            if (_type === "g:List") {
+                let linkStats = this.serializeStatsData(response.result.data);
+                this.checkIfExistOrCreate(linkStats)
+            } else if (_type === "g:Vertex") {
+                let serializedData = this.serializeManagementVerticesData(response);
+                _this.updateStatusMessage("Query Successfully Responded.");
+                _this.setState({
+                    "errorMessage": null,
+                    links: serializedData
+                })
+            }
+        } else {
+
+            _this.setState({
+                "errorMessage": JSON.stringify(response,),
+                "showErrorMessage": true,
+                "statusMessage": "Query Successfully Responded." +
+                    " But returned non 200 status[" + response.status.code + "]"
+            })
+        }
+    }
+
+    getIndexesData() {
+        this.queryGremlinServer("links=g.E().label().groupCount().toList(); [ links]", false)
+    }
+
     componentDidMount() {
         super.componentDidMount.apply(this);
     }
