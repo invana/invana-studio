@@ -103,6 +103,7 @@ export default class IndexPageView extends GremlinConnectorViewBase {
                                 <LoadingDiv loadingMessage={"Connecting to Gremlin Server"}
                                             loadingExtraText={"establishing connection to " + this.state.gremlinServerUrl}
                                             showLoading={this.state.showLoading}
+                                            showSignout={true}
                                             loadTimeCounter={this.state.loadTimeCounter}
                                 />
                             </div>

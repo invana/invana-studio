@@ -11,6 +11,7 @@ import {
     DefaultLinkPathColor, DefaultLinkTextColor
 } from "../../config";
 import LoadingDiv from "../../components/core/loading";
+import ManagementNav from "./nav";
 
 
 export default class LinksManagementView extends GremlinConnectorViewBase {
@@ -134,11 +135,7 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                 <MainContent>
                     <HeaderNav title={this.state.title}/>
                     <div className="" style={{"padding": "15px"}}>
-                        <ul className={"nav"}>
-                            <li><a href="/management/nodes">Nodes</a></li>
-                            <li><a href="/management/links">Links</a></li>
-                            <li><a href="/management/settings">Settings</a></li>
-                        </ul>
+                        <ManagementNav/>
                         <hr/>
 
                         {
@@ -149,15 +146,15 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
                                          style={{
                                              "backgroundColor": link.properties.pathColor,
                                          }}>&nbsp;</div>
-                                    <input type="text" name={"name"} readOnly={"readonly"}
+                                    <input type="text" name={"name"}  spellcheck="false"  readOnly={"readonly"}
                                            defaultValue={link.properties.name}/>
-                                    <input type="hidden" name={"label"} defaultValue={link.label}/>
+                                    <input type="hidden" name={"label"}  defaultValue={link.label}/>
                                     <input type="hidden" name={"uid"} defaultValue={link.id}/>
 
-                                    <input type="text" name={"pathColor"} maxLength={7} minLength={7}
+                                    <input type="text" name={"pathColor"} spellcheck="false"  maxLength={7} minLength={7}
                                            placeholder={"pathColor"}
                                            defaultValue={link.properties.linkTextColor}/>
-                                    <input type="text" name={"linkTextColor"} maxLength={7} minLength={7}
+                                    <input type="text" name={"linkTextColor"} spellcheck="false"  maxLength={7} minLength={7}
                                            placeholder={"linkTextColor"}
                                            defaultValue={link.properties.linkTextColor}/>
 
@@ -180,7 +177,7 @@ export default class LinksManagementView extends GremlinConnectorViewBase {
 
                     />
                     <CopyRightInfo/>
-                    <LoadingDiv loadingMessage={"Loading"}  showLoading={this.state.showLoading}/>
+                    <LoadingDiv loadingMessage={"Loading"} showLoading={this.state.showLoading}/>
 
                 </MainContent>
 

@@ -26,11 +26,13 @@ export default class LoadingDiv extends React.Component {
                             <h3>{this.props.loadingMessage}...</h3>
                             <p>{(this.props.loadTimeCounter) ? (<span>Elapsed {this.props.loadTimeCounter}s.</span>) : (
                                 <span></span>)} {this.props.loadingExtraText}</p>
-                            {(this.maxTimeElapsedError === true)
+                            {(this.props.loadTimeCounter >= DefaultMaxTimeExlapsedWarninginSeconds)
                                 ? (
                                     <span>Strange! this operation took more than {DefaultMaxTimeExlapsedWarninginSeconds}</span>)
                                 : (<span></span>)
                             }
+
+                            {(this.props.showSignout === true) ? <p><a href="/switch-server">switch to a different server.</a></p> : <span></span>}
 
                         </div>
                     ) : (<span></span>)
