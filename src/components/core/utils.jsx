@@ -46,3 +46,11 @@ export function setDataToLocalStorage(itemKey, itemData) {
     }
     localStorage.setItem(itemKey, itemData);
 }
+
+export function removeItemFromLocalStorage(itemKey) {
+    localStorage.removeItem(itemKey);
+}
+
+export function removeEverythingFromLocalStorage() {
+    localStorage.clear();
+}

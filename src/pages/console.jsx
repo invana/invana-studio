@@ -104,7 +104,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
                         <div style={textAreaDiv}>
                             <form style={{"height": "100%"}} action=""
                                   onSubmit={this.onFormSubmit.bind(this)}>
-                               <textarea style={textAreaCls} name="query"
+                               <textarea style={textAreaCls} name="query"  spellcheck="false"
                                          onKeyUp={this.handleKeyPress}
                                          defaultValue={"g.V().limit(5).toList()"}
                                          id="" cols="30" rows="10">
@@ -115,7 +115,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
 
                                 </div>
                             </form>
-                        </div>
+                          </div>
                         <div style={ResponseDiv}>
 
 

@@ -168,6 +168,9 @@ div#canvas-stats {
     text-align: center;
     padding-bottom: 0;
 }
+.loadingDiv a{
+    color: inherit;
+}
 
 .loadingDiv p {
     font-size: .7rem;

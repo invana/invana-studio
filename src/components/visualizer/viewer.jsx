@@ -167,7 +167,7 @@ export default class GraphViewer extends GremlinConnectorViewBase {
 
                 <div className="search-div">
                     <form className={"viewer-form "} action="" onSubmit={this.onFormSubmit.bind(this)}>
-                        <input type="text" name="query" placeholder="g.V().limit(5)"/>
+                        <input type="text" name="query"  spellcheck="false"  placeholder="g.V().limit(5)"/>
                     </form>
                 </div>
                 <ErrorBoundary>
