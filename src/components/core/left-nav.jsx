@@ -1,5 +1,5 @@
 import React from "react";
-import {faHome, faTerminal, faCog, faQuestionCircle, faBug, faHistory} from "@fortawesome/free-solid-svg-icons";
+import {faHome, faTerminal, faCog, faQuestionCircle, faBug, faHistory, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const mainNavigationStyle = {
@@ -90,6 +90,11 @@ export default class LeftNav extends React.Component {
                        href="https://github.com/invanalabs/graph-explorer/issues">
                         <li style={mainNavLi}>
                             <FontAwesomeIcon icon={faBug}/>
+                        </li>
+                    </a>
+                       <a style={mainNavLiA} href={"/switch-server"} title={"Switch Server"}>
+                        <li style={mainNavLi}>
+                            <FontAwesomeIcon icon={faSignInAlt}/>
                         </li>
                     </a>
                 </ul>

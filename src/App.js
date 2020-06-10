@@ -9,7 +9,7 @@ import HistoryView from "./pages/history";
 import AboutView from "./pages/about";
 import Console from "./pages/console";
 import IndexPageView from "./pages/index";
-
+import SwitchServerView from "./pages/switch";
 import {
     BrowserRouter as Router,
     Switch,
@@ -45,6 +45,7 @@ export default class App extends React.Component {
                         <Route exact path="/about" component={AboutView}/>
                         <Route exact path="/console" component={Console}/>
                         <Route exact path="/history" component={HistoryView}/>
+                        <Route exact path="/switch-server" component={SwitchServerView}/>
                         <Route component={Page404}/>
 
                     </Switch>
