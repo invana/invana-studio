@@ -115,7 +115,7 @@ export default class ConsoleView extends GremlinConnectorViewBase {
 
                                 </div>
                             </form>
-nu                          </div>
+                          </div>
                         <div style={ResponseDiv}>
 
 
