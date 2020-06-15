@@ -26,16 +26,20 @@ export default class HomeView extends GremlinConnectorComponent {
         super(props);
         this.state = {
             responses: null,
-            canvasType: "graph"
+            canvasType: "graph",
+            selectedElementData: null
         }
     }
 
     componentDidUpdate(prevProps) {
-        this.isDataChanged = false;
+        this.isDataChanged = true;
     }
 
-    getSelectedData() {
-
+    getSelectedElementDataFn(selectedData) {
+        this.isDataChanged = false;
+        this.setState({
+            getSelectedElementDataFn: selectedData
+        })
     }
 
     onQuerySubmit(query) {
@@ -45,6 +49,7 @@ export default class HomeView extends GremlinConnectorComponent {
     }
 
     processResponse(responses) {
+        this.isDataChanged = true;
         this.setState({
             responses: responses
         })
@@ -73,16 +78,16 @@ export default class HomeView extends GremlinConnectorComponent {
                                 });
                                 const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
                                 const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
-                              console.log("uniqueNodes=============================")
-                              console.log("uniqueNodes", uniqueNodes)
-                              console.log("uniqueLinks", uniqueLinks)
+                                console.log("uniqueNodes=============================")
+                                console.log("uniqueNodes", uniqueNodes)
+                                console.log("uniqueLinks", uniqueLinks)
                                 return (
                                     <GraphCanvas
                                         nodes={uniqueNodes}
                                         links={uniqueLinks}
-                                        setSelectedData={this.getSelectedData.bind(this)}
+                                        getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
                                         queryGremlinServer={this.makeQuery.bind(this)}
-                                        isDataChanged={true}
+                                        isDataChanged={this.isDataChanged}
                                     />
                                 )
                             } else if (this.state.canvasType === "table" && this.state.responses) {

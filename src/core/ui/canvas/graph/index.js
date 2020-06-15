@@ -22,8 +22,9 @@ export default class GraphCanvas extends React.Component {
         nodes: [],
         links: [],
         isDataChanged: null,
-        setSelectedData: () => console.error("setSelectedData not set"),
+        getSelectedElementDataFn: (selectedData) => console.error("getSelectedElementDataFn not set"),
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
+
 
     }
     canvas = null;
@@ -52,18 +53,16 @@ export default class GraphCanvas extends React.Component {
         // console.log("onNodeHoverIn", selectedNode);
     }
 
-    showProperties(properties) {
-        this.props.setSelectedData({
-            "selectedData": properties,
-            "showProperties": true
-        })
+    showProperties(selectedNode) {
+        this.props.getSelectedElementDataFn(
+            selectedNode
+        )
     }
 
     hideProperties() {
-        this.props.setSelectedData({
-            "selectedData": {},
-            "showProperties": false
-        })
+        this.props.getSelectedElementDataFn(
+            null
+        )
     }
 
     getAdjacentNodeIds(nodeId) {
@@ -591,7 +590,7 @@ export default class GraphCanvas extends React.Component {
         svg.select('*:not(circle), *:not(line), *:not(path), *:not(text), *:not(link)').on("click", function () {
             d3.select(".node-menu").remove();
         });
-        console.log("=======setupcanvas" , svg)
+        console.log("=======setupcanvas", svg)
         return svg;
     }
 
@@ -735,7 +734,7 @@ export default class GraphCanvas extends React.Component {
         // let nodesData = this.props.nodes;
         this.startRenderingGraph(nodesData, linksData);
         this.nodeIDtoLinkIDs = this.getNodeIDtoLinkIDs(this.props.links)
-        this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.nodes)
+        this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.links)
 
     }
 
@@ -776,7 +775,7 @@ export default class GraphCanvas extends React.Component {
                         nodeIDtoLinkIDs={this.state.nodeIDtoLinkIDs}
                         linkIDtoLinkMap={this.state.linkIDtoLinkMap}
                         queryGremlinServer={this.queryGremlinServer.bind(this)}
-                        setSelectedData={this.setSelectedData.bind(this)}
+                        getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
                         isDataChanged={this.isDataChanged}
                         nodeLabels={this.state.nodeLabels}
                         linkLabels={this.state.linkLabels}
