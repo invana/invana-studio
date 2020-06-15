@@ -13,9 +13,7 @@ export default class FlyOutUI extends React.Component {
     render() {
 
         return (
-            <div className={"flyout flyout-" + this.props.position}
-            style={{display: this.props.display}}
-            >
+            <div className={"flyout flyout-" + this.props.position} style={{display: this.props.display}}>
                 {this.props.children}
             </div>
         )

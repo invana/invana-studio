@@ -1,11 +1,8 @@
 @import "../../../config";
 
 .flyout {
-  height: calc(100vh - 75px);
-  width: 300px;
   position: fixed;
   right: 0;
-  top: 75px;
   z-index: 10000;
   display: none;
   /*color: #555555;*/
@@ -22,4 +19,14 @@
 .flyout-right {
   right: 0;
   top: 75px;
+  height: calc(100vh - 75px);
+  width: 300px;
+
+}
+
+.flyout-bottom {
+  bottom: 0;
+  left: 50px;
+  width: calc(100% - 50px);
+  height: 300px;
 }
