@@ -26,7 +26,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
     }
     canvas = null;
-    html_selector_id = ".main-canvas";
+    htmlSelectorId = ".main-canvas";
     // nodeIDtoLinkIDs = {};
     // linkIDtoLinkMap = {};
     controls = new GraphControls();
@@ -573,9 +573,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     setupCanvas() {
-        console.log("=====d3.select(this.html_selector_id)", d3.select(this.html_selector_id))
-        d3.select(this.html_selector_id).selectAll("*").remove();
-        let svg = d3.select(this.html_selector_id)
+        console.log("=====d3.select(this.htmlSelectorId)", d3.select(this.htmlSelectorId))
+        d3.select(this.htmlSelectorId).selectAll("*").remove();
+        let svg = d3.select(this.htmlSelectorId)
             // .selectAll("*").remove()
             .call(d3.zoom().on("zoom", function () {
                 svg.attr("transform", d3.event.transform);
@@ -597,16 +597,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
         canvas.append('defs').append('marker')
             .attr('id', "arrowhead")
             .attr('viewBox', "-0 -5 10 10")
-            // .attrs({
-            //     'id': 'arrowhead',
-            //     'viewBox': '-0 -5 10 10',
-            //     'refX': 23,
-            //     'refY': 0,
-            //     'orient': 'auto',
-            //     'markerWidth': 8,
-            //     'markerHeight': 9,
-            //     'xoverflow': 'visible'
-            // })
+            .attr('refX', 23)
+            .attr('refY', 0)
+            .attr('orient', "auto")
+            .attr('markerWidth', 8)
+            .attr('markerHeight', 9)
+            .attr('xoverflow', "visible")
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
             .attr('fill', DefaultLinkPathColor)
@@ -699,13 +695,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
         }
     }
 
-    componentDidMount() {
 
+    reRender() {
         console.log("===== this.props", this.props);
         this.canvas = this.startFreshCanvas();
-        this.canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
+        this.canvasDimensions = document.querySelector(this.htmlSelectorId).getBoundingClientRect();
         console.log("canvasDimensions", this.canvasDimensions)
-
         // this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
@@ -718,22 +713,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.nodes)
     }
 
+    componentDidMount() {
+        this.reRender();
+    }
+
     componentDidUpdate(prevProps) {
-
-        this.canvas = this.startFreshCanvas();
-        this.canvasDimensions = document.querySelector(this.html_selector_id).getBoundingClientRect();
-
-        console.log("canvasDimensions", this.canvasDimensions)
-        // this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
-        this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
-        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        let linksData = prepareLinksDataForCurves(this.props.links);
-        let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
-        // let nodesData = this.props.nodes;
-        this.startRenderingGraph(nodesData, linksData);
-        this.nodeIDtoLinkIDs = this.getNodeIDtoLinkIDs(this.props.links)
-        this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.links)
-
+        this.reRender();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -741,7 +726,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     getNodeIDtoLinkIDs(edges) {
-        // TODO - revist the name
         let data = {};
         edges.forEach(edge => {
             data[edge.source.id || edge.source] = data[edge.source.id || edge.source] || new Set();
@@ -753,7 +737,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     getLinkIDtoLink(edges) {
-        // TODO - revist the name
         let data = {};
         edges.forEach(edge => {
             data[edge.id] = edge;
@@ -762,8 +745,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     render() {
-        const canvasClass = this.html_selector_id.replace(".", "");
-
+        const canvasClass = this.htmlSelectorId.replace(".", "");
         return (
             <div className={"D3GraphCanvas"}>
                 <svg className={canvasClass}></svg>
