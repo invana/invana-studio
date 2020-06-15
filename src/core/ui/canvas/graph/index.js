@@ -68,6 +68,7 @@ export default class GraphCanvas extends React.Component {
 
     getAdjacentNodeIds(nodeId) {
         let _this = this;
+        console.log("NODE_ID_TO_LINK_IDS", nodeId, this.NODE_ID_TO_LINK_IDS)
         let connectedLinkIds = this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
         let data = new Set([nodeId]);
         connectedLinkIds.forEach(linkId => {

@@ -12,7 +12,7 @@ export default class JSONCanvas extends React.Component {
         return (
             <div className={"jsonCanvas"}>
 
-                <ReactJson theme="monokai" style={{"backgroundColor": "transparent"}} src={this.props.data}/>
+                <ReactJson theme="monokai" style={{"backgroundColor": "transparent"}} src={this.props.responses}/>
 
             </div>
         )

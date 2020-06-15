@@ -25,7 +25,7 @@ export default class HomeView extends GremlinConnectorComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
+            responses: null,
             canvasType: "graph"
         }
     }
@@ -46,7 +46,7 @@ export default class HomeView extends GremlinConnectorComponent {
 
     processResponse(responses) {
         this.setState({
-            data: responses
+            responses: responses
         })
     }
 
@@ -61,11 +61,11 @@ export default class HomeView extends GremlinConnectorComponent {
                 <MainContent>
                     <ErrorBoundary>
                         {(() => {
-                            if (this.state.canvasType === "graph" && this.state.data) {
+                            if (this.state.canvasType === "graph" && this.state.responses) {
 
                                 let overallNodes = [];
                                 let overallLinks = [];
-                                this.state.data.forEach(function (response) {
+                                this.state.responses.forEach(function (response) {
                                     const serializedData = serializer.process(response);
                                     const separatedData = serializer.seperateVerticesAndEdges(serializedData);
                                     overallNodes = overallNodes.concat(separatedData['nodes']);
@@ -82,13 +82,13 @@ export default class HomeView extends GremlinConnectorComponent {
                                         isDataChanged={true}
                                     />
                                 )
-                            } else if (this.state.canvasType === "table" && this.state.data) {
+                            } else if (this.state.canvasType === "table" && this.state.responses) {
                                 return (
                                     <div>table</div>
                                 )
-                            } else if (this.state.canvasType === "json" && this.state.data) {
+                            } else if (this.state.canvasType === "json" && this.state.responses) {
                                 return (
-                                    <JSONCanvas data={this.state.data}/>
+                                    <JSONCanvas responses={this.state.responses}/>
                                 )
                             } else {
                                 return (
