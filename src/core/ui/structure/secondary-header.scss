@@ -1,0 +1,18 @@
+@import "../../../config";
+
+.secondary-header {
+  position: fixed;
+  top: 45px;
+  width: calc(100% - 50px);
+  height: 30px;
+  left: 50px;
+  display: flex;
+  align-items: center;
+  background: lighten($darkBgColor, 10%);
+  border-bottom: 1px solid $borderColor;
+
+
+  p {
+    margin-bottom: 0;
+  }
+}

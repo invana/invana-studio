@@ -1,5 +1,5 @@
 {
-  "name": "graph-explorer",
+  "name": "graph-explorer-refactors",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,24 +8,20 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "d3": "^4.13.0",
-    "d3-selection-multi": "^1.0.1",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "moment": "^2.26.0",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-json-view": "^1.19.1",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "babel-plugin-transform-remove-console": "^6.9.4"
+    "react-scripts": "3.4.1"
   },
-  "main": "electron-starter.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "serve": "serve -s build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,20 +37,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "server": "^1.0.27"
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ],
-    "env": {
-      "production": {
-        "plugins": [
-          "transform-remove-console"
-        ]
-      }
-    }
   }
 }

@@ -1,0 +1,49 @@
+@import "../../../config";
+
+.MainHeaderNav {
+  position: fixed;
+  top: 0;
+  border-bottom: 1px solid $borderColor;
+  /*width: calc(100% - 50px);*/
+  width: calc(100% - 4px);
+  /*left: 50px;*/
+  height: 40px;
+  padding: 2px;
+  background-color: $darkBgColor;
+  box-shadow: -2px 1px 6px 1px #1f2230;
+  color: $defaultTextColor;
+
+  .logo {
+    padding-left: 15px;
+
+    small {
+      background: $primaryColor;
+      padding: 1px 5px;
+      font-size: 60%;
+      color: $darkTextColor;
+    }
+  }
+
+
+  .left-side {
+    display: inline-flex;
+
+    h1 {
+      font-size: 18px;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    float: left;
+  }
+
+
+  .right-side {
+    float: right;
+    margin-top: 1px;
+    display: inline-flex;
+  }
+
+
+}
+

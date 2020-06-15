@@ -1,0 +1,25 @@
+@import "../../../config";
+
+
+.mainLeftNav {
+  //box-shadow: -2px 1px 6px 1px #1f2230;
+  position: fixed;
+  left: 0;
+  top: 45px;
+  width: 50px;
+  border-right: 1px solid $borderColor;
+  background-color: $darkBgColor;
+  height: calc(100vh - 45px);
+  color: $defaultTextColor;
+
+
+  .bottom {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+

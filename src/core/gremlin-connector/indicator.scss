@@ -1,0 +1,15 @@
+.connected{
+    background: #089e08;
+}
+
+.notConnected{
+    background: #e36363;
+}
+
+.connectionIndicator{
+    width: 10px;
+    height: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    display: inline-block;
+}
