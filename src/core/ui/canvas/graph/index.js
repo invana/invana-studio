@@ -28,8 +28,8 @@ export default class GraphCanvas extends React.Component {
     }
     canvas = null;
     html_selector_id = ".main-canvas";
-    // NODE_ID_TO_LINK_IDS = {};
-    // LINK_ID_TO_LINK = {};
+    // nodeIDtoLinkIDs = {};
+    // linkIDtoLinkMap = {};
     controls = new GraphControls();
 
     resetNodeHighlight(selectedNode) {
@@ -68,11 +68,12 @@ export default class GraphCanvas extends React.Component {
 
     getAdjacentNodeIds(nodeId) {
         let _this = this;
-        console.log("NODE_ID_TO_LINK_IDS", nodeId, this.NODE_ID_TO_LINK_IDS)
-        let connectedLinkIds = this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
+        console.log("nodeIDtoLinkIDs", nodeId, this.nodeIDtoLinkIDs)
+        let connectedLinkIds = this.nodeIDtoLinkIDs[nodeId] || new Set();
+        console.log("connectedLinkIds", connectedLinkIds)
         let data = new Set([nodeId]);
         connectedLinkIds.forEach(linkId => {
-            let link = this.LINK_ID_TO_LINK[linkId];
+            let link = this.linkIDtoLinkMap[linkId];
             data.add(link.source.id);
             data.add(link.target.id);
         });
@@ -101,7 +102,7 @@ export default class GraphCanvas extends React.Component {
     }
 
     getAdjacentLinkIds(nodeId) {
-        return this.NODE_ID_TO_LINK_IDS[nodeId] || new Set();
+        return this.nodeIDtoLinkIDs[nodeId] || new Set();
     }
 
     expandInLinksAndNodes(selectedNode) {
@@ -463,7 +464,7 @@ export default class GraphCanvas extends React.Component {
         linkElements.style('opacity', function (linkElement) {
             return selectedLink.id === linkElement.id ? '1' : '0.1';
         });
-        let linkData = this.props.LINK_ID_TO_LINK[selectedLink.id];
+        let linkData = this.linkIDtoLinkMap[selectedLink.id];
         let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
         nodeElements.style('fill', function (nodeElement) {
             return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
@@ -716,8 +717,8 @@ export default class GraphCanvas extends React.Component {
     //     let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
     //     // let nodesData = this.props.nodes;
     //     this.startRenderingGraph(nodesData, linksData)
-    //     this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(this.props.links)
-    //     this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(this.props.nodes)
+    //     this.nodeIDtoLinkIDs = this.getNodeIDtoLinkIDs(this.props.links)
+    //     this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.nodes)
     // }
 
     componentDidUpdate(prevProps) {
@@ -728,15 +729,13 @@ export default class GraphCanvas extends React.Component {
         console.log("canvasDimensions", this.canvasDimensions)
         // this.color_schema = d3.scaleOrdinal(d3.schemeCategory10);
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
-
-
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         let linksData = prepareLinksDataForCurves(this.props.links);
         let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
         // let nodesData = this.props.nodes;
         this.startRenderingGraph(nodesData, linksData);
-        this.NODE_ID_TO_LINK_IDS = this.get_NODE_ID_TO_LINK_IDS(this.props.links)
-        this.LINK_ID_TO_LINK = this.get_LINK_ID_TO_LINK(this.props.nodes)
+        this.nodeIDtoLinkIDs = this.getNodeIDtoLinkIDs(this.props.links)
+        this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.nodes)
 
     }
 
@@ -744,7 +743,7 @@ export default class GraphCanvas extends React.Component {
         return nextProps.isDataChanged
     }
 
-    get_NODE_ID_TO_LINK_IDS(edges) {
+    getNodeIDtoLinkIDs(edges) {
         // TODO - revist the name
         let data = {};
         edges.forEach(edge => {
@@ -756,7 +755,7 @@ export default class GraphCanvas extends React.Component {
         return data;
     }
 
-    get_LINK_ID_TO_LINK(edges) {
+    getLinkIDtoLink(edges) {
         // TODO - revist the name
         let data = {};
         edges.forEach(edge => {
@@ -774,8 +773,8 @@ export default class GraphCanvas extends React.Component {
                     <GraphCanvas
                         nodes={this.state.nodes}
                         links={this.state.links}
-                        NODE_ID_TO_LINK_IDS={this.state.NODE_ID_TO_LINK_IDS}
-                        LINK_ID_TO_LINK={this.state.LINK_ID_TO_LINK}
+                        nodeIDtoLinkIDs={this.state.nodeIDtoLinkIDs}
+                        linkIDtoLinkMap={this.state.linkIDtoLinkMap}
                         queryGremlinServer={this.queryGremlinServer.bind(this)}
                         setSelectedData={this.setSelectedData.bind(this)}
                         isDataChanged={this.isDataChanged}

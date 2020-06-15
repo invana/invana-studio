@@ -73,6 +73,9 @@ export default class HomeView extends GremlinConnectorComponent {
                                 });
                                 const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
                                 const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
+                              console.log("uniqueNodes=============================")
+                              console.log("uniqueNodes", uniqueNodes)
+                              console.log("uniqueLinks", uniqueLinks)
                                 return (
                                     <GraphCanvas
                                         nodes={uniqueNodes}

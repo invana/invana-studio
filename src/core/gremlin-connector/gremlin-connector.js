@@ -162,7 +162,7 @@ export default class GremlinConnectorComponent extends React.Component {
                     i += 1;
                     console.log(i)
                     _this.setStatusMessage("Reconnecting... waiting for " + DefaultConnectionRetryTimeout + "s. (" + i + "s elapsed)");
-                    if (i > DefaultConnectionRetryTimeout) {
+                    if (i >= DefaultConnectionRetryTimeout) {
                         clearInterval(timer);
                         _this.reconnect();
                     }
