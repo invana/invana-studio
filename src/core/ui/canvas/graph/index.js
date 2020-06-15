@@ -53,13 +53,13 @@ export default class GraphCanvas extends React.Component {
                     getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
                     queryGremlinServer={this.props.queryGremlinServer}
                 />
-                {/*<SelectedDataCanvas selectedData={this.state.selectedData}/>*/}
-                {/*<LegendCanvas*/}
-                {/*    nodes={uniqueNodes}*/}
-                {/*    links={uniqueLinks}*/}
-                {/*    // nodeLabels={this.props.nodeLabels}*/}
-                {/*    // linkLabels={this.props.linkLabels}*/}
-                {/*/>*/}
+                <SelectedDataCanvas selectedData={this.state.selectedData}/>
+                <LegendCanvas
+                    nodes={uniqueNodes}
+                    links={uniqueLinks}
+                    // nodeLabels={this.props.nodeLabels}
+                    // linkLabels={this.props.linkLabels}
+                />
             </div>
 
 

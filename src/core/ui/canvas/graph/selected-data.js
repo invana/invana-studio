@@ -1,9 +1,10 @@
 import React from "react";
+import "./selected-data.scss";
 
 export default class SelectedDataCanvas extends React.Component {
 
-    static defaultProps ={
-        "selectedData": null
+    static defaultProps = {
+        selectedData: null
     }
 
     getCleanedData() {
@@ -26,7 +27,7 @@ export default class SelectedDataCanvas extends React.Component {
 
     render() {
         let cleanedData = this.getCleanedData();
-        let nodeLabelsColoring = Object.assign({} ,JSON.parse(localStorage.getItem('nodeLabels')));
+        let nodeLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         let linkLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('linkLabels')));
         let selectedDataColorSchema = {};
 
@@ -58,19 +59,19 @@ export default class SelectedDataCanvas extends React.Component {
 
                     <div className={'singleProperty'} key={cleanedData.id}>
                         <div className={"propertyData"}>
-                            <h6 className={"propertyKey"}>id:</h6>
+                            <strong className={"propertyKey"}>id:</strong>
                             {cleanedData.id}
                         </div>
                     </div>
                     <div className={'singleProperty'} key={cleanedData.type}>
                         <div className={"propertyData"}>
-                            <h6 className={"propertyKey"}>type:</h6>
+                            <strong className={"propertyKey"}>type:</strong>
                             {cleanedData.type}
                         </div>
                     </div>
                     <div className={'singleProperty'} key={cleanedData.label}>
                         <div className={"propertyData"}>
-                            <h6 className={"propertyKey"}>label:</h6>
+                            <strong className={"propertyKey"}>label:</strong>
                             {cleanedData.label}
                         </div>
                     </div>
@@ -78,7 +79,7 @@ export default class SelectedDataCanvas extends React.Component {
                 <div className="SelectedDataList">
                     <div className={'singleProperty heading'} key={"properties-list"}>
                         <div className={"propertyData"}>
-                            <h6 className={"propertyKey "}>PROPERTIES</h6>
+                            <strong className={"propertyKey "}>PROPERTIES</strong>
                         </div>
                     </div>
                     {
@@ -86,7 +87,7 @@ export default class SelectedDataCanvas extends React.Component {
                             return (
                                 <div className={'singleProperty'} key={cleanedData.id + "-" + propKey}>
                                     <div className={"propertyData"}>
-                                        <h6 className={"propertyKey"}>{propKey}:</h6>
+                                        <strong className={"propertyKey"}>{propKey}:</strong>
                                         {cleanedData.properties[propKey]}
                                     </div>
                                 </div>

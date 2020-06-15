@@ -8,7 +8,8 @@
   left: 50px;
   display: flex;
   align-items: center;
-  background: lighten($darkBgColor, 10%);
+  //background: lighten($darkBgColor, 10%);
+  background: lighten($darkBgColor, 0%);
   border-bottom: 1px solid $borderColor;
 
 
