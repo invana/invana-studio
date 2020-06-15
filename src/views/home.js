@@ -105,7 +105,6 @@ export default class HomeView extends GremlinConnectorComponent {
                             }
                         })()}
                     </ErrorBoundary>
-
                 </MainContent>
                 {parentHTML}
             </div>
