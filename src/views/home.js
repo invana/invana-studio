@@ -9,7 +9,6 @@ import GremlinConnectorComponent from "../core/gremlin-connector";
 import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
 import GremlinResponseSerializers from "../core/gremlin-connector/gremlin-serializer";
 
-const serializer = new GremlinResponseSerializers()
 
 export default class HomeView extends GremlinConnectorComponent {
 
@@ -20,27 +19,20 @@ export default class HomeView extends GremlinConnectorComponent {
     //         data: null
     //     }
     // }
-    isDataChanged = true;
+    shallReRenderD3Canvas = true;
 
     constructor(props) {
         super(props);
         this.state = {
             responses: null,
-            canvasType: "graph",
-            selectedElementData: null
+            canvasType: "graph"
         }
     }
 
     componentDidUpdate(prevProps) {
-        this.isDataChanged = true;
+        this.shallReRenderD3Canvas = true;
     }
 
-    getSelectedElementDataFn(selectedData) {
-        this.isDataChanged = false;
-        this.setState({
-            getSelectedElementDataFn: selectedData
-        })
-    }
 
     onQuerySubmit(query) {
         console.log("Query is " + query);
@@ -49,7 +41,7 @@ export default class HomeView extends GremlinConnectorComponent {
     }
 
     processResponse(responses) {
-        this.isDataChanged = true;
+        this.shallReRenderD3Canvas = true;
         this.setState({
             responses: responses
         })
@@ -67,27 +59,11 @@ export default class HomeView extends GremlinConnectorComponent {
                     <ErrorBoundary>
                         {(() => {
                             if (this.state.canvasType === "graph" && this.state.responses) {
-
-                                let overallNodes = [];
-                                let overallLinks = [];
-                                this.state.responses.forEach(function (response) {
-                                    const serializedData = serializer.process(response);
-                                    const separatedData = serializer.seperateVerticesAndEdges(serializedData);
-                                    overallNodes = overallNodes.concat(separatedData['nodes']);
-                                    overallLinks = overallLinks.concat(separatedData['links']);
-                                });
-                                const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
-                                const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
-                                console.log("uniqueNodes=============================")
-                                console.log("uniqueNodes", uniqueNodes)
-                                console.log("uniqueLinks", uniqueLinks)
                                 return (
                                     <GraphCanvas
-                                        nodes={uniqueNodes}
-                                        links={uniqueLinks}
-                                        getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
+                                        responses={this.state.responses}
                                         queryGremlinServer={this.makeQuery.bind(this)}
-                                        isDataChanged={this.isDataChanged}
+                                        shallReRenderD3Canvas={this.shallReRenderD3Canvas}
                                     />
                                 )
                             } else if (this.state.canvasType === "table" && this.state.responses) {
