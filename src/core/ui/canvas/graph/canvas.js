@@ -126,8 +126,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
     closeNodeMenu(selectedNode) {
         console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
-        this.hideProperties();
+        let _this= this;
         setTimeout(function () {
+            _this.hideProperties();
+
             d3.select(".node-menu").selectAll("*").remove();
             if (document.querySelector(".node-menu")) {
                 document.querySelector(".node-menu").remove();

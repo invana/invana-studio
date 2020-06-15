@@ -1,5 +1,6 @@
 import React from "react";
 import "./selected-data.scss";
+import FlyOutUI from "../../flyout";
 
 export default class SelectedDataCanvas extends React.Component {
 
@@ -42,8 +43,7 @@ export default class SelectedDataCanvas extends React.Component {
 
 
         return (
-            <div id="SelectedDataDiv"
-                 style={{display: Object.keys(cleanedData).length > 1 ? 'block' : 'none'}}>
+            <FlyOutUI position={"right"} display={Object.keys(cleanedData).length > 1 ? 'block' : 'none'}>
                 <div className={"SelectedDataHeading"}>
                     <span className={"itemLabel"} style={{
                         "backgroundColor":
@@ -96,7 +96,7 @@ export default class SelectedDataCanvas extends React.Component {
                     }
                 </div>
 
-            </div>
+            </FlyOutUI>
         )
     }
 

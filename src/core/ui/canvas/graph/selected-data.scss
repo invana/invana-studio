@@ -1,0 +1,61 @@
+#SelectedDataDiv {
+  /*background: rgba(105, 105, 105, 0.88);*/
+  height: calc(100vh - 75px);
+  width: 300px;
+  position: fixed;
+  right: 0;
+  top: 75px;
+  z-index: 10000;
+  display: none;
+  /*color: #555555;*/
+  font-size: 12px;
+  line-height: 1.2rem;
+  word-wrap: break-word;
+  font-family: Courier;
+  overflow: scroll;
+  border-left: 1px solid #212329;
+  background: rgba(35, 37, 45, .7);
+  color: #d2d2d2;
+
+}
+
+.SelectedDataHeading {
+  font-size: 12px;
+  background: #585858;
+  color: white;
+
+  padding: 3px 0;
+  width: 100%;
+
+  .itemLabel {
+    background: #7d8296;
+    padding: 5px 10px;
+    padding-bottom: 6px;
+    margin-right: 10px;
+    text-shadow: 1px 1px #424242;
+    /*color: #888888;*/
+    font-weight: bold;
+  }
+}
+
+.SelectedDataList {
+  padding: 0 10px;
+
+}
+
+.SelectedDataList.mainDetails {
+  background: #1e2027;
+}
+
+.singleProperty.heading {
+  background: black;
+  margin-left: -10px;
+  padding: 5px 10px;
+  margin-right: -10px;
+}
+
+.singleProperty {
+  border-bottom: 1px solid #2f313c;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}

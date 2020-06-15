@@ -23,7 +23,7 @@ export default class GraphCanvas extends React.Component {
     }
 
     getSelectedElementDataFn(selectedData) {
-        this.shallReRenderD3Canvas = false;
+        // this.shallReRenderD3Canvas = false;
         this.setState({
             selectedData: selectedData
         })
