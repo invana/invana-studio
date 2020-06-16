@@ -7,6 +7,7 @@ import {
 import {ConnectionStatusComponent} from "./index";
 import Footer from "../ui/footer";
 import SecondaryHeader from "../ui/structure/secondary-header";
+import FlyOutUI from "../ui/flyout";
 
 export default class GremlinConnectorComponent extends React.Component {
 
@@ -55,7 +56,8 @@ export default class GremlinConnectorComponent extends React.Component {
             isQuerying: false,
             isConnected2Gremlin: false,
             statusMessage: null,
-            canvasType: "graph"
+            canvasType: "graph",
+            errorMessage: null
         }
     }
 
@@ -107,18 +109,32 @@ export default class GremlinConnectorComponent extends React.Component {
 
     gatherDataFromStream(response) {
         console.log("onmessage received", response);
-        if (response.status.code === 206) {
-            this.setIsStreaming(true);
-            this.setStatusMessage("Gathering data from the stream");
-            this.responses.push(response);
+        if (response.status.code >= 200 && response.status.code < 300) {
+            this.setState({
+                errorMessage: null
+            })
+            if (response.status.code === 206) {
+                this.setIsStreaming(true);
+                this.setStatusMessage("Gathering data from the stream");
+                this.responses.push(response);
+            } else {
+                this.setIsStreaming(false);
+                this.responses.push(response);
+                this.setStatusMessage("Responded to the Query Successfully");
+                const responses = Object.assign(this.responses);
+                this.flushResponsesData();
+                this.setIsQuerying(false);
+                this.processResponse(responses);
+            }
         } else {
             this.setIsStreaming(false);
-            this.responses.push(response);
-            this.setStatusMessage("Responded to the Query Successfully");
-            const responses = Object.assign(this.responses);
-            this.flushResponsesData();
             this.setIsQuerying(false);
+            const responses = Object.assign(this.responses);
             this.processResponse(responses);
+            this.setState({
+                errorMessage: response.status
+            })
+
         }
     }
 
@@ -261,6 +277,9 @@ export default class GremlinConnectorComponent extends React.Component {
                     }
 
                 </SecondaryHeader>
+                <FlyOutUI position={"bottom"} display={{"display": (this.state.errorMessage) ? "block" : "none"}}>
+                    {JSON.stringify(this.state.errorMessage, null, 4)}
+                </FlyOutUI>
             </div>
         )
 

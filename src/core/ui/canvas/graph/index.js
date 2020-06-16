@@ -4,7 +4,7 @@ import D3ForceDirectedCanvas from "./canvas";
 import LegendCanvas from "./legend";
 import SelectedDataCanvas from "./selected-data";
 import GremlinResponseSerializers from "../../../gremlin-connector/gremlin-serializer";
-
+import FlyOutUI from "../../flyout";
 const serializer = new GremlinResponseSerializers()
 
 export default class GraphCanvas extends React.Component {
