@@ -73,11 +73,13 @@ ul.vertical {
     }
   }
 }
-ul.list{
-  a{
+
+ul.list {
+  a {
     padding: 5px !important;
   }
 }
+
 form {
   input {
     padding: 10px 10px;
@@ -125,4 +127,18 @@ button {
 
 }
 
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
 
+
+.errorMessage {
+  background: $warningColor;
+  color: $darkBgColor;
+  padding: 10px;
+}

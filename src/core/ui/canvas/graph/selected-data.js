@@ -5,7 +5,8 @@ import FlyOutUI from "../../flyout";
 export default class SelectedDataCanvas extends React.Component {
 
     static defaultProps = {
-        selectedData: null
+        selectedData: null,
+        onClose: () => console.error("onFlyOutSelectedDataClose not implemented")
     }
 
     getCleanedData() {
@@ -26,6 +27,8 @@ export default class SelectedDataCanvas extends React.Component {
     }
 
 
+
+
     render() {
         let cleanedData = this.getCleanedData();
         let nodeLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
@@ -43,7 +46,9 @@ export default class SelectedDataCanvas extends React.Component {
 
 
         return (
-            <FlyOutUI position={"right"} display={Object.keys(cleanedData).length > 1 ? 'block' : 'none'}>
+            <FlyOutUI position={"right"}
+                      onClose={this.props.onClose}
+                      display={Object.keys(cleanedData).length > 1 ? 'block' : 'none'}>
                 <div className={"SelectedDataHeading"}>
                     <span className={"itemLabel"} style={{
                         "backgroundColor":

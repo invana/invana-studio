@@ -29,6 +29,9 @@ export default class GraphCanvas extends React.Component {
         })
     }
 
+    onFlyOutSelectedDataClose(){
+        this.getSelectedElementDataFn(null);
+    }
 
     render() {
 
@@ -53,7 +56,9 @@ export default class GraphCanvas extends React.Component {
                     getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
                     queryGremlinServer={this.props.queryGremlinServer}
                 />
-                <SelectedDataCanvas selectedData={this.state.selectedData}/>
+                <SelectedDataCanvas selectedData={this.state.selectedData}
+                onClose={this.onFlyOutSelectedDataClose.bind(this)}
+                />
                 <LegendCanvas
                     nodes={uniqueNodes}
                     links={uniqueLinks}

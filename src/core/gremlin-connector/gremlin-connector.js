@@ -134,6 +134,7 @@ export default class GremlinConnectorComponent extends React.Component {
             this.setState({
                 errorMessage: response.status
             })
+            this.setStatusMessage("Query Failed with " + response.status.code + " error.");
 
         }
     }
@@ -244,6 +245,12 @@ export default class GremlinConnectorComponent extends React.Component {
         }
     }
 
+    onErrorMessageFlyoutClose() {
+        this.setState({
+            "errorMessage": null
+        })
+    }
+
 
     componentDidMount() {
         this.connect();
@@ -256,6 +263,7 @@ export default class GremlinConnectorComponent extends React.Component {
     }
 
     render() {
+        console.log("this.state.errorMessage", this.state.errorMessage)
         return (
             <div>
                 <Footer>
@@ -267,7 +275,7 @@ export default class GremlinConnectorComponent extends React.Component {
 
                 <SecondaryHeader>
                     {
-                        (this.state.data)
+                        (this.state.responses)
                             ? <ul>
                                 <li><a onClick={() => this.switchCanvasTo("graph")}>Graph</a></li>
                                 <li><a onClick={() => this.switchCanvasTo("table")}>Table</a></li>
@@ -277,9 +285,20 @@ export default class GremlinConnectorComponent extends React.Component {
                     }
 
                 </SecondaryHeader>
-                <FlyOutUI position={"bottom"} display={{"display": (this.state.errorMessage) ? "block" : "none"}}>
-                    {JSON.stringify(this.state.errorMessage, null, 4)}
-                </FlyOutUI>
+                {
+                    this.state.errorMessage ?
+                        <FlyOutUI position={"bottom"}
+                                  display={this.state.errorMessage ? "block" : "none"}
+                                  title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
+                                  isWarning={true}
+                                  onClose={this.onErrorMessageFlyoutClose.bind(this)}
+                        >
+                            <div className={"errorMessage"}>
+                                <pre>{JSON.stringify(this.state.errorMessage, null, 4)}</pre>
+                            </div>
+                        </FlyOutUI> : <span></span>
+                }
+
             </div>
         )
 
