@@ -8,7 +8,7 @@ import Welcome from "../core/ui/welcome";
 import GremlinConnectorComponent from "../core/gremlin-connector";
 import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
 import GremlinResponseSerializers from "../core/gremlin-connector/gremlin-serializer";
-
+import {SetQueryToUrl} from "../core/ui/url";
 
 export default class HomeView extends GremlinConnectorComponent {
 
@@ -25,19 +25,21 @@ export default class HomeView extends GremlinConnectorComponent {
         super(props);
         this.state = {
             responses: null,
-            canvasType: "graph"
+            canvasType: "graph",
+            canvasQuery: null
         }
     }
 
-    componentDidUpdate(prevProps) {
-        this.shallReRenderD3Canvas = true;
-    }
+    // componentDidUpdate(prevProps) {
+    //     this.shallReRenderD3Canvas = true;
+    // }
+
+
 
 
     onQuerySubmit(query) {
         console.log("Query is " + query);
-        // make query to gremlin here
-        this.makeQuery(query);
+        this.makeQuery(query, true);
     }
 
     processResponse(responses) {
@@ -83,6 +85,8 @@ export default class HomeView extends GremlinConnectorComponent {
                     </ErrorBoundary>
                 </MainContent>
                 {parentHTML}
+                {/*<SetQueryToUrl query={this.state.canvasQuery}/>*/}
+
             </div>
         )
     }

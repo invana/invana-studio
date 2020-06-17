@@ -219,8 +219,23 @@ export default class GremlinConnectorComponent extends React.Component {
         };
     }
 
+    setQueryToUrl(query) {
+        console.log("===setQueryToUrl", query);
+        let u = new URL(window.location.href);
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.set("query", query);
+        window.history.pushState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
+    }
 
-    makeQuery(query) {
+
+    makeQuery(query, setUrl) {
+
+        if (typeof setUrl === "undefined") {
+            setUrl = false;
+        }
+        if (setUrl) {
+            this.setQueryToUrl(query);
+        }
         let _this = this;
         console.log("queryGremlinServer :::  query", query);
         this.flushResponsesData();
