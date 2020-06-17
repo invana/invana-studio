@@ -70,7 +70,7 @@ export default class HomeView extends GremlinConnectorComponent {
         return (
             <div>
                 <MainLeftNav/>
-                <MainHeaderNav onQuerySubmit={this.onQuerySubmit.bind(this)}/>
+                <MainHeaderNav canvasQuery={this.state.canvasQuery} onQuerySubmit={this.onQuerySubmit.bind(this)}/>
                 <MainContent>
                     <ErrorBoundary>
                         {(() => {

@@ -43,7 +43,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
     onNodeHoverOut(selectedNode) {
         this.resetNodeHighlight(selectedNode);
-
     }
 
     onNodeHoverIn(selectedNode) {
@@ -126,7 +125,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
     closeNodeMenu(selectedNode) {
         console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
-        let _this= this;
+        let _this = this;
         setTimeout(function () {
             _this.hideProperties();
 
@@ -699,6 +698,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
 
     reRender() {
+        // alert("re-rendering");
+
         console.log("===== this.props", this.props);
         this.canvas = this.startFreshCanvas();
         this.canvasDimensions = document.querySelector(this.htmlSelectorId).getBoundingClientRect();
@@ -724,7 +725,13 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.shallReRenderD3Canvas
+        // if (this.props.links !== this.nextProps.links) {
+        //     return true
+        // } else {
+        //     return false
+        // }
+        return nextProps.shallReRenderD3Canvas;
+
     }
 
     getNodeIDtoLinkIDs(edges) {

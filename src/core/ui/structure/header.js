@@ -17,7 +17,7 @@ export default class MainHeaderNav extends React.Component {
                     <ul>
 
                         <li>
-                            <QueryInputForm onQuerySubmit={this.props.onQuerySubmit}/>
+                            <QueryInputForm defaultQueryValue={this.props.canvasQuery} onQuerySubmit={this.props.onQuerySubmit}/>
                         </li>
                         <li>
                             <a href="/learn">
