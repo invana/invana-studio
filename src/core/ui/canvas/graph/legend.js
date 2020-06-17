@@ -2,6 +2,7 @@ import React from "react";
 import * as d3 from "d3";
 import {prepareNodesDataWithOptions} from "./canvas-utils";
 import "d3-selection-multi";
+import "./legend.scss";
 
 export default class LegendCanvas extends React.Component {
 
@@ -121,7 +122,7 @@ export default class LegendCanvas extends React.Component {
 
     componentDidMount() {
         this.setState({
-            legendCanvas: d3.select("#legend-div svg")
+            legendCanvas: d3.select(".graphLegend svg")
         })
     }
 
@@ -155,7 +156,7 @@ export default class LegendCanvas extends React.Component {
     render() {
 
         this.startRendering();
-        return <div id="legend-div">
+        return <div className={"graphLegend"}>
             <svg></svg>
         </div>;
     }
