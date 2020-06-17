@@ -18,7 +18,8 @@ export default class HomeView extends GremlinConnectorComponent {
         this.state = {
             responses: null,
             canvasType: "graph",
-            canvasQuery: null
+            canvasQuery: null,
+            shallReRenderD3Canvas: true
         }
     }
 
@@ -57,9 +58,9 @@ export default class HomeView extends GremlinConnectorComponent {
     }
 
     processResponse(responses) {
-        this.shallReRenderD3Canvas = true;
         this.setState({
-            responses: responses
+            responses: responses,
+            shallReRenderD3Canvas: true
         })
     }
 
@@ -79,7 +80,7 @@ export default class HomeView extends GremlinConnectorComponent {
                                     <GraphCanvas
                                         responses={this.state.responses}
                                         queryGremlinServer={this.makeQuery.bind(this)}
-                                        shallReRenderD3Canvas={this.shallReRenderD3Canvas}
+                                        shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
                                     />
                                 )
                             } else if (this.state.canvasType === "table" && this.state.responses) {

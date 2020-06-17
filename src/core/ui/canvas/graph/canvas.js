@@ -25,6 +25,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
         getSelectedElementDataFn: (selectedData) => console.error("getSelectedElementDataFn not set"),
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
     }
+
+    constructor(props) {
+        super(props);
+        this.state = {...props};
+    }
+
     canvas = null;
     htmlSelectorId = ".main-canvas";
     // nodeIDtoLinkIDs = {};
@@ -68,6 +74,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         let connectedLinkIds = this.nodeIDtoLinkIDs[nodeId] || new Set();
         console.log("connectedLinkIds", connectedLinkIds)
         let data = new Set([nodeId]);
+        console.log("linkIDtoLinkMap", this.linkIDtoLinkMap);
         connectedLinkIds.forEach(linkId => {
             let link = this.linkIDtoLinkMap[linkId];
             data.add(link.source.id);
@@ -79,6 +86,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     highlightHoveredNodesAndEdges(selectedNode) {
         // this is performance intensive operation
         // let nodeElements = document.querySelectorAll('.everything .node');
+        console.log("selectedNode=====", selectedNode);
         let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
@@ -710,10 +718,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         let linksData = prepareLinksDataForCurves(this.props.links);
         let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
-        // let nodesData = this.props.nodes;
         this.startRenderingGraph(nodesData, linksData)
         this.nodeIDtoLinkIDs = this.getNodeIDtoLinkIDs(this.props.links)
-        this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.nodes)
+        this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.links)
     }
 
     componentDidMount() {
@@ -730,9 +737,19 @@ export default class D3ForceDirectedCanvas extends React.Component {
         // } else {
         //     return false
         // }
-        return nextProps.shallReRenderD3Canvas;
+        return this.props.shallReRenderD3Canvas;
 
     }
+    //
+    // componentWillReceiveProps(nextProps) {
+    //     // You don't have to do this check first, but it can help prevent an unneeded render
+    //     // if (nextProps.links !== this.state.links || nextProps.nodes !== this.state.nodes) {
+    //     //     // this.setState(nextProps)
+    //     //     alert("rerender");
+    //     // }
+    //                 this.reRender()
+    //
+    // }
 
     getNodeIDtoLinkIDs(edges) {
         let data = {};
