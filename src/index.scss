@@ -7,7 +7,7 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  //background-color: $canvasBgColor;
+  background-color: $canvasBgColor;
   font-size: 14px;
   color: $defaultTextColor;
 }
@@ -82,7 +82,7 @@ ul.list {
 
 form {
   input {
-    padding: 10px 10px;
+    padding: 8px 10px;
     background: $lightDarkBgColor;
     border: 1px solid $borderColor;
     outline: none;
@@ -90,7 +90,7 @@ form {
     fill: $lightDarkBgColor;
     font-size: 16px;
     letter-spacing: 1px;
-
+    min-width: 300px;
 
     :hover, :focus, :active {
       background: $lightDarkBgColor;
@@ -109,7 +109,7 @@ button {
   //outline: none;
   //color: #efefef;
   //cursor: pointer;
-  padding: 13px 15px;
+  padding: 10px 15px;
   background: $lightDarkBgColor;
   border: 1px solid $borderColor;
   outline: none;
@@ -143,6 +143,6 @@ pre {
   padding: 10px;
 }
 
-.p-10{
+.p-10 {
   padding: 10px;
 }

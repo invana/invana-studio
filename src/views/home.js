@@ -11,6 +11,7 @@ import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
 import FlyOutUI from "../core/ui/flyout";
 import HistoryFlyOut from "../core/components/history";
 import LearnFlyOut from "../core/components/learn";
+import {redirectToConnectIfNeeded} from "../core/utils";
 
 export default class HomeView extends GremlinConnectorComponent {
 
@@ -48,6 +49,8 @@ export default class HomeView extends GremlinConnectorComponent {
     }
 
     componentDidMount() {
+        redirectToConnectIfNeeded();
+
         super.componentDidMount();
         setTimeout(() => this.loadQueryFromUrl(), 300);
     }

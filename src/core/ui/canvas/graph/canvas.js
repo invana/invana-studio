@@ -1,7 +1,7 @@
 import React from "react";
 import GraphControls from "./graph-controls";
 import {prepareLinksDataForCurves, prepareNodesDataWithOptions} from "./canvas-utils";
-import {LightenDarkenColor} from "./utils";
+import {LightenDarkenColor} from "../../../utils";
 import "./graph.scss";
 
 import {

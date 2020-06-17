@@ -4,6 +4,7 @@ import "./modal.scss";
 export default class Modal extends React.Component {
     static defaultProps = {
         size: "md",
+        title: "default title here"
     }
 
     render() {

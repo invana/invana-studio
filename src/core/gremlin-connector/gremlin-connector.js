@@ -274,6 +274,7 @@ export default class GremlinConnectorComponent extends React.Component {
 
 
     componentDidMount() {
+
         this.connect();
     }
 

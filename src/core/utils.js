@@ -1,3 +1,5 @@
+import {GREMLIN_SERVER_URL} from "../config";
+
 export function LightenDarkenColor(col, amt) {
 
     var usePound = false;
@@ -53,4 +55,12 @@ export function removeItemFromLocalStorage(itemKey) {
 
 export function removeEverythingFromLocalStorage() {
     localStorage.clear();
+}
+
+
+export function redirectToConnectIfNeeded() {
+    const u = new URL(window.location.href)
+    if (GREMLIN_SERVER_URL === null && u.pathname !== "/connect") {
+        window.location.href = "/connect";
+    }
 }
