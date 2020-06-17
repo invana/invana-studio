@@ -68,7 +68,7 @@ export default class HomeView extends GremlinConnectorComponent {
                                 )
                             } else if (this.state.canvasType === "table" && this.state.responses) {
                                 return (
-                                    <div>table</div>
+                                    <div>table ui comes here</div>
                                 )
                             } else if (this.state.canvasType === "json" && this.state.responses) {
                                 return (
