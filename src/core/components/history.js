@@ -1,5 +1,5 @@
 import React from "react";
-import FlyOutUI from "./flyout";
+import FlyOutUI from "../ui/flyout";
 
 export default class HistoryFlyOut extends React.Component {
 

@@ -11,7 +11,7 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./left.scss";
 import FlyOutUI from "../flyout";
-import HistoryFlyOut from "../history";
+import HistoryFlyOut from "../../components/history";
 import SettingsFlyOut from "../settings";
 
 export default class MainLeftNav extends React.Component {

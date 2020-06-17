@@ -4,12 +4,12 @@ import MainHeaderNav from "../core/ui/structure/header";
 import MainContent from "../core/ui/main-content";
 import JSONCanvas from "../core/ui/canvas/json";
 import GraphCanvas from "../core/ui/canvas/graph/index";
-import Welcome from "../core/ui/welcome";
+import Welcome from "../core/components/welcome";
 import GremlinConnectorComponent from "../core/gremlin-connector";
 import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
 import FlyOutUI from "../core/ui/flyout";
-import HistoryFlyOut from "../core/ui/history";
-import LearnFlyOut from "../core/ui/learn";
+import HistoryFlyOut from "../core/components/history";
+import LearnFlyOut from "../core/components/learn";
 
 export default class HomeView extends GremlinConnectorComponent {
 

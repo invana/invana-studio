@@ -1,6 +1,6 @@
 import React from "react";
 import "./secondary-header.scss";
-import HistoryFlyOut from "../history";
+import HistoryFlyOut from "../../components/history";
 
 export default class SecondaryHeader extends React.Component {
 

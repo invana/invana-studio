@@ -10,7 +10,7 @@ import SecondaryHeader from "../ui/structure/secondary-header";
 import FlyOutUI from "../ui/flyout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBook} from "@fortawesome/free-solid-svg-icons";
-import HistoryFlyOut from "../ui/history";
+import HistoryFlyOut from "../components/history";
 
 export default class GremlinConnectorComponent extends React.Component {
 

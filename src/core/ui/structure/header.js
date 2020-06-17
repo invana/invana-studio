@@ -4,7 +4,7 @@ import {faBook} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import QueryInputForm from "../form/query-forms";
 import {VERSION} from "../../../config";
-import HistoryFlyOut from "../history";
+import HistoryFlyOut from "../../components/history";
 
 export default class MainHeaderNav extends React.Component {
 
