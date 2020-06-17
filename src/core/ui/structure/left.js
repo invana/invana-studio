@@ -10,7 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./left.scss";
-
+import FlyOutUI from "../flyout";
+import HistoryFlyOut from "../history";
 
 export default class MainLeftNav extends React.Component {
 
@@ -31,7 +32,7 @@ export default class MainLeftNav extends React.Component {
                     {/*    </a>*/}
                     {/*</li>*/}
                     <li>
-                        <a href="/history" title={"History"}>
+                        <a onClick={() => this.props.setLeftFlyOut("history")} title={"Query History"}>
 
                             <FontAwesomeIcon icon={faHistory}/>
                         </a>
@@ -67,6 +68,14 @@ export default class MainLeftNav extends React.Component {
                         </a>
                     </li>
                 </ul>
+
+                {
+                    (this.props.leftFlyOutName === "history") ?
+                        <HistoryFlyOut onClose={() => this.props.onLeftFlyOutClose("history")}/>
+                        : <span></span>
+                }
+                {/*<FlyOutUI position={"left"} display={"block"}/>*/}
+
             </div>
         )
     }

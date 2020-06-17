@@ -7,6 +7,7 @@ import GraphCanvas from "../core/ui/canvas/graph/index";
 import Welcome from "../core/ui/welcome";
 import GremlinConnectorComponent from "../core/gremlin-connector";
 import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
+import FlyOutUI from "../core/ui/flyout";
 
 export default class HomeView extends GremlinConnectorComponent {
 
@@ -19,7 +20,8 @@ export default class HomeView extends GremlinConnectorComponent {
             responses: null,
             canvasType: "graph",
             canvasQuery: null,
-            shallReRenderD3Canvas: true
+            shallReRenderD3Canvas: true,
+            leftFlyOutName: null
         }
     }
 
@@ -64,13 +66,23 @@ export default class HomeView extends GremlinConnectorComponent {
         })
     }
 
+    setLeftFlyOut(leftFlyOutName){
+        this.setState({
+            leftFlyOutName: leftFlyOutName
+        })
+    }
+
+    onLeftFlyOutClose(leftFlyOutName){
+        this.setState({
+            leftFlyOutName: null
+        })
+    }
 
     render() {
 
         const parentHTML = super.render();
         return (
             <div>
-                <MainLeftNav/>
                 <MainHeaderNav canvasQuery={this.state.canvasQuery} onQuerySubmit={this.onQuerySubmit.bind(this)}/>
                 <MainContent>
                     <ErrorBoundary>
@@ -100,6 +112,8 @@ export default class HomeView extends GremlinConnectorComponent {
                     </ErrorBoundary>
                 </MainContent>
                 {parentHTML}
+                <MainLeftNav leftFlyOutName={this.state.leftFlyOutName}
+                             onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)} setLeftFlyOut={this.setLeftFlyOut.bind(this)}/>
 
             </div>
         )

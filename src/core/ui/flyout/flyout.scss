@@ -10,10 +10,14 @@
   word-wrap: break-word;
   font-family: Courier;
   overflow-y: scroll;
-  border-left: 1px solid #212329;
-  background: rgba(35, 37, 45, .7);
+  background: $darkBgColor;
   max-width: 100%;
-  color: #d2d2d2;
+  color: $defaultTextColor;
+}
+
+.flyout-transparent {
+  background: rgba(35, 37, 45, .7);
+
 }
 
 .flyout-right {
@@ -21,6 +25,16 @@
   top: 75px;
   height: calc(100vh - 75px);
   width: 300px;
+  border-left: 1px solid $borderColor;
+
+}
+
+.flyout-left {
+  top: 75px;
+  left: 50px;
+  height: calc(100vh - 75px);
+  width: 300px;
+  border: 1px solid $borderColor;
 
 }
 
@@ -29,6 +43,8 @@
   left: 50px;
   width: calc(100% - 50px);
   height: 300px;
+  border-top: 1px solid $borderColor;
+
 }
 
 .flyoutHeaderWarning {
@@ -38,7 +54,7 @@
 
 .flyoutHeader {
   padding: 10px;
-  border-bottom: 1px solid $darkBgColor;
+  border-bottom: 1px solid $borderColor;
   font-size: 16px;
   font-weight: bold;
 
