@@ -11,6 +11,7 @@
   //background: lighten($darkBgColor, 10%);
   background: lighten($darkBgColor, 0%);
   border-bottom: 1px solid $borderColor;
+  box-shadow: 1px 1px 3px lighten($darkBgColor, 60%);
 
   .left-side{
     float: left;
