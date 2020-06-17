@@ -26,7 +26,7 @@
   height: calc(100vh - 75px);
   width: 300px;
   border: 1px solid $borderColor;
-  box-shadow: -2px 1px 3px lighten($darkBgColor, 40%);
+  box-shadow: -2px 1px 3px $darkBgColor;
 }
 
 .flyout-left {
@@ -35,7 +35,7 @@
   height: calc(100vh - 75px);
   width: 300px;
   border: 1px solid $borderColor;
-  box-shadow: 2px 1px 3px lighten($darkBgColor, 40%);
+  box-shadow: 2px 1px 3px $darkBgColor;
 
 }
 
@@ -60,10 +60,12 @@
   font-weight: bold;
 
   button {
-    padding: 3px 10px;
+    padding: 1px 5px;
     border-radius: 2px;
     position: absolute;
-    right: 10px;
-    top: 5px;
+    right: 2px;
+    top: 2px;
+    color: $defaultTextColor;
+    font-weight: bold;
   }
 }

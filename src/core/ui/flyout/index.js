@@ -17,9 +17,11 @@ export default class FlyOutUI extends React.Component {
             <div className={"flyout flyout-" + this.props.position} style={{display: this.props.display}}>
                 <div className={+this.props.isWarning ? "flyoutHeader flyoutHeaderWarning" : "flyoutHeader"}>
                     {this.props.title}
-                    <button onClick={this.props.onClose.bind(this)}>close</button>
+                    <button onClick={this.props.onClose.bind(this)}>x</button>
                 </div>
-                {this.props.children}
+                <div className={"flyoutBody p-10"}>
+                    {this.props.children}
+                </div>
             </div>
         )
     }

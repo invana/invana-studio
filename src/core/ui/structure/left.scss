@@ -11,6 +11,7 @@
   background-color: $darkBgColor;
   height: calc(100vh - 45px);
   color: $defaultTextColor;
+  box-shadow: 1px 1px 3px $darkBgColor;
 
 
   .bottom {
