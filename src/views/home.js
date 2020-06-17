@@ -35,7 +35,30 @@ export default class HomeView extends GremlinConnectorComponent {
     // }
 
 
+    getQueryFromUrl() {
+        return new URLSearchParams(window.location.search).get("query");
+    }
 
+
+    loadQueryFromUrl() {
+        const query = this.getQueryFromUrl();
+        if (query && query !== "null") {
+            this.makeQuery(query, true);
+
+        }
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        setTimeout(() => this.loadQueryFromUrl(), 300);
+    }
+
+    makeQuery(query, setUrl) {
+        super.makeQuery(query, setUrl);
+        this.setState({
+            canvasQuery: query
+        })
+    }
 
     onQuerySubmit(query) {
         console.log("Query is " + query);
@@ -85,7 +108,7 @@ export default class HomeView extends GremlinConnectorComponent {
                     </ErrorBoundary>
                 </MainContent>
                 {parentHTML}
-                {/*<SetQueryToUrl query={this.state.canvasQuery}/>*/}
+                <SetQueryToUrl query={this.state.canvasQuery}/>
 
             </div>
         )

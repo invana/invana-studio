@@ -7,29 +7,19 @@ export class SetQueryToUrl extends React.Component {
         query: null
     }
 
-    // componentDidMount() {
-    //     if (this.props.query) {
-    //         alert("adding to " + this.props.query);
-    //     }
-    // }
-    //
-    //
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (this.props.query) {
-    //         alert("adding to " + this.props.query);
-    //     }
-    // }
-
-    render() {
-        // if (this.props.query) {
-        //     alert("adding to " + this.props.query);
-        // }
-        console.log("this.props.query, this.props.query", this.props.query)
+    setQueryToUrl(query) {
+        console.log("===setQueryToUrl", query);
         let u = new URL(window.location.href);
         let searchParams = new URLSearchParams(window.location.search);
-        searchParams.set("query", this.props.query);
-        window.history.pushState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
+        if (query && query !== "null") {
+            searchParams.set("query", query);
+            window.history.pushState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
+        }
+    }
 
+
+    render() {
+        this.setQueryToUrl(this.props.query);
         return (
             <div></div>
         )
