@@ -21,11 +21,11 @@ export default class MainLeftNav extends React.Component {
         return (
             <div className={"mainLeftNav"}>
                 <ul className={"vertical"}>
-                    <li>
-                        <a href="/" title={"Graph Visualiser"}>
-                            <FontAwesomeIcon icon={faStar}/>
-                        </a>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <a href="/" title={"Graph Visualiser"}>*/}
+                    {/*        <FontAwesomeIcon icon={faStar}/>*/}
+                    {/*    </a>*/}
+                    {/*</li>*/}
                     {/*<li>*/}
                     {/*    <a href="/console" title={"Query Console"}>*/}
                     {/*        <FontAwesomeIcon icon={faStar}/>*/}
@@ -71,10 +71,9 @@ export default class MainLeftNav extends React.Component {
 
                 {
                     (this.props.leftFlyOutName === "history") ?
-                        <HistoryFlyOut onClose={() => this.props.onLeftFlyOutClose("history")}/>
+                        <HistoryFlyOut onClose={this.props.onLeftFlyOutClose}/>
                         : <span></span>
                 }
-                {/*<FlyOutUI position={"left"} display={"block"}/>*/}
 
             </div>
         )

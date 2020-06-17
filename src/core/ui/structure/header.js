@@ -4,6 +4,7 @@ import {faBook} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import QueryInputForm from "../form/query-forms";
 import {VERSION} from "../../../config";
+import HistoryFlyOut from "../history";
 
 export default class MainHeaderNav extends React.Component {
 
@@ -15,17 +16,13 @@ export default class MainHeaderNav extends React.Component {
                 </div>
                 <div className="right-side">
                     <ul>
-
                         <li>
-                            <QueryInputForm defaultQueryValue={this.props.canvasQuery} onQuerySubmit={this.props.onQuerySubmit}/>
-                        </li>
-                        <li>
-                            <a href="/learn">
-                                <FontAwesomeIcon icon={faBook}/>
-                            </a>
+                            <QueryInputForm defaultQueryValue={this.props.canvasQuery}
+                                            onQuerySubmit={this.props.onQuerySubmit}/>
                         </li>
                     </ul>
                 </div>
+
             </div>
         )
     }

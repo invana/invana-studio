@@ -8,6 +8,8 @@ import Welcome from "../core/ui/welcome";
 import GremlinConnectorComponent from "../core/gremlin-connector";
 import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
 import FlyOutUI from "../core/ui/flyout";
+import HistoryFlyOut from "../core/ui/history";
+import LearnFlyOut from "../core/ui/learn";
 
 export default class HomeView extends GremlinConnectorComponent {
 
@@ -21,7 +23,8 @@ export default class HomeView extends GremlinConnectorComponent {
             canvasType: "graph",
             canvasQuery: null,
             shallReRenderD3Canvas: true,
-            leftFlyOutName: null
+            leftFlyOutName: null,
+            rightFlyOutName: null
         }
     }
 
@@ -66,15 +69,27 @@ export default class HomeView extends GremlinConnectorComponent {
         })
     }
 
-    setLeftFlyOut(leftFlyOutName){
+    setLeftFlyOut(leftFlyOutName) {
         this.setState({
             leftFlyOutName: leftFlyOutName
         })
     }
 
-    onLeftFlyOutClose(leftFlyOutName){
+    setRightFlyOut(leftFlyOutName) {
+        this.setState({
+            rightFlyOutName: leftFlyOutName
+        })
+    }
+
+    onLeftFlyOutClose() {
         this.setState({
             leftFlyOutName: null
+        })
+    }
+
+    onRightFlyOutClose() {
+        this.setState({
+            rightFlyOutName: null
         })
     }
 
@@ -113,8 +128,16 @@ export default class HomeView extends GremlinConnectorComponent {
                 </MainContent>
                 {parentHTML}
                 <MainLeftNav leftFlyOutName={this.state.leftFlyOutName}
-                             onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)} setLeftFlyOut={this.setLeftFlyOut.bind(this)}/>
+                             onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
+                             setLeftFlyOut={this.setLeftFlyOut.bind(this)}/>
 
+
+                {
+                    (this.state.rightFlyOutName === "learn") ?
+                        <LearnFlyOut
+                            onClose={this.onRightFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
             </div>
         )
     }

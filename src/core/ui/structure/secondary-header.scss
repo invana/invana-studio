@@ -1,6 +1,6 @@
 @import "../../../config";
 
-.secondary-header {
+.secondaryHeader {
   position: fixed;
   top: 45px;
   width: calc(100% - 50px);
@@ -12,6 +12,14 @@
   background: lighten($darkBgColor, 0%);
   border-bottom: 1px solid $borderColor;
 
+  .left-side{
+    float: left;
+  }
+
+  .right-side{
+     margin-left: auto;
+    order: 2;
+  }
 
   p {
     margin-bottom: 0;

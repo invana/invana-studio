@@ -8,6 +8,9 @@ import {ConnectionStatusComponent} from "./index";
 import Footer from "../ui/footer";
 import SecondaryHeader from "../ui/structure/secondary-header";
 import FlyOutUI from "../ui/flyout";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBook} from "@fortawesome/free-solid-svg-icons";
+import HistoryFlyOut from "../ui/history";
 
 export default class GremlinConnectorComponent extends React.Component {
 
@@ -292,17 +295,30 @@ export default class GremlinConnectorComponent extends React.Component {
                 </Footer>
 
                 <SecondaryHeader>
-                    {
-                        (this.state.responses)
-                            ? <ul>
-                                <li><a onClick={() => this.switchCanvasTo("graph")}>Graph</a></li>
-                                <li><a onClick={() => this.switchCanvasTo("table")}>Table</a></li>
-                                <li><a onClick={() => this.switchCanvasTo("json")}>JSON</a></li>
-                            </ul>
-                            : <span> Welcome to Graph Explorer Beta. </span>
-                    }
+
+                    <div className={"left-side"}>
+                        {
+                            (this.state.responses)
+                                ?
+                                <ul>
+                                    <li><a onClick={() => this.switchCanvasTo("graph")}>Graph</a></li>
+                                    <li><a onClick={() => this.switchCanvasTo("table")}>Table</a></li>
+                                    <li><a onClick={() => this.switchCanvasTo("json")}>JSON</a></li>
+                                </ul>
+                                : <span> Welcome to Graph Explorer Beta. </span>
+                        }
+                    </div>
+                    <div className={"right-side"}>
+                        <ul>
+                            <li><a onClick={() => this.setRightFlyOut("learn")}> <FontAwesomeIcon icon={faBook}/></a>
+                            </li>
+                        </ul>
+                    </div>
+
 
                 </SecondaryHeader>
+
+
                 {
                     this.state.errorMessage ?
                         <FlyOutUI position={"bottom"}
