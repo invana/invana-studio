@@ -12,6 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./left.scss";
 import FlyOutUI from "../flyout";
 import HistoryFlyOut from "../history";
+import SettingsFlyOut from "../settings";
 
 export default class MainLeftNav extends React.Component {
 
@@ -38,7 +39,7 @@ export default class MainLeftNav extends React.Component {
                         </a>
                     </li>
                     <li>
-                        <a href="/management" title={"Management"}>
+                        <a onClick={() => this.props.setLeftFlyOut("settings")}  title={"Settings"}>
                             <FontAwesomeIcon icon={faCog}/>
                         </a>
                     </li>
@@ -72,6 +73,12 @@ export default class MainLeftNav extends React.Component {
                 {
                     (this.props.leftFlyOutName === "history") ?
                         <HistoryFlyOut onClose={this.props.onLeftFlyOutClose}/>
+                        : <span></span>
+                }
+
+                {
+                    (this.props.leftFlyOutName === "settings") ?
+                        <SettingsFlyOut onClose={this.props.onLeftFlyOutClose}/>
                         : <span></span>
                 }
 
