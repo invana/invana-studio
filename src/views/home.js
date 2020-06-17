@@ -5,6 +5,7 @@ import MainContent from "../core/ui/main-content";
 import JSONCanvas from "../core/ui/canvas/json";
 import GraphCanvas from "../core/ui/canvas/graph/index";
 import Welcome from "../core/components/welcome";
+import SwitchConnection from "../core/components/switch";
 import GremlinConnectorComponent from "../core/gremlin-connector";
 import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
 import FlyOutUI from "../core/ui/flyout";
@@ -24,7 +25,8 @@ export default class HomeView extends GremlinConnectorComponent {
             canvasQuery: null,
             shallReRenderD3Canvas: true,
             leftFlyOutName: null,
-            rightFlyOutName: null
+            rightFlyOutName: null,
+            centerModalName: "welcome"
         }
     }
 
@@ -93,6 +95,18 @@ export default class HomeView extends GremlinConnectorComponent {
         })
     }
 
+    onCenterModalClose() {
+        this.setState({
+            centerModalName: null
+        })
+    }
+
+    setCenterModal(modalName) {
+        this.setState({
+            centerModalName: modalName
+        })
+    }
+
     render() {
 
         const parentHTML = super.render();
@@ -119,9 +133,24 @@ export default class HomeView extends GremlinConnectorComponent {
                                     <JSONCanvas responses={this.state.responses}/>
                                 )
                             } else {
-                                return (
-                                    <Welcome makeQuery={this.makeQuery.bind(this)}/>
-                                )
+                                if (!this.state.responses && this.state.centerModalName === "welcome") {
+                                    return (
+                                        <Welcome makeQuery={this.makeQuery.bind(this)}/>
+                                    )
+                                } else {
+                                    return (
+                                        <span>
+                                            {
+                                            (this.state.centerModalName === "switch-server") ?
+                                                <SwitchConnection
+                                                    gremlinUrl={this.props.gremlinUrl}
+                                                    onClose={this.onCenterModalClose.bind(this)}/>
+                                                : <span></span>
+                                            }
+                                        </span>
+                                    )
+                                }
+
                             }
                         })()}
                     </ErrorBoundary>
@@ -129,7 +158,9 @@ export default class HomeView extends GremlinConnectorComponent {
                 {parentHTML}
                 <MainLeftNav leftFlyOutName={this.state.leftFlyOutName}
                              onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
-                             setLeftFlyOut={this.setLeftFlyOut.bind(this)}/>
+                             setLeftFlyOut={this.setLeftFlyOut.bind(this)}
+                             setCenterModal={this.setCenterModal.bind(this)}
+                />
 
 
                 {
@@ -138,6 +169,8 @@ export default class HomeView extends GremlinConnectorComponent {
                             onClose={this.onRightFlyOutClose.bind(this)}/>
                         : <span></span>
                 }
+
+
             </div>
         )
     }

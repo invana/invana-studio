@@ -39,7 +39,7 @@ export default class MainLeftNav extends React.Component {
                         </a>
                     </li>
                     <li>
-                        <a onClick={() => this.props.setLeftFlyOut("settings")}  title={"Settings"}>
+                        <a onClick={() => this.props.setLeftFlyOut("settings")} title={"Settings"}>
                             <FontAwesomeIcon icon={faCog}/>
                         </a>
                     </li>
@@ -63,8 +63,7 @@ export default class MainLeftNav extends React.Component {
                         </a>
                     </li>
                     <li>
-                        <a href={"/switch-server"} title={"Switch Server"}>
-
+                        <a onClick={() => this.props.setCenterModal("switch-server")} title={"Switch Server"}>
                             <FontAwesomeIcon icon={faSignInAlt}/>
                         </a>
                     </li>
