@@ -82,7 +82,7 @@ ul.list {
 
 form {
   input {
-    padding: 8px 10px;
+    padding: 6px 10px;
     background: $lightDarkBgColor;
     border: 1px solid $borderColor;
     outline: none;
@@ -103,13 +103,8 @@ form {
 }
 
 button {
-  //padding: 10px 15px;
-  //background: #212121;
-  //border: 1px solid #373945;
-  //outline: none;
-  //color: #efefef;
-  //cursor: pointer;
-  padding: 10px 15px;
+  padding: 6px 15px;
+  font-size: 16px;
   background: $lightDarkBgColor;
   border: 1px solid $borderColor;
   outline: none;

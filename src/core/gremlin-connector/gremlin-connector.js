@@ -306,7 +306,7 @@ export default class GremlinConnectorComponent extends React.Component {
                                     <li><a onClick={() => this.switchCanvasTo("table")}>Table</a></li>
                                     <li><a onClick={() => this.switchCanvasTo("json")}>JSON</a></li>
                                 </ul>
-                                : <span> Welcome to Graph Explorer Beta. </span>
+                                : <span style={{"padding-left": "10px"}}> Welcome to Graph Explorer Beta. </span>
                         }
                     </div>
                     <div className={"right-side"}>
@@ -326,6 +326,7 @@ export default class GremlinConnectorComponent extends React.Component {
                                   display={this.state.errorMessage ? "block" : "none"}
                                   title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
                                   isWarning={true}
+                                  padding={false}
                                   onClose={this.onErrorMessageFlyoutClose.bind(this)}
                         >
                             <div className={"errorMessage"}>

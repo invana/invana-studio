@@ -11,7 +11,7 @@ export default class LearnFlyOut extends React.Component {
                       position={"right"}
                       onClose={this.props.onClose}
             >
-                Query history will come here
+                learn section comes here
             </FlyOutUI>
         )
     }
