@@ -1,4 +1,4 @@
-import GremlinConnectorComponent, {ConnectionStatusComponent} from "../core/gremlin-connector";
+import GremlinConnectorComponent, {StatusMessageComponent} from "../core/gremlin-connector";
 import React from "react";
 import QueryInputForm from "../core/ui/form/query-forms";
 import JSONCanvas from "../core/ui/canvas/json";
@@ -34,7 +34,7 @@ export default class ConsoleView extends GremlinConnectorComponent {
         return (
             <div className={"consoleView"}>
                 <QueryInputForm queryOnSubmitHandler={this.submitQuery.bind(this)}/>
-                <ConnectionStatusComponent
+                <StatusMessageComponent
                     statusMessage={this.state.statusMessage}
                     isConnected2Gremlin={this.state.isConnected2Gremlin}
                 />

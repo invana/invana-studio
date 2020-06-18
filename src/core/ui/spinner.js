@@ -10,7 +10,7 @@ export default class LoadSpinner extends React.Component {
         if (window.location.pathname === "/") {
             divHeight = "35px";
         }
-        console.log("this.props.showLoading", this.props.showLoading);
+        // console.log("this.props.showLoading", this.props.showLoading);
 
         return (
             <div>

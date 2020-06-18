@@ -1,9 +1,9 @@
 .connected{
-    background: #089e08;
+    background: #58bb58;
 }
 
 .notConnected{
-    background: #e36363;
+    background: #c15050;
 }
 
 .connectionIndicator{
@@ -12,4 +12,8 @@
     margin-left: 3px;
     margin-right: 3px;
     display: inline-block;
+}
+
+.unknownStatus{
+    background: #dea448;
 }

@@ -1,6 +1,6 @@
 import GremlinConnectorComponent from "./gremlin-connector";
-import ConnectionStatusComponent from "./status";
+import StatusMessageComponent from "./status";
 import ConnectionIndicatorComponent from "./indicator";
 
 export default GremlinConnectorComponent
-export {ConnectionStatusComponent, ConnectionIndicatorComponent}
+export {StatusMessageComponent, ConnectionIndicatorComponent}

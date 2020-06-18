@@ -3,7 +3,7 @@ import ConnectionIndicatorComponent from "./indicator";
 
 
 
-export default class ConnectionStatusComponent extends React.Component {
+export default class StatusMessageComponent extends React.Component {
     /*
     This component will show the status of the gremlin connection. ie, shows
 
@@ -14,7 +14,6 @@ export default class ConnectionStatusComponent extends React.Component {
     render() {
         return (
             <div className={"statusMessage"}>
-                <ConnectionIndicatorComponent isConnected2Gremlin={this.props.isConnected2Gremlin} />
                 {this.props.statusMessage || ""}
             </div>
         );

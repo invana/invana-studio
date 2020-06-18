@@ -4,7 +4,7 @@ import {
     DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds, GREMLIN_SERVER_URL
 } from "../../config";
-import {ConnectionStatusComponent} from "./index";
+import {StatusMessageComponent} from "./index";
 import Footer from "../ui/footer";
 import SecondaryHeader from "../ui/structure/secondary-header";
 import FlyOutUI from "../ui/flyout";
@@ -311,7 +311,7 @@ export default class GremlinConnectorComponent extends React.Component {
         return (
             <div>
                 <Footer>
-                    <ConnectionStatusComponent
+                    <StatusMessageComponent
                         statusMessage={this.state.statusMessage}
                         isConnected2Gremlin={this.state.isConnected2Gremlin}
                     />
@@ -345,10 +345,7 @@ export default class GremlinConnectorComponent extends React.Component {
                         </ul>
                     </div>
 
-
                 </SecondaryHeader>
-
-
                 {
                     this.state.errorMessage ?
                         <FlyOutUI position={"bottom"}
