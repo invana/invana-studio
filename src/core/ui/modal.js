@@ -4,19 +4,24 @@ import "./modal.scss";
 export default class Modal extends React.Component {
     static defaultProps = {
         size: "md",
-        title: "default title here"
+        title: null
     }
 
     render() {
         let _className = "";
         if (this.props.size === "lg") {
             _className = "modalLg"
-        } else  {
+        } else {
             _className = "modalMd"
         }
         return (
             <div className={"modal " + _className}>
-                <h2>{this.props.title}</h2>
+                {
+                    this.props.title
+                        ? <h2>{this.props.title}</h2>
+                        : <span></span>
+                }
+
                 <div>
                     {this.props.children}
                 </div>
