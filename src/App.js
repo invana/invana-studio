@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import './App.css';
 // import ConsoleView from "./views/console";
 import HomeView from "./views/home";
-import ConnectView from "./views/connect";
+import SetupGremlinServerConnection from "./views/connect";
 import {
     GREMLIN_SERVER_URL
 } from "./config";
@@ -37,7 +37,7 @@ export default class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={HomeView}/>
                         {/*<Route exact path="/explorer" component={HomeView}/>*/}
-                        <Route exact path="/connect" component={ConnectView}/>
+                        <Route exact path="/connect" component={SetupGremlinServerConnection}/>
                         <Route component={Page404}/>
                     </Switch>
                 </Suspense>

@@ -4,7 +4,7 @@ import {setDataToLocalStorage} from "../core/utils";
 import {gremlinServerUrlKey} from "../config";
 import "./connect.scss";
 
-export default class ConnectView extends React.Component {
+export default class SetupGremlinServerConnection extends React.Component {
 
     constructor(props) {
         super(props);

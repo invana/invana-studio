@@ -11,6 +11,7 @@ import FlyOutUI from "../ui/flyout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBook} from "@fortawesome/free-solid-svg-icons";
 import HistoryFlyOut from "../components/history";
+import LoadSpinner from "../ui/spinner";
 
 export default class GremlinConnectorComponent extends React.Component {
 
@@ -60,7 +61,8 @@ export default class GremlinConnectorComponent extends React.Component {
             isConnected2Gremlin: false,
             statusMessage: null,
             canvasType: "graph",
-            errorMessage: null
+            errorMessage: null,
+            showLoading: false
         }
     }
 
@@ -106,6 +108,15 @@ export default class GremlinConnectorComponent extends React.Component {
             " for the query.", responses);
     }
 
+    _processResponse(responses) {
+
+        this.hideLoading();
+        this.setIsStreaming(false);
+        this.setIsQuerying(false);
+        this.processResponse(responses);
+
+    }
+
     updateTimer(timerCount, isMaxTimeElapsed) {
         this.setState({queryElapsedTimeCounter: timerCount, maxTimeElapsedError: isMaxTimeElapsed});
     }
@@ -121,19 +132,15 @@ export default class GremlinConnectorComponent extends React.Component {
                 this.setStatusMessage("Gathering data from the stream");
                 this.responses.push(response);
             } else {
-                this.setIsStreaming(false);
                 this.responses.push(response);
                 this.setStatusMessage("Responded to the Query Successfully");
                 const responses = Object.assign(this.responses);
                 this.flushResponsesData();
-                this.setIsQuerying(false);
-                this.processResponse(responses);
+                this._processResponse(responses);
             }
         } else {
-            this.setIsStreaming(false);
-            this.setIsQuerying(false);
             const responses = Object.assign(this.responses);
-            this.processResponse(responses);
+            this._processResponse(responses);
             this.setState({
                 errorMessage: response.status
             })
@@ -233,8 +240,23 @@ export default class GremlinConnectorComponent extends React.Component {
     }
 
 
+    showLoading() {
+        this.setState({
+            showLoading: true
+        })
+    }
+
+    hideLoading() {
+        this.setState({
+            showLoading: false
+        })
+    }
+
+
     makeQuery(query, setUrl) {
 
+
+        this.showLoading();
         // TODO - add logic to wait till server connects.
         if (typeof setUrl === "undefined") {
             setUrl = false;
@@ -293,6 +315,13 @@ export default class GremlinConnectorComponent extends React.Component {
                         statusMessage={this.state.statusMessage}
                         isConnected2Gremlin={this.state.isConnected2Gremlin}
                     />
+
+                    <LoadSpinner
+                        loadingMessage={"Connecting to Gremlin Server"}
+                        loadingExtraText={"establishing connection to " + this.props.gremlinUrl}
+                        showLoading={this.state.showLoading}
+                        showSignout={true}
+                        loadTimeCounter={this.state.loadTimeCounter}/>
                 </Footer>
 
                 <SecondaryHeader>
