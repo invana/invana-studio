@@ -1,6 +1,6 @@
 import React from "react";
-import MainLeftNav from "../core/ui/structure/left";
-import MainHeaderNav from "../core/ui/structure/header";
+import MainLeftNavBase from "../core/ui/structure/left";
+import MainTopNav from "../core/ui/structure/top";
 import MainContent from "../core/ui/main-content";
 import JSONCanvas from "../core/ui/canvas/json";
 import GraphCanvas from "../core/ui/canvas/graph/index";
@@ -115,7 +115,7 @@ export default class HomeView extends GremlinConnectorComponent {
         const parentHTML = super.render();
         return (
             <div>
-                <MainHeaderNav canvasQuery={this.state.canvasQuery} onQuerySubmit={this.onQuerySubmit.bind(this)}/>
+                <MainTopNav canvasQuery={this.state.canvasQuery} onQuerySubmit={this.onQuerySubmit.bind(this)}/>
                 <MainContent>
                     <ErrorBoundary>
                         {(() => {
@@ -159,7 +159,7 @@ export default class HomeView extends GremlinConnectorComponent {
                     </ErrorBoundary>
                 </MainContent>
                 {parentHTML}
-                <MainLeftNav leftFlyOutName={this.state.leftFlyOutName}
+                <MainLeftNavBase leftFlyOutName={this.state.leftFlyOutName}
                              onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
                              setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                              setCenterModal={this.setCenterModal.bind(this)}

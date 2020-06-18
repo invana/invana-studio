@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-
-import BaseComponent from "./base-component";
-import {StatusMessageComponent} from "../gremlin-connector";
+import ComponentBase from "./base";
 import ConnectionIndicatorComponent from "../gremlin-connector/indicator";
 import {
     DefaultConnectionRetryTimeout,
@@ -11,7 +9,7 @@ import {
 } from "../../config";
 
 
-export default class GremlinHeadlessComponent extends BaseComponent {
+export default class GremlinHeadlessComponent extends ComponentBase {
     /*
 
     Usage

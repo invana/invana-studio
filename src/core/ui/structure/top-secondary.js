@@ -1,7 +1,8 @@
 import React from "react";
-import "./secondary-header.scss";
+import "./top-secondary.scss";
 
-export default class SecondaryHeader extends React.Component {
+export default class SecondaryHeaderBase extends React.Component {
+
 
 
     render() {

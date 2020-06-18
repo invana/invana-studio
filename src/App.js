@@ -7,6 +7,7 @@ import {
     GREMLIN_SERVER_URL
 } from "./config";
 import {redirectToConnectIfNeeded} from "./core/utils";
+import PageComponentBase from "./core/base/page";
 import {
     BrowserRouter as Router,
     Switch,
@@ -39,6 +40,7 @@ export default class App extends React.Component {
                         <Route exact path="/" component={HomeView}/>
                         {/*<Route exact path="/explorer" component={HomeView}/>*/}
                         <Route exact path="/connect" component={SetupGremlinServerConnection}/>
+                        <Route exact path="/page" component={PageComponentBase}/>
                         <Route component={Page404}/>
                     </Switch>
                 </Suspense>

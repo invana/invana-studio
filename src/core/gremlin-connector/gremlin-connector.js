@@ -6,7 +6,7 @@ import {
 } from "../../config";
 import {StatusMessageComponent} from "./index";
 import Footer from "../ui/footer";
-import SecondaryHeader from "../ui/structure/secondary-header";
+import SecondaryHeader from "../ui/structure/top-secondary";
 import FlyOutUI from "../ui/flyout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBook} from "@fortawesome/free-solid-svg-icons";

@@ -5,7 +5,7 @@ import Footer from "../ui/footer";
 import {StatusMessageComponent} from "../gremlin-connector";
 
 
-export default class BaseComponent extends React.Component {
+export default class ComponentBase extends React.Component {
 
     constructor(props) {
         super(props);
