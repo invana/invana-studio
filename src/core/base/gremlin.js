@@ -219,7 +219,9 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     }
 
     makeQuery(query, setUrl) {
-
+        this.setState({
+            canvasQuery: query
+        })
 
         // TODO - add logic to wait till server connects.
         if (typeof setUrl === "undefined") {

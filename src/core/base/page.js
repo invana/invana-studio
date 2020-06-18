@@ -17,6 +17,7 @@ import GraphCanvas from "../ui/canvas/graph";
 import JSONCanvas from "../ui/canvas/json";
 import Welcome from "../components/welcome";
 import SwitchConnection from "../components/switch";
+import {redirectToConnectIfNeeded} from "../utils";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
@@ -76,18 +77,47 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         })
     }
 
+    getQueryFromUrl() {
+        return new URLSearchParams(window.location.search).get("query");
+    }
+
+    componentDidMount() {
+        redirectToConnectIfNeeded();
+
+        super.componentDidMount();
+        setTimeout(() => this.loadQueryFromUrl(), 300);
+    }
+
+    loadQueryFromUrl() {
+        const query = this.getQueryFromUrl();
+        if (query && query !== "null") {
+            this.makeQuery(query, true);
+        }
+    }
+
+    onQuerySubmit(query) {
+        console.log("Query is " + query);
+        this.makeQuery(query, true);
+    }
+
+    onErrorMessageFlyoutClose() {
+        this.setState({
+            "errorMessage": null
+        })
+    }
+
     render() {
         const superRender = super.render();
         return (
             <div>
-                <Header canvasQuery={this.props.canvasQuery} onQuerySubmit={this.props.onQuerySubmit}/>
+                <Header canvasQuery={this.state.canvasQuery}
+                        onQuerySubmit={this.onQuerySubmit.bind(this)}/>
 
 
                 <SecondaryHeader canvasQuery={this.state.canvasQuery}
                                  onRightFlyOutClose={this.onRightFlyOutClose.bind(this)}
                                  setRightFlyOut={this.setRightFlyOut.bind(this)}/>
 
-                {superRender}
                 <MainContent>
                     <ErrorBoundary>
                         {(() => {
@@ -155,6 +185,8 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                             </div>
                         </FlyOutUI> : <span></span>
                 }
+                {superRender}
+
             </div>
         )
     }
