@@ -2,14 +2,11 @@
 To create new pages with full header, left nav etc ui components
  */
 import React from "react";
-import ComponentBase from "./base";
 import Header from "./header";
-import QueryInputForm from "../ui/form/query-forms";
 import LeftNav from "./left-nav";
 import SecondaryHeader from "./secondary-header";
 import GremlinHeadlessComponent from "./gremlin";
 import LearnFlyOut from "../components/learn";
-import SecondaryHeaderBase from "../ui/structure/top-secondary";
 import FlyOutUI from "../ui/flyout";
 import MainContent from "../ui/main-content";
 import ErrorBoundary from "../ui/canvas/graph/error-boundary";
@@ -106,6 +103,12 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         })
     }
 
+    switchCanvasTo(canvasType) {
+        this.setState({
+            canvasType: canvasType
+        })
+    }
+
     render() {
         const superRender = super.render();
         return (
@@ -116,7 +119,9 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
 
                 <SecondaryHeader canvasQuery={this.state.canvasQuery}
                                  onRightFlyOutClose={this.onRightFlyOutClose.bind(this)}
-                                 setRightFlyOut={this.setRightFlyOut.bind(this)}/>
+                                 setRightFlyOut={this.setRightFlyOut.bind(this)}
+                                 switchCanvasTo={this.switchCanvasTo.bind(this)}
+                />
 
                 <MainContent>
                     <ErrorBoundary>

@@ -11,7 +11,8 @@ export default class SecondaryHeader extends React.Component {
 
     static defaultProps = {
         canvasQuery: null,
-        setRightFlyOut: () => console.error("setRightFlyOut prop is missing for <SecondaryHeader />")
+        setRightFlyOut: () => console.error("setRightFlyOut prop is missing for <SecondaryHeader />"),
+        switchCanvasTo: (canvasType) => console.error("switchCanvasTo prop is missing for <SecondaryHeader />"),
     }
 
     render() {
@@ -22,9 +23,9 @@ export default class SecondaryHeader extends React.Component {
                         (this.props.canvasQuery)
                             ?
                             <ul>
-                                <li><a onClick={() => this.switchCanvasTo("graph")}>Graph</a></li>
-                                <li><a onClick={() => this.switchCanvasTo("table")}>Table</a></li>
-                                <li><a onClick={() => this.switchCanvasTo("json")}>JSON</a></li>
+                                <li><a onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>
+                                {/*<li><a onClick={() => this.props.switchCanvasTo("table")}>Table</a></li>*/}
+                                <li><a onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
                             </ul>
                             : <span style={{"paddingLeft": "10px"}}> Welcome to Graph Explorer Beta. </span>
                     }

@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {DefaultMaxTimeElapsedWarningInSeconds} from "../../config";
 import LoadSpinner from "../ui/spinner";
-import Footer from "../ui/footer";
 import {StatusMessageComponent} from "../gremlin-connector";
-
+import Footer from "../ui/footer";
 
 export default class ComponentBase extends React.Component {
 
@@ -76,7 +75,7 @@ export default class ComponentBase extends React.Component {
 
     render() {
         return (
-            <div>
+            <Footer>
                 <StatusMessageComponent statusMessage={this.state.statusMessage}/>
                 <LoadSpinner
                     loadingMessage={this.state.loadingMessage}
@@ -84,7 +83,7 @@ export default class ComponentBase extends React.Component {
                     showLoading={this.checkIfLoading.bind(this)}
                     showSignout={true}
                     loadTimeCounter={this.state.loaderElapsedTimer}/>
-            </div>
+            </Footer>
         )
     }
 
