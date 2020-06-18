@@ -3,14 +3,15 @@
 .secondaryHeader {
   position: fixed;
   top: 45px;
-  width: calc(100% - 50px);
+  width: calc(100% - 52px);
   height: 30px;
-  left: 50px;
+  left: 51px;
   display: flex;
   align-items: center;
   //background: lighten($darkBgColor, 10%);
   background: lighten($darkBgColor, 0%);
   border-bottom: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
   box-shadow: 1px 1px 3px $darkBgColor;
 
   .left-side {
