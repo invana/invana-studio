@@ -160,9 +160,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
         var menuDataSet = [{
             id: 101,
-            option_name: "not-assigned",
-            title: "not assigned",
-            html: "."
+            option_name: "vertex-options",
+            title: "Vertex Options",
+            html: "..."
         }, {
             id: 102,
             option_name: "out-links",
@@ -241,6 +241,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
                     _this.closeNodeMenu(selectedNode);
                 } else if (arch_node.data.option_name === "release-lock") {
                     _this.releaseNodeLock(selectedNode);
+                } else if (arch_node.data.option_name === "vertex-options") {
+                    _this.props.setShowVertexOptions(selectedNode);
                 } else {
                     alert("not implemented");
                 }

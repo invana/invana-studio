@@ -8,12 +8,6 @@ import SecondaryHeader from "./secondary-header";
 import GremlinHeadlessComponent from "./gremlin";
 import LearnFlyOut from "../components/learn";
 import FlyOutUI from "../ui/flyout";
-import MainContent from "../ui/main-content";
-import ErrorBoundary from "../ui/canvas/graph/error-boundary";
-import GraphCanvas from "../ui/canvas/graph";
-import JSONCanvas from "../ui/canvas/json";
-import Welcome from "../components/welcome";
-import SwitchConnection from "../components/switch";
 import {redirectToConnectIfNeeded} from "../utils";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
@@ -23,7 +17,6 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         this.state = {
             canvasQuery: null,
             canvasType: "graph",
-
             leftFlyOutName: null,
             rightFlyOutName: null,
             centerModalName: "welcome"
@@ -80,7 +73,6 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
 
     componentDidMount() {
         redirectToConnectIfNeeded();
-
         super.componentDidMount();
         setTimeout(() => this.loadQueryFromUrl(), 300);
     }
@@ -109,6 +101,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         })
     }
 
+
     render() {
         const superRender = super.render();
         return (
@@ -123,48 +116,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                                  switchCanvasTo={this.switchCanvasTo.bind(this)}
                 />
 
-                <MainContent>
-                    <ErrorBoundary>
-                        {(() => {
-                            if (this.state.canvasType === "graph" && this.state.responses) {
-                                return (
-                                    <GraphCanvas
-                                        responses={this.state.responses}
-                                        queryGremlinServer={this.makeQuery.bind(this)}
-                                        shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                    />
-                                )
-                            } else if (this.state.canvasType === "table" && this.state.responses) {
-                                return (
-                                    <div>table ui comes here</div>
-                                )
-                            } else if (this.state.canvasType === "json" && this.state.responses) {
-                                return (
-                                    <JSONCanvas responses={this.state.responses}/>
-                                )
-                            } else {
-                                if (!this.state.responses && this.state.centerModalName === "welcome") {
-                                    return (
-                                        <Welcome makeQuery={this.makeQuery.bind(this)}/>
-                                    )
-                                } else {
-                                    return (
-                                        <span>
-                                            {
-                                                (this.state.centerModalName === "switch-server") ?
-                                                    <SwitchConnection
-                                                        gremlinUrl={this.props.gremlinUrl}
-                                                        onClose={this.onCenterModalClose.bind(this)}/>
-                                                    : <span></span>
-                                            }
-                                        </span>
-                                    )
-                                }
 
-                            }
-                        })()}
-                    </ErrorBoundary>
-                </MainContent>
                 <LeftNav leftFlyOutName={this.state.leftFlyOutName}
                          onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
                          setLeftFlyOut={this.setLeftFlyOut.bind(this)}

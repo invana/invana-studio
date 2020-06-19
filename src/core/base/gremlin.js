@@ -219,9 +219,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     }
 
     makeQuery(query, setUrl) {
-        this.setState({
-            canvasQuery: query
-        })
+
 
         // TODO - add logic to wait till server connects.
         if (typeof setUrl === "undefined") {
@@ -230,6 +228,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         if (setUrl) {
             this.setQueryToUrl(query);
             this.addQueryToState(query)
+
         } // remove this part from here soon.
 
 
@@ -243,9 +242,17 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
             let data = JSON.stringify(msg);
             console.log("Query long one", data);
             this.startLoader("Querying..");
-            _this.ws.send(data, {mask: true});
-            _this.setStatusMessage("Sending Query..")
 
+            if (this.ws.readyState === 1) {
+                _this.ws.send(data, {mask: true});
+                _this.setStatusMessage("Sending Query..")
+            } else {
+                _this.ws.onopen = function () {
+                    _this.ws.send(data, {mask: true});
+                    _this.setStatusMessage("Sending Query..")
+
+                };
+            }
         }
     }
 

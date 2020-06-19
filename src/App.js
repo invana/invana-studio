@@ -38,8 +38,8 @@ export default class App extends React.Component {
             <Router>
                 <Suspense fallback={<div style={{"color": "white"}}>Loading...</div>}>
                     <Switch>
-                        <Route exact path="/" component={ExplorerView}/>
-                        {/*<Route exact path="/explorer" component={HomeView}/>*/}
+                        <Route exact path="/" component={HomeView}/>
+                        <Route exact path="/explorer" component={ExplorerView}/>
                         <Route exact path="/connect" component={SetupGremlinServerConnection}/>
                         <Route exact path="/page" component={PageComponentBase}/>
                         <Route component={Page404}/>

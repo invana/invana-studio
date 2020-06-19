@@ -4,7 +4,7 @@ import D3ForceDirectedCanvas from "./canvas";
 import LegendCanvas from "./legend";
 import SelectedDataCanvas from "./selected-data";
 import GremlinResponseSerializers from "../../../gremlin-connector/gremlin-serializer";
-import FlyOutUI from "../../flyout";
+
 const serializer = new GremlinResponseSerializers()
 
 export default class GraphCanvas extends React.Component {
@@ -12,7 +12,8 @@ export default class GraphCanvas extends React.Component {
     static defaultProps = {
         responses: [],
         shallReRenderD3Canvas: null,
-        queryGremlinServer: () => console.error("queryGremlinServer not set"),
+        queryGremlinServer: () => console.error("queryGremlinServer prop not set for GraphCanvas"),
+        setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas")
     }
 
     constructor(props) {
@@ -29,7 +30,7 @@ export default class GraphCanvas extends React.Component {
         })
     }
 
-    onFlyOutSelectedDataClose(){
+    onFlyOutSelectedDataClose() {
         this.getSelectedElementDataFn(null);
     }
 
@@ -55,9 +56,10 @@ export default class GraphCanvas extends React.Component {
                     shallReRenderD3Canvas={this.shallReRenderD3Canvas}
                     getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
                     queryGremlinServer={this.props.queryGremlinServer}
+                    setShowVertexOptions={this.props.setShowVertexOptions}
                 />
                 <SelectedDataCanvas selectedData={this.state.selectedData}
-                onClose={this.onFlyOutSelectedDataClose.bind(this)}
+                                    onClose={this.onFlyOutSelectedDataClose.bind(this)}
                 />
                 <LegendCanvas
                     nodes={uniqueNodes}

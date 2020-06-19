@@ -1,180 +1,55 @@
-import React from "react";
-import MainLeftNavBase from "../core/ui/structure/left";
-import MainTopNav from "../core/ui/structure/top";
-import MainContent from "../core/ui/main-content";
-import JSONCanvas from "../core/ui/canvas/json";
-import GraphCanvas from "../core/ui/canvas/graph/index";
-import Welcome from "../core/components/welcome";
-import SwitchConnection from "../core/components/switch";
-import GremlinConnectorComponent from "../core/gremlin-connector";
-import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
-import FlyOutUI from "../core/ui/flyout";
-import HistoryFlyOut from "../core/components/history";
-import LearnFlyOut from "../core/components/learn";
-import {redirectToConnectIfNeeded} from "../core/utils";
-
-export default class HomeView extends GremlinConnectorComponent {
+import GremlinHeadlessComponent from "../core/base/gremlin";
+import GremlinResponseSerializers from "../core/gremlin-connector/gremlin-serializer";
 
 
-    shallReRenderD3Canvas = true;
+export default class HomeView extends GremlinHeadlessComponent {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            responses: null,
-            canvasType: "graph",
-            canvasQuery: null,
-            shallReRenderD3Canvas: true,
-            leftFlyOutName: null,
-            rightFlyOutName: null,
-            centerModalName: "welcome"
-        }
-    }
-
-    // componentDidUpdate(prevProps) {
-    //     this.shallReRenderD3Canvas = true;
-    // }
-
-
-    getQueryFromUrl() {
-        return new URLSearchParams(window.location.search).get("query");
-    }
-
-
-    loadQueryFromUrl() {
-        const query = this.getQueryFromUrl();
-        if (query && query !== "null") {
-            this.makeQuery(query, true);
-        }
-    }
 
     componentDidMount() {
-        redirectToConnectIfNeeded();
-
         super.componentDidMount();
-        setTimeout(() => this.loadQueryFromUrl(), 300);
+        let _this = this;
+        setTimeout(function () {
+            _this.makeQuery("g.V().hasLabel('InvanaManagement').toList();", false);
+        }, 200)
     }
 
-    makeQuery(query, setUrl) {
-        super.makeQuery(query, setUrl);
-        this.setState({
-            canvasQuery: query
+    gremlinSerializer = new GremlinResponseSerializers();
+
+    setLabelsConfigToLocalStorage(response) {
+        let result = this.gremlinSerializer.process(response);
+        let nodesAndLinks = this.gremlinSerializer.seperateVerticesAndEdges(result, false);
+        let _nodes = {};
+        nodesAndLinks.nodes.forEach(function (node) {
+            _nodes[node.properties.name] = node.properties;
         })
-    }
-
-    onQuerySubmit(query) {
-        console.log("Query is " + query);
-        this.makeQuery(query, true);
+        let _links = {};
+        nodesAndLinks.links.forEach(function (link) {
+            _links[link.label] = link.properties;
+        })
+        // convert this list into dictionary.
+        console.log("=======((", _nodes, _links)
+        localStorage.setItem('nodeLabels', JSON.stringify(_nodes));
+        localStorage.setItem('linkLabels', JSON.stringify(_links));
     }
 
     processResponse(responses) {
-        this.setState({
-            responses: responses,
-            shallReRenderD3Canvas: true
-        })
-    }
-
-    setLeftFlyOut(leftFlyOutName) {
-        this.setState({
-            leftFlyOutName: leftFlyOutName
-        })
-    }
-
-    setRightFlyOut(leftFlyOutName) {
-        this.setState({
-            rightFlyOutName: leftFlyOutName
-        })
-    }
-
-    onLeftFlyOutClose() {
-        this.setState({
-            leftFlyOutName: null
-        })
-    }
-
-    onRightFlyOutClose() {
-        this.setState({
-            rightFlyOutName: null
-        })
-    }
-
-    onCenterModalClose() {
-        this.setState({
-            centerModalName: null
-        })
-    }
-
-    setCenterModal(modalName) {
-        this.setState({
-            centerModalName: modalName
-        })
-    }
-
-    render() {
-
-        const parentHTML = super.render();
-        return (
-            <div>
-                <MainTopNav canvasQuery={this.state.canvasQuery} onQuerySubmit={this.onQuerySubmit.bind(this)}/>
-                <MainContent>
-                    <ErrorBoundary>
-                        {(() => {
-                            if (this.state.canvasType === "graph" && this.state.responses) {
-                                return (
-                                    <GraphCanvas
-                                        responses={this.state.responses}
-                                        queryGremlinServer={this.makeQuery.bind(this)}
-                                        shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                    />
-                                )
-                            } else if (this.state.canvasType === "table" && this.state.responses) {
-                                return (
-                                    <div>table ui comes here</div>
-                                )
-                            } else if (this.state.canvasType === "json" && this.state.responses) {
-                                return (
-                                    <JSONCanvas responses={this.state.responses}/>
-                                )
-                            } else {
-                                if (!this.state.responses && this.state.centerModalName === "welcome") {
-                                    return (
-                                        <Welcome makeQuery={this.makeQuery.bind(this)}/>
-                                    )
-                                } else {
-                                    return (
-                                        <span>
-                                            {
-                                            (this.state.centerModalName === "switch-server") ?
-                                                <SwitchConnection
-                                                    gremlinUrl={this.props.gremlinUrl}
-                                                    onClose={this.onCenterModalClose.bind(this)}/>
-                                                : <span></span>
-                                            }
-                                        </span>
-                                    )
-                                }
-
-                            }
-                        })()}
-                    </ErrorBoundary>
-                </MainContent>
-                {parentHTML}
-                <MainLeftNavBase leftFlyOutName={this.state.leftFlyOutName}
-                             onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
-                             setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                             setCenterModal={this.setCenterModal.bind(this)}
-                />
-
-
-                {
-                    (this.state.rightFlyOutName === "learn") ?
-                        <LearnFlyOut
-                            onClose={this.onRightFlyOutClose.bind(this)}/>
-                        : <span></span>
-                }
-
-
-            </div>
-        )
+        let _this = this;
+        let response = responses[0];
+        console.log("onmessage received", response);
+        if (response.status.code >= 200 || response.status.code <= 299) {
+            _this.setStatusMessage("Query Successfully Responded.");
+            _this.setLabelsConfigToLocalStorage(response)
+            _this.setState({
+                "successLoading": true,
+            })
+            window.location.href = "/explorer";
+        } else {
+            _this.setState({
+                "errorMessage": JSON.stringify(response,),
+                "showErrorMessage": true,
+                "statusMessage": "Query Successfully Responded." +
+                    " But returned non 200 status[" + response.status.code + "]"
+            })
+        }
     }
 }

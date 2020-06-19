@@ -9,7 +9,8 @@
   line-height: 1.2rem;
   word-wrap: break-word;
   //font-family: Courier;
-  overflow-y: scroll;
+  overflow-y: auto;
+  scrollbar-color: $darkBgColor;
   background: $darkBgColor;
   max-width: 100%;
   color: $defaultTextColor;

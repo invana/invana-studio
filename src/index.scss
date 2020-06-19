@@ -81,6 +81,7 @@ ul.list {
 }
 
 form {
+
   input {
     padding: 6px 10px;
     background: $lightDarkBgColor;
@@ -88,18 +89,40 @@ form {
     outline: none;
     color: white;
     fill: $lightDarkBgColor;
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 1px;
-    min-width: 300px;
+    min-width: 200px;
 
     :hover, :focus, :active {
       background: $lightDarkBgColor;
       border-color: $borderColor;
       outline: none;
       fill: $lightDarkBgColor;
+    }
 
+    :read-only {
+      background-color: yellow;
     }
   }
+
+  label {
+    padding-top: 10px;
+    display: block;
+    font-weight: bold;
+    color: inherit;
+  }
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: darken($defaultTextColor, 20%);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: darken($defaultTextColor, 20%);
+}
+
+::placeholder {
+  color: darken($defaultTextColor, 20%);
 }
 
 button {
@@ -120,15 +143,26 @@ button {
 
   }
 
+  :after {
+    background: $primaryColor !important;
+    opacity: 0;
+    transition: all 0.8s
+  }
+
+}
+
+.primary-btn {
+  background: $primaryColor;
+  color: $darkBgColor;
 }
 
 pre {
-  overflow-x: auto;
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
+  //overflow-x: auto;
+  //white-space: pre-wrap;
+  //white-space: -moz-pre-wrap;
+  //white-space: -pre-wrap;
+  //white-space: -o-pre-wrap;
+  //word-wrap: break-word;
 }
 
 
@@ -142,10 +176,18 @@ pre {
   padding: 10px;
 }
 
+.pt-10 {
+  padding-top: 10px;
+}
 
-.node{
+.mt-10 {
+  margin-top: 10px;
+}
+
+.node {
   cursor: pointer;
 }
-.small{
+
+.small {
   font-size: 0.8rem;
 }
