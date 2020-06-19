@@ -734,30 +734,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        // if (this.props.links !== this.nextProps.links) {
-        //     return true
-        // } else {
-        //     return false
-        // }
-        if (nextProps.shallReRenderD3Canvas === false) {
-            console.log("<<<<>>>>>><<<<<<<>>>>>>>nextProps.shallReRenderD3Canvas is false");
-        }else{
-            alert("shallReRenderD3Canvas is true");
-        }
-        console.log("<<<<>>>>>><<<<<<<>>>>>>>nextProps.shallReRenderD3Canvas is", nextProps.shallReRenderD3Canvas);
         return nextProps.shallReRenderD3Canvas;
     }
-
-    //
-    // componentWillReceiveProps(nextProps) {
-    //     // You don't have to do this check first, but it can help prevent an unneeded render
-    //     // if (nextProps.links !== this.state.links || nextProps.nodes !== this.state.nodes) {
-    //     //     // this.setState(nextProps)
-    //     //     alert("rerender");
-    //     // }
-    //                 this.reRender()
-    //
-    // }
 
     getNodeIDtoLinkIDs(edges) {
         let data = {};
