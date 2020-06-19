@@ -29,7 +29,13 @@ export default class ExplorerView extends PageComponentBase {
             showVertexOptions: true,
             selectedNode: selectedNode
         })
+    }
 
+    setHideVertexOptions(selectedNode) {
+        this.setState({
+            showVertexOptions: false,
+            selectedNode: selectedNode
+        })
     }
 
     reRenderCanvas() {
@@ -49,7 +55,7 @@ export default class ExplorerView extends PageComponentBase {
         super.componentDidMount();
     }
 
-    resetShallReRenderD3Canvas(){
+    resetShallReRenderD3Canvas() {
         this.setState({
             shallReRenderD3Canvas: false
         })
@@ -66,6 +72,7 @@ export default class ExplorerView extends PageComponentBase {
                                 return (
                                     <GraphCanvas
                                         setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                        setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                         responses={this.state.responses}
                                         queryGremlinServer={this.makeQuery.bind(this)}
                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}

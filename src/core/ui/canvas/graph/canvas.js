@@ -142,6 +142,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 document.querySelector(".node-menu").remove();
             }
         }, 50);
+        this.props.setHideVertexOptions();
     }
 
     releaseNodeLock(selectedNode) {
