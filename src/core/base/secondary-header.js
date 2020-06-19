@@ -27,7 +27,7 @@ export default class SecondaryHeader extends React.Component {
                                 {/*<li><a onClick={() => this.props.switchCanvasTo("table")}>Table</a></li>*/}
                                 <li><a onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
                             </ul>
-                            : <span style={{"paddingLeft": "10px"}}> Welcome to Graph Explorer Beta. </span>
+                            : <span style={{"paddingLeft": "10px"}}> Welcome to Graph Explorer. </span>
                     }
                 </div>
                 <div className={"right-side"}>

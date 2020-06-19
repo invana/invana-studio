@@ -61,7 +61,7 @@ export default class SelectedDataCanvas extends React.Component {
                     {cleanedData.properties.name || cleanedData.id}
 
                 </div>
-                <div className="SelectedDataList mainDetails" style={{"overflowY": "scroll"}}>
+                <div className="SelectedDataList mainDetails" >
 
 
                     <div className={'singleProperty'} key={cleanedData.id}>

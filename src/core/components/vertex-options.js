@@ -56,7 +56,7 @@ export default class VertexOptions extends GremlinHeadlessComponent {
         const thisNodeOptions = allNodeOptions[selectedNode.label] || {"properties": {}};
         // get nodeOptions from localStorage.
         return (
-            <FlyOutUI title={"Verex Options"}
+            <FlyOutUI title={"Vertex Options"}
                       display={"block"}
                       position={"left"}
                       onClose={this.props.onClose}
