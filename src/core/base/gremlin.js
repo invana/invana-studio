@@ -40,7 +40,8 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
 
      */
     static defaultProps = {
-        gremlinUrl: GREMLIN_SERVER_URL
+        gremlinUrl: GREMLIN_SERVER_URL,
+        reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
     }
 
     constructor(props) {

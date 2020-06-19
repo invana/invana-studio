@@ -8,6 +8,7 @@ import GremlinResponseSerializers from "../gremlin-connector/gremlin-serializer"
 
 export default class VertexOptions extends GremlinHeadlessComponent {
 
+
     onFormSubmit(e) {
         e.preventDefault();
         console.log("formdata", e.target);

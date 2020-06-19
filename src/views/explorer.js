@@ -31,8 +31,11 @@ export default class ExplorerView extends PageComponentBase {
 
     }
 
-    updateStorageOptionsData(labelData){
+    reRenderCanvas() {
         // use this to rerender the data.
+        this.setState({
+            shallReRenderD3Canvas: true
+        })
     }
 
     setHideVertexOptions() {
@@ -98,7 +101,9 @@ export default class ExplorerView extends PageComponentBase {
                         ? <VertexOptions selectedNode={this.state.selectedNode}
                                          setStatusMessage={this.setStatusMessage.bind(this)}
                                          setErrorMessage={this.setErrorMessage.bind(this)}
-                                         onClose={this.setHideVertexOptions.bind(this)}/>
+                                         onClose={this.setHideVertexOptions.bind(this)}
+                                         reRenderCanvas={this.reRenderCanvas.bind(this)}
+                        />
                         : <span></span>
                 }
                 {superContent}
