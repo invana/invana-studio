@@ -1,21 +1,20 @@
 import React from "react";
 import Modal from "../ui/modal";
-import {removeItemFromLocalStorage} from "../utils";
-import {gremlinServerUrlKey} from "../../config";
+import {removeGremlinFromStorage} from "../utils";
 
 export default class SwitchConnection extends React.Component {
 
-    removeGremlinFromStorage() {
-        removeItemFromLocalStorage(gremlinServerUrlKey);
-        window.location.reload();
+    static defaultProps ={
+        onClose : ()=> console.error("onClose prop not set for  <SwitchConnection> component")
     }
 
     render() {
         return (
-            <Modal title={"Switch Gremlin Server"} size={"md"}>
+            <Modal title={"Switch Gremlin Server"} size={"md"} onClose={this.props.onClose}>
                 <div className={""}>
                     <p>You are using `{this.props.gremlinUrl}` as the gremlin server.</p>
-                    <p><a onClick={()=> this.removeGremlinFromStorage()}><u>click here</u></a> to logout and switch to a different server.</p>
+                    <p><a onClick={() => removeGremlinFromStorage()}><u>click here</u></a> to logout and switch to a
+                        different server.</p>
                 </div>
             </Modal>
         )

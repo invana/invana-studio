@@ -1,9 +1,9 @@
+@import "../../../../config";
 
 .SelectedDataHeading {
   font-size: 12px;
   background: #585858;
-  color: white;
-
+  color: $defaultTextColor;
   padding: 3px 0;
   width: 100%;
   font-family: Courier;
@@ -21,7 +21,6 @@
 }
 
 .SelectedDataList {
-  padding: 0 10px;
   font-family: Courier;
 }
 
@@ -29,15 +28,30 @@
   background: #1e2027;
 }
 
-.singleProperty.heading {
-  background: black;
-  margin-left: -10px;
-  padding: 5px 10px;
-  margin-right: -10px;
+.propertyData {
+  padding-left: 5px;
+  strong{
+    color: $defaultTextColor;
+  }
+  color: darken($defaultTextColor, 20%);
 }
 
 .singleProperty {
-  border-bottom: 1px solid #2f313c;
-  padding-top: 3px;
-  padding-bottom: 3px;
+
+  border-bottom: 1px solid darken($darkBgColor, 3%);
+  //padding-top: 3px;
+  //padding-bottom: 3px;
+  padding: 5px 5px;
+
+
 }
+
+.singleProperty:nth-child(odd) {
+  background: darken($darkBgColor, 2%);
+}
+
+.singleProperty.dark {
+  background: #111111;
+}
+
+

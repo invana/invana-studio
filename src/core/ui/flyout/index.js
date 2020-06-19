@@ -1,6 +1,8 @@
 // left , right, top, bottom
 import React from "react";
 import "./flyout.scss";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class FlyOutUI extends React.Component {
@@ -25,7 +27,9 @@ export default class FlyOutUI extends React.Component {
                         </div>
                         : <span></span>
                 }
-                <button className={"close"} onClick={this.props.onClose.bind(this)}>x</button>
+                <button className={"close"} onClick={this.props.onClose.bind(this)}>
+                                                <FontAwesomeIcon icon={faWindowClose}/>
+                </button>
                 <div className={"flyoutBody " + padClass}>
                     {this.props.children}
                 </div>

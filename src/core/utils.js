@@ -1,4 +1,4 @@
-import {GREMLIN_SERVER_URL} from "../config";
+import {GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
 import GremlinResponseSerializers from "./gremlin-connector/gremlin-serializer";
 
 export function LightenDarkenColor(col, amt) {
@@ -88,4 +88,9 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     console.log("=======((", _nodes, _links)
     setDataToLocalStorage('nodeLabels', _nodes);
     setDataToLocalStorage('linkLabels', _links);
+}
+
+export function removeGremlinFromStorage() {
+    removeItemFromLocalStorage(gremlinServerUrlKey);
+    window.location.reload();
 }

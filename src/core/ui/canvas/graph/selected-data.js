@@ -64,19 +64,19 @@ export default class SelectedDataCanvas extends React.Component {
                 <div className="SelectedDataList mainDetails" >
 
 
-                    <div className={'singleProperty'} key={cleanedData.id}>
+                    <div className={'singleProperty dark'} key={cleanedData.id}>
                         <div className={"propertyData"}>
                             <strong className={"propertyKey"}>id:</strong>
                             {cleanedData.id}
                         </div>
                     </div>
-                    <div className={'singleProperty'} key={cleanedData.type}>
+                    <div className={'singleProperty dark'} key={cleanedData.type}>
                         <div className={"propertyData"}>
                             <strong className={"propertyKey"}>type:</strong>
                             {cleanedData.type}
                         </div>
                     </div>
-                    <div className={'singleProperty'} key={cleanedData.label}>
+                    <div className={'singleProperty dark'} key={cleanedData.label}>
                         <div className={"propertyData"}>
                             <strong className={"propertyKey"}>label:</strong>
                             {cleanedData.label}
@@ -84,7 +84,7 @@ export default class SelectedDataCanvas extends React.Component {
                     </div>
                 </div>
                 <div className="SelectedDataList">
-                    <div className={'singleProperty heading'} key={"properties-list"}>
+                    <div className={'singleProperty dark'} key={"properties-list"}>
                         <div className={"propertyData"}>
                             <strong className={"propertyKey "}>PROPERTIES</strong>
                         </div>

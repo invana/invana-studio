@@ -90,7 +90,7 @@ export default class ExplorerView extends PageComponentBase {
                             } else {
                                 if (!this.state.responses && this.state.centerModalName === "welcome") {
                                     return (
-                                        <Welcome makeQuery={this.makeQuery.bind(this)}/>
+                                        <Welcome makeQuery={this.makeQuery.bind(this)} onClose={this.onCenterModalClose.bind(this)}/>
                                     )
                                 } else {
                                     return (

@@ -29,11 +29,8 @@ const Page404 = ({location}) => (
 
 
 export default class App extends React.Component {
-
-
     render() {
         redirectToConnectIfNeeded();
-
         return (
             <Router>
                 <Suspense fallback={<div style={{"color": "white"}}>Loading...</div>}>

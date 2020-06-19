@@ -3,10 +3,13 @@ import Modal from "../ui/modal";
 
 export default class Welcome extends React.Component {
 
+    static defaultProps = {
+        onClose: console.error("onClose prop not set for <Welcome> component")
+    }
 
     render() {
         return (
-            <Modal title={"Welcome to Graph Explorer"} size={"lg"}>
+            <Modal title={"Welcome to Graph Explorer"} size={"lg"} onClose={this.props.onClose}>
                 <div className={"p-10"}>
                     <p>A data visualiser for graphs and tables. </p>
                     <ul className={"vertical list"}>
