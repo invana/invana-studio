@@ -1,4 +1,5 @@
 import {GREMLIN_SERVER_URL} from "../config";
+import GremlinResponseSerializers from "./gremlin-connector/gremlin-serializer";
 
 export function LightenDarkenColor(col, amt) {
 
@@ -63,4 +64,28 @@ export function redirectToConnectIfNeeded() {
     if (GREMLIN_SERVER_URL === null && u.pathname !== "/connect") {
         window.location.href = "/connect";
     }
+}
+
+
+export function setElementColorOptionsToStorageUsingResponse(response) {
+    /*
+    If sent response from gremlin, it will automatically update those new
+    vertex/edge key data only.
+     */
+    console.log("setElementColorOptionsToStorageUsingResponse", response)
+    const gremlinSerializer = new GremlinResponseSerializers();
+    let result = gremlinSerializer.process(response);
+    let nodesAndLinks = gremlinSerializer.separateVerticesAndEdges(result, false);
+    let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
+    nodesAndLinks.nodes.forEach(function (node) {
+        _nodes[node.properties.name] = node.properties;
+    })
+    let _links = getDataFromLocalStorage("linkLabels", true) || {};
+    nodesAndLinks.links.forEach(function (link) {
+        _links[link.label] = link.properties;
+    })
+    // convert this list into dictionary.
+    console.log("=======((", _nodes, _links)
+    setDataToLocalStorage('nodeLabels', _nodes);
+    setDataToLocalStorage('linkLabels', _links);
 }

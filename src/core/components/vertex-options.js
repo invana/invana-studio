@@ -1,23 +1,29 @@
 import React from "react";
 import FlyOutUI from "../ui/flyout";
 import GremlinHeadlessComponent from "../base/gremlin";
-import {getDataFromLocalStorage} from "../utils";
+import {getDataFromLocalStorage, setElementColorOptionsToStorageUsingResponse} from "../utils";
 import {managementVertexLabel} from "../../config";
+import GremlinResponseSerializers from "../gremlin-connector/gremlin-serializer";
+
 
 export default class VertexOptions extends GremlinHeadlessComponent {
 
     onFormSubmit(e) {
         e.preventDefault();
         console.log("formdata", e.target);
-        let query = "update =" +
-            " g.V()" +
+        let query = "" +
+            "update =" +
+            "g.V()" +
             ".hasLabel('" + managementVertexLabel + "')" +
             ".has('name','" + e.target.name.value + "')" +
             ".property('bgColor', '" + e.target.bgColor.value + "')" +
             ".property('bgImageUrl', '" + e.target.bgImageUrl.value + "')" +
             ".property('bgImagePropertyKey', '" + e.target.bgImagePropertyKey.value + "')" +
             ".property('borderColor', '" + e.target.borderColor.value + "')" +
-            ".property('tagHtml', '" + e.target.tagHtml.value + "');";
+            ".property('tagHtml', '" + e.target.tagHtml.value + "').iterate();" +
+            "vertex = g.V()" +
+            ".hasLabel('" + managementVertexLabel + "')" +
+            ".has('name','" + e.target.name.value + "').toList()";
 
         if (query && this.ws) {
             this.makeQuery(query, false);
@@ -25,20 +31,24 @@ export default class VertexOptions extends GremlinHeadlessComponent {
 
     }
 
+    // add this vertex options to
+
+    updateThisLabelSettings(response) {
+        console.log("<<response", response);
+        setElementColorOptionsToStorageUsingResponse(response);
+    }
 
     processResponse(responses) {
-        console.log("=====responses",responses);
-        const response = responses[0]
-
-        if (response.status.code === 200){
-            alert("updated");
-        }else{
-            alert("Failed with error");
+        console.log("=====responses===", responses);
+        const response = responses[0];
+        this.updateThisLabelSettings(response);
+        if (response.status.code !== 200) {
+            this.props.setErrorMessage(response.status);
         }
+        this.props.setStatusMessage("Updated vertex options for label '" + this.props.selectedNode.label + "'");
     }
 
     render() {
-
         const selectedNode = this.props.selectedNode;
         const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
         const thisNodeOptions = allNodeOptions[selectedNode.label] || {"properties": {}};

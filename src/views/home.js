@@ -17,7 +17,7 @@ export default class HomeView extends GremlinHeadlessComponent {
 
     setLabelsConfigToLocalStorage(response) {
         let result = this.gremlinSerializer.process(response);
-        let nodesAndLinks = this.gremlinSerializer.seperateVerticesAndEdges(result, false);
+        let nodesAndLinks = this.gremlinSerializer.separateVerticesAndEdges(result, false);
         let _nodes = {};
         nodesAndLinks.nodes.forEach(function (node) {
             _nodes[node.properties.name] = node.properties;

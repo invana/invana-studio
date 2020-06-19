@@ -28,6 +28,11 @@ export default class ExplorerView extends PageComponentBase {
             showVertexOptions: true,
             selectedNode: selectedNode
         })
+
+    }
+
+    updateStorageOptionsData(labelData){
+        // use this to rerender the data.
     }
 
     setHideVertexOptions() {
@@ -88,13 +93,16 @@ export default class ExplorerView extends PageComponentBase {
                         })()}
                     </ErrorBoundary>
                 </MainContent>
-                {superContent}
                 {
                     this.state.showVertexOptions
                         ? <VertexOptions selectedNode={this.state.selectedNode}
+                                         setStatusMessage={this.setStatusMessage.bind(this)}
+                                         setErrorMessage={this.setErrorMessage.bind(this)}
                                          onClose={this.setHideVertexOptions.bind(this)}/>
                         : <span></span>
                 }
+                {superContent}
+
             </div>
         )
     }

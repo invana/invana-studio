@@ -15,7 +15,7 @@ export default class GremlinResponseSerializers {
     }
 
 
-    convert_vertex_to_json(vtx) {
+    convertVertex2Json(vtx) {
         if (vtx['@type'] !== "g:Vertex") {
             throw new Error("Not a vertex error. check if this is of g:Vertex type:: " + JSON.stringify(vtx));
         }
@@ -53,7 +53,7 @@ export default class GremlinResponseSerializers {
     }
 
 
-    convert_edge_to_json(edg) {
+    convertEdge2Json(edg) {
         if (edg['@type'] !== "g:Edge") {
             throw new Error("Not a edge error. check if this is of g:Edge type:: " + JSON.stringify(edg));
         }
@@ -84,7 +84,7 @@ export default class GremlinResponseSerializers {
 
     }
 
-    convert_set_to_json(set_item) {
+    convertSet2Json(set_item) {
 
         if (set_item && "@type" in set_item) {
             if (set_item['@type'] !== "g:Set") {
@@ -95,7 +95,7 @@ export default class GremlinResponseSerializers {
         if (set_item && '@value' in set_item) {
             set_item['@value'].forEach(function (item) {
                 // TODO - NOT IMPLEMENTED - because no use case found yet.
-                // let data_list = _this.process_item(item);
+                // let data_list = _this.processItem(item);
                 // data_list.forEach(function (datum) {
                 //     items.push(datum);
                 // });
@@ -105,8 +105,8 @@ export default class GremlinResponseSerializers {
 
     }
 
-    convert_list_to_json(list_item) {
-        // console.log("convert_list_to_json list_item", list_item);
+    convertList2Json(list_item) {
+        // console.log("convertList2Json list_item", list_item);
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:List") {
                 throw new Error("Not a List error. check if this is of g:List type:: " + JSON.stringify(list_item));
@@ -116,7 +116,7 @@ export default class GremlinResponseSerializers {
         let items = [];
         if (list_item && '@value' in list_item) {
             list_item['@value'].forEach(function (item) {
-                let data_list = _this.process_item(item);
+                let data_list = _this.processItem(item);
                 // console.log("data_list", data_list);
                 data_list.forEach(function (datum) {
                     items.push(datum);
@@ -127,7 +127,7 @@ export default class GremlinResponseSerializers {
 
     }
 
-    convert_bulkset_to_json(list_item) {
+    convertBulkset2Json(list_item) {
         // console.log("Bulkset", list_item);
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:BulkSet") {
@@ -138,7 +138,7 @@ export default class GremlinResponseSerializers {
         let items = [];
         if (list_item && '@value' in list_item) {
             list_item['@value'].forEach(function (item) {
-                let data_list = _this.process_item(item);
+                let data_list = _this.processItem(item);
                 // console.log("====datalist", data_list, item);
                 data_list.forEach(function (datum) {
                     items.push(datum);
@@ -149,7 +149,7 @@ export default class GremlinResponseSerializers {
 
     }
 
-    convert_map_to_json(list_item) {
+    convertMap2Json(list_item) {
 
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:Map") {
@@ -160,7 +160,7 @@ export default class GremlinResponseSerializers {
         let items = [];
         if (list_item && '@value' in list_item) {
             list_item['@value'].forEach(function (item) {
-                let data_list = _this.process_item(item);
+                let data_list = _this.processItem(item);
                 data_list.forEach(function (datum) {
                     items.push(datum);
                 });
@@ -171,7 +171,7 @@ export default class GremlinResponseSerializers {
     }
 
 
-    convert_path_to_json(path_item) {
+    convertPath2Json(path_item) {
 
         if (path_item && "@type" in path_item) {
             if (path_item['@type'] !== "g:Path") {
@@ -183,14 +183,14 @@ export default class GremlinResponseSerializers {
         if (path_item && '@value' in path_item) {
             if ("objects" in path_item['@value']) {
                 path_item['@value'].objects['@value'].forEach(function (item) {
-                    let data_list = _this.process_item(item);
+                    let data_list = _this.processItem(item);
                     data_list.forEach(function (datum) {
                         items.push(datum);
                     });
                 });
             } else if ("labels" in path_item['@value']) {
                 path_item['@value'].labels['@value'].forEach(function (item) {
-                    let data_list = _this.process_item(item);
+                    let data_list = _this.processItem(item);
                     data_list.forEach(function (datum) {
                         items.push(datum);
                     });
@@ -201,32 +201,32 @@ export default class GremlinResponseSerializers {
 
     }
 
-    process_item(item) {
+    processItem(item) {
         // this is very useful to route to the respective renderers;
         let _this = this;
         // console.log("process item", typeof item, item);
         if (item && typeof item === "object" && '@type' in item) {
             if (item['@type'] === "g:Vertex") {
-                let _ = _this.convert_vertex_to_json(item);
+                let _ = _this.convertVertex2Json(item);
                 return [_];
             } else if (item['@type'] === "g:Edge") {
-                let _ = _this.convert_edge_to_json(item);
+                let _ = _this.convertEdge2Json(item);
                 return [_];
             } else if (item['@type'] === "g:List") {
                 // console.log("=======items", item);
-                return _this.convert_list_to_json(item);
+                return _this.convertList2Json(item);
             } else if (item['@type'] === "g:Path") {
                 // console.log("=======items", item);
-                return _this.convert_path_to_json(item);
+                return _this.convertPath2Json(item);
             } else if (item['@type'] === "g:Set") {
                 // console.log("=======items", item);
-                return _this.convert_set_to_json(item);
+                return _this.convertSet2Json(item);
             } else if (item['@type'] === "g:BulkSet") {
                 // console.log("=======items", item);
-                return _this.convert_bulkset_to_json(item);
+                return _this.convertBulkset2Json(item);
             } else if (item['@type'] === "g:Map") {
                 // console.log("=======items", item);
-                return _this.convert_map_to_json(item);
+                return _this.convertMap2Json(item);
             } else {
                 return [];
             }
@@ -238,10 +238,10 @@ export default class GremlinResponseSerializers {
 
     process(response) {
         let data = response.result.data;
-        return this.convert_list_to_json(data);
+        return this.convertList2Json(data);
     }
 
-    seperateVerticesAndEdges(data, ignoreManagement) {
+    separateVerticesAndEdges(data, ignoreManagement) {
         if (typeof ignoreManagement === "undefined") {
             ignoreManagement = true;
         }

@@ -41,7 +41,7 @@ export default class GraphCanvas extends React.Component {
         let overallLinks = [];
         this.props.responses.forEach(function (response) {
             const serializedData = serializer.process(response);
-            const separatedData = serializer.seperateVerticesAndEdges(serializedData);
+            const separatedData = serializer.separateVerticesAndEdges(serializedData);
             overallNodes = overallNodes.concat(separatedData['nodes']);
             overallLinks = overallLinks.concat(separatedData['links']);
         });

@@ -171,9 +171,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     gatherDataFromStream(response) {
         // console.log("onmessage received", response);
         if (response.status.code >= 200 && response.status.code < 300) {
-            this.setState({
-                errorMessage: null
-            })
+            this.setErrorMessage(null)
             if (response.status.code === 206) {
                 this.setIsStreaming(true);
                 this.setStatusMessage("Gathering data from the stream");
@@ -188,14 +186,20 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
             }
         } else {
             this.setIsStreaming(false);
+            console.log("response===========", response);
+            this.setErrorMessage(response.status)
+            this.setStatusMessage("Query Failed with " + response.status.code + " error.");
+            this.responses.push(response);
             const responses = Object.assign(this.responses);
             this._processResponse(responses);
-            this.setState({
-                errorMessage: response.status
-            })
-            this.setStatusMessage("Query Failed with " + response.status.code + " error.");
-
         }
+    }
+
+
+    setErrorMessage(message) {
+        this.setState({
+            errorMessage: message
+        })
     }
 
     addQueryToState(query) {
