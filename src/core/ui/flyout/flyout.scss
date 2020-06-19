@@ -1,0 +1,74 @@
+@import "../../../config";
+
+.flyout {
+  position: fixed;
+  z-index: 10000;
+  display: none;
+  /*color: #555555;*/
+  font-size: 12px;
+  line-height: 1.2rem;
+  word-wrap: break-word;
+  //font-family: Courier;
+  overflow-y: auto;
+  scrollbar-color: $darkBgColor;
+  background: $darkBgColor;
+  max-width: 100%;
+  color: $defaultTextColor;
+
+  .close {
+    padding: 1px 5px;
+    border-radius: 2px;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    color: $defaultTextColor;
+    font-weight: bold;
+  }
+}
+
+.flyout-transparent {
+  background: rgba(35, 37, 45, .7);
+
+}
+
+.flyout-right {
+  right: 0;
+  top: 75px;
+  height: calc(100vh - 75px);
+  width: 300px;
+  border: 1px solid $borderColor;
+  box-shadow: -2px 1px 3px $darkBgColor;
+}
+
+.flyout-left {
+  top: 75px;
+  left: 50px;
+  height: calc(100vh - 75px);
+  width: 300px;
+  border: 1px solid $borderColor;
+  box-shadow: 2px 1px 3px $darkBgColor;
+
+}
+
+.flyout-bottom {
+  bottom: 0;
+  left: 50px;
+  width: calc(100% - 50px);
+  height: 300px;
+  border-top: 1px solid $borderColor;
+    box-shadow: 0 0 3px 0 $darkBgColor;
+}
+
+.flyoutHeaderWarning {
+  background: $warningColor;
+  color: $darkBgColor;
+}
+
+.flyoutHeader {
+  padding: 10px;
+  border-bottom: 1px solid $borderColor;
+  font-size: 16px;
+  font-weight: bold;
+
+
+}

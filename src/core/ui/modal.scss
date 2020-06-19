@@ -1,0 +1,32 @@
+@import "./../../config";
+
+.modal {
+  margin: 0 auto;
+  position: relative;
+  z-index: 10000;
+  background: $darkBgColor;
+  color: $defaultTextColor;
+  border: 1px solid $borderColor;
+  padding: 10px;
+  box-shadow: 0 0 3px $darkBgColor;
+
+  h2 {
+    border-bottom: 1px solid $borderColor;
+    padding-bottom: 10px;
+    margin-top: 10px;
+
+  }
+}
+
+.modalMd {
+  width: 600px;
+  min-height: 300px;
+  margin-top: 10%;
+
+}
+
+.modalLg {
+  margin-top: 6%;
+  width: 800px;
+  min-height: 450px;
+}
