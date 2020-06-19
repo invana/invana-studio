@@ -12,6 +12,9 @@ import {redirectToConnectIfNeeded} from "../utils";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
+
+    responseSessions = []; // responses from all the queries
+
     constructor(props) {
         super(props);
         this.state = {
@@ -61,8 +64,10 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
     }
 
     processResponse(responses) {
+        this.responseSessions = this.responseSessions.concat(responses);
+        console.log("responseSessions", this.responseSessions);
         this.setState({
-            responses: responses,
+            responses: this.responseSessions,
             shallReRenderD3Canvas: true
         })
     }

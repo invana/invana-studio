@@ -18,7 +18,8 @@ export default class ExplorerView extends PageComponentBase {
             showVertexOptions: false,
             canvasType: "graph",
             centerModalName: "welcome",
-            selectedNode: null
+            selectedNode: null,
+            // shallReRenderD3Canvas: false
         };
     }
 
@@ -33,7 +34,12 @@ export default class ExplorerView extends PageComponentBase {
 
     reRenderCanvas() {
         // use this to rerender the data.
+        // ;
+
+        alert("reRenderCanvas");
+
         this.setState({
+            // responses: this.responses,
             shallReRenderD3Canvas: true
         })
     }
@@ -49,6 +55,12 @@ export default class ExplorerView extends PageComponentBase {
         super.componentDidMount();
     }
 
+    resetShallReRenderD3Canvas(){
+        this.setState({
+            shallReRenderD3Canvas: false
+        })
+    }
+
     render() {
         const superContent = super.render();
         return (
@@ -62,6 +74,7 @@ export default class ExplorerView extends PageComponentBase {
                                         setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                         responses={this.state.responses}
                                         queryGremlinServer={this.makeQuery.bind(this)}
+                                        resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
                                     />
                                 )

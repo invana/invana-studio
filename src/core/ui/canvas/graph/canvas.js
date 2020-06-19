@@ -21,7 +21,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     static defaultProps = {
         nodes: [],
         links: [],
-        shallReRenderD3Canvas: null,
+        shallReRenderD3Canvas: false,
         getSelectedElementDataFn: (selectedData) => console.error("getSelectedElementDataFn not set"),
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
     }
@@ -739,9 +739,15 @@ export default class D3ForceDirectedCanvas extends React.Component {
         // } else {
         //     return false
         // }
-        return this.props.shallReRenderD3Canvas;
-
+        if (nextProps.shallReRenderD3Canvas === false) {
+            console.log("<<<<>>>>>><<<<<<<>>>>>>>nextProps.shallReRenderD3Canvas is false");
+        }else{
+            alert("shallReRenderD3Canvas is true");
+        }
+        console.log("<<<<>>>>>><<<<<<<>>>>>>>nextProps.shallReRenderD3Canvas is", nextProps.shallReRenderD3Canvas);
+        return nextProps.shallReRenderD3Canvas;
     }
+
     //
     // componentWillReceiveProps(nextProps) {
     //     // You don't have to do this check first, but it can help prevent an unneeded render

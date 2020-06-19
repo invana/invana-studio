@@ -47,6 +47,7 @@ export default class VertexOptions extends GremlinHeadlessComponent {
             this.props.setErrorMessage(response.status);
         }
         this.props.setStatusMessage("Updated vertex options for label '" + this.props.selectedNode.label + "'");
+        this.props.reRenderCanvas();
     }
 
     render() {

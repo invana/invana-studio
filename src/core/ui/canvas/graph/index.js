@@ -23,6 +23,13 @@ export default class GraphCanvas extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.shallReRenderD3Canvas === true) {
+            this.props.resetShallReRenderD3Canvas()
+        }
+        this.render();
+    }
+
     getSelectedElementDataFn(selectedData) {
         // this.shallReRenderD3Canvas = false;
         this.setState({
@@ -53,7 +60,7 @@ export default class GraphCanvas extends React.Component {
                 <D3ForceDirectedCanvas
                     nodes={uniqueNodes}
                     links={uniqueLinks}
-                    shallReRenderD3Canvas={this.shallReRenderD3Canvas}
+                    shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                     getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
                     queryGremlinServer={this.props.queryGremlinServer}
                     setShowVertexOptions={this.props.setShowVertexOptions}
