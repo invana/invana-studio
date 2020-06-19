@@ -2,7 +2,8 @@
 
 .modal {
   margin: 0 auto;
-
+  position: relative;
+  z-index: 10000;
   background: $darkBgColor;
   color: $defaultTextColor;
   border: 1px solid $borderColor;

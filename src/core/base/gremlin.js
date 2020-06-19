@@ -246,15 +246,15 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
             let msg = this.generateQueryPayload(query);
             let data = JSON.stringify(msg);
             console.log("Query long one", data);
-            this.startLoader("Querying..");
+            this.startLoader("Connecting..");
 
             if (this.ws.readyState === 1) {
                 _this.ws.send(data, {mask: true});
-                _this.setStatusMessage("Sending Query..")
+                _this.setStatusMessage("Connecting..")
             } else {
                 _this.ws.onopen = function () {
                     _this.ws.send(data, {mask: true});
-                    _this.setStatusMessage("Sending Query..")
+                    _this.setStatusMessage("Connecting ..")
 
                 };
             }

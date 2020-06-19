@@ -94,15 +94,7 @@ export default class ExplorerView extends PageComponentBase {
                                     )
                                 } else {
                                     return (
-                                        <span>
-                                            {
-                                                (this.state.centerModalName === "switch-server") ?
-                                                    <SwitchConnection
-                                                        gremlinUrl={this.props.gremlinUrl}
-                                                        onClose={this.onCenterModalClose.bind(this)}/>
-                                                    : <span></span>
-                                            }
-                                        </span>
+                                        <span></span>
                                     )
                                 }
 
@@ -121,7 +113,13 @@ export default class ExplorerView extends PageComponentBase {
                         : <span></span>
                 }
                 {superContent}
-
+                {
+                    (this.state.centerModalName === "switch-server") ?
+                        <SwitchConnection
+                            gremlinUrl={this.props.gremlinUrl}
+                            onClose={this.onCenterModalClose.bind(this)}/>
+                        : <span></span>
+                }
             </div>
         )
     }

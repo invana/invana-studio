@@ -6,16 +6,21 @@ export default class LoadSpinner extends React.Component {
 
 
     render() {
-        let divHeight = 0;
+        let divTop = 0;
+        let divLeft = 0;
         if (window.location.pathname === "/explorer") {
-            divHeight = "45px";
+            divTop = "45px";
+            divLeft = "50px";
+        } else if (window.location.pathname === "/") {
+            divTop = 0;
+            divLeft = 0;
         }
 
         return (
             <div>
                 {(this.props.isLoading === true)
                     ? (
-                        <div className={'loadingDiv'} style={{"top": divHeight}}>
+                        <div className={'loadingDiv'} style={{"top": divTop, "left": divLeft}}>
                             <div className={"sk-fold"} style={{"margin": "0 auto"}}>
                                 <div className={"sk-fold-cube"}></div>
                                 <div className={"sk-fold-cube"}></div>
