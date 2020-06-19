@@ -33,13 +33,7 @@ export default class ExplorerView extends PageComponentBase {
     }
 
     reRenderCanvas() {
-        // use this to rerender the data.
-        // ;
-
-        alert("reRenderCanvas");
-
         this.setState({
-            // responses: this.responses,
             shallReRenderD3Canvas: true
         })
     }
