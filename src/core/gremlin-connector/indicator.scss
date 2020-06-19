@@ -1,19 +1,23 @@
-.connected{
-    background: #58bb58;
+.connected {
+  background: #58bb58;
 }
 
-.notConnected{
-    background: #c15050;
+.notConnected {
+  background: #c15050;
 }
 
-.connectionIndicator{
-    width: 10px;
-    height: 10px;
-    margin-left: 3px;
-    margin-right: 3px;
-    display: inline-block;
+.connectionIndicator {
+  width: 10px;
+  height: 10px;
+  margin-left: 3px;
+  margin-right: 3px;
+  display: inline-block;
+  position: fixed;
+  bottom: 6px;
+  left: 50px;
+  border-radius: 1px;
 }
 
-.unknownStatus{
-    background: #dea448;
+.unknownStatus {
+  background: #dea448;
 }
