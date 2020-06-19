@@ -7,14 +7,13 @@ export default class LoadSpinner extends React.Component {
 
     render() {
         let divHeight = 0;
-        if (window.location.pathname === "/") {
-            divHeight = "35px";
+        if (window.location.pathname === "/explorer") {
+            divHeight = "45px";
         }
-        // console.log("this.props.showLoading", this.props.showLoading);
 
         return (
             <div>
-                {(this.props.showLoading === true)
+                {(this.props.isLoading === true)
                     ? (
                         <div className={'loadingDiv'} style={{"top": divHeight}}>
                             <div className={"sk-fold"} style={{"margin": "0 auto"}}>
@@ -31,15 +30,11 @@ export default class LoadSpinner extends React.Component {
                                     <span>Strange! this operation took more than {DefaultMaxTimeElapsedWarningInSeconds}</span>)
                                 : (<span></span>)
                             }
-
                             {(this.props.showSignout === true) ?
                                 <p><a href="/switch-server">switch to a different server.</a></p> : <span></span>}
-
                         </div>
                     ) : (<span></span>)
                 }
-
-
             </div>
 
         )

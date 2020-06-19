@@ -64,10 +64,6 @@ export default class ComponentBase extends React.Component {
     }
 
 
-    checkIfLoading() {
-        // use this function to override behaviour if needed.
-        return this.state.isLoading
-    }
 
     setStatusMessage(messageText) {
         this.setState({statusMessage: messageText});
@@ -76,12 +72,11 @@ export default class ComponentBase extends React.Component {
     render() {
         return (
             <Footer>
-
                 <StatusMessageComponent statusMessage={this.state.statusMessage}/>
                 <LoadSpinner
                     loadingMessage={this.state.loadingMessage}
                     loadingExtraText={this.state.loadingExtraText}
-                    showLoading={this.checkIfLoading.bind(this)}
+                    isLoading={ this.state.isLoading}
                     showSignout={true}
                     loadTimeCounter={this.state.loaderElapsedTimer}/>
             </Footer>

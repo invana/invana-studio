@@ -122,11 +122,6 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 />
 
 
-                <LeftNav leftFlyOutName={this.state.leftFlyOutName}
-                         onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
-                         setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                         setCenterModal={this.setCenterModal.bind(this)}
-                />
                 {
                     (this.state.rightFlyOutName === "learn") ?
                         <LearnFlyOut
@@ -148,6 +143,11 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                         </FlyOutUI> : <span></span>
                 }
                 {superRender}
+                <LeftNav leftFlyOutName={this.state.leftFlyOutName}
+                         onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
+                         setLeftFlyOut={this.setLeftFlyOut.bind(this)}
+                         setCenterModal={this.setCenterModal.bind(this)}
+                />
 
             </div>
         )
