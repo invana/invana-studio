@@ -113,6 +113,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         return (
             <div>
                 <Header canvasQuery={this.state.canvasQuery}
+                        switchCanvasTo={this.switchCanvasTo.bind(this)}
                         setRightFlyOut={this.setRightFlyOut.bind(this)}
                         setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                         onQuerySubmit={this.onQuerySubmit.bind(this)}/>

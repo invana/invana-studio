@@ -12,6 +12,7 @@ export default class Header extends React.Component {
         onQuerySubmit: () => console.error("onQuerySubmit prop is missing for <Header />"),
         setRightFlyOut: () => console.error("setRightFlyOut prop is missing for <Header />"),
         setLeftFlyOut: () => console.error("setLeftFlyOut prop is missing for <Header />"),
+        switchCanvasTo: () => console.error("switchCanvasTo prop is missing for <Header />"),
     }
 
 
