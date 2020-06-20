@@ -14,7 +14,6 @@ export default class LearnFlyOut extends React.Component {
                       position={"right"}
                       onClose={this.props.onClose}
             >
-
                 <ul>
                     <li>
                         <a target={"_blank"} href="https://medium.com/invanalabs/crud-cheatsheet-to-apache-tinkerpop-gremlin-393540cd46ae?source=collection_home---4------1-----------------------">
@@ -24,7 +23,6 @@ export default class LearnFlyOut extends React.Component {
                     <li>
                         <a target={"_blank"} href="https://tinkerpop.apache.org/docs/current/reference/">
                             2. Apache Tinkerpop Documentation <FontAwesomeIcon className={"small"} icon={faExternalLinkSquareAlt} />
-
                         </a>
                     </li>
                 </ul>

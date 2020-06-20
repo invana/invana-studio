@@ -14,7 +14,7 @@ export default class Welcome extends React.Component {
                       poistion={"right"}
                       display={"block"}
                       size={this.props.size} onClose={this.props.onClose}>
-                <div className={"p-10"}>
+                <div className={''}>
                     <p>A data visualiser for graphs and tables. </p>
                     <ul className={"vertical list"}>
                         <li>
