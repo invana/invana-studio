@@ -4,7 +4,7 @@ import './App.css';
 import HomeView from "./views/home";
 import SetupGremlinServerConnection from "./views/connect";
 import {
-    GREMLIN_SERVER_URL
+    CONNECT_URL
 } from "./config";
 import {redirectToConnectIfNeeded} from "./core/utils";
 import PageComponentBase from "./core/base/page";
@@ -13,10 +13,8 @@ import SwitchServerView from "./views/switch-server";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Redirect
+    Route
 } from "react-router-dom";
-
 
 
 const Page404 = ({location}) => (
@@ -24,7 +22,8 @@ const Page404 = ({location}) => (
         <h2>
             No match found for <code>{location.pathname}</code>
         </h2>
-        <p><a href={document.referrer} title={document.referrer}>&larr; go back </a> or <a href="/"> go home</a></p>
+        <p><a href={document.referrer} title={document.referrer}>&larr; go back </a> or <a href={"/"}> go
+            home</a></p>
     </div>
 );
 

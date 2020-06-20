@@ -6,12 +6,11 @@ export const DefaultConnectionRetryTimeout = 10;
 
 
 export const VERSION = "alpha";
-export const CONNECT_URL= "/";
+export const CONNECT_URL= "/connect";
 export const UUIDGenerator = () =>
     ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
     );
-export const managementVertexLabel = "InvanaManagement";
 
 
 export const DefaultNodeBgColor = "#444444";
@@ -31,3 +30,10 @@ export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.proper
 export const DefaultLabelVisibility = false;
 export const DefaultHoverOpacity = 0.8;
 export const linkCurvature = .85;
+
+
+
+
+
+export const managementVertexLabel = "InvanaManagement";
+export const historyLocalStorageKey = "GRAPH_EXPLORER_"
