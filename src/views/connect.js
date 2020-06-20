@@ -29,8 +29,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                     <div className={"top-section"}>
                         <h1>Graph Explorer <small>Beta</small></h1>
                         <p>Yet another gremlin supported graph database visualiser in the universe.</p>
-                        <p><small>Built at <a target={"_blank"} rel="noopener noreferrer"
-                                              href="https://invana.io">Invana</a></small></p>
+
                     </div>
                     <hr/>
                     <div className={"bottom-section"}>
@@ -47,6 +46,10 @@ export default class SetupGremlinServerConnection extends React.Component {
                                 </p>
                             ) : (<span></span>)
                         }
+                        <p><small>Built with love for Humans & Innovations at <a target={"_blank"}
+                                                                                 rel="noopener noreferrer"
+                                                                                 href="https://invana.io">Invana</a></small>
+                        </p>
                     </div>
                 </div>
             </Modal>

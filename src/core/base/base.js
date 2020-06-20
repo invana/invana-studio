@@ -8,20 +8,16 @@ export default class ComponentBase extends React.Component {
 
     constructor(props) {
         super(props);
-        this.loaderTimer = React.createRef(); // used for tracking the load timer for the processes.
-
+        this.state = {
+            statusMessage: null,
+            isLoading: false,
+            loaderElapsedTimer: 0,
+            loaderMaxTimeElapsedError: false,
+            loadingMessage: null,
+            loadingExtraText: null,
+        }
     }
 
-    state = {
-        statusMessage: null,
-
-        isLoading: false,
-        loaderElapsedTimer: 0,
-        loaderMaxTimeElapsedError: false,
-        loadingMessage: null,
-        loadingExtraText: null,
-
-    }
 
     startLoader(message, extraMessage) {
         this.setState({
@@ -48,18 +44,24 @@ export default class ComponentBase extends React.Component {
     }
 
     startLoaderTimer() {
-        console.log("Timer started")
+        console.log("loader Timer started")
         let _this = this;
+        let i = 0;
         let timer = setInterval((function () {
-                console.log("Timer started xyx", _this.state.loaderElapsedTimer);
+                i += 1;
+
+                console.log("base loader Timer started xyx; i", i);
                 if (_this.state.isLoading === false) {
                     clearInterval(timer);
                 }
-                if (_this.state.loaderElapsedTimer >= DefaultMaxTimeElapsedWarningInSeconds) {
-                    _this.updateTimer(_this.state.loaderElapsedTimer + 1, true);
+
+                if (i >= DefaultMaxTimeElapsedWarningInSeconds) {
+                    _this.updateTimer(i, true);
                 } else {
-                    _this.updateTimer(_this.state.loaderElapsedTimer + 1, false);
+                    _this.updateTimer(i, false);
+
                 }
+
             }
         ), 1000); // check every second.
     }
@@ -72,6 +74,7 @@ export default class ComponentBase extends React.Component {
     render() {
         return (
             <Footer>
+
                 <StatusMessageComponent statusMessage={this.state.statusMessage}/>
                 <LoadSpinner
                     loadingMessage={this.state.loadingMessage}

@@ -9,6 +9,7 @@ import {
 import {redirectToConnectIfNeeded} from "./core/utils";
 import PageComponentBase from "./core/base/page";
 import ExplorerView from "./views/explorer";
+import SwitchServerView from "./views/switch-server";
 import {
     BrowserRouter as Router,
     Switch,
@@ -39,6 +40,7 @@ export default class App extends React.Component {
                         <Route exact path="/explorer" component={ExplorerView}/>
                         <Route exact path="/connect" component={SetupGremlinServerConnection}/>
                         <Route exact path="/page" component={PageComponentBase}/>
+                        <Route exact path="/switch-server" component={SwitchServerView}/>
                         <Route component={Page404}/>
                     </Switch>
                 </Suspense>
