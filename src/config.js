@@ -36,4 +36,4 @@ export const linkCurvature = .85;
 
 
 export const managementVertexLabel = "InvanaManagement";
-export const historyLocalStorageKey = "GRAPH_EXPLORER_"
+export const historyLocalStorageKey = "GRAPH_EXPLORER_HISTORY";

@@ -109,11 +109,12 @@ form {
     }
   }
 
-  textarea{
+  textarea {
     outline: none;
     max-width: 100%;
     display: block;
   }
+
   label {
     padding-top: 10px;
     display: block;
@@ -134,31 +135,6 @@ form {
   color: darken($defaultTextColor, 20%);
 }
 
-button {
-  padding: 6px 15px;
-  font-size: 16px;
-  background: $lightDarkBgColor;
-  border: 1px solid $borderColor;
-  outline: none;
-  color: $defaultTextColor;
-  cursor: pointer;
-  max-height: 40px;
-
-  :hover {
-    //background: red !important;
-    cursor: pointer;
-    //outline: none;
-    color: $primaryColor;
-
-  }
-
-  :after {
-    background: $primaryColor !important;
-    opacity: 0;
-    transition: all 0.8s
-  }
-
-}
 
 .primary-btn {
   background: $primaryColor;
@@ -201,4 +177,46 @@ pre {
 .small {
   font-size: 0.8rem;
 }
+
+button {
+  font-size: 14px;
+  background: $lightDarkBgColor;
+  border: 1px solid $borderColor;
+  outline: none;
+  color: $defaultTextColor;
+  cursor: pointer;
+  max-height: 40px;
+  border-radius: 2px;
+  box-shadow: 0 2px #999;
+
+
+  :after {
+    background: $primaryColor !important;
+    opacity: 0;
+    transition: all 0.8s
+  }
+
+  :active {
+    background-color: $primaryColor;
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+    color: $darkBgColor;
+  }
+}
+
+button {
+  padding: 5px 15px;
+
+}
+
+button.small {
+  padding: 2px 15px;
+  font-size: 12px;
+}
+
+button:hover {
+  background-color: $primaryColor;
+  color: $darkBgColor;
+}
+
 

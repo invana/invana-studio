@@ -4,9 +4,10 @@ import ConnectionIndicatorComponent from "../gremlin-connector/indicator";
 import {
     DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds,
-    GREMLIN_SERVER_URL,
+    GREMLIN_SERVER_URL, historyLocalStorageKey,
     UUIDGenerator
 } from "../../config";
+import {getDataFromLocalStorage, setDataToLocalStorage} from "../utils";
 
 
 export default class GremlinHeadlessComponent extends ComponentBase {
@@ -219,8 +220,15 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         }
     }
 
-    addQueryToHistory(query) {
+    addQueryToHistory(query, setUrl) {
         //
+        let existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
+        existingHistory.push({
+            "query": query,
+            "source": setUrl ? "console" : "canvas",
+            "dt": new Date()
+        })
+        setDataToLocalStorage(historyLocalStorageKey, existingHistory);
     }
 
     makeQuery(query, setUrl) {
@@ -237,7 +245,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         } // remove this part from here soon.
 
 
-        this.addQueryToHistory(query)
+        this.addQueryToHistory(query, setUrl)
         let _this = this;
         console.log("queryGremlinServer :::  query", query);
         this.flushResponsesData();

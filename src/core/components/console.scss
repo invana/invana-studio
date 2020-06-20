@@ -24,25 +24,5 @@
     }
   }
 
-  .button {
 
-    cursor: pointer;
-    outline: none;
-    color: #fff;
-    border: 1px solid $borderColor;
-    border-radius: 2px;
-    box-shadow: 0 2px #999;
-  }
-
-  .button:hover {
-    background-color: $primaryColor;
-    color: $darkBgColor;
-  }
-
-  .button:active {
-    background-color: $primaryColor;
-    box-shadow: 0 2px #666;
-    transform: translateY(4px);
-    color: $darkBgColor;
-  }
 }
