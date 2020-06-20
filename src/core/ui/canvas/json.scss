@@ -1,4 +1,10 @@
-.jsonCanvas{
-      overflow-y: scroll;
-      height: 100%;
+.jsonCanvas {
+  overflow-y: scroll;
+  height: 100%;
+  padding: 10px;
+
+  .loading-text {
+        text-align: center;
+        margin-top: 20%;
+  }
 }

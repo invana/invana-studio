@@ -39,7 +39,7 @@ a {
 }
 
 a:hover {
-  color: #6aaa53;
+  color: $primaryColor;
   cursor: pointer;
 }
 
@@ -192,3 +192,4 @@ pre {
 .small {
   font-size: 0.8rem;
 }
+

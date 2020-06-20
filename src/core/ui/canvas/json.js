@@ -19,7 +19,7 @@ export default class JSONCanvas extends React.Component {
         const TIMEOUT = 10 // wait 10 ms
         setTimeout(() => {
             this.setState({
-                rjv_component: <ReactJson theme="monokai" style={{"backgroundColor": "transparent"}} src={this.props.responses} />
+                rjv_component: <ReactJson className={"p-10"} theme="monokai" style={{"backgroundColor": "transparent"}} src={this.props.responses} />
             })
         }, TIMEOUT)
     }
@@ -31,7 +31,7 @@ export default class JSONCanvas extends React.Component {
     getJsonOrLoader() {
         const {rjv_component} = this.state
         if (rjv_component === false) {
-            return <div style={{"paddingLeft": "20px"}}>loading...</div>
+            return <div className={"loading-text"}>loading...</div>
         } else {
             // component was rendered and stored to this var
             return rjv_component

@@ -31,13 +31,6 @@ export default class ExplorerView extends PageComponentBase {
         })
     }
 
-    setHideVertexOptions(selectedNode) {
-        this.setState({
-            showVertexOptions: false,
-            selectedNode: selectedNode
-        })
-    }
-
     reRenderCanvas() {
         this.setState({
             shallReRenderD3Canvas: true

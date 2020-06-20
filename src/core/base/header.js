@@ -1,8 +1,7 @@
 import MainTopNav from "../ui/structure/top";
 import React from "react";
 import {VERSION} from "../../config";
-import QueryConsole from "../components/console";
-
+import "./header.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBook, faLifeRing} from "@fortawesome/free-solid-svg-icons";
 
@@ -10,6 +9,7 @@ export default class Header extends React.Component {
 
     static defaultProps = {
         canvasQuery: null,
+        canvasType: "graph",
         onQuerySubmit: () => console.error("onQuerySubmit prop is missing for <Header />"),
         setRightFlyOut: () => console.error("setRightFlyOut prop is missing for <Header />"),
         setLeftFlyOut: () => console.error("setLeftFlyOut prop is missing for <Header />"),
@@ -30,9 +30,9 @@ export default class Header extends React.Component {
                             {/*    (this.props.canvasQuery)*/}
                             {/*        ?*/}
                             <ul>
-                                <li><a onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>
+                                <li><a className={this.props.canvasType === "graph"? "selectedCanvas": ""} onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>
                                 {/*<li><a onClick={() => this.props.switchCanvasTo("table")}>Table</a></li>*/}
-                                <li><a onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
+                                <li><a className={this.props.canvasType === "json"? "selectedCanvas": ""}  onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
                             </ul>
                             {/*        : <span style={{"paddingLeft": "10px"}}> Welcome to Graph Explorer. </span>*/}
                             {/*}*/}
