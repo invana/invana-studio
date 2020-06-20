@@ -150,7 +150,9 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 }
      {
                     (this.state.leftFlyOutName === "query-console") ?
-                        <QueryConsole onClose={this.onLeftFlyOutClose.bind(this)}/>
+                        <QueryConsole
+                            onQuerySubmit={this.onQuerySubmit.bind(this)}
+                            canvasQuery={this.state.query} onClose={this.onLeftFlyOutClose.bind(this)}/>
                         : <span></span>
                 }
 

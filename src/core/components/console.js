@@ -27,9 +27,10 @@ export default class QueryConsole extends React.Component {
             >
                 <div className={"queryConsole"}>
                     <form onSubmit={this.onFormSubmit.bind(this)}>
-                        <textarea name={"query"}
-                                  placeholder={this.props.defaultPlaceholderText}
-                                  defaultValue={this.props.canvasQuery}>{this.props.canvasQuery}</textarea>
+                        <textarea
+                            name={"query"}
+                            defaultValue={this.props.canvasQuery}
+                            placeholder={this.props.defaultPlaceholderText}></textarea>
                         <button type={"submit"}><FontAwesomeIcon icon={faSearch}/></button>
 
                     </form>
