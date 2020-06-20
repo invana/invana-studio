@@ -1,11 +1,8 @@
 import React, {Suspense} from 'react';
 import './App.css';
-// import ConsoleView from "./views/console";
 import HomeView from "./views/home";
 import SetupGremlinServerConnection from "./views/connect";
-import {
-    CONNECT_URL
-} from "./config";
+
 import {redirectToConnectIfNeeded} from "./core/utils";
 import PageComponentBase from "./core/base/page";
 import ExplorerView from "./views/explorer";

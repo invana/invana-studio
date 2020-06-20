@@ -35,17 +35,17 @@
 
 .flyout-right {
   right: 0;
-  top: 75px;
-  height: calc(100vh - 75px);
+  top: 44px;
+  height: calc(100vh - 44px);
   width: 300px;
   border: 1px solid $borderColor;
   box-shadow: -2px 1px 3px $darkBgColor;
 }
 
 .flyout-left {
-  top: 75px;
+  top: 44px;
   left: 50px;
-  height: calc(100vh - 75px);
+  height: calc(100vh - 44px);
   width: 300px;
   border: 1px solid $borderColor;
   box-shadow: 2px 1px 3px $darkBgColor;

@@ -4,11 +4,12 @@ To create new pages with full header, left nav etc ui components
 import React from "react";
 import Header from "./header";
 import LeftNav from "./left-nav";
-import SecondaryHeader from "./secondary-header";
 import GremlinHeadlessComponent from "./gremlin";
 import LearnFlyOut from "../components/learn";
 import FlyOutUI from "../ui/flyout";
 import {redirectToConnectIfNeeded} from "../utils";
+import HistoryFlyOut from "../components/history";
+import SettingsFlyOut from "../ui/settings";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
@@ -112,14 +113,9 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         return (
             <div>
                 <Header canvasQuery={this.state.canvasQuery}
+                        setRightFlyOut={this.setRightFlyOut.bind(this)}
+                        setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                         onQuerySubmit={this.onQuerySubmit.bind(this)}/>
-
-
-                <SecondaryHeader canvasQuery={this.state.canvasQuery}
-                                 onRightFlyOutClose={this.onRightFlyOutClose.bind(this)}
-                                 setRightFlyOut={this.setRightFlyOut.bind(this)}
-                                 switchCanvasTo={this.switchCanvasTo.bind(this)}
-                />
 
 
                 {
@@ -143,10 +139,20 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                         </FlyOutUI> : <span></span>
                 }
                 {superRender}
-                <LeftNav leftFlyOutName={this.state.leftFlyOutName}
-                         onLeftFlyOutClose={this.onLeftFlyOutClose.bind(this)}
-                         setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                         setCenterModal={this.setCenterModal.bind(this)}
+                {
+                    (this.state.leftFlyOutName === "history") ?
+                        <HistoryFlyOut onClose={this.onLeftFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
+
+                {
+                    (this.state.leftFlyOutName === "settings") ?
+                        <SettingsFlyOut onClose={this.onLeftFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
+                <LeftNav
+                    setLeftFlyOut={this.setLeftFlyOut.bind(this)}
+                    setCenterModal={this.setCenterModal.bind(this)}
                 />
 
             </div>

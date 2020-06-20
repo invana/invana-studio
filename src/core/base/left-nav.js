@@ -10,9 +10,8 @@ export default class LeftNav extends React.Component {
 
 
     static defaultProps = {
-        leftFlyOutName: null,
-        onLeftFlyOutClose: () => console.error("onLeftFlyOutClose prop not added to LeftNav"),
-        setCenterModal: () => console.error("setCenterModal prop not added to LeftNav")
+        setCenterModal: () => console.error("setCenterModal prop not added to LeftNav"),
+        setLeftFlyOut: () => console.error("setLeftFlyOut prop not added to LeftNav")
     }
 
     render() {
@@ -51,17 +50,6 @@ export default class LeftNav extends React.Component {
                     </li>
                 </ul>
 
-                {
-                    (this.props.leftFlyOutName === "history") ?
-                        <HistoryFlyOut onClose={this.props.onLeftFlyOutClose}/>
-                        : <span></span>
-                }
-
-                {
-                    (this.props.leftFlyOutName === "settings") ?
-                        <SettingsFlyOut onClose={this.props.onLeftFlyOutClose}/>
-                        : <span></span>
-                }
 
             </MainLeftNavBase>
         )

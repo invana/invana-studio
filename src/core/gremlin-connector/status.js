@@ -1,5 +1,4 @@
 import React from "react";
-import ConnectionIndicatorComponent from "./indicator";
 
 
 export default class StatusMessageComponent extends React.Component {

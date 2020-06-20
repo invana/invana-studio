@@ -65,7 +65,7 @@ export default class ComponentBase extends React.Component {
             }
         ), 1000); // check every second.
     }
-
+9
 
     setStatusMessage(messageText) {
         this.setState({statusMessage: messageText});
