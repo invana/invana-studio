@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "../ui/modal";
-import {removeGremlinFromStorage} from "../utils";
+import {askToSwitchGremlinServer} from "../utils";
 
 export default class SwitchConnection extends React.Component {
 
@@ -13,7 +13,7 @@ export default class SwitchConnection extends React.Component {
             <Modal title={"Switch Gremlin Server"} size={"md"} onClose={this.props.onClose}>
                 <div className={""}>
                     <p>You are using `{this.props.gremlinUrl}` as the gremlin server.</p>
-                    <p><a onClick={() => removeGremlinFromStorage()}><u>click here</u></a> to logout and switch to a
+                    <p><a onClick={() => askToSwitchGremlinServer()}><u>click here</u></a> to logout and switch to a
                         different server.</p>
                 </div>
             </Modal>

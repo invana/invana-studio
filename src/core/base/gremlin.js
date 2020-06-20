@@ -223,7 +223,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     addQueryToHistory(query, setUrl) {
         //
         let existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
-        existingHistory.push({
+        existingHistory.unshift({
             "query": query,
             "source": setUrl ? "console" : "canvas",
             "dt": new Date()

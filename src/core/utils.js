@@ -90,16 +90,12 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     setDataToLocalStorage('linkLabels', _links);
 }
 
-export function removeGremlinFromStorage() {
-    removeItemFromLocalStorage(gremlinServerUrlKey);
-    window.location.reload();
-}
-
 
 export function askToSwitchGremlinServer() {
-    var r = window.confirm("This is will clear the workspace. Do you want to continue!");
+    var r = window.confirm("You are about to sign-out of the workspace." +
+        "Your query history will be still preserved. Do you  want to continue!");
     if (r === true) {
-        removeEverythingFromLocalStorage();
+        removeItemFromLocalStorage(gremlinServerUrlKey);
         window.location.href = CONNECT_URL;
     }
 }
