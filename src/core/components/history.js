@@ -32,9 +32,10 @@ export default class HistoryFlyOut extends React.Component {
                                         </a>
                                         <a className={"small"}
                                            onClick={() => this.props.addQueryToConsole(existingHistoryItem.query)}>
-                                            Edit to Console
+                                            Edit Query in Console
                                         </a>
-                                        <span className={"small"}>Queried at {existingHistoryItem.dt}</span>
+                                        <br/>
+                                        <span className={"small"}>Queried from {existingHistoryItem.source} at {existingHistoryItem.dt}</span>
                                     </p>
 
                                 </li>

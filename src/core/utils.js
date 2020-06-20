@@ -1,4 +1,4 @@
-import {GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
+import {CONNECT_URL, GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
 import GremlinResponseSerializers from "./gremlin-connector/gremlin-serializer";
 
 export function LightenDarkenColor(col, amt) {
@@ -93,4 +93,13 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
 export function removeGremlinFromStorage() {
     removeItemFromLocalStorage(gremlinServerUrlKey);
     window.location.reload();
+}
+
+
+export function askToSwitchGremlinServer() {
+    var r = window.confirm("This is will clear the workspace. Do you want to continue!");
+    if (r === true) {
+        removeEverythingFromLocalStorage();
+        window.location.href = CONNECT_URL;
+    }
 }

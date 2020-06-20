@@ -2,6 +2,8 @@ import React from "react";
 import FlyOutUI from "./flyout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
+import {GREMLIN_SERVER_URL} from "../../config";
+import {askToSwitchGremlinServer} from "../utils";
 
 export default class SettingsFlyOut extends React.Component {
 
@@ -16,10 +18,8 @@ export default class SettingsFlyOut extends React.Component {
                       position={"left"}
                       onClose={this.props.onClose}
             >
-                settings here.
-                <a>switch gremlin server</a>
-
-                <a onClick={() => this.props.setLeftFlyOut("switch-server")} title={"Switch Server"}>
+                <p>Currently using <span>{GREMLIN_SERVER_URL}</span> server </p>
+                <a onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
                     <FontAwesomeIcon icon={faSignInAlt}/>
                 </a>
             </FlyOutUI>
