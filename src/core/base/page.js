@@ -112,11 +112,18 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
     }
 
     addQueryToConsole(query) {
+        // alert("query", query);
         this.addQueryToState(query);
-        this.setLeftFlyOut("query-console");
+        if (this.state.leftFlyOutName !== "query-console") {
+            this.setLeftFlyOut("query-console");
+        }
+
     }
 
     render() {
+
+                        // alert(this.state.query)
+
         const superRender = super.render();
         return (
             <div>

@@ -13,6 +13,26 @@ export default class QueryConsole extends React.Component {
         defaultPlaceholderText: "g.V().limit(5).toList();"
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: this.props.query
+        }
+    }
+
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.query !== prevProps.query) {
+            this.setState({query: this.props.query});
+        }
+    }
+
+    onQueryChange(e) {
+        this.setState({query: e.target.value});
+    }
+
+
     onFormSubmit(e) {
         e.preventDefault();
         this.props.onQuerySubmit(e.target.query.value);
@@ -28,10 +48,12 @@ export default class QueryConsole extends React.Component {
                 <div className={"queryConsole"}>
                     <form onSubmit={this.onFormSubmit.bind(this)}>
                         <textarea
+                            onChange={this.onQueryChange.bind(this)}
                             name={"query"}
-                            defaultValue={this.props.query}
-                            placeholder={this.props.defaultPlaceholderText}></textarea>
-                        <button className={"button"} type={"submit"}><FontAwesomeIcon icon={faSearch}/> Run Query</button>
+                            value={this.state.query || ""}
+                            placeholder={this.props.defaultPlaceholderText}/>
+                        <button className={"button"} type={"submit"}><FontAwesomeIcon icon={faSearch}/> Run Query
+                        </button>
 
                     </form>
                 </div>

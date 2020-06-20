@@ -211,6 +211,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     }
 
     addQueryToState(query) {
+
         this.setState({
             query: query
         })

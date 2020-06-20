@@ -38,9 +38,16 @@ export default class FounderNote extends React.Component {
                                             href="https://www.linkedin.com/in/rrmerugu/">(linkedin.com/in/rrmerugu/)</a>
                     </p>
 
-                    <a className={"selected"} onClick={() => this.props.setRightFlyOut("learn")}>
+                    <p>
+                          <a className={"selected"} onClick={() => this.props.setRightFlyOut("learn")}>
                         <u>Build your first Graph &rarr;</u>
                     </a>
+                        <span style={{"marginLeft": "10px"}}>or</span>
+                        <a style={{"marginLeft": "10px"}} onClick={()=> this.props.onClose()}>
+                            close
+                        </a>
+                    </p>
+
 
 
                 </div>

@@ -37,7 +37,6 @@ export default class LegendCanvas extends React.Component {
 
         let legend_vertices_list = [];
         let legend_vertices_list_ = [];
-        console.log("=======vertices", vertices);
         for (let i in vertices) {
             let vertex = vertices[i];
             if (legend_vertices_list_.indexOf(vertex.label) === -1) {
