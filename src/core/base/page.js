@@ -10,6 +10,7 @@ import FlyOutUI from "../ui/flyout";
 import {redirectToConnectIfNeeded} from "../utils";
 import HistoryFlyOut from "../components/history";
 import SettingsFlyOut from "../ui/settings";
+import QueryConsole from "../components/console";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
@@ -139,22 +140,29 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                             </div>
                         </FlyOutUI> : <span></span>
                 }
-                {superRender}
                 {
                     (this.state.leftFlyOutName === "history") ?
                         <HistoryFlyOut onClose={this.onLeftFlyOutClose.bind(this)}/>
                         : <span></span>
                 }
+     {
+                    (this.state.leftFlyOutName === "query-console") ?
+                        <QueryConsole onClose={this.onLeftFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
 
                 {
                     (this.state.leftFlyOutName === "settings") ?
-                        <SettingsFlyOut onClose={this.onLeftFlyOutClose.bind(this)}/>
+                        <SettingsFlyOut
+                            setCenterModal={this.setCenterModal.bind(this)}
+                            onClose={this.onLeftFlyOutClose.bind(this)}/>
                         : <span></span>
                 }
                 <LeftNav
                     setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                     setCenterModal={this.setCenterModal.bind(this)}
                 />
+                {superRender}
 
             </div>
         )

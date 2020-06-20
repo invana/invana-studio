@@ -1,0 +1,22 @@
+@import "../../config";
+
+.queryConsole {
+  textarea {
+    width: calc(100% - 10px);
+    height: 450px;
+    padding: 5px;
+    border-radius: 2px;
+    background: #404147;
+    color: white;
+    font-family: Courier;
+    font-size: 16px;
+  }
+
+  button {
+    background: $darkBgColor;
+
+    :hover {
+      //background: red;
+    }
+  }
+}

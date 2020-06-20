@@ -3,9 +3,9 @@ import Modal from "../ui/modal";
 
 export default class Welcome extends React.Component {
 
-    static defaultProps = {
-        onClose: console.error("onClose prop not set for <Welcome> component")
-    }
+    // static defaultProps = {
+    //     onClose: console.error("onClose prop not set for <Welcome> component")
+    // }
 
     render() {
         return (

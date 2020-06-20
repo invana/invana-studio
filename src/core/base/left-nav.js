@@ -1,7 +1,16 @@
 import MainLeftNavBase from "../ui/structure/left";
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBug, faCog, faHistory, faLifeRing, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
+import {
+    faBoxes,
+    faBug,
+    faChalkboard,
+    faCog,
+    faHistory,
+    faLifeRing,
+    faSearch,
+    faSignInAlt
+} from "@fortawesome/free-solid-svg-icons";
 import HistoryFlyOut from "../components/history";
 import SettingsFlyOut from "../ui/settings";
 
@@ -19,8 +28,17 @@ export default class LeftNav extends React.Component {
             <MainLeftNavBase>
                 <ul className={"vertical"}>
                     <li>
+                        <a onClick={() => this.props.setCenterModal("welcome")} title={"Welcome Panel"}>
+                            <FontAwesomeIcon icon={faChalkboard}/>
+                        </a>
+                    </li>
+                    <li>
+                        <a onClick={() => this.props.setLeftFlyOut("query-console")} title={"Query Console"}>
+                            <FontAwesomeIcon icon={faSearch}/>
+                        </a>
+                    </li>
+                    <li>
                         <a onClick={() => this.props.setLeftFlyOut("history")} title={"Query History"}>
-
                             <FontAwesomeIcon icon={faHistory}/>
                         </a>
                     </li>
@@ -31,11 +49,7 @@ export default class LeftNav extends React.Component {
                     </li>
                 </ul>
                 <ul className={"bottom vertical"}>
-                    <li>
-                        <a href="/about" title={"Support/Documentation"}>
-                            <FontAwesomeIcon icon={faLifeRing}/>
-                        </a>
-                    </li>
+
                     <li>
                         <a
                             target={"_new"} title={"Support / Report Issues"}
@@ -43,11 +57,7 @@ export default class LeftNav extends React.Component {
                             <FontAwesomeIcon icon={faBug}/>
                         </a>
                     </li>
-                    <li>
-                        <a onClick={() => this.props.setCenterModal("switch-server")} title={"Switch Server"}>
-                            <FontAwesomeIcon icon={faSignInAlt}/>
-                        </a>
-                    </li>
+
                 </ul>
 
 

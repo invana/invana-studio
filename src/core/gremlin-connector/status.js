@@ -11,7 +11,7 @@ export default class StatusMessageComponent extends React.Component {
      */
     render() {
         return (
-            <div className={"statusMessage"} style={{position: "relative", "zIndex": 10000}}>
+            <div className={"statusMessage"}>
                 {this.props.statusMessage || ""}
             </div>
         );

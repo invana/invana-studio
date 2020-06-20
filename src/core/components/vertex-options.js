@@ -99,7 +99,6 @@ export default class VertexOptions extends GremlinHeadlessComponent {
 
 
                     <button className={"mt-10 primary-btn"} type={"submit"}>update</button>
-                    <p><a  onClick={() => this.props.onClose()}>close this</a></p>
                 </form>
             </FlyOutUI>
         )

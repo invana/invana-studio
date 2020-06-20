@@ -63,6 +63,7 @@ export default class ExplorerView extends PageComponentBase {
 
     render() {
         const superContent = super.render();
+        const _this = this;
         return (
             <div>
                 <MainContent>
@@ -88,20 +89,15 @@ export default class ExplorerView extends PageComponentBase {
                                     <JSONCanvas responses={this.state.responses}/>
                                 )
                             } else {
-                                if (!this.state.responses && this.state.centerModalName === "welcome") {
-                                    return (
-                                        <Welcome makeQuery={this.makeQuery.bind(this)} onClose={this.onCenterModalClose.bind(this)}/>
-                                    )
-                                } else {
-                                    return (
-                                        <span></span>
-                                    )
-                                }
-
+                                return(
+                                    <span></span>
+                                )
                             }
                         })()}
                     </ErrorBoundary>
                 </MainContent>
+
+                {superContent}
                 {
                     this.state.showVertexOptions
                         ? <VertexOptions selectedNode={this.state.selectedNode}
@@ -112,12 +108,17 @@ export default class ExplorerView extends PageComponentBase {
                         />
                         : <span></span>
                 }
-                {superContent}
                 {
                     (this.state.centerModalName === "switch-server") ?
                         <SwitchConnection
                             gremlinUrl={this.props.gremlinUrl}
                             onClose={this.onCenterModalClose.bind(this)}/>
+                        : <span></span>
+                }
+                {
+                    (this.state.centerModalName === "welcome") ?
+                        <Welcome makeQuery={this.makeQuery.bind(this)}
+                                 onClose={this.onCenterModalClose.bind(this)}/>
                         : <span></span>
                 }
             </div>
