@@ -55,14 +55,14 @@ export default class ComponentBase extends React.Component {
                 if (_this.state.isLoading === false) {
                     clearInterval(timer);
                 }
-                _this.updateTimer(_this.state.loaderElapsedTimer + 1, false);
                 if (_this.state.loaderElapsedTimer >= DefaultMaxTimeElapsedWarningInSeconds) {
                     _this.updateTimer(_this.state.loaderElapsedTimer + 1, true);
+                } else {
+                    _this.updateTimer(_this.state.loaderElapsedTimer + 1, false);
                 }
             }
         ), 1000); // check every second.
     }
-
 
 
     setStatusMessage(messageText) {
@@ -76,7 +76,7 @@ export default class ComponentBase extends React.Component {
                 <LoadSpinner
                     loadingMessage={this.state.loadingMessage}
                     loadingExtraText={this.state.loadingExtraText}
-                    isLoading={ this.state.isLoading}
+                    isLoading={this.state.isLoading}
                     showSignout={true}
                     loadTimeCounter={this.state.loaderElapsedTimer}/>
             </Footer>
