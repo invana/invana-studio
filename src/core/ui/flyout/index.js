@@ -29,6 +29,7 @@ export default class FlyOutUI extends React.Component {
             size: newSize
         })
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
 
     }
@@ -47,9 +48,15 @@ export default class FlyOutUI extends React.Component {
                         : <span></span>
                 }
                 <div className="close">
-                    <button className={"button"} onClick={() => this.toggleSize()}>
-                        <FontAwesomeIcon icon={faWindowRestore}/>
-                    </button>
+
+                    {
+                        this.props.position !== "bottom"
+                            ? <button className={"button"} onClick={() => this.toggleSize()}>
+                                <FontAwesomeIcon icon={faWindowRestore}/>
+                            </button>
+                            : <span></span>
+                    }
+
                     <button className={"button"} onClick={this.props.onClose.bind(this)}>
                         <FontAwesomeIcon icon={faWindowClose}/>
                     </button>

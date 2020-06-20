@@ -3,11 +3,12 @@ import MainContent from "../core/ui/main-content";
 import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
 import GraphCanvas from "../core/ui/canvas/graph";
 import JSONCanvas from "../core/ui/canvas/json";
-import Welcome from "../core/components/welcome";
+import FounderNote from "../core/components/founder-note";
 import SwitchConnection from "../core/components/switch";
 import React from "react";
 import VertexOptions from "../core/components/vertex-options";
 import SelectedDataCanvas from "../core/ui/canvas/graph/selected-data";
+import Header from "../core/base/header";
 
 export default class ExplorerView extends PageComponentBase {
 
@@ -100,8 +101,11 @@ export default class ExplorerView extends PageComponentBase {
                 }
                 {
                     (this.state.rightFlyOutName === "welcome") ?
-                        <Welcome makeQuery={this.makeQuery.bind(this)}
-                                 onClose={this.onRightFlyOutClose.bind(this)}/>
+                        <FounderNote makeQuery={this.makeQuery.bind(this)}
+                                     setRightFlyOut={this.setRightFlyOut.bind(this)}
+
+                                     addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                     onClose={this.onRightFlyOutClose.bind(this)}/>
                         : <span></span>
                 }
                 {

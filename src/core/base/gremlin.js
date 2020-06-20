@@ -119,7 +119,12 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         this.setupWebSocket();
     }
 
-    flushResponsesData = () => this.responses = [];
+    flushResponsesData() {
+       this.responses = [];
+       this.setState({
+           responses: []
+       })
+    }
 
     generateQueryPayload(query) {
         return {
@@ -170,6 +175,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         this.processResponse(responses);
     }
 
+
     gatherDataFromStream(response) {
         // console.log("onmessage received", response);
         if (response.status.code >= 200 && response.status.code < 300) {
@@ -211,13 +217,13 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     }
 
     setQueryToUrl(query) {
-        console.log("===setQueryToUrl", query);
-        let u = new URL(window.location.href);
-        let searchParams = new URLSearchParams(window.location.search);
-        if (query && query !== "null") {
-            searchParams.set("query", query);
-            window.history.pushState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
-        }
+        // console.log("===setQueryToUrl", query);
+        // let u = new URL(window.location.href);
+        // let searchParams = new URLSearchParams(window.location.search);
+        // if (query && query !== "null") {
+        //     searchParams.set("query", query);
+        //     window.history.pushState({}, null, u.origin + u.pathname + "?" + searchParams.toString());
+        // }
     }
 
     addQueryToHistory(query, setUrl) {

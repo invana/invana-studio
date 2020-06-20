@@ -12,6 +12,7 @@ import HistoryFlyOut from "../components/history";
 import SettingsFlyOut from "../ui/settings";
 import QueryConsole from "../components/console";
 import SupportFlyout from "../components/support";
+import FounderNote from "../components/founder-note";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
@@ -130,6 +131,8 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 {
                     (this.state.rightFlyOutName === "learn") ?
                         <LearnFlyOut
+                            addQueryToConsole={this.addQueryToConsole.bind(this)}
+                            makeQuery={this.makeQuery.bind(this)}
                             onClose={this.onRightFlyOutClose.bind(this)}/>
                         : <span></span>
                 }

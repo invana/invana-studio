@@ -64,20 +64,17 @@ export default class SelectedDataCanvas extends React.Component {
 
                     <div className={'singleProperty dark'} key={cleanedData.id}>
                         <div className={"propertyData"}>
-                            <strong className={"propertyKey"}>id:</strong>
-                            {cleanedData.id}
+                            <strong className={"propertyKey"}>id:</strong> {cleanedData.id}
                         </div>
                     </div>
                     <div className={'singleProperty dark'} key={cleanedData.type}>
                         <div className={"propertyData"}>
-                            <strong className={"propertyKey"}>type:</strong>
-                            {cleanedData.type}
+                            <strong className={"propertyKey"}>type:</strong> {cleanedData.type}
                         </div>
                     </div>
                     <div className={'singleProperty dark'} key={cleanedData.label}>
                         <div className={"propertyData"}>
-                            <strong className={"propertyKey"}>label:</strong>
-                            {cleanedData.label}
+                            <strong className={"propertyKey"}>label:</strong> {cleanedData.label}
                         </div>
                     </div>
                 </div>
@@ -92,8 +89,8 @@ export default class SelectedDataCanvas extends React.Component {
                             return (
                                 <div className={'singleProperty'} key={cleanedData.id + "-" + propKey}>
                                     <div className={"propertyData"}>
-                                        <strong className={"propertyKey"}>{propKey}:</strong>
-                                        {cleanedData.properties[propKey]}
+                                        <strong
+                                            className={"propertyKey"}>{propKey}:</strong> {cleanedData.properties[propKey]}
                                     </div>
                                 </div>
                             )
