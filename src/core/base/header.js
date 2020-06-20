@@ -8,7 +8,6 @@ import {faBook, faLifeRing} from "@fortawesome/free-solid-svg-icons";
 export default class Header extends React.Component {
 
     static defaultProps = {
-        canvasQuery: null,
         canvasType: "graph",
         rightFlyOutName: null,
         onQuerySubmit: () => console.error("onQuerySubmit prop is missing for <Header />"),
@@ -27,9 +26,7 @@ export default class Header extends React.Component {
                 <div className="right-side">
                     <ul>
                         <li>
-                            {/*{*/}
-                            {/*    (this.props.canvasQuery)*/}
-                            {/*        ?*/}
+
                             <ul>
                                 <li><a className={this.props.canvasType === "graph" ? "selected" : ""}
                                        onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>

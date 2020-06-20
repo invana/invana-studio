@@ -43,7 +43,7 @@ a.selected {
 
 
 a:hover {
-  color: $primaryColor;
+  color: $primaryColor !important;
   cursor: pointer;
 }
 
@@ -189,24 +189,10 @@ button {
   border-radius: 2px;
   box-shadow: 0 2px #999;
 
-
-  :after {
-    background: $primaryColor !important;
-    opacity: 0;
-    transition: all 0.8s
-  }
-
-  :active {
-    background-color: $primaryColor;
-    box-shadow: 0 2px #666;
-    transform: translateY(4px);
-    color: $darkBgColor;
-  }
 }
 
 button {
   padding: 5px 15px;
-
 }
 
 button.small {
@@ -214,7 +200,21 @@ button.small {
   font-size: 12px;
 }
 
-button:hover {
+
+.button:after {
+  background: $primaryColor !important;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active {
+  background-color: $primaryColor;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+  color: $darkBgColor;
+}
+
+.button:hover {
   background-color: $primaryColor;
   color: $darkBgColor;
 }

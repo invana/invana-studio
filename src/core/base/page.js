@@ -53,6 +53,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
             rightFlyOutName: null
         })
     }
+
     //
     // onCenterModalClose() {
     //     this.setState({
@@ -109,20 +110,24 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         })
     }
 
+    addQueryToConsole(query) {
+        this.setState({
+            consoleQuery: query
+        })
+    }
 
     render() {
         const superRender = super.render();
         return (
             <div>
-                <Header canvasQuery={this.state.canvasQuery}
-                        canvasType={this.state.canvasType}
-                        rightFlyOutName={this.state.rightFlyOutName}
-                        switchCanvasTo={this.switchCanvasTo.bind(this)}
-                        setRightFlyOut={this.setRightFlyOut.bind(this)}
-                        setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                        onQuerySubmit={this.onQuerySubmit.bind(this)}/>
-
-
+                <Header
+                    canvasType={this.state.canvasType}
+                    rightFlyOutName={this.state.rightFlyOutName}
+                    switchCanvasTo={this.switchCanvasTo.bind(this)}
+                    setRightFlyOut={this.setRightFlyOut.bind(this)}
+                    setLeftFlyOut={this.setLeftFlyOut.bind(this)}
+                    onQuerySubmit={this.onQuerySubmit.bind(this)}
+                />
                 {
                     (this.state.rightFlyOutName === "learn") ?
                         <LearnFlyOut
@@ -145,17 +150,21 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 }
                 {
                     (this.state.leftFlyOutName === "history") ?
-                        <HistoryFlyOut onClose={this.onLeftFlyOutClose.bind(this)}/>
+                        <HistoryFlyOut
+                            makeQuery={this.makeQuery.bind(this)}
+                            addQueryToConsole={this.addQueryToConsole.bind(this)}
+                            onClose={this.onLeftFlyOutClose.bind(this)}/>
                         : <span></span>
                 }
-     {
+                {
                     (this.state.leftFlyOutName === "query-console") ?
                         <QueryConsole
                             onQuerySubmit={this.onQuerySubmit.bind(this)}
-                            canvasQuery={this.state.query} onClose={this.onLeftFlyOutClose.bind(this)}/>
+                            query={this.state.query}
+                            onClose={this.onLeftFlyOutClose.bind(this)}
+                        />
                         : <span></span>
                 }
-
                 {
                     (this.state.leftFlyOutName === "settings") ?
                         <SettingsFlyOut
@@ -177,7 +186,6 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                     setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                 />
                 {superRender}
-
             </div>
         )
     }

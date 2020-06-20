@@ -9,7 +9,7 @@ export default class QueryConsole extends React.Component {
 
     static defaultProps = {
         onQuerySubmit: () => console.log("No Query Handler added yet"),
-        canvasQuery: null,
+        query: null,
         defaultPlaceholderText: "g.V().limit(5).toList();"
     }
 
@@ -29,7 +29,7 @@ export default class QueryConsole extends React.Component {
                     <form onSubmit={this.onFormSubmit.bind(this)}>
                         <textarea
                             name={"query"}
-                            defaultValue={this.props.canvasQuery}
+                            defaultValue={this.props.query}
                             placeholder={this.props.defaultPlaceholderText}></textarea>
                         <button className={"button"} type={"submit"}><FontAwesomeIcon icon={faSearch}/> Run Query</button>
 

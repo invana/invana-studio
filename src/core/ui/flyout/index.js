@@ -47,10 +47,10 @@ export default class FlyOutUI extends React.Component {
                         : <span></span>
                 }
                 <div className="close">
-                    <button onClick={() => this.toggleSize()}>
+                    <button className={"button"} onClick={() => this.toggleSize()}>
                         <FontAwesomeIcon icon={faWindowRestore}/>
                     </button>
-                    <button onClick={this.props.onClose.bind(this)}>
+                    <button className={"button"} onClick={this.props.onClose.bind(this)}>
                         <FontAwesomeIcon icon={faWindowClose}/>
                     </button>
                 </div>

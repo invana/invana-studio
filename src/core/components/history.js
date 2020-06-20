@@ -24,11 +24,7 @@ export default class HistoryFlyOut extends React.Component {
                         existingHistory.map((existingHistoryItem, i) => {
                             return (
                                 <li className={"historyItem"} key={i}>
-
-                                        <pre>
-                                            {existingHistoryItem.query}
-                                        </pre>
-
+                                    <pre>{existingHistoryItem.query}</pre>
                                     <p>
                                         <a className={"small"}
                                            onClick={() => this.props.makeQuery(existingHistoryItem.query)}>
