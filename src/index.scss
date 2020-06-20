@@ -35,8 +35,12 @@ a {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
-
 }
+
+a.selected {
+  color: $primaryColor;
+}
+
 
 a:hover {
   color: $primaryColor;

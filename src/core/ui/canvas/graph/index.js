@@ -32,7 +32,7 @@ export default class GraphCanvas extends React.Component {
         this.render();
     }
 
-    getSelectedElementDataFn(selectedData) {
+    setSelectedData(selectedData) {
         // this.shallReRenderD3Canvas = false;
         this.setState({
             selectedData: selectedData
@@ -40,7 +40,7 @@ export default class GraphCanvas extends React.Component {
     }
 
     onFlyOutSelectedDataClose() {
-        this.getSelectedElementDataFn(null);
+        this.setSelectedData(null);
     }
 
     render() {
@@ -63,20 +63,21 @@ export default class GraphCanvas extends React.Component {
                     nodes={uniqueNodes}
                     links={uniqueLinks}
                     shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
-                    getSelectedElementDataFn={this.getSelectedElementDataFn.bind(this)}
+                    setSelectedData={this.setSelectedData.bind(this)}
                     queryGremlinServer={this.props.queryGremlinServer}
                     setShowVertexOptions={this.props.setShowVertexOptions}
                     setHideVertexOptions={this.props.setHideVertexOptions}
                 />
-                <SelectedDataCanvas selectedData={this.state.selectedData}
-                                    onClose={this.onFlyOutSelectedDataClose.bind(this)}
-                />
+
                 <LegendCanvas
                     nodes={uniqueNodes}
                     links={uniqueLinks}
                     // nodeLabels={this.props.nodeLabels}
                     // linkLabels={this.props.linkLabels}
                 />
+                <SelectedDataCanvas selectedData={this.state.selectedData}
+                                    onClose={this.onFlyOutSelectedDataClose.bind(this)}/>
+
             </div>
 
 

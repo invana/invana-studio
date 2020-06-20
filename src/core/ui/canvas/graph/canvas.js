@@ -22,7 +22,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         nodes: [],
         links: [],
         shallReRenderD3Canvas: false,
-        getSelectedElementDataFn: (selectedData) => console.error("getSelectedElementDataFn not set"),
+        setSelectedData: (selectedData) => console.error("setSelectedData not set"),
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
     }
 
@@ -57,13 +57,13 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     showProperties(selectedNode) {
-        this.props.getSelectedElementDataFn(
+        this.props.setSelectedData(
             selectedNode
         )
     }
 
     hideProperties() {
-        this.props.getSelectedElementDataFn(
+        this.props.setSelectedData(
             null
         )
     }

@@ -10,6 +10,7 @@ export default class Header extends React.Component {
     static defaultProps = {
         canvasQuery: null,
         canvasType: "graph",
+        rightFlyOutName: null,
         onQuerySubmit: () => console.error("onQuerySubmit prop is missing for <Header />"),
         setRightFlyOut: () => console.error("setRightFlyOut prop is missing for <Header />"),
         setLeftFlyOut: () => console.error("setLeftFlyOut prop is missing for <Header />"),
@@ -30,24 +31,22 @@ export default class Header extends React.Component {
                             {/*    (this.props.canvasQuery)*/}
                             {/*        ?*/}
                             <ul>
-                                <li><a className={this.props.canvasType === "graph"? "selectedCanvas": ""} onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>
-                                {/*<li><a onClick={() => this.props.switchCanvasTo("table")}>Table</a></li>*/}
-                                <li><a className={this.props.canvasType === "json"? "selectedCanvas": ""}  onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
+                                <li><a className={this.props.canvasType === "graph" ? "selected" : ""}
+                                       onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>
+                                <li><a className={this.props.canvasType === "json" ? "selected" : ""}
+                                       onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
                             </ul>
-                            {/*        : <span style={{"paddingLeft": "10px"}}> Welcome to Graph Explorer. </span>*/}
-                            {/*}*/}
+
                         </li>
-                        {/*<li>*/}
-                        {/*    <QueryConsole canvasQuery={this.props.canvasQuery}*/}
-                        {/*                    onQuerySubmit={this.props.onQuerySubmit}/>*/}
-                        {/*</li>*/}
                         <li>
-                            <a onClick={() => this.props.setRightFlyOut("learn")} title={"Learn"}>
+                            <a className={this.props.rightFlyOutName === "learn" ? "selected" : ""}
+                               onClick={() => this.props.setRightFlyOut("learn")} title={"Learn"}>
                                 <FontAwesomeIcon icon={faBook}/>
                             </a>
                         </li>
                         <li>
-                            <a  onClick={() => this.props.setRightFlyOut("learn")} title={"Support/Documentation"}>
+                            <a className={this.props.rightFlyOutName === "support" ? "selected" : ""}
+                               onClick={() => this.props.setRightFlyOut("support")} title={"Support/Documentation"}>
                                 <FontAwesomeIcon icon={faLifeRing}/>
                             </a>
                         </li>

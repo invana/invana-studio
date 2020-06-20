@@ -11,6 +11,7 @@ import {redirectToConnectIfNeeded} from "../utils";
 import HistoryFlyOut from "../components/history";
 import SettingsFlyOut from "../ui/settings";
 import QueryConsole from "../components/console";
+import SupportFlyout from "../components/support";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
@@ -23,8 +24,8 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
             canvasQuery: null,
             canvasType: "graph",
             leftFlyOutName: null,
-            rightFlyOutName: null,
-            centerModalName: "welcome"
+            rightFlyOutName: "welcome",
+            // centerModalName: "welcome"
         }
     }
 
@@ -52,18 +53,18 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
             rightFlyOutName: null
         })
     }
-
-    onCenterModalClose() {
-        this.setState({
-            centerModalName: null
-        })
-    }
-
-    setCenterModal(modalName) {
-        this.setState({
-            centerModalName: modalName
-        })
-    }
+    //
+    // onCenterModalClose() {
+    //     this.setState({
+    //         centerModalName: null
+    //     })
+    // }
+    //
+    // setLeftFlyOut(modalName) {
+    //     this.setState({
+    //         centerModalName: modalName
+    //     })
+    // }
 
     processResponse(responses) {
         this.responseSessions = this.responseSessions.concat(responses);
@@ -115,6 +116,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
             <div>
                 <Header canvasQuery={this.state.canvasQuery}
                         canvasType={this.state.canvasType}
+                        rightFlyOutName={this.state.rightFlyOutName}
                         switchCanvasTo={this.switchCanvasTo.bind(this)}
                         setRightFlyOut={this.setRightFlyOut.bind(this)}
                         setLeftFlyOut={this.setLeftFlyOut.bind(this)}
@@ -155,13 +157,22 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 {
                     (this.state.leftFlyOutName === "settings") ?
                         <SettingsFlyOut
-                            setCenterModal={this.setCenterModal.bind(this)}
+                            setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                             onClose={this.onLeftFlyOutClose.bind(this)}/>
                         : <span></span>
                 }
+                {
+                    (this.state.rightFlyOutName === "support") ?
+                        <SupportFlyout
+                            setLeftFlyOut={this.setLeftFlyOut.bind(this)}
+                            onClose={this.onRightFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
                 <LeftNav
+                    leftFlyOutName={this.state.leftFlyOutName}
+                    rightFlyOutName={this.state.rightFlyOutName}
+                    setRightFlyOut={this.setRightFlyOut.bind(this)}
                     setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                    setCenterModal={this.setCenterModal.bind(this)}
                 />
                 {superRender}
 

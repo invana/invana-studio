@@ -19,8 +19,11 @@ export default class LeftNav extends React.Component {
 
 
     static defaultProps = {
-        setCenterModal: () => console.error("setCenterModal prop not added to LeftNav"),
-        setLeftFlyOut: () => console.error("setLeftFlyOut prop not added to LeftNav")
+        leftFlyOutName:  null,
+        rightFlyOutName:  null,
+        setRightFlyOut: () => console.error("setRightFlyOut prop not added to LeftNav"),
+        setLeftFlyOut: () => console.error("setLeftFlyOut prop not added to LeftNav"),
+
     }
 
     render() {
@@ -28,22 +31,22 @@ export default class LeftNav extends React.Component {
             <MainLeftNavBase>
                 <ul className={"vertical"}>
                     <li>
-                        <a onClick={() => this.props.setCenterModal("welcome")} title={"Welcome Panel"}>
+                        <a className={this.props.rightFlyOutName === "welcome"? "selected": ""} onClick={() => this.props.setRightFlyOut("welcome")} title={"Welcome Panel"}>
                             <FontAwesomeIcon icon={faChalkboard}/>
                         </a>
                     </li>
                     <li>
-                        <a onClick={() => this.props.setLeftFlyOut("query-console")} title={"Query Console"}>
+                        <a className={this.props.leftFlyOutName === "query-console"? "selected": ""} onClick={() => this.props.setLeftFlyOut("query-console")} title={"Query Console"}>
                             <FontAwesomeIcon icon={faSearch}/>
                         </a>
                     </li>
                     <li>
-                        <a onClick={() => this.props.setLeftFlyOut("history")} title={"Query History"}>
+                        <a className={this.props.leftFlyOutName === "history"? "selected": ""} onClick={() => this.props.setLeftFlyOut("history")} title={"Query History"}>
                             <FontAwesomeIcon icon={faHistory}/>
                         </a>
                     </li>
                     <li>
-                        <a onClick={() => this.props.setLeftFlyOut("settings")} title={"Settings"}>
+                        <a className={this.props.leftFlyOutName === "settings"? "selected": ""} onClick={() => this.props.setLeftFlyOut("settings")} title={"Settings"}>
                             <FontAwesomeIcon icon={faCog}/>
                         </a>
                     </li>

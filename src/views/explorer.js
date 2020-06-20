@@ -6,8 +6,8 @@ import JSONCanvas from "../core/ui/canvas/json";
 import Welcome from "../core/components/welcome";
 import SwitchConnection from "../core/components/switch";
 import React from "react";
-import LearnFlyOut from "../core/components/learn";
 import VertexOptions from "../core/components/vertex-options";
+import SelectedDataCanvas from "../core/ui/canvas/graph/selected-data";
 
 export default class ExplorerView extends PageComponentBase {
 
@@ -17,7 +17,7 @@ export default class ExplorerView extends PageComponentBase {
         this.state = {
             showVertexOptions: false,
             canvasType: "graph",
-            centerModalName: "welcome",
+            rightFlyOutName: "welcome",
             selectedNode: null,
             // shallReRenderD3Canvas: false
         };
@@ -82,7 +82,7 @@ export default class ExplorerView extends PageComponentBase {
                                     <JSONCanvas responses={this.state.responses}/>
                                 )
                             } else {
-                                return(
+                                return (
                                     <span></span>
                                 )
                             }
@@ -91,6 +91,19 @@ export default class ExplorerView extends PageComponentBase {
                 </MainContent>
 
                 {superContent}
+                {
+                    (this.state.rightFlyOutName === "switch-server") ?
+                        <SwitchConnection
+                            gremlinUrl={this.props.gremlinUrl}
+                            onClose={this.onRightFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
+                {
+                    (this.state.rightFlyOutName === "welcome") ?
+                        <Welcome makeQuery={this.makeQuery.bind(this)}
+                                 onClose={this.onRightFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
                 {
                     this.state.showVertexOptions
                         ? <VertexOptions selectedNode={this.state.selectedNode}
@@ -101,19 +114,7 @@ export default class ExplorerView extends PageComponentBase {
                         />
                         : <span></span>
                 }
-                {
-                    (this.state.centerModalName === "switch-server") ?
-                        <SwitchConnection
-                            gremlinUrl={this.props.gremlinUrl}
-                            onClose={this.onCenterModalClose.bind(this)}/>
-                        : <span></span>
-                }
-                {
-                    (this.state.centerModalName === "welcome") ?
-                        <Welcome makeQuery={this.makeQuery.bind(this)}
-                                 onClose={this.onCenterModalClose.bind(this)}/>
-                        : <span></span>
-                }
+
             </div>
         )
     }

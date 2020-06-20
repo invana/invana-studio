@@ -58,7 +58,7 @@ export default class VertexOptions extends GremlinHeadlessComponent {
         return (
             <FlyOutUI title={"Vertex Options"}
                       display={"block"}
-                      position={"left"}
+                      position={"right"}
                       onClose={this.props.onClose}
             >
 

@@ -6,8 +6,7 @@ import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 export default class SettingsFlyOut extends React.Component {
 
     static defaultProps = {
-        setCenterModal: () => console.error("setCenterModal prop not set for SettingsFlyOut"),
-        // onClose: () => console.error("setCenterModal prop not set for SettingsFlyOut"),
+        setLeftFlyOut: () => console.error("setCenterModal prop not set for SettingsFlyOut"),
     }
 
     render() {
@@ -20,7 +19,7 @@ export default class SettingsFlyOut extends React.Component {
                 settings here.
                 <a>switch gremlin server</a>
 
-                <a onClick={() => this.props.setCenterModal("switch-server")} title={"Switch Server"}>
+                <a onClick={() => this.props.setLeftFlyOut("switch-server")} title={"Switch Server"}>
                     <FontAwesomeIcon icon={faSignInAlt}/>
                 </a>
             </FlyOutUI>

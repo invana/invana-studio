@@ -27,8 +27,6 @@ export default class SelectedDataCanvas extends React.Component {
     }
 
 
-
-
     render() {
         let cleanedData = this.getCleanedData();
         let nodeLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
@@ -61,7 +59,7 @@ export default class SelectedDataCanvas extends React.Component {
                     {cleanedData.properties.name || cleanedData.id}
 
                 </div>
-                <div className="SelectedDataList mainDetails" >
+                <div className="SelectedDataList mainDetails">
 
 
                     <div className={'singleProperty dark'} key={cleanedData.id}>

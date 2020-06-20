@@ -2,7 +2,7 @@
 import React from "react";
 import "./flyout.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import {faWindowClose, faWindowRestore} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class FlyOutUI extends React.Component {
@@ -12,14 +12,33 @@ export default class FlyOutUI extends React.Component {
         display: "none",
         title: null, // use non-null data to render header.
         onClose: () => console.error("onClose not implemented for flyout"),
-        padding: true
+        padding: true,
+    }
+    state = {
+        size: "md"
+    }
+
+    toggleSize() {
+        let newSize = "";
+        if (this.state.size === "md") {
+            newSize = "lg"
+        } else {
+            newSize = "md"
+        }
+        this.setState({
+            size: newSize
+        })
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
     }
 
     render() {
 
         const padClass = this.props.padding === true ? "p-10" : "";
         return (
-            <div className={"flyout flyout-" + this.props.position} style={{display: this.props.display}}>
+            <div className={"flyout flyout-" + this.state.size + " flyout-" + this.props.position}
+                 style={{display: this.props.display}}>
                 {
                     this.props.title
                         ? <div className={+this.props.isWarning ? "flyoutHeader flyoutHeaderWarning" : "flyoutHeader"}>
@@ -27,9 +46,15 @@ export default class FlyOutUI extends React.Component {
                         </div>
                         : <span></span>
                 }
-                <button className={"close"} onClick={this.props.onClose.bind(this)}>
-                                                <FontAwesomeIcon icon={faWindowClose}/>
-                </button>
+                <div className="close">
+                    <button onClick={() => this.toggleSize()}>
+                        <FontAwesomeIcon icon={faWindowRestore}/>
+                    </button>
+                    <button onClick={this.props.onClose.bind(this)}>
+                        <FontAwesomeIcon icon={faWindowClose}/>
+                    </button>
+                </div>
+
                 <div className={"flyoutBody " + padClass}>
                     {this.props.children}
                 </div>

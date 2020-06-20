@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "../ui/modal";
+import FlyOutUI from "../ui/flyout";
 
 export default class Welcome extends React.Component {
 
@@ -9,7 +10,10 @@ export default class Welcome extends React.Component {
 
     render() {
         return (
-            <Modal title={"Welcome to Graph Explorer"} size={"lg"} onClose={this.props.onClose}>
+            <FlyOutUI title={"What's New in Graph Explorer"}
+                      poistion={"right"}
+                      display={"block"}
+                      size={this.props.size} onClose={this.props.onClose}>
                 <div className={"p-10"}>
                     <p>A data visualiser for graphs and tables. </p>
                     <ul className={"vertical list"}>
@@ -23,7 +27,7 @@ export default class Welcome extends React.Component {
 
                     </ul>
                 </div>
-            </Modal>
+            </FlyOutUI>
         )
     }
 }
