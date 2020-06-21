@@ -42,7 +42,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                             <br/>
                             <button type={"submit"} className={"primary-btn button"}>Connect</button>
 
-                            <button type={"button"} className={" secondary-btn ml-10"} >
+                            <button type={"button"} className={" button secondary-btn ml-10"} >
                                 <FontAwesomeIcon icon={faPlay}/> watch demo
                             </button>
                         </form>

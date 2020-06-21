@@ -136,16 +136,6 @@ form {
 }
 
 
-.primary-btn {
-  background: $primaryColor;
-  color: $darkBgColor;
-  border-color: $primaryColor;
-}
-
-.secondary-btn {
-  background: transparent;
-}
-
 pre {
   //overflow-x: auto;
   //white-space: pre-wrap;
@@ -191,7 +181,7 @@ pre {
 
 button {
   font-size: 14px;
-  background: $lightDarkBgColor;
+  background: transparent;
   border: 1px solid $borderColor;
   outline: none;
   color: $defaultTextColor;
@@ -213,7 +203,7 @@ button.small {
 
 
 .button:after {
-  background: $primaryColor !important;
+  border-color: $primaryColor !important;
   opacity: 0;
   transition: all 0.8s
 }
@@ -229,5 +219,19 @@ button.small {
   background-color: $primaryColor;
   color: $darkBgColor;
 }
+
+
+.primary-btn {
+  background: $primaryColor;
+  color: $darkBgColor;
+  border-color: $primaryColor;
+  box-shadow: 0 2px $defaultTextColor;
+
+}
+
+.secondary-btn {
+  background: transparent;
+}
+
 
 
