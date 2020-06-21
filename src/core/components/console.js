@@ -1,6 +1,6 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {faPlayCircle, faSearch} from "@fortawesome/free-solid-svg-icons";
 import "./console.scss";
 import FlyOutUI from "../ui/flyout";
 
@@ -52,7 +52,8 @@ export default class QueryConsole extends React.Component {
                             name={"query"}
                             value={this.state.query || ""}
                             placeholder={this.props.defaultPlaceholderText}/>
-                        <button className={"button"} type={"submit"}><FontAwesomeIcon icon={faSearch}/> Run Query
+                        <button className={"button"} type={"submit"}>
+                            <FontAwesomeIcon icon={faPlayCircle}/> Run Query
                         </button>
 
                     </form>
