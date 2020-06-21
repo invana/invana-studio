@@ -137,12 +137,12 @@ form {
 
 
 pre {
-  //overflow-x: auto;
-  //white-space: pre-wrap;
-  //white-space: -moz-pre-wrap;
-  //white-space: -pre-wrap;
-  //white-space: -o-pre-wrap;
-  //word-wrap: break-word;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 
@@ -209,15 +209,15 @@ button.small {
 }
 
 .button:active {
-  background-color: $primaryColor;
-  box-shadow: 0 2px #666;
+  border-color: $primaryColor;
+  box-shadow: 0 2px $primaryColor;
   transform: translateY(4px);
-  color: $darkBgColor;
 }
 
+
 .button:hover {
-  background-color: $primaryColor;
-  color: $darkBgColor;
+  border-color: $primaryColor;
+  box-shadow: 0 2px $primaryColor;
 }
 
 
@@ -226,7 +226,10 @@ button.small {
   color: $darkBgColor;
   border-color: $primaryColor;
   box-shadow: 0 2px $defaultTextColor;
+}
 
+.primary-btn:hover {
+  background: darken($primaryColor, 5%);
 }
 
 .secondary-btn {
