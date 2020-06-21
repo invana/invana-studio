@@ -142,6 +142,10 @@ form {
   border-color: $primaryColor;
 }
 
+.secondary-btn {
+  background: transparent;
+}
+
 pre {
   //overflow-x: auto;
   //white-space: pre-wrap;
@@ -157,6 +161,7 @@ pre {
   color: $darkBgColor;
   padding: 10px;
 }
+
 
 .p-10 {
   padding: 10px;
@@ -176,6 +181,12 @@ pre {
 
 .small {
   font-size: 0.8rem;
+}
+
+.ml-10 {
+
+  margin-left: 10px !important;
+
 }
 
 button {

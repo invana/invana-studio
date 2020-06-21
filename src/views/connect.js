@@ -3,6 +3,8 @@ import Modal from "../core/ui/modal";
 import {setDataToLocalStorage} from "../core/utils";
 import {gremlinServerUrlKey} from "../config";
 import "./connect.scss";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlay, faStickyNote} from "@fortawesome/free-solid-svg-icons";
 
 export default class SetupGremlinServerConnection extends React.Component {
 
@@ -39,6 +41,10 @@ export default class SetupGremlinServerConnection extends React.Component {
                                    placeholder={"ws://localhost:8182/gremlin"}/>
                             <br/>
                             <button type={"submit"} className={"primary-btn button"}>Connect</button>
+
+                            <button type={"button"} className={" secondary-btn ml-10"} >
+                                <FontAwesomeIcon icon={faPlay}/> watch demo
+                            </button>
                         </form>
                         {/*<p><small>Press ENTER to submit and proceed to the explorer.</small></p>*/}
                         {this.state.errorMessage ?
