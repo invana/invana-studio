@@ -1,6 +1,8 @@
 @import "../config";
 
 .connect {
+  padding: 30px;
+
   hr {
     border-color: lighten($darkBgColor, 10%);
   }
@@ -35,24 +37,33 @@
       width: 100%;
 
       input {
+        //width: 400px;
+        //margin: 10px auto;
+        //padding: 5px 10px;
+        //color: white;
+        //background: #2d2d2d;
+
+
         width: 400px;
-        margin: 0 auto;
-        padding: 5px 10px;
+        margin: 10px auto;
+        padding: 10px 10px 5px 10px;
         color: white;
-        background: #2d2d2d;
-        /*padding-top: 2rem;*/
-        /*padding-bottom: 1rem;*/
+        border: 0;
+        border-bottom: 1px solid $borderColor;
+
+
       }
 
     }
-    .built-with{
+
+    .built-with {
       position: absolute;
       bottom: 0;
     }
   }
 
   a {
-    color: #aaaaaa;
+    //color: #aaaaaa;
   }
 }
 

@@ -31,14 +31,16 @@ export default class SetupGremlinServerConnection extends React.Component {
                         <p>The missing web UI for Gremlin supported databases.</p>
 
                     </div>
-                    <hr/>
+                    {/*<hr/>*/}
                     <div className={"bottom-section"}>
                         <form action="" onSubmit={this.onFormSubmit.bind(this)}>
                             <input type="text" name={"gremlinServerUrl"}
                                    defaultValue={"ws://localhost:8182/gremlin"}
                                    placeholder={"ws://localhost:8182/gremlin"}/>
+                            <br/>
+                            <button type={"submit"} className={"primary-btn button"}>Connect</button>
                         </form>
-                        <p><small>Press ENTER to submit and proceed to the explorer.</small></p>
+                        {/*<p><small>Press ENTER to submit and proceed to the explorer.</small></p>*/}
                         {this.state.errorMessage ?
                             (
                                 <p>
@@ -46,9 +48,12 @@ export default class SetupGremlinServerConnection extends React.Component {
                                 </p>
                             ) : (<span></span>)
                         }
-                        <p className={"built-with"}><small>Built with love for Humans & Innovations at <a target={"_blank"}
-                                                                                 rel="noopener noreferrer"
-                                                                                 href="https://invana.io">Invana</a></small>
+                        <p className={"built-with"}><small>Built with love for Humans
+                            & Innovations at <a
+                                className={"selected"}
+                                target={"_blank"}
+                                rel="noopener noreferrer"
+                                href="https://invana.io">Invana</a></small>
                         </p>
                     </div>
                 </div>
