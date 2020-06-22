@@ -10,7 +10,7 @@ export default class FounderNote extends React.Component {
 
     render() {
         return (
-            <FlyOutUI title={"A note from author"}
+            <FlyOutUI title={"Note from the author"}
                       poistion={"right"}
                       display={"block"}
                       size={this.props.size} onClose={this.props.onClose}>
