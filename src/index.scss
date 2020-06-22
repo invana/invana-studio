@@ -86,16 +86,23 @@ ul.list {
 
 form {
 
+
+  input[readonly] {
+    color: darken($defaultTextColor, 10%);
+  }
+
   input {
     padding: 6px 10px;
     background: $lightDarkBgColor;
-    border: 1px solid $borderColor;
+    //border: 1px solid $borderColor;
     outline: none;
     color: white;
     fill: $lightDarkBgColor;
     font-size: 14px;
     letter-spacing: 1px;
     min-width: 200px;
+    border: none;
+    border-bottom: 1px solid $borderColor;
 
     :hover, :focus, :active {
       background: $lightDarkBgColor;
@@ -179,7 +186,7 @@ pre {
 
 }
 
-.primary-bg{
+.primary-bg {
   background: $primaryColor;
 }
 
