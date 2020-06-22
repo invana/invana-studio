@@ -17,12 +17,12 @@
     padding-bottom: 10px;
 
     small {
-      background: #47ab4e;
-      color: #3b3e4c;
+      background: $primaryColor ;
+      color: $darkBgColor;
       font-size: 16px;
-      padding: 2px 4px;
+      padding: 2px 4px 0 4px;
       margin-left: 6px;
-      padding-bottom: 0;
+      //padding-bottom: 0;
     }
 
   }
