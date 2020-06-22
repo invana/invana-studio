@@ -6,6 +6,7 @@ export const DefaultConnectionRetryTimeout = 10;
 
 
 export const VERSION = "alpha";
+export const ABOUT_TEXT = "The missing web UI for Gremlin supported graph databases."
 export const CONNECT_URL= "/connect";
 export const UUIDGenerator = () =>
     ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>

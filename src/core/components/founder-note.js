@@ -1,5 +1,6 @@
 import React from "react";
 import FlyOutUI from "../ui/flyout";
+import {VERSION} from "../../config";
 
 export default class FounderNote extends React.Component {
 
@@ -16,7 +17,8 @@ export default class FounderNote extends React.Component {
                 <div className={''}>
 
                     <p>Hi there! </p>
-                    <p>Introducing Graph Explorer (alpha) - a data visualisation tool and more for the gremlin supported
+                    <p>Introducing Graph Explorer ({VERSION}) - a data visualisation tool and more for the gremlin
+                        supported
                         graph databases.</p>
                     <p>In the words of General Patton, “If a man does his best, what else is there!”, so I
                         believe there is always a next best thing. In the spirit of every `new technology`
@@ -39,15 +41,14 @@ export default class FounderNote extends React.Component {
                     </p>
 
                     <p>
-                          <a className={"selected"} onClick={() => this.props.setRightFlyOut("learn")}>
-                        <u>Build your first Graph &rarr;</u>
-                    </a>
+                        <a className={"selected"} onClick={() => this.props.setRightFlyOut("learn")}>
+                            <u>Build your first Graph &rarr;</u>
+                        </a>
                         <span style={{"marginLeft": "10px"}}>or</span>
-                        <a style={{"marginLeft": "10px"}} onClick={()=> this.props.onClose()}>
+                        <a style={{"marginLeft": "10px"}} onClick={() => this.props.onClose()}>
                             close
                         </a>
                     </p>
-
 
 
                 </div>

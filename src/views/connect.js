@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../core/ui/modal";
 import {setDataToLocalStorage} from "../core/utils";
-import {gremlinServerUrlKey} from "../config";
+import {gremlinServerUrlKey , VERSION, ABOUT_TEXT} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
@@ -29,8 +29,8 @@ export default class SetupGremlinServerConnection extends React.Component {
             <Modal title={null} size={"md"}>
                 <div className={"connect"}>
                     <div className={"top-section"}>
-                        <h1>Graph Explorer <small>alpha</small></h1>
-                        <p>The missing web UI for Gremlin supported graph databases.</p>
+                        <h1>Graph Explorer <small>{VERSION}</small></h1>
+                        <p>{ABOUT_TEXT}</p>
 
                     </div>
                     {/*<hr/>*/}

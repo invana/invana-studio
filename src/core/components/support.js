@@ -1,8 +1,10 @@
 import React from "react";
 import FlyOutUI from "../ui/flyout";
-import {faBook, faObjectGroup, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
+import {ABOUT_TEXT, VERSION} from "../../config";
+import {faBook} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGithub, faGitter, faMedium, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import "./support.scss";
 
 export default class SupportFlyout extends React.Component {
 
@@ -16,38 +18,51 @@ export default class SupportFlyout extends React.Component {
             >
 
 
+                <h3>Graph Explorer <small>({VERSION})</small></h3>
+                <p>{ABOUT_TEXT}</p>
+                <p>License: Apache License 2.0</p>
+
                 <ul className={"vertical list"}>
 
                     <li>
                         <a href={"https://twitter.com/invanalabs"}>
-                            <FontAwesomeIcon icon={faTwitter}/> Stay updated on Twitter </a>
-                    </li>
-                    <li>
-                        <a onClick={() => alert('Its a work in progress')}>
-                            <FontAwesomeIcon icon={faBook}/> End-User Documentation [WIP]</a>
-                    </li>
-                    <li>
-                        <a target={"_blank"} href="https://medium.com/invanalabs">
-                            <FontAwesomeIcon icon={faMedium}/> Blogs on more use cases on Medium</a>
-                    </li>
-
-                    <li>
-                        <a target={"_blank"} href="https://github.com/invanalabs/graph-explorer/issues">
-                            <FontAwesomeIcon icon={faGithub}/> Bugs, Feature Requests on GitHub
+                            <h4><FontAwesomeIcon icon={faTwitter}/> Twitter</h4>
+                            <p>Stay upto date about the releases, updates, use case blogs, </p>
                         </a>
                     </li>
                     <li>
                         <a onClick={() => alert('Its a work in progress')}>
-                            <FontAwesomeIcon icon={faGitter}/> Gitter Community [WIP]</a>
+                            <h4><FontAwesomeIcon icon={faBook}/> Documentation [WIP]</h4>
+                            <p>Beginner tutorials, usage and developer documentation.</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a target={"_blank"} href="https://medium.com/invanalabs">
+                            <h4><FontAwesomeIcon icon={faMedium}/> Medium</h4>
+                            <p>Blogs on latest implementations and more use cases.</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target={"_blank"} href="https://github.com/invanalabs/graph-explorer/issues">
+                            <h4><FontAwesomeIcon icon={faGithub}/> GitHub</h4>
+                            <p>Bugs, Feature Requests on GitHub</p>
+
+                        </a>
                     </li>
                     <li>
                         <a onClick={() => alert('Its a work in progress')}>
-                            <FontAwesomeIcon icon={faBook}/> Developer Documentation [WIP]</a>
+                            <h4><FontAwesomeIcon icon={faGitter}/> Gitter Community [WIP]</h4>
+                            <p>Chatroom for Community</p>
+                        </a>
                     </li>
+
 
                 </ul>
 
-                <p>If you need any support beyond the above, please get in touch with me at hi[ a ]invana.io.</p>
+                <p>If you need any support beyond the above,
+                    please get in touch with me at <span className={"selected"}>hi[ a ]invana.io</span>
+                </p>
 
             </FlyOutUI>
         )
