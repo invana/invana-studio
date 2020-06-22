@@ -1,6 +1,6 @@
 import React from "react";
 import FlyOutUI from "../ui/flyout";
-import {VERSION} from "../../config";
+import {ABOUT_TEXT, VERSION, REPO_URL} from "../../config";
 
 export default class FounderNote extends React.Component {
 
@@ -17,9 +17,7 @@ export default class FounderNote extends React.Component {
                 <div className={''}>
 
                     <p>Hi there! </p>
-                    <p>Introducing Graph Explorer ({VERSION}) - a data visualisation tool and more for the gremlin
-                        supported
-                        graph databases.</p>
+                    <p>Introducing Graph Explorer ({VERSION}) - {ABOUT_TEXT}</p>
                     <p>In the words of General Patton, “If a man does his best, what else is there!”, so I
                         believe there is always a next best thing. In the spirit of every `new technology`
                         that disrupts the way Humans solves the problems.
@@ -34,7 +32,10 @@ export default class FounderNote extends React.Component {
                         during the write operations, giving faster read time abilities for
                         handling complex queries like never before.
                     </p>
-                    <p>Please feel free to contribute your ideas or code.</p>
+                    <p>This project is shared
+                        under open source <em>Apache License 2.0</em> license.
+                        Please feel free to contribute and star
+                        the project at <a href={REPO_URL} target={"_blank"} className={"selected"}>Github.</a>.</p>
                     <p>Best <br/>
                         Ravi Raja Merugu <a target={"_blank"}
                                             href="https://www.linkedin.com/in/rrmerugu/">(linkedin.com/in/rrmerugu/)</a>
@@ -56,7 +57,6 @@ export default class FounderNote extends React.Component {
                             close
                         </a>
                     </p>
-
 
 
                 </div>
