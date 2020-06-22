@@ -1,0 +1,106 @@
+@import "../../../config";
+
+.flyout {
+  position: fixed;
+  z-index: 10000;
+  display: none;
+  /*color: #555555;*/
+  font-size: 12px;
+  line-height: 1.2rem;
+  word-wrap: break-word;
+  //font-family: Courier;
+  overflow-y: auto;
+  scrollbar-color: $darkBgColor;
+  background: $darkBgColor;
+  max-width: 100%;
+  color: $defaultTextColor;
+
+  .close {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+
+    button {
+      color: $defaultTextColor;
+      font-weight: bold;
+      background: transparent;
+      border-color: transparent;
+      padding: 1px 5px;
+      border-radius: 2px;
+      margin-right: 0;
+      font-size: 12px;
+      box-shadow: none;
+    }
+
+    .button:hover {
+      //background: $primaryColor;
+      color: $primaryColor;
+    }
+  }
+}
+
+.flyout-transparent {
+  background: rgba(35, 37, 45, .7);
+}
+
+.flyout-md {
+  width: 400px;
+}
+
+.flyout-lg {
+  width: 600px !important;
+}
+
+.flyout-right {
+  right: 0;
+  top: 44px;
+  width: 300px;
+  height: calc(100vh - 44px);
+  border: 1px solid $borderColor;
+  box-shadow: -2px 1px 3px $darkBgColor;
+}
+
+.flyout-right.flyout-md {
+  width: 300px;
+}
+
+.flyout-left {
+  top: 44px;
+  left: 50px;
+  height: calc(100vh - 44px);
+  border: 1px solid $borderColor;
+  box-shadow: 2px 1px 3px $darkBgColor;
+
+}
+
+.flyout-bottom {
+  bottom: 0;
+  left: 50px;
+  width: calc(100% - 50px);
+  height: 300px;
+  border-top: 1px solid $borderColor;
+  box-shadow: 0 0 3px 0 $darkBgColor;
+
+  .button {
+    color: $darkBgColor !important;
+  }
+}
+
+.flyout-bottom.flyout-md, .flyout-bottom.flyout-lg {
+  width: calc(100% - 50px);
+  z-index: 500000;
+}
+
+.flyoutHeaderWarning {
+  background: $warningColor;
+  color: $darkBgColor;
+}
+
+.flyoutHeader {
+  padding: 10px;
+  border-bottom: 1px solid $borderColor;
+  font-size: 14px;
+  font-weight: bold;
+
+
+}

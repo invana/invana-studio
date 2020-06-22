@@ -1,0 +1,28 @@
+@import "../../config";
+
+.queryConsole {
+  textarea {
+    width: calc(100% - 10px);
+    height: 450px;
+    padding: 5px;
+    border-radius: 2px;
+    background: #404147;
+    color: white;
+    font-family: Courier;
+    font-size: 14px;
+  }
+
+  button {
+    background: darken($darkBgColor, 5%);
+    width: 100%;
+    margin-top: 5px;
+    font-size: 14px;
+
+    :hover, :active, :focus {
+      color: $primaryColor !important;
+      //background: red;
+    }
+  }
+
+
+}
