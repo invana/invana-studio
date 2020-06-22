@@ -120,10 +120,10 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     }
 
     flushResponsesData() {
-       this.responses = [];
-       this.setState({
-           responses: []
-       })
+        this.responses = [];
+        this.setState({
+            responses: []
+        })
     }
 
     generateQueryPayload(query) {
@@ -227,32 +227,31 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         // }
     }
 
-    addQueryToHistory(query, setUrl) {
+    addQueryToHistory(query, source) {
         //
         let existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
         existingHistory.unshift({
             "query": query,
-            "source": setUrl ? "console" : "canvas",
+            "source": source,
             "dt": new Date()
         })
         setDataToLocalStorage(historyLocalStorageKey, existingHistory);
     }
 
-    makeQuery(query, setUrl) {
-
+    makeQuery(query, source) {
 
         // TODO - add logic to wait till server connects.
-        if (typeof setUrl === "undefined") {
-            setUrl = false;
+
+        if (typeof source === "undefined") {
+            source = "internal";
         }
-        if (setUrl) {
+        if (source) {
             this.setQueryToUrl(query);
             this.addQueryToState(query)
-
+            this.addQueryToHistory(query, source)
         } // remove this part from here soon.
 
 
-        this.addQueryToHistory(query, setUrl)
         let _this = this;
         console.log("queryGremlinServer :::  query", query);
         this.flushResponsesData();

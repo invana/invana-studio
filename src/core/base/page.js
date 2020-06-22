@@ -89,13 +89,13 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
     loadQueryFromUrl() {
         const query = this.getQueryFromUrl();
         if (query && query !== "null") {
-            this.makeQuery(query, true);
+            this.makeQuery(query, "console");
         }
     }
 
     onQuerySubmit(query) {
         console.log("Query is " + query);
-        this.makeQuery(query, true);
+        this.makeQuery(query, "console");
     }
 
     onErrorMessageFlyoutClose() {

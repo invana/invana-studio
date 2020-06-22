@@ -12,40 +12,43 @@ export default class HistoryFlyOut extends React.Component {
     }
 
     render() {
-        let existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
+        const existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
 
+        const historyToShow = existingHistory.filter(item => item.source !== "internal");
         return (
             <FlyOutUI title={"Query History"}
                       display={"block"}
                       position={"left"}
                       onClose={this.props.onClose}>
-                <ul className={"vertical historyList"}>
-                    {
-                        existingHistory.map((existingHistoryItem, i) => {
-                            return (
-                                <li className={"historyItem"} key={i}>
-                                    <pre>{existingHistoryItem.query}</pre>
-                                    <p>
-                                        <a className={"small"}
-                                           onClick={() => this.props.makeQuery(existingHistoryItem.query)}>
-                                            Run Again
-                                        </a>
-                                        <a className={"small"}
-                                           onClick={() => this.props.addQueryToConsole(existingHistoryItem.query)}>
-                                            Edit Query in Console
-                                        </a>
-                                        <br/>
-                                        <span className={"small"}>Queried from {existingHistoryItem.source} at {existingHistoryItem.dt}</span>
-                                    </p>
-
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-                {/*Query history will come here*/}
+                {historyToShow.length > 0
+                    ?
+                    <ul className={"vertical historyList"}>
+                        {
+                            historyToShow.filter(item => item.source !== "internal").map((existingHistoryItem, i) => {
+                                return (
+                                    <li className={"historyItem"} key={i}>
+                                        <pre>{existingHistoryItem.query}</pre>
+                                        <p>
+                                            <a className={"small"}
+                                               onClick={() => this.props.makeQuery(existingHistoryItem.query)}>
+                                                Run Again
+                                            </a>
+                                            <a className={"small"}
+                                               onClick={() => this.props.addQueryToConsole(existingHistoryItem.query)}>
+                                                Edit Query in Console
+                                            </a>
+                                            <br/>
+                                            <span
+                                                className={"small"}>Queried from {existingHistoryItem.source} at {existingHistoryItem.dt}</span>
+                                        </p>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                    : <p>Hm! No user query history found!.</p>
+                }
             </FlyOutUI>
         )
     }
-
 }

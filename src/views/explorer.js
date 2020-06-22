@@ -7,8 +7,6 @@ import FounderNote from "../core/components/founder-note";
 import SwitchConnection from "../core/components/switch";
 import React from "react";
 import VertexOptions from "../core/components/vertex-options";
-import SelectedDataCanvas from "../core/ui/canvas/graph/selected-data";
-import Header from "../core/base/header";
 
 export default class ExplorerView extends PageComponentBase {
 
@@ -20,6 +18,7 @@ export default class ExplorerView extends PageComponentBase {
             canvasType: "graph",
             rightFlyOutName: "welcome",
             selectedNode: null,
+            query: "g.V().limit(5).toList()"
             // shallReRenderD3Canvas: false
         };
     }

@@ -1,6 +1,6 @@
 # Graph Explorer
 
-Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.
+Opensource Graph Data Visualiser for Apache Tinkerpop's Gremlin supported Graph Databases.
 
 Live version of the demo is hosted on [heroku](https://graph-explorer.herokuapp.com/) 
 ## Install on Heroku
