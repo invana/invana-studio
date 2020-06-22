@@ -29,7 +29,7 @@ export default class SetupGremlinServerConnection extends React.Component {
             <Modal title={null} size={"md"}>
                 <div className={"connect"}>
                     <div className={"top-section"}>
-                        <h1>Graph Explorer <small>Beta</small></h1>
+                        <h1>Graph Explorer <small>alpha</small></h1>
                         <p>The missing web UI for Gremlin supported databases.</p>
 
                     </div>
