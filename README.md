@@ -2,16 +2,18 @@
 
 Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.
 
-Live version of the demo is hosted on [heroku](https://graph-explorer.herokuapp.com/) 
+This project is at Alpha Release currently, and expected 
+to go into Beta in few weeks depending on the feed back
+from the Community. You can access live version of the demo hosted on [heroku](https://graph-explorer.herokuapp.com/) 
 
-Updates on Twitter | Medium | 
+**Note:** You still need gremlin server running on your local or remote.
+
 
 ## Install on Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master)
 
 Get the UI graph-explorer server live in minutes. 
-**Note:** You still need gremlin server running on your local or remote.
  
  
  
@@ -45,4 +47,4 @@ Apache License 2.0
 
 ## Support 
 
-Please get in touch with me for any further assistance at hi[at]invana.io.
+For any further queries or dedicated support, please feel free to get in touch with me at hi[at]invana.io.
