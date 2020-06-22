@@ -18,9 +18,12 @@ export default class SupportFlyout extends React.Component {
             >
 
 
-                <h3>Graph Explorer <small>({VERSION})</small></h3>
-                <p>{ABOUT_TEXT}</p>
-                <p>License: Apache License 2.0</p>
+                <h3 style={{"margin-bottom": "0"}}>Graph Explorer <small>({VERSION})</small></h3>
+                <p style={{"margin-top": "0"}}>
+                    {ABOUT_TEXT} <br/>
+                </p>
+                <p><strong>License:</strong> Apache License 2.0
+                </p>
 
                 <ul className={"vertical list"}>
 
