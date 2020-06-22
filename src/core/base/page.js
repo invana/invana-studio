@@ -12,6 +12,7 @@ import HistoryFlyOut from "../components/history";
 import SettingsFlyOut from "../ui/settings";
 import QueryConsole from "../components/console";
 import SupportFlyout from "../components/support";
+import AboutComponent from "../components/about";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
@@ -183,6 +184,13 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 {
                     (this.state.rightFlyOutName === "support") ?
                         <SupportFlyout
+                            setLeftFlyOut={this.setLeftFlyOut.bind(this)}
+                            onClose={this.onRightFlyOutClose.bind(this)}/>
+                        : <span></span>
+                }
+                {
+                    (this.state.rightFlyOutName === "about") ?
+                        <AboutComponent
                             setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                             onClose={this.onRightFlyOutClose.bind(this)}/>
                         : <span></span>

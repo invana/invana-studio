@@ -62,7 +62,7 @@ export default class LeftNav extends React.Component {
                     <li>
                         <a target={"_new"} className={this.props.rightFlyOutName === "support" ? "selected" : ""}
                            title={"About Graph Explorer"}
-                           onClick={() => this.props.setRightFlyOut("support")}>
+                           onClick={() => this.props.setRightFlyOut("about")}>
                             <FontAwesomeIcon icon={faInfoCircle}/>
                         </a>
                     </li>

@@ -20,6 +20,11 @@ export default class AboutComponent extends React.Component {
                 <p>
                     <strong>License:</strong> Apache License 2.0
                 </p>
+                <p><strong>Repo:</strong> <a target={"_blank"} href="http://github.com/invanalabs/graph-explorer/">http://github.com/invanalabs/graph-explorer/</a></p>
+
+                <p>This is an opensource project under Apache License 2.0, so
+                    feel free to <u><a target={"_blank"} href="http://github.com/invanalabs/graph-explorer/">star</a></u> and <u><a target={"_blank"} href="http://github.com/invanalabs/graph-explorer/">fork.</a></u>
+                 &nbsp;Any contributions are welcome :)</p>
 
             </FlyOutUI>
         )

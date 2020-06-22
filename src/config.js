@@ -6,7 +6,7 @@ export const DefaultConnectionRetryTimeout = 10;
 
 
 export const VERSION = "alpha";
-export const ABOUT_TEXT = "An open source web UI for Gremlin supported graph databases.";
+export const ABOUT_TEXT = "Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.";
 export const CONNECT_URL= "/connect";
 export const REPO_URL = "https://github.com/invanalabs/graph-explorer";
 export const UUIDGenerator = () =>
