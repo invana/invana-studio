@@ -18,7 +18,7 @@ export default class SettingsFlyOut extends React.Component {
                       position={"left"}
                       onClose={this.props.onClose}
             >
-                <p>Currently using <span>{GREMLIN_SERVER_URL}</span> server </p>
+                <p>Currently using `<span>{GREMLIN_SERVER_URL}</span>` server </p>
                 <button className={"button small"}  onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
                     switch gremlin server  <FontAwesomeIcon icon={faSignInAlt}/>
                 </button>

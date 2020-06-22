@@ -24,7 +24,7 @@ export default class SupportFlyout extends React.Component {
                     </li>
                     <li>
                         <a target={"_blank"} href="https://medium.com/invanalabs">
-                            <FontAwesomeIcon icon={faMedium}/> More Use case blogs on Medium[WIP]</a>
+                            <FontAwesomeIcon icon={faMedium}/> Blogs on more use cases on Medium</a>
                     </li>
 
                     <li>
@@ -43,7 +43,7 @@ export default class SupportFlyout extends React.Component {
 
                 </ul>
 
-                <p>If you need any support beyond these, please get in touch with me at ravi[ a ]invana.io.</p>
+                <p>If you need any support beyond the above, please get in touch with me at ravi[ a ]invana.io.</p>
 
             </FlyOutUI>
         )

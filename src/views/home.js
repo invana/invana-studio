@@ -1,6 +1,6 @@
 import GremlinHeadlessComponent from "../core/base/gremlin";
 import GremlinResponseSerializers from "../core/gremlin-connector/gremlin-serializer";
-
+import {managementVertexLabel} from "../config";
 
 export default class HomeView extends GremlinHeadlessComponent {
 
@@ -9,7 +9,7 @@ export default class HomeView extends GremlinHeadlessComponent {
         super.componentDidMount();
         let _this = this;
         setTimeout(function () {
-            _this.makeQuery("g.V().hasLabel('InvanaManagement').toList();", false);
+            _this.makeQuery("g.V().hasLabel('" + managementVertexLabel + "').toList();", false, "internal");
         }, 200)
     }
 
