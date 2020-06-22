@@ -18,6 +18,7 @@ export const q3 = "// this will update existing property and adds a new property
     ".has('name', 'Ravi Raja')\n" +
     ".property('name', 'rrmerugu')\n" +
     ".property('full_name', 'Ravi Raja Merugu')\n" +
+    ".property('profile_pic', 'https://avatars1.githubusercontent.com/u/4606947')\n" +
     ".iterate()\n"
 
 
