@@ -111,8 +111,8 @@ export default class VertexOptions extends GremlinHeadlessComponent {
                            placeholder={"bgImagePropertyKey (optional)"}
                            defaultValue={thisNodeOptions.bgImagePropertyKey || selectedNode.meta.bgImagePropertyKey}/>
 
-                    <label className={""}>Background HTML</label>
-                    <input type="text" name={"tagHtml"}
+                    {/*<label className={""}>Background HTML</label>*/}
+                    <input type="hidden" name={"tagHtml"}
                            spellCheck="false"
                            placeholder={"tagHtml (optional)"}
                            defaultValue={thisNodeOptions.tagHtml || ""}/>
