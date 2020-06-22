@@ -5,7 +5,7 @@ import {
     faBug,
     faChalkboard,
     faCog,
-    faHistory, faNotesMedical,
+    faHistory, faInfo, faInfoCircle, faNotesMedical,
     faSearch, faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
@@ -61,7 +61,7 @@ export default class LeftNav extends React.Component {
                     <li>
                         <a target={"_new"} title={"GitHub "}
                            href="https://github.com/invanalabs/graph-explorer">
-                            <FontAwesomeIcon icon={faGithub}/>
+                            <FontAwesomeIcon icon={faInfoCircle}/>
                         </a>
                     </li>
 
