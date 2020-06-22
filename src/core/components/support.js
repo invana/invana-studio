@@ -2,7 +2,7 @@ import React from "react";
 import FlyOutUI from "../ui/flyout";
 import {faBook, faObjectGroup, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGithub, faGitter, faMedium} from "@fortawesome/free-brands-svg-icons";
+import {faGithub, faGitter, faMedium, faTwitter} from "@fortawesome/free-brands-svg-icons";
 
 export default class SupportFlyout extends React.Component {
 
@@ -18,6 +18,10 @@ export default class SupportFlyout extends React.Component {
 
                 <ul className={"vertical list"}>
 
+                    <li>
+                        <a href={"https://twitter.com/invanalabs"}>
+                            <FontAwesomeIcon icon={faTwitter}/> Stay updated on Twitter </a>
+                    </li>
                     <li>
                         <a onClick={() => alert('Its a work in progress')}>
                             <FontAwesomeIcon icon={faBook}/> End-User Documentation [WIP]</a>
@@ -43,7 +47,7 @@ export default class SupportFlyout extends React.Component {
 
                 </ul>
 
-                <p>If you need any support beyond the above, please get in touch with me at ravi[ a ]invana.io.</p>
+                <p>If you need any support beyond the above, please get in touch with me at hi[ a ]invana.io.</p>
 
             </FlyOutUI>
         )
