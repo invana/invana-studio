@@ -21,10 +21,7 @@ Get the UI graph-explorer server live in minutes.
 
 #### Use Image from Docker Hub
 
-```shell script
-# for stable release
-docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer:alpha
-
+```shell script.
 # for latest release
 docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
 
