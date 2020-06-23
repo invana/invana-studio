@@ -21,6 +21,9 @@ export default class SetupGremlinServerConnection extends React.Component {
         window.location.href = "/";
     }
 
+    openDemo(){
+
+    }
 
     render() {
 
@@ -42,7 +45,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                             <br/>
                             <button type={"submit"} className={"primary-btn button"}>Connect</button>
 
-                            <button type={"button"} className={" button secondary-btn ml-10"}>
+                            <button onClick={() => this.openDemo()} type={"button"} className={" button secondary-btn ml-10"}>
                                 <FontAwesomeIcon icon={faPlayCircle}/> watch demo
                             </button>
                         </form>

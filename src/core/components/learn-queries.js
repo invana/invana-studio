@@ -1,9 +1,9 @@
-export const q1CreateData = "// Adding data of type `GitHubProject`\n\n" +
-    "person = g.addV('GitHubProject')\n" +
+export const q1CreateData = "// Adding data of type `Person`\n\n" +
+    "person = g.addV('Person')\n" +
     ".property('name', 'Ravi Raja')\n" +
     ".iterate();\n\n" +
-    "// Adding data of type `Project`\n\n" +
-    "project = g.addV('Project')\n" +
+    "// Adding data of type `GitHubProject`\n\n" +
+    "project = g.addV('GitHubProject')\n" +
     ".property('name', 'Graph Explorer')\n" +
     ".iterate();\n" +
     "\n" +
@@ -15,7 +15,7 @@ export const q3 = "// this will update existing property `name` and adds a new p
     "`full_name` and `profile_pic`.\n\n" +
     "g\n" +
     ".V()\n" +
-    ".hasLabel('GitHubProject')\n" +
+    ".hasLabel('Person')\n" +
     ".has('name', 'Ravi Raja')\n" +
     ".property('name', 'rrmerugu')\n" +
     ".property('full_name', 'Ravi Raja Merugu')\n" +
@@ -25,15 +25,15 @@ export const q3 = "// this will update existing property `name` and adds a new p
     "nodes = g.V().limit(2).toList();\n"
 
 
-export const q4 = "// this will add a relation ship between GitHubProject and Project data.\n\n" +
+export const q4 = "// this will add a relation ship between Person and GitHubProject data.\n\n" +
     "g\n" +
     ".V()\n" +
-    ".hasLabel('GitHubProject')\n" +
+    ".hasLabel('Person')\n" +
     ".has('name','rrmerugu')\n" +
     ".as('person')\n" +
     "\n" +
     ".V()\n" +
-    ".hasLabel('Project')\n" +
+    ".hasLabel('GitHubProject')\n" +
     ".has('name','Graph Explorer')\n" +
     "\n" +
     ".addE('authored')\n" +
