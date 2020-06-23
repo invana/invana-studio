@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../core/ui/modal";
 import {setDataToLocalStorage} from "../core/utils";
-import {gremlinServerUrlKey , VERSION, ABOUT_TEXT} from "../config";
+import {gremlinServerUrlKey, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +21,8 @@ export default class SetupGremlinServerConnection extends React.Component {
         window.location.href = "/";
     }
 
-    openDemo(){
+    openDemo() {
+        window.open(DEMO_URL);
 
     }
 
@@ -45,7 +46,8 @@ export default class SetupGremlinServerConnection extends React.Component {
                             <br/>
                             <button type={"submit"} className={"primary-btn button"}>Connect</button>
 
-                            <button onClick={() => this.openDemo()} type={"button"} className={" button secondary-btn ml-10"}>
+                            <button onClick={() => this.openDemo()} type={"button"}
+                                    className={" button secondary-btn ml-10"}>
                                 <FontAwesomeIcon icon={faPlayCircle}/> watch demo
                             </button>
                         </form>
