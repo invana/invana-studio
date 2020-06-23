@@ -3,7 +3,7 @@ import FlyOutUI from "../ui/flyout";
 import {faExternalLinkSquareAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./learn.scss";
-import {q1CreateData, q2allData, q3, q4, q5} from "./learn-queries";
+import {q1CreateData, q3, q4, q5} from "./learn-queries";
 
 export default class LearnFlyOut extends React.Component {
 
@@ -21,32 +21,22 @@ export default class LearnFlyOut extends React.Component {
                 <ul className={"vertical list"}>
                     <li>
                         <a onClick={() => this.props.addQueryToConsole(q1CreateData)}>
-                            1. Add a `Person` and `Organisation` nodes</a>
-                    </li>
-                    <li>
-                        <a onClick={() => this.props.addQueryToConsole(q2allData)}>
-                            2. View the nodes</a>
+                            1. Add a `Person` and `GitHubProject` nodes</a>
                     </li>
                     <li>
                         <a onClick={() => this.props.addQueryToConsole(q3)}>
-                            3. Update `Person` properties</a>
+                            2. Update properties of the Node</a>
                     </li>
                     <li>
                         <a onClick={() => this.props.addQueryToConsole(q4)}>
-                            4. Add a relations between both the nodes.</a>
-                    </li>
-                    <li>
-                        <a onClick={() => this.props.addQueryToConsole(q5)}>
-                            5. View all the connections between the nodes.
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => this.props.onClose()}>
-                            6. Close this and explore data
-                        </a>
+                            3. Add a relation between both the nodes.</a>
                     </li>
 
+
                 </ul>
+                <p>Awesome! <u><a onClick={() => this.props.onClose()}> Close this tour </a></u> and start exploring
+                    your graph data.
+                </p>
                 <h3 style={{"marginTop": "30px"}}>More Resources</h3>
                 <ul className={"vertical list fs-14"}>
                     <li>

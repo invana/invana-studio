@@ -1,31 +1,34 @@
-export const q1CreateData = "// Adding data of type `Person`\n\n" +
-    "person = g.addV('Person')\n" +
+export const q1CreateData = "// Adding data of type `GitHubProject`\n\n" +
+    "person = g.addV('GitHubProject')\n" +
     ".property('name', 'Ravi Raja')\n" +
     ".iterate();\n\n" +
     "// Adding data of type `Project`\n\n" +
     "project = g.addV('Project')\n" +
     ".property('name', 'Graph Explorer')\n" +
-    ".iterate();";
+    ".iterate();\n" +
+    "\n" +
+    "// show the results back\n" +
+    "nodes = g.V().limit(2).toList();";
 
-export const q2allData = "// Display the two nodes \n" +
-    "g.V().limit(2).toList()";
 
-
-export const q3 = "// this will update existing property and adds a new property.\n\n" +
+export const q3 = "// this will update existing property `name` and adds a new properties" +
+    "`full_name` and `profile_pic`.\n\n" +
     "g\n" +
     ".V()\n" +
-    ".hasLabel('Person')\n" +
+    ".hasLabel('GitHubProject')\n" +
     ".has('name', 'Ravi Raja')\n" +
     ".property('name', 'rrmerugu')\n" +
     ".property('full_name', 'Ravi Raja Merugu')\n" +
     ".property('profile_pic', 'https://avatars1.githubusercontent.com/u/4606947')\n" +
-    ".iterate()\n"
+    ".iterate()\n;" +
+    "\n" +
+    "nodes = g.V().limit(2).toList();\n"
 
 
-export const q4 = "// this will add a relation ship between Person and Project data.\n\n" +
+export const q4 = "// this will add a relation ship between GitHubProject and Project data.\n\n" +
     "g\n" +
     ".V()\n" +
-    ".hasLabel('Person')\n" +
+    ".hasLabel('GitHubProject')\n" +
     ".has('name','rrmerugu')\n" +
     ".as('person')\n" +
     "\n" +
