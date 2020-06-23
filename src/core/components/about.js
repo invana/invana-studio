@@ -13,8 +13,8 @@ export default class AboutComponent extends React.Component {
                       size={this.props.size} onClose={this.props.onClose}>
 
 
-                <h3 style={{"margin-bottom": "0", "fontWeight": "20px"}}>Graph Explorer <small>({VERSION})</small></h3>
-                <p style={{"margin-top": "0"}}>
+                <h3 style={{"marginBottom": "0", "fontWeight": "20px"}}>Graph Explorer <small>({VERSION})</small></h3>
+                <p style={{"marginTop": "0"}}>
                     {ABOUT_TEXT} <br/>
                 </p>
                 <p>

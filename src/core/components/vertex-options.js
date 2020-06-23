@@ -100,8 +100,8 @@ export default class VertexOptions extends GremlinHeadlessComponent {
                            placeholder={"borderColor"} spellCheck="false"
                            defaultValue={thisNodeOptions.borderColor || selectedNode.meta.shapeOptions.strokeColor}/>
 
-                    <label className={""}>Background Image (from web)</label>
-                    <input type="text" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
+                    {/*<label className={""}>Background Image (from web)</label>*/}
+                    <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
                            defaultValue={thisNodeOptions.bgImageUrl || selectedNode.meta.bgImageUrl}/>
 
