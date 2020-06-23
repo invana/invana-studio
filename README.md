@@ -35,7 +35,14 @@ docker build . -t invana-graph-explorer
 docker run -p 8888:8888 -d invana-graph-explorer
 ```
 
-![screenshot](./screenshot.png)
+## Screenshots
+![1](./docs/screenshots/1.png)
+![2](./docs/screenshots/2.png)
+![3](./docs/screenshots/3.png)
+![4](./docs/screenshots/4.png)
+![5](./docs/screenshots/5.png)
+![6](./docs/screenshots/6.png)
+![7](docs/screenshots/7.png)
 
 
 ## License
