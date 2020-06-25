@@ -7,6 +7,7 @@ import FounderNote from "../core/components/founder-note";
 import SwitchConnection from "../core/components/switch";
 import React from "react";
 import VertexOptions from "../core/components/vertex-options";
+import TableCanvas from "../core/ui/canvas/table";
 
 export default class ExplorerView extends PageComponentBase {
 
@@ -73,13 +74,13 @@ export default class ExplorerView extends PageComponentBase {
                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
                                     />
                                 )
-                            } else if (this.state.canvasType === "table" && this.state.responses) {
-                                return (
-                                    <div>table ui comes here</div>
-                                )
                             } else if (this.state.canvasType === "json" && this.state.responses) {
                                 return (
                                     <JSONCanvas responses={this.state.responses}/>
+                                )
+                            } else if (this.state.canvasType === "table" && this.state.responses) {
+                                return (
+                                    <TableCanvas responses={this.state.responses}/>
                                 )
                             } else {
                                 return (
