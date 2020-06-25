@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ComponentBase from "./base";
-import ConnectionIndicatorComponent from "../gremlin-connector/indicator";
+import ConnectionIndicatorComponent from "./indicator";
 import {
     DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds,

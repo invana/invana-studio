@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {DefaultMaxTimeElapsedWarningInSeconds} from "../../config";
 import LoadSpinner from "../ui/spinner";
-import {StatusMessageComponent} from "../gremlin-connector";
+import StatusMessageComponent from "./status";
 import Footer from "../ui/footer";
 
 export default class ComponentBase extends React.Component {
@@ -65,7 +65,8 @@ export default class ComponentBase extends React.Component {
             }
         ), 1000); // check every second.
     }
-9
+
+    9
 
     setStatusMessage(messageText) {
         this.setState({statusMessage: messageText});
