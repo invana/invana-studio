@@ -3,7 +3,7 @@ import "./graph.scss";
 import D3ForceDirectedCanvas from "./canvas";
 import LegendCanvas from "./legend";
 import SelectedDataCanvas from "./selected-data";
-import GremlinResponseSerializers from "../../../gremlin-connector/gremlin-serializer";
+import GremlinResponseSerializers from "../../../base/gremlin-serializer";
 
 const serializer = new GremlinResponseSerializers()
 

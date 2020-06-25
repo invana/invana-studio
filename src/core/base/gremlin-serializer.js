@@ -267,4 +267,18 @@ export default class GremlinResponseSerializers {
         }
         return {"nodes": vertices, "links": edges};
     }
+
+
+    groupByLabel(data) {
+        let dataGroups = {};
+        data.forEach(function (datum) {
+            // TODO - review this for performance.
+            if (datum.label in dataGroups) {
+                dataGroups[datum.label].push(datum)
+            } else {
+                dataGroups[datum.label] = [datum];
+            }
+        });
+        return dataGroups;
+    }
 }

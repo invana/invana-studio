@@ -30,6 +30,8 @@ export default class Header extends React.Component {
                             <ul>
                                 <li><a className={this.props.canvasType === "graph" ? "selected" : ""}
                                        onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>
+                                <li><a className={this.props.canvasType === "table" ? "selected" : ""}
+                                       onClick={() => this.props.switchCanvasTo("table")}>Table</a></li>
                                 <li><a className={this.props.canvasType === "json" ? "selected" : ""}
                                        onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
                             </ul>
