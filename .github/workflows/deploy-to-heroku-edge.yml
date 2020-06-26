@@ -1,8 +1,10 @@
-name: Deploy to Heroku
-
+name: Deploy to Heroku Edge
 
 on:
   push:
+    branches:
+      - releases/*
+  pull_request:
     branches:
       - master
 
@@ -14,7 +16,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.0.4 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "graph-explorer" #Must be unique in Heroku
+          heroku_app_name: "graph-explorer-edge" #Must be unique in Heroku
           heroku_email: "rrmerugu@gmail.com"
           dontuseforce: false #OPTIONAL and DEFAULT - false
           usedocker: false #OPTIONAL and DEFAULT - false
