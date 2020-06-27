@@ -117,11 +117,17 @@ export default class ExplorerView extends PageComponentBase {
                                 )
                             } else if (this.state.canvasType === "json" && this.state.responses) {
                                 return (
-                                    <JSONCanvas responses={this.state.responses}/>
+                                    <JSONCanvas
+                                        vertices={this.state.vertices}
+                                        edges={this.state.edges}
+                                        responses={this.state.responses}/>
                                 )
                             } else if (this.state.canvasType === "table" && this.state.responses) {
                                 return (
-                                    <TableCanvas responses={this.state.responses}/>
+                                    <TableCanvas
+                                        vertices={this.state.vertices}
+                                        edges={this.state.edges}
+                                        responses={this.state.responses}/>
                                 )
                             } else {
                                 return (

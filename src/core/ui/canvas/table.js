@@ -85,7 +85,6 @@ export default class TableCanvas extends React.Component {
 
         let jsonResponses = [];
         responses.forEach(function (response) {
-            console.log("=======response", response)
             const _ = gremlinSerializer.process(response)
             jsonResponses.push(_)
         })
@@ -97,53 +96,31 @@ export default class TableCanvas extends React.Component {
 
 
         let responsesDataFinal = [];
-        jsonResponses.forEach(function (jsonResponse) {
-            const _ = gremlinSerializer.separateVerticesAndEdges(jsonResponse);
-            console.log("==========", _);
-            const nodeGroups = gremlinSerializer.groupByLabel(_['nodes']);
-            const linkGroups = gremlinSerializer.groupByLabel(_['links']);
-            console.log("nodeGroups==", nodeGroups);
-            responsesDataFinal.push({
-                "nodeGroups": nodeGroups,
-                "linkGroups": linkGroups,
-                "requestInfo": jsonResponse
-            })
-        })
+        const nodeGroups = gremlinSerializer.groupByLabel(this.props.vertices);
+        const linkGroups = gremlinSerializer.groupByLabel(this.props.edges);
 
         console.log("========jsonResponses", jsonResponses);
         console.log("========responsesDataFinal", responsesDataFinal, typeof responsesDataFinal);
         return (
             <div className={"p-10 tableCanvas"}>
-                {
-                    responsesDataFinal.map((responseDatum, index) => {
-                        console.log("responseDatum", responseDatum)
-                        const nodeGroups = responseDatum['nodeGroups'];
-                        const linkGroups = responseDatum['linkGroups'];
-                        console.log("nodeGroups", nodeGroups)
-                        return (
-                            <div className={"responseBox "} key={index}>
-
-                                {
 
 
-                                    Object.keys(nodeGroups).map((nodeLabel, index) => (
-                                        <TableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
-                                                        data={nodeGroups[nodeLabel]}/>
-                                    ))
+                <div className={"responseBox "} >
 
+                    {
+                        Object.keys(nodeGroups).map((nodeLabel, index) => (
+                            <TableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
+                                            data={nodeGroups[nodeLabel]}/>
+                        ))
+                    }
+                    {
+                        Object.keys(linkGroups).map((linkLabel, index) => (
+                            <TableComponent type={"Edge"} key={linkGroups + index} label={linkLabel}
+                                            data={linkGroups[linkLabel]}/>
+                        ))
+                    }
+                </div>
 
-                                }
-                                {
-                                    Object.keys(linkGroups).map((linkLabel, index) => (
-                                        <TableComponent type={"Edge"} key={linkGroups + index} label={linkLabel}
-                                                        data={linkGroups[linkLabel]}/>
-                                    ))
-                                }
-                            </div>
-                        )
-
-                    })
-                }
             </div>
         )
     }
