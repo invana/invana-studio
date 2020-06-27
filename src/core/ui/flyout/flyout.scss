@@ -39,6 +39,12 @@
     }
   }
 
+  .flyoutBody {
+    overflow: scroll;
+    display: block;
+    position: relative;
+    height: 100%;
+  }
 
 }
 
@@ -65,6 +71,7 @@
   .flyoutBody {
     //height: 100%;
     overflow-x: scroll;
+    //height: calc(100% - 45px - 24px);
   }
 }
 
@@ -82,24 +89,34 @@
   .flyoutBody {
     //height: 100%;
     overflow-x: scroll;
+    //height: calc(100% - 45px - 24px);
   }
 }
 
 .flyout-bottom {
-  bottom: 0;
-  left: 50px;
-  width: calc(100% - 50px);
-  height: 300px;
+  bottom: 23px;
+  left: 46px;
+  width: calc(100% - 45px);
+  height: 250px;
   border-top: 1px solid $borderColor;
   box-shadow: 0 0 3px 0 $darkBgColor;
 
   .button {
     color: $darkBgColor !important;
   }
+
+  .flyoutHeader {
+    height: 14px;
+  }
+
+  .flyoutBody {
+    height: 215px;
+    overflow: scroll;
+  }
 }
 
 .flyout-bottom.flyout-md, .flyout-bottom.flyout-lg {
-  width: calc(100% - 50px);
+  width: calc(100% - 45px);
   z-index: 500000;
 }
 
