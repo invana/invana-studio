@@ -93,12 +93,13 @@ form {
 
   input {
     padding: 6px 10px;
+    padding-left: 0;
     background: $lightDarkBgColor;
     //border: 1px solid $borderColor;
     outline: none;
-    color: white;
+    color: $defaultTextColor;
     fill: $lightDarkBgColor;
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 1px;
     min-width: 200px;
     border: none;
@@ -126,7 +127,8 @@ form {
     padding-top: 10px;
     display: block;
     font-weight: bold;
-    color: inherit;
+    //color: inherit;
+    //color: $lightDarkBgColor;
   }
 }
 
