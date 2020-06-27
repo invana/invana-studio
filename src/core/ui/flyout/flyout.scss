@@ -30,7 +30,7 @@
       padding: 1px 5px;
       border-radius: 2px;
       margin-right: 0;
-      //font-size: 12px;
+      font-size: 12px;
       box-shadow: none;
     }
 
@@ -47,7 +47,7 @@
     height: 100%;
   }
 
-  .flyoutHeader{
+  .flyoutHeader {
     background-color: $darkestColor;
   }
 }
@@ -73,7 +73,7 @@
   //box-shadow: -2px 1px 3px $darkestColor;
 
   .flyoutBody {
-    //height: 100%;
+    height: calc(100% - 45px) !important;
     overflow-x: scroll;
     //height: calc(100% - 45px - 24px);
   }
@@ -91,7 +91,7 @@
   //box-shadow: 2px 1px 3px $darkestColor;
 
   .flyoutBody {
-    //height: 100%;
+    height: calc(100% - 45px) !important;
     overflow-x: scroll;
     //height: calc(100% - 45px - 24px);
   }
@@ -115,7 +115,7 @@
   }
 
   .flyoutBody {
-    height: 205px;
+    height: 215px;
     overflow: scroll;
   }
 }
@@ -131,7 +131,7 @@
 }
 
 .flyoutHeader {
-  padding: 10px;
+  padding: 7px 10px;
   border-bottom: 1px solid $borderColor;
   font-size: 14px;
   font-weight: bold;
