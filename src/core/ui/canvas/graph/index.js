@@ -46,22 +46,12 @@ export default class GraphCanvas extends React.Component {
     render() {
 
 
-        let overallNodes = [];
-        let overallLinks = [];
-        this.props.responses.forEach(function (response) {
-            const serializedData = serializer.process(response);
-            const separatedData = serializer.separateVerticesAndEdges(serializedData);
-            overallNodes = overallNodes.concat(separatedData['nodes']);
-            overallLinks = overallLinks.concat(separatedData['links']);
-        });
-        const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
-        const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
 
         return (
             <div className={"graphCanvas"}>
                 <D3ForceDirectedCanvas
-                    nodes={uniqueNodes}
-                    links={uniqueLinks}
+                    nodes={this.props.vertices}
+                    links={this.props.edges}
                     shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                     setSelectedData={this.setSelectedData.bind(this)}
                     queryGremlinServer={this.props.queryGremlinServer}
@@ -70,8 +60,8 @@ export default class GraphCanvas extends React.Component {
                 />
 
                 <LegendCanvas
-                    nodes={uniqueNodes}
-                    links={uniqueLinks}
+                    nodes={this.props.vertices}
+                    links={this.props.edges}
                     // nodeLabels={this.props.nodeLabels}
                     // linkLabels={this.props.linkLabels}
                 />

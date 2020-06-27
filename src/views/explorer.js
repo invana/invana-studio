@@ -8,6 +8,10 @@ import SwitchConnection from "../core/components/switch";
 import React from "react";
 import VertexOptions from "../core/components/vertex-options";
 import TableCanvas from "../core/ui/canvas/table";
+import GremlinResponseSerializers from "../core/base/gremlin-serializer";
+
+
+const serializer = new GremlinResponseSerializers();
 
 export default class ExplorerView extends PageComponentBase {
 
@@ -19,11 +23,46 @@ export default class ExplorerView extends PageComponentBase {
             canvasType: "graph",
             rightFlyOutName: "welcome",
             selectedNode: null,
-            query: "g.V().limit(5).toList()"
+            query: "g.V().limit(5).toList()",
+            vertices: [],
+            edges: []
             // shallReRenderD3Canvas: false
         };
     }
 
+    updateVerticesAndEdges() {
+        // this
+
+
+    }
+
+    extendGraph(responses) {
+        let overallNodes = this.state.vertices || [];
+        let overallLinks = this.state.edges || [];
+        responses.forEach(function (response) {
+            const serializedData = serializer.process(response);
+            const separatedData = serializer.separateVerticesAndEdges(serializedData);
+            overallNodes = overallNodes.concat(separatedData['nodes']);
+            overallLinks = overallLinks.concat(separatedData['links']);
+        });
+        const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
+        const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
+        this.setState({
+            vertices: uniqueNodes,
+            edges: uniqueLinks,
+            shallReRenderD3Canvas: true
+        })
+    }
+
+    processResponse(responses) {
+        super.processResponse(responses);
+        this.extendGraph(responses);
+    }
+
+    onQuerySubmit(query, queryOptions) {
+        super.onQuerySubmit(query, queryOptions)
+        // this.updateVerticesAndEdges();
+    }
 
     setShowVertexOptions(selectedNode) {
         this.setState({
@@ -69,6 +108,8 @@ export default class ExplorerView extends PageComponentBase {
                                         setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                         setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                         responses={this.state.responses}
+                                        vertices={this.state.vertices}
+                                        edges={this.state.edges}
                                         queryGremlinServer={this.makeQuery.bind(this)}
                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}

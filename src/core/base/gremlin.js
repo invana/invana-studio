@@ -36,6 +36,12 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         console.log("Response is ", responses);
     }
 
+    flushResponsesData(){
+        // this will delete responses,
+    }
+
+
+
 }
 
 
@@ -122,7 +128,8 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     flushResponsesData() {
         this.responses = [];
         this.setState({
-            responses: []
+            responses: [],
+
         })
     }
 
@@ -238,17 +245,24 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         setDataToLocalStorage(historyLocalStorageKey, existingHistory);
     }
 
-    makeQuery(query, source) {
+    makeQuery(query, queryOptions) {
+
+        /*
+            queryOptions.source = "internal|console|canvas"
+         */
 
         // TODO - add logic to wait till server connects.
 
-        if (typeof source === "undefined") {
-            source = "internal";
+        if (typeof queryOptions === "undefined") {
+            queryOptions = {}
         }
-        if (source) {
+        if (typeof queryOptions.source === "undefined") {
+            queryOptions.source = "internal";
+        }
+        if (queryOptions.source) {
             this.setQueryToUrl(query);
             this.addQueryToState(query)
-            this.addQueryToHistory(query, source)
+            this.addQueryToHistory(query, queryOptions.source)
         } // remove this part from here soon.
 
 

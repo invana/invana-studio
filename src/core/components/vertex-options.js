@@ -40,7 +40,7 @@ export default class VertexOptions extends GremlinHeadlessComponent {
             ".has('name','" + e.target.name.value + "').toList()";
 
         if (query && this.ws) {
-            this.makeQuery(query, "internal", );
+            this.makeQuery(query, {source:"internal"} );
         }
 
     }

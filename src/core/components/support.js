@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGithub, faGitter, faMedium, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import "./support.scss";
 
-export default class SupportFlyout extends React.Component {
+export default class SupportFlyOut extends React.Component {
 
 
     render() {

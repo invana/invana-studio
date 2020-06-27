@@ -4,7 +4,6 @@
 .connect {
   padding: 30px;
 
-
   hr {
     border-color: lighten($darkestColor, 10%);
   }
@@ -37,26 +36,14 @@
 
     form {
       width: 100%;
-
       input {
-        //width: 400px;
-        //margin: 10px auto;
-        //padding: 5px 10px;
-        //color: white;
-        //background: #2d2d2d;
-
-
         width: 400px;
         margin: 10px auto;
         padding: 10px 10px 5px 10px;
-
         color: white;
         border: 0;
         border-bottom: 1px solid $borderColor;
-
-
       }
-
     }
 
     .built-with {

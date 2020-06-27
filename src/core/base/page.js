@@ -11,7 +11,7 @@ import {redirectToConnectIfNeeded} from "../utils";
 import HistoryFlyOut from "../components/history";
 import SettingsFlyOut from "../ui/settings";
 import QueryConsole from "../components/console";
-import SupportFlyout from "../components/support";
+import SupportFlyOut from "../components/support";
 import AboutComponent from "../components/about";
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
@@ -90,13 +90,18 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
     loadQueryFromUrl() {
         const query = this.getQueryFromUrl();
         if (query && query !== "null") {
-            this.makeQuery(query, "console");
+            this.makeQuery(query, {source: "console"});
         }
     }
 
-    onQuerySubmit(query) {
+    onQuerySubmit(query, queryOptions) {
         console.log("Query is " + query);
-        this.makeQuery(query, "console");
+        if (queryOptions.source === "console"){
+            // this is the beginning of a new query.
+            // alert("flushing the responses");
+            this.flushResponsesData();
+        }
+        this.makeQuery(query, {source: "console"});
     }
 
     onErrorMessageFlyoutClose() {
@@ -184,7 +189,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 }
                 {
                     (this.state.rightFlyOutName === "support") ?
-                        <SupportFlyout
+                        <SupportFlyOut
                             setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                             onClose={this.onRightFlyOutClose.bind(this)}/>
                         : <span></span>

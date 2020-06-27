@@ -143,7 +143,12 @@ form {
 ::placeholder {
   color: darken($defaultTextColor, 20%);
 }
-
+.float-left{
+  float: left;
+}
+.float-right{
+  float:right;
+}
 
 pre {
   overflow-x: auto;
