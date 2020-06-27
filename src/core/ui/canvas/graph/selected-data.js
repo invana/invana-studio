@@ -46,7 +46,7 @@ export default class SelectedDataCanvas extends React.Component {
         return (
             <FlyOutUI position={"right"}
                       onClose={this.props.onClose}
-                      title={null}
+                      title={cleanedData.type + " Element Detailed View"}
                       padding={false}
                       display={Object.keys(cleanedData).length > 1 ? 'block' : 'none'}>
                 <div className={"SelectedDataHeading"}>
