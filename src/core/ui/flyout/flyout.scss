@@ -1,5 +1,6 @@
 @import "../../../config";
 
+
 .flyout {
   position: fixed;
   z-index: 10000;
@@ -9,7 +10,7 @@
   line-height: 1.2rem;
   word-wrap: break-word;
   //font-family: Courier;
-  overflow-y: auto;
+  //overflow-y: auto;
   scrollbar-color: $darkBgColor;
   background: $darkBgColor;
   max-width: 100%;
@@ -37,6 +38,8 @@
       color: $primaryColor;
     }
   }
+
+
 }
 
 .flyout-transparent {
@@ -58,6 +61,11 @@
   height: calc(100vh - 44px);
   border: 1px solid $borderColor;
   box-shadow: -2px 1px 3px $darkBgColor;
+
+  .flyoutBody {
+    height: 100%;
+    overflow-x: scroll;
+  }
 }
 
 .flyout-right.flyout-md {
@@ -66,11 +74,15 @@
 
 .flyout-left {
   top: 44px;
-  left: 50px;
+  left: 45px;
   height: calc(100vh - 44px);
   border: 1px solid $borderColor;
   box-shadow: 2px 1px 3px $darkBgColor;
 
+  .flyoutBody {
+    height: 100%;
+    overflow-x: scroll;
+  }
 }
 
 .flyout-bottom {

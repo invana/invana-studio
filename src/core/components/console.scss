@@ -1,15 +1,16 @@
 @import "../../config";
 
 .queryConsole {
+
   textarea {
     width: calc(100% - 10px);
     height: 450px;
     padding: 5px;
     border-radius: 2px;
-    background: #404147;
-    color: white;
+    background: transparent;
+    color: $defaultTextColor;
     font-family: Courier;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   button {
