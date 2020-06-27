@@ -166,6 +166,10 @@ export default class ExplorerView extends PageComponentBase {
                         : <span></span>
                 }
 
+                <div className="canvasStats">
+                    {this.state.vertices.length} vertices, {this.state.edges.length} edges
+                </div>
+
             </div>
         )
     }

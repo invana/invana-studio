@@ -143,11 +143,13 @@ form {
 ::placeholder {
   color: darken($defaultTextColor, 20%);
 }
-.float-left{
+
+.float-left {
   float: left;
 }
-.float-right{
-  float:right;
+
+.float-right {
+  float: right;
 }
 
 pre {
@@ -166,19 +168,22 @@ pre {
   //padding: 10px;
 }
 
-.p-0{
+.p-0 {
   padding: 0;
 }
-.m-0{
+
+.m-0 {
   margin: 0;
 }
 
 .p-10 {
   padding: 10px;
 }
+
 .p-5 {
   padding: 5px;
 }
+
 .m-5 {
   margin: 5px;
 }
@@ -267,4 +272,13 @@ button.small {
 }
 
 
+.canvasStats {
+  position: fixed;
+  bottom: 4px;
+  right: 5px;
+  z-index: 10000;
+}
 
+.statusMessage{
+  margin-left: 20px;
+}
