@@ -147,9 +147,10 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                     this.state.errorMessage ?
                         <FlyOutUI position={"bottom"}
                                   display={this.state.errorMessage ? "block" : "none"}
-                                  title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
+                                  // title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
+                                  title={"Response Console" }
                                   isWarning={true}
-                                  padding={false}
+                                  padding={true}
                                   onClose={this.onErrorMessageFlyoutClose.bind(this)}
                         >
                             <div className={"errorMessage"}>

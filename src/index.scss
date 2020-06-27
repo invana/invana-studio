@@ -154,9 +154,9 @@ pre {
 
 
 .errorMessage {
-  background: $warningColor;
-  color: $darkBgColor;
-  padding: 10px;
+  //background: $warningColor;
+  //color: $darkestColor;
+  //padding: 10px;
 }
 
 .p-0{
@@ -168,6 +168,12 @@ pre {
 
 .p-10 {
   padding: 10px;
+}
+.p-5 {
+  padding: 5px;
+}
+.m-5 {
+  margin: 5px;
 }
 
 .pt-10 {
@@ -240,7 +246,7 @@ button.small {
 
 .primary-btn {
   background: $primaryColor;
-  color: $darkBgColor;
+  color: $darkestColor;
   border-color: $primaryColor;
   box-shadow: 0 2px $defaultTextColor;
 }

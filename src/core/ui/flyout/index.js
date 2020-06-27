@@ -36,7 +36,7 @@ export default class FlyOutUI extends React.Component {
 
     render() {
 
-        const padClass = this.props.padding === true ? "p-10" : "";
+        const padClass = this.props.padding === true ? "p-5" : "";
         return (
             <div className={"flyout flyout-" + this.state.size + " flyout-" + this.props.position}
                  style={{display: this.props.display}}>
@@ -62,8 +62,10 @@ export default class FlyOutUI extends React.Component {
                     </button>
                 </div>
 
-                <div className={"flyoutBody " + padClass}>
-                    {this.props.children}
+                <div className={"flyoutBody "}>
+                    <div className={padClass}>
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         )

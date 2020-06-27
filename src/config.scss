@@ -1,6 +1,6 @@
 $primaryColor: #429770;
-$darkBgColor: #222222;
-$lightDarkBgColor: lighten($darkBgColor, 10%);
+$darkestColor: #222222;
+$lightDarkBgColor: #2e2e2e; //lighten($darkestColor, 10%);
 
 $canvasBgColor: #404147;  // for the center main content background.
 $borderColor: #505050; // for all borders

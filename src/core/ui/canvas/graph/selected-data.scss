@@ -37,7 +37,7 @@
 
 .singleProperty {
 
-  border-bottom: 1px solid darken($darkBgColor, 3%);
+  border-bottom: 1px solid darken($darkestColor, 3%);
   //padding-top: 3px;
   //padding-bottom: 3px;
   padding: 5px 5px;
@@ -46,7 +46,7 @@
 }
 
 .singleProperty:nth-child(odd) {
-  background: darken($darkBgColor, 2%);
+  background: darken($darkestColor, 2%);
 }
 
 .singleProperty.dark {
