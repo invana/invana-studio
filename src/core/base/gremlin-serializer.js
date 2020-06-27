@@ -269,6 +269,24 @@ export default class GremlinResponseSerializers {
     }
 
 
+    removeMeta(data) {
+        if (!data) {
+            data = [];
+        }
+        let newData = []
+        data.forEach(function (datum) {
+            delete datum.meta
+            newData.push({
+                type: datum.type,
+                label: datum.label,
+                id: datum.id,
+                properties: datum.properties,
+            })
+        })
+        return newData;
+    }
+
+
     groupByLabel(data) {
         let dataGroups = {};
         data.forEach(function (datum) {

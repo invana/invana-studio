@@ -96,8 +96,8 @@ export default class TableCanvas extends React.Component {
 
 
         let responsesDataFinal = [];
-        const nodeGroups = gremlinSerializer.groupByLabel(this.props.vertices);
-        const linkGroups = gremlinSerializer.groupByLabel(this.props.edges);
+        const vertexGroups = gremlinSerializer.groupByLabel(this.props.vertices);
+        const edgeGroups = gremlinSerializer.groupByLabel(this.props.edges);
 
         console.log("========jsonResponses", jsonResponses);
         console.log("========responsesDataFinal", responsesDataFinal, typeof responsesDataFinal);
@@ -108,15 +108,15 @@ export default class TableCanvas extends React.Component {
                 <div className={"responseBox "} >
 
                     {
-                        Object.keys(nodeGroups).map((nodeLabel, index) => (
+                        Object.keys(vertexGroups).map((nodeLabel, index) => (
                             <TableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
-                                            data={nodeGroups[nodeLabel]}/>
+                                            data={vertexGroups[nodeLabel]}/>
                         ))
                     }
                     {
-                        Object.keys(linkGroups).map((linkLabel, index) => (
-                            <TableComponent type={"Edge"} key={linkGroups + index} label={linkLabel}
-                                            data={linkGroups[linkLabel]}/>
+                        Object.keys(edgeGroups).map((linkLabel, index) => (
+                            <TableComponent type={"Edge"} key={edgeGroups + index} label={linkLabel}
+                                            data={edgeGroups[linkLabel]}/>
                         ))
                     }
                 </div>
