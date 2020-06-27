@@ -9,7 +9,7 @@
   width: 45px;
   border-right: 1px solid $borderColor;
   background-color: $darkBgColor;
-  height: calc(100vh - 45px);
+  height: calc(100vh - 45px - 22px);
   color: $defaultTextColor;
   box-shadow: 1px 1px 3px $darkBgColor;
 

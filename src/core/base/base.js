@@ -75,7 +75,6 @@ export default class ComponentBase extends React.Component {
     render() {
         return (
             <Footer>
-
                 <StatusMessageComponent statusMessage={this.state.statusMessage}/>
                 <LoadSpinner
                     loadingMessage={this.state.loadingMessage}

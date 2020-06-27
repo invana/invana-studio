@@ -58,12 +58,12 @@
   right: 0;
   top: 44px;
   width: 300px;
-  height: calc(100vh - 44px);
+  height: calc(100vh - 44px - 24px);
   border: 1px solid $borderColor;
   box-shadow: -2px 1px 3px $darkBgColor;
 
   .flyoutBody {
-    height: 100%;
+    //height: 100%;
     overflow-x: scroll;
   }
 }
@@ -75,12 +75,12 @@
 .flyout-left {
   top: 44px;
   left: 45px;
-  height: calc(100vh - 44px);
+  height: calc(100vh - 44px - 24px);
   border: 1px solid $borderColor;
   box-shadow: 2px 1px 3px $darkBgColor;
 
   .flyoutBody {
-    height: 100%;
+    //height: 100%;
     overflow-x: scroll;
   }
 }
