@@ -60,7 +60,7 @@
   width: 300px;
   height: calc(100vh - 44px - 24px);
   border: 1px solid $borderColor;
-  box-shadow: -2px 1px 3px $darkBgColor;
+  //box-shadow: -2px 1px 3px $darkBgColor;
 
   .flyoutBody {
     //height: 100%;
@@ -77,7 +77,7 @@
   left: 45px;
   height: calc(100vh - 44px - 24px);
   border: 1px solid $borderColor;
-  box-shadow: 2px 1px 3px $darkBgColor;
+  //box-shadow: 2px 1px 3px $darkBgColor;
 
   .flyoutBody {
     //height: 100%;

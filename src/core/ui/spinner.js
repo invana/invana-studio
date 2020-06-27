@@ -20,7 +20,7 @@ export default class LoadSpinner extends React.Component {
             <div>
                 {(this.props.isLoading === true)
                     ? (
-                        <div className={'load ingDiv'} style={{"top": divTop, "left": divLeft}}>
+                        <div className={'loadingDiv'} style={{"top": divTop, "left": divLeft}}>
                             <div className={"sk-fold"} style={{"margin": "0 auto"}}>
                                 <div className={"sk-fold-cube"}></div>
                                 <div className={"sk-fold-cube"}></div>
