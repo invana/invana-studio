@@ -47,12 +47,7 @@ export default class Header extends React.Component {
                                 <FontAwesomeIcon icon={faBook}/>
                             </a>
                         </li>
-                        <li>
-                            <a className={this.props.rightFlyOutName === "support" ? "selected" : ""}
-                               onClick={() => this.props.setRightFlyOut("support")} title={"Support/Documentation"}>
-                                <FontAwesomeIcon icon={faLifeRing}/>
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
             </MainTopNav>
