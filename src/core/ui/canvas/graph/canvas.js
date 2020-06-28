@@ -663,6 +663,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
             }
             d.fx = d.x;
             d.fy = d.y;
+            d3.selectAll(".node").each(function (d) {
+                d.fixed = true;//thsi will fix the node.
+            });
         }
 
         function dragEnded(d) {
@@ -670,6 +673,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 _this.simulation.alphaTarget(0);
             }
             _this.simulation.alpha(DefaultHoverOpacity).restart();
+            d3.selectAll(".node").each(function (d) {
+                d.fixed = true;//thsi will fix the node.
+            });
             // d.fx = null;
             // d.fy = null;
         }

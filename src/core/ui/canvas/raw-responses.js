@@ -31,7 +31,10 @@ export default class RawResponsesCanvas extends React.Component {
     }
 
     render() {
-        return <div className={"rawResponseCanvas p-10"}>{this.getJsonOrLoader()}         </div>
+        return <div className={"rawResponseCanvas p-10"}>
+            <h4>Raw Response(from last Query only)</h4>
+            {this.getJsonOrLoader()}
+        </div>
     }
 
     getJsonOrLoader() {
