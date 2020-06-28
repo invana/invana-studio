@@ -86,12 +86,13 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
 
 
     setupHotKeys() {
-        Mousetrap.bind("ctrl+1", () => this.switchCanvasTo("graph") );
-        Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table") );
-        Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json") );
-        Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw") );
-        Mousetrap.bind("ctrl+q", () => this.setLeftFlyOut("query-console") );
-        Mousetrap.bind("esc", () => this.onLeftFlyOutClose() );
+        Mousetrap.bind("ctrl+1", () => this.switchCanvasTo("graph"));
+        Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table"));
+        Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json"));
+        Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw"));
+        Mousetrap.bind("shift+/", () => this.setLeftFlyOut("query-console"));
+        Mousetrap.bind("shift+h", () => this.setLeftFlyOut("history"));
+        Mousetrap.bind("esc", () => this.onLeftFlyOutClose());
     }
 
     unSetupHotKeys() {
@@ -99,7 +100,8 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         Mousetrap.unbind("ctrl+2");
         Mousetrap.unbind("ctrl+3");
         Mousetrap.unbind("ctrl+4");
-        Mousetrap.unbind("ctrl+q");
+        Mousetrap.unbind("shift+/");
+        Mousetrap.unbind("shift+h");
         Mousetrap.unbind("esc");
     }
 
@@ -113,6 +115,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         super.componentDidMount();
         setTimeout(() => this.loadQueryFromUrl(), 300);
         this.setupHotKeys()
+
     }
 
     loadQueryFromUrl() {
