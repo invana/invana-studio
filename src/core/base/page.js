@@ -90,6 +90,8 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table") );
         Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json") );
         Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw") );
+        Mousetrap.bind("ctrl+q", () => this.setLeftFlyOut("query-console") );
+        Mousetrap.bind("esc", () => this.onLeftFlyOutClose() );
     }
 
     unSetupHotKeys() {
@@ -97,7 +99,8 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         Mousetrap.unbind("ctrl+2");
         Mousetrap.unbind("ctrl+3");
         Mousetrap.unbind("ctrl+4");
-        // Mousetrap.unbind("esc");
+        Mousetrap.unbind("ctrl+q");
+        Mousetrap.unbind("esc");
     }
 
     componentWillUnmount() {
