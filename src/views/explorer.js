@@ -7,6 +7,7 @@ import FounderNote from "../core/components/founder-note";
 import SwitchConnection from "../core/components/switch";
 import React from "react";
 import VertexOptions from "../core/components/vertex-options";
+import RawResponsesCanvas from "../core/ui/canvas/raw-responses";
 import TableCanvas from "../core/ui/canvas/table";
 import GremlinResponseSerializers from "../core/base/gremlin-serializer";
 
@@ -124,6 +125,13 @@ export default class ExplorerView extends PageComponentBase {
                                     <TableCanvas
                                         vertices={this.state.vertices}
                                         edges={this.state.edges}
+                                        responses={this.state.responses}/>
+                                )
+                            } else if (this.state.canvasType === "raw" && this.state.responses) {
+                                return (
+                                    <RawResponsesCanvas
+                                        // vertices={this.state.vertices}
+                                        // edges={this.state.edges}
                                         responses={this.state.responses}/>
                                 )
                             } else {

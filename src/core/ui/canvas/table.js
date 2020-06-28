@@ -33,9 +33,9 @@ export class TableComponent extends React.Component {
         }
 
         return (
-            <div className={"tableComponent"}>
-                <h3>{this.props.type} | {this.props.label}</h3>
-                <table>
+            <div className={"tableComponent p-10"}>
+                {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
+                <table className={" mb-10 "}>
                     <thead>
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor || "inherit",
@@ -86,9 +86,10 @@ export class TableComponent extends React.Component {
 export default class TableCanvas extends React.Component {
 
     static defaultProps = {
-        responses: null
+        responses: null,
+        vertices: [],
+        edges: []
     }
-
 
 
     render() {
@@ -100,7 +101,7 @@ export default class TableCanvas extends React.Component {
             <div className={"p-10 tableCanvas"}>
 
 
-                <div className={"responseBox "} >
+                <div className={"___responseBox "}>
 
                     {
                         Object.keys(vertexGroups).map((nodeLabel, index) => (
