@@ -31,13 +31,13 @@ export default class Header extends React.Component {
                                 <li>
                                     <div className={"canvasToggle"}>
                                         <a className={this.props.canvasType === "graph" ? "selected" : ""}
-                                           onClick={() => this.props.switchCanvasTo("graph")}>Graph</a>
+                                           onClick={() => this.props.switchCanvasTo("graph")}><u>G</u>raph</a>
                                         <a className={this.props.canvasType === "table" ? "selected" : ""}
-                                           onClick={() => this.props.switchCanvasTo("table")}>Table</a>
+                                           onClick={() => this.props.switchCanvasTo("table")}><u>T</u>able</a>
                                         <a className={this.props.canvasType === "json" ? "selected" : ""}
-                                           onClick={() => this.props.switchCanvasTo("json")}>JSON</a>
+                                           onClick={() => this.props.switchCanvasTo("json")}><u>J</u>SON</a>
                                         <a className={this.props.canvasType === "raw" ? "selected" : ""}
-                                           onClick={() => this.props.switchCanvasTo("raw")}>Raw</a>
+                                           onClick={() => this.props.switchCanvasTo("raw")}><u>R</u>aw</a>
 
                                     </div>
                                 </li>

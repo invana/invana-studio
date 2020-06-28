@@ -43,7 +43,7 @@ export default class QueryConsole extends React.Component {
     render() {
         return (
             <FlyOutUI
-                title={"Gremlin Query Console"} display={"block"}
+                title={"Query Console"} display={"block"}
                 position={"left"}
                 onClose={this.props.onClose}
             >

@@ -41,15 +41,14 @@ export class TableComponent extends React.Component {
                         "backgroundColor": colorOptions.bgColor || "inherit",
                     }}>
 
-
-                        <th style={{"borderColor": colorOptions.borderColor || "inherit"}}>Type</th>
-                        <th style={{"borderColor": colorOptions.borderColor || "inherit"}}>Label</th>
-                        <th style={{"borderColor": colorOptions.borderColor || "inherit"}}>Id</th>
+                        {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
+                        <th>Type</th>
+                        <th>Label</th>
+                        <th>Id</th>
                         {
                             propertyKeys.map((propertyKey, index) => {
                                 return (
-                                    <th style={{"borderColor": colorOptions.borderColor || "inherit"}}
-                                        key={index}>{propertyKey}</th>
+                                    <th key={index}>{propertyKey}</th>
                                 )
                             })
                         }
