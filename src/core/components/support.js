@@ -16,8 +16,6 @@ export default class SupportFlyOut extends React.Component {
                       position={"right"}
                       onClose={this.props.onClose}
             >
-
-
                 <ul className={"vertical list"}>
 
                     <li>

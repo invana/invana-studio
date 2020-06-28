@@ -29,12 +29,9 @@ export default class ExplorerView extends PageComponentBase {
             // shallReRenderD3Canvas: false
         };
     }
-
-    updateVerticesAndEdges() {
-        // this
+    //
 
 
-    }
 
     extendGraph(responses) {
         let overallNodes = this.state.vertices || [];

@@ -40,6 +40,11 @@ export class TableComponent extends React.Component {
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor || "inherit",
                     }}>
+
+
+                        <th style={{"borderColor": colorOptions.borderColor || "inherit"}}>Type</th>
+                        <th style={{"borderColor": colorOptions.borderColor || "inherit"}}>Label</th>
+                        <th style={{"borderColor": colorOptions.borderColor || "inherit"}}>Id</th>
                         {
                             propertyKeys.map((propertyKey, index) => {
                                 return (
@@ -55,7 +60,11 @@ export class TableComponent extends React.Component {
                         this.props.data.map((node) => {
                             return (
                                 <tr key={node.id}>
+                                    <td>{node.type}</td>
+                                    <td>{node.label}</td>
+                                    <td>{node.id}</td>
                                     {
+
                                         propertyKeys.map((prop, index) => {
                                             return (<td key={index}>{node.properties[prop]}</td>)
                                         })
@@ -81,26 +90,12 @@ export default class TableCanvas extends React.Component {
     }
 
 
-    convertResponses2JSONs(responses) {
-
-        let jsonResponses = [];
-        responses.forEach(function (response) {
-            const _ = gremlinSerializer.process(response)
-            jsonResponses.push(_)
-        })
-        return jsonResponses;
-    }
 
     render() {
-        const jsonResponses = this.convertResponses2JSONs(this.props.responses);
-
-
-        let responsesDataFinal = [];
         const vertexGroups = gremlinSerializer.groupByLabel(this.props.vertices);
         const edgeGroups = gremlinSerializer.groupByLabel(this.props.edges);
 
-        console.log("========jsonResponses", jsonResponses);
-        console.log("========responsesDataFinal", responsesDataFinal, typeof responsesDataFinal);
+        console.log("=====vertexGroups", vertexGroups)
         return (
             <div className={"p-10 tableCanvas"}>
 

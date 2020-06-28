@@ -18,6 +18,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
 
 
     responseSessions = []; // responses from all the queries
+    requests = []
 
     constructor(props) {
         super(props);
