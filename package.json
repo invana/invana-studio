@@ -14,6 +14,7 @@
     "d3": "^4.13.0",
     "d3-selection-multi": "^1.0.1",
     "moment": "^2.26.0",
+    "mousetrap": "^1.6.5",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

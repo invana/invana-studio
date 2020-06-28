@@ -14,6 +14,8 @@ import QueryConsole from "../components/console";
 import SupportFlyOut from "../components/support";
 import AboutComponent from "../components/about";
 
+const Mousetrap = require("mousetrap");
+
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
 
@@ -82,10 +84,32 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         return new URLSearchParams(window.location.search).get("query");
     }
 
+
+    setupHotKeys() {
+        Mousetrap.bind("ctrl+1", () => this.switchCanvasTo("graph") );
+        Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table") );
+        Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json") );
+        Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw") );
+    }
+
+    unSetupHotKeys() {
+        Mousetrap.unbind("ctrl+1");
+        Mousetrap.unbind("ctrl+2");
+        Mousetrap.unbind("ctrl+3");
+        Mousetrap.unbind("ctrl+4");
+        // Mousetrap.unbind("esc");
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.unSetupHotKeys();
+    }
+
     componentDidMount() {
         redirectToConnectIfNeeded();
         super.componentDidMount();
         setTimeout(() => this.loadQueryFromUrl(), 300);
+        this.setupHotKeys()
     }
 
     loadQueryFromUrl() {
@@ -97,7 +121,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
 
     onQuerySubmit(query, queryOptions) {
         console.log("Query is " + query);
-        if (queryOptions.source === "console"){
+        if (queryOptions.source === "console") {
             // this is the beginning of a new query.
             // alert("flushing the responses");
             this.flushResponsesData();
@@ -113,17 +137,16 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
 
     switchCanvasTo(canvasType) {
         this.setState({
-            canvasType: canvasType
+            canvasType: canvasType,
+            statusMessage: "Canvas switched to " + canvasType
         })
     }
 
     addQueryToConsole(query) {
-        // alert("query", query);
         this.addQueryToState(query);
         if (this.state.leftFlyOutName !== "query-console") {
             this.setLeftFlyOut("query-console");
         }
-
     }
 
     render() {
@@ -153,8 +176,8 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                     this.state.errorMessage ?
                         <FlyOutUI position={"bottom"}
                                   display={this.state.errorMessage ? "block" : "none"}
-                                  // title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
-                                  title={"Response Console" }
+                            // title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
+                                  title={"Response Console"}
                                   isWarning={true}
                                   padding={true}
                                   onClose={this.onErrorMessageFlyoutClose.bind(this)}
