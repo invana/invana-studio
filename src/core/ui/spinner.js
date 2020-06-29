@@ -36,7 +36,7 @@ export default class LoadSpinner extends React.Component {
                                 : (<span></span>)
                             }
                             {(this.props.showSignout === true) ?
-                                <p><a href="/switch-server">switch to a different server.</a></p> : <span></span>}
+                                <p><a href="/switch-server"><u>switch</u> to a different server.</a></p> : <span></span>}
                         </div>
                     ) : (<span></span>)
                 }

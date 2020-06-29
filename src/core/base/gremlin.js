@@ -105,7 +105,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
             let timer = setInterval((function () {
                     i += 1;
                     console.log(i)
-                    _this.setStatusMessage("Connection lost. Reconnecting in " + (DefaultConnectionRetryTimeout - i) + "s...");
+                    _this.setStatusMessage("Connection failed. Reconnecting in " + (DefaultConnectionRetryTimeout - i) + "s...");
                     if (i >= DefaultConnectionRetryTimeout) {
                         clearInterval(timer);
                         _this.reconnect();
