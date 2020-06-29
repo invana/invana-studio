@@ -1,6 +1,6 @@
 import React from "react";
 import GraphControls from "./graph-controls";
-import {prepareLinksDataForCurves, prepareNodesDataWithOptions} from "./canvas-utils";
+import {prepareLinksDataForCurves, prepareNodesDataWithOptions, removeVertexMeta, removeEdgeMeta} from "./canvas-utils";
 import {LightenDarkenColor} from "../../../utils";
 import "./graph.scss";
 
@@ -19,8 +19,8 @@ import 'd3-selection-multi';
 export default class D3ForceDirectedCanvas extends React.Component {
 
     static defaultProps = {
-        nodes: [],
-        links: [],
+        vertices: [],
+        edges: [],
         shallReRenderD3Canvas: false,
         setSelectedData: (selectedData) => console.error("setSelectedData not set"),
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
@@ -28,7 +28,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {...props};
+        // this.state = {...props};
     }
 
     canvas = null;
@@ -69,12 +69,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     getAdjacentNodeIds(nodeId) {
-        let _this = this;
-        console.log("nodeIDtoLinkIDs", nodeId, this.nodeIDtoLinkIDs)
+        // console.log("nodeIDtoLinkIDs", nodeId, this.nodeIDtoLinkIDs)
         let connectedLinkIds = this.nodeIDtoLinkIDs[nodeId] || new Set();
-        console.log("connectedLinkIds", connectedLinkIds)
+        // console.log("connectedLinkIds", connectedLinkIds)
         let data = new Set([nodeId]);
-        console.log("linkIDtoLinkMap", this.linkIDtoLinkMap);
+        console.debug("linkIDtoLinkMap", this.linkIDtoLinkMap);
         connectedLinkIds.forEach(linkId => {
             let link = this.linkIDtoLinkMap[linkId];
             data.add(link.source.id);
@@ -86,7 +85,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     highlightHoveredNodesAndEdges(selectedNode) {
         // this is performance intensive operation
         // let nodeElements = document.querySelectorAll('.everything .node');
-        console.log("selectedNode=====", selectedNode);
+        console.log("highlightHoveredNodesAndEdges selectedNode=====", selectedNode);
         let nodeElements = this.canvas.selectAll('.node .circle');
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
@@ -300,7 +299,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
 
     addVertices(nodesData) {
-        console.log("VertexUtils.add", nodesData);
+        console.log("VertexUtils.add", JSON.parse(JSON.stringify(nodesData)));
         let _this = this;
         let node = this.canvas.selectAll(".node")
             .data(nodesData)
@@ -493,6 +492,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     addEdges(edges) {
+
+        console.log("EdgeUtils.add", JSON.parse(JSON.stringify(edges)));
         let _this = this
         let links = this.canvas
             .selectAll("g.links")
@@ -725,11 +726,14 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.simulation = this.setupSimulation(this.canvasDimensions.width, this.canvasDimensions.height);
 
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        let linksData = prepareLinksDataForCurves(this.props.links);
-        let nodesData = prepareNodesDataWithOptions(this.props.nodes, nodeOptions);
+
+        const cleanedEdges = removeEdgeMeta(this.props.edges);
+        const cleanedVertices = removeVertexMeta(this.props.vertices);
+        let linksData = prepareLinksDataForCurves(cleanedEdges);
+        let nodesData = prepareNodesDataWithOptions(cleanedVertices, nodeOptions);
         this.startRenderingGraph(nodesData, linksData)
-        this.nodeIDtoLinkIDs = this.getNodeIDtoLinkIDs(this.props.links)
-        this.linkIDtoLinkMap = this.getLinkIDtoLink(this.props.links)
+        this.nodeIDtoLinkIDs = this.getNodeIDtoLinkIDs(cleanedEdges)
+        this.linkIDtoLinkMap = this.getLinkIDtoLink(cleanedEdges)
     }
 
     componentDidMount() {

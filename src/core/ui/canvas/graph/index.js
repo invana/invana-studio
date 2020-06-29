@@ -15,7 +15,8 @@ export default class GraphCanvas extends React.Component {
         queryGremlinServer: () => console.error("queryGremlinServer prop not set for GraphCanvas"),
         setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas"),
         setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphCanvas"),
-
+        vertices: [],
+        edges: []
     }
 
     constructor(props) {
@@ -43,15 +44,13 @@ export default class GraphCanvas extends React.Component {
         this.setSelectedData(null);
     }
 
+
     render() {
-
-
-
         return (
             <div className={"graphCanvas"}>
                 <D3ForceDirectedCanvas
-                    nodes={this.props.vertices}
-                    links={this.props.edges}
+                    vertices={this.props.vertices}
+                    edges={this.props.edges}
                     shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                     setSelectedData={this.setSelectedData.bind(this)}
                     queryGremlinServer={this.props.queryGremlinServer}
