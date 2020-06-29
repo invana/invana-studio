@@ -27,12 +27,12 @@ export function removeVertexMeta(data) {
 export function removeEdgeMeta(data) {
     let newData = [];
     data.forEach((datum) => {
-        delete datum.meta;
-        delete datum.x;
-        delete datum.y;
-        delete datum.vx;
-        delete datum.vy;
-        delete datum.index;
+        // delete datum.meta;
+        // delete datum.x;
+        // delete datum.y;
+        // delete datum.vx;
+        // delete datum.vy;
+        // delete datum.index;
         if (typeof datum.source === "object") {
             datum.source = datum.source.id;
         }
