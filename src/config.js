@@ -39,4 +39,5 @@ export const linkCurvature = .85;
 
 export const managementVertexLabel = "InvanaManagement";
 export const historyLocalStorageKey = "GRAPH_EXPLORER_HISTORY";
+export const MAX_HISTORY_COUNT_TO_REMEMBER = 100;
 export const DEMO_URL = "https://www.youtube.com/watch?v=7jdgUOZUtlQ";

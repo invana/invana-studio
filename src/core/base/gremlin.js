@@ -5,6 +5,7 @@ import {
     DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds,
     GREMLIN_SERVER_URL, historyLocalStorageKey,
+    MAX_HISTORY_COUNT_TO_REMEMBER,
     UUIDGenerator
 } from "../../config";
 import {getDataFromLocalStorage, setDataToLocalStorage} from "../utils";
@@ -239,6 +240,8 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     addQueryToHistory(query, source) {
         //
         let existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
+
+        existingHistory =  existingHistory.slice(0, MAX_HISTORY_COUNT_TO_REMEMBER)
         existingHistory.unshift({
             "query": query,
             "source": source,
