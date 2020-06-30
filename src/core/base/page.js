@@ -129,7 +129,6 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         console.log("Query is " + query);
         if (queryOptions.source === "console") {
             // this is the beginning of a new query.
-            // alert("flushing the responses");
             this.flushResponsesData();
         }
         this.makeQuery(query, {source: "console"});

@@ -129,8 +129,10 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         this.responses = [];
         this.setState({
             responses: [],
-
+            vertices: [],
+            edges: []
         })
+
     }
 
     generateQueryPayload(query) {
