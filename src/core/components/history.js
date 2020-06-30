@@ -13,7 +13,6 @@ export default class HistoryFlyOut extends React.Component {
 
     render() {
         const existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
-
         const historyToShow = existingHistory.filter(item => item.source !== "internal");
         return (
             <FlyOutUI title={"Query History"}
