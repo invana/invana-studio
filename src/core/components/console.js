@@ -68,7 +68,7 @@ export default class QueryConsole extends React.Component {
         return (
             <FlyOutUI
                 title={"Query Console"} display={"block"}
-                position={"normal"}
+                position={"left"}
                 onClose={this.props.onClose}
             >
                 <div className={"queryConsole"}>

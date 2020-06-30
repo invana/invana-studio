@@ -10,12 +10,7 @@ import VertexOptions from "../core/components/vertex-options";
 import RawResponsesCanvas from "../core/ui/canvas/raw-responses";
 import TableCanvas from "../core/ui/canvas/table";
 import GremlinResponseSerializers from "../core/base/gremlin-serializer";
-import AsideNav from "../core/base/aside";
-import HistoryFlyOut from "../core/components/history";
-import QueryConsole from "../core/components/console";
-import SettingsFlyOut from "../core/ui/settings";
-import SupportFlyOut from "../core/components/support";
-import AboutComponent from "../core/components/about";
+
 
 const serializer = new GremlinResponseSerializers();
 
@@ -35,8 +30,8 @@ export default class ExplorerView extends PageComponentBase {
             // shallReRenderD3Canvas: false
         };
     }
-
     //
+
 
 
     extendGraph(responses) {
@@ -100,63 +95,9 @@ export default class ExplorerView extends PageComponentBase {
     render() {
         const superContent = super.render();
         const _this = this;
-
-        let mainContentLeft = null;
-        if (this.state.leftFlyOutName !== null) {
-            mainContentLeft = "445px";
-        } else {
-            mainContentLeft = "45px";
-        }
-
         return (
             <div>
-                {
-                    (this.state.leftFlyOutName)
-                        ? <AsideNav>
-                            {
-                                (this.state.leftFlyOutName === "history") ?
-                                    <HistoryFlyOut
-                                        makeQuery={this.makeQuery.bind(this)}
-                                        addQueryToConsole={this.addQueryToConsole.bind(this)}
-                                        onClose={this.onLeftFlyOutClose.bind(this)}
-                                    />
-                                    : <span></span>
-                            }
-                            {
-                                (this.state.leftFlyOutName === "query-console") ?
-                                    <QueryConsole
-                                        onQuerySubmit={this.onQuerySubmit.bind(this)}
-                                        query={this.state.query}
-                                        onClose={this.onLeftFlyOutClose.bind(this)}
-                                    />
-                                    : <span></span>
-                            }
-                            {
-                                (this.state.leftFlyOutName === "settings") ?
-                                    <SettingsFlyOut
-                                        setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                                        onClose={this.onLeftFlyOutClose.bind(this)}/>
-                                    : <span></span>
-                            }
-                            {
-                                (this.state.rightFlyOutName === "support") ?
-                                    <SupportFlyOut
-                                        setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                                        onClose={this.onRightFlyOutClose.bind(this)}/>
-                                    : <span></span>
-                            }
-                            {
-                                (this.state.rightFlyOutName === "about") ?
-                                    <AboutComponent
-                                        setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                                        onClose={this.onRightFlyOutClose.bind(this)}/>
-                                    : <span></span>
-                            }
-                        </AsideNav>
-                        : <span></span>
-                }
-
-                <MainContent style={{"left": mainContentLeft}}>
+                <MainContent>
                     <ErrorBoundary>
                         {(() => {
                             if (this.state.canvasType === "graph" && this.state.responses) {
