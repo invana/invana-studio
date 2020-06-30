@@ -20,14 +20,22 @@ export default class RawResponsesCanvas extends React.Component {
         if (this.props.responses.length > 0) {
             data = this.props.responses[this.props.responses.length - 1].result.data;
         }
+        if (data !== null) {
 
-        const TIMEOUT = 10 // wait 10 ms
-        setTimeout(() => {
-            this.setState({
-                rjv_component: <ReactJson className={"p-10"} theme="monokai" style={{"backgroundColor": "transparent"}}
-                                          src={data}/>
-            })
-        }, TIMEOUT)
+
+            const TIMEOUT = 10 // wait 10 ms
+            setTimeout(() => {
+                this.setState({
+                    rjv_component: <ReactJson className={"p-10"} theme="monokai"
+                                              style={{"backgroundColor": "transparent"}}
+                                              src={data}/>
+                })
+            }, TIMEOUT)
+        } else {
+             this.setState({
+                    rjv_component: <p>Response is null</p>
+                })
+        }
     }
 
     render() {

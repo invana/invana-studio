@@ -74,8 +74,8 @@
 
   .flyoutBody {
     height: calc(100% - 45px) !important;
-    overflow-x: scroll;
-    //height: calc(100% - 45px - 24px);
+    overflow-y: scroll !important;
+    overflow: auto;
   }
 }
 
@@ -92,7 +92,8 @@
 
   .flyoutBody {
     height: calc(100% - 45px) !important;
-    overflow-x: scroll;
+        overflow-y: scroll;
+    overflow-x: auto;
     //height: calc(100% - 45px - 24px);
   }
 }
@@ -115,8 +116,14 @@
   }
 
   .flyoutBody {
-    height: 250px;
-    overflow: scroll;
+    height: 215px;
+
+overflow: scroll;
+    overflow-x: auto;
+
+  }
+  pre{
+    margin:0;
   }
 }
 
