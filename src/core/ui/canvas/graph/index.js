@@ -16,6 +16,7 @@ export default class GraphCanvas extends React.Component {
         setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas"),
         setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphCanvas"),
         vertices: [],
+        startQuery: () => console.error("startQuery prop not set for GraphCanvas"),
         edges: []
     }
 
@@ -56,6 +57,7 @@ export default class GraphCanvas extends React.Component {
                     queryGremlinServer={this.props.queryGremlinServer}
                     setShowVertexOptions={this.props.setShowVertexOptions}
                     setHideVertexOptions={this.props.setHideVertexOptions}
+                    startQuery={this.props.startQuery}
                 />
 
                 <LegendCanvas

@@ -247,6 +247,8 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         setDataToLocalStorage(historyLocalStorageKey, existingHistory);
     }
 
+
+
     makeQuery(query, queryOptions) {
 
         /*

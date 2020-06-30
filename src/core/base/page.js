@@ -80,6 +80,13 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         })
     }
 
+    startQuery(query) {
+        this.setState({
+            query: query,
+            leftFlyOutName: "query-console"
+        })
+    }
+
     getQueryFromUrl() {
         return new URLSearchParams(window.location.search).get("query");
     }

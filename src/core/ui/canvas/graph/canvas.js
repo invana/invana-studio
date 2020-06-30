@@ -170,9 +170,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
             html: "&rarr;"
         }, {
             id: 103,
-            option_name: "not-assigned",
-            title: "not assigned",
-            html: "."
+            option_name: "start-querying",
+            title: "Start Querying",
+            html: "&#x1F50D;"
         }, {
             id: 104,
             option_name: "close-node-menu",
@@ -243,8 +243,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
                     _this.releaseNodeLock(selectedNode);
                 } else if (arch_node.data.option_name === "vertex-options") {
                     _this.props.setShowVertexOptions(selectedNode);
-                } else {
-                    alert("not implemented");
+                } else if (arch_node.data.option_name === "start-querying") {
+
+                    const query = "node= g.V("+ selectedNode.id + ")";
+                    _this.props.startQuery(query)
                 }
             });
 

@@ -82,6 +82,7 @@ export default class ExplorerView extends PageComponentBase {
         })
     }
 
+
     componentDidMount() {
         super.componentDidMount();
     }
@@ -91,6 +92,9 @@ export default class ExplorerView extends PageComponentBase {
             shallReRenderD3Canvas: false
         })
     }
+
+
+
 
     render() {
         const superContent = super.render();
@@ -108,6 +112,7 @@ export default class ExplorerView extends PageComponentBase {
                                         responses={this.state.responses}
                                         vertices={this.state.vertices}
                                         edges={this.state.edges}
+                                        startQuery={this.startQuery.bind(this)}
                                         queryGremlinServer={this.makeQuery.bind(this)}
                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
