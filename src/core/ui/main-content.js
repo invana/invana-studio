@@ -9,7 +9,7 @@ export default class MainContent extends React.Component{
 
 
         return (
-            <div className={"mainContent"}>{this.props.children}</div>
+            <div className={"mainContent"} style={this.props.style}>{this.props.children}</div>
         )
     }
 

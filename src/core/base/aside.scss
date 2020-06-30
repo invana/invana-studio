@@ -1,0 +1,10 @@
+@import "../../config";
+
+.aside {
+  background: $lightDarkBgColor;
+  position: fixed;
+  width: 400px;
+  height: calc(100% - 45px - 23px);
+  left: 45px;
+  top: 45px;
+}

@@ -193,44 +193,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                             </div>
                         </FlyOutUI> : <span></span>
                 }
-                {
-                    (this.state.leftFlyOutName === "history") ?
-                        <HistoryFlyOut
-                            makeQuery={this.makeQuery.bind(this)}
-                            addQueryToConsole={this.addQueryToConsole.bind(this)}
-                            onClose={this.onLeftFlyOutClose.bind(this)}/>
-                        : <span></span>
-                }
-                {
-                    (this.state.leftFlyOutName === "query-console") ?
-                        <QueryConsole
-                            onQuerySubmit={this.onQuerySubmit.bind(this)}
-                            query={this.state.query}
-                            onClose={this.onLeftFlyOutClose.bind(this)}
-                        />
-                        : <span></span>
-                }
-                {
-                    (this.state.leftFlyOutName === "settings") ?
-                        <SettingsFlyOut
-                            setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                            onClose={this.onLeftFlyOutClose.bind(this)}/>
-                        : <span></span>
-                }
-                {
-                    (this.state.rightFlyOutName === "support") ?
-                        <SupportFlyOut
-                            setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                            onClose={this.onRightFlyOutClose.bind(this)}/>
-                        : <span></span>
-                }
-                {
-                    (this.state.rightFlyOutName === "about") ?
-                        <AboutComponent
-                            setLeftFlyOut={this.setLeftFlyOut.bind(this)}
-                            onClose={this.onRightFlyOutClose.bind(this)}/>
-                        : <span></span>
-                }
+
                 <LeftNav
                     leftFlyOutName={this.state.leftFlyOutName}
                     rightFlyOutName={this.state.rightFlyOutName}
