@@ -33,18 +33,22 @@ export class TableComponent extends React.Component {
         }
 
         return (
-            <div className={"tableComponent"}>
-                <h3>{this.props.type} | {this.props.label}</h3>
-                <table>
+            <div className={"tableComponent p-10"}>
+                {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
+                <table className={" mb-10 "}>
                     <thead>
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor || "inherit",
                     }}>
+
+                        {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
+                        <th>Type</th>
+                        <th>Label</th>
+                        <th>Id</th>
                         {
                             propertyKeys.map((propertyKey, index) => {
                                 return (
-                                    <th style={{"borderColor": colorOptions.borderColor || "inherit"}}
-                                        key={index}>{propertyKey}</th>
+                                    <th key={index}>{propertyKey}</th>
                                 )
                             })
                         }
@@ -55,7 +59,11 @@ export class TableComponent extends React.Component {
                         this.props.data.map((node) => {
                             return (
                                 <tr key={node.id}>
+                                    <td>{node.type}</td>
+                                    <td>{node.label}</td>
+                                    <td>{node.id}</td>
                                     {
+
                                         propertyKeys.map((prop, index) => {
                                             return (<td key={index}>{node.properties[prop]}</td>)
                                         })
@@ -77,73 +85,37 @@ export class TableComponent extends React.Component {
 export default class TableCanvas extends React.Component {
 
     static defaultProps = {
-        responses: null
+        responses: null,
+        vertices: [],
+        edges: []
     }
 
-
-    convertResponses2JSONs(responses) {
-
-        let jsonResponses = [];
-        responses.forEach(function (response) {
-            console.log("=======response", response)
-            const _ = gremlinSerializer.process(response)
-            jsonResponses.push(_)
-        })
-        return jsonResponses;
-    }
 
     render() {
-        const jsonResponses = this.convertResponses2JSONs(this.props.responses);
+        const vertexGroups = gremlinSerializer.groupByLabel(this.props.vertices);
+        const edgeGroups = gremlinSerializer.groupByLabel(this.props.edges);
 
-
-        let responsesDataFinal = [];
-        jsonResponses.forEach(function (jsonResponse) {
-            const _ = gremlinSerializer.separateVerticesAndEdges(jsonResponse);
-            console.log("==========", _);
-            const nodeGroups = gremlinSerializer.groupByLabel(_['nodes']);
-            const linkGroups = gremlinSerializer.groupByLabel(_['links']);
-            console.log("nodeGroups==", nodeGroups);
-            responsesDataFinal.push({
-                "nodeGroups": nodeGroups,
-                "linkGroups": linkGroups,
-                "requestInfo": jsonResponse
-            })
-        })
-
-        console.log("========jsonResponses", jsonResponses);
-        console.log("========responsesDataFinal", responsesDataFinal, typeof responsesDataFinal);
+        console.log("=====vertexGroups", vertexGroups)
         return (
             <div className={"p-10 tableCanvas"}>
-                {
-                    responsesDataFinal.map((responseDatum, index) => {
-                        console.log("responseDatum", responseDatum)
-                        const nodeGroups = responseDatum['nodeGroups'];
-                        const linkGroups = responseDatum['linkGroups'];
-                        console.log("nodeGroups", nodeGroups)
-                        return (
-                            <div className={"responseBox "} key={index}>
-
-                                {
 
 
-                                    Object.keys(nodeGroups).map((nodeLabel, index) => (
-                                        <TableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
-                                                        data={nodeGroups[nodeLabel]}/>
-                                    ))
+                <div className={"___responseBox "}>
 
+                    {
+                        Object.keys(vertexGroups).map((nodeLabel, index) => (
+                            <TableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
+                                            data={vertexGroups[nodeLabel]}/>
+                        ))
+                    }
+                    {
+                        Object.keys(edgeGroups).map((linkLabel, index) => (
+                            <TableComponent type={"Edge"} key={edgeGroups + index} label={linkLabel}
+                                            data={edgeGroups[linkLabel]}/>
+                        ))
+                    }
+                </div>
 
-                                }
-                                {
-                                    Object.keys(linkGroups).map((linkLabel, index) => (
-                                        <TableComponent type={"Edge"} key={linkGroups + index} label={linkLabel}
-                                                        data={linkGroups[linkLabel]}/>
-                                    ))
-                                }
-                            </div>
-                        )
-
-                    })
-                }
             </div>
         )
     }

@@ -62,8 +62,10 @@ export default class FlyOutUI extends React.Component {
                     </button>
                 </div>
 
-                <div className={"flyoutBody " + padClass}>
-                    {this.props.children}
+                <div className={"flyoutBody "}>
+                    <div className={padClass}>
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         )

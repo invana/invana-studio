@@ -1,13 +1,13 @@
 .loadingDiv {
-  height: 100vh;
+ height: calc(100% - 23px);
   width: 100%;
   display: block;
   position: fixed;
   background: rgba(36, 36, 36, 0.85);
-  padding-top: 34vh;
-  top: 45px;
-  //left: 50px;
 
+  .sk-fold{
+      margin-top: 17% !important;
+  }
   h3 {
     margin-top: 1rem;
     font-size: 1rem;

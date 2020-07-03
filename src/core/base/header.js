@@ -28,12 +28,19 @@ export default class Header extends React.Component {
                         <li>
 
                             <ul>
-                                <li><a className={this.props.canvasType === "graph" ? "selected" : ""}
-                                       onClick={() => this.props.switchCanvasTo("graph")}>Graph</a></li>
-                                <li><a className={this.props.canvasType === "table" ? "selected" : ""}
-                                       onClick={() => this.props.switchCanvasTo("table")}>Table</a></li>
-                                <li><a className={this.props.canvasType === "json" ? "selected" : ""}
-                                       onClick={() => this.props.switchCanvasTo("json")}>JSON</a></li>
+                                <li>
+                                    <div className={"canvasToggle"}>
+                                        <a className={this.props.canvasType === "graph" ? "selected" : ""}
+                                           onClick={() => this.props.switchCanvasTo("graph")}>Graph</a>
+                                        <a className={this.props.canvasType === "table" ? "selected" : ""}
+                                           onClick={() => this.props.switchCanvasTo("table")}>Table</a>
+                                        <a className={this.props.canvasType === "json" ? "selected" : ""}
+                                           onClick={() => this.props.switchCanvasTo("json")}>JSON</a>
+                                        <a className={this.props.canvasType === "raw" ? "selected" : ""}
+                                           onClick={() => this.props.switchCanvasTo("raw")}>Raw</a>
+
+                                    </div>
+                                </li>
                             </ul>
 
                         </li>
@@ -43,12 +50,7 @@ export default class Header extends React.Component {
                                 <FontAwesomeIcon icon={faBook}/>
                             </a>
                         </li>
-                        <li>
-                            <a className={this.props.rightFlyOutName === "support" ? "selected" : ""}
-                               onClick={() => this.props.setRightFlyOut("support")} title={"Support/Documentation"}>
-                                <FontAwesomeIcon icon={faLifeRing}/>
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
             </MainTopNav>

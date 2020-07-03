@@ -3,3 +3,13 @@
 .selectedCanvas {
   color: $primaryColor;
 }
+
+.canvasToggle {
+  background-color: $lightDarkBgColor;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  a {
+    padding: 2px 5px;
+  }
+}

@@ -59,7 +59,7 @@ ul {
       padding: 10px 15px;
       display: inline-block;
       color: $defaultTextColor;
-      font-size: 14px;
+      //font-size: 14px;
     }
 
 
@@ -93,12 +93,13 @@ form {
 
   input {
     padding: 6px 10px;
+    padding-left: 0;
     background: $lightDarkBgColor;
     //border: 1px solid $borderColor;
     outline: none;
-    color: white;
+    color: $defaultTextColor;
     fill: $lightDarkBgColor;
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 1px;
     min-width: 200px;
     border: none;
@@ -126,7 +127,8 @@ form {
     padding-top: 10px;
     display: block;
     font-weight: bold;
-    color: inherit;
+    //color: inherit;
+    //color: $lightDarkBgColor;
   }
 }
 
@@ -142,6 +144,13 @@ form {
   color: darken($defaultTextColor, 20%);
 }
 
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
 
 pre {
   overflow-x: auto;
@@ -154,20 +163,29 @@ pre {
 
 
 .errorMessage {
-  background: $warningColor;
-  color: $darkBgColor;
-  padding: 10px;
+  //background: $warningColor;
+  color: $primaryLightColor;
+  //padding: 10px;
 }
 
-.p-0{
+.p-0 {
   padding: 0;
 }
-.m-0{
+
+.m-0 {
   margin: 0;
 }
 
 .p-10 {
   padding: 10px;
+}
+
+.p-5 {
+  padding: 5px;
+}
+
+.m-5 {
+  margin: 5px;
 }
 
 .pt-10 {
@@ -176,6 +194,10 @@ pre {
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
 }
 
 .node {
@@ -240,7 +262,7 @@ button.small {
 
 .primary-btn {
   background: $primaryColor;
-  color: $darkBgColor;
+  color: $darkestColor;
   border-color: $primaryColor;
   box-shadow: 0 2px $defaultTextColor;
 }
@@ -254,4 +276,13 @@ button.small {
 }
 
 
+.canvasStats {
+  position: fixed;
+  bottom: 4px;
+  right: 5px;
+  z-index: 10000;
+}
 
+.statusMessage{
+  margin-left: 20px;
+}

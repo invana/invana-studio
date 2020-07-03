@@ -10,6 +10,40 @@ import {
     DefaultNodeLabelColor
 } from "../../../../config";
 
+export function removeVertexMeta(data) {
+    let newData = [];
+    data.forEach((datum) => {
+        delete datum.meta;
+        delete datum.x;
+        delete datum.y;
+        delete datum.vx;
+        delete datum.vy;
+        delete datum.index;
+        newData.push(datum)
+    });
+    return newData
+}
+
+export function removeEdgeMeta(data) {
+    let newData = [];
+    data.forEach((datum) => {
+        // delete datum.meta;
+        // delete datum.x;
+        // delete datum.y;
+        // delete datum.vx;
+        // delete datum.vy;
+        // delete datum.index;
+        if (typeof datum.source === "object") {
+            datum.source = datum.source.id;
+        }
+        if (typeof datum.target === "object") {
+            datum.target = datum.target.id;
+        }
+        newData.push(datum)
+    });
+    return newData
+}
+
 
 export function prepareLinksDataForCurves(links) {
     /*

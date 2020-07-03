@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGithub, faGitter, faMedium, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import "./support.scss";
 
-export default class SupportFlyout extends React.Component {
+export default class SupportFlyOut extends React.Component {
 
 
     render() {
@@ -16,29 +16,14 @@ export default class SupportFlyout extends React.Component {
                       position={"right"}
                       onClose={this.props.onClose}
             >
-
-
                 <ul className={"vertical list"}>
 
-                    <li>
-                        <a href={"https://twitter.com/invanalabs"}>
-                            <h4><FontAwesomeIcon icon={faTwitter}/> Twitter</h4>
-                            <p>Stay upto date about the releases, updates, use case blogs, </p>
-                        </a>
-                    </li>
                     <li>
                         <a onClick={() => alert('Its a work in progress')}>
                             <h4><FontAwesomeIcon icon={faBook}/> Documentation [WIP]</h4>
                             <p>Beginner tutorials, usage and developer documentation.</p>
                         </a>
                     </li>
-                    <li>
-                        <a target={"_blank"} href="https://medium.com/invanalabs">
-                            <h4><FontAwesomeIcon icon={faMedium}/> Medium</h4>
-                            <p>Blogs on latest implementations and more use cases.</p>
-                        </a>
-                    </li>
-
                     <li>
                         <a target={"_blank"} href="https://github.com/invanalabs/graph-explorer/issues">
                             <h4><FontAwesomeIcon icon={faGithub}/> GitHub</h4>
@@ -53,7 +38,19 @@ export default class SupportFlyout extends React.Component {
                         </a>
                     </li>
 
+                    <li>
+                        <a target={"_blank"} href="https://medium.com/invanalabs">
+                            <h4><FontAwesomeIcon icon={faMedium}/> Medium</h4>
+                            <p>Blogs on latest implementations and more use cases.</p>
+                        </a>
+                    </li>
 
+                    <li>
+                        <a href={"https://twitter.com/invanalabs"}>
+                            <h4><FontAwesomeIcon icon={faTwitter}/> Twitter</h4>
+                            <p>Stay upto date about the releases, updates, use case blogs, </p>
+                        </a>
+                    </li>
                 </ul>
 
                 <p>If you need any support beyond the above,

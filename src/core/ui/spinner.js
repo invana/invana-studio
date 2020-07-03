@@ -9,8 +9,8 @@ export default class LoadSpinner extends React.Component {
         let divTop = 0;
         let divLeft = 0;
         if (window.location.pathname === "/explorer") {
-            divTop = "45px";
-            divLeft = "50px";
+            divTop = "46px";
+            divLeft = "46px";
         } else if (window.location.pathname === "/") {
             divTop = 0;
             divLeft = 0;
@@ -18,7 +18,7 @@ export default class LoadSpinner extends React.Component {
 
         return (
             <div>
-                {(this.props.isLoading === true)
+                {(this.props.isLoading)
                     ? (
                         <div className={'loadingDiv'} style={{"top": divTop, "left": divLeft}}>
                             <div className={"sk-fold"} style={{"margin": "0 auto"}}>
@@ -36,7 +36,7 @@ export default class LoadSpinner extends React.Component {
                                 : (<span></span>)
                             }
                             {(this.props.showSignout === true) ?
-                                <p><a href="/switch-server">switch to a different server.</a></p> : <span></span>}
+                                <p><a href="/switch-server"><u>switch</u> to a different server.</a></p> : <span></span>}
                         </div>
                     ) : (<span></span>)
                 }

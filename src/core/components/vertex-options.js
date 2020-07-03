@@ -40,7 +40,7 @@ export default class VertexOptions extends GremlinHeadlessComponent {
             ".has('name','" + e.target.name.value + "').toList()";
 
         if (query && this.ws) {
-            this.makeQuery(query, "internal", );
+            this.makeQuery(query, {source: "internal"});
         }
 
     }
@@ -116,6 +116,7 @@ export default class VertexOptions extends GremlinHeadlessComponent {
                            spellCheck="false"
                            placeholder={"tagHtml (optional)"}
                            defaultValue={thisNodeOptions.tagHtml || ""}/>
+                    <br/>
                     <button className={"mt-10 primary-btn"} type={"submit"}>update</button>
                 </form>
             </FlyOutUI>

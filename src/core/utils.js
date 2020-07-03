@@ -1,6 +1,8 @@
 import {CONNECT_URL, GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
 import GremlinResponseSerializers from "./base/gremlin-serializer";
 
+const gremlinSerializer = new GremlinResponseSerializers();
+
 export function LightenDarkenColor(col, amt) {
 
     var usePound = false;
@@ -73,7 +75,6 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     vertex/edge key data only.
      */
     console.log("setElementColorOptionsToStorageUsingResponse", response)
-    const gremlinSerializer = new GremlinResponseSerializers();
     let result = gremlinSerializer.process(response);
     let nodesAndLinks = gremlinSerializer.separateVerticesAndEdges(result, false);
     let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
@@ -98,4 +99,15 @@ export function askToSwitchGremlinServer() {
         removeItemFromLocalStorage(gremlinServerUrlKey);
         window.location.href = CONNECT_URL;
     }
+}
+
+
+export function convertResponses2JSONs(responses) {
+
+    let jsonResponses = [];
+    responses.forEach(function (response) {
+        const _ = gremlinSerializer.process(response)
+        jsonResponses.push(_)
+    })
+    return jsonResponses;
 }

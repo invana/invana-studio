@@ -11,13 +11,16 @@ import {redirectToConnectIfNeeded} from "../utils";
 import HistoryFlyOut from "../components/history";
 import SettingsFlyOut from "../ui/settings";
 import QueryConsole from "../components/console";
-import SupportFlyout from "../components/support";
+import SupportFlyOut from "../components/support";
 import AboutComponent from "../components/about";
+
+const Mousetrap = require("mousetrap");
 
 export default class PageComponentBase extends GremlinHeadlessComponent {
 
 
     responseSessions = []; // responses from all the queries
+    requests = []
 
     constructor(props) {
         super(props);
@@ -77,26 +80,65 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
         })
     }
 
+    startQuery(query) {
+        this.setState({
+            query: query,
+            leftFlyOutName: "query-console"
+        })
+    }
+
     getQueryFromUrl() {
         return new URLSearchParams(window.location.search).get("query");
+    }
+
+
+    setupHotKeys() {
+        Mousetrap.bind("ctrl+1", () => this.switchCanvasTo("graph"));
+        Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table"));
+        Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json"));
+        Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw"));
+        Mousetrap.bind("shift+/", () => this.setLeftFlyOut("query-console"));
+        Mousetrap.bind("shift+h", () => this.setLeftFlyOut("history"));
+        Mousetrap.bind("esc", () => this.onLeftFlyOutClose());
+    }
+
+    unSetupHotKeys() {
+        Mousetrap.unbind("ctrl+1");
+        Mousetrap.unbind("ctrl+2");
+        Mousetrap.unbind("ctrl+3");
+        Mousetrap.unbind("ctrl+4");
+        Mousetrap.unbind("shift+/");
+        Mousetrap.unbind("shift+h");
+        Mousetrap.unbind("esc");
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.unSetupHotKeys();
     }
 
     componentDidMount() {
         redirectToConnectIfNeeded();
         super.componentDidMount();
         setTimeout(() => this.loadQueryFromUrl(), 300);
+        this.setupHotKeys()
+
     }
 
     loadQueryFromUrl() {
         const query = this.getQueryFromUrl();
         if (query && query !== "null") {
-            this.makeQuery(query, "console");
+            this.makeQuery(query, {source: "console"});
         }
     }
 
-    onQuerySubmit(query) {
+    onQuerySubmit(query, queryOptions) {
         console.log("Query is " + query);
-        this.makeQuery(query, "console");
+        if (queryOptions.source === "console") {
+            // this is the beginning of a new query.
+            this.flushResponsesData();
+        }
+        this.makeQuery(query, {source: "console"});
     }
 
     onErrorMessageFlyoutClose() {
@@ -107,17 +149,16 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
 
     switchCanvasTo(canvasType) {
         this.setState({
-            canvasType: canvasType
+            canvasType: canvasType,
+            statusMessage: "Canvas switched to " + canvasType
         })
     }
 
     addQueryToConsole(query) {
-        // alert("query", query);
         this.addQueryToState(query);
         if (this.state.leftFlyOutName !== "query-console") {
             this.setLeftFlyOut("query-console");
         }
-
     }
 
     render() {
@@ -147,9 +188,10 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                     this.state.errorMessage ?
                         <FlyOutUI position={"bottom"}
                                   display={this.state.errorMessage ? "block" : "none"}
-                                  title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
+                            // title={"Query failed(" + this.state.errorMessage.code + "): " + this.state.errorMessage.message}
+                                  title={"Response Console"}
                                   isWarning={true}
-                                  padding={false}
+                                  padding={true}
                                   onClose={this.onErrorMessageFlyoutClose.bind(this)}
                         >
                             <div className={"errorMessage"}>
@@ -183,7 +225,7 @@ export default class PageComponentBase extends GremlinHeadlessComponent {
                 }
                 {
                     (this.state.rightFlyOutName === "support") ?
-                        <SupportFlyout
+                        <SupportFlyOut
                             setLeftFlyOut={this.setLeftFlyOut.bind(this)}
                             onClose={this.onRightFlyOutClose.bind(this)}/>
                         : <span></span>

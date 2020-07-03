@@ -269,7 +269,32 @@ export default class GremlinResponseSerializers {
     }
 
 
-    groupByLabel(data) {
+    removeMeta(data) {
+        if (!data) {
+            data = [];
+        }
+        let newData = []
+        data.forEach(function (datum) {
+            delete datum.meta
+            newData.push({
+                type: datum.type,
+                label: datum.label,
+                id: datum.id,
+                properties: datum.properties,
+            })
+        })
+        return newData;
+    }
+
+
+    groupByLabel(data, isFlat) {
+        /*
+
+        With Flat data true, we will get the keys id, label, type also in the
+
+
+         */
+
         let dataGroups = {};
         data.forEach(function (datum) {
             // TODO - review this for performance.

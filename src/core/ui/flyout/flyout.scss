@@ -1,5 +1,6 @@
 @import "../../../config";
 
+
 .flyout {
   position: fixed;
   z-index: 10000;
@@ -9,9 +10,10 @@
   line-height: 1.2rem;
   word-wrap: break-word;
   //font-family: Courier;
-  overflow-y: auto;
-  scrollbar-color: $darkBgColor;
-  background: $darkBgColor;
+  //overflow-y: auto;
+  scrollbar-color: $darkestColor;
+  background: $lightDarkBgColor;
+
   max-width: 100%;
   color: $defaultTextColor;
 
@@ -28,7 +30,7 @@
       padding: 1px 5px;
       border-radius: 2px;
       margin-right: 0;
-      //font-size: 12px;
+      font-size: 12px;
       box-shadow: none;
     }
 
@@ -36,6 +38,17 @@
       //background: $primaryColor;
       color: $primaryColor;
     }
+  }
+
+  .flyoutBody {
+    overflow: scroll;
+    display: block;
+    position: relative;
+    height: 100%;
+  }
+
+  .flyoutHeader {
+    background-color: $darkestColor;
   }
 }
 
@@ -55,9 +68,15 @@
   right: 0;
   top: 44px;
   width: 300px;
-  height: calc(100vh - 44px);
+  height: calc(100vh - 44px - 24px);
   border: 1px solid $borderColor;
-  box-shadow: -2px 1px 3px $darkBgColor;
+  //box-shadow: -2px 1px 3px $darkestColor;
+
+  .flyoutBody {
+    height: calc(100% - 45px) !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden;
+  }
 }
 
 .flyout-right.flyout-md {
@@ -66,38 +85,61 @@
 
 .flyout-left {
   top: 44px;
-  left: 50px;
-  height: calc(100vh - 44px);
+  left: 45px;
+  height: calc(100vh - 44px - 24px);
   border: 1px solid $borderColor;
-  box-shadow: 2px 1px 3px $darkBgColor;
+  //box-shadow: 2px 1px 3px $darkestColor;
 
+  .flyoutBody {
+    height: calc(100% - 45px) !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    //height: calc(100% - 45px - 24px);
+  }
 }
 
 .flyout-bottom {
-  bottom: 0;
-  left: 50px;
-  width: calc(100% - 50px);
-  height: 300px;
+  bottom: 23px;
+  left: 46px;
+  width: calc(100% - 47px);
+  height: 250px;
   border-top: 1px solid $borderColor;
-  box-shadow: 0 0 3px 0 $darkBgColor;
+  box-shadow: 0 0 3px 0 $darkestColor;
+  color: $defaultTextColor;
 
   .button {
-    color: $darkBgColor !important;
+    //color: $darkestColor !important;
+  }
+
+  .flyoutHeader {
+    height: 14px;
+  }
+
+  .flyoutBody {
+    height: 215px;
+
+    overflow: scroll;
+    overflow-x: hidden;
+
+  }
+
+  pre {
+    margin: 0;
   }
 }
 
 .flyout-bottom.flyout-md, .flyout-bottom.flyout-lg {
-  width: calc(100% - 50px);
+  width: calc(100% - 45px);
   z-index: 500000;
 }
 
 .flyoutHeaderWarning {
-  background: $warningColor;
-  color: $darkBgColor;
+  //background: $warningColor;
+  //color: $darkestColor;
 }
 
 .flyoutHeader {
-  padding: 10px;
+  padding: 7px 10px;
   border-bottom: 1px solid $borderColor;
   font-size: 14px;
   font-weight: bold;

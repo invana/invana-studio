@@ -5,7 +5,7 @@ import {
     faBug,
     faChalkboard,
     faCog,
-    faHistory, faInfo, faInfoCircle, faNotesMedical,
+    faHistory, faInfo, faInfoCircle, faLifeRing, faNotesMedical,
     faSearch, faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
@@ -52,11 +52,19 @@ export default class LeftNav extends React.Component {
                     </li>
                 </ul>
                 <ul className={"bottom vertical"}>
+
                     <li>
                         <a target={"_new"} className={this.props.rightFlyOutName === "welcome" ? "selected" : ""}
                            title={"Note from Founder"}
                            onClick={() => this.props.setRightFlyOut("welcome")}>
                             <FontAwesomeIcon icon={faStickyNote}/>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a className={this.props.rightFlyOutName === "support" ? "selected" : ""}
+                           onClick={() => this.props.setRightFlyOut("support")} title={"Support/Documentation"}>
+                            <FontAwesomeIcon icon={faLifeRing}/>
                         </a>
                     </li>
                     <li>
@@ -66,13 +74,12 @@ export default class LeftNav extends React.Component {
                             <FontAwesomeIcon icon={faInfoCircle}/>
                         </a>
                     </li>
-
-                    <li>
-                        <a target={"_new"} title={"Support / Report Issues"}
-                           href="https://github.com/invanalabs/graph-explorer/issues">
-                            <FontAwesomeIcon icon={faBug}/>
-                        </a>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <a target={"_new"} title={"Support / Report Issues"}*/}
+                    {/*       href="https://github.com/invanalabs/graph-explorer/issues">*/}
+                    {/*        <FontAwesomeIcon icon={faBug}/>*/}
+                    {/*    </a>*/}
+                    {/*</li>*/}
 
                 </ul>
 

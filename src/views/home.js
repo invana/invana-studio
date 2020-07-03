@@ -9,7 +9,8 @@ export default class HomeView extends GremlinHeadlessComponent {
         super.componentDidMount();
         let _this = this;
         setTimeout(function () {
-            _this.makeQuery("g.V().hasLabel('" + managementVertexLabel + "').toList();", "internal");
+            _this.makeQuery("g.V().hasLabel('" + managementVertexLabel + "').toList();",
+                {source: "internal"});
         }, 200)
     }
 

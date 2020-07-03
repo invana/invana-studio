@@ -5,6 +5,7 @@ import {
     DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds,
     GREMLIN_SERVER_URL, historyLocalStorageKey,
+    MAX_HISTORY_COUNT_TO_REMEMBER,
     UUIDGenerator
 } from "../../config";
 import {getDataFromLocalStorage, setDataToLocalStorage} from "../utils";
@@ -35,6 +36,12 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     processResponse(responses) {
         console.log("Response is ", responses);
     }
+
+    flushResponsesData(){
+        // this will delete responses,
+    }
+
+
 
 }
 
@@ -99,7 +106,7 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
             let timer = setInterval((function () {
                     i += 1;
                     console.log(i)
-                    _this.setStatusMessage("Connection lost. Reconnecting in " + (DefaultConnectionRetryTimeout - i) + "s...");
+                    _this.setStatusMessage("Connection failed. Reconnecting in " + (DefaultConnectionRetryTimeout - i) + "s...");
                     if (i >= DefaultConnectionRetryTimeout) {
                         clearInterval(timer);
                         _this.reconnect();
@@ -122,8 +129,11 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     flushResponsesData() {
         this.responses = [];
         this.setState({
-            responses: []
+            responses: [],
+            vertices: [],
+            edges: []
         })
+
     }
 
     generateQueryPayload(query) {
@@ -230,6 +240,8 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
     addQueryToHistory(query, source) {
         //
         let existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
+
+        existingHistory =  existingHistory.slice(0, MAX_HISTORY_COUNT_TO_REMEMBER)
         existingHistory.unshift({
             "query": query,
             "source": source,
@@ -238,17 +250,26 @@ export default class GremlinQueryBox extends GremlinHeadlessComponent {
         setDataToLocalStorage(historyLocalStorageKey, existingHistory);
     }
 
-    makeQuery(query, source) {
+
+
+    makeQuery(query, queryOptions) {
+
+        /*
+            queryOptions.source = "internal|console|canvas"
+         */
 
         // TODO - add logic to wait till server connects.
 
-        if (typeof source === "undefined") {
-            source = "internal";
+        if (typeof queryOptions === "undefined") {
+            queryOptions = {}
         }
-        if (source) {
+        if (typeof queryOptions.source === "undefined") {
+            queryOptions.source = "internal";
+        }
+        if (queryOptions.source) {
             this.setQueryToUrl(query);
             this.addQueryToState(query)
-            this.addQueryToHistory(query, source)
+            this.addQueryToHistory(query, queryOptions.source)
         } // remove this part from here soon.
 
 

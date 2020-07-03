@@ -6,6 +6,7 @@
   padding: 3px 0;
   width: 100%;
   font-family: Courier;
+  border: 1px solid $borderColor;
 
 
   .itemLabel {
@@ -13,7 +14,7 @@
     padding: 5px 10px;
     padding-bottom: 6px;
     margin-right: 10px;
-    text-shadow: 1px 1px #424242;
+    text-shadow: 1px 1px #1d1d1d;
     /*color: #888888;*/
     font-weight: bold;
   }
@@ -37,7 +38,7 @@
 
 .singleProperty {
 
-  border-bottom: 1px solid darken($darkBgColor, 3%);
+  border-bottom: 1px solid darken($darkestColor, 3%);
   //padding-top: 3px;
   //padding-bottom: 3px;
   padding: 5px 5px;
@@ -46,7 +47,7 @@
 }
 
 .singleProperty:nth-child(odd) {
-  background: darken($darkBgColor, 2%);
+  background: darken($darkestColor, 2%);
 }
 
 .singleProperty.dark {
