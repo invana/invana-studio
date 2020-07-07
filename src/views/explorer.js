@@ -445,28 +445,30 @@ export default class ExplorerView extends BaseView {
                 {this.state.rightContentName || this.state.selectedElementData ? (
                     <AsideRight>
 
-                        {this.state.rightContentName === "selected-data" && this.state.selectedElementData
-                            ? <GEPanel
-                                title={"Selected Data"}
+                        {this.state.showVertexOptions
+                            ?
+
+                            <GEPanel
+                                title={"Element Options" + this.state.rightContentName}
                                 onClickClose={() => this.setSelectedElementData(null)}
-                                showToggleBtn={false}
-                            > <SelectedDataCanvas
-                                selectedData={this.state.selectedElementData}
-                                onClose={() => this.setSelectedElementData(null)}/>
+                                showToggleBtn={false}>
+                                <VertexOptions selectedElementData={this.state.selectedElementData}
+                                               setStatusMessage={this.setStatusMessage.bind(this)}
+                                               setErrorMessage={this.setErrorMessage.bind(this)}
+                                               onClose={this.setHideVertexOptions.bind(this)}
+                                               reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                />
                             </GEPanel>
                             :
-                            this.state.showVertexOptions
+                            this.state.rightContentName === "selected-data" && this.state.selectedElementData
                                 ?
                                 <GEPanel
-                                    title={"Element Options"}
+                                    title={"Selected Element Data" + this.state.rightContentName}
                                     onClickClose={() => this.setSelectedElementData(null)}
-                                    showToggleBtn={false}>
-                                    <VertexOptions selectedElementData={this.state.selectedElementData}
-                                                   setStatusMessage={this.setStatusMessage.bind(this)}
-                                                   setErrorMessage={this.setErrorMessage.bind(this)}
-                                                   onClose={this.setHideVertexOptions.bind(this)}
-                                                   reRenderCanvas={this.reRenderCanvas.bind(this)}
-                                    />
+                                    showToggleBtn={false}
+                                > <SelectedDataCanvas
+                                    selectedData={this.state.selectedElementData}
+                                    onClose={() => this.setSelectedElementData(null)}/>
                                 </GEPanel>
                                 : <span></span>}
 

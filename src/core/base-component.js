@@ -34,8 +34,7 @@ export default class BaseComponent extends React.Component {
     }
 
     resetLoader() {
-           clearInterval(this.loaderTimerIntervalId);
-        // clearInterval(this.timer2);
+        clearInterval(this.loaderTimerIntervalId);
         this.setState({
             loadingMessage: null,
             loadingExtraText: null,
@@ -74,27 +73,16 @@ export default class BaseComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.loaderTimerIntervalId);
-        clearInterval(this.timer2)
+        if (this.loaderTimerIntervalId){
+            clearInterval(this.loaderTimerIntervalId);
+        }
+        // clearInterval(this.timer2)
     }
 
     setStatusMessage(messageText) {
         this.setState({statusMessage: messageText});
     }
 
-    // render() {
-    //     return (
-    //         <Footer>
-    //             <StatusMessageComponent statusMessage={this.state.statusMessage}/>
-    //             <LoadSpinner
-    //                 loadingMessage={this.state.loadingMessage}
-    //                 loadingExtraText={this.state.loadingExtraText}
-    //                 isLoading={this.state.isLoading}
-    //                 showSignout={true}
-    //                 loadTimeCounter={this.state.loaderElapsedTimer}/>
-    //         </Footer>
-    //     )
-    // }
 
 
 }

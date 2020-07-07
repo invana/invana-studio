@@ -1,6 +1,5 @@
 import React from 'react';
 import BaseComponent from "./base-component";
-import ConnectionIndicatorComponent from "../ui-components/indicator/indicator";
 import {
     DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds,
@@ -50,6 +49,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     // timer = null;
     // timer2 = null;
     queryElapsedTimerId = null;
+    reconnectingTimerId = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
         reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
@@ -114,12 +114,12 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             _this.setIsConnected2Gremlin(false);
 
             let i = 0;
-            this.timer2 = setInterval((function () {
+            this.reconnectingTimerId = setInterval((function () {
                     i += 1;
                     console.log("Retrying after it is closed ", i, " seconds elapsed")
                     _this.setStatusMessage("Connection failed. Reconnecting in " + (DefaultConnectionRetryTimeout - i) + "s...");
                     if (i >= DefaultConnectionRetryTimeout) {
-                        clearInterval(_this.timer2);
+                        clearInterval(_this.reconnectingTimerId);
                         _this.reconnect();
                     }
                 }
@@ -135,7 +135,12 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     componentWillUnmount() {
         super.componentWillUnmount();
-        clearInterval(this.queryElapsedTimerId);
+        if(this.queryElapsedTimerId){
+            clearInterval(this.queryElapsedTimerId);
+        }
+        if(this.reconnectingTimerId){
+            clearInterval(this.reconnectingTimerId);
+        }
         console.log("componentWillUnmount triggered");
     }
 

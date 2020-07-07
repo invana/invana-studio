@@ -2,7 +2,7 @@ import React from "react";
 import GremlinBasedComponent from "../core/gremlin-component";
 import {
     getDataFromLocalStorage,
-    redirectToConnectIfNeeded,
+    // redirectToConnectIfNeeded,
     setElementColorOptionsToStorageUsingResponse
 } from "../core/utils";
 import {
@@ -12,16 +12,16 @@ import {
 
 export default class VertexOptions extends GremlinBasedComponent {
 
-    componentWillUnmount() {
-        super.componentWillUnmount();
-    }
-
-    componentDidMount() {
-        // redirectToConnectIfNeeded();
-        super.componentDidMount();
-        // setTimeout(() => this.loadQueryFromUrl(), 300);
-        // this.setupHotKeys()
-    }
+    // componentWillUnmount() {
+    //     super.componentWillUnmount();
+    // }
+    //
+    // componentDidMount() {
+    //     // redirectToConnectIfNeeded();
+    //     super.componentDidMount();
+    //     // setTimeout(() => this.loadQueryFromUrl(), 300);
+    //     // this.setupHotKeys()
+    // }
 
 
     onFormSubmit(e) {
@@ -55,9 +55,6 @@ export default class VertexOptions extends GremlinBasedComponent {
         setElementColorOptionsToStorageUsingResponse(response);
     }
 
-    componentWillUnmount() {
-        // super.componentWillUnmount();
-    }
 
     processResponse(responses) {
         console.log("=====responses===", responses);
