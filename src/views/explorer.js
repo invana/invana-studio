@@ -334,19 +334,18 @@ export default class ExplorerView extends BaseView {
                                 <div className={"main-content-nav"}>
                                     <List type={"canvas-nav"}>
                                         <li>
-                                            <button onClick={() => alert("Still in the Design stage")}>
-                                                <FontAwesomeIcon icon={faExpand}/>
-                                            </button>
+                                            {/*<span></span>*/}
+                                            <span style={{"textTransform": "capitalize"}}>Using {this.state.canvasType} canvas | </span>
                                         </li>
                                         <li>
                                             <div className={"canvasToggle"}>
-                                                <button className={this.props.canvasType === "graph" ? "selected" : ""}
+                                                <button className={this.state.canvasType === "graph" ? "selected" : ""}
                                                         onClick={() => this.switchCanvasTo("graph")}>Graph
                                                 </button>
-                                                <button className={this.canvasType === "table" ? "selected" : ""}
+                                                <button className={this.state.canvasType === "table" ? "selected" : ""}
                                                         onClick={() => this.switchCanvasTo("table")}>Table
                                                 </button>
-                                                <button className={this.canvasType === "json" ? "selected" : ""}
+                                                <button className={this.state.canvasType === "json" ? "selected" : ""}
                                                         onClick={() => this.switchCanvasTo("json")}>JSON
                                                 </button>
                                                 {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
@@ -370,7 +369,11 @@ export default class ExplorerView extends BaseView {
                                                 <FontAwesomeIcon icon={faSync}/>
                                             </button>
                                         </li>
-
+   <li>
+                                            <button onClick={() => alert("Still in the Design stage")}>
+                                                <FontAwesomeIcon icon={faExpand}/>
+                                            </button>
+                                        </li>
 
                                     </List>
                                 </div>
