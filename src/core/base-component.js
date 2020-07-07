@@ -8,6 +8,8 @@ export default class BaseComponent extends React.Component {
 
 
      */
+
+    loaderTimerIntervalId = null;
     constructor(props) {
         super(props);
         this.state = {
@@ -32,14 +34,15 @@ export default class BaseComponent extends React.Component {
     }
 
     resetLoader() {
+           clearInterval(this.loaderTimerIntervalId);
+        // clearInterval(this.timer2);
         this.setState({
             loadingMessage: null,
             loadingExtraText: null,
             isLoading: false,
             loaderElapsedTimer: null
         })
-        clearInterval(this.timer);
-        clearInterval(this.timer2);
+
     }
 
 
@@ -51,12 +54,12 @@ export default class BaseComponent extends React.Component {
         console.log("loader Timer started")
         let _this = this;
         let i = 0;
-        this.timer = setInterval((function () {
+        this.loaderTimerIntervalId = setInterval((function () {
                 i += 1;
 
                 console.log("base loader Timer started xyx; i", i);
                 if (_this.state.isLoading === false) {
-                    clearInterval(this.timer);
+                    clearInterval(_this.loaderTimerIntervalId);
                 }
 
                 if (i >= DefaultMaxTimeElapsedWarningInSeconds) {
@@ -71,7 +74,7 @@ export default class BaseComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        clearInterval(this.loaderTimerIntervalId);
         clearInterval(this.timer2)
     }
 

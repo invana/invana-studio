@@ -47,8 +47,9 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
 
      */
-    timer = null;
-    timer2 = null;
+    // timer = null;
+    // timer2 = null;
+    queryElapsedTimerId = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
         reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
@@ -133,13 +134,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     }
 
     componentWillUnmount() {
-        // super.componentWillUnmount();
-        // if (this.timer) {
-        clearInterval(this.timer);
-        // }
-        // if (this.timer2) {
-        clearInterval(this.timer2);
-        // }
+        super.componentWillUnmount();
+        clearInterval(this.queryElapsedTimerId);
         console.log("componentWillUnmount triggered");
     }
 
@@ -175,15 +171,15 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.setState({queryElapsedTimeCounter: count});
     }
 
-    startTimer() {
+    startQueryTimer() {
         console.log("Timer started")
         this.setQueryElapsedTimeCounter(0);
         let _this = this;
-        this.timer = setInterval((function () {
+        this.queryElapsedTimerId = setInterval((function () {
                 console.log("Timer started xyx", _this.state.queryElapsedTimeCounter, _this.state.isLoading);
                 if (_this.state.isLoading === false) {
                     console.log("clearInterval triggered");
-                    clearInterval(_this.timer);
+                    clearInterval(_this.queryElapsedTimerId);
                 }
                 _this.updateTimer(_this.state.queryElapsedTimeCounter + 1, false);
                 if (_this.state.queryElapsedTimeCounter >= DefaultMaxTimeElapsedWarningInSeconds) {
@@ -306,7 +302,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         console.log("queryGremlinServer :::  query", query);
         this.flushResponsesData();
         if (query) {
-            this.startTimer();
+            this.startQueryTimer();
             let msg = this.generateQueryPayload(query);
             let data = JSON.stringify(msg);
             console.log("Query long one", data);
