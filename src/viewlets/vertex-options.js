@@ -57,7 +57,7 @@ export default class VertexOptions extends GremlinBasedComponent {
     }
 
     render() {
-        // const selectedElementData = this.props.selectedElementData;
+        const selectedElementData = this.props.selectedElementData;
         const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
         const thisNodeOptions = allNodeOptions[this.props.selectedElementData.label] || {"properties": {}};
         // get nodeOptions from localStorage.
@@ -68,31 +68,31 @@ export default class VertexOptions extends GremlinBasedComponent {
 
                     <label>Vertex Label</label>
                     <input type="text" name={"name"} readOnly={true} spellCheck="false"
-                           value={this.props.selectedElementData.label}/>
+                           value={selectedElementData.label}/>
                     <input type="hidden" name={"label"}
-                           value={this.props.selectedElementData.properties.name || this.props.selectedElementData.id}/>
-                    <input type="hidden" name={"uid"} value={this.props.selectedElementData.id}/>
+                           value={selectedElementData.properties.name || selectedElementData.id}/>
+                    <input type="hidden" name={"uid"} value={selectedElementData.id}/>
 
                     <label className={""}>Background Color</label>
                     <input type="text" name={"bgColor"} maxLength={7} minLength={7}
                            placeholder={"bgColor"} spellCheck="false"
-                           value={thisNodeOptions.bgColor || this.props.selectedElementData.meta.shapeOptions.fillColor}/>
+                           value={thisNodeOptions.bgColor || selectedElementData.meta.shapeOptions.fillColor}/>
 
                     <label className={""}>Border Color</label>
                     <input type="text" name={"borderColor"} maxLength={7} minLength={7}
                            placeholder={"borderColor"} spellCheck="false"
-                           value={thisNodeOptions.borderColor || this.props.selectedElementData.meta.shapeOptions.strokeColor}/>
+                           value={thisNodeOptions.borderColor || selectedElementData.meta.shapeOptions.strokeColor}/>
 
                     {/*<label className={""}>Background Image (from web)</label>*/}
                     <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
-                           value={thisNodeOptions.bgImageUrl || this.props.selectedElementData.meta.bgImageUrl}/>
+                           value={thisNodeOptions.bgImageUrl || selectedElementData.meta.bgImageUrl}/>
 
                     <label className={""}>Background Image (from data field)</label>
                     <input type="text" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            placeholder={"bgImagePropertyKey (optional)"}
-                           value={thisNodeOptions.bgImagePropertyKey || this.props.selectedElementData.meta.bgImagePropertyKey}/>
+                           value={thisNodeOptions.bgImagePropertyKey || selectedElementData.meta.bgImagePropertyKey}/>
 
                     {/*<label className={""}>Background HTML</label>*/}
                     <input type="hidden" name={"tagHtml"}
