@@ -156,7 +156,7 @@ export default class ExplorerView extends BaseView {
                             </a>
                         </li>
                         <li>
-                            <a target={"_blank"} href={REPO_URL}>
+                            <a target={"_blank"} href={REPO_URL + '/issues'}>
                                 <FontAwesomeIcon icon={faBug}/>
                             </a>
                         </li>
