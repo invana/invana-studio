@@ -10,7 +10,7 @@ export default class FounderNote extends React.Component {
     render() {
         return (
 
-            <div className={''}>
+            <div className={'p-10'}>
 
                 <p>Hi there! </p>
                 <p>Introducing Graph Explorer ({VERSION}) - {ABOUT_TEXT}</p>
@@ -38,13 +38,13 @@ export default class FounderNote extends React.Component {
                 </p>
 
                 <p>
-                    <a className={"selected"} onClick={() => this.props.setRightFlyOut("learn")}>
+                    <a className={"selected"} onClick={() => this.props.setLeftContent("learn")}>
                         <u>Build your first Graph &rarr;</u>
                     </a>
                     <span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>
 
 
-                    <a onClick={() => this.props.setRightFlyOut("support")}>
+                    <a onClick={() => this.props.setLeftContent("support")}>
                         check support
                     </a>
 

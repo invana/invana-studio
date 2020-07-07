@@ -43,6 +43,7 @@ a:hover {
 
 p {
   line-height: 1.3rem;
+  margin-top: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -93,6 +94,7 @@ button {
     //background: red;
   }
 }
+
 
 .primary-btn {
   border-color: $primaryColor;

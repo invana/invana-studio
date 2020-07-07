@@ -12,17 +12,6 @@ import {
 
 export default class VertexOptions extends GremlinBasedComponent {
 
-    // componentWillUnmount() {
-    //     super.componentWillUnmount();
-    // }
-    //
-    // componentDidMount() {
-    //     // redirectToConnectIfNeeded();
-    //     super.componentDidMount();
-    //     // setTimeout(() => this.loadQueryFromUrl(), 300);
-    //     // this.setupHotKeys()
-    // }
-
 
     onFormSubmit(e) {
         e.preventDefault();
@@ -111,7 +100,7 @@ export default class VertexOptions extends GremlinBasedComponent {
                            placeholder={"tagHtml (optional)"}
                            defaultValue={thisNodeOptions.tagHtml || ""}/>
                     <br/>
-                    <button className={"mt-10 primary-btn"} type={"submit"}>update</button>
+                    <button className={"mt-10 button primary-btn"} type={"submit"}>update</button>
                 </form>
             </div>
         )

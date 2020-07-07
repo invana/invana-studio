@@ -39,6 +39,7 @@ import TableCanvas from "../canvas/table";
 import RawResponsesCanvas from "../canvas/raw-responses";
 import SelectedDataCanvas from "../canvas/graph/selected-data";
 import VertexOptions from "../viewlets/vertex-options";
+import FounderNote from "../viewlets/founder-note";
 
 const Mousetrap = require("mousetrap");
 
@@ -145,12 +146,12 @@ export default class ExplorerView extends BaseView {
                     </List>
                     <List type={"nav-right"}>
                         <li>
-                            <button onClick={() => console.log("ok")}>
+                            <button onClick={() => this.setRightContentName("founder-note")}>
                                 <FontAwesomeIcon icon={faStickyNote}/> Note from the Author
                             </button>
                         </li>
                         <li>
-                            <a onClick={() => console.log("ok")}>
+                            <a target={"_blank"} href={REPO_URL}>
                                 <FontAwesomeIcon icon={faGithub}/> 21 stars
                             </a>
                         </li>
@@ -159,16 +160,16 @@ export default class ExplorerView extends BaseView {
                                 <FontAwesomeIcon icon={faBug}/>
                             </a>
                         </li>
-                        <li>
-                            <a onClick={() => this.setRightContentName("learn")}>
-                                <FontAwesomeIcon icon={faQuestionCircle}/>
-                            </a>
-                        </li>
-                        <li>
-                            <a onClick={() => console.log("ok")}>
-                                <FontAwesomeIcon icon={faEllipsisV}/>
-                            </a>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <button onClick={() => this.setRightContentName("learn")}>*/}
+                        {/*        <FontAwesomeIcon icon={faQuestionCircle}/>*/}
+                        {/*    </button>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <button onClick={() => console.log("ok")}>*/}
+                        {/*        <FontAwesomeIcon icon={faEllipsisV}/>*/}
+                        {/*    </button>*/}
+                        {/*</li>*/}
                     </List>
                 </GEHeader>
                 <Main>
@@ -449,7 +450,7 @@ export default class ExplorerView extends BaseView {
                             ?
 
                             <GEPanel
-                                title={ this.state.selectedElementData.label + " | Options"}
+                                title={this.state.selectedElementData.label + " | Options"}
                                 onClickClose={() => this.setSelectedElementData(null)}
                                 showToggleBtn={false}>
                                 <VertexOptions selectedElementData={this.state.selectedElementData}
@@ -470,7 +471,29 @@ export default class ExplorerView extends BaseView {
                                     selectedData={this.state.selectedElementData}
                                     onClose={() => this.setSelectedElementData(null)}/>
                                 </GEPanel>
-                                : <span></span>}
+                                : this.state.rightContentName === "selected-data" && this.state.selectedElementData
+                                ?
+                                <GEPanel
+                                    title={"Selected Element Data"}
+                                    onClickClose={() => this.setSelectedElementData(null)}
+                                    showToggleBtn={false}
+                                > <SelectedDataCanvas
+                                    selectedData={this.state.selectedElementData}
+                                    onClose={() => this.setSelectedElementData(null)}/>
+                                </GEPanel>
+                                : this.state.rightContentName === "founder-note"
+                                    ?
+                                    <GEPanel
+                                        title={"Note from Author"}
+                                        onClickClose={() => this.setSelectedElementData(null)}
+                                        showToggleBtn={false}
+                                    > <FounderNote
+
+                                        setLeftContent={this.setLeftContent.bind(this)}
+                                        onClose={() => this.setRightContentName(null)}/>
+                                    </GEPanel>
+                                    : <span></span>
+                        }
 
                     </AsideRight>
                 ) : (

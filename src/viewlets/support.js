@@ -49,7 +49,7 @@ export default class SupportComponent extends React.Component {
                 </GEList>
 
                 <p>If you need any support beyond the above,
-                    please get in touch with me at <span className={"selected"}>hi[ a ]invana.io</span>
+                    please get in touch with me at <br/><span className={"selected"}>hi[ at ]invana.io</span>
                 </p>
 
             </div>
