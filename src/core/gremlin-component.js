@@ -50,6 +50,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     // timer2 = null;
     queryElapsedTimerId = null;
     reconnectingTimerId = null;
+    ws = null;
+    responses = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
         reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
@@ -99,6 +101,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             console.log('connected')
             _this.setIsConnected2Gremlin(true);
             _this.setStatusMessage("Connected");
+            clearInterval(_this.reconnectingTimerId);
         }
 
         this.ws.onmessage = event => {
@@ -110,6 +113,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
         this.ws.onclose = () => {
             console.log('disConnected2Gremlin')
+            clearInterval(_this.reconnectingTimerId);
             // automatically try to reconnect on connection loss
             _this.setIsConnected2Gremlin(false);
 
@@ -130,18 +134,17 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
 
     componentDidMount() {
+        console.log("gremlin-component componentDidMount")
         this.connect();
     }
 
     componentWillUnmount() {
         super.componentWillUnmount();
-        if(this.queryElapsedTimerId){
-            clearInterval(this.queryElapsedTimerId);
-        }
-        if(this.reconnectingTimerId){
-            clearInterval(this.reconnectingTimerId);
-        }
-        console.log("componentWillUnmount triggered");
+        clearInterval(this.queryElapsedTimerId);
+        clearInterval(this.reconnectingTimerId);
+        this.ws = null;
+        this.responses = [];
+        console.log("gremlin-component componentWillUnmount triggered");
     }
 
     connect() {
@@ -321,6 +324,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                 _this.ws.onopen = function () {
                     _this.ws.send(data, {mask: true});
                     _this.setStatusMessage("Connecting ..")
+                    clearInterval(_this.reconnectingTimerId);
 
                 };
             }

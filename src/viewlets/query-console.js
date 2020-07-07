@@ -59,7 +59,9 @@ export default class QueryConsole extends React.Component {
     onFormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        const sourceType = e.target.isFreshCanvas.checked ? "canvas" : "console";
+
+        //
+        const sourceType = e.target.isFreshCanvas.checked ? "console":  "canvas";
         this.props.onQuerySubmit(e.target.query.value, {source: sourceType});
     }
 

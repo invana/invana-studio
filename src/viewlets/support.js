@@ -14,7 +14,7 @@ export default class SupportComponent extends React.Component {
                 <GEList type={"vertical"}>
 
                     <li>
-                        <a onClick={() => alert('Its a work in progress')}>
+                        <a   onClick={() => alert('Its a work in progress')}>
                             <h4><FontAwesomeIcon icon={faBook}/> Documentation [WIP]</h4>
                             <p>Beginner tutorials, usage and developer documentation.</p>
                         </a>
@@ -27,7 +27,7 @@ export default class SupportComponent extends React.Component {
                         </a>
                     </li>
                     <li>
-                        <a onClick={() => alert('Its a work in progress')}>
+                        <a   onClick={() => alert('Its a work in progress')}>
                             <h4><FontAwesomeIcon icon={faGitter}/> Gitter Community [WIP]</h4>
                             <p>Chatroom for Community</p>
                         </a>
@@ -41,7 +41,7 @@ export default class SupportComponent extends React.Component {
                     </li>
 
                     <li>
-                        <a href={"https://twitter.com/invanalabs"}>
+                        <a target={"_blank"} href={"https://twitter.com/invanalabs"}>
                             <h4><FontAwesomeIcon icon={faTwitter}/> Twitter</h4>
                             <p>Stay upto date about the releases, updates, use case blogs, </p>
                         </a>

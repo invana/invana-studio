@@ -2,7 +2,6 @@ import React from "react";
 import GremlinBasedComponent from "../core/gremlin-component";
 import {
     getDataFromLocalStorage,
-    // redirectToConnectIfNeeded,
     setElementColorOptionsToStorageUsingResponse
 } from "../core/utils";
 import {
@@ -12,6 +11,15 @@ import {
 
 export default class VertexOptions extends GremlinBasedComponent {
 
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        // alert("vertex options unmounted")
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+    }
 
     onFormSubmit(e) {
         e.preventDefault();
@@ -61,7 +69,7 @@ export default class VertexOptions extends GremlinBasedComponent {
         const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
         const thisNodeOptions = allNodeOptions[this.props.selectedElementData.label] || {"properties": {}};
         // get nodeOptions from localStorage.
-        console.log("=====selectedElementData>>>", this.props.selectedElementData)
+        // console.log("=====selectedElementData>>>", this.props.selectedElementData)
         return (
             <div className={"p-10"}>
                 <form onSubmit={this.onFormSubmit.bind(this)}>

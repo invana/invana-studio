@@ -1,10 +1,10 @@
 .loadingDiv {
-  height: calc(100% - 23px);
+  height: calc(100% - 23px - 46px);
    width: 100%;
    display: block;
    position: fixed;
    background: rgba(36, 36, 36, 0.85);
- 
+
    .sk-fold{
        margin-top: 17% !important;
    }
@@ -15,18 +15,18 @@
      text-align: center;
      padding-bottom: 0;
    }
- 
+
    a {
      color: inherit;
    }
- 
+
    p {
      font-size: .7rem;
      text-align: center;
    }
  }
- 
- 
+
+
  /*  Fold
        <div class="sk-fold">
          <div class="sk-fold-cube"></div>
@@ -40,15 +40,15 @@
    --sk-size: 40px;
    --sk-color: #909090;
  }
- 
- 
+
+
  .sk-fold {
    width: var(--sk-size);
    height: var(--sk-size);
    position: relative;
    transform: rotateZ(45deg);
  }
- 
+
  .sk-fold-cube {
    float: left;
    width: 50%;
@@ -56,7 +56,7 @@
    position: relative;
    transform: scale(1.1);
  }
- 
+
  .sk-fold-cube:before {
    content: '';
    position: absolute;
@@ -68,31 +68,31 @@
    animation: sk-fold 2.4s infinite linear both;
    transform-origin: 100% 100%;
  }
- 
+
  .sk-fold-cube:nth-child(2) {
    transform: scale(1.1) rotateZ(90deg);
  }
- 
+
  .sk-fold-cube:nth-child(4) {
    transform: scale(1.1) rotateZ(180deg);
  }
- 
+
  .sk-fold-cube:nth-child(3) {
    transform: scale(1.1) rotateZ(270deg);
  }
- 
+
  .sk-fold-cube:nth-child(2):before {
    animation-delay: 0.3s;
  }
- 
+
  .sk-fold-cube:nth-child(4):before {
    animation-delay: 0.6s;
  }
- 
+
  .sk-fold-cube:nth-child(3):before {
    animation-delay: 0.9s;
  }
- 
+
  @keyframes sk-fold {
    0%, 10% {
      transform: perspective(140px) rotateX(-180deg);
@@ -107,4 +107,3 @@
      opacity: 0;
    }
  }
- 

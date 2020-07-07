@@ -7,9 +7,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faBook, faBug,
     faCog,
-    faEllipsisV, faExpand, faFilter,
+     faExpand, faFilter,
     faHistory, faInfoCircle, faLifeRing,
-    faQuestionCircle, faSave,
+     faSave,
+    // faQuestionCircle,
     faStickyNote, faSync, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
@@ -462,12 +463,13 @@ export default class ExplorerView extends BaseView {
                 </GEFooter>
                 {this.state.rightContentName || this.state.selectedElementData ? (
                     <AsideRight>
+                        {console.log("========== rightContentName", this.state.rightContentName)}
 
                         {
                             this.state.rightContentName === "selected-data" && this.state.selectedElementData
                                 ?
                                 <GEPanel
-                                    title={this.state.selectedElementData.label + " | Options"}
+                                    title={"Selected Element Data"}
                                     onClickClose={() => this.setSelectedElementData(null)}
                                     showToggleBtn={false}>
 
@@ -475,21 +477,20 @@ export default class ExplorerView extends BaseView {
                                         selectedData={this.state.selectedElementData}
                                         onClose={() => this.setSelectedElementData(null)}/>
                                 </GEPanel>
-
                                 :
-                                this.state.showVertexOptions
+                                this.state.rightContentName === "vertex-options" && this.state.selectedElementData
                                     ?
-                                    <GEPanel
-                                        title={"Selected Element Data"}
-                                        onClickClose={() => this.setSelectedElementData(null)}
-                                        showToggleBtn={false}
-                                    > <VertexOptions selectedElementData={this.state.selectedElementData}
-                                                     setStatusMessage={this.setStatusMessage.bind(this)}
-                                                     setErrorMessage={this.setErrorMessage.bind(this)}
-                                                     onClose={this.setHideVertexOptions.bind(this)}
-                                                     reRenderCanvas={this.reRenderCanvas.bind(this)}
-                                    />
-                                    </GEPanel>
+                                       <GEPanel
+                                    title={this.state.selectedElementData.label + " | Options"}
+                                    onClickClose={() => this.setHideVertexOptions()}
+                                    showToggleBtn={false}
+                                > <VertexOptions selectedElementData={this.state.selectedElementData}
+                                                 setStatusMessage={this.setStatusMessage.bind(this)}
+                                                 setErrorMessage={this.setErrorMessage.bind(this)}
+                                                 onClose={() => this.setHideVertexOptions.bind(this)}
+                                                 reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                />
+                                </GEPanel>
                                     : this.state.rightContentName === "founder-note"
                                     ?
                                     <GEPanel

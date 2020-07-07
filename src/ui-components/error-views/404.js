@@ -3,7 +3,7 @@ import "./404.scss";
 
 export default class Page404 extends React.Component {
   render() {
-    const { match, location, history } = this.props;
+    const { location } = this.props;
 
     return (
       <div className={"error-view-404"}>

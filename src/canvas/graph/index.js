@@ -2,10 +2,10 @@ import React from "react";
 import "./graph.scss";
 import D3ForceDirectedCanvas from "./canvas";
 import LegendCanvas from "./legend";
-import SelectedDataCanvas from "./selected-data";
-import GremlinResponseSerializers from "../../core/gremlin-serializer";
+// import SelectedDataCanvas from "./selected-data";
+// import GremlinResponseSerializers from "../../core/gremlin-serializer";
 
-const serializer = new GremlinResponseSerializers()
+// const serializer = new GremlinResponseSerializers()
 
 export default class GraphCanvas extends React.Component {
 
