@@ -10,6 +10,7 @@ export default class BaseComponent extends React.Component {
      */
 
     loaderTimerIntervalId = null;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -73,16 +74,15 @@ export default class BaseComponent extends React.Component {
     }
 
     componentWillUnmount() {
-        if (this.loaderTimerIntervalId){
-            clearInterval(this.loaderTimerIntervalId);
-        }
+
+        clearInterval(this.loaderTimerIntervalId);
+
         // clearInterval(this.timer2)
     }
 
     setStatusMessage(messageText) {
         this.setState({statusMessage: messageText});
     }
-
 
 
 }
