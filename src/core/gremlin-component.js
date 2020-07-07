@@ -153,7 +153,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.setState({
             responses: [],
             vertices: [],
-            edges: []
+            edges: [],
+            shallReRenderD3Canvas: true
         })
 
     }

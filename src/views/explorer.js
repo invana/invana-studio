@@ -10,7 +10,7 @@ import {
     faEllipsisV, faExpand, faFilter,
     faHistory, faInfoCircle, faLifeRing,
     faQuestionCircle, faSave,
-    faStickyNote, faSync
+    faStickyNote, faSync, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
@@ -355,6 +355,11 @@ export default class ExplorerView extends BaseView {
                                                 {/*   onClick={() => this.switchCanvasTo("raw")}>Raw</a>*/}
 
                                             </div>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => this.flushResponsesData()}>
+                                                <FontAwesomeIcon icon={faTrashAlt}/>
+                                            </button>
                                         </li>
                                         <li>
                                             <button onClick={() => alert("Still in the Design stage")}>
