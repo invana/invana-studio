@@ -9,9 +9,14 @@ body {
   width: 100%;
   background: $darkBg;
   //line-height: 1.6rem;
-    font-size: 13px;
+  font-size: 13px;
 
 }
+
+//ul li, p, a {
+//  font-size: 13px;
+//
+//}
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -30,8 +35,6 @@ body {
   //font-size: 13px;
 }
 
-ul li, p {
-}
 
 a {
   cursor: pointer;
@@ -159,7 +162,6 @@ textarea {
 .float-left {
   float: left;
 }
-
 
 
 label {

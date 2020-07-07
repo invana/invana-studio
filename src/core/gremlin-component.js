@@ -305,6 +305,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
 
         let _this = this;
+        this.setState({statusMessage: "Querying..."})
         console.log("queryGremlinServer :::  query", query);
         this.flushResponsesData();
         if (query) {
