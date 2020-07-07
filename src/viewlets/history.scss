@@ -34,8 +34,11 @@
     margin-right: 10px;
     font-size: 10px;
     padding: 0;
-
     //padding: 2px 15px !important;
+  }
+
+  a:hover{
+    color: $primaryColor !important;
   }
 
   div {

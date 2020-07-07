@@ -216,7 +216,10 @@ export default class ExplorerView extends BaseView {
                                         onClickClose={() => this.setLeftContent(null)}
                                         showToggleBtn={false}
                                     >
-                                        <HistoryComponent/>
+                                        <HistoryComponent
+                                        makeQuery={this.makeQuery.bind(this)}
+                                        addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                        />
                                     </GEPanel>
                                 ) :
                                 this.state.leftContentName === "settings"
