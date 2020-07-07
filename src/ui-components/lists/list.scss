@@ -56,10 +56,31 @@ ul {
   li {
     // height: 33px;
     padding: 4px 0;
+
     a, span, button {
       padding: 3px 10px;
       font-size: 13px;
       // height:33px;
+    }
+
+
+  }
+
+  .canvasToggle {
+    background-color: $darkBg;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid $borderColor;
+
+    a, button {
+      padding: 3px 6px !important;
+      border-radius: 2px;
+      border-right: 1px solid $darkBgSecondary !important;
+      margin-right: 0;
+    }
+
+    a:last-child, button:last-child {
+      border-right: none !important;
     }
   }
 }

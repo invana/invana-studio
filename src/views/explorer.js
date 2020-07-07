@@ -102,7 +102,7 @@ export default class ExplorerView extends BaseView {
 
     onQuerySubmit(query, queryOptions) {
         console.log("Query is " + query);
-        if (queryOptions.source === "console") {
+        if (queryOptions.source === "canvas") {
             // this is the beginning of a new query.
             this.flushResponsesData();
         }

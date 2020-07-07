@@ -9,6 +9,8 @@ body {
   width: 100%;
   background: $darkBg;
   //line-height: 1.6rem;
+    font-size: 13px;
+
 }
 
 body {
@@ -25,7 +27,10 @@ body {
   height: 100%;
   width: 100%;
   color: $defaultTextColor;
-  font-size: 13px;
+  //font-size: 13px;
+}
+
+ul li, p {
 }
 
 a {
@@ -88,6 +93,7 @@ button {
   font-size: 14px;
   display: inline-block;
   padding: 4px 15px;
+  margin-right: 10px;
 
   :hover, :active, :focus {
     color: $primaryColor !important;
@@ -154,22 +160,6 @@ textarea {
   float: left;
 }
 
-.canvasToggle {
-  background-color: $darkBg;
-  padding-left: 5px;
-  padding-right: 5px;
-  border: 1px solid $borderColor;
-
-  a {
-    padding: 3px 5px !important;
-    border-radius: 2px;
-    border-right: 1px solid $darkBgSecondary !important;
-  }
-
-  a:last-child {
-    border-right: none !important;
-  }
-}
 
 
 label {
@@ -181,8 +171,9 @@ input[type="text"] {
   width: 220px;
 }
 
-li.logo{
+li.logo {
   padding: 8px 5px;
+
   a {
     font-size: 18px;
   }
