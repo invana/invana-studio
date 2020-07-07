@@ -1,187 +1,487 @@
-import PageComponentBase from "../core/base/page";
-import MainContent from "../core/ui/main-content";
-import ErrorBoundary from "../core/ui/canvas/graph/error-boundary";
-import GraphCanvas from "../core/ui/canvas/graph";
-import JSONCanvas from "../core/ui/canvas/json";
-import FounderNote from "../core/components/founder-note";
-import SwitchConnection from "../core/components/switch";
+import BaseView from "./base";
 import React from "react";
-import VertexOptions from "../core/components/vertex-options";
-import RawResponsesCanvas from "../core/ui/canvas/raw-responses";
-import TableCanvas from "../core/ui/canvas/table";
-import GremlinResponseSerializers from "../core/base/gremlin-serializer";
+import {redirectToConnectIfNeeded} from "../core/utils";
+import GEHeader from "../ui-components/layout/header";
+import List from "../ui-components/lists/list";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+    faBook, faBug,
+    faCog,
+    faEllipsisV, faExpand, faFilter,
+    faHistory, faInfoCircle, faLifeRing,
+    faQuestionCircle, faSave,
+    faStickyNote, faSync
+} from "@fortawesome/free-solid-svg-icons";
+import Indicator from "../ui-components/indicator/indicator";
+import {faGithub} from "@fortawesome/free-brands-svg-icons";
+import Main from "../ui-components/layout/main";
+import AsideNav from "../ui-components/layout/aside-nav";
+import MainContent from "../ui-components/layout/main-content";
+import AsideLeft from "../ui-components/layout/aside-left";
+import GEPanel from "../ui-components/panels/panel";
+import MainContentMiddle from "../ui-components/layout/main-content-middle";
+import MainContentRight from "../ui-components/layout/main-content-right";
+import AsideBottom from "../ui-components/layout/aside-bottom";
+import GEFooter from "../ui-components/layout/footer";
+import AsideRight from "../ui-components/layout/aside-right";
+import LoadSpinner from "../ui-components/spinner/spinner";
+import SettingsComponent from "../viewlets/settings";
+import LearnComponent from "../viewlets/learn";
+import HistoryComponent from "../viewlets/history";
+import SupportComponent from "../viewlets/support";
+import QueryConsole from "../viewlets/query-console";
+import AboutComponent from "../viewlets/about";
+import {REPO_URL} from "../config";
+import ErrorBoundary from "../canvas/graph/error-boundary";
+import GraphCanvas from "../canvas/graph";
+import JSONCanvas from "../canvas/json";
+import TableCanvas from "../canvas/table";
+import RawResponsesCanvas from "../canvas/raw-responses";
+import SelectedDataCanvas from "../canvas/graph/selected-data";
+import VertexOptions from "../viewlets/vertex-options";
 
+const Mousetrap = require("mousetrap");
 
-const serializer = new GremlinResponseSerializers();
+export default class ExplorerView extends BaseView {
 
-export default class ExplorerView extends PageComponentBase {
-
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            showVertexOptions: false,
-            canvasType: "graph",
-            rightFlyOutName: "welcome",
-            selectedNode: null,
-            query: "g.V().limit(5).toList()",
-            vertices: [],
-            edges: []
-            // shallReRenderD3Canvas: false
-        };
-    }
-    //
-
-
-
-    extendGraph(responses) {
-        let overallNodes = this.state.vertices || [];
-        let overallLinks = this.state.edges || [];
-        responses.forEach(function (response) {
-            const serializedData = serializer.process(response);
-            const separatedData = serializer.separateVerticesAndEdges(serializedData);
-            overallNodes = overallNodes.concat(separatedData['nodes']);
-            overallLinks = overallLinks.concat(separatedData['links']);
-        });
-        const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
-        const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
-        this.setState({
-            vertices: uniqueNodes,
-            edges: uniqueLinks,
-            shallReRenderD3Canvas: true
-        })
-    }
 
     processResponse(responses) {
         super.processResponse(responses);
         this.extendGraph(responses);
     }
 
-    onQuerySubmit(query, queryOptions) {
-        super.onQuerySubmit(query, queryOptions)
-        // this.updateVerticesAndEdges();
-    }
-
-    setShowVertexOptions(selectedNode) {
+    startQuery(query) {
         this.setState({
-            showVertexOptions: true,
-            selectedNode: selectedNode
+            query: query,
         })
     }
 
-    reRenderCanvas() {
-        this.setState({
-            shallReRenderD3Canvas: true
-        })
+    getQueryFromUrl() {
+        return new URLSearchParams(window.location.search).get("query");
     }
 
-    setHideVertexOptions() {
-        this.setState({
-            showVertexOptions: false,
-            selectedNode: null
-        })
+    setupHotKeys() {
+        Mousetrap.bind("ctrl+1", () => this.switchCanvasTo("graph"));
+        Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table"));
+        Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json"));
+        Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw"));
+        Mousetrap.bind("shift+/", () => this.setLeftFlyOut("query-console"));
+        Mousetrap.bind("shift+h", () => this.setLeftFlyOut("history"));
+        Mousetrap.bind("esc", () => this.onLeftFlyOutClose());
     }
 
+    unSetupHotKeys() {
+        Mousetrap.unbind("ctrl+1");
+        Mousetrap.unbind("ctrl+2");
+        Mousetrap.unbind("ctrl+3");
+        Mousetrap.unbind("ctrl+4");
+        Mousetrap.unbind("shift+/");
+        Mousetrap.unbind("shift+h");
+        Mousetrap.unbind("esc");
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.unSetupHotKeys();
+    }
 
     componentDidMount() {
+        redirectToConnectIfNeeded();
         super.componentDidMount();
+        setTimeout(() => this.loadQueryFromUrl(), 300);
+        this.setupHotKeys()
     }
 
-    resetShallReRenderD3Canvas() {
+    loadQueryFromUrl() {
+        const query = this.getQueryFromUrl();
+        if (query && query !== "null") {
+            this.makeQuery(query, {source: "console"});
+        }
+    }
+
+    onQuerySubmit(query, queryOptions) {
+        console.log("Query is " + query);
+        if (queryOptions.source === "console") {
+            // this is the beginning of a new query.
+            this.flushResponsesData();
+        }
+        this.makeQuery(query, {source: "console"});
+    }
+
+    onErrorMessageFlyoutClose() {
         this.setState({
-            shallReRenderD3Canvas: false
+            "errorMessage": null
         })
     }
 
+    switchCanvasTo(canvasType) {
+        this.setState({
+            canvasType: canvasType,
+            statusMessage: "Canvas switched to " + canvasType
+        })
+    }
 
+    addQueryToConsole(query) {
+        this.addQueryToState(query);
+
+    }
+
+    setCanvasType(canvasType) {
+        this.setState({canvasType: canvasType});
+    }
 
 
     render() {
-        const superContent = super.render();
-        const _this = this;
+
         return (
-            <div>
-                <MainContent>
-                    <ErrorBoundary>
-                        {(() => {
-                            if (this.state.canvasType === "graph" && this.state.responses) {
-                                return (
-                                    <GraphCanvas
-                                        setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                        setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                        responses={this.state.responses}
-                                        vertices={this.state.vertices}
-                                        edges={this.state.edges}
-                                        startQuery={this.startQuery.bind(this)}
-                                        queryGremlinServer={this.makeQuery.bind(this)}
-                                        resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
-                                        shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+            <div className="App">
+                <GEHeader>
+                    <List type={"nav-left"}>
+                        <li>
+                            <a href="/" className={"no-bg"}>
+                                <strong>Graph Explorer</strong>
+                            </a>
+                        </li>
+                    </List>
+                    <List type={"nav-right"}>
+                        <li>
+                            <button onClick={() => console.log("ok")}>
+                                <FontAwesomeIcon icon={faStickyNote}/> Note from the Author
+                            </button>
+                        </li>
+                        <li>
+                            <a onClick={() => console.log("ok")}>
+                                <FontAwesomeIcon icon={faGithub}/> 21 stars
+                            </a>
+                        </li>
+                        <li>
+                            <a target={"_blank"} href={REPO_URL}>
+                                <FontAwesomeIcon icon={faBug}/>
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={() => this.setRightContentName("learn")}>
+                                <FontAwesomeIcon icon={faQuestionCircle}/>
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={() => console.log("ok")}>
+                                <FontAwesomeIcon icon={faEllipsisV}/>
+                            </a>
+                        </li>
+                    </List>
+                </GEHeader>
+                <Main>
+                    <AsideNav>
+                        <List type={"aside-nav"}>
+                            {/*<li>*/}
+                            {/*    <a onClick={() => this.setLeftContent("something")}>*/}
+                            {/*        <FontAwesomeIcon icon={faSearch}/>*/}
+                            {/*    </a>*/}
+                            {/*</li>*/}
+                            <li>
+                                <a onClick={() => this.setLeftContent("history")}>
+                                    <FontAwesomeIcon icon={faHistory}/>
+                                </a>
+                            </li>
+                            <li>
+                                <a onClick={() => this.setLeftContent("settings")}>
+                                    <FontAwesomeIcon icon={faCog}/>
+                                </a>
+                            </li>
+                            <li>
+                                <a onClick={() => this.setLeftContent("support")}>
+                                    <FontAwesomeIcon icon={faLifeRing}/>
+                                </a>
+                            </li>
+                            <li>
+                                <a onClick={() => this.setLeftContent("learn")}>
+                                    <FontAwesomeIcon icon={faBook}/>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a onClick={() => this.setLeftContent("about")}>
+                                    <FontAwesomeIcon icon={faInfoCircle}/>
+                                </a>
+                            </li>
+                        </List>
+                    </AsideNav>
+                    <MainContent>
+                        <AsideLeft extraClass={this.state.leftContentName ? "" : "closed"}>
+                            {this.state.leftContentName === "history" ? (
+                                    <GEPanel
+                                        title={"History"}
+                                        onClickClose={() => this.setLeftContent(null)}
+                                        showToggleBtn={false}
+                                    >
+                                        <HistoryComponent/>
+                                    </GEPanel>
+                                ) :
+                                this.state.leftContentName === "settings"
+                                    ? (
+                                        <GEPanel
+                                            title={"Settings"}
+                                            onClickClose={() => this.setLeftContent(null)}
+                                            showToggleBtn={false}
+                                        >
+                                            <SettingsComponent/>
+                                        </GEPanel>
+                                    ) :
+                                    this.state.leftContentName === "learn"
+                                        ? (
+                                            <GEPanel
+                                                title={"Learn"}
+                                                onClickClose={() => this.setLeftContent(null)}
+                                                showToggleBtn={false}
+                                            >
+                                                <LearnComponent
+                                                    addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                                    makeQuery={this.makeQuery.bind(this)}
+                                                    onClose={() => this.setLeftContent(null)}/>
+
+
+                                            </GEPanel>
+                                        ) :
+                                        this.state.leftContentName === "support"
+                                            ? (
+                                                <GEPanel
+                                                    title={"Support"}
+                                                    onClickClose={() => this.setLeftContent(null)}
+                                                    showToggleBtn={false}
+                                                >
+                                                    <SupportComponent/>
+                                                </GEPanel>
+                                            ) :
+                                            this.state.leftContentName === "about"
+                                                ? (
+                                                    <GEPanel
+                                                        title={"About"}
+                                                        onClickClose={() => this.setLeftContent(null)}
+                                                        showToggleBtn={false}
+                                                    >
+                                                        <AboutComponent/>
+                                                    </GEPanel>
+                                                ) : (<span></span>)
+                            }
+                        </AsideLeft>
+                        <MainContentMiddle>
+                            <div
+                                className={
+                                    this.state.middleBottomContentName
+                                        ? "main-content-top"
+                                        : "main-content-top bottom-closed"
+                                }
+                            >
+                                <GEPanel
+                                    title={"Query Console"}
+                                    showToggleBtn={false}
+                                    showCloseBtn={false}
+                                >
+                                    <QueryConsole
+                                        onQuerySubmit={this.onQuerySubmit.bind(this)}
+                                        query={this.state.query}
+                                        // onClose={this.onLeftFlyOutClose.bind(this)}
                                     />
-                                )
-                            } else if (this.state.canvasType === "json" && this.state.responses) {
-                                return (
-                                    <JSONCanvas
-                                        vertices={this.state.vertices}
-                                        edges={this.state.edges}
-                                        responses={this.state.responses}/>
-                                )
-                            } else if (this.state.canvasType === "table" && this.state.responses) {
-                                return (
-                                    <TableCanvas
-                                        vertices={this.state.vertices}
-                                        edges={this.state.edges}
-                                        responses={this.state.responses}/>
-                                )
-                            } else if (this.state.canvasType === "raw" && this.state.responses) {
-                                return (
-                                    <RawResponsesCanvas
-                                        // vertices={this.state.vertices}
-                                        // edges={this.state.edges}
-                                        responses={this.state.responses}/>
-                                )
-                            } else {
-                                return (
-                                    <span></span>
+                                </GEPanel>
+                            </div>
+                            <div
+                                className={
+                                    this.state.middleBottomContentName
+                                        ? "main-content-bottom"
+                                        : "main-content-bottom closed"
+                                }
+                            >
+                                {this.state.middleBottomContentName ? (
+                                    <GEPanel
+                                        title={"Middle Bottom Content"}
+                                        showToggleBtn={false}
+                                        onClickClose={() => this.setMiddleBottomContentName(null)}
+                                        // showCloseBtn={true}
+                                    >
+                                        <p>middle bottom here</p>
+                                    </GEPanel>
+                                ) : (
+                                    <span/>
+                                )}
+                            </div>
+                        </MainContentMiddle>
+                        <MainContentRight
+                            extraClass={this.state.leftContentName ? "" : "expanded"}
+                            secondaryChild={
+                                this.state.bottomContentName === "error-console" ? (
+                                    <AsideBottom>
+                                        <GEPanel
+                                            title={"Error Console"}
+                                            onClickClose={() => this.setBottomContentName(null)}
+                                            showToggleBtn={false}
+                                        >
+                                            <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
+                                        </GEPanel>
+                                    </AsideBottom>
+                                ) : (
+                                    <span/>
                                 )
                             }
-                        })()}
-                    </ErrorBoundary>
-                </MainContent>
+                        >
+                            <div
+                                style={{
+                                    height: "inherit"
+                                }}
+                            >
 
-                {superContent}
-                {
-                    (this.state.rightFlyOutName === "switch-server") ?
-                        <SwitchConnection
-                            gremlinUrl={this.props.gremlinUrl}
-                            onClose={this.onRightFlyOutClose.bind(this)}/>
-                        : <span></span>
-                }
-                {
-                    (this.state.rightFlyOutName === "welcome") ?
-                        <FounderNote makeQuery={this.makeQuery.bind(this)}
-                                     setRightFlyOut={this.setRightFlyOut.bind(this)}
+                                <div className={"main-content-nav"}>
+                                    <List type={"canvas-nav"}>
+                                        <li>
+                                            <button onClick={() => alert("ok ! save triggered")}>
+                                                <FontAwesomeIcon icon={faSave}/>
+                                            </button>
+                                        </li>
 
-                                     addQueryToConsole={this.addQueryToConsole.bind(this)}
-                                     onClose={this.onRightFlyOutClose.bind(this)}/>
-                        : <span></span>
-                }
-                {
-                    this.state.showVertexOptions
-                        ? <VertexOptions selectedNode={this.state.selectedNode}
-                                         setStatusMessage={this.setStatusMessage.bind(this)}
-                                         setErrorMessage={this.setErrorMessage.bind(this)}
-                                         onClose={this.setHideVertexOptions.bind(this)}
-                                         reRenderCanvas={this.reRenderCanvas.bind(this)}
-                        />
-                        : <span></span>
-                }
+                                        <li>
+                                            <a onClick={() => alert("ok ! filter triggered")}>
+                                                <FontAwesomeIcon icon={faFilter}/>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onClick={() => alert("ok ! refresh triggered")}>
+                                                <FontAwesomeIcon icon={faSync}/>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onClick={() => alert("ok ! expand triggered")}>
+                                                <FontAwesomeIcon icon={faExpand}/>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div className={"canvasToggle"}>
+                                                <a className={this.props.canvasType === "graph" ? "selected" : ""}
+                                                   onClick={() => this.switchCanvasTo("graph")}>Graph</a>
+                                                <a className={this.canvasType === "table" ? "selected" : ""}
+                                                   onClick={() => this.switchCanvasTo("table")}>Table</a>
+                                                <a className={this.canvasType === "json" ? "selected" : ""}
+                                                   onClick={() => this.switchCanvasTo("json")}>JSON</a>
+                                                {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
+                                                {/*   onClick={() => this.switchCanvasTo("raw")}>Raw</a>*/}
 
-                <div className="canvasStats">
-                    {this.state.vertices.length} vertices, {this.state.edges.length} edges
-                </div>
+                                            </div>
+                                        </li>
+                                    </List>
+                                </div>
 
+                                <div className={"main-content-body"}>
+
+                                    <ErrorBoundary>
+                                        {(() => {
+                                            if (this.state.canvasType === "graph" && this.state.responses) {
+                                                return (
+                                                    <GraphCanvas
+                                                        setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                                        setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                                        responses={this.state.responses}
+                                                        setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                                        vertices={this.state.vertices}
+                                                        edges={this.state.edges}
+                                                        startQuery={this.startQuery.bind(this)}
+                                                        queryGremlinServer={this.makeQuery.bind(this)}
+                                                        resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
+                                                        shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                                                    />
+                                                )
+                                            } else if (this.state.canvasType === "json" && this.state.responses) {
+                                                return (
+                                                    <JSONCanvas
+                                                        vertices={this.state.vertices}
+                                                        edges={this.state.edges}
+                                                        responses={this.state.responses}/>
+                                                )
+                                            } else if (this.state.canvasType === "table" && this.state.responses) {
+                                                return (
+                                                    <TableCanvas
+                                                        vertices={this.state.vertices}
+                                                        edges={this.state.edges}
+                                                        responses={this.state.responses}/>
+                                                )
+                                            } else if (this.state.canvasType === "raw" && this.state.responses) {
+                                                return (
+                                                    <RawResponsesCanvas
+                                                        // vertices={this.state.vertices}
+                                                        // edges={this.state.edges}
+                                                        responses={this.state.responses}/>
+                                                )
+                                            } else {
+                                                return (
+                                                    <span></span>
+                                                )
+                                            }
+                                        })()}
+                                    </ErrorBoundary>
+
+
+                                </div>
+                            </div>
+                        </MainContentRight>
+                    </MainContent>
+                </Main>
+                <GEFooter>
+                    <List type={"nav-left"}>
+                        <li><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li>
+                        <li><span>{this.state.statusMessage}</span></li>
+                    </List>
+                    <List type={"nav-right"}>
+                        <li>
+                            <a onClick={() => this.setBottomContentName("response")}>
+                                200 Response
+                            </a>
+                        </li>
+                        <li>
+                            <span>{this.state.canvasType} canvas</span>
+                        </li>
+                        <li>
+                            <span>{this.state.vertices.length} vertices, {this.state.edges.length} edges</span>
+                        </li>
+                    </List>
+                </GEFooter>
+                {this.state.rightContentName || this.state.selectedElementData ? (
+                    <AsideRight>
+
+                        {this.state.rightContentName === "selected-data" && this.state.selectedElementData
+                            ? <GEPanel
+                                title={"Selected Data"}
+                                onClickClose={() => this.setSelectedElementData(null)}
+                                showToggleBtn={false}
+                            > <SelectedDataCanvas
+                                selectedData={this.state.selectedElementData}
+                                onClose={() => this.setSelectedElementData(null)}/>
+                            </GEPanel>
+                            :
+                            this.state.showVertexOptions
+                                ?
+                                <GEPanel
+                                    title={"Element Options"}
+                                    onClickClose={() => this.setSelectedElementData(null)}
+                                    showToggleBtn={false}>
+                                    <VertexOptions selectedElementData={this.state.selectedElementData}
+                                                   setStatusMessage={this.setStatusMessage.bind(this)}
+                                                   setErrorMessage={this.setErrorMessage.bind(this)}
+                                                   onClose={this.setHideVertexOptions.bind(this)}
+                                                   reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                    />
+                                </GEPanel>
+                                : <span></span>}
+
+                    </AsideRight>
+                ) : (
+                    <span/>
+                )}
+                <LoadSpinner
+                    loadingMessage={this.state.loadingMessage}
+                    loadingExtraText={this.state.loadingExtraText}
+                    isLoading={this.state.isLoading}
+                    showSignout={true}
+                    loadTimeCounter={this.state.loaderElapsedTimer}/>
+                {super.render()}
             </div>
-        )
+        );
     }
-
 }

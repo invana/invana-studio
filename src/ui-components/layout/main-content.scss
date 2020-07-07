@@ -1,0 +1,18 @@
+@import "../../config";
+
+.main-content {
+  width: calc(100% - 45px);
+  float: right;
+  height: calc(100vh - 45px - 24px );
+
+  .main-content-nav{
+    height: 31px;
+    border-bottom: 1px solid $borderColor;
+    background-color: #121212;
+  }
+  .main-content-body{
+    height: calc(100% - 32px);
+    overflow-y: scroll;
+    //background-color: #c16767;
+  }
+}

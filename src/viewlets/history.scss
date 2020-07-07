@@ -1,0 +1,48 @@
+@import "../config";
+
+
+.historyItem:nth-child(odd) {
+  background: #292929;
+}
+
+.historyItem {
+  padding: 5px !important;
+  margin: 0 !important;
+
+  p {
+    color: $defaultTextColor;
+    margin-bottom: 0;
+
+    span {
+      font-size: 10px !important;
+    }
+  }
+
+  pre {
+    margin: 0;
+  }
+
+  a {
+    color: $defaultTextColor;
+    margin-right: 10px;
+    font-size: 10px;
+    padding: 0;
+    //padding: 2px 15px !important;
+  }
+
+  div {
+    font-size: 10px !important;
+    margin-top: 5px;
+
+    a {
+      padding: 0;
+      margin-right: 10px;
+      display: inline-block;
+      font-size: 10px !important;
+
+    }
+  }
+
+}
+
+

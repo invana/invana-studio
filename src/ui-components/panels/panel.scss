@@ -1,0 +1,35 @@
+@import "../../config";
+
+.ge-panel {
+  // border: 1px solid $borderColor;
+  height: 100%;
+
+  .ge-panel-header {
+    border-bottom: 1px solid $borderColor;
+    max-height: 30px;
+    padding: 8px 10px;
+    background: darken($darkBg, 1);
+
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+    .ge-panel-options {
+      float: right;
+      margin-top: -24px;
+      // background: red;
+      height: 33px;
+      margin-right: -10px;
+    }
+  }
+
+  .ge-panel-body {
+    padding: 0;
+    overflow: scroll;
+    height: calc(100% - 32px);
+    overflow-x: initial;
+    word-break: break-all;
+  }
+
+}

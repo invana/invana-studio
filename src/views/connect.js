@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "../core/ui/modal";
+import Modal from "../ui-components/modal/modal";
 import {setDataToLocalStorage} from "../core/utils";
 import {gremlinServerUrlKey, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";

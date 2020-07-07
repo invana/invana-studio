@@ -1,5 +1,5 @@
 import {CONNECT_URL, GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
-import GremlinResponseSerializers from "./base/gremlin-serializer";
+import GremlinResponseSerializers from "./gremlin-serializer";
 
 const gremlinSerializer = new GremlinResponseSerializers();
 

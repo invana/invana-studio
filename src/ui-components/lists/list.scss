@@ -1,0 +1,122 @@
+@import "../../config.scss";
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  display: table-row;
+
+  li {
+    padding: 0;
+    display: table-cell;
+    list-style-type: none;
+    margin: 10px;
+    vertical-align: middle;
+
+    a, span, button {
+      display: table-cell;
+      vertical-align: middle;
+      color: $defaultTextColor;
+      text-decoration: none;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a:hover, button:hover {
+      color: $primaryColor;
+    }
+
+    .no-bg {
+      background: transparent !important;
+    }
+  }
+}
+
+.default-list {
+  li {
+    height: 33px;
+
+    a {
+      padding: 0 7px 0 0;
+      height: 33px;
+    }
+  }
+}
+
+.canvas-nav-list {
+  li {
+    // height: 33px;
+    a, span, button {
+      padding: 10px 10px;
+      // height:33px;
+    }
+  }
+}
+
+
+.aside-nav-list {
+  li {
+    display: block;
+    margin: 0;
+
+    a, span, button {
+      padding: 15px 15.5px;
+      border-bottom: 1px solid $borderColor;
+    }
+  }
+}
+
+.nav-right-list {
+  li {
+    a, span, button {
+      background: $borderColor;
+    }
+  }
+}
+
+.nav-left-list, .nav-right-list {
+  li {
+    padding: 12px 5px;
+
+    a, span, button {
+      padding: 3px 5px;
+      // border-left: 1px solid $darkBgSecondary;
+      background: $darkBgSecondary;
+    }
+
+  }
+}
+
+
+.nav-left-list {
+  float: left;
+}
+
+.nav-right-list {
+  float: right;
+}
+
+
+.vertical-list {
+  li {
+    display: block;
+    border: none;
+    border-bottom: 1px solid $borderColor;
+    margin: 0;
+
+    a {
+      //padding: 15px 17px;
+      //padding: 0;
+      padding: 5px 0;
+    }
+  }
+}
