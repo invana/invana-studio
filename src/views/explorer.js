@@ -217,8 +217,8 @@ export default class ExplorerView extends BaseView {
                                         showToggleBtn={false}
                                     >
                                         <HistoryComponent
-                                        makeQuery={this.makeQuery.bind(this)}
-                                        addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                            makeQuery={this.makeQuery.bind(this)}
+                                            addQueryToConsole={this.addQueryToConsole.bind(this)}
                                         />
                                     </GEPanel>
                                 ) :
@@ -338,7 +338,8 @@ export default class ExplorerView extends BaseView {
                                     <List type={"canvas-nav"}>
                                         <li>
                                             {/*<span></span>*/}
-                                            <span style={{"textTransform": "capitalize"}}>Using {this.state.canvasType} canvas | </span>
+                                            <span
+                                                style={{"textTransform": "capitalize"}}>Using {this.state.canvasType} canvas | </span>
                                         </li>
                                         <li>
                                             <div className={"canvasToggle"}>
@@ -377,7 +378,7 @@ export default class ExplorerView extends BaseView {
                                                 <FontAwesomeIcon icon={faSync}/>
                                             </button>
                                         </li>
-   <li>
+                                        <li>
                                             <button onClick={() => alert("Still in the Design stage")}>
                                                 <FontAwesomeIcon icon={faExpand}/>
                                             </button>
@@ -462,32 +463,34 @@ export default class ExplorerView extends BaseView {
                 {this.state.rightContentName || this.state.selectedElementData ? (
                     <AsideRight>
 
-                        {this.state.showVertexOptions
-                            ?
-
-                            <GEPanel
-                                title={this.state.selectedElementData.label + " | Options"}
-                                onClickClose={() => this.setSelectedElementData(null)}
-                                showToggleBtn={false}>
-                                <VertexOptions selectedElementData={this.state.selectedElementData}
-                                               setStatusMessage={this.setStatusMessage.bind(this)}
-                                               setErrorMessage={this.setErrorMessage.bind(this)}
-                                               onClose={this.setHideVertexOptions.bind(this)}
-                                               reRenderCanvas={this.reRenderCanvas.bind(this)}
-                                />
-                            </GEPanel>
-                            :
+                        {
                             this.state.rightContentName === "selected-data" && this.state.selectedElementData
                                 ?
                                 <GEPanel
-                                    title={"Selected Element Data"}
+                                    title={this.state.selectedElementData.label + " | Options"}
                                     onClickClose={() => this.setSelectedElementData(null)}
-                                    showToggleBtn={false}
-                                > <SelectedDataCanvas
-                                    selectedData={this.state.selectedElementData}
-                                    onClose={() => this.setSelectedElementData(null)}/>
+                                    showToggleBtn={false}>
+
+                                    <SelectedDataCanvas
+                                        selectedData={this.state.selectedElementData}
+                                        onClose={() => this.setSelectedElementData(null)}/>
                                 </GEPanel>
-                                : this.state.rightContentName === "founder-note"
+
+                                :
+                                this.state.showVertexOptions
+                                    ?
+                                    <GEPanel
+                                        title={"Selected Element Data"}
+                                        onClickClose={() => this.setSelectedElementData(null)}
+                                        showToggleBtn={false}
+                                    > <VertexOptions selectedElementData={this.state.selectedElementData}
+                                                     setStatusMessage={this.setStatusMessage.bind(this)}
+                                                     setErrorMessage={this.setErrorMessage.bind(this)}
+                                                     onClose={this.setHideVertexOptions.bind(this)}
+                                                     reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                    />
+                                    </GEPanel>
+                                    : this.state.rightContentName === "founder-note"
                                     ?
                                     <GEPanel
                                         title={"Note from Author"}

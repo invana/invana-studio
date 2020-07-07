@@ -78,6 +78,11 @@ class GremlinViewBase extends GremlinBasedComponent {
     setShowVertexOptions(selectedElementData) {
         // alert("setShowVertexOptions");
         this.setState({
+            selectedElementData: null,
+            showVertexOptions: false,
+
+        })
+        this.setState({
             showVertexOptions: true,
             selectedElementData: selectedElementData,
             rightContentName: "vertex-options"

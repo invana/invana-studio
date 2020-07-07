@@ -57,6 +57,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     showProperties(selectedNode) {
+        this.props.setHideVertexOptions();
         this.props.setSelectedElementData(
             selectedNode
         )
@@ -244,7 +245,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 } else if (arch_node.data.option_name === "vertex-options") {
                     _this.props.setShowVertexOptions(selectedNode);
                 } else if (arch_node.data.option_name === "start-querying") {
-
                     const query = "node= g.V(" + selectedNode.id + ")";
                     _this.props.startQuery(query)
                 }
@@ -296,6 +296,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 })
                 .attr("class", "off");
         });
+
         this.showProperties(selectedNode);
     }
 

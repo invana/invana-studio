@@ -68,37 +68,37 @@ export default class VertexOptions extends GremlinBasedComponent {
 
                     <label>Vertex Label</label>
                     <input type="text" name={"name"} readOnly={true} spellCheck="false"
-                           value={selectedElementData.label}/>
+                           defaultValue={selectedElementData.label}/>
                     <input type="hidden" name={"label"}
-                           value={selectedElementData.properties.name || selectedElementData.id}/>
-                    <input type="hidden" name={"uid"} value={selectedElementData.id}/>
+                           defaultValue={selectedElementData.properties.name || selectedElementData.id}/>
+                    <input type="hidden" name={"uid"} defaultValue={selectedElementData.id}/>
 
                     <label className={""}>Background Color</label>
                     <input type="text" name={"bgColor"} maxLength={7} minLength={7}
                            placeholder={"bgColor"} spellCheck="false"
-                           value={thisNodeOptions.bgColor || selectedElementData.meta.shapeOptions.fillColor}/>
+                           defaultValue={thisNodeOptions.bgColor || selectedElementData.meta.shapeOptions.fillColor}/>
 
                     <label className={""}>Border Color</label>
                     <input type="text" name={"borderColor"} maxLength={7} minLength={7}
                            placeholder={"borderColor"} spellCheck="false"
-                           value={thisNodeOptions.borderColor || selectedElementData.meta.shapeOptions.strokeColor}/>
+                           defaultValue={thisNodeOptions.borderColor || selectedElementData.meta.shapeOptions.strokeColor}/>
 
                     {/*<label className={""}>Background Image (from web)</label>*/}
                     <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
-                           value={thisNodeOptions.bgImageUrl || selectedElementData.meta.bgImageUrl}/>
+                           defaultValue={thisNodeOptions.bgImageUrl || selectedElementData.meta.bgImageUrl}/>
 
                     <label className={""}>Background Image (from data field)</label>
                     <input type="text" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            placeholder={"bgImagePropertyKey (optional)"}
-                           value={thisNodeOptions.bgImagePropertyKey || selectedElementData.meta.bgImagePropertyKey}/>
+                           defaultValue={thisNodeOptions.bgImagePropertyKey || selectedElementData.meta.bgImagePropertyKey}/>
 
                     {/*<label className={""}>Background HTML</label>*/}
                     <input type="hidden" name={"tagHtml"}
                            spellCheck="false"
                            placeholder={"tagHtml (optional)"}
-                           value={thisNodeOptions.tagHtml || ""}/>
+                           defaultValue={thisNodeOptions.tagHtml || ""}/>
                     <br/>
                     <button className={"mt-10 button primary-btn"} type={"submit"}>update</button>
                 </form>
