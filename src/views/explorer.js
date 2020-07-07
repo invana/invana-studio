@@ -66,9 +66,9 @@ export default class ExplorerView extends BaseView {
         Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table"));
         Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json"));
         Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw"));
-        Mousetrap.bind("shift+/", () => this.setLeftFlyOut("query-console"));
-        Mousetrap.bind("shift+h", () => this.setLeftFlyOut("history"));
-        Mousetrap.bind("esc", () => this.onLeftFlyOutClose());
+        // Mousetrap.bind("shift+/", () => this.setLeftContent("query-console"));
+        Mousetrap.bind("shift+h", () => this.setLeftContent("history"));
+        Mousetrap.bind("esc", () => this.setLeftContent(null));
     }
 
     unSetupHotKeys() {
@@ -138,7 +138,7 @@ export default class ExplorerView extends BaseView {
             <div className="App">
                 <GEHeader>
                     <List type={"nav-left"}>
-                        <li>
+                        <li className={"logo"}>
                             <a href="/" className={"no-bg"}>
                                 <strong>Graph Explorer</strong>
                             </a>
@@ -334,39 +334,44 @@ export default class ExplorerView extends BaseView {
                                 <div className={"main-content-nav"}>
                                     <List type={"canvas-nav"}>
                                         <li>
-                                            <button onClick={() => alert("ok ! save triggered")}>
-                                                <FontAwesomeIcon icon={faSave}/>
-                                            </button>
-                                        </li>
-
-                                        <li>
-                                            <a onClick={() => alert("ok ! filter triggered")}>
-                                                <FontAwesomeIcon icon={faFilter}/>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a onClick={() => alert("ok ! refresh triggered")}>
-                                                <FontAwesomeIcon icon={faSync}/>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a onClick={() => alert("ok ! expand triggered")}>
+                                            <button onClick={() => alert("Still in the Design stage")}>
                                                 <FontAwesomeIcon icon={faExpand}/>
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
                                             <div className={"canvasToggle"}>
-                                                <a className={this.props.canvasType === "graph" ? "selected" : ""}
-                                                   onClick={() => this.switchCanvasTo("graph")}>Graph</a>
-                                                <a className={this.canvasType === "table" ? "selected" : ""}
-                                                   onClick={() => this.switchCanvasTo("table")}>Table</a>
-                                                <a className={this.canvasType === "json" ? "selected" : ""}
-                                                   onClick={() => this.switchCanvasTo("json")}>JSON</a>
+                                                <button className={this.props.canvasType === "graph" ? "selected" : ""}
+                                                        onClick={() => this.switchCanvasTo("graph")}>Graph
+                                                </button>
+                                                <button className={this.canvasType === "table" ? "selected" : ""}
+                                                        onClick={() => this.switchCanvasTo("table")}>Table
+                                                </button>
+                                                <button className={this.canvasType === "json" ? "selected" : ""}
+                                                        onClick={() => this.switchCanvasTo("json")}>JSON
+                                                </button>
                                                 {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
                                                 {/*   onClick={() => this.switchCanvasTo("raw")}>Raw</a>*/}
 
                                             </div>
                                         </li>
+                                        <li>
+                                            <button onClick={() => alert("Still in the Design stage")}>
+                                                <FontAwesomeIcon icon={faSave}/>
+                                            </button>
+                                        </li>
+
+                                        <li>
+                                            <button onClick={() => alert("Still in the Design stage")}>
+                                                <FontAwesomeIcon icon={faFilter}/>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => alert("Still in the Design stage")}>
+                                                <FontAwesomeIcon icon={faSync}/>
+                                            </button>
+                                        </li>
+
+
                                     </List>
                                 </div>
 
@@ -430,11 +435,11 @@ export default class ExplorerView extends BaseView {
                         <li><span>{this.state.statusMessage}</span></li>
                     </List>
                     <List type={"nav-right"}>
-                        <li>
-                            <a onClick={() => this.setBottomContentName("response")}>
-                                200 Response
-                            </a>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <a onClick={() => this.setBottomContentName("response")}>*/}
+                        {/*        200 Response*/}
+                        {/*    </a>*/}
+                        {/*</li>*/}
                         <li>
                             <span>{this.state.canvasType} canvas</span>
                         </li>
@@ -471,16 +476,6 @@ export default class ExplorerView extends BaseView {
                                     selectedData={this.state.selectedElementData}
                                     onClose={() => this.setSelectedElementData(null)}/>
                                 </GEPanel>
-                                : this.state.rightContentName === "selected-data" && this.state.selectedElementData
-                                ?
-                                <GEPanel
-                                    title={"Selected Element Data"}
-                                    onClickClose={() => this.setSelectedElementData(null)}
-                                    showToggleBtn={false}
-                                > <SelectedDataCanvas
-                                    selectedData={this.state.selectedElementData}
-                                    onClose={() => this.setSelectedElementData(null)}/>
-                                </GEPanel>
                                 : this.state.rightContentName === "founder-note"
                                     ?
                                     <GEPanel
@@ -488,7 +483,6 @@ export default class ExplorerView extends BaseView {
                                         onClickClose={() => this.setSelectedElementData(null)}
                                         showToggleBtn={false}
                                     > <FounderNote
-
                                         setLeftContent={this.setLeftContent.bind(this)}
                                         onClose={() => this.setRightContentName(null)}/>
                                     </GEPanel>

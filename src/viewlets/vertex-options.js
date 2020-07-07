@@ -57,48 +57,48 @@ export default class VertexOptions extends GremlinBasedComponent {
     }
 
     render() {
-        const selectedElementData = this.props.selectedElementData;
+        // const selectedElementData = this.props.selectedElementData;
         const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
-        const thisNodeOptions = allNodeOptions[selectedElementData.label] || {"properties": {}};
+        const thisNodeOptions = allNodeOptions[this.props.selectedElementData.label] || {"properties": {}};
         // get nodeOptions from localStorage.
-        console.log("=====selectedElementData>>>", selectedElementData)
+        console.log("=====selectedElementData>>>", this.props.selectedElementData)
         return (
             <div className={"p-10"}>
                 <form onSubmit={this.onFormSubmit.bind(this)}>
 
                     <label>Vertex Label</label>
                     <input type="text" name={"name"} readOnly={true} spellCheck="false"
-                           defaultValue={selectedElementData.label}/>
+                           value={this.props.selectedElementData.label}/>
                     <input type="hidden" name={"label"}
-                           defaultValue={selectedElementData.properties.name || selectedElementData.id}/>
-                    <input type="hidden" name={"uid"} defaultValue={selectedElementData.id}/>
+                           value={this.props.selectedElementData.properties.name || this.props.selectedElementData.id}/>
+                    <input type="hidden" name={"uid"} value={this.props.selectedElementData.id}/>
 
                     <label className={""}>Background Color</label>
                     <input type="text" name={"bgColor"} maxLength={7} minLength={7}
                            placeholder={"bgColor"} spellCheck="false"
-                           defaultValue={thisNodeOptions.bgColor || selectedElementData.meta.shapeOptions.fillColor}/>
+                           value={thisNodeOptions.bgColor || this.props.selectedElementData.meta.shapeOptions.fillColor}/>
 
                     <label className={""}>Border Color</label>
                     <input type="text" name={"borderColor"} maxLength={7} minLength={7}
                            placeholder={"borderColor"} spellCheck="false"
-                           defaultValue={thisNodeOptions.borderColor || selectedElementData.meta.shapeOptions.strokeColor}/>
+                           value={thisNodeOptions.borderColor || this.props.selectedElementData.meta.shapeOptions.strokeColor}/>
 
                     {/*<label className={""}>Background Image (from web)</label>*/}
                     <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
-                           defaultValue={thisNodeOptions.bgImageUrl || selectedElementData.meta.bgImageUrl}/>
+                           value={thisNodeOptions.bgImageUrl || this.props.selectedElementData.meta.bgImageUrl}/>
 
                     <label className={""}>Background Image (from data field)</label>
                     <input type="text" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            placeholder={"bgImagePropertyKey (optional)"}
-                           defaultValue={thisNodeOptions.bgImagePropertyKey || selectedElementData.meta.bgImagePropertyKey}/>
+                           value={thisNodeOptions.bgImagePropertyKey || this.props.selectedElementData.meta.bgImagePropertyKey}/>
 
                     {/*<label className={""}>Background HTML</label>*/}
                     <input type="hidden" name={"tagHtml"}
                            spellCheck="false"
                            placeholder={"tagHtml (optional)"}
-                           defaultValue={thisNodeOptions.tagHtml || ""}/>
+                           value={thisNodeOptions.tagHtml || ""}/>
                     <br/>
                     <button className={"mt-10 button primary-btn"} type={"submit"}>update</button>
                 </form>
