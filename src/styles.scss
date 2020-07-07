@@ -8,6 +8,7 @@ body {
   height: 100%;
   width: 100%;
   background: $darkBg;
+  //line-height: 1.6rem;
 }
 
 body {
@@ -41,7 +42,13 @@ a:hover {
 }
 
 p {
-  //margin: 0;
+  line-height: 1.3rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  //margin-top: 1.5rem;
+  //margin-bottom: 20px;
+  display: block;
 }
 
 input, textarea {
@@ -68,7 +75,7 @@ input, textarea {
 
 button {
   background: darken($darkBg, 5%);
-  width: 100%;
+  //width: 100%;
   border: 1px solid $borderColor;
   cursor: pointer;
   box-shadow: 0 2px #999;
@@ -79,7 +86,7 @@ button {
   border-radius: 2px;
   font-size: 14px;
   display: inline-block;
-  padding: 4px 5px;
+  padding: 4px 15px;
 
   :hover, :active, :focus {
     color: $primaryColor !important;
@@ -87,20 +94,24 @@ button {
   }
 }
 
-.button:after {
+.primary-btn {
+  border-color: $primaryColor;
+  box-shadow: 0 2px $primaryColor;
+}
+
+.button:after, .primary-btn:after {
   border-color: $primaryColor !important;
   opacity: 0;
   transition: all 0.8s
 }
 
-.button:active {
+.button:active, .primary-btn:active {
   border-color: $primaryColor;
   box-shadow: 0 2px $primaryColor;
   transform: translateY(4px);
 }
 
-
-.button:hover {
+.button:hover, .primary-btn:hover {
   border-color: $primaryColor;
   box-shadow: 0 2px $primaryColor;
 }
@@ -120,10 +131,12 @@ button {
 .p-0 {
   padding: 0;
 }
-.p-10{
+
+.p-10 {
   padding: 10px;
 }
-.mb-10{
+
+.mb-10 {
   margin-bottom: 10px;
 }
 
@@ -154,4 +167,13 @@ textarea {
   a:last-child {
     border-right: none !important;
   }
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: 220px;
 }

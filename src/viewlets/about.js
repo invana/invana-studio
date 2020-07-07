@@ -7,7 +7,7 @@ export default class AboutComponent extends React.Component {
     render() {
         return (
             <div className={"p-10"}>
-                <h3 style={{"marginBottom": "0", "fontWeight": "20px"}}>Graph Explorer <small>({VERSION})</small></h3>
+                <h3 style={{  "fontWeight": "20px"}}>Graph Explorer <small>({VERSION})</small></h3>
                 <p style={{"marginTop": "0"}}>
                     {ABOUT_TEXT} <br/>
                 </p>

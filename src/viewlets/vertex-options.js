@@ -63,7 +63,7 @@ export default class VertexOptions extends GremlinBasedComponent {
         if (response.status.code !== 200) {
             this.props.setErrorMessage(response.status);
         }
-        this.props.setStatusMessage("Updated vertex options for label '" + this.props.selectedElementData.label + "'");
+        this.props.setStatusMessage("Updated options for label '" + this.props.selectedElementData.label + "'");
         this.props.reRenderCanvas();
     }
 

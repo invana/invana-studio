@@ -449,7 +449,7 @@ export default class ExplorerView extends BaseView {
                             ?
 
                             <GEPanel
-                                title={"Element Options" + this.state.rightContentName}
+                                title={ this.state.selectedElementData.label + " | Options"}
                                 onClickClose={() => this.setSelectedElementData(null)}
                                 showToggleBtn={false}>
                                 <VertexOptions selectedElementData={this.state.selectedElementData}
@@ -463,7 +463,7 @@ export default class ExplorerView extends BaseView {
                             this.state.rightContentName === "selected-data" && this.state.selectedElementData
                                 ?
                                 <GEPanel
-                                    title={"Selected Element Data" + this.state.rightContentName}
+                                    title={"Selected Element Data"}
                                     onClickClose={() => this.setSelectedElementData(null)}
                                     showToggleBtn={false}
                                 > <SelectedDataCanvas
