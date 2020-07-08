@@ -7,9 +7,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faBook, faBug,
     faCog,
-     faExpand, faFilter,
+    faExpand, faFilter,
     faHistory, faInfoCircle, faLifeRing,
-     faSave,
+    faSave,
     // faQuestionCircle,
     faStickyNote, faSync, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
@@ -401,6 +401,8 @@ export default class ExplorerView extends BaseView {
                                                         setSelectedElementData={this.setSelectedElementData.bind(this)}
                                                         vertices={this.state.vertices}
                                                         edges={this.state.edges}
+                                                        setRightContentName={this.setRightContentName.bind(this)}
+
                                                         startQuery={this.startQuery.bind(this)}
                                                         queryGremlinServer={this.makeQuery.bind(this)}
                                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
@@ -473,24 +475,30 @@ export default class ExplorerView extends BaseView {
                                     onClickClose={() => this.setSelectedElementData(null)}
                                     showToggleBtn={false}>
 
-                                    <SelectedDataCanvas
-                                        selectedData={this.state.selectedElementData}
-                                        onClose={() => this.setSelectedElementData(null)}/>
+
+                                        <SelectedDataCanvas
+                                            selectedData={this.state.selectedElementData}
+                                            onClose={() => this.setSelectedElementData(null)}/>
+
                                 </GEPanel>
                                 :
                                 this.state.rightContentName === "vertex-options" && this.state.selectedElementData
                                     ?
-                                       <GEPanel
-                                    title={this.state.selectedElementData.label + " | Options"}
-                                    onClickClose={() => this.setHideVertexOptions()}
-                                    showToggleBtn={false}
-                                > <VertexOptions selectedElementData={this.state.selectedElementData}
-                                                 setStatusMessage={this.setStatusMessage.bind(this)}
-                                                 setErrorMessage={this.setErrorMessage.bind(this)}
-                                                 onClose={() => this.setHideVertexOptions.bind(this)}
-                                                 reRenderCanvas={this.reRenderCanvas.bind(this)}
-                                />
-                                </GEPanel>
+                                    <GEPanel
+                                        title={this.state.selectedElementData.label + " | Options"}
+                                        onClickClose={() => this.setHideVertexOptions()}
+                                        showToggleBtn={false}
+                                    >
+
+
+                                           <VertexOptions selectedElementData={this.state.selectedElementData}
+                                                   setStatusMessage={this.setStatusMessage.bind(this)}
+                                                   setErrorMessage={this.setErrorMessage.bind(this)}
+                                                   onClose={() => this.setHideVertexOptions.bind(this)}
+                                                   reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                    />
+
+                                    </GEPanel>
                                     : this.state.rightContentName === "founder-note"
                                     ?
                                     <GEPanel

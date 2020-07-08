@@ -57,16 +57,20 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     showProperties(selectedNode) {
-        this.props.setHideVertexOptions();
+        // this.props.setHideVertexOptions();
         this.props.setSelectedElementData(
             selectedNode
         )
+        this.props.setRightContentName("selected-data")
     }
 
     hideProperties() {
+
         this.props.setSelectedElementData(
             null
         )
+        this.props.setRightContentName(null)
+
     }
 
     getAdjacentNodeIds(nodeId) {
@@ -120,6 +124,16 @@ export default class D3ForceDirectedCanvas extends React.Component {
         return false;
     }
 
+    stopPropagatingEventToParentNode() {
+
+        const e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+        console.log("onNodeClicked:: ignored, because this is from child");
+
+
+    }
+
     expandOutLinksAndNodes(selectedNode) {
         console.log("expandOutLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
@@ -135,14 +149,16 @@ export default class D3ForceDirectedCanvas extends React.Component {
         console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
         let _this = this;
         // setTimeout(function () {
-            _this.hideProperties();
+        _this.hideProperties();
 
-            d3.select(".node-menu").selectAll("*").remove();
-            if (document.querySelector(".node-menu")) {
-                document.querySelector(".node-menu").remove();
-            }
+        d3.select(".node-menu").selectAll("*").remove();
+        if (document.querySelector(".node-menu")) {
+            document.querySelector(".node-menu").remove();
+        }
         // }, 50);
         this.props.setHideVertexOptions();
+        this.hideProperties();
+        this.props.setRightContentName(null);
     }
 
     releaseNodeLock(selectedNode) {
@@ -153,8 +169,14 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.simulation.alpha(DefaultHoverOpacity).restart();
     }
 
+    showVertexOptions(selectedNode){
+        this.stopPropagatingEventToParentNode();
+        this.props.setShowVertexOptions(selectedNode);
+    }
+
     onNodeClicked(thisnode, selectedNode) {
         console.log("onNodeClicked:: thisnode : selectedNode", thisnode, selectedNode);
+
         let _this = this;
         let thisNode = d3.select("#node-" + selectedNode.id);
         d3.select(".node-menu").remove();
@@ -243,7 +265,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 } else if (arch_node.data.option_name === "release-lock") {
                     _this.releaseNodeLock(selectedNode);
                 } else if (arch_node.data.option_name === "vertex-options") {
-                    _this.props.setShowVertexOptions(selectedNode);
+                    _this.showVertexOptions(selectedNode);
                 } else if (arch_node.data.option_name === "start-querying") {
                     const query = "node= g.V(" + selectedNode.id + ")";
                     _this.props.startQuery(query)
@@ -315,7 +337,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             })
             .on("mouseover", (d) => this.onNodeHoverIn(d))
             .on("mouseout", (d) => this.onNodeHoverOut(d))
-            .on("click", (d) => this.onNodeClicked(_this, d))
+            .on("click", (d) => this.onNodeClicked(_this, d));
 
         // node first circle
         node.append("circle")

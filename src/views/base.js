@@ -20,22 +20,9 @@ class GremlinViewBase extends GremlinBasedComponent {
     }
 
     setSelectedElementData(selectedData) {
-        // this.shallReRenderD3Canvas = false;
-        // alert("setSelectedElementData")
-        if (selectedData) {
-            this.setState({
-                selectedElementData: selectedData,
-                rightContentName: "selected-data",
-                // showVertexOptions: false
-            })
-        } else {
-            this.setState({
-                selectedElementData: null,
-                rightContentName: null,
-                // showVertexOptions: false
-            })
-        }
-
+        this.setState({
+            selectedElementData: selectedData,
+        })
     }
 
 

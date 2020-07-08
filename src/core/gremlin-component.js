@@ -142,7 +142,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         super.componentWillUnmount();
         clearInterval(this.queryElapsedTimerId);
         clearInterval(this.reconnectingTimerId);
-        this.ws.close();
+        // this.ws.close();
 
         console.log("gremlin-component componentWillUnmount triggered");
     }
