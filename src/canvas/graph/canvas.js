@@ -43,7 +43,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
 
-        nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor);
+        nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor); //TODO - add default value
         linkElements.style('opacity', '1');
         linkLabels.style('opacity', '1');
     }
@@ -51,15 +51,14 @@ export default class D3ForceDirectedCanvas extends React.Component {
     showElementProperties(selectedNode) {
         // this.props.setHideVertexOptions();
         this.props.setSelectedElementData(selectedNode)
-        this.props.setRightContentName("selected-data")
+        this.props.setMiddleBottomContentName("selected-data-overview")
     }
 
     hideElementProperties() {
-
         this.props.setSelectedElementData(
             null
         )
-        this.props.setRightContentName(null)
+        this.props.setMiddleBottomContentName(null)
 
     }
 
