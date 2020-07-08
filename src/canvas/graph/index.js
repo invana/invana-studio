@@ -13,10 +13,12 @@ export default class GraphCanvas extends React.Component {
         responses: [],
         shallReRenderD3Canvas: null,
         queryGremlinServer: () => console.error("queryGremlinServer prop not set for GraphCanvas"),
-        setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas"),
+        // setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas"),
         setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphCanvas"),
         setSelectedElementData: () => console.error("setSelectedElementData prop not set for GraphCanvas"),
         setRightContentName: () => console.error("setRightContentName prop not set for GraphCanvas"),
+        setMiddleBottomContentName: () => console.error("setMiddleBottomContentName prop not set for GraphCanvas"),
+        middleBottomContentName: () => console.error("middleBottomContentName prop not set for GraphCanvas"),
         vertices: [],
         startQuery: () => console.error("startQuery prop not set for GraphCanvas"),
         edges: []
@@ -54,9 +56,11 @@ export default class GraphCanvas extends React.Component {
                     shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                     setSelectedElementData={this.props.setSelectedElementData}
                     queryGremlinServer={this.props.queryGremlinServer}
-                    setShowVertexOptions={this.props.setShowVertexOptions}
+                    // setShowVertexOptions={this.props.setShowVertexOptions}
                     setHideVertexOptions={this.props.setHideVertexOptions}
                     setRightContentName={this.props.setRightContentName}
+                    setMiddleBottomContentName={this.props.setMiddleBottomContentName}
+                    middleBottomContentName={this.props.middleBottomContentName}
                     startQuery={this.props.startQuery}
                     setSelectedNode={this.props.setSelectedNode}
                 />

@@ -62,14 +62,14 @@ class GremlinViewBase extends GremlinBasedComponent {
         // this.updateVerticesAndEdges();
     }
 
-    setShowVertexOptions(selectedElementData) {
-        // alert("setShowVertexOptions");
-
-        this.setState({
-            selectedElementData: selectedElementData,
-            rightContentName: "vertex-options"
-        })
-    }
+    // setShowVertexOptions(selectedElementData) {
+    //     // alert("setShowVertexOptions");
+    //
+    //     this.setState({
+    //         selectedElementData: selectedElementData,
+    //         middleBottomContentName: "vertex-options"
+    //     })
+    // }
 
     reRenderCanvas() {
         this.setState({
@@ -80,7 +80,7 @@ class GremlinViewBase extends GremlinBasedComponent {
     setHideVertexOptions() {
         this.setState({
             selectedElementData: null,
-            rightContentName: null
+            middleBottomContentName: null
         })
     }
 

@@ -297,18 +297,67 @@ export default class ExplorerView extends BaseView {
                                         : "main-content-bottom closed"
                                 }
                             >
-                                {this.state.middleBottomContentName ? (
-                                    <GEPanel
-                                        title={"Middle Bottom Content"}
-                                        showToggleBtn={false}
-                                        onClickClose={() => this.setMiddleBottomContentName(null)}
-                                        // showCloseBtn={true}
-                                    >
-                                        <p>middle bottom here</p>
-                                    </GEPanel>
-                                ) : (
-                                    <span/>
-                                )}
+                                {/*{this.state.middleBottomContentName ? (*/}
+                                {/*    <GEPanel*/}
+                                {/*        title={"Middle Bottom Content"}*/}
+                                {/*        showToggleBtn={false}*/}
+                                {/*        onClickClose={() => this.setMiddleBottomContentName(null)}*/}
+                                {/*        // showCloseBtn={true}*/}
+                                {/*    >*/}
+                                {/*        <p>middle bottom here</p>*/}
+                                {/*    </GEPanel>*/}
+                                {/*) : (*/}
+                                {/*    <span/>*/}
+                                {/*)}*/}
+                                {
+                                    this.state.middleBottomContentName === "selected-data-overview" && this.state.selectedElementData
+                                        ?
+                                        <GEPanel
+                                            // title={"Selected Element Data"}
+                                            title={"Properties of hovered element"}
+
+                                            showToggleBtn={false}
+                                            showCloseBtn={true}
+                                            onClickClose={() => {
+                                                this.setHideVertexOptions();
+                                                this.setRightContentName(null)
+                                            }}
+                                        >
+
+
+                                            <SelectedDataCanvas
+                                                selectedData={this.state.selectedElementData}
+                                                onClose={() => {
+                                                    this.setSelectedElementData(null);
+                                                    this.setRightContentName(null)
+                                                }}/>
+
+                                        </GEPanel>
+                                        :
+                                        this.state.middleBottomContentName === "vertex-options" && this.state.selectedElementData
+                                            ?
+                                            <GEPanel
+                                                title={this.state.selectedElementData.label + " | Element Options"}
+                                                // title={null}
+                                                onClickClose={() => {
+                                                    this.setHideVertexOptions();
+                                                    this.setRightContentName(null)
+                                                }}
+                                                showToggleBtn={false}
+                                            >
+                                                <VertexOptions selectedElementData={this.state.selectedElementData}
+                                                               setStatusMessage={this.setStatusMessage.bind(this)}
+                                                               setErrorMessage={this.setErrorMessage.bind(this)}
+                                                               onClose={() => {
+                                                                   this.setHideVertexOptions.bind(this);
+                                                                   this.setRightContentName(null)
+                                                               }}
+                                                               reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                                />
+
+                                            </GEPanel>
+                                            : <span></span>
+                                }
                             </div>
                         </MainContentMiddle>
                         <MainContentRight
@@ -395,14 +444,15 @@ export default class ExplorerView extends BaseView {
                                             if (this.state.canvasType === "graph" && this.state.responses) {
                                                 return (
                                                     <GraphCanvas
-                                                        setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                                        setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                                        // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                                        // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                                         responses={this.state.responses}
                                                         setSelectedElementData={this.setSelectedElementData.bind(this)}
                                                         vertices={this.state.vertices}
                                                         edges={this.state.edges}
                                                         setRightContentName={this.setRightContentName.bind(this)}
-
+                                                        setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
+                                                        middleBottomContentName={this.state.middleBottomContentName}
                                                         startQuery={this.startQuery.bind(this)}
                                                         queryGremlinServer={this.makeQuery.bind(this)}
                                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
@@ -468,48 +518,17 @@ export default class ExplorerView extends BaseView {
                         {console.log("========== rightContentName", this.state.rightContentName)}
 
                         {
-                            this.state.rightContentName === "selected-data" && this.state.selectedElementData
+                            this.state.rightContentName === "founder-note"
                                 ?
                                 <GEPanel
-                                    title={"Selected Element Data"}
-                                    onClickClose={() => {this.setSelectedElementData(null); this.setRightContentName(null)}}
-                                    showToggleBtn={false}>
-
-
-                                        <SelectedDataCanvas
-                                            selectedData={this.state.selectedElementData}
-                                            onClose={() => {this.setSelectedElementData(null); this.setRightContentName(null)}}/>
-
+                                    title={"Note from Author"}
+                                    onClickClose={() => this.setSelectedElementData(null)}
+                                    showToggleBtn={false}
+                                > <FounderNote
+                                    setLeftContent={this.setLeftContent.bind(this)}
+                                    onClose={() => this.setRightContentName(null)}/>
                                 </GEPanel>
-                                :
-                                this.state.rightContentName === "vertex-options" && this.state.selectedElementData
-                                    ?
-                                    <GEPanel
-                                        title={this.state.selectedElementData.label + " | Options"}
-                                        onClickClose={() => {this.setHideVertexOptions(); this.setRightContentName(null)}}
-                                        showToggleBtn={false}
-                                    >
-
-
-                                           <VertexOptions selectedElementData={this.state.selectedElementData}
-                                                   setStatusMessage={this.setStatusMessage.bind(this)}
-                                                   setErrorMessage={this.setErrorMessage.bind(this)}
-                                                   onClose={() => {this.setHideVertexOptions.bind(this);this.setRightContentName(null)}}
-                                                   reRenderCanvas={this.reRenderCanvas.bind(this)}
-                                    />
-
-                                    </GEPanel>
-                                    : this.state.rightContentName === "founder-note"
-                                    ?
-                                    <GEPanel
-                                        title={"Note from Author"}
-                                        onClickClose={() => this.setSelectedElementData(null)}
-                                        showToggleBtn={false}
-                                    > <FounderNote
-                                        setLeftContent={this.setLeftContent.bind(this)}
-                                        onClose={() => this.setRightContentName(null)}/>
-                                    </GEPanel>
-                                    : <span></span>
+                                : <span></span>
                         }
 
                     </AsideRight>

@@ -74,8 +74,8 @@ export default class VertexOptions extends GremlinBasedComponent {
             <div className={"p-10"}>
                 <form onSubmit={this.onFormSubmit.bind(this)}>
 
-                    <label>Vertex Label</label>
-                    <input type="text" name={"name"} readOnly={true} spellCheck="false"
+                    {/*<label>Vertex Label</label>*/}
+                    <input type="hidden" name={"name"} readOnly={true} spellCheck="false"
                            defaultValue={selectedElementData.label}/>
                     <input type="hidden" name={"label"}
                            defaultValue={selectedElementData.properties.name || selectedElementData.id}/>

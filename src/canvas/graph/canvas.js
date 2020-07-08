@@ -23,6 +23,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         edges: [],
         shallReRenderD3Canvas: false,
         setSelectedElementData: (selectedData) => console.error("setSelectedElementData not set"),
+        setMiddleBottomContentName: (contentName) => console.error("setMiddleBottomContentName not set"),
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
     }
 
@@ -47,26 +48,13 @@ export default class D3ForceDirectedCanvas extends React.Component {
         linkLabels.style('opacity', '1');
     }
 
-    onNodeHoverOut(selectedNode) {
-        this.stopPropagatingEventToParentNode();
-        this.resetNodeHighlight(selectedNode);
-    }
-
-    onNodeHoverIn(selectedNode) {
-        this.stopPropagatingEventToParentNode();
-        this.highlightHoveredNodesAndEdges(selectedNode);
-        // console.log("onNodeHoverIn", selectedNode);
-    }
-
-    showProperties(selectedNode) {
+    showElementProperties(selectedNode) {
         // this.props.setHideVertexOptions();
-        this.props.setSelectedElementData(
-            selectedNode
-        )
+        this.props.setSelectedElementData(selectedNode)
         this.props.setRightContentName("selected-data")
     }
 
-    hideProperties() {
+    hideElementProperties() {
 
         this.props.setSelectedElementData(
             null
@@ -90,7 +78,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     highlightHoveredNodesAndEdges(selectedNode) {
-        this.stopPropagatingEventToParentNode();
+        this.stopPropagatingChildClickEventToParentEl();
 
         // this is performance intensive operation
         // let nodeElements = document.querySelectorAll('.everything .node');
@@ -118,7 +106,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     expandInLinksAndNodes(selectedNode) {
-        this.stopPropagatingEventToParentNode();
+        this.stopPropagatingChildClickEventToParentEl();
 
         console.log("expandInLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
@@ -130,18 +118,16 @@ export default class D3ForceDirectedCanvas extends React.Component {
         return false;
     }
 
-    stopPropagatingEventToParentNode() {
-
+    stopPropagatingChildClickEventToParentEl() {
+        // this will avoid clicks to parent when a child is clicked.
         const e = window.event;
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
         console.log("onNodeClicked:: ignored, because this is from child");
-
-
     }
 
     expandOutLinksAndNodes(selectedNode) {
-        this.stopPropagatingEventToParentNode();
+        this.stopPropagatingChildClickEventToParentEl();
 
         console.log("expandOutLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
@@ -154,12 +140,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     closeNodeMenu(selectedNode) {
-        this.stopPropagatingEventToParentNode();
+        this.stopPropagatingChildClickEventToParentEl();
 
         console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
         let _this = this;
         // setTimeout(function () {
-        _this.hideProperties();
+        _this.hideElementProperties();
 
         d3.select(".node-menu").selectAll("*").remove();
         if (document.querySelector(".node-menu")) {
@@ -167,12 +153,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
         }
         // }, 50);
         this.props.setHideVertexOptions();
-        this.hideProperties();
+        this.hideElementProperties();
         this.props.setRightContentName(null);
     }
 
     releaseNodeLock(selectedNode) {
-        this.stopPropagatingEventToParentNode();
+        this.stopPropagatingChildClickEventToParentEl();
 
         console.log("releaseNodeLock clicked", selectedNode);
         selectedNode.fixed = false;
@@ -182,8 +168,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     showVertexOptions(selectedNode) {
-        this.stopPropagatingEventToParentNode();
-        this.props.setShowVertexOptions(selectedNode);
+        this.stopPropagatingChildClickEventToParentEl();
+        this.props.setSelectedElementData(selectedNode);
+        this.props.setMiddleBottomContentName('vertex-options')
     }
 
     onNodeClicked(thisnode, selectedNode) {
@@ -331,9 +318,31 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 .attr("class", "off");
         });
 
-        this.showProperties(selectedNode);
+        // this.showElementProperties(selectedNode);
     }
 
+    onNodeHoverOut(selectedNode) {
+        this.stopPropagatingChildClickEventToParentEl();
+        // alert("this.props.middleBottomContentName " + this.props.middleBottomContentName )
+        if (this.props.middleBottomContentName === "selected-data-overview") {
+            this.props.setMiddleBottomContentName(null)
+            this.props.setSelectedElementData(null);
+            this.resetNodeHighlight(selectedNode);
+        }
+        /// dont make the selectedElementData null when middleBottomContentName=vertex-options
+    }
+
+    onNodeHoverIn(selectedNode) {
+        this.stopPropagatingChildClickEventToParentEl();
+        // this.se
+        if (this.props.middleBottomContentName === "vertex-options") {
+        } else {
+            this.props.setMiddleBottomContentName('selected-data-overview')
+            this.props.setSelectedElementData(selectedNode);
+            this.highlightHoveredNodesAndEdges(selectedNode);
+        }
+
+    }
 
     addVertices(nodesData) {
         console.log("VertexUtils.add", JSON.parse(JSON.stringify(nodesData)));
@@ -515,7 +524,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
         });
         d3.select('#link-' + selectedLink.id).style('stroke', "black");
-        this.showProperties(selectedLink);
+        this.showElementProperties(selectedLink);
     }
 
     onLinkMoveOut(selectedLink) {
@@ -525,7 +534,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor);
         linkElements.style('opacity', '1');
         d3.select('#link-' + selectedLink.id).style('stroke', "#666");
-        this.hideProperties();
+        this.hideElementProperties();
     }
 
     addEdges(edges) {

@@ -45,16 +45,16 @@ export default class SelectedDataCanvas extends React.Component {
 
         return (
             <div >
-                <div className={"SelectedDataHeading"}>
-                    <span className={"itemLabel"} style={{
-                        "backgroundColor":
-                        selectedDataColorSchema.bgColor
-                    }}>
-                        {cleanedData.label}
-                    </span>
-                    {cleanedData.properties.name || cleanedData.id}
+                {/*<div className={"SelectedDataHeading"}>*/}
+                {/*    <span className={"itemLabel"} style={{*/}
+                {/*        "backgroundColor":*/}
+                {/*        selectedDataColorSchema.bgColor*/}
+                {/*    }}>*/}
+                {/*        {cleanedData.label}*/}
+                {/*    </span>*/}
+                {/*    {cleanedData.properties.name || cleanedData.id}*/}
 
-                </div>
+                {/*</div>*/}
                 <div className="SelectedDataList mainDetails">
 
 
