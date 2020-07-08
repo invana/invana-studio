@@ -1,6 +1,6 @@
 import BaseView from "./base";
 import React from "react";
-import {redirectToConnectIfNeeded} from "../core/utils";
+import {redirectToConnectIfNeeded, removeItemFromLocalStorage} from "../core/utils";
 import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -32,7 +32,7 @@ import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
 import QueryConsole from "../viewlets/query-console";
 import AboutComponent from "../viewlets/about";
-import {REPO_URL} from "../config";
+import {CONNECT_URL, gremlinServerUrlKey, REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
 import GraphCanvas from "../canvas/graph";
 import JSONCanvas from "../canvas/json";
@@ -108,6 +108,22 @@ export default class ExplorerView extends BaseView {
         //     this.flushResponsesData();
         // }
         this.makeQuery(query, {source: "console"});
+    }
+
+
+    confirmFlushCanvas() {
+        let r = window.confirm("Are you sure you want to clear the canvas");
+        if (r === true) {
+            this.flushCanvas();
+        }
+    }
+
+    confirmRedrawCanvas() {
+
+        let r = window.confirm("Are you sure you want to re-draw the canvas");
+        if (r === true) {
+            this.setState({shallReRenderD3Canvas: true})
+        }
     }
 
     onErrorMessageFlyoutClose() {
@@ -408,12 +424,14 @@ export default class ExplorerView extends BaseView {
                                             </div>
                                         </li>
                                         <li>
-                                            <button title={"clear the canvas"} onClick={() => this.flushCanvas()}>
+                                            <button title={"clear the canvas"}
+                                                    onClick={() => this.confirmFlushCanvas()}>
                                                 <FontAwesomeIcon icon={faTrashAlt}/>
                                             </button>
                                         </li>
                                         <li>
-                                            <button title={"re render the canvas"} onClick={() => this.setState({shallReRenderD3Canvas: true})}>
+                                            <button title={"re render the canvas"}
+                                                    onClick={() => this.confirmRedrawCanvas()}>
                                                 <FontAwesomeIcon icon={faSync}/>
                                             </button>
                                         </li>
