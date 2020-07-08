@@ -408,8 +408,13 @@ export default class ExplorerView extends BaseView {
                                             </div>
                                         </li>
                                         <li>
-                                            <button onClick={() => this.flushResponsesData()}>
+                                            <button title={"clear the canvas"} onClick={() => this.flushResponsesData()}>
                                                 <FontAwesomeIcon icon={faTrashAlt}/>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button title={"re render the canvas"} onClick={() => this.setState({shallReRenderD3Canvas: true})}>
+                                                <FontAwesomeIcon icon={faSync}/>
                                             </button>
                                         </li>
                                         <li>
@@ -423,16 +428,12 @@ export default class ExplorerView extends BaseView {
                                                 <FontAwesomeIcon icon={faFilter}/>
                                             </button>
                                         </li>
-                                        <li>
-                                            <button onClick={() => alert("Still in the Design stage")}>
-                                                <FontAwesomeIcon icon={faSync}/>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button onClick={() => alert("Still in the Design stage")}>
-                                                <FontAwesomeIcon icon={faExpand}/>
-                                            </button>
-                                        </li>
+
+                                        {/*<li>*/}
+                                        {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
+                                        {/*        <FontAwesomeIcon icon={faExpand}/>*/}
+                                        {/*    </button>*/}
+                                        {/*</li>*/}
 
                                     </List>
                                 </div>
