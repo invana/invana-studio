@@ -30,8 +30,8 @@ export default class LegendCanvas extends React.Component {
         let legend = this.state.legendCanvas.append("g")
             .attr("class", "vertices-legend")
             .style("margin-top", "5px")
-            .attr("height", 0)
-            .attr("width", 0)
+            // .attr("height", 0)
+            // .attr("width", 0)
             .attr('transform', 'translate(' + (10) + ',' + (edges_legend_height + 35) + ')');
 
 
@@ -156,7 +156,7 @@ export default class LegendCanvas extends React.Component {
 
         this.startRendering();
         return <div className={"graphLegend"}>
-            <svg></svg>
+            <svg height={"100%"}></svg>
         </div>;
     }
 }

@@ -1,16 +1,19 @@
 @import "../config";
 
 .queryConsole {
+    position: relative;
 
   textarea {
     width: calc(100% - 12px);
-    height: 450px;
+    height: calc(100vh - 46px - 24px - 350px);
+    position: relative;
     padding: 5px;
     border-radius: 2px;
-    background: transparent;
+    background: darken($darkBg, 2%);
     color: $defaultTextColor;
     font-family: Courier;
-    font-size: 13px;
+    font-size: 16px;
+    line-height: 1.5rem;
   }
 
   button {
@@ -51,7 +54,7 @@
     }
     .float-right{
       margin-top:5px;
-      margin-right: 5px;
+      //margin-right: 5px;
     }
   }
 

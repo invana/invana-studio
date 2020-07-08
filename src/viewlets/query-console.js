@@ -68,7 +68,7 @@ export default class QueryConsole extends React.Component {
     render() {
         return (
 
-            <div className={"queryConsole"}>
+            <div className={"queryConsole p-10"}>
                 <form ref={e => this.formRef = e} id={"queryForm"} onSubmit={this.onFormSubmit.bind(this)}>
                     {/*<p className={"small "}>Shift+Enter to submit the Query.</p>*/}
 
@@ -81,7 +81,7 @@ export default class QueryConsole extends React.Component {
                             </label>
                         </div>
                         <div className={"float-right"}>
-                            <button className={"button"} type={"submit"}
+                            <button className={"button m-0"} type={"submit"}
                                     onSubmit={this.onFormSubmit.bind(this)}
                             >
                                 <FontAwesomeIcon icon={faPlayCircle}/> Run Query

@@ -472,13 +472,13 @@ export default class ExplorerView extends BaseView {
                                 ?
                                 <GEPanel
                                     title={"Selected Element Data"}
-                                    onClickClose={() => this.setSelectedElementData(null)}
+                                    onClickClose={() => {this.setSelectedElementData(null); this.setRightContentName(null)}}
                                     showToggleBtn={false}>
 
 
                                         <SelectedDataCanvas
                                             selectedData={this.state.selectedElementData}
-                                            onClose={() => this.setSelectedElementData(null)}/>
+                                            onClose={() => {this.setSelectedElementData(null); this.setRightContentName(null)}}/>
 
                                 </GEPanel>
                                 :
@@ -486,7 +486,7 @@ export default class ExplorerView extends BaseView {
                                     ?
                                     <GEPanel
                                         title={this.state.selectedElementData.label + " | Options"}
-                                        onClickClose={() => this.setHideVertexOptions()}
+                                        onClickClose={() => {this.setHideVertexOptions(); this.setRightContentName(null)}}
                                         showToggleBtn={false}
                                     >
 
@@ -494,7 +494,7 @@ export default class ExplorerView extends BaseView {
                                            <VertexOptions selectedElementData={this.state.selectedElementData}
                                                    setStatusMessage={this.setStatusMessage.bind(this)}
                                                    setErrorMessage={this.setErrorMessage.bind(this)}
-                                                   onClose={() => this.setHideVertexOptions.bind(this)}
+                                                   onClose={() => {this.setHideVertexOptions.bind(this);this.setRightContentName(null)}}
                                                    reRenderCanvas={this.reRenderCanvas.bind(this)}
                                     />
 
