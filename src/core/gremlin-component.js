@@ -51,7 +51,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     queryElapsedTimerId = null;
     reconnectingTimerId = null;
     ws = null;
-    responses = null;
+    streamResponses = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
         reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
@@ -72,7 +72,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
         }
         this.ws = this.createWebSocket();
-        this.responses = [];
+        this.streamResponses = [];
     }
 
     createWebSocket() {
@@ -151,15 +151,21 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.setupWebSocket();
     }
 
-    flushResponsesData() {
-        this.responses = [];
+    flushStreamResponsesData() {
+        this.streamResponses = [];
+        // this.setState({
+        //     shallReRenderD3Canvas: true
+        // })
+
+    }
+
+    flushCanvas() {
         this.setState({
             responses: [],
             vertices: [],
             edges: [],
             shallReRenderD3Canvas: true
         })
-
     }
 
     generateQueryPayload(query) {
@@ -220,13 +226,13 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             if (response.status.code === 206) {
                 this.setIsStreaming(true);
                 this.setStatusMessage("Gathering data from the stream");
-                this.responses.push(response);
+                this.streamResponses.push(response);
             } else {
-                this.responses.push(response);
+                this.streamResponses.push(response);
                 this.setIsStreaming(false);
                 this.setStatusMessage("Responded to the Query Successfully");
-                const responses = Object.assign(this.responses);
-                this.flushResponsesData();
+                const responses = Object.assign(this.streamResponses);
+                this.flushStreamResponsesData();
                 this._processResponse(responses);
             }
         } else {
@@ -234,8 +240,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             console.log("response===========", response);
             this.setErrorMessage(response.status)
             this.setStatusMessage("Query Failed with " + response.status.code + " error.");
-            this.responses.push(response);
-            const responses = Object.assign(this.responses);
+            this.streamResponses.push(response);
+            const responses = Object.assign(this.streamResponses);
             this._processResponse(responses);
         }
     }
@@ -310,7 +316,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         let _this = this;
         this.setState({statusMessage: "Querying..."})
         console.log("queryGremlinServer :::  query", query);
-        this.flushResponsesData();
         if (query) {
             this.startQueryTimer();
             let msg = this.generateQueryPayload(query);

@@ -29,6 +29,7 @@ class GremlinViewBase extends GremlinBasedComponent {
     extendGraph(responses) {
         let overallNodes = this.state.vertices;
         let overallLinks = this.state.edges;
+        console.log("========this.state", this.state)
         console.log("<<<>>>overallNodes", overallNodes);
 
         responses.forEach(function (response) {
@@ -115,8 +116,6 @@ export default class BaseView extends GremlinViewBase {
             bottomContentName: null,
             middleBottomContentName: null,
             // layout var ends
-
-
         };
     }
 

@@ -103,10 +103,10 @@ export default class ExplorerView extends BaseView {
 
     onQuerySubmit(query, queryOptions) {
         console.log("Query is " + query);
-        if (queryOptions.source === "canvas") {
-            // this is the beginning of a new query.
-            this.flushResponsesData();
-        }
+        // if (queryOptions.source === "canvas") {
+        //     // this is the beginning of a new query.
+        //     this.flushResponsesData();
+        // }
         this.makeQuery(query, {source: "console"});
     }
 
@@ -408,7 +408,7 @@ export default class ExplorerView extends BaseView {
                                             </div>
                                         </li>
                                         <li>
-                                            <button title={"clear the canvas"} onClick={() => this.flushResponsesData()}>
+                                            <button title={"clear the canvas"} onClick={() => this.flushCanvas()}>
                                                 <FontAwesomeIcon icon={faTrashAlt}/>
                                             </button>
                                         </li>
