@@ -1,5 +1,16 @@
 @import "../../config";
 
+.ge-panel-body::-webkit-scrollbar {
+    width:8px;
+}
+.ge-panel-body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.ge-panel-body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
 .ge-panel {
   // border: 1px solid $borderColor;
   height: 100%;
