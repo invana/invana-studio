@@ -1,7 +1,16 @@
 @import "../config";
 
 .queryConsole {
-    position: relative;
+  position: relative;
+
+  input[name="queryRepeatFrequency"] {
+    width: 35px;
+    border: transparent;
+    border-bottom: 1px solid $borderColor;
+    height: auto;
+    padding: 0 3px;
+    margin: 5px;
+  }
 
   textarea {
     width: calc(100% - 12px);
@@ -14,6 +23,7 @@
     font-family: Courier;
     font-size: 14px;
     line-height: 1.5rem;
+    min-height: 200px;
   }
 
   button {
@@ -52,8 +62,9 @@
       margin-top: 14px;
       //margin-top: 14px;
     }
-    .float-right{
-      margin-top:5px;
+
+    .float-right {
+      margin-top: 5px;
       //margin-right: 5px;
     }
   }

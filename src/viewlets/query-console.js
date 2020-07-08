@@ -2,10 +2,13 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
 import "./query-console.scss";
+import {DefaultMaxTimeElapsedWarningInSeconds} from "../config";
 
 const Mousetrap = require("mousetrap");
 
 export default class QueryConsole extends React.Component {
+
+    repeatTimer = null;
 
     static defaultProps = {
         onQuerySubmit: () => console.log("No Query Handler added yet"),
@@ -29,6 +32,7 @@ export default class QueryConsole extends React.Component {
     componentWillUnmount() {
         // super.componentWillUnmount();
         Mousetrap.unbind("esc");
+        clearInterval(this.repeatTimer);
     }
 
 
@@ -62,6 +66,52 @@ export default class QueryConsole extends React.Component {
         this.props.onQuerySubmit(e.target.query.value, {source: "console"});
     }
 
+    // queryRepeaterHandler(e) {
+    //     this.handleChange({
+    //         target: {
+    //             name: e.target.name,
+    //             value: e.target.checked,
+    //         },
+    //     });
+    //     // alert( e.target.checked)
+    // }
+
+
+    setUpTimer(repeatFrequency) {
+        let _this = this;
+        this.repeatTimer = setInterval((function () {
+                console.log("Repeating the query every " + repeatFrequency)
+                _this.props.onQuerySubmit(
+                    document.querySelector('textarea[name="query"]').value
+                    , {source: "console"}
+                );
+            }
+        ), repeatFrequency * 1000); // check every second.
+    }
+
+    handleChange({target}) {
+        let _this = this;
+
+        let repeatFrequency = document.querySelector('input[name="queryRepeatFrequency"]').value;
+        if (target.checked) {
+
+            const r = window.confirm("This will repeat the query in the console for every " + repeatFrequency + " seconds." +
+                "Do you want to proceed!");
+            if (r === true) {
+                target.setAttribute('checked', true);
+                this.setUpTimer(repeatFrequency)
+            }
+
+        } else {
+            target.removeAttribute('checked');
+            clearInterval(_this.repeatTimer);
+            alert("INFO: Query will not be repeated anymore.");
+
+
+        }
+    }
+
+
     render() {
         return (
 
@@ -71,11 +121,21 @@ export default class QueryConsole extends React.Component {
 
                     <div className={"queryOptions"}>
                         <div className={"float-left"}>
-                            {/*<label htmlFor="isFreshCanvas">*/}
-                            {/*    <input type="checkbox" name="isFreshCanvas"*/}
-                            {/*           defaultChecked={"checked"}*/}
-                            {/*           value="."/> extend canvas*/}
-                            {/*</label>*/}
+                            <label htmlFor="isQueryRepeatEnabled">
+                                <input type="checkbox" name="isQueryRepeatEnabled"
+                                    // defaultChecked={"checked"}
+                                       onClick={this.handleChange.bind(this)}
+                                    // onChange={this.handleQueryRepeater}
+                                       value="."/>
+                                Repeat this query <span className={"repeatInfoCls"}>every
+                                <input type="number"
+                                       min={5}
+                                       defaultValue={5}
+                                    // value={15}
+                                       name={"queryRepeatFrequency"}/>
+                                       seconds.
+                                    </span>
+                            </label>
                         </div>
                         <div className={"float-right"}>
                             <button className={"button m-0"} type={"submit"}
