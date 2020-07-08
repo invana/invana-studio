@@ -48,10 +48,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     onNodeHoverOut(selectedNode) {
+        this.stopPropagatingEventToParentNode();
         this.resetNodeHighlight(selectedNode);
     }
 
     onNodeHoverIn(selectedNode) {
+        this.stopPropagatingEventToParentNode();
         this.highlightHoveredNodesAndEdges(selectedNode);
         // console.log("onNodeHoverIn", selectedNode);
     }
@@ -88,6 +90,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     highlightHoveredNodesAndEdges(selectedNode) {
+        this.stopPropagatingEventToParentNode();
+
         // this is performance intensive operation
         // let nodeElements = document.querySelectorAll('.everything .node');
         // console.log("highlightHoveredNodesAndEdges selectedNode=====", selectedNode);
@@ -114,6 +118,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     expandInLinksAndNodes(selectedNode) {
+        this.stopPropagatingEventToParentNode();
+
         console.log("expandInLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
         let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
@@ -135,6 +141,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     expandOutLinksAndNodes(selectedNode) {
+        this.stopPropagatingEventToParentNode();
+
         console.log("expandOutLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
         let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
@@ -146,6 +154,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     closeNodeMenu(selectedNode) {
+        this.stopPropagatingEventToParentNode();
+
         console.log("closeNodeMenu clicked", selectedNode, d3.select(".node-menu").selectAll("*"));
         let _this = this;
         // setTimeout(function () {
@@ -162,6 +172,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     releaseNodeLock(selectedNode) {
+        this.stopPropagatingEventToParentNode();
+
         console.log("releaseNodeLock clicked", selectedNode);
         selectedNode.fixed = false;
         selectedNode.fx = null;
@@ -169,7 +181,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.simulation.alpha(DefaultHoverOpacity).restart();
     }
 
-    showVertexOptions(selectedNode){
+    showVertexOptions(selectedNode) {
         this.stopPropagatingEventToParentNode();
         this.props.setShowVertexOptions(selectedNode);
     }

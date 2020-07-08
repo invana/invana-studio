@@ -463,7 +463,7 @@ export default class ExplorerView extends BaseView {
                         </li>
                     </List>
                 </GEFooter>
-                {this.state.rightContentName || this.state.selectedElementData ? (
+                {this.state.rightContentName ? (
                     <AsideRight>
                         {console.log("========== rightContentName", this.state.rightContentName)}
 
