@@ -522,7 +522,7 @@ export default class ExplorerView extends BaseView {
                                 ?
                                 <GEPanel
                                     title={"Note from Author"}
-                                    onClickClose={() => this.setSelectedElementData(null)}
+                                    onClickClose={() => this.setRightContentName(null)}
                                     showToggleBtn={false}
                                 > <FounderNote
                                     setLeftContent={this.setLeftContent.bind(this)}
