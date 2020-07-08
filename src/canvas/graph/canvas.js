@@ -323,11 +323,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
     onNodeHoverOut(selectedNode) {
         this.stopPropagatingChildClickEventToParentEl();
         // alert("this.props.middleBottomContentName " + this.props.middleBottomContentName )
-        if (this.props.middleBottomContentName === "selected-data-overview") {
-            this.props.setMiddleBottomContentName(null)
-            this.props.setSelectedElementData(null);
-            this.resetNodeHighlight(selectedNode);
-        }
+        // if (this.props.middleBottomContentName === "selected-data-overview") {
+        //     this.props.setMiddleBottomContentName(null)
+        //     this.props.setSelectedElementData(null);
+        //     this.resetNodeHighlight(selectedNode);
+        // }
         /// dont make the selectedElementData null when middleBottomContentName=vertex-options
     }
 
@@ -533,7 +533,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor);
         linkElements.style('opacity', '1');
         d3.select('#link-' + selectedLink.id).style('stroke', "#666");
-        this.hideElementProperties();
+        // this.hideElementProperties();
     }
 
     addEdges(edges) {
