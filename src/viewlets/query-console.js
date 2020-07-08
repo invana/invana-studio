@@ -59,10 +59,7 @@ export default class QueryConsole extends React.Component {
     onFormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-
-        //
-        const sourceType = e.target.isFreshCanvas.checked ? "console":  "canvas";
-        this.props.onQuerySubmit(e.target.query.value, {source: sourceType});
+        this.props.onQuerySubmit(e.target.query.value, {source: "console"});
     }
 
     render() {
@@ -74,11 +71,11 @@ export default class QueryConsole extends React.Component {
 
                     <div className={"queryOptions"}>
                         <div className={"float-left"}>
-                            <label htmlFor="isFreshCanvas">
-                                <input type="checkbox" name="isFreshCanvas"
-                                       defaultChecked={"checked"}
-                                       value="."/> extend canvas
-                            </label>
+                            {/*<label htmlFor="isFreshCanvas">*/}
+                            {/*    <input type="checkbox" name="isFreshCanvas"*/}
+                            {/*           defaultChecked={"checked"}*/}
+                            {/*           value="."/> extend canvas*/}
+                            {/*</label>*/}
                         </div>
                         <div className={"float-right"}>
                             <button className={"button m-0"} type={"submit"}
