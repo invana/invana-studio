@@ -122,7 +122,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         const e = window.event;
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
-        console.log("onNodeClicked:: ignored, because this is from child");
+        console.debug("onNodeClicked:: ignored, because this is from child");
     }
 
     expandOutLinksAndNodes(selectedNode) {
@@ -394,7 +394,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .html(function (d) {
                 const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4) * 1.5;
                 if (d.meta.bgImageUrl) {
-                    return "<img src_='" + d.meta.bgImageUrl + "' style='width: " + side + "px; border-radius: 3rem;' />"
+                    return "<img src='" + d.meta.bgImageUrl + "' style='width: " + side + "px; border-radius: 3rem;' />"
                 }
             })
 
