@@ -44,7 +44,6 @@ docker run -p 8888:8888 -d invana-graph-explorer
 ![4](./docs/screenshots/4.png)
 ![5](./docs/screenshots/5.png)
 ![6](./docs/screenshots/6.png)
-![7](docs/screenshots/7.png)
 
 
 ## License
