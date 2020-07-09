@@ -17,6 +17,7 @@ ul {
     margin: 10px;
     vertical-align: middle;
 
+
     a, span, button {
       display: table-cell;
       vertical-align: middle;
@@ -136,6 +137,8 @@ ul {
     border: none;
     border-bottom: 1px solid $borderColor;
     margin: 0;
+       padding-bottom: 5px;
+    margin-bottom: 5px;
 
     a {
       //padding: 15px 17px;

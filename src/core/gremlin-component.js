@@ -71,12 +71,11 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             edges: []
 
         }
-        this.ws = this.createWebSocket();
+        // this.ws = this.createWebSocket();
         this.streamResponses = [];
     }
 
     createWebSocket() {
-        console.log("=====gremlinUrl", typeof this.props.gremlinUrl, this.props.gremlinUrl);
         return new WebSocket(this.props.gremlinUrl);
     }
 
@@ -92,7 +91,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         console.log("setIsConnected2Gremlin", status)
         this.setState({isConnected2Gremlin: status});
     }
-
 
     setupWebSocket() {
         let _this = this;
@@ -133,13 +131,11 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         }
     }
 
-
     componentDidMount() {
         console.log("gremlin-component componentDidMount")
         let shallConnect = redirectToConnectIfNeeded();
-        alert("shallConnect==", shallConnect)
         if (shallConnect) {
-            this.connect();
+            this.reconnect()
         }
     }
 
