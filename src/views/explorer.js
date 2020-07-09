@@ -61,6 +61,24 @@ export default class ExplorerView extends BaseView {
         return new URLSearchParams(window.location.search).get("query");
     }
 
+    getLatestResponse() {
+        // alert(this.state.responses.length);
+        if (this.state.responses.length > 0) {
+            const responses = this.state.responses;
+            const lastResponse = responses[responses.length - 1];
+            // console.log("=======lastResponse", lastResponse)
+            return {
+                status: lastResponse.status.code,
+                response: lastResponse
+            }
+        } else {
+            return {
+                status: null,
+                response: null
+            }
+        }
+    }
+
     setupHotKeys() {
         Mousetrap.bind("ctrl+1", () => this.switchCanvasTo("graph"));
         Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table"));
@@ -382,11 +400,17 @@ export default class ExplorerView extends BaseView {
                                 this.state.bottomContentName === "error-console" ? (
                                     <AsideBottom>
                                         <GEPanel
-                                            title={"Error Console"}
+                                            title={"Response Console"}
                                             onClickClose={() => this.setBottomContentName(null)}
                                             showToggleBtn={false}
                                         >
-                                            <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
+                                            {this.state.errorMessage
+                                                ? <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
+                                                : <span>
+                                                    <pre>{JSON.stringify(this.getLatestResponse().response.result, null, 2)}</pre>
+                                                </span>
+                                            }
+
                                         </GEPanel>
                                     </AsideBottom>
                                 ) : (
@@ -519,11 +543,25 @@ export default class ExplorerView extends BaseView {
                         <li><span>{this.state.statusMessage}</span></li>
                     </List>
                     <List type={"nav-right"}>
-                        {/*<li>*/}
-                        {/*    <a onClick={() => this.setBottomContentName("response")}>*/}
-                        {/*        200 Response*/}
-                        {/*    </a>*/}
-                        {/*</li>*/}
+
+                        {this.getLatestResponse().status
+                            ?
+                            <li>
+                                <a onClick={() => this.setBottomContentName("error-console")}>
+                                    {
+                                        this.getLatestResponse().status ?
+                                            this.getLatestResponse().status !== 200
+                                                ? <strong
+                                                    className={"error-badge"}>{this.getLatestResponse().status}</strong>
+                                                : <strong
+                                                    className={"ok-badge"}>{this.getLatestResponse().status}</strong>
+                                            : <strong>NA</strong>
+                                    }
+                                    &nbsp; Response
+                                </a>
+                            </li>
+                            : <li><span></span></li>
+                        }
                         <li>
                             <span>{this.state.canvasType} canvas</span>
                         </li>

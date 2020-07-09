@@ -185,3 +185,17 @@ li.logo {
     font-size: 18px;
   }
 }
+.error-badge{
+    display: inline;
+    padding: 0 3px;
+    background: #b45f5f;
+    color: white;
+    border-radius: 2px;
+}
+.ok-badge{
+    display: inline;
+    padding: 0 3px;
+    background: #598b27;
+    color: white;
+    border-radius: 2px;
+}
