@@ -74,7 +74,9 @@ export default class ExplorerView extends BaseView {
         } else {
             return {
                 status: null,
-                response: null
+                response: {
+                    result: null
+                }
             }
         }
     }
