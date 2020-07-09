@@ -9,13 +9,23 @@ import {
     DefaultLabelVisibility,
     DefaultNodeLabelColor
 } from "../../config";
+
 const ColorHash = require('color-hash');
 
 const colorHash = new ColorHash({hue: {min: 90, max: 270}});
 
-export function getColorForString(label){
+export function getColorForString(label) {
     return colorHash.hex(label); // '#8796c5'
+}
 
+export function getDefaultNodeOptions(label) {
+    return {
+        bgColor: getColorForString(label),
+        borderColor: DefaultNodeBorderColor,
+        bgImageUrl: null,
+        bgImagePropertyKey: null,
+        tagHtml: null
+    }
 }
 
 export function removeVertexMeta(data) {
@@ -111,8 +121,6 @@ export function prepareLinksDataForCurves(links) {
         return obj;
     })
 }
-
-
 
 
 export function prepareNodesDataWithOptions(nodes, options) {
