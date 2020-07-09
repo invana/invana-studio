@@ -547,7 +547,7 @@ export default class ExplorerView extends BaseView {
                         {this.getLatestResponse().status
                             ?
                             <li>
-                                <button onClick={() => this.setBottomContentName("error-console")}>
+                                <button className={"no-bg"} onClick={() => this.setBottomContentName("error-console")}>
                                     {
                                         this.getLatestResponse().status ?
                                             this.getLatestResponse().status !== 200

@@ -165,7 +165,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             responses: [],
             vertices: [],
             edges: [],
-            shallReRenderD3Canvas: true
+            shallReRenderD3Canvas: true,
+            selectedElementData: null
         })
     }
 
