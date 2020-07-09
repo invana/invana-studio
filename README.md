@@ -5,8 +5,8 @@ Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported
 **This project is at Alpha Release currently, and expected 
 to go into Beta in few weeks depending on the feed back
 from the Community.** You can access live version of the demo hosted on heroku.
-- [stable release version](https://graph-explorer.herokuapp.com/) 
-- [latest version](https://graph-explorer-edge.herokuapp.com/) 
+- [stable release version](http://graph-explorer.herokuapp.com/) 
+- [latest version](http://graph-explorer-edge.herokuapp.com/) 
 
 **Note:** You still need gremlin server running on your local or remote.
 
