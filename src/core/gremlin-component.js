@@ -161,12 +161,14 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     }
 
     flushCanvas() {
+        alert("flush triggerd");
         this.setState({
             responses: [],
             vertices: [],
             edges: [],
             shallReRenderD3Canvas: true,
-            selectedElementData: null
+            selectedElementData: null,
+            middleBottomContentName: null
         })
     }
 

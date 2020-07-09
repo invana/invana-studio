@@ -7,7 +7,7 @@ import {
 import {
     managementVertexLabel
 } from "../config";
-import { getDefaultNodeOptions} from "../canvas/graph/canvas-utils";
+import {getDefaultNodeOptions} from "../canvas/graph/canvas-utils";
 
 
 export default class VertexOptions extends GremlinBasedComponent {
@@ -67,14 +67,19 @@ export default class VertexOptions extends GremlinBasedComponent {
 
     render() {
         const selectedElementData = this.props.selectedElementData;
-        let thisNodeOptions =  {"properties": {}}
+        let thisNodeOptions = null;
         try {
             const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
-            thisNodeOptions = allNodeOptions[this.props.selectedElementData.label] || {"properties": {}};
+            thisNodeOptions = allNodeOptions[this.props.selectedElementData.label];
 
         } catch (e) {
-            thisNodeOptions = getDefaultNodeOptions(selectedElementData.label);
 
+        }
+
+        console.log("======thisNodeOptions " + JSON.stringify(thisNodeOptions))
+        if (!thisNodeOptions) {
+            alert("setting default")
+            thisNodeOptions = getDefaultNodeOptions(selectedElementData.label, selectedElementData.meta);
         }
         // get nodeOptions from localStorage.
         // console.log("=====selectedElementData>>>", this.props.selectedElementData)
@@ -92,23 +97,23 @@ export default class VertexOptions extends GremlinBasedComponent {
                     <label className={""}>Background Color</label>
                     <input type="text" name={"bgColor"} maxLength={7} minLength={7}
                            placeholder={"bgColor"} spellCheck="false"
-                           defaultValue={thisNodeOptions.bgColor || selectedElementData.meta.shapeOptions.fillColor}/>
+                           defaultValue={thisNodeOptions.bgColor}/>
 
                     <label className={""}>Border Color</label>
                     <input type="text" name={"borderColor"} maxLength={7} minLength={7}
                            placeholder={"borderColor"} spellCheck="false"
-                           defaultValue={thisNodeOptions.borderColor || selectedElementData.meta.shapeOptions.strokeColor}/>
+                           defaultValue={thisNodeOptions.borderColor }/>
 
-                    {/*<label className={""}>Background Image (from web)</label>*/}
+                    <label className={""}>Background Image (from web)</label>
                     <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
-                           defaultValue={thisNodeOptions.bgImageUrl || selectedElementData.meta.bgImageUrl}/>
+                           defaultValue={thisNodeOptions.bgImageUrl }/>
 
                     <label className={""}>Background Image (from data field)</label>
                     <input type="text" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            placeholder={"bgImagePropertyKey (optional)"}
-                           defaultValue={thisNodeOptions.bgImagePropertyKey || selectedElementData.meta.bgImagePropertyKey}/>
+                           defaultValue={thisNodeOptions.bgImagePropertyKey}/>
 
                     {/*<label className={""}>Background HTML</label>*/}
                     <input type="hidden" name={"tagHtml"}

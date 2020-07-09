@@ -17,7 +17,23 @@ export function getColorForString(label) {
     return colorHash.hex(label); // '#8796c5'
 }
 
-export function getDefaultNodeOptions(label) {
+export function getDefaultNodeOptions(label, nodeMeta) {
+
+    let optionsData = {
+        'bgColor': getColorForString(label),
+        'borderColor': DefaultNodeBorderColor,
+        'bgImageUrl': null,
+        'tagHtml': null
+    }
+
+    if (nodeMeta && nodeMeta.shapeOptions) {
+        optionsData['bgColor'] = nodeMeta.shapeOptions.fillColor || getColorForString(label);
+        optionsData['borderColor'] = nodeMeta.shapeOptions.strokeColor || DefaultNodeBorderColor;
+        optionsData['bgImageUrl'] = nodeMeta.shapeOptions.bgImageUrl || null;
+    }
+    if (nodeMeta) {
+        optionsData['bgImagePropertyKey'] = nodeMeta.bgImagePropertyKey || null;
+    }
     return {
         bgColor: getColorForString(label),
         borderColor: DefaultNodeBorderColor,
