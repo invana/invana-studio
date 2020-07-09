@@ -1,0 +1,18 @@
+.connectionIndicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  padding: 0 !important;
+}
+
+.connected {
+  background: #58bb58 !important;
+}
+
+.notConnected {
+  background: #c15050 !important;
+}
+
+.unknownStatus {
+  background: #dea448 !important;
+}

@@ -16,7 +16,7 @@ export const UUIDGenerator = () =>
 
 
 export const DefaultNodeBgColor = "#444444";
-export const DefaultNodeBorderColor = "#4385b8";
+export const DefaultNodeBorderColor = "#efefef";
 export const DefaultNodeBgPropertyKey = ""; // make sure this key is string.
 export const DefaultNodeStrokeWidth = 3;
 export const DefaultNodeRadius = 24;

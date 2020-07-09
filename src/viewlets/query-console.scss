@@ -1,0 +1,73 @@
+@import "../config";
+
+.queryConsole {
+  position: relative;
+
+  input[name="queryRepeatFrequency"] {
+    width: 35px;
+    border: transparent;
+    border-bottom: 1px solid $borderColor;
+    height: auto;
+    padding: 0 3px;
+    margin: 5px;
+  }
+
+  textarea {
+    width: calc(100% - 12px);
+    height: calc(100vh - 46px - 24px - 350px);
+    position: relative;
+    padding: 5px;
+    border-radius: 2px;
+    background: darken($darkBg, 2%);
+    color: $defaultTextColor;
+    font-family: Courier;
+    font-size: 14px;
+    line-height: 1.5rem;
+    min-height: 200px;
+  }
+
+  button {
+    background: darken($darkBg, 5%);
+    width: 100%;
+    //margin-top: 5px;
+    //font-size: 14px;
+
+    :hover, :active, :focus {
+      color: $primaryColor !important;
+      //background: red;
+    }
+  }
+
+  .queryOptions {
+
+    width: 100%;
+    min-height: 30px;
+    //border-bottom: 1px solid $borderColor;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+
+    input[type="checkbox"] {
+      min-width: auto;
+      display: inline;
+    }
+
+    label {
+      display: inline;
+      font-weight: normal;
+      bottom: 3px;
+      position: relative;
+    }
+
+    .float-left {
+      margin-top: 14px;
+      //margin-top: 14px;
+    }
+
+    .float-right {
+      margin-top: 5px;
+      //margin-right: 5px;
+    }
+  }
+
+
+}
