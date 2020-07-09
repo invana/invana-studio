@@ -28,18 +28,18 @@ export default class GEPanel extends React.Component {
                         <GEList>
                             {this.props.showToggleBtn ? (
                                 <li>
-                                    <a  onClick={() => this.props.onClickClose()}>
+                                    <button  onClick={() => this.props.onClickClose()}>
                                         <FontAwesomeIcon icon={faWindowRestore}/>
-                                    </a>
+                                    </button>
                                 </li>
                             ) : (
                                 <span/>
                             )}
                             {this.props.showCloseBtn ? (
                                 <li>
-                                    <a  onClick={() => this.props.onClickClose()}>
+                                    <button  onClick={() => this.props.onClickClose()}>
                                         <FontAwesomeIcon icon={faWindowClose}/>
-                                    </a>
+                                    </button>
                                 </li>
                             ) : (
                                 <span/>

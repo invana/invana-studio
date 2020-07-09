@@ -1,6 +1,5 @@
 // generic
 import {
-    DefaultNodeBgColor,
     DefaultNodeRadius,
     DefaultNodeBorderColor,
     DefaultNodeStrokeWidth,
@@ -12,7 +11,7 @@ import {
 
 const ColorHash = require('color-hash');
 
-const colorHash = new ColorHash({hue: {min: 90, max: 270}});
+const colorHash = new ColorHash({hue: {min: 120, max: 270}});
 
 export function getColorForString(label) {
     return colorHash.hex(label); // '#8796c5'

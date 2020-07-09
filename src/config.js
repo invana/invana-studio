@@ -15,9 +15,9 @@ export const UUIDGenerator = () =>
     );
 
 
-export const DefaultNodeBgColor = "#444444";
+// export const DefaultNodeBgColor = "#444444";
 export const DefaultNodeBorderColor = "#efefef";
-export const DefaultNodeBgPropertyKey = ""; // make sure this key is string.
+// export const DefaultNodeBgPropertyKey = ""; // make sure this key is string.
 export const DefaultNodeStrokeWidth = 3;
 export const DefaultNodeRadius = 24;
 export const DefaultNodeInShapeTextColor = "#dddddd"; // inside the shape

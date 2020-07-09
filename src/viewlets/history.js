@@ -25,14 +25,14 @@ export default class HistoryComponent extends React.Component {
                                     <li className={"historyItem"} key={i}>
                                         <pre>{existingHistoryItem.query}</pre>
                                         <div>
-                                            <a className={"small"}
+                                            <button className={"small"}
                                                onClick={() => this.props.makeQuery(existingHistoryItem.query)}>
                                                 Run Again
-                                            </a>
-                                            <a className={"small"}
+                                            </button>
+                                            <button className={"small"}
                                                onClick={() => this.props.addQueryToConsole(existingHistoryItem.query)}>
                                                 Edit Query in Console
-                                            </a>
+                                            </button>
                                         </div>
                                         <div className={"small"}>
                                             Queried from {existingHistoryItem.source} at {existingHistoryItem.dt}

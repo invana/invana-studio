@@ -31,7 +31,7 @@ import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
 import QueryConsole from "../viewlets/query-console";
 import AboutComponent from "../viewlets/about";
-import {CONNECT_URL, gremlinServerUrlKey, REPO_URL} from "../config";
+import { REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
 import GraphCanvas from "../canvas/graph";
 import JSONCanvas from "../canvas/json";
@@ -185,12 +185,12 @@ export default class ExplorerView extends BaseView {
                             </button>
                         </li>
                         <li>
-                            <a target={"_blank"} href={REPO_URL}>
+                            <a rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
                                 <FontAwesomeIcon icon={faGithub}/> 21 stars
                             </a>
                         </li>
                         <li>
-                            <a target={"_blank"} href={REPO_URL + '/issues'}>
+                            <a rel="noopener noreferrer" target={"_blank"} href={REPO_URL + '/issues'}>
                                 <FontAwesomeIcon icon={faBug}/>
                             </a>
                         </li>
@@ -215,30 +215,30 @@ export default class ExplorerView extends BaseView {
                             {/*    </a>*/}
                             {/*</li>*/}
                             <li>
-                                <a onClick={() => this.setLeftContent("history")}>
+                                <button onClick={() => this.setLeftContent("history")}>
                                     <FontAwesomeIcon icon={faHistory}/>
-                                </a>
+                                </button>
                             </li>
                             <li>
-                                <a onClick={() => this.setLeftContent("settings")}>
+                                <button onClick={() => this.setLeftContent("settings")}>
                                     <FontAwesomeIcon icon={faCog}/>
-                                </a>
+                                </button>
                             </li>
                             <li>
-                                <a onClick={() => this.setLeftContent("support")}>
+                                <button onClick={() => this.setLeftContent("support")}>
                                     <FontAwesomeIcon icon={faLifeRing}/>
-                                </a>
+                                </button>
                             </li>
                             <li>
-                                <a onClick={() => this.setLeftContent("learn")}>
+                                <button onClick={() => this.setLeftContent("learn")}>
                                     <FontAwesomeIcon icon={faBook}/>
-                                </a>
+                                </button>
                             </li>
 
                             <li>
-                                <a onClick={() => this.setLeftContent("about")}>
+                                <button onClick={() => this.setLeftContent("about")}>
                                     <FontAwesomeIcon icon={faInfoCircle}/>
-                                </a>
+                                </button>
                             </li>
                         </List>
                     </AsideNav>
@@ -547,7 +547,7 @@ export default class ExplorerView extends BaseView {
                         {this.getLatestResponse().status
                             ?
                             <li>
-                                <a onClick={() => this.setBottomContentName("error-console")}>
+                                <button onClick={() => this.setBottomContentName("error-console")}>
                                     {
                                         this.getLatestResponse().status ?
                                             this.getLatestResponse().status !== 200
@@ -558,7 +558,7 @@ export default class ExplorerView extends BaseView {
                                             : <strong>NA</strong>
                                     }
                                     &nbsp; Response
-                                </a>
+                                </button>
                             </li>
                             : <li><span></span></li>
                         }

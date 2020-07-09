@@ -31,27 +31,27 @@ export default class FounderNote extends React.Component {
                 <p>This project is shared
                     under open source <em>Apache License 2.0</em> license.
                     Please feel free to contribute and star
-                    the project at <a href={REPO_URL} target={"_blank"} className={"selected"}>Github.</a>.</p>
+                    the project at <a href={REPO_URL} rel="noopener noreferrer" target={"_blank"} className={"selected"}>Github.</a>.</p>
                 <p>Best <br/>
-                    Ravi Raja Merugu <a target={"_blank"}
+                    Ravi Raja Merugu <a target={"_blank"} rel="noopener noreferrer"
                                         href="https://www.linkedin.com/in/rrmerugu/">(linkedin.com/in/rrmerugu/)</a>
                 </p>
 
                 <p>
-                    <a className={"selected"} onClick={() => this.props.setLeftContent("learn")}>
+                    <button className={"selected"} onClick={() => this.props.setLeftContent("learn")}>
                         <u>Build your first Graph &rarr;</u>
-                    </a>
+                    </button>
                     <span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>
 
 
-                    <a onClick={() => this.props.setLeftContent("support")}>
+                    <button onClick={() => this.props.setLeftContent("support")}>
                         check support
-                    </a>
+                    </button>
 
                     <span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>
-                    <a onClick={() => this.props.onClose()}>
+                    <button onClick={() => this.props.onClose()}>
                         close
-                    </a>
+                    </button>
                 </p>
 
 

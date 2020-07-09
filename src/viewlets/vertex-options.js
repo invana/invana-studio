@@ -7,7 +7,7 @@ import {
 import {
     managementVertexLabel
 } from "../config";
-import {getColorForString, getDefaultNodeOptions} from "../canvas/graph/canvas-utils";
+import { getDefaultNodeOptions} from "../canvas/graph/canvas-utils";
 
 
 export default class VertexOptions extends GremlinBasedComponent {

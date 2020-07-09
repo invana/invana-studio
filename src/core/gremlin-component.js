@@ -7,7 +7,7 @@ import {
     MAX_HISTORY_COUNT_TO_REMEMBER,
     UUIDGenerator
 } from "../config";
-import {getDataFromLocalStorage, setDataToLocalStorage} from "./utils";
+import {getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage} from "./utils";
 
 
 export default class GremlinBasedComponent extends BaseComponent {
@@ -76,6 +76,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     }
 
     createWebSocket() {
+        console.log("=====gremlinUrl", typeof this.props.gremlinUrl, this.props.gremlinUrl);
         return new WebSocket(this.props.gremlinUrl);
     }
 
@@ -135,7 +136,11 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     componentDidMount() {
         console.log("gremlin-component componentDidMount")
-        this.connect();
+        let shallConnect = redirectToConnectIfNeeded();
+        alert("shallConnect==", shallConnect)
+        if (shallConnect) {
+            this.connect();
+        }
     }
 
     componentWillUnmount() {
