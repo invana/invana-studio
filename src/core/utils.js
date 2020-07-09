@@ -1,5 +1,5 @@
 import {CONNECT_URL, GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
-import GremlinResponseSerializers from "./base/gremlin-serializer";
+import GremlinResponseSerializers from "./gremlin-serializer";
 
 const gremlinSerializer = new GremlinResponseSerializers();
 
@@ -62,9 +62,13 @@ export function removeEverythingFromLocalStorage() {
 
 
 export function redirectToConnectIfNeeded() {
+    console.log("redirectToConnectIfNeeded");
     const u = new URL(window.location.href)
-    if (GREMLIN_SERVER_URL === null && u.pathname !== "/connect") {
+    if ((GREMLIN_SERVER_URL === null || GREMLIN_SERVER_URL === "") && u.pathname !== "/connect") {
         window.location.href = "/connect";
+    }else{
+        // alert("GREMLIN_SERVER_URL" + GREMLIN_SERVER_URL)
+        return true
     }
 }
 

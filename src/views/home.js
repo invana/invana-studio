@@ -1,8 +1,8 @@
-import GremlinHeadlessComponent from "../core/base/gremlin";
-import GremlinResponseSerializers from "../core/base/gremlin-serializer";
+import GremlinBasedComponent from "../core/gremlin-component";
+import GremlinResponseSerializers from "../core/gremlin-serializer";
 import {managementVertexLabel} from "../config";
 
-export default class HomeView extends GremlinHeadlessComponent {
+export default class HomeView extends GremlinBasedComponent {
 
 
     componentDidMount() {
@@ -53,4 +53,9 @@ export default class HomeView extends GremlinHeadlessComponent {
             })
         }
     }
+
+    // render() {
+    //     return super.render();
+    // }
+
 }

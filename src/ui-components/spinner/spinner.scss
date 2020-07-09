@@ -1,0 +1,112 @@
+@import "../../config";
+
+.loadingDiv {
+  height: calc(100% - 23px - 46px);
+   width: 100%;
+   display: block;
+   position: fixed;
+   background: rgba(36, 36, 36, 0.85);
+  color: $defaultTextColor;
+
+   .sk-fold{
+       margin-top: 17% !important;
+   }
+   h3 {
+     margin-top: 1rem;
+     font-size: 1rem;
+     color: #a9a9a9;
+     text-align: center;
+     padding-bottom: 0;
+   }
+
+   a {
+     color: inherit;
+   }
+
+   p {
+     font-size: .7rem;
+     text-align: center;
+   }
+ }
+
+
+ /*  Fold
+       <div class="sk-fold">
+         <div class="sk-fold-cube"></div>
+         <div class="sk-fold-cube"></div>
+         <div class="sk-fold-cube"></div>
+         <div class="sk-fold-cube"></div>
+       </div>
+  */
+ /* Config */
+ :root {
+   --sk-size: 40px;
+   --sk-color: #909090;
+ }
+
+
+ .sk-fold {
+   width: var(--sk-size);
+   height: var(--sk-size);
+   position: relative;
+   transform: rotateZ(45deg);
+ }
+
+ .sk-fold-cube {
+   float: left;
+   width: 50%;
+   height: 50%;
+   position: relative;
+   transform: scale(1.1);
+ }
+
+ .sk-fold-cube:before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: var(--sk-color);
+   animation: sk-fold 2.4s infinite linear both;
+   transform-origin: 100% 100%;
+ }
+
+ .sk-fold-cube:nth-child(2) {
+   transform: scale(1.1) rotateZ(90deg);
+ }
+
+ .sk-fold-cube:nth-child(4) {
+   transform: scale(1.1) rotateZ(180deg);
+ }
+
+ .sk-fold-cube:nth-child(3) {
+   transform: scale(1.1) rotateZ(270deg);
+ }
+
+ .sk-fold-cube:nth-child(2):before {
+   animation-delay: 0.3s;
+ }
+
+ .sk-fold-cube:nth-child(4):before {
+   animation-delay: 0.6s;
+ }
+
+ .sk-fold-cube:nth-child(3):before {
+   animation-delay: 0.9s;
+ }
+
+ @keyframes sk-fold {
+   0%, 10% {
+     transform: perspective(140px) rotateX(-180deg);
+     opacity: 0;
+   }
+   25%, 75% {
+     transform: perspective(140px) rotateX(0deg);
+     opacity: 1;
+   }
+   90%, 100% {
+     transform: perspective(140px) rotateY(180deg);
+     opacity: 0;
+   }
+ }

@@ -1,0 +1,17 @@
+@import "../../config.scss";
+
+.aside-bottom{
+  position: relative;
+  //z-index: 10000;
+  width:100%;
+  height: 250px;
+  border-top: 1px solid $borderColor;
+
+  background: $darkBg;
+
+
+
+}
+.aside-bottom.closed{
+  height:  0;
+}
