@@ -78,7 +78,7 @@ export default class VertexOptions extends GremlinBasedComponent {
 
         console.log("======thisNodeOptions " + JSON.stringify(thisNodeOptions))
         if (!thisNodeOptions) {
-            alert("setting default")
+            // alert("setting default")
             thisNodeOptions = getDefaultNodeOptions(selectedElementData.label, selectedElementData.meta);
         }
         // get nodeOptions from localStorage.
