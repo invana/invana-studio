@@ -1,9 +1,12 @@
+@import "../../config";
+
 .loadingDiv {
   height: calc(100% - 23px - 46px);
    width: 100%;
    display: block;
    position: fixed;
    background: rgba(36, 36, 36, 0.85);
+  color: $defaultTextColor;
 
    .sk-fold{
        margin-top: 17% !important;

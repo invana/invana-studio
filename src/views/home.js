@@ -1,5 +1,3 @@
-import React from "react";
-
 import GremlinBasedComponent from "../core/gremlin-component";
 import GremlinResponseSerializers from "../core/gremlin-serializer";
 import {managementVertexLabel} from "../config";
@@ -55,5 +53,9 @@ export default class HomeView extends GremlinBasedComponent {
             })
         }
     }
+
+    // render() {
+    //     return super.render();
+    // }
 
 }

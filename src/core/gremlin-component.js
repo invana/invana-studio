@@ -8,6 +8,7 @@ import {
     UUIDGenerator
 } from "../config";
 import {getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage} from "./utils";
+import LoadSpinner from "../ui-components/spinner/spinner";
 
 
 export default class GremlinBasedComponent extends BaseComponent {
@@ -344,7 +345,12 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     render() {
         return (
-            <span></span>
+            <LoadSpinner
+                loadingMessage={this.state.loadingMessage}
+                loadingExtraText={this.state.loadingExtraText}
+                isLoading={this.state.isLoading}
+                showSignout={true}
+                loadTimeCounter={this.state.loaderElapsedTimer}/>
         )
     }
 }
