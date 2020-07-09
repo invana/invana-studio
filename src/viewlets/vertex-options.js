@@ -66,8 +66,14 @@ export default class VertexOptions extends GremlinBasedComponent {
 
     render() {
         const selectedElementData = this.props.selectedElementData;
-        const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
-        const thisNodeOptions = allNodeOptions[this.props.selectedElementData.label] || {"properties": {}};
+        let thisNodeOptions =  {"properties": {}}
+        try {
+            const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
+            thisNodeOptions = allNodeOptions[this.props.selectedElementData.label] || {"properties": {}};
+
+        } catch (e) {
+
+        }
         // get nodeOptions from localStorage.
         // console.log("=====selectedElementData>>>", this.props.selectedElementData)
         return (

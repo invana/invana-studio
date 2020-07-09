@@ -9,6 +9,14 @@ import {
     DefaultLabelVisibility,
     DefaultNodeLabelColor
 } from "../../config";
+const ColorHash = require('color-hash');
+
+const colorHash = new ColorHash({hue: {min: 90, max: 270}});
+
+export function getColorForString(label){
+    return colorHash.hex(label); // '#8796c5'
+
+}
 
 export function removeVertexMeta(data) {
     let newData = [];
@@ -105,6 +113,8 @@ export function prepareLinksDataForCurves(links) {
 }
 
 
+
+
 export function prepareNodesDataWithOptions(nodes, options) {
     /*
         options = {
@@ -167,7 +177,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
             node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor || DefaultNodeBorderColor
         }
         if (!node.meta.shapeOptions.fillColor) {
-            node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || DefaultNodeBgColor
+            node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || getColorForString(node.label)
         }
         if (!node.meta.shapeOptions.textColor) {
             node.meta.shapeOptions.textColor = DefaultNodeInShapeTextColor

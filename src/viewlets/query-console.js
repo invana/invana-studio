@@ -2,7 +2,6 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
 import "./query-console.scss";
-import {DefaultMaxTimeElapsedWarningInSeconds} from "../config";
 
 const Mousetrap = require("mousetrap");
 
@@ -12,6 +11,7 @@ export default class QueryConsole extends React.Component {
 
     static defaultProps = {
         onQuerySubmit: () => console.log("No Query Handler added yet"),
+        flushCanvas: () => console.log("flushCanvas added  to QueryConsole"),
         query: null,
         defaultPlaceholderText: "g.V().limit(5).toList();"
     }
@@ -66,21 +66,12 @@ export default class QueryConsole extends React.Component {
         this.props.onQuerySubmit(e.target.query.value, {source: "console"});
     }
 
-    // queryRepeaterHandler(e) {
-    //     this.handleChange({
-    //         target: {
-    //             name: e.target.name,
-    //             value: e.target.checked,
-    //         },
-    //     });
-    //     // alert( e.target.checked)
-    // }
-
 
     setUpTimer(repeatFrequency) {
         let _this = this;
         this.repeatTimer = setInterval((function () {
                 console.log("Repeating the query every " + repeatFrequency)
+                _this.props.flushCanvas();
                 _this.props.onQuerySubmit(
                     document.querySelector('textarea[name="query"]').value
                     , {source: "console"}

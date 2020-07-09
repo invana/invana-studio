@@ -1,6 +1,5 @@
 import React from "react";
 import "./selected-data.scss";
-// import FlyOutUI from "../../flyout";
 
 export default class SelectedDataCanvas extends React.Component {
 

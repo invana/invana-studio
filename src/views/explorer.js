@@ -1,16 +1,15 @@
 import BaseView from "./base";
 import React from "react";
-import {redirectToConnectIfNeeded, removeItemFromLocalStorage} from "../core/utils";
+import {redirectToConnectIfNeeded} from "../core/utils";
 import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faBook, faBug,
     faCog,
-    faExpand, faFilter,
+    faFilter,
     faHistory, faInfoCircle, faLifeRing,
     faSave,
-    // faQuestionCircle,
     faStickyNote, faSync, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
@@ -302,6 +301,7 @@ export default class ExplorerView extends BaseView {
                                     <QueryConsole
                                         onQuerySubmit={this.onQuerySubmit.bind(this)}
                                         query={this.state.query}
+                                        flushCanvas={this.flushCanvas.bind(this)}
                                         // onClose={this.onLeftFlyOutClose.bind(this)}
                                     />
                                 </GEPanel>
