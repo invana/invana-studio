@@ -4,20 +4,31 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./learn.scss";
 import {q1CreateData, q3, q4} from "./learn-queries";
 import GEList from "../ui-components/lists/list";
+import PropTypes from "prop-types";
 
 export default class LearnComponent extends React.Component {
+
+
+    static defaultProps = {
+        addQueryToConsole : () => console.error("addQueryToConsole not implemented"),
+        onClose : () => console.error("onClose not implemented")
+    }
+    propTypes = {
+        onClose: PropTypes.func,
+        addQueryToConsole: PropTypes.func
+    };
 
 
     render() {
         return (
             <div className={"p-10"}>
                 <p>Learn how to use gremlin queries to create a simple graph.
-                    I'll illustrate simple data story of me and the project using
+                    I will illustrate simple data story of me and the project using
                     Graph databases for a starter.</p>
                 <GEList type={"vertical"}>
                     <li>
                         <button onClick={() => this.props.addQueryToConsole(q1CreateData)}>
-                            1. Add a `Person` and `GitHubProject` nodes</button>
+                            1. Add a <strong>Person</strong> and <strong>GitHubProject</strong> nodes</button>
                     </li>
                     <li>
                         <button onClick={() => this.props.addQueryToConsole(q3)}>

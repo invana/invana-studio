@@ -1,19 +1,26 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import ReactJson from 'react-json-view'
 import "./raw-responses.scss";
-
 
 export default class RawResponsesCanvas extends React.Component {
 
     static defaultProps = {
-        data: null
+        responses: []
+    }
+
+    propTypes = {
+        responses: PropTypes.arrayOf(
+           PropTypes.object
+        )
     }
 
     state = {
         rjv_component: false
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
 
         console.log("====raw responses", this.props.responses);
         let data = {}

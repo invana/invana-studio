@@ -25,6 +25,17 @@ class GremlinViewBase extends GremlinBasedComponent {
         })
     }
 
+    getUniqueItems(data) {
+        let uniqueItems = [];
+        data.forEach(function (item) {
+            const i = uniqueItems.findIndex(x => x.id === item.id);
+            if (i <= -1) {
+                uniqueItems.push(item);
+            }
+        });
+        return uniqueItems
+
+    }
 
     extendGraph(responses) {
         let overallNodes = this.state.vertices;
@@ -38,8 +49,11 @@ class GremlinViewBase extends GremlinBasedComponent {
             overallNodes = overallNodes.concat(separatedData['nodes']);
             overallLinks = overallLinks.concat(separatedData['links']);
         });
-        const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
-        const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
+        // const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
+        // const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
+        //
+        const uniqueNodes = this.getUniqueItems(overallNodes);
+        const uniqueLinks = this.getUniqueItems(overallLinks);
 
         console.log("<<<>>>uniqueNodes", uniqueNodes);
         console.log("<<<>>>uniqueLinks", uniqueLinks);

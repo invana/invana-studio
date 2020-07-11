@@ -10,7 +10,8 @@ RUN npm set progress=false && \
     npm config set depth 0 && \
     npm install && \
     npm cache clean --force
-RUN  GREMLIN_SERVER_URL=$GREMLIN_SERVER_URL && npm run-script build
+RUN npm run-script lint
+RUN npm run-script build
 
 # stage2: deploy to nginx
 FROM nginx:alpine as production

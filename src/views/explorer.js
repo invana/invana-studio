@@ -126,7 +126,7 @@ export default class ExplorerView extends BaseView {
         //     // this is the beginning of a new query.
         //     this.flushResponsesData();
         // }
-        this.makeQuery(query, {source: "console"});
+        this.makeQuery(query, queryOptions);
     }
 
 

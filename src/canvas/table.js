@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./table.scss";
 import GremlinResponseSerializers from "../core/gremlin-serializer";
 import {getDataFromLocalStorage} from "../core/utils";
@@ -9,7 +10,19 @@ const gremlinSerializer = new GremlinResponseSerializers();
 export class TableComponent extends React.Component {
     static defaultProps = {
         data: null,
-        label: null
+        label: null,
+        type: null
+    }
+
+    propTypes = {
+        data: PropTypes.arrayOf(
+            PropTypes.shape({
+                properties: PropTypes.object,
+                type: PropTypes.string
+            })
+        ),
+        label: PropTypes.string,
+        type: PropTypes.string,
     }
 
     getPropertyKeys() {
@@ -38,7 +51,7 @@ export class TableComponent extends React.Component {
                 <table className={" mb-10 "}>
                     <thead>
                     <tr style={{
-                        "backgroundColor": colorOptions.bgColor ,
+                        "backgroundColor": colorOptions.bgColor,
                     }}>
 
                         {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
@@ -85,11 +98,15 @@ export class TableComponent extends React.Component {
 export default class TableCanvas extends React.Component {
 
     static defaultProps = {
-        responses: null,
         vertices: [],
         edges: []
     }
 
+    propTypes = {
+
+        vertices: PropTypes.array,
+        edges: PropTypes.array,
+    }
 
     render() {
         const vertexGroups = gremlinSerializer.groupByLabel(this.props.vertices);

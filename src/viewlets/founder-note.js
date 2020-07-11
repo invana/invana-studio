@@ -1,11 +1,19 @@
 import React from "react";
 import {ABOUT_TEXT, VERSION, REPO_URL} from "../config";
+import PropTypes from "prop-types";
 
 export default class FounderNote extends React.Component {
 
-    // static defaultProps = {
-    //     onClose: console.error("onClose prop not set for <FounderNote> component")
-    // }
+    static defaultProps = {
+        onClose: ()=>console.error("onClose prop not set for <FounderNote> component"),
+        setLeftContent: ()=>console.error("setLeftContent prop not set for <FounderNote> component")
+    }
+
+
+    propTypes = {
+        setLeftContent: PropTypes.func,
+        onClose: PropTypes.func
+    };
 
     render() {
         return (
@@ -15,7 +23,7 @@ export default class FounderNote extends React.Component {
                 <p>Hi there! </p>
                 <p>Introducing Graph Explorer ({VERSION}) - {ABOUT_TEXT}</p>
                 <p>In the words of General Patton, “If a man does his best, what else is there!”, so I
-                    believe there is always a next best thing. In the spirit of every `new technology`
+                    believe there is always a next best thing. In the spirit of every <em>new technology</em>
                     that disrupts the way Humans solves the problems.
                     This project is yet an attempt to gather the best of the tech
                     from graph computing and
@@ -23,7 +31,7 @@ export default class FounderNote extends React.Component {
                     problems and the solutions with the help of data.
                 </p>
                 <p>
-                    Also, I'm really excited about the potential of Graph Databases -
+                    Also, I am really excited about the potential of Graph Databases -
                     they establish connections between the data
                     during the write operations, giving faster read time abilities for
                     handling complex queries like never before.
