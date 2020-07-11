@@ -1,4 +1,11 @@
 {
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
   "parser": "babel-eslint",
   "extends": [
     "eslint:recommended",
