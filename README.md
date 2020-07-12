@@ -2,6 +2,11 @@
 
 Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.
 
+
+[![Apache license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/invanalabs/graph-explorer/blob/master/LICENSE) 
+[![Build Status](https://travis-ci.org/invanalabs/graph-explorer.svg?branch=develop)](https://travis-ci.org/invanalabs/graph-explorer)
+
+
 **This project is at Alpha Release currently, and expected 
 to go into Beta in few weeks depending on the feed back
 from the Community.** You can access live version of the demo hosted on heroku.
