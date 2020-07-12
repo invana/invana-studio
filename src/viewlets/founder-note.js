@@ -10,7 +10,7 @@ export default class FounderNote extends React.Component {
     }
 
 
-    propTypes = {
+    static propTypes = {
         setLeftContent: PropTypes.func,
         onClose: PropTypes.func
     };

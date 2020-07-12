@@ -60,7 +60,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     }
 
 
-    propTypes = {
+    static propTypes = {
         gremlinUrl: PropTypes.string
     }
 

@@ -13,7 +13,7 @@ export default class HistoryComponent extends React.Component {
         query: null
     }
 
-    propTypes = {
+    static propTypes = {
         makeQuery: PropTypes.func,
         addQueryToConsole: PropTypes.func,
         query: PropTypes.string

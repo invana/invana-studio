@@ -14,7 +14,7 @@ export class TableComponent extends React.Component {
         type: null
     }
 
-    propTypes = {
+    static propTypes = {
         data: PropTypes.arrayOf(
             PropTypes.shape({
                 properties: PropTypes.object,
@@ -102,7 +102,7 @@ export default class TableCanvas extends React.Component {
         edges: []
     }
 
-    propTypes = {
+    static propTypes = {
 
         vertices: PropTypes.array,
         edges: PropTypes.array,

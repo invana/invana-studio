@@ -13,7 +13,7 @@ export default class JSONCanvas extends React.Component {
         edges: []
     }
 
-    propTypes = {
+    static propTypes = {
         vertices: PropTypes.array,
         edges: PropTypes.array
     };

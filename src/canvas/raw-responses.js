@@ -10,7 +10,7 @@ export default class RawResponsesCanvas extends React.Component {
         responses: []
     }
 
-    propTypes = {
+    static propTypes = {
         responses: PropTypes.arrayOf(
            PropTypes.object
         )

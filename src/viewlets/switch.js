@@ -10,7 +10,7 @@ export default class SwitchConnection extends React.Component {
         gremlinUrl: null
     }
 
-    propTypes = {
+    static propTypes = {
         onClose: PropTypes.func,
         gremlinUrl: PropTypes.string,
     };

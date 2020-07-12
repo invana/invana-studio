@@ -17,8 +17,8 @@ export default class QueryConsole extends React.Component {
         defaultPlaceholderText: "g.V().limit(5).toList();"
     }
 
-    propTypes = {
-        query: PropTypes.array,
+    static propTypes = {
+        query: PropTypes.string,
         onClose: PropTypes.func,
         onQuerySubmit: PropTypes.func,
         flushCanvas: PropTypes.func,

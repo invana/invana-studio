@@ -13,7 +13,7 @@ export default class LearnComponent extends React.Component {
         addQueryToConsole : () => console.error("addQueryToConsole not implemented"),
         onClose : () => console.error("onClose not implemented")
     }
-    propTypes = {
+    static propTypes = {
         onClose: PropTypes.func,
         addQueryToConsole: PropTypes.func
     };
