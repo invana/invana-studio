@@ -11,7 +11,7 @@ RUN npm set progress=false && \
     npm install && \
     npm cache clean --force
 # just to make sure only clean code goes to prod
-RUN eslint src/**/*.js
+RUN ./node_modules/.bin/eslint src/**/*.js
 RUN npm run-script build --production
 
 # stage2: deploy to nginx
