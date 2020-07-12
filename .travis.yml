@@ -1,16 +1,19 @@
 dist: trusty
 jobs:
   include:
-    - stage: build docker image
+    - stage: build and push docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t invanalabs/graph-explorer .
-      - DOCKER_TAG=`echo $TRAVIS_COMMIT | cut -c1-7`
+      - DOCKER_TAG=sha-`echo $TRAVIS_COMMIT | cut -c1-7`
       - docker tag invanalabs/graph-explorer invanalabs/graph-explorer:$DOCKER_TAG
-    - stage: push to docker registry
+      - docker tag invanalabs/graph-explorer invanalabs/graph-explorer:latest
+      - docker push invanalabs/graph-explorer:$DOCKER_TAG
+      - docker push invanalabs/graph-explorer:latest
+    - stage: push to heroku
       script:
       - DOCKER_TAG=`echo $TRAVIS_COMMIT | cut -c1-7`
-      - docker push invanalabs/graph-explorer:$DOCKER_TAG
+      - echo $DOCKER_TAG
 
 
 
