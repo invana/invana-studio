@@ -7,5 +7,5 @@ cache:
 install:
   - npm install
 script:
-  - npm run lint
+  - eslint src/**/*.js
   - npm run build
