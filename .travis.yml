@@ -5,6 +5,8 @@ jobs:
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t invanalabs/invanalabs/graph-explorer .
+      - docker build tag invanalabs/invanalabs/graph-explorer \
+        invanalabs/invanalabs/graph-explorer:$TRAVIS_COMMIT
     - stage: push to docker registry
       script: docker push invanalabs/graph-explorer
 
