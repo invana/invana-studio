@@ -11,7 +11,7 @@ RUN npm set progress=false && \
     npm install && \
     npm cache clean --force
 RUN npm run-script lint
-RUN npm run-script build
+RUN npm run-script build --production
 
 # stage2: deploy to nginx
 FROM nginx:alpine as production
