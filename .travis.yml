@@ -5,8 +5,6 @@ jobs:
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t invanalabs/invanalabs/graph-explorer .
-    - stage: test the build
-      script: docker run invanalabs/graph-explorer /bin/sh -c "cd /code && ./node_modules/.bin/eslint src/**/*.js"
     - stage: push to docker registry
       script: docker push invanalabs/graph-explorer
 
