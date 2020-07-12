@@ -10,7 +10,7 @@ RUN npm set progress=false && \
     npm config set depth 0 && \
     npm install && \
     npm cache clean --force
-RUN npm run-script lint
+RUN eslint src/**/*.js
 RUN npm run-script build --production
 
 # stage2: deploy to nginx

@@ -598,7 +598,7 @@ export default class ExplorerView extends BaseView {
                     loadingMessage={this.state.loadingMessage}
                     loadingExtraText={this.state.loadingExtraText}
                     isLoading={this.state.isLoading}
-                    showSignout={true}
+                    showSignOut={true}
                     loadTimeCounter={this.state.loaderElapsedTimer}/>
                 {super.render()}
             </div>

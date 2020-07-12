@@ -355,7 +355,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                 loadingMessage={this.state.loadingMessage}
                 loadingExtraText={this.state.loadingExtraText}
                 isLoading={this.state.isLoading}
-                showSignout={true}
+                showSignOut={true}
                 loadTimeCounter={this.state.loaderElapsedTimer}/>
         )
     }

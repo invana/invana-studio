@@ -86,10 +86,10 @@ export function prepareLinksDataForCurves(links) {
     links.forEach(function (link) {
 
         // find other links with same target+source or source+target
-        let same = links.filter(function (v, i) {
+        let same = links.filter(function (v) {
             return ((v.source === link.source && v.target === link.target));
         })
-        let sameAlt = links.filter(function (v, i) {
+        let sameAlt = links.filter(function (v) {
             return ((v.source === link.target && v.target === link.source));
         })
 
@@ -171,7 +171,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
     }
 
     let nodesCleaned = [];
-    nodes.forEach(function (nodeData, index) {
+    nodes.forEach(function (nodeData) {
         // let node = Object.assign({}, nodeData)
         let node = nodeData;
         // check if options data has node.label meta data or set defaults.
