@@ -1,21 +1,36 @@
 dist: trusty
 jobs:
   include:
+    - stage: testing the build
+      script: ".travis/test-build.sh"
     - stage: build and push docker image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t invanalabs/graph-explorer .
-      - DOCKER_TAG=sha-`echo $TRAVIS_COMMIT | cut -c1-7`
-      - docker tag invanalabs/graph-explorer invanalabs/graph-explorer:$DOCKER_TAG
-      - docker tag invanalabs/graph-explorer invanalabs/graph-explorer:latest
-      - docker push invanalabs/graph-explorer:$DOCKER_TAG
-      - docker push invanalabs/graph-explorer:latest
-    - stage: deploy to heroku(edge version)
+      script: ".travis/generate-build.sh"
+    - stage: deploy to heroku edge version
       script: skip
       deploy: &heroku
         provider: heroku
         app: graph-explorer-edge
         api_key: $HEROKU_AUTH_TOKEN
-    - stage: test deployemnt
+    - stage: deploy to heroku
+      script: skip
+      deploy: &heroku
+        provider: heroku
+        app: graph-explorer
+        api_key: $HEROKU_AUTH_TOKEN
+    - stage: test edge deployemnt
       script: 'curl http://graph-explorer-edge.herokuapp.com'
+    - stage: test prod deployemnt
+      script: 'curl http://graph-explorer.herokuapp.com'
+
+stages:
+  - name: deploy to heroku edge version
+    if: branch = develop AND type = push
+  - name: deploy to heroku
+    if: branch = master AND type = push
+  - name: test edge deployemnt
+    if: branch = develop AND type = push # develop branch push, but not PRs
+  - name: test deployemnt
+    if: branch = master AND type = push # master branch push, but not PRs
+  - name: build and push docker image
+    if: branch = master AND type = push
 
