@@ -29,7 +29,7 @@ stages:
     if: branch = master AND type = push
   - name: test edge deployemnt
     if: branch = develop AND type = push # develop branch push, but not PRs
-  - name: test deployemnt
+  - name: test prod deployemnt
     if: branch = master AND type = push # master branch push, but not PRs
   - name: build and push docker image
     if: branch = master AND type = push
