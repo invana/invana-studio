@@ -2,6 +2,7 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
 import "./query-console.scss";
+import PropTypes from "prop-types";
 
 const Mousetrap = require("mousetrap");
 
@@ -15,6 +16,14 @@ export default class QueryConsole extends React.Component {
         query: null,
         defaultPlaceholderText: "g.V().limit(5).toList();"
     }
+
+    static propTypes = {
+        query: PropTypes.string,
+        onClose: PropTypes.func,
+        onQuerySubmit: PropTypes.func,
+        flushCanvas: PropTypes.func,
+        defaultPlaceholderText: PropTypes.string,
+    };
 
     constructor(props) {
         super(props);

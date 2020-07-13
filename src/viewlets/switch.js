@@ -1,12 +1,19 @@
 import React from "react";
 import Modal from "../ui-components/modal/modal";
 import {askToSwitchGremlinServer} from "../core/utils";
+import PropTypes from "prop-types";
 
 export default class SwitchConnection extends React.Component {
 
     static defaultProps = {
-        onClose: () => console.error("onClose prop not set for  <SwitchConnection> component")
+        onClose: () => console.error("onClose prop not set for  <SwitchConnection> component"),
+        gremlinUrl: null
     }
+
+    static propTypes = {
+        onClose: PropTypes.func,
+        gremlinUrl: PropTypes.string,
+    };
 
     render() {
         return (

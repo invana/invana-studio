@@ -17,6 +17,7 @@
     "moment": "^2.26.0",
     "mousetrap": "^1.6.5",
     "node-sass": "^4.14.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-json-view": "^1.19.1",
@@ -43,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint-plugin-react": "^7.20.3"
   }
 }

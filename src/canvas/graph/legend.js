@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import {prepareNodesDataWithOptions} from "./canvas-utils";
 import "d3-selection-multi";
 import "./legend.scss";
+import PropTypes from "prop-types";
 
 export default class LegendCanvas extends React.Component {
 
@@ -12,6 +13,11 @@ export default class LegendCanvas extends React.Component {
         links: [],
         nodeLabels: {},
         linkLabels: {}
+    }
+
+    static propTypes = {
+        links: PropTypes.array,
+        nodes: PropTypes.array,
     }
 
     constructor(props) {
@@ -100,7 +106,7 @@ export default class LegendCanvas extends React.Component {
             .attr('transform', function (d, i) {
                 return 'translate(' + (15) + ',' + ((i * 20) + 10) + ')';
             })
-            .style("fill", (d, i) => "#efefef");
+            .style("fill", "#efefef");
 
         legend.selectAll('.label')
             .data(legend_edges_list)
@@ -110,9 +116,7 @@ export default class LegendCanvas extends React.Component {
             .attr("y", function (d, i) {
                 return ((i * 20) + 15);
             })
-            .attr("fill", function (d) {
-                return "#efefef";// _this.state.color_schema(d);
-            })
+            .attr("fill",  "#efefef")
             .text(function (d) {
                 return d.label;
             });

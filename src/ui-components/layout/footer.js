@@ -1,8 +1,13 @@
 import React from "react";
 import "./footer.scss";
+import PropTypes from "prop-types";
 
 export default class GEFooter extends React.Component {
-  render() {
-    return <div className={"footer"}>{this.props.children}</div>;
-  }
+    static propTypes = {
+        children: PropTypes.any
+    }
+
+    render() {
+        return <div className={"footer"}>{this.props.children}</div>;
+    }
 }

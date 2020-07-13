@@ -1,11 +1,16 @@
 import React from "react";
 import "./selected-data.scss";
+import PropTypes from "prop-types";
 
 export default class SelectedDataCanvas extends React.Component {
 
     static defaultProps = {
         selectedData: null,
         onClose: () => console.error("onFlyOutSelectedDataClose not implemented")
+    }
+
+    static propTypes = {
+        selectedData: PropTypes.object
     }
 
     getCleanedData() {

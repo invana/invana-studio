@@ -10,7 +10,9 @@ RUN npm set progress=false && \
     npm config set depth 0 && \
     npm install && \
     npm cache clean --force
-RUN  GREMLIN_SERVER_URL=$GREMLIN_SERVER_URL && npm run-script build
+# just to make sure only clean code goes to prod
+RUN ./node_modules/.bin/eslint src/**/*.js
+RUN npm run-script build --production
 
 # stage2: deploy to nginx
 FROM nginx:alpine as production
