@@ -2,7 +2,7 @@ dist: trusty
 jobs:
   include:
     - stage: testing the build
-      script: ".travis/test-build.sh"
+      script: docker build -t invanalabs/graph-explorer .
     - stage: build and push docker image
       script: ".travis/generate-build.sh"
     - stage: deploy to heroku edge version
