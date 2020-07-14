@@ -3,13 +3,21 @@ import {getDataFromLocalStorage} from "../core/utils";
 import {historyLocalStorageKey} from "../config";
 import "./history.scss";
 import GEList from "../ui-components/lists/list";
+import PropTypes from "prop-types";
 
 export default class HistoryComponent extends React.Component {
 
     static defaultProps = {
-        makeQuery: (query) => console.log("makeQuery prop not set to HistoryFlyOut"),
-        addQueryToConsole: (query) => console.log("addQueryToConsole prop not set to HistoryFlyOut"),
+        makeQuery: (query) => console.log("makeQuery prop not set to HistoryFlyOut", query),
+        addQueryToConsole: (query) => console.log("addQueryToConsole prop not set to HistoryFlyOut", query),
+        query: null
     }
+
+    static propTypes = {
+        makeQuery: PropTypes.func,
+        addQueryToConsole: PropTypes.func,
+        query: PropTypes.string
+    };
 
     render() {
         const existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
@@ -26,11 +34,11 @@ export default class HistoryComponent extends React.Component {
                                         <pre>{existingHistoryItem.query}</pre>
                                         <div>
                                             <button className={"small"}
-                                               onClick={() => this.props.makeQuery(existingHistoryItem.query)}>
+                                                    onClick={() => this.props.makeQuery(existingHistoryItem.query)}>
                                                 Run Again
                                             </button>
                                             <button className={"small"}
-                                               onClick={() => this.props.addQueryToConsole(existingHistoryItem.query)}>
+                                                    onClick={() => this.props.addQueryToConsole(existingHistoryItem.query)}>
                                                 Edit Query in Console
                                             </button>
                                         </div>

@@ -2,13 +2,18 @@
 
 Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.
 
+[![Apache license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/invanalabs/graph-explorer/blob/master/LICENSE) 
+[![Build Status](https://travis-ci.org/invanalabs/graph-explorer.svg?branch=master)](https://travis-ci.org/invanalabs/graph-explorer)
+[![Latest Demo](https://img.shields.io/badge/try%20demo-latest%20version-blue)](https://graph-explorer-edge.herokuapp.com)
+[![Stable Demo](https://img.shields.io/badge/try%20demo-stable%20version-blue)](https://graph-explorer.herokuapp.com)
+[![Docker pulls](https://img.shields.io/docker/pulls/invanalabs/graph-explorer)](https://hub.docker.com/r/invanalabs/graph-explorer)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/invanalabs/graph-explorer)](https://github.com/invanalabs/graph-explorer/commits)
+
+**Note:** You still need gremlin server running on your local or remote.
+
 **This project is at Alpha Release currently, and expected 
 to go into Beta in few weeks depending on the feed back
 from the Community.** You can access live version of the demo hosted on heroku.
-- [stable release version](https://graph-explorer.herokuapp.com/) 
-- [latest version](https://graph-explorer-edge.herokuapp.com/) 
-
-**Note:** You still need gremlin server running on your local or remote.
 
 
 ## Install on Heroku

@@ -2,10 +2,7 @@ import React from "react";
 import "./graph.scss";
 import D3ForceDirectedCanvas from "./canvas";
 import LegendCanvas from "./legend";
-// import SelectedDataCanvas from "./selected-data";
-// import GremlinResponseSerializers from "../../core/gremlin-serializer";
-
-// const serializer = new GremlinResponseSerializers()
+import PropTypes from "prop-types";
 
 export default class GraphCanvas extends React.Component {
 
@@ -24,6 +21,24 @@ export default class GraphCanvas extends React.Component {
         edges: []
     }
 
+    static propTypes = {
+        shallReRenderD3Canvas: PropTypes.bool,
+        resetShallReRenderD3Canvas: PropTypes.func,
+        setSelectedElementData: PropTypes.func,
+        queryGremlinServer: PropTypes.func,
+        // TODO - check difference between queryGremlinServer and startQuery
+        startQuery: PropTypes.func,
+        setSelectedNode: PropTypes.func,
+        setHideVertexOptions: PropTypes.func,
+        setRightContentName: PropTypes.func,
+        setMiddleBottomContentName: PropTypes.func,
+        vertices: PropTypes.array,
+        edges: PropTypes.array,
+        middleBottomContentName: PropTypes.string,
+
+
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +46,7 @@ export default class GraphCanvas extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate() {
         if (this.props.shallReRenderD3Canvas === true) {
             this.props.resetShallReRenderD3Canvas()
         }
@@ -39,11 +54,10 @@ export default class GraphCanvas extends React.Component {
     }
 
 
-
     render() {
         return (
             <div className={"graphCanvas"}>
-                  <LegendCanvas
+                <LegendCanvas
                     nodes={this.props.vertices}
                     links={this.props.edges}
                     // nodeLabels={this.props.nodeLabels}

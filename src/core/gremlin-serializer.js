@@ -88,26 +88,28 @@ export default class GremlinResponseSerializers {
 
     }
 
-    convertSet2Json(set_item) {
+    // convertSet2Json(set_item) {
 
-        if (set_item && "@type" in set_item) {
-            if (set_item['@type'] !== "g:Set") {
-                throw new Error("Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item));
-            }
-        }
-        let items = [];
-        if (set_item && '@value' in set_item) {
-            set_item['@value'].forEach(function (item) {
-                // TODO - NOT IMPLEMENTED - because no use case found yet.
-                // let data_list = _this.processItem(item);
-                // data_list.forEach(function (datum) {
-                //     items.push(datum);
-                // });
-            });
-        }
-        return items;
 
-    }
+
+        // if (set_item && "@type" in set_item) {
+        //     if (set_item['@type'] !== "g:Set") {
+        //         throw new Error("Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item));
+        //     }
+        // }
+        // let items = [];
+        // if (set_item && '@value' in set_item) {
+        //     set_item['@value'].forEach(function (item) {
+        //         // TODO - NOT IMPLEMENTED - because no use case found yet.
+        //         // let data_list = _this.processItem(item);
+        //         // data_list.forEach(function (datum) {
+        //         //     items.push(datum);
+        //         // });
+        //     });
+        // }
+        // return items;
+
+    // }
 
     convertList2Json(list_item) {
         // console.log("convertList2Json list_item", list_item);
@@ -224,7 +226,8 @@ export default class GremlinResponseSerializers {
                 return _this.convertPath2Json(item);
             } else if (item['@type'] === "g:Set") {
                 // console.log("=======items", item);
-                return _this.convertSet2Json(item);
+                throw new Error("@type g:Set serialisation not implemented");
+                // return _this.convertSet2Json(item);
             } else if (item['@type'] === "g:BulkSet") {
                 // console.log("=======items", item);
                 return _this.convertBulkset2Json(item);
@@ -291,13 +294,8 @@ export default class GremlinResponseSerializers {
     }
 
 
-    groupByLabel(data, isFlat) {
-        /*
+    groupByLabel(data) {
 
-        With Flat data true, we will get the keys id, label, type also in the
-
-
-         */
 
         let dataGroups = {};
         data.forEach(function (datum) {

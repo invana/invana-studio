@@ -73,7 +73,7 @@ export default class VertexOptions extends GremlinBasedComponent {
             thisNodeOptions = allNodeOptions[this.props.selectedElementData.label];
 
         } catch (e) {
-
+            console.error("Failed to get the node options with error", e)
         }
 
         console.log("======thisNodeOptions " + JSON.stringify(thisNodeOptions))

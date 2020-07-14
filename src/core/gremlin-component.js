@@ -9,6 +9,7 @@ import {
 } from "../config";
 import {getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage} from "./utils";
 import LoadSpinner from "../ui-components/spinner/spinner";
+import PropTypes from "prop-types";
 
 
 export default class GremlinBasedComponent extends BaseComponent {
@@ -55,7 +56,12 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     streamResponses = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
-        reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
+        // reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
+    }
+
+
+    static propTypes = {
+        gremlinUrl: PropTypes.string
     }
 
     constructor(props) {
@@ -274,7 +280,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     }
 
     setQueryToUrl(query) {
-        // console.log("===setQueryToUrl", query);
+        console.log("===setQueryToUrl", query);
         // let u = new URL(window.location.href);
         // let searchParams = new URLSearchParams(window.location.search);
         // if (query && query !== "null") {
@@ -349,7 +355,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                 loadingMessage={this.state.loadingMessage}
                 loadingExtraText={this.state.loadingExtraText}
                 isLoading={this.state.isLoading}
-                showSignout={true}
+                showSignOut={true}
                 loadTimeCounter={this.state.loaderElapsedTimer}/>
         )
     }
