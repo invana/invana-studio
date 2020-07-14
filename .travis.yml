@@ -2,7 +2,10 @@ dist: trusty
 jobs:
   include:
     - stage: testing the build
-      script: docker build -t invanalabs/graph-explorer .
+      script:
+        - if  [ -z "$TRAVIS_TAG" ]; then DOCKER_TAG=$TRAVIS_TAG; else DOCKER_TAG=sha-`echo "$TRAVIS_COMMIT" | cut -c1-7` fi
+        - echo $DOCKER_TAG
+        - docker build -t invanalabs/graph-explorer .
     - stage: build and push docker image
       script: ".travis/generate-build.sh"
     - stage: deploy to heroku edge version
