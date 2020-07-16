@@ -211,15 +211,24 @@ li.logo {
   font-size: 12px;
   border-radius: 2px;
 }
-  body::-webkit-scrollbar ,   textarea::-webkit-scrollbar  {
+  body::-webkit-scrollbar ,
+  .tableCanvas::-webkit-scrollbar ,
+  .jsonCanvas::-webkit-scrollbar ,
+  textarea::-webkit-scrollbar  {
     width: 8px;
   }
 
-  body::-webkit-scrollbar-track ,   textarea::-webkit-scrollbar-track {
+  body::-webkit-scrollbar-track ,
+  .tableCanvas::-webkit-scrollbar-track ,
+  .jsonCanvas::-webkit-scrollbar-track ,
+  textarea::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
 
-  body::-webkit-scrollbar-thumb ,   textarea::-webkit-scrollbar-thumb {
+  body::-webkit-scrollbar-thumb ,
+  .tableCanvas::-webkit-scrollbar-thumb ,
+  .jsonCanvas::-webkit-scrollbar-thumb ,
+  textarea::-webkit-scrollbar-thumb {
     background-color: $darkBgSecondary;
     outline: 1px solid $borderColor;
   }
