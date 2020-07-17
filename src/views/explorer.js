@@ -188,7 +188,8 @@ export default class ExplorerView extends BaseView {
                         </li>
                         <li>
                             <a rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                <FontAwesomeIcon icon={faGithub}/> 21 stars
+                                <FontAwesomeIcon icon={faGithub}/> 28 stars
+                                {/*<img src="https://img.shields.io/github/watchers/invanalabs/graph-explorer" alt=""/>*/}
                             </a>
                         </li>
                         <li>

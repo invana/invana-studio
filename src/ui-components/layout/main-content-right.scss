@@ -10,6 +10,8 @@
   background: #252529;
 }
 .main-content-right.expanded{
-  width: calc(100vw - 400px  - 45px - 2px ); // 2px used for borders of left and middle
+  width: calc(100vw - 400px  - 45px - 2px - 8px);
+  // 2px used for borders of left and middle
+  // 8px for scroll bar width.
 }
 
