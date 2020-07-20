@@ -1,4 +1,4 @@
-import {CONNECT_URL, GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
+import {CONNECT_URL, GREMLIN_SERVER_URL, AUTH_CONSTANTS} from "../config";
 import GremlinResponseSerializers from "./gremlin-serializer";
 
 const gremlinSerializer = new GremlinResponseSerializers();
@@ -103,7 +103,7 @@ export function askToSwitchGremlinServer() {
     var r = window.confirm("You are about to sign-out of the workspace." +
         "Your query history will be still preserved. Do you  want to continue!");
     if (r === true) {
-        removeItemFromLocalStorage(gremlinServerUrlKey);
+        removeItemFromLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey);
         window.location.href = CONNECT_URL;
     }
 }

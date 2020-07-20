@@ -1,13 +1,16 @@
+export const AUTH_CONSTANTS = {
+    gremlinServerUrlKey: "GREMLIN_SERVER_URL"
+}
 
-export const gremlinServerUrlKey = "GREMLIN_SERVER_URL";
-export const GREMLIN_SERVER_URL = localStorage.getItem(gremlinServerUrlKey);
+export const GREMLIN_SERVER_URL = localStorage.getItem(AUTH_CONSTANTS.gremlinServerUrlKey);
+
 export const DefaultMaxTimeElapsedWarningInSeconds = 180;
 export const DefaultConnectionRetryTimeout = 10;
 
 
 export const VERSION = "alpha";
 export const ABOUT_TEXT = "Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.";
-export const CONNECT_URL= "/connect";
+export const CONNECT_URL = "/connect";
 export const REPO_URL = "https://github.com/invanalabs/graph-explorer";
 export const UUIDGenerator = () =>
     ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
@@ -32,9 +35,6 @@ export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.proper
 export const DefaultLabelVisibility = false;
 export const DefaultHoverOpacity = 0.8;
 export const linkCurvature = .85;
-
-
-
 
 
 export const managementVertexLabel = "InvanaManagement";
