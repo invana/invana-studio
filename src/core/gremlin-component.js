@@ -7,7 +7,9 @@ import {
     MAX_HISTORY_COUNT_TO_REMEMBER,
     UUIDGenerator
 } from "../config";
-import {getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage} from "./utils";
+import {
+    getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage, postData,
+} from "./utils";
 import LoadSpinner from "../ui-components/spinner/spinner";
 import PropTypes from "prop-types";
 
@@ -76,17 +78,22 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             responses: [],
             vertices: [],
             edges: []
-
         }
         // this.ws = this.createWebSocket();
         this.streamResponses = [];
+    }
+
+    getProtocol() {
+        const _ = new URL(this.props.gremlinUrl).protocol;
+        return _.includes("ws") ? "ws" : "http";
     }
 
     createWebSocket() {
         return new WebSocket(this.props.gremlinUrl);
     }
 
-    reconnect() {
+
+    reconnectWithWS() {
         // clearInterval(this.timer2);
         // clearInterval(this.timer);
         this.ws = this.createWebSocket();
@@ -120,7 +127,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.ws.onclose = () => {
             console.log('disConnected2Gremlin')
             clearInterval(_this.reconnectingTimerId);
-            // automatically try to reconnect on connection loss
+            // automatically try to reconnectWithWS on connection loss
             _this.setIsConnected2Gremlin(false);
 
             let i = 0;
@@ -130,7 +137,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                     _this.setStatusMessage("Connection failed. Reconnecting in " + (DefaultConnectionRetryTimeout - i) + "s...");
                     if (i >= DefaultConnectionRetryTimeout) {
                         clearInterval(_this.reconnectingTimerId);
-                        _this.reconnect();
+                        _this.reconnectWithWS();
                     }
                 }
             ), 1000); // retry in 5 seconds
@@ -142,7 +149,13 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         console.log("gremlin-component componentDidMount")
         let shallConnect = redirectToConnectIfNeeded();
         if (shallConnect) {
-            this.reconnect()
+            const protocol = this.getProtocol();
+            console.log("We will be using " + protocol + " protocol");
+            if (protocol === "ws") {
+                this.reconnectWithWS()
+            } else {
+                console.log("protocol will be " + protocol);
+            }
         }
     }
 
@@ -150,8 +163,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         super.componentWillUnmount();
         clearInterval(this.queryElapsedTimerId);
         clearInterval(this.reconnectingTimerId);
-        // this.ws.close();
-
         console.log("gremlin-component componentWillUnmount triggered");
     }
 
@@ -161,14 +172,9 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     flushStreamResponsesData() {
         this.streamResponses = [];
-        // this.setState({
-        //     shallReRenderD3Canvas: true
-        // })
-
     }
 
     flushCanvas() {
-        // alert("flush triggerd");
         this.setState({
             responses: [],
             vertices: [],
@@ -193,7 +199,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     }
 
     setQueryElapsedTimeCounter(count) {
-        // this.props.eventHandler({queryElapsedTimeCounter: count});
         this.setState({queryElapsedTimeCounter: count});
     }
 
@@ -257,7 +262,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         }
     }
 
-
     setErrorMessage(message) {
         if (message) {
             this.setState({
@@ -302,6 +306,36 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         setDataToLocalStorage(historyLocalStorageKey, existingHistory);
     }
 
+    _queryWS(queryData) {
+        /*
+
+         */
+
+        let _this = this;
+
+        console.log("===Query", queryData);
+
+        if (this.ws.readyState === 1) {
+            _this.ws.send(queryData, {mask: true});
+            _this.setStatusMessage("Connecting..")
+        } else {
+            _this.ws.onopen = function () {
+                _this.ws.send(queryData, {mask: true});
+                _this.setStatusMessage("Connecting ..")
+                clearInterval(_this.reconnectingTimerId);
+
+            };
+        }
+    }
+
+    _queryHTTP(query) {
+        const payload = {"gremlin": query};
+        let _this = this;
+        postData(this.props.gremlinUrl, {"content-Type": "application/json"}, payload).then(data => {
+            _this.gatherDataFromStream(data);
+        });
+
+    }
 
     makeQuery(query, queryOptions) {
 
@@ -324,26 +358,22 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         } // remove this part from here soon.
 
 
-        let _this = this;
         this.setState({statusMessage: "Querying..."})
         console.log("queryGremlinServer :::  query", query);
         if (query) {
             this.startQueryTimer();
             let msg = this.generateQueryPayload(query);
-            let data = JSON.stringify(msg);
-            console.log("Query long one", data);
+            let queryData = JSON.stringify(msg);
+            console.log("Query long one", queryData);
             this.startLoader("Connecting..");
-            if (this.ws.readyState === 1) {
-                _this.ws.send(data, {mask: true});
-                _this.setStatusMessage("Connecting..")
-            } else {
-                _this.ws.onopen = function () {
-                    _this.ws.send(data, {mask: true});
-                    _this.setStatusMessage("Connecting ..")
-                    clearInterval(_this.reconnectingTimerId);
 
-                };
+            const protocol = this.getProtocol();
+            if (protocol === "ws") {
+                this._queryWS(queryData)
+            } else {
+                this._queryHTTP(query);
             }
+
         }
 
 
