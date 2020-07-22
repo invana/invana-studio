@@ -542,10 +542,12 @@ export default class ExplorerView extends BaseView {
                 </Main>
                 <GEFooter>
                     <List type={"nav-left"}>
-                        <li><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li>
+                        {this.state.isConnected2Gremlin? <li><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li> : <li></li>}
                         <li><span>{this.state.statusMessage}</span></li>
                     </List>
                     <List type={"nav-right"}>
+
+                        <li><button className={"no-bg"}>{this.getProtocol()} protocol</button></li>
 
                         {this.getLatestResponse().status
                             ?

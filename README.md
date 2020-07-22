@@ -16,31 +16,51 @@ to go into Beta in few weeks depending on the feed back
 from the Community.** You can access live version of the demo hosted on heroku.
 
 
-## Install on Heroku
+## Installation
 
+#### Install on Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master)
 
 Get the UI graph-explorer server live in minutes. 
  
- 
- 
-## Install using Docker
-
-#### Use Image from Docker Hub
+#### Deploy using Docker
 
 ```shell script.
 # for latest release
 docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
-
 ```
+This will start a graph explorer service that can be accessed at 8888 port. ex: http://localhost:8888 
 
-#### Build and Deploy from Code
+#### Connecting to Graph Explorer
+
+You need a Apache TinkerPop Gremlin server running in your remote or local, connected to a graph database.
+You can use something like JanusGraph 
+
+##### connecting to server with No authentication enabled 
+If you want to connect to an un authenticated gremlin server you can just use the following. 
+
 ```shell script
-git clone git@github.com:invanalabs/graph-explorer.git
-cd graph-explorer
-docker build . -t invana-graph-explorer 
-docker run -p 8888:8888 -d invana-graph-explorer
+1. http://localhost:8182/gremlin - connect over http
+2. ws://localhost:8182/gremlin - connect over ws 
 ```
+
+You can choose which ever one makes more sense for you usecase.
+
+#### connecting to server with Authentication enabled
+ 
+```shell script
+1. http://user:password@awesome-proxy-domain.local/gremlin  -   Basic Authentication
+2. http://access-or-session-token@awesome-proxy-domain.local/gremlin - Token Based Authentication
+3. http://awesome-proxy-domain.local/gremlin - No Authentication
+```
+
+Apache TinkerPop's Gremlin Server does not handle Cross-origin resource sharing (CORS), for the 
+obvious security reasons I believe. But to access gremlin server from web browser we have created a 
+[gremlin proxy](https://github.com/invanalabs/gremlin-proxy). 
+It is a Proxy layer for Apache TinkerPop's Gremlin Server to enable Cross-origin resource sharing (CORS).
+ 
+ 
+
 
 ## Screenshots
 ![1](./docs/screenshots/1.png)

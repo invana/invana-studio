@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../ui-components/modal/modal";
 import {setDataToLocalStorage} from "../core/utils";
-import {gremlinServerUrlKey, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
+import {AUTH_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
@@ -17,19 +17,16 @@ export default class SetupGremlinServerConnection extends React.Component {
 
     onFormSubmit(e) {
         e.preventDefault();
-        setDataToLocalStorage(gremlinServerUrlKey, e.target.gremlinServerUrl.value);
+        setDataToLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey, e.target.gremlinServerUrl.value);
         window.location.href = "/";
     }
 
     openDemo() {
         window.open(DEMO_URL);
-
     }
 
     render() {
-
         return (
-
             <Modal title={null} size={"md"}>
                 <div className={"connect"}>
                     <div className={"top-section"}>
@@ -41,8 +38,8 @@ export default class SetupGremlinServerConnection extends React.Component {
                     <div className={"bottom-section"}>
                         <form action="" onSubmit={this.onFormSubmit.bind(this)}>
                             <input type="text" name={"gremlinServerUrl"}
-                                   defaultValue={"ws://localhost:8182/gremlin"}
-                                   placeholder={"ws://localhost:8182/gremlin"}/>
+                                // defaultValue={"ws://localhost:8182/gremlin"}
+                                   placeholder={"ws://user:password@localhost:8182/gremlin"}/>
                             <br/>
                             <button type={"submit"} className={"primary-btn button"}>Connect</button>
 
@@ -68,7 +65,6 @@ export default class SetupGremlinServerConnection extends React.Component {
                     </div>
                 </div>
             </Modal>
-
         )
     }
 }

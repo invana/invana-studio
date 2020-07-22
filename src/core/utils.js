@@ -1,4 +1,4 @@
-import {CONNECT_URL, GREMLIN_SERVER_URL, gremlinServerUrlKey} from "../config";
+import {CONNECT_URL, GREMLIN_SERVER_URL, AUTH_CONSTANTS} from "../config";
 import GremlinResponseSerializers from "./gremlin-serializer";
 
 const gremlinSerializer = new GremlinResponseSerializers();
@@ -63,6 +63,28 @@ export function removeEverythingFromLocalStorage() {
     localStorage.clear();
 }
 
+export async function postData(url = '', extraHeaders = {}, data = {}) {
+    // Default options are marked with *
+    const url_analysed = new URL(url);
+    extraHeaders["Content-Type"] = "application/json";
+    extraHeaders["Accept"] = "application/json";
+    extraHeaders['Content-Length'] = Buffer.byteLength(JSON.stringify(data));
+    if (url_analysed.username && url_analysed.password) {
+        extraHeaders['Authorization'] = 'Basic ' + btoa(url_analysed.username + ':' + url_analysed.password);
+    } else if (url_analysed.username && url_analysed.password !== "") {
+        extraHeaders['Authorization'] = 'Token ' + url_analysed.username;
+    }
+
+    const gremlinUrl = url_analysed.origin + url_analysed.pathname;
+    const response = await fetch(gremlinUrl, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        // credentials: 'include', // include, *same-origin, omit
+        headers: extraHeaders,
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json();
+}
 
 export function redirectToConnectIfNeeded() {
     console.log("redirectToConnectIfNeeded");
@@ -103,7 +125,7 @@ export function askToSwitchGremlinServer() {
     var r = window.confirm("You are about to sign-out of the workspace." +
         "Your query history will be still preserved. Do you  want to continue!");
     if (r === true) {
-        removeItemFromLocalStorage(gremlinServerUrlKey);
+        removeItemFromLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey);
         window.location.href = CONNECT_URL;
     }
 }
