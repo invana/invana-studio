@@ -160,10 +160,11 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount();
+        console.log("gremlin-component componentWillUnmount triggered");
         clearInterval(this.queryElapsedTimerId);
         clearInterval(this.reconnectingTimerId);
-        console.log("gremlin-component componentWillUnmount triggered");
+        super.componentWillUnmount();
+
     }
 
     connect() {
@@ -236,7 +237,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
 
     gatherDataFromStream(response) {
-        // console.log("onmessage received", response);
+        console.log("onmessage received", response);
         if (response.status.code >= 200 && response.status.code < 300) {
             this.setErrorMessage(null)
             if (response.status.code === 206) {
@@ -312,9 +313,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
          */
 
         let _this = this;
-
         console.log("===Query", queryData);
-
         if (this.ws.readyState === 1) {
             _this.ws.send(queryData, {mask: true});
             _this.setStatusMessage("Connecting..")
@@ -331,7 +330,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     _queryHTTP(query) {
         const payload = {"gremlin": query};
         let _this = this;
-        postData(this.props.gremlinUrl, {"content-Type": "application/json"}, payload).then(data => {
+        postData(this.props.gremlinUrl, {}, payload).then(data => {
             _this.gatherDataFromStream(data);
         });
 

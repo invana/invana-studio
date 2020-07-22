@@ -63,19 +63,27 @@ export function removeEverythingFromLocalStorage() {
     localStorage.clear();
 }
 
-export async function postData(url = '', headers = {}, data = {}) {
+export async function postData(url = '', extraHeaders = {}, data = {}) {
     // Default options are marked with *
-    const response = await fetch(url, {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: headers,
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    const url_analysed = new URL(url);
+    extraHeaders["Content-Type"] = "application/json";
+    extraHeaders["Accept"] = "application/json";
+    extraHeaders['Content-Length'] = Buffer.byteLength(JSON.stringify(data));
+    if (url_analysed.username && url_analysed.password) {
+        extraHeaders['Authorization'] = 'Basic ' + btoa(url_analysed.username + ':' + url_analysed.password);
+    } else if (url_analysed.username && url_analysed.password !== "") {
+        extraHeaders['Authorization'] = 'Token ' + url_analysed.username;
+    }
+
+    const gremlinUrl = url_analysed.origin + url_analysed.pathname;
+    const response = await fetch(gremlinUrl, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        // credentials: 'include', // include, *same-origin, omit
+        headers: extraHeaders,
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+    return response.json();
 }
 
 export function redirectToConnectIfNeeded() {
