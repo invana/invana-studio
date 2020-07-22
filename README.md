@@ -36,7 +36,7 @@ This will start a graph explorer service that can be accessed at 8888 port. ex: 
 You need a Apache TinkerPop Gremlin server running in your remote or local, connected to a graph database.
 You can use something like JanusGraph 
 
-#### Gremlin Server with No authentication enabled 
+##### connecting to server with No authentication enabled 
 If you want to connect to an un authenticated gremlin server you can just use the following. 
 
 ```shell script
@@ -46,23 +46,20 @@ If you want to connect to an un authenticated gremlin server you can just use th
 
 You can choose which ever one makes more sense for you usecase.
 
-#### Gremlin Server with Authentication enabled
+#### connecting to server with Authentication enabled
  
-Apache TinkerPop's Gremlin Server does not handle Cross-origin resource sharing (CORS), for security
-reasons. But to access gremlin server from web browser we have created a 
-[gremlin proxy](https://github.com/invanalabs/gremlin-proxy). 
-It is a Proxy layer for Apache TinkerPop's Gremlin Server to support their 
-authentication abilities from web browsers by solving Cross-origin resource sharing (CORS) issue. 
-You can connect with following connection strings depending on how your authentication is 
-enabled on your gremlin server. 
-
 ```shell script
 1. http://user:password@awesome-proxy-domain.local/gremlin  -   Basic Authentication
 2. http://access-or-session-token@awesome-proxy-domain.local/gremlin - Token Based Authentication
 3. http://awesome-proxy-domain.local/gremlin - No Authentication
-
 ```
 
+Apache TinkerPop's Gremlin Server does not handle Cross-origin resource sharing (CORS), for the 
+obvious security reasons I believe. But to access gremlin server from web browser we have created a 
+[gremlin proxy](https://github.com/invanalabs/gremlin-proxy). 
+It is a Proxy layer for Apache TinkerPop's Gremlin Server to enable Cross-origin resource sharing (CORS).
+ 
+ 
 
 
 ## Screenshots
