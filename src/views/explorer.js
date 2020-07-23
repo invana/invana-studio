@@ -13,7 +13,6 @@ import {
     faStickyNote, faSync, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
-import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import Main from "../ui-components/layout/main";
 import AsideNav from "../ui-components/layout/aside-nav";
 import MainContent from "../ui-components/layout/main-content";
@@ -491,7 +490,7 @@ export default class ExplorerView extends BaseView {
                                                 return (
                                                     <GraphCanvas
                                                         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                                        // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                                        setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                                         responses={this.state.responses}
                                                         setSelectedElementData={this.setSelectedElementData.bind(this)}
                                                         vertices={this.state.vertices}

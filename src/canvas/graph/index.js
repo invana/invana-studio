@@ -11,7 +11,7 @@ export default class GraphCanvas extends React.Component {
         shallReRenderD3Canvas: null,
         queryGremlinServer: () => console.error("queryGremlinServer prop not set for GraphCanvas"),
         // setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas"),
-        setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphCanvas"),
+        // setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphCanvas"),
         setSelectedElementData: () => console.error("setSelectedElementData prop not set for GraphCanvas"),
         setRightContentName: () => console.error("setRightContentName prop not set for GraphCanvas"),
         setMiddleBottomContentName: () => console.error("setMiddleBottomContentName prop not set for GraphCanvas"),

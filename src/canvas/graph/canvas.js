@@ -327,13 +327,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     onNodeHoverOut(selectedNode) {
         console.log("on node hover out", selectedNode);
         this.stopPropagatingChildClickEventToParentEl();
-        // alert("this.props.middleBottomContentName " + this.props.middleBottomContentName )
-        // if (this.props.middleBottomContentName === "selected-data-overview") {
-        //     this.props.setMiddleBottomContentName(null)
-        //     this.props.setSelectedElementData(null);
-        //     this.resetNodeHighlight(selectedNode);
-        // }
-        /// dont make the selectedElementData null when middleBottomContentName=vertex-options
+        this.resetNodeHighlight(selectedNode);
     }
 
     onNodeHoverIn(selectedNode) {
