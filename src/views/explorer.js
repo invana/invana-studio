@@ -13,7 +13,6 @@ import {
     faStickyNote, faSync, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
-import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import Main from "../ui-components/layout/main";
 import AsideNav from "../ui-components/layout/aside-nav";
 import MainContent from "../ui-components/layout/main-content";
@@ -187,9 +186,9 @@ export default class ExplorerView extends BaseView {
                             </button>
                         </li>
                         <li>
-                            <a rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                <FontAwesomeIcon icon={faGithub}/> 28 stars
-                                {/*<img src="https://img.shields.io/github/watchers/invanalabs/graph-explorer" alt=""/>*/}
+                            <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
+                                {/*<FontAwesomeIcon icon={faGithub}/> 33 stars*/}
+                                <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer" alt=""/>
                             </a>
                         </li>
                         <li>
@@ -491,7 +490,7 @@ export default class ExplorerView extends BaseView {
                                                 return (
                                                     <GraphCanvas
                                                         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                                        // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                                        setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                                         responses={this.state.responses}
                                                         setSelectedElementData={this.setSelectedElementData.bind(this)}
                                                         vertices={this.state.vertices}
@@ -522,8 +521,6 @@ export default class ExplorerView extends BaseView {
                                             } else if (this.state.canvasType === "raw" && this.state.responses) {
                                                 return (
                                                     <RawResponsesCanvas
-                                                        // vertices={this.state.vertices}
-                                                        // edges={this.state.edges}
                                                         responses={this.state.responses}/>
                                                 )
                                             } else {

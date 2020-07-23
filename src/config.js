@@ -18,9 +18,7 @@ export const UUIDGenerator = () =>
     );
 
 
-// export const DefaultNodeBgColor = "#444444";
 export const DefaultNodeBorderColor = "#efefef";
-// export const DefaultNodeBgPropertyKey = ""; // make sure this key is string.
 export const DefaultNodeStrokeWidth = 3;
 export const DefaultNodeRadius = 24;
 export const DefaultNodeInShapeTextColor = "#dddddd"; // inside the shape
@@ -33,7 +31,7 @@ export const DefaultLinkDistance = 180;
 export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.properties.name.substring(0, 10) : node.id;
 
 export const DefaultLabelVisibility = false;
-export const DefaultHoverOpacity = 0.8;
+export const simulationAlpha = 0.8;
 export const linkCurvature = .85;
 
 

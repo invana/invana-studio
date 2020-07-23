@@ -13,7 +13,13 @@ export default class SupportComponent extends React.Component {
             <div className={"p-10"}>
                 <GEList type={"vertical"}>
 
-
+                    <li>
+                        <a target={"_blank"} rel="noopener noreferrer"
+                           href={"https://invana.io/docs/graph-explorer/01-get-started.html"}>
+                            <h4><FontAwesomeIcon icon={faBook}/> Documentation</h4>
+                            <p>Beginner tutorials, usage and developer documentation.</p>
+                        </a>
+                    </li>
                     <li>
                         <a target={"_blank"} rel="noopener noreferrer"
                            href="https://github.com/invanalabs/graph-explorer/issues">
@@ -22,8 +28,6 @@ export default class SupportComponent extends React.Component {
 
                         </a>
                     </li>
-
-
                     <li>
                         <a target={"_blank"} rel="noopener noreferrer" href="https://medium.com/invanalabs">
                             <h4><FontAwesomeIcon icon={faMedium}/> Medium</h4>
@@ -36,12 +40,6 @@ export default class SupportComponent extends React.Component {
                             <h4><FontAwesomeIcon icon={faTwitter}/> Twitter</h4>
                             <p>Stay upto date about the releases, updates, use case blogs, </p>
                         </a>
-                    </li>
-                    <li>
-                        <button onClick={() => alert('Its a work in progress')}>
-                            <h4><FontAwesomeIcon icon={faBook}/> Documentation [WIP]</h4>
-                            <p>Beginner tutorials, usage and developer documentation.</p>
-                        </button>
                     </li>
                     <li>
                         <button onClick={() => alert('Its a work in progress')}>
