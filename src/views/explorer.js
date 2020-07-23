@@ -187,9 +187,9 @@ export default class ExplorerView extends BaseView {
                             </button>
                         </li>
                         <li>
-                            <a rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                <FontAwesomeIcon icon={faGithub}/> 28 stars
-                                {/*<img src="https://img.shields.io/github/watchers/invanalabs/graph-explorer" alt=""/>*/}
+                            <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
+                                {/*<FontAwesomeIcon icon={faGithub}/> 33 stars*/}
+                                <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer" alt=""/>
                             </a>
                         </li>
                         <li>
