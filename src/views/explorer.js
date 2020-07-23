@@ -521,8 +521,6 @@ export default class ExplorerView extends BaseView {
                                             } else if (this.state.canvasType === "raw" && this.state.responses) {
                                                 return (
                                                     <RawResponsesCanvas
-                                                        // vertices={this.state.vertices}
-                                                        // edges={this.state.edges}
                                                         responses={this.state.responses}/>
                                                 )
                                             } else {

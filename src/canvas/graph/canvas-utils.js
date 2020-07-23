@@ -1,4 +1,3 @@
-// generic
 import {
     DefaultNodeRadius,
     DefaultNodeBorderColor,
