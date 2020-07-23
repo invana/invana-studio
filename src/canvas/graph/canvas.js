@@ -97,7 +97,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         let linkLabels = this.canvas.selectAll('.edgelabel');
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
         nodeElements.style('fill', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -42) : nodeElement.meta.shapeOptions.fillColor;
         });
 
         let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id);
@@ -512,7 +512,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         let linkData = this.linkIDtoLinkMap[selectedLink.id];
         let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
         nodeElements.style('fill', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -50) : nodeElement.meta.shapeOptions.fillColor;
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -42) : nodeElement.meta.shapeOptions.fillColor;
         });
         d3.select('#link-' + selectedLink.id).style('stroke', "black");
         this.showElementProperties(selectedLink);
