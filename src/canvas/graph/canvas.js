@@ -1,11 +1,12 @@
 import React from "react";
 import GraphControls from "./graph-controls";
-import {prepareLinksDataForCurves, prepareNodesDataWithOptions, removeVertexMeta, removeEdgeMeta} from "./canvas-utils";
-import {LightenDarkenColor} from "../../core/utils";
+import {prepareLinksDataForCurves, prepareNodesDataWithOptions, removeVertexMeta,
+    removeEdgeMeta} from "./canvas-utils";
+import {LightenDarkenColor, invertColor} from "../../core/utils";
 import "./graph.scss";
 
 import {
-    DefaultHoverOpacity,
+    simulationAlpha,
     DefaultLinkTextColor,
     DefaultLinkStrokeWidth,
     DefaultLinkPathColor,
@@ -53,7 +54,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         let linkElements = this.canvas.selectAll('.link');
         let linkLabels = this.canvas.selectAll('.edgelabel');
 
-        nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor); //TODO - add default value
+        nodeElements.style('fill', (nodeElement) => nodeElement.meta.shapeOptions.fillColor);
         linkElements.style('opacity', '1');
         linkLabels.style('opacity', '1');
     }
@@ -97,7 +98,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         let linkLabels = this.canvas.selectAll('.edgelabel');
         let adjacentNodeIds = this.getAdjacentNodeIds(selectedNode.id);
         nodeElements.style('fill', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -42) : nodeElement.meta.shapeOptions.fillColor;
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, +22) : nodeElement.meta.shapeOptions.fillColor;
         });
 
         let adjacentLinkIds = this.getAdjacentLinkIds(selectedNode.id);
@@ -173,7 +174,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         selectedNode.fixed = false;
         selectedNode.fx = null;
         selectedNode.fy = null;
-        this.simulation.alpha(DefaultHoverOpacity).restart();
+        this.simulation.alpha(simulationAlpha).restart();
     }
 
     showVertexOptions(selectedNode) {
@@ -418,7 +419,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .style("font-size", "12px")
             .attr("height", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
             .append("xhtml:body")
-            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("color", (d) => invertColor(d.meta.shapeOptions.fillColor, true))
             .style("font-size", "16px") // make this dynamic based on the node radius also
             .style("margin", "0")
             .style("text-align", "center")
@@ -429,7 +430,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             // .style("vertical-align", "middle")
             .style("font-size", "10px")
             .style("font-weight", "bold")
-            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("color", (d) => invertColor(d.meta.shapeOptions.fillColor, true))
             .style("background-color", "transparent")
             .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
             .style("margin", "0")
@@ -446,7 +447,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .style("font-size", "4px")
             .style("vertical-align", "middle")
             .style("font-weight", "bold")
-            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("color", (d) => invertColor(d.meta.shapeOptions.fillColor, true))
             .style("background-color", "transparent")
             // .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
             .html(function (d) {
@@ -471,7 +472,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .style("font-size", "12px")
             .attr("height", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
             .append("xhtml:body")
-            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("color", (d) => invertColor(d.meta.shapeOptions.fillColor, true))
             .style("font-size", "16px") // make this dynamic based on the node radius also
             // .style("font-weight", "bold")
             .style("background-color", "transparent")
@@ -512,7 +513,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         let linkData = this.linkIDtoLinkMap[selectedLink.id];
         let adjacentNodeIds = new Set([linkData.source.id, linkData.target.id]);
         nodeElements.style('fill', function (nodeElement) {
-            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, -42) : nodeElement.meta.shapeOptions.fillColor;
+            return adjacentNodeIds.has(nodeElement.id) ? LightenDarkenColor(nodeElement.meta.shapeOptions.fillColor, +22) : nodeElement.meta.shapeOptions.fillColor;
         });
         d3.select('#link-' + selectedLink.id).style('stroke', "black");
         this.showElementProperties(selectedLink);
@@ -681,7 +682,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .on("dblclick", function (d) {
                 d.fixed = false;
                 if (!d3.event.active) {
-                    _this.simulation.alphaTarget(DefaultHoverOpacity).restart();
+                    _this.simulation.alphaTarget(simulationAlpha).restart();
                 }
             })
             .call(d3.drag()
@@ -697,7 +698,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
         function dragStarted(d) {
             if (!d3.event.active) {
-                _this.simulation.alphaTarget(DefaultHoverOpacity).restart();
+                _this.simulation.alphaTarget(simulationAlpha).restart();
             }
             d.fx = d.x;
             d.fy = d.y;
@@ -711,7 +712,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             if (!d3.event.active) {
                 _this.simulation.alphaTarget(0);
             }
-            _this.simulation.alpha(DefaultHoverOpacity).restart();
+            _this.simulation.alpha(simulationAlpha).restart();
             d3.selectAll(".node").each(function (d) {
                 d.fixed = true;//thsi will fix the node.
             });

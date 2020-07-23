@@ -33,7 +33,7 @@ export const DefaultLinkDistance = 180;
 export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.properties.name.substring(0, 10) : node.id;
 
 export const DefaultLabelVisibility = false;
-export const DefaultHoverOpacity = 0.8;
+export const simulationAlpha = 0.8;
 export const linkCurvature = .85;
 
 
