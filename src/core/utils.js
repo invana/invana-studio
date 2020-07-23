@@ -159,8 +159,8 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
 
 
 export function askToSwitchGremlinServer() {
-    var r = window.confirm("You are about to sign-out of the workspace." +
-        "Your query history will be still preserved. Do you  want to continue!");
+    var r = window.confirm("You are about to sign out of the workspace. " +
+        "Your query history will be preserved. Do you want to continue?");
     if (r === true) {
         removeItemFromLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey);
         window.location.href = CONNECT_URL;
