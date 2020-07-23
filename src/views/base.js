@@ -95,7 +95,6 @@ class GremlinViewBase extends GremlinBasedComponent {
     }
 
     setHideVertexOptions() {
-        alert("setHideVertexOptions");
         this.setState({
             selectedElementData: null,
             middleBottomContentName: null
