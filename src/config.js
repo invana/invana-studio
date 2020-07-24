@@ -5,10 +5,10 @@ export const AUTH_CONSTANTS = {
 export const GREMLIN_SERVER_URL = localStorage.getItem(AUTH_CONSTANTS.gremlinServerUrlKey);
 
 export const DefaultMaxTimeElapsedWarningInSeconds = 180;
-export const DefaultConnectionRetryTimeout = 10;
+export const DefaultConnectionRetryTimeout = 20;
 
 
-export const VERSION = "alpha";
+export const VERSION = "pre-beta";
 export const ABOUT_TEXT = "Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.";
 export const CONNECT_URL = "/connect";
 export const REPO_URL = "https://github.com/invanalabs/graph-explorer";

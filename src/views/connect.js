@@ -15,7 +15,18 @@ export default class SetupGremlinServerConnection extends React.Component {
         }
     }
 
+    checkIfHttps(url) {
+        const protocol = new URL(url).protocol;
+        return protocol === "https" || protocol === "wss";
+    }
+
     onFormSubmit(e) {
+
+        const isHttps = new URL(window.location.href).protocol === "https";
+        if (isHttps && !this.checkIfHttps(e.target.gremlinServerUrl.value)) {
+            alert("Your connection string is not secure. You can only use https or wss connection string " +
+                "when you are using Graph Explorer on https.")
+        }
         e.preventDefault();
         setDataToLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey, e.target.gremlinServerUrl.value);
         window.location.href = "/";
@@ -39,7 +50,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                         <form action="" onSubmit={this.onFormSubmit.bind(this)}>
                             <input type="text" name={"gremlinServerUrl"}
                                 // defaultValue={"ws://localhost:8182/gremlin"}
-                                   placeholder={"ws://user:password@localhost:8182/gremlin"}/>
+                                   placeholder={"http://user:password@localhost:8182/gremlin"}/>
                             <br/>
                             <button type={"submit"} className={"primary-btn button"}>Connect</button>
 

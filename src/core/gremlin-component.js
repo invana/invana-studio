@@ -79,7 +79,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             vertices: [],
             edges: []
         }
-        // this.ws = this.createWebSocket();
         this.streamResponses = [];
     }
 
@@ -94,8 +93,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
 
     reconnectWithWS() {
-        // clearInterval(this.timer2);
-        // clearInterval(this.timer);
+        clearInterval(this.queryElapsedTimerId);
+        clearInterval(this.reconnectingTimerId);
         this.ws = this.createWebSocket();
         this.connect();
     }
@@ -124,12 +123,15 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             _this.gatherDataFromStream(response);
         }
 
-        this.ws.onclose = () => {
-            console.log('disConnected2Gremlin')
+        this.ws.onclose = (evt) => {
+            console.log('disConnected2Gremlin');
+            if (evt.code !== 3001) {
+                console.log('ws connection error');
+                alert("Failed to connect to the connection url " + this.props.gremlinUrl);
+            }
             clearInterval(_this.reconnectingTimerId);
             // automatically try to reconnectWithWS on connection loss
             _this.setIsConnected2Gremlin(false);
-
             let i = 0;
             this.reconnectingTimerId = setInterval((function () {
                     i += 1;
@@ -141,7 +143,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                     }
                 }
             ), 1000); // retry in 5 seconds
-
         }
     }
 
