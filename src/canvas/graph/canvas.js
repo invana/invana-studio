@@ -167,10 +167,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.props.setMiddleBottomContentName('vertex-options')
     }
 
-    onNodeClicked(thisnode, selectedNode) {
-        console.log("onNodeClicked:: thisnode : selectedNode", thisnode, selectedNode);
+    onNodeClicked(selectedNode) {
+        console.log("onNodeClicked:: : selectedNode", selectedNode);
         let _this = this;
         let thisNode = d3.select("#node-" + selectedNode.id);
+        console.log("=======thisNode", thisNode)
         d3.select(".node-menu").remove();
 
         var menuDataSet = [{
@@ -223,12 +224,13 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .outerRadius(radiusMenu - 35);
 
         // Graph space
-        var svgMenu = thisNode.append("svg")
+        var svgMenu = this.canvas.append("svg")
             .attr("width", widthMenu)
             .attr("height", heightMenu)
             .attr("class", "node-menu")
-            .attr("x", -100)
-            .attr("y", -100)
+            .attr("x", selectedNode.x - 100)
+            .attr("y", selectedNode.y - 100)
+            .attr("z-index", 1000)
             .append("g")
             .attr("transform", "translate(" + widthMenu / 2 + "," + heightMenu / 2 + ")");
         // Prepare graph and load data
@@ -319,19 +321,26 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
     addVertices(nodesData) {
         console.log("VertexUtils.add", JSON.parse(JSON.stringify(nodesData)));
-        let _this = this;
+
+
+        // const dragCallback = function () {
+        //     console.log("======dragCallback", d3.event.dx, d3.event.dy);
+        // };
+        // const dragBehavior = d3.drag()
+        //     .on("drag", dragCallback);
         let node = this.canvas.selectAll(".node")
             .data(nodesData)
             .enter()
             .append("g")
+            // .call(dragBehavior)
             .attr("class", "node")
-            .style("z-index", "100")
+            // .style("z-index", "100")
             .attr("id", function (d) {
                 return "node-" + d.id;
             })
             .on("mouseover", (d) => this.onNodeHoverIn(d))
             .on("mouseout", (d) => this.onNodeHoverOut(d))
-            .on("click", (d) => this.onNodeClicked(_this, d));
+            .on("click", (d) => this.onNodeClicked(d));
 
         // node first circle
         node.append("circle")
@@ -565,16 +574,15 @@ export default class D3ForceDirectedCanvas extends React.Component {
     setupSimulation(canvas_width, canvas_height) {
         let forceCollide = d3.forceCollide()
             .radius(function (d) {
-                return d.radius + 1.2;
+                return d.radius * 3;
             })
             .iterations(1); /// TODO - revisit this
         const forceX = d3.forceX(canvas_width / 2).strength(0.10);
         const forceY = d3.forceY(canvas_height / 2).strength(0.10);
 
-        let getSimulationCharge = function () {
-            return d3.forceManyBody()
-                .strength(-240);
-        }
+        let getSimulationCharge = d3.forceManyBody()
+            .strength(-1200);
+
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
@@ -582,7 +590,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 })
                 .distance(DefaultLinkDistance).strength(1)
             )
-            .force("charge", getSimulationCharge())
+            .force("charge", getSimulationCharge)
             .force("collide", forceCollide)
             .force('x', forceX)
             .force('y', forceY)
@@ -659,6 +667,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
         function dragged(d) {
             d.fx = d3.event.x;
             d.fy = d3.event.y;
+
+            d3.select(".node-menu")
+                .attr("x", d3.event.x - 100)
+                .attr("y", d3.event.y - 100);
         }
 
         function dragStarted(d) {
