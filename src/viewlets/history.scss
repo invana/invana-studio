@@ -4,9 +4,10 @@
 .historyItem:nth-child(odd) {
   background: #292929;
 
-    div {
+  div {
     color: #525252 !important;
-    }
+  }
+
   a {
     color: #525252 !important;
   }
@@ -14,6 +15,7 @@
 
 .historyItem {
   padding: 5px !important;
+  padding-bottom: 10px !important;
   margin: 0 !important;
 
   p {
@@ -25,7 +27,7 @@
     }
   }
 
-  button{
+  button {
     margin-right: 10px !important;
   }
 
@@ -34,6 +36,8 @@
     white-space: break-spaces;
     overflow: hidden;
     text-overflow: ellipsis;
+    background: #010101;
+    padding: 5px;
   }
 
   a {
@@ -44,7 +48,7 @@
     //padding: 2px 15px !important;
   }
 
-  a:hover{
+  a:hover {
     color: $primaryColor !important;
   }
 
