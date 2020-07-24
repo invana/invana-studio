@@ -40,23 +40,14 @@ class GremlinViewBase extends GremlinBasedComponent {
     extendGraph(responses) {
         let overallNodes = this.state.vertices;
         let overallLinks = this.state.edges;
-        console.log("========this.state", this.state)
-        console.log("<<<>>>overallNodes", overallNodes);
-
         responses.forEach(function (response) {
             const serializedData = serializer.process(response);
             const separatedData = serializer.separateVerticesAndEdges(serializedData);
             overallNodes = overallNodes.concat(separatedData['nodes']);
             overallLinks = overallLinks.concat(separatedData['links']);
         });
-        // const uniqueNodes = [...new Map(overallNodes.map(item => [item.id, item])).values()];
-        // const uniqueLinks = [...new Map(overallLinks.map(item => [item.id, item])).values()];
-        //
         const uniqueNodes = this.getUniqueItems(overallNodes);
         const uniqueLinks = this.getUniqueItems(overallLinks);
-
-        console.log("<<<>>>uniqueNodes", uniqueNodes);
-        console.log("<<<>>>uniqueLinks", uniqueLinks);
         this.setState({
             vertices: uniqueNodes,
             edges: uniqueLinks,
