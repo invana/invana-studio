@@ -30,7 +30,7 @@ import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
 import QueryConsole from "../viewlets/query-console";
 import AboutComponent from "../viewlets/about";
-import { REPO_URL} from "../config";
+import {REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
 import GraphCanvas from "../canvas/graph";
 import JSONCanvas from "../canvas/json";
@@ -544,13 +544,15 @@ export default class ExplorerView extends BaseView {
                     </List>
                     <List type={"nav-right"}>
 
-                        <li><button className={"no-bg"}>{this.getProtocol()} protocol</button></li>
+                        <li>
+                            <button className={"no-bg"}>{this.getProtocol()} protocol</button>
+                        </li>
 
                         {this.getLatestResponse().status
                             ?
                             <li>
                                 <button className={"no-bg"} onClick={() => this.setBottomContentName("error-console")}>
-                                    {
+                                    <span>{
                                         this.getLatestResponse().status ?
                                             this.getLatestResponse().status !== 200
                                                 ? <strong
@@ -558,8 +560,7 @@ export default class ExplorerView extends BaseView {
                                                 : <strong
                                                     className={"ok-badge"}>{this.getLatestResponse().status}</strong>
                                             : <strong>NA</strong>
-                                    }
-                                    &nbsp; Response
+                                    }&nbsp;response</span>
                                 </button>
                             </li>
                             : <li><span></span></li>
