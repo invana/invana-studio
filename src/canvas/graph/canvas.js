@@ -228,6 +228,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr("width", widthMenu)
             .attr("height", heightMenu)
             .attr("class", "node-menu")
+            .attr("node-id", selectedNode.id)
             .attr("x", selectedNode.x - 100)
             .attr("y", selectedNode.y - 100)
             .attr("z-index", 1000)
@@ -582,7 +583,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
         let getSimulationCharge = d3.forceManyBody()
             .strength(-1200);
-
+        //
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
@@ -595,6 +596,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .force('x', forceX)
             .force('y', forceY)
             .force("center", d3.forceCenter(canvas_width / 2, canvas_height / 2));
+
 
     }
 
@@ -709,10 +711,20 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .links(edges);
 
         function ticked() {
-            node
-                .attr("transform", function (d) {
-                    return "translate(" + d.x + ", " + d.y + ")";
-                });
+            const nodeMenuSvg = document.querySelector(".node-menu");
+            let vertexIdOfNodeMenu = null;
+            console.log("======nodeMenuSvg", nodeMenuSvg);
+            if (nodeMenuSvg) {
+                vertexIdOfNodeMenu = parseInt(nodeMenuSvg.getAttribute("node-id"));
+            }
+            node.attr("transform", function (d) {
+                console.log("vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id", vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id, vertexIdOfNodeMenu, d.id, d)
+                if (nodeMenuSvg && vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id) {
+                    nodeMenuSvg.setAttribute("x", d.x - 100).setAttribute("y", d.y - 100);
+                }
+                return "translate(" + d.x + ", " + d.y + ")";
+            });
+
 
             function linkArc(d) {
                 let dx = (d.target.x - d.source.x),
