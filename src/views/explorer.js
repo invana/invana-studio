@@ -185,7 +185,7 @@ export default class ExplorerView extends BaseView {
                                 <FontAwesomeIcon icon={faStickyNote}/> Note from the Author
                             </button>
                         </li>
-                        <li>
+                        <li style={{"padding": "0 5px"}}>
                             <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
                                 {/*<FontAwesomeIcon icon={faGithub}/> 33 stars*/}
                                 <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer" alt=""/>
