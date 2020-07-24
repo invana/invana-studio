@@ -253,6 +253,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                 this.flushStreamResponsesData();
                 this._processResponse(responses);
             }
+            this.setIsConnected2Gremlin(true);
         } else {
             this.setIsStreaming(false);
             console.log("response===========", response);
