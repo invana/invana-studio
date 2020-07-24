@@ -41,7 +41,7 @@ export default class VertexOptions extends GremlinBasedComponent {
             ".hasLabel('" + managementVertexLabel + "')" +
             ".has('name','" + e.target.name.value + "').toList()";
 
-        if (query && this.ws) {
+        if (query) {
             this.makeQuery(query, {source: "internal"});
         }
 
