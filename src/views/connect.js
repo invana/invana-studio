@@ -22,14 +22,19 @@ export default class SetupGremlinServerConnection extends React.Component {
 
     onFormSubmit(e) {
 
+        const gremlinServerUrl = e.target.gremlinServerUrl.value;
         const isHttps = new URL(window.location.href).protocol === "https";
-        if (isHttps && !this.checkIfHttps(e.target.gremlinServerUrl.value)) {
+        if (isHttps && !this.checkIfHttps(gremlinServerUrl)) {
             alert("Your connection string is not secure. You can only use https or wss connection string " +
                 "when you are using Graph Explorer on https.")
         }
         e.preventDefault();
-        setDataToLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey, e.target.gremlinServerUrl.value);
-        window.location.href = "/";
+        if (gremlinServerUrl) {
+            setDataToLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey, gremlinServerUrl);
+            window.location.href = "/";
+        } else {
+            alert("Invalid Gremlin connection string");
+        }
     }
 
     openDemo() {
