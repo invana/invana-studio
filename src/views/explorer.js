@@ -561,6 +561,10 @@ export default class ExplorerView extends BaseView {
                                                     className={"ok-badge"}>{this.getLatestResponse().status}</strong>
                                             : <strong>NA</strong>
                                     }&nbsp;response</span>
+
+                                    <span>
+                                        {this.queryEndedAt - this.queryStartedAt} ms
+                                    </span>
                                 </button>
                             </li>
                             : <li><span></span></li>

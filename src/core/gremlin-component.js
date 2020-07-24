@@ -54,6 +54,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     // timer2 = null;
     queryElapsedTimerId = null;
     reconnectingTimerId = null;
+    queryStartedAt = null;
+    queryEndedAt = null;
     ws = null;
     streamResponses = null;
     static defaultProps = {
@@ -232,6 +234,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     //     "will get the responses from gremlin server. Use this to access the query response data.");
 
     _processResponse(responses) {
+        this.queryEndedAt = new Date();
         this.resetLoader();
         this.processResponse(responses);
     }
@@ -372,6 +375,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             this.startLoader("Connecting..");
 
             const protocol = this.getProtocol();
+            this.queryStartedAt = new Date();
+            this.queryEndedAt = new Date();
             if (protocol === "ws") {
                 this._queryWS(queryData)
             } else {
