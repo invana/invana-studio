@@ -539,7 +539,7 @@ export default class ExplorerView extends BaseView {
                 </Main>
                 <GEFooter>
                     <List type={"nav-left"}>
-                        {this.state.isConnected2Gremlin? <li><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li> : <li></li>}
+                        <li className={"ml-5"}><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li>
                         <li><span>{this.state.statusMessage}</span></li>
                     </List>
                     <List type={"nav-right"}>

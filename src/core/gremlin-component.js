@@ -256,6 +256,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         } else {
             this.setIsStreaming(false);
             console.log("response===========", response);
+            this.setIsConnected2Gremlin(false);
             this.setErrorMessage(response.status)
             this.setStatusMessage("Query Failed with " + response.status.code + " error.");
             this.streamResponses.push(response);
@@ -332,6 +333,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         const payload = {"gremlin": query};
         let _this = this;
         postData(this.props.gremlinUrl, {}, payload).then(data => {
+            // check the status and response type and change isConnected
+            // _this.setIsConnected2Gremlin(false);
             _this.gatherDataFromStream(data);
         });
 
@@ -383,6 +386,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         return (
             <LoadSpinner
                 loadingMessage={this.state.loadingMessage}
+                isConnected2Gremlin={this.state.isConnected2Gremlin}
                 loadingExtraText={this.state.loadingExtraText}
                 isLoading={this.state.isLoading}
                 showSignOut={true}
