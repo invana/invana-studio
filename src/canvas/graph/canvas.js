@@ -2,7 +2,7 @@ import React from "react";
 import GraphControls from "./graph-controls";
 import {
     prepareLinksDataForCurves, prepareNodesDataWithOptions, removeVertexMeta,
-    removeEdgeMeta
+    removeEdgeMeta, getColorForString
 } from "./canvas-utils";
 import {LightenDarkenColor, invertColor} from "../../core/utils";
 import "./graph.scss";
@@ -530,14 +530,33 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr("id", (d) => "link-arrow-" + d.id)
             .attr("viewBox", "0 -5 10 10")
             .attr("refY", 0)
-            .attr("refX", (DefaultNodeRadius - (DefaultNodeRadius / 4) + DefaultLinkStrokeWidth))
-            .attr("fill", DefaultLinkPathColor)
-            .attr("stroke", DefaultLinkPathColor)
-            .attr("markerWidth", 10)
-            .attr("markerHeight", 10)
-            .attr("orient", "auto")
+            .attr("refX", DefaultNodeRadius)
+            .attr('orient', "auto")
+            .attr('stroke', (d) => getColorForString(d.label))
+            .attr('fill', (d) => getColorForString(d.label))
+            .attr('markerWidth', 8 * 2)
+            .attr('markerHeight', 9 * 2)
+            .attr('xoverflow', "visible")
+
             .append("svg:path")
-            .attr("d", "M0,-5L10,0L0,5");
+            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+            .attr('fill', (d) => getColorForString(d.label))
+            .attr('stroke', (d) => getColorForString(d.label));
+
+        //
+        //         .attr('id', "arrowhead")
+        // .attr('viewBox', "-0 -5 10 10")
+        // .attr('refX', DefaultNodeRadius)
+        // .attr('refY', 0)
+        // .attr('orient', "auto")
+        // .attr('markerWidth', 8 * 2)
+        // .attr('markerHeight', 9 * 2)
+        // .attr('xoverflow', "visible")
+        // .append('svg:path')
+        // .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        // .attr('fill', DefaultLinkPathColor)
+        // .style('stroke', 'none');
+
 
         const linkPaths = links
             .append("path")
@@ -550,7 +569,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr("sameIndexCorrected", function (d) {
                 return d.sameIndexCorrected;
             })
-            .attr('stroke', DefaultLinkPathColor)
+            .attr('stroke', (d) => getColorForString(d.label))
             .attr("stroke-width", DefaultLinkStrokeWidth + "px")
             .attr("fill", "transparent")
             // .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
@@ -683,9 +702,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
             }
             d.fx = d.x;
             d.fy = d.y;
-            // d3.selectAll(".node").each(function (d) {
-            // d.fixed = true;//thsi will fix the node.
-            // });
+            d3.selectAll(".node").each(function (d) {
+                d.fixed = true;//thsi will fix the node.
+            });
         }
 
         function dragEnded(d) {
