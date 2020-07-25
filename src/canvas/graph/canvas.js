@@ -554,8 +554,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr('stroke', (d) => getColorForString(d.label))
             .attr("stroke-width", DefaultLinkStrokeWidth + "px")
             .attr("fill", "transparent")
-            // .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
-            .attr('marker-end', 'url(#arrowhead)')
+            .attr('marker-end', (d) => 'url(#link-arrow-' + d.id + ')')
+            // .attr('marker-end', 'url(#arrowhead)')
             .on("mouseover", (d) => _this.onLinkMoveHover(d))
             .on("mouseout", (d) => _this.onLinkMoveOut(d))
 
