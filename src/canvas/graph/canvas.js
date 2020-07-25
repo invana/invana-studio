@@ -603,14 +603,15 @@ export default class D3ForceDirectedCanvas extends React.Component {
         const forceY = d3.forceY(canvas_height / 2).strength(0.1);
 
         let getSimulationCharge = d3.forceManyBody()
-            .strength(-400);
+            .strength(-1200);
 
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
                     return d.id;
                 })
-                .distance(DefaultLinkDistance).strength(1)
+                .distance(DefaultLinkDistance)
+                .strength(1)
             )
             .force("charge", getSimulationCharge)
             .force("collide", forceCollide)
