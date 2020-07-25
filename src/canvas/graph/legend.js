@@ -1,6 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
-import {prepareNodesDataWithOptions} from "./canvas-utils";
+import {prepareNodesDataWithOptions, getColorForString} from "./canvas-utils";
 import "d3-selection-multi";
 import "./legend.scss";
 import PropTypes from "prop-types";
@@ -106,7 +106,7 @@ export default class LegendCanvas extends React.Component {
             .attr('transform', function (d, i) {
                 return 'translate(' + (15) + ',' + ((i * 20) + 10) + ')';
             })
-            .style("fill", "#efefef");
+            .style("fill", (d)=> getColorForString(d.label));
 
         legend.selectAll('.label')
             .data(legend_edges_list)
