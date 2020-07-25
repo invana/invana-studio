@@ -152,13 +152,14 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.props.setRightContentName(null);
     }
 
-    releaseNodeLock(selectedNode) {
+    toggleNodeLock(selectedNode) {
         this.stopPropagatingChildClickEventToParentEl();
-        console.log("releaseNodeLock clicked", selectedNode);
-        selectedNode.fixed = false;
+        console.log("toggleNodeLock clicked", selectedNode);
+        selectedNode.fixed = !selectedNode.fixed;
         selectedNode.fx = null;
         selectedNode.fy = null;
         this.simulation.alpha(simulationAlpha).restart();
+
     }
 
     showVertexOptions(selectedNode) {
@@ -201,7 +202,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             html: "&rarr;"
         }, {
             id: 106,
-            option_name: "release-lock",
+            option_name: "toggle-node-lock",
             title: "Release Lock",
             html: "&#x1f513;"
         }];
@@ -252,8 +253,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
                     _this.expandInLinksAndNodes(selectedNode);
                 } else if (arch_node.data.option_name === "close-node-menu") {
                     _this.closeNodeMenu(selectedNode);
-                } else if (arch_node.data.option_name === "release-lock") {
-                    _this.releaseNodeLock(selectedNode);
+                } else if (arch_node.data.option_name === "toggle-node-lock") {
+                    _this.toggleNodeLock(selectedNode);
                 } else if (arch_node.data.option_name === "vertex-options") {
                     _this.showVertexOptions(selectedNode);
                 } else if (arch_node.data.option_name === "start-querying") {
@@ -625,11 +626,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
         canvas.append('defs').append('marker')
             .attr('id', "arrowhead")
             .attr('viewBox', "-0 -5 10 10")
-            .attr('refX', DefaultNodeRadius )
+            .attr('refX', DefaultNodeRadius)
             .attr('refY', 0)
             .attr('orient', "auto")
-            .attr('markerWidth', 8*2)
-            .attr('markerHeight', 9*2)
+            .attr('markerWidth', 8 * 2)
+            .attr('markerHeight', 9 * 2)
             .attr('xoverflow', "visible")
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
