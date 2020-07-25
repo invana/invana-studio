@@ -579,11 +579,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 return d.radius * 3;
             })
             .iterations(1); /// TODO - revisit this
-        const forceX = d3.forceX(canvas_width / 2).strength(0.015);
-        const forceY = d3.forceY(canvas_height / 2).strength(0.015);
+        const forceX = d3.forceX(canvas_width / 2).strength(0.1);
+        const forceY = d3.forceY(canvas_height / 2).strength(0.1);
 
         let getSimulationCharge = d3.forceManyBody()
-            .strength(-1200);
+            .strength(-400);
 
         return d3.forceSimulation()
             .force("link", d3.forceLink()
@@ -625,11 +625,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
         canvas.append('defs').append('marker')
             .attr('id', "arrowhead")
             .attr('viewBox', "-0 -5 10 10")
-            .attr('refX', 23)
+            .attr('refX', DefaultNodeRadius )
             .attr('refY', 0)
             .attr('orient', "auto")
-            .attr('markerWidth', 8)
-            .attr('markerHeight', 9)
+            .attr('markerWidth', 8*2)
+            .attr('markerHeight', 9*2)
             .attr('xoverflow', "visible")
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
@@ -683,7 +683,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             d.fx = d.x;
             d.fy = d.y;
             // d3.selectAll(".node").each(function (d) {
-                // d.fixed = true;//thsi will fix the node.
+            // d.fixed = true;//thsi will fix the node.
             // });
         }
 
