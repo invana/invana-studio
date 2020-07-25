@@ -735,18 +735,13 @@ export default class D3ForceDirectedCanvas extends React.Component {
         function ticked() {
             const nodeMenuSvg = document.querySelector(".node-menu");
             let vertexIdOfNodeMenu = null;
-            console.log("======nodeMenuSvg", nodeMenuSvg);
+
             if (nodeMenuSvg) {
                 vertexIdOfNodeMenu = parseInt(document.querySelector(".node-menu").getAttribute("node-id"));
             }
             node.attr("transform", function (d) {
-                console.log("vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id", vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id, vertexIdOfNodeMenu, d.id, d)
-                if (document.querySelector(".node-menu") && vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id) {
-                    try {
-                        d3.select(".node-menu").attr("x", d.x - 100).attr("y", d.y - 100);
-                    } catch (e) {
-                        console.error(e);
-                    }
+                if (nodeMenuSvg && vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id) {
+                    d3.select(".node-menu").attr("x", d.x - 100).attr("y", d.y - 100);
                 }
                 return "translate(" + d.x + ", " + d.y + ")";
             });
