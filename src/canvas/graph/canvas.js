@@ -565,6 +565,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 return "#link-" + i;
             })
             .style("text-anchor", "middle")
+            .style("font-weight", "normal")
             .attr("startOffset", "50%")
             .attr('fill', DefaultLinkTextColor) // TODO add .meta for links also
             .attr('stroke', DefaultLinkTextColor)
@@ -578,12 +579,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 return d.radius * 3;
             })
             .iterations(1); /// TODO - revisit this
-        const forceX = d3.forceX(canvas_width / 2).strength(0.10);
-        const forceY = d3.forceY(canvas_height / 2).strength(0.10);
+        const forceX = d3.forceX(canvas_width / 2).strength(0.015);
+        const forceY = d3.forceY(canvas_height / 2).strength(0.015);
 
         let getSimulationCharge = d3.forceManyBody()
             .strength(-1200);
-        //
+
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
@@ -681,9 +682,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
             }
             d.fx = d.x;
             d.fy = d.y;
-            d3.selectAll(".node").each(function (d) {
-                d.fixed = true;//thsi will fix the node.
-            });
+            // d3.selectAll(".node").each(function (d) {
+                // d.fixed = true;//thsi will fix the node.
+            // });
         }
 
         function dragEnded(d) {
@@ -695,8 +696,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
             d3.selectAll(".node").each(function (d) {
                 d.fixed = true;//thsi will fix the node.
             });
-            // d.fx = null;
-            // d.fy = null;
+            d.fx = null;
+            d.fy = null;
         }
 
         d3.select('#center-canvas').on('click', function () {
