@@ -24,7 +24,7 @@ export const DefaultNodeRadius = 24;
 export const DefaultNodeInShapeTextColor = "#dddddd"; // inside the shape
 export const DefaultNodeLabelColor = "#dddddd";
 export const DefaultLinkPathColor = "#c9c9c9";
-export const DefaultLinkTextColor = "#c9c9c9";
+// export const DefaultLinkTextColor = "#c9c9c9";
 export const DefaultLinkStrokeWidth = 1;
 export const DefaultLinkDistance = 180;
 

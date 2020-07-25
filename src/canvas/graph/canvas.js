@@ -9,7 +9,6 @@ import "./graph.scss";
 
 import {
     simulationAlpha,
-    DefaultLinkTextColor,
     DefaultLinkStrokeWidth,
     DefaultLinkPathColor,
     DefaultNodeRadius,
@@ -306,7 +305,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     onNodeHoverOut(selectedNode) {
-        console.log("on node hover out", selectedNode);
         this.stopPropagatingChildClickEventToParentEl();
         this.resetNodeHighlight(selectedNode);
     }
@@ -543,20 +541,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr('fill', (d) => getColorForString(d.label))
             .attr('stroke', (d) => getColorForString(d.label));
 
-        //
-        //         .attr('id', "arrowhead")
-        // .attr('viewBox', "-0 -5 10 10")
-        // .attr('refX', DefaultNodeRadius)
-        // .attr('refY', 0)
-        // .attr('orient', "auto")
-        // .attr('markerWidth', 8 * 2)
-        // .attr('markerHeight', 9 * 2)
-        // .attr('xoverflow', "visible")
-        // .append('svg:path')
-        // .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-        // .attr('fill', DefaultLinkPathColor)
-        // .style('stroke', 'none');
-
 
         const linkPaths = links
             .append("path")
@@ -566,9 +550,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr("association-id", function (d) {
                 return "link-" + d.target + "-" + d.source;
             })
-            .attr("sameIndexCorrected", function (d) {
-                return d.sameIndexCorrected;
-            })
+            .attr("sameIndexCorrected", (d) => d.sameIndexCorrected)
             .attr('stroke', (d) => getColorForString(d.label))
             .attr("stroke-width", DefaultLinkStrokeWidth + "px")
             .attr("fill", "transparent")
@@ -587,8 +569,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .style("text-anchor", "middle")
             .style("font-weight", "normal")
             .attr("startOffset", "50%")
-            .attr('fill', DefaultLinkTextColor) // TODO add .meta for links also
-            .attr('stroke', DefaultLinkTextColor)
+            .attr('fill', (d) => getColorForString(d.label))
+            // .attr('stroke', DefaultLinkTextColor)
             .text((d) => `${d.label || d.id}`);
         return [links, linkPaths, linkText];
     }
