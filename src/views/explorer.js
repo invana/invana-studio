@@ -5,8 +5,8 @@ import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faBook, faBug,
-    faCog,
+    faBook,
+    faCog, faCubes,
     faFilter,
     faHistory, faInfoCircle, faLifeRing,
     faSave,
@@ -39,6 +39,7 @@ import RawResponsesCanvas from "../canvas/raw-responses";
 import SelectedDataCanvas from "../canvas/graph/selected-data";
 import VertexOptions from "../viewlets/vertex-options";
 import FounderNote from "../viewlets/founder-note";
+import WhatsNew from "../viewlets/whats-new";
 
 const Mousetrap = require("mousetrap");
 
@@ -185,27 +186,16 @@ export default class ExplorerView extends BaseView {
                                 <FontAwesomeIcon icon={faStickyNote}/> Note from the Author
                             </button>
                         </li>
+                        <li>
+                            <button onClick={() => this.setRightContentName("whats-new")}>
+                                <FontAwesomeIcon icon={faCubes}/> What's New
+                            </button>
+                        </li>
                         <li style={{"padding": "0 5px"}}>
                             <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                {/*<FontAwesomeIcon icon={faGithub}/> 33 stars*/}
                                 <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer" alt=""/>
                             </a>
                         </li>
-                        <li>
-                            <a rel="noopener noreferrer" target={"_blank"} href={REPO_URL + '/issues'}>
-                                <FontAwesomeIcon icon={faBug}/>
-                            </a>
-                        </li>
-                        {/*<li>*/}
-                        {/*    <button onClick={() => this.setRightContentName("learn")}>*/}
-                        {/*        <FontAwesomeIcon icon={faQuestionCircle}/>*/}
-                        {/*    </button>*/}
-                        {/*</li>*/}
-                        {/*<li>*/}
-                        {/*    <button onClick={() => console.log("ok")}>*/}
-                        {/*        <FontAwesomeIcon icon={faEllipsisV}/>*/}
-                        {/*    </button>*/}
-                        {/*</li>*/}
                     </List>
                 </GEHeader>
                 <Main>
@@ -543,11 +533,9 @@ export default class ExplorerView extends BaseView {
                         <li><span>{this.state.statusMessage}</span></li>
                     </List>
                     <List type={"nav-right"}>
-
                         <li>
                             <button className={"no-bg"}>{this.getProtocol()} protocol</button>
                         </li>
-
                         {this.getLatestResponse().status
                             ?
                             <li>
@@ -589,6 +577,16 @@ export default class ExplorerView extends BaseView {
                                     onClickClose={() => this.setRightContentName(null)}
                                     showToggleBtn={false}
                                 > <FounderNote
+                                    setLeftContent={this.setLeftContent.bind(this)}
+                                    onClose={() => this.setRightContentName(null)}/>
+                                </GEPanel>
+                                : this.state.rightContentName === "whats-new"
+                                ?
+                                <GEPanel
+                                    title={"What's New"}
+                                    onClickClose={() => this.setRightContentName(null)}
+                                    showToggleBtn={false}
+                                > <WhatsNew
                                     setLeftContent={this.setLeftContent.bind(this)}
                                     onClose={() => this.setRightContentName(null)}/>
                                 </GEPanel>
