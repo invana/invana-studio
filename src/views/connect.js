@@ -17,7 +17,7 @@ export default class SetupGremlinServerConnection extends React.Component {
 
     checkIfHttps(url) {
         const protocol = new URL(url).protocol;
-        return protocol === "https" || protocol === "wss";
+        return protocol === "https:" || protocol === "wss:";
     }
 
     onFormSubmit(e) {
