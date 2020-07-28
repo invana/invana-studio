@@ -32,7 +32,7 @@ export default class WhatsNew extends React.Component {
                     </li>
                     <li>
                         <h4 className={"mt-20"}><FontAwesomeIcon icon={faCube}/> Gremlin Query Console</h4>
-                        <p>Run queries on your graph data using Apache TinkerPop's Gremlin Query Language.</p>
+                        <p>Run queries on your graph data using Apache TinkerPop&quot;s Gremlin Query Language.</p>
                     </li>
                     <li>
                         <h4 className={"mt-20"}><FontAwesomeIcon icon={faCube}/> Connect to HTTP or WebSocket</h4>
