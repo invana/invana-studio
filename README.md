@@ -9,65 +9,52 @@ Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported
 [![Docker pulls](https://img.shields.io/docker/pulls/invanalabs/graph-explorer)](https://hub.docker.com/r/invanalabs/graph-explorer)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/invanalabs/graph-explorer)](https://github.com/invanalabs/graph-explorer/commits)
 
-**Note:** You still need gremlin server running on your local or remote.
+**This project is under active development.** 
 
-**This project is at Alpha Release currently, and expected 
-to go into Beta in few weeks depending on the feed back
-from the Community.** You can access live version of the demo hosted on heroku.
+## Features 
 
+- Connect to any Apache TinkerPop enabled Graph Database.
+- Connect via HTTP or WebSocket protocols.
+- Connect to Basic and Token based Authentication gremlin server over http/s (you can use [gremlin-proxy](https://github.com/invanalabs/gremlin-proxy).
+- Visualise data in Force Directed Graphs, Tables and JSON.
+- Retain query history in your localstorage.
+- Update colors of nodes and edges.
 
 ## Installation
 
-#### Install on Heroku
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master)
-
-Get the UI graph-explorer server live in minutes. 
- 
-#### Deploy using Docker
-
 ```shell script.
-# for latest release
 docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
-```
-This will start a graph explorer service that can be accessed at 8888 port. ex: http://localhost:8888 
-
-#### Connecting to Graph Explorer
-
-You need a Apache TinkerPop Gremlin server running in your remote or local, connected to a graph database.
-You can use something like JanusGraph 
-
-##### connecting to server with No authentication enabled 
-If you want to connect to an un authenticated gremlin server you can just use the following. 
-
-```shell script
-1. http://localhost:8182/gremlin - connect over http
-2. ws://localhost:8182/gremlin - connect over ws 
+# This will start a graph explorer service at 8888 port. ex: http://localhost:8888 
 ```
 
-You can choose which ever one makes more sense for you usecase.
+If you want to install graph-explorer on Heroku [click here](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master).
 
-#### connecting to server with Authentication enabled
- 
-```shell script
-1. http://user:password@awesome-proxy-domain.local/gremlin  -   Basic Authentication
-2. http://access-or-session-token@awesome-proxy-domain.local/gremlin - Token Based Authentication
-3. http://awesome-proxy-domain.local/gremlin - No Authentication
-```
+
+## Connecting to Graph Explorer
+
+1. wss://localhost:8182/gremlin - connect over ws/wss 
+2. https://localhost:8182/gremlin - connect over http/https
+3. https://user:password@awesome-proxy-domain.local/gremlin -  with basic authentication
+4. https://access-or-session-token@awesome-proxy-domain.local/gremlin - with token based authentication
 
 Apache TinkerPop's Gremlin Server does not handle Cross-origin resource sharing (CORS), for the 
-obvious security reasons I believe. But to access gremlin server from web browser we have created a 
-[gremlin proxy](https://github.com/invanalabs/gremlin-proxy). 
+obvious security reasons. But to access gremlin server from web browser you can use [gremlin proxy](https://github.com/invanalabs/gremlin-proxy). 
 It is a Proxy layer for Apache TinkerPop's Gremlin Server to enable Cross-origin resource sharing (CORS).
  
  
-
+Refer [documentation](https://invana.io/docs/graph-explorer/01-get-started) for more information.
 
 ## Screenshots
 ![1](./docs/screenshots/1.png)
+
 ![2](./docs/screenshots/2.png)
+
 ![3](./docs/screenshots/3.png)
+
 ![4](./docs/screenshots/4.png)
+
 ![5](./docs/screenshots/5.png)
+
 ![6](./docs/screenshots/6.png)
 
 
