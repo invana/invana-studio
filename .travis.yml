@@ -21,12 +21,16 @@ jobs:
         provider: heroku
         app: graph-explorer-edge
         api_key: $HEROKU_AUTH_TOKEN
+        on:
+          all_branches: true
     - stage: deploy to heroku
       script: skip
       deploy: &heroku
         provider: heroku
         app: graph-explorer
         api_key: $HEROKU_AUTH_TOKEN
+        on:
+          all_branches: true
     - stage: test edge deployemnt
       script: 'curl http://graph-explorer-edge.herokuapp.com'
     - stage: test prod deployemnt
@@ -34,13 +38,12 @@ jobs:
 
 stages:
   - name: deploy to heroku edge version
-    if: branch = "develop" AND type != pull_request
+    if: branch = develop AND type NOT pull_request
   - name: test edge deployemnt
-    if: branch = "develop" AND type != pull_request
+    if: branch = develop AND type NOT pull_request
   - name: deploy to heroku
-    if: branch = "master" AND tag IS present
+    if: branch = master AND tag IS present AND type NOT pull_request
   - name: test prod deployemnt
-    if: branch = "master" AND tag IS present
+    if: branch = master AND tag IS present AND type NOT pull_request
   - name: build and push docker image
-    if: branch = "master" AND tag IS present
-
+    if: branch = master AND tag IS present AND type NOT pull_request
