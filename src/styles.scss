@@ -142,6 +142,19 @@ button {
   margin-top: 10px;
 }
 
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+
+.ml-5 {
+  margin-left: 5px;
+}
+
 .m-10 {
   margin: 10px;
 }
@@ -158,8 +171,9 @@ button {
   padding: 10px;
 }
 
-.mb-10 {
-  margin-bottom: 10px;
+
+.mb-0 {
+  margin-bottom: 0;
 }
 
 textarea {
@@ -200,7 +214,7 @@ li.logo {
   background: #b45f5f;
   color: lighten($defaultTextColor, 20%);
   border-radius: 2px;
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .ok-badge {
@@ -211,26 +225,37 @@ li.logo {
   font-size: 12px;
   border-radius: 2px;
 }
-  body::-webkit-scrollbar ,
-  .tableCanvas::-webkit-scrollbar ,
-  .jsonCanvas::-webkit-scrollbar ,
-  textarea::-webkit-scrollbar  {
-    width: 8px;
-  }
 
-  body::-webkit-scrollbar-track ,
-  .tableCanvas::-webkit-scrollbar-track ,
-  .jsonCanvas::-webkit-scrollbar-track ,
-  textarea::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
+::-moz-selection { /* Code for Firefox */
+  color: $defaultTextColor;
+  background: $darkBg;
+}
 
-  body::-webkit-scrollbar-thumb ,
-  .tableCanvas::-webkit-scrollbar-thumb ,
-  .jsonCanvas::-webkit-scrollbar-thumb ,
-  textarea::-webkit-scrollbar-thumb {
-    background-color: $darkBgSecondary;
-    outline: 1px solid $borderColor;
-  }
+::selection {
+  color: $defaultTextColor;
+  background: $darkBg;
+}
+
+body::-webkit-scrollbar,
+.tableCanvas::-webkit-scrollbar,
+.jsonCanvas::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track,
+.tableCanvas::-webkit-scrollbar-track,
+.jsonCanvas::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb,
+.tableCanvas::-webkit-scrollbar-thumb,
+.jsonCanvas::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+  background-color: $darkBgSecondary;
+  outline: 1px solid $borderColor;
+}
 
 

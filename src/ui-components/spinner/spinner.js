@@ -11,6 +11,7 @@ export default class LoadSpinner extends React.Component {
         loadingMessage: PropTypes.string,
         loadTimeCounter: PropTypes.number,
         loadingExtraText: PropTypes.string,
+        isConnected2Gremlin: PropTypes.bool,
         showSignOut: PropTypes.bool,
 
     }
@@ -48,12 +49,15 @@ export default class LoadSpinner extends React.Component {
                             )}{" "}
                             {this.props.loadingExtraText}
                         </p>
+
+                        {this.props.isConnected2Gremlin
+                            ? <span></span>
+                            : <p>Failed to connect to the database.</p>
+                        }
                         {this.props.loadTimeCounter >=
                         DefaultMaxTimeElapsedWarningInSeconds ? (
-                            <span>
-                Strange! this operation took more than{" "}
-                                {DefaultMaxTimeElapsedWarningInSeconds}
-              </span>
+                            <span>Strange! this operation took more than{" "}
+                                {DefaultMaxTimeElapsedWarningInSeconds} seconds</span>
                         ) : (
                             <span/>
                         )}

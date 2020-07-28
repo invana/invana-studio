@@ -5,8 +5,8 @@ import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faBook, faBug,
-    faCog,
+    faBook,
+    faCog, faCubes,
     faFilter,
     faHistory, faInfoCircle, faLifeRing,
     faSave,
@@ -30,7 +30,7 @@ import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
 import QueryConsole from "../viewlets/query-console";
 import AboutComponent from "../viewlets/about";
-import { REPO_URL} from "../config";
+import {REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
 import GraphCanvas from "../canvas/graph";
 import JSONCanvas from "../canvas/json";
@@ -39,6 +39,7 @@ import RawResponsesCanvas from "../canvas/raw-responses";
 import SelectedDataCanvas from "../canvas/graph/selected-data";
 import VertexOptions from "../viewlets/vertex-options";
 import FounderNote from "../viewlets/founder-note";
+import WhatsNew from "../viewlets/whats-new";
 
 const Mousetrap = require("mousetrap");
 
@@ -186,26 +187,15 @@ export default class ExplorerView extends BaseView {
                             </button>
                         </li>
                         <li>
+                            <button onClick={() => this.setRightContentName("whats-new")}>
+                                <FontAwesomeIcon icon={faCubes}/> What&quot;s New
+                            </button>
+                        </li>
+                        <li style={{"padding": "0 5px"}}>
                             <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                {/*<FontAwesomeIcon icon={faGithub}/> 33 stars*/}
                                 <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer" alt=""/>
                             </a>
                         </li>
-                        <li>
-                            <a rel="noopener noreferrer" target={"_blank"} href={REPO_URL + '/issues'}>
-                                <FontAwesomeIcon icon={faBug}/>
-                            </a>
-                        </li>
-                        {/*<li>*/}
-                        {/*    <button onClick={() => this.setRightContentName("learn")}>*/}
-                        {/*        <FontAwesomeIcon icon={faQuestionCircle}/>*/}
-                        {/*    </button>*/}
-                        {/*</li>*/}
-                        {/*<li>*/}
-                        {/*    <button onClick={() => console.log("ok")}>*/}
-                        {/*        <FontAwesomeIcon icon={faEllipsisV}/>*/}
-                        {/*    </button>*/}
-                        {/*</li>*/}
                     </List>
                 </GEHeader>
                 <Main>
@@ -539,18 +529,18 @@ export default class ExplorerView extends BaseView {
                 </Main>
                 <GEFooter>
                     <List type={"nav-left"}>
-                        {this.state.isConnected2Gremlin? <li><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li> : <li></li>}
+                        <li className={"ml-5"}><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li>
                         <li><span>{this.state.statusMessage}</span></li>
                     </List>
                     <List type={"nav-right"}>
-
-                        <li><button className={"no-bg"}>{this.getProtocol()} protocol</button></li>
-
+                        <li>
+                            <button className={"no-bg"}>{this.getProtocol()} protocol</button>
+                        </li>
                         {this.getLatestResponse().status
                             ?
                             <li>
                                 <button className={"no-bg"} onClick={() => this.setBottomContentName("error-console")}>
-                                    {
+                                    <span>{
                                         this.getLatestResponse().status ?
                                             this.getLatestResponse().status !== 200
                                                 ? <strong
@@ -558,8 +548,11 @@ export default class ExplorerView extends BaseView {
                                                 : <strong
                                                     className={"ok-badge"}>{this.getLatestResponse().status}</strong>
                                             : <strong>NA</strong>
-                                    }
-                                    &nbsp; Response
+                                    }&nbsp;response</span>
+
+                                    <span>
+                                        {this.queryEndedAt - this.queryStartedAt} ms
+                                    </span>
                                 </button>
                             </li>
                             : <li><span></span></li>
@@ -584,6 +577,16 @@ export default class ExplorerView extends BaseView {
                                     onClickClose={() => this.setRightContentName(null)}
                                     showToggleBtn={false}
                                 > <FounderNote
+                                    setLeftContent={this.setLeftContent.bind(this)}
+                                    onClose={() => this.setRightContentName(null)}/>
+                                </GEPanel>
+                                : this.state.rightContentName === "whats-new"
+                                ?
+                                <GEPanel
+                                    title={"What&quot;s New"}
+                                    onClickClose={() => this.setRightContentName(null)}
+                                    showToggleBtn={false}
+                                > <WhatsNew
                                     setLeftContent={this.setLeftContent.bind(this)}
                                     onClose={() => this.setRightContentName(null)}/>
                                 </GEPanel>

@@ -54,6 +54,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     // timer2 = null;
     queryElapsedTimerId = null;
     reconnectingTimerId = null;
+    queryStartedAt = null;
+    queryEndedAt = null;
     ws = null;
     streamResponses = null;
     static defaultProps = {
@@ -79,7 +81,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             vertices: [],
             edges: []
         }
-        // this.ws = this.createWebSocket();
         this.streamResponses = [];
     }
 
@@ -94,8 +95,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
 
     reconnectWithWS() {
-        // clearInterval(this.timer2);
-        // clearInterval(this.timer);
+        clearInterval(this.queryElapsedTimerId);
+        clearInterval(this.reconnectingTimerId);
         this.ws = this.createWebSocket();
         this.connect();
     }
@@ -124,12 +125,15 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             _this.gatherDataFromStream(response);
         }
 
-        this.ws.onclose = () => {
-            console.log('disConnected2Gremlin')
+        this.ws.onclose = (evt) => {
+            console.log('disConnected2Gremlin');
+            if (evt.code !== 3001) {
+                console.log('ws connection error');
+                alert("Failed to connect to the connection url " + this.props.gremlinUrl);
+            }
             clearInterval(_this.reconnectingTimerId);
             // automatically try to reconnectWithWS on connection loss
             _this.setIsConnected2Gremlin(false);
-
             let i = 0;
             this.reconnectingTimerId = setInterval((function () {
                     i += 1;
@@ -141,7 +145,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                     }
                 }
             ), 1000); // retry in 5 seconds
-
         }
     }
 
@@ -231,6 +234,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     //     "will get the responses from gremlin server. Use this to access the query response data.");
 
     _processResponse(responses) {
+        this.queryEndedAt = new Date();
         this.resetLoader();
         this.processResponse(responses);
     }
@@ -252,9 +256,11 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                 this.flushStreamResponsesData();
                 this._processResponse(responses);
             }
+            this.setIsConnected2Gremlin(true);
         } else {
             this.setIsStreaming(false);
             console.log("response===========", response);
+            this.setIsConnected2Gremlin(false);
             this.setErrorMessage(response.status)
             this.setStatusMessage("Query Failed with " + response.status.code + " error.");
             this.streamResponses.push(response);
@@ -331,6 +337,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         const payload = {"gremlin": query};
         let _this = this;
         postData(this.props.gremlinUrl, {}, payload).then(data => {
+            // check the status and response type and change isConnected
+            // _this.setIsConnected2Gremlin(false);
             _this.gatherDataFromStream(data);
         });
 
@@ -367,6 +375,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             this.startLoader("Connecting..");
 
             const protocol = this.getProtocol();
+            this.queryStartedAt = new Date();
+            this.queryEndedAt = new Date();
             if (protocol === "ws") {
                 this._queryWS(queryData)
             } else {
@@ -382,6 +392,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         return (
             <LoadSpinner
                 loadingMessage={this.state.loadingMessage}
+                isConnected2Gremlin={this.state.isConnected2Gremlin}
                 loadingExtraText={this.state.loadingExtraText}
                 isLoading={this.state.isLoading}
                 showSignOut={true}

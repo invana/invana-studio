@@ -68,7 +68,6 @@ export function LightenDarkenColor(col, amt) {
     if (b > 255) b = 255;
     else if (b < 0) b = 0;
 
-    console.log("=====light", (r << 16), (g << 8), b, (usePound ? "#" : "") + ((r << 16) | (g << 8) | b).toString(16));
     return (usePound ? "#" : "") + ((r << 16) | (g << 8) | b).toString(16);
 
 }

@@ -2,14 +2,14 @@ import React from "react";
 import GraphControls from "./graph-controls";
 import {
     prepareLinksDataForCurves, prepareNodesDataWithOptions, removeVertexMeta,
-    removeEdgeMeta
+    removeEdgeMeta, getColorForString
 } from "./canvas-utils";
 import {LightenDarkenColor, invertColor} from "../../core/utils";
 import "./graph.scss";
 
 import {
     simulationAlpha,
-    DefaultLinkTextColor,
+    // DefaultLinkTextColor,
     DefaultLinkStrokeWidth,
     DefaultLinkPathColor,
     DefaultNodeRadius,
@@ -152,10 +152,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.props.setRightContentName(null);
     }
 
-    releaseNodeLock(selectedNode) {
+    toggleNodeLock(selectedNode) {
         this.stopPropagatingChildClickEventToParentEl();
-        console.log("releaseNodeLock clicked", selectedNode);
-        selectedNode.fixed = false;
+        console.log("toggleNodeLock clicked", selectedNode);
+        selectedNode.fixed = !selectedNode.fixed;
         selectedNode.fx = null;
         selectedNode.fy = null;
         this.simulation.alpha(simulationAlpha).restart();
@@ -167,10 +167,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.props.setMiddleBottomContentName('vertex-options')
     }
 
-    onNodeClicked(thisnode, selectedNode) {
-        console.log("onNodeClicked:: thisnode : selectedNode", thisnode, selectedNode);
+
+    onNodeClicked(selectedNode) {
+        console.log("onNodeClicked:: : selectedNode", selectedNode);
         let _this = this;
         let thisNode = d3.select("#node-" + selectedNode.id);
+        console.log("=======thisNode", thisNode)
         d3.select(".node-menu").remove();
 
         var menuDataSet = [{
@@ -200,7 +202,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             html: "&rarr;"
         }, {
             id: 106,
-            option_name: "release-lock",
+            option_name: "toggle-node-lock",
             title: "Release Lock",
             html: "&#x1f513;"
         }];
@@ -223,12 +225,14 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .outerRadius(radiusMenu - 35);
 
         // Graph space
-        var svgMenu = thisNode.append("svg")
+        var svgMenu = this.canvas.append("svg")
             .attr("width", widthMenu)
             .attr("height", heightMenu)
             .attr("class", "node-menu")
-            .attr("x", -100)
-            .attr("y", -100)
+            .attr("node-id", selectedNode.id)
+            .attr("x", selectedNode.x - 100)
+            .attr("y", selectedNode.y - 100)
+            .attr("z-index", 1000)
             .append("g")
             .attr("transform", "translate(" + widthMenu / 2 + "," + heightMenu / 2 + ")");
         // Prepare graph and load data
@@ -249,8 +253,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
                     _this.expandInLinksAndNodes(selectedNode);
                 } else if (arch_node.data.option_name === "close-node-menu") {
                     _this.closeNodeMenu(selectedNode);
-                } else if (arch_node.data.option_name === "release-lock") {
-                    _this.releaseNodeLock(selectedNode);
+                } else if (arch_node.data.option_name === "toggle-node-lock") {
+                    _this.toggleNodeLock(selectedNode);
                 } else if (arch_node.data.option_name === "vertex-options") {
                     _this.showVertexOptions(selectedNode);
                 } else if (arch_node.data.option_name === "start-querying") {
@@ -302,7 +306,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
     }
 
     onNodeHoverOut(selectedNode) {
-        console.log("on node hover out", selectedNode);
         this.stopPropagatingChildClickEventToParentEl();
         this.resetNodeHighlight(selectedNode);
     }
@@ -319,19 +322,26 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
     addVertices(nodesData) {
         console.log("VertexUtils.add", JSON.parse(JSON.stringify(nodesData)));
-        let _this = this;
+
+
+        // const dragCallback = function () {
+        //     console.log("======dragCallback", d3.event.dx, d3.event.dy);
+        // };
+        // const dragBehavior = d3.drag()
+        //     .on("drag", dragCallback);
         let node = this.canvas.selectAll(".node")
             .data(nodesData)
             .enter()
             .append("g")
+            // .call(dragBehavior)
             .attr("class", "node")
-            .style("z-index", "100")
+            // .style("z-index", "100")
             .attr("id", function (d) {
                 return "node-" + d.id;
             })
             .on("mouseover", (d) => this.onNodeHoverIn(d))
             .on("mouseout", (d) => this.onNodeHoverOut(d))
-            .on("click", (d) => this.onNodeClicked(_this, d));
+            .on("click", (d) => this.onNodeClicked(d));
 
         // node first circle
         node.append("circle")
@@ -519,14 +529,20 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr("id", (d) => "link-arrow-" + d.id)
             .attr("viewBox", "0 -5 10 10")
             .attr("refY", 0)
-            .attr("refX", (DefaultNodeRadius - (DefaultNodeRadius / 4) + DefaultLinkStrokeWidth))
-            .attr("fill", DefaultLinkPathColor)
-            .attr("stroke", DefaultLinkPathColor)
-            .attr("markerWidth", 10)
-            .attr("markerHeight", 10)
-            .attr("orient", "auto")
+            .attr("refX", DefaultNodeRadius)
+            .attr('orient', "auto")
+            .attr('stroke', (d) => getColorForString(d.label))
+            .attr('fill', (d) => getColorForString(d.label))
+            .attr('markerWidth', 8 * 2)
+            .attr('markerHeight', 9 * 2)
+            .attr('xoverflow', "visible")
+
+
             .append("svg:path")
-            .attr("d", "M0,-5L10,0L0,5");
+            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+            .attr('fill', (d) => getColorForString(d.label))
+            .attr('stroke', (d) => getColorForString(d.label));
+
 
         const linkPaths = links
             .append("path")
@@ -536,14 +552,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr("association-id", function (d) {
                 return "link-" + d.target + "-" + d.source;
             })
-            .attr("sameIndexCorrected", function (d) {
-                return d.sameIndexCorrected;
-            })
-            .attr('stroke', DefaultLinkPathColor)
+            .attr("sameIndexCorrected", (d) => d.sameIndexCorrected)
+            .attr('stroke', (d) => getColorForString(d.label))
             .attr("stroke-width", DefaultLinkStrokeWidth + "px")
             .attr("fill", "transparent")
-            // .attr('marker-end', (d, i) => 'url(#link-arrow-' + i + ')')
-            .attr('marker-end', 'url(#arrowhead)')
+            .attr('marker-end', (d) => 'url(#link-arrow-' + d.id + ')')
+            // .attr('marker-end', 'url(#arrowhead)')
             .on("mouseover", (d) => _this.onLinkMoveHover(d))
             .on("mouseout", (d) => _this.onLinkMoveOut(d))
 
@@ -555,9 +569,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
                 return "#link-" + i;
             })
             .style("text-anchor", "middle")
+            .style("font-weight", "normal")
             .attr("startOffset", "50%")
-            .attr('fill', DefaultLinkTextColor) // TODO add .meta for links also
-            .attr('stroke', DefaultLinkTextColor)
+            .attr('fill', (d) => getColorForString(d.label))
+            // .attr('stroke', DefaultLinkTextColor)
             .text((d) => `${d.label || d.id}`);
         return [links, linkPaths, linkText];
     }
@@ -565,28 +580,29 @@ export default class D3ForceDirectedCanvas extends React.Component {
     setupSimulation(canvas_width, canvas_height) {
         let forceCollide = d3.forceCollide()
             .radius(function (d) {
-                return d.radius + 1.2;
+                return d.radius * 3;
             })
             .iterations(1); /// TODO - revisit this
-        const forceX = d3.forceX(canvas_width / 2).strength(0.10);
-        const forceY = d3.forceY(canvas_height / 2).strength(0.10);
+        const forceX = d3.forceX(canvas_width / 2).strength(0.1);
+        const forceY = d3.forceY(canvas_height / 2).strength(0.1);
 
-        let getSimulationCharge = function () {
-            return d3.forceManyBody()
-                .strength(-240);
-        }
+        let getSimulationCharge = d3.forceManyBody()
+            .strength(-1200);
+
         return d3.forceSimulation()
             .force("link", d3.forceLink()
                 .id(function (d) {
                     return d.id;
                 })
-                .distance(DefaultLinkDistance).strength(1)
+                .distance(DefaultLinkDistance)
+                .strength(1)
             )
-            .force("charge", getSimulationCharge())
+            .force("charge", getSimulationCharge)
             .force("collide", forceCollide)
             .force('x', forceX)
             .force('y', forceY)
             .force("center", d3.forceCenter(canvas_width / 2, canvas_height / 2));
+
 
     }
 
@@ -614,11 +630,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
         canvas.append('defs').append('marker')
             .attr('id', "arrowhead")
             .attr('viewBox', "-0 -5 10 10")
-            .attr('refX', 23)
+            .attr('refX', DefaultNodeRadius)
             .attr('refY', 0)
             .attr('orient', "auto")
-            .attr('markerWidth', 8)
-            .attr('markerHeight', 9)
+            .attr('markerWidth', 8 * 2)
+            .attr('markerHeight', 9 * 2)
             .attr('xoverflow', "visible")
             .append('svg:path')
             .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
@@ -659,6 +675,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
         function dragged(d) {
             d.fx = d3.event.x;
             d.fy = d3.event.y;
+
+            d3.select(".node-menu")
+                .attr("x", d3.event.x - 100)
+                .attr("y", d3.event.y - 100);
         }
 
         function dragStarted(d) {
@@ -681,8 +701,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
             d3.selectAll(".node").each(function (d) {
                 d.fixed = true;//thsi will fix the node.
             });
-            // d.fx = null;
-            // d.fy = null;
+            d.fx = null;
+            d.fy = null;
         }
 
         d3.select('#center-canvas').on('click', function () {
@@ -697,10 +717,19 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .links(edges);
 
         function ticked() {
-            node
-                .attr("transform", function (d) {
-                    return "translate(" + d.x + ", " + d.y + ")";
-                });
+            const nodeMenuSvg = document.querySelector(".node-menu");
+            let vertexIdOfNodeMenu = null;
+
+            if (nodeMenuSvg) {
+                vertexIdOfNodeMenu = parseInt(document.querySelector(".node-menu").getAttribute("node-id"));
+            }
+            node.attr("transform", function (d) {
+                if (nodeMenuSvg && vertexIdOfNodeMenu && vertexIdOfNodeMenu === d.id) {
+                    d3.select(".node-menu").attr("x", d.x - 100).attr("y", d.y - 100);
+                }
+                return "translate(" + d.x + ", " + d.y + ")";
+            });
+
 
             function linkArc(d) {
                 let dx = (d.target.x - d.source.x),

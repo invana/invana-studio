@@ -5,10 +5,10 @@ export const AUTH_CONSTANTS = {
 export const GREMLIN_SERVER_URL = localStorage.getItem(AUTH_CONSTANTS.gremlinServerUrlKey);
 
 export const DefaultMaxTimeElapsedWarningInSeconds = 180;
-export const DefaultConnectionRetryTimeout = 10;
+export const DefaultConnectionRetryTimeout = 20;
 
 
-export const VERSION = "alpha";
+export const VERSION = "pre-beta";
 export const ABOUT_TEXT = "Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.";
 export const CONNECT_URL = "/connect";
 export const REPO_URL = "https://github.com/invanalabs/graph-explorer";
@@ -24,8 +24,8 @@ export const DefaultNodeRadius = 24;
 export const DefaultNodeInShapeTextColor = "#dddddd"; // inside the shape
 export const DefaultNodeLabelColor = "#dddddd";
 export const DefaultLinkPathColor = "#c9c9c9";
-export const DefaultLinkTextColor = "#c9c9c9";
-export const DefaultLinkStrokeWidth = 2;
+// export const DefaultLinkTextColor = "#c9c9c9";
+export const DefaultLinkStrokeWidth = 1;
 export const DefaultLinkDistance = 180;
 
 export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.properties.name.substring(0, 10) : node.id;

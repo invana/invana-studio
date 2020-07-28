@@ -127,13 +127,12 @@ export default class QueryConsole extends React.Component {
                                        onClick={this.handleChange.bind(this)}
                                     // onChange={this.handleQueryRepeater}
                                        value="."/>
-                                Repeat this query <span className={"repeatInfoCls"}>every
+                                Repeat query <span className={"repeatInfoCls"}>every
                                 <input type="number"
                                        min={5}
                                        defaultValue={5}
                                     // value={15}
-                                       name={"queryRepeatFrequency"}/>
-                                       seconds.
+                                       name={"queryRepeatFrequency"}/>s.
                                     </span>
                             </label>
                         </div>
