@@ -35,12 +35,12 @@ jobs:
 stages:
   - name: deploy to heroku edge version
     if: branch = develop AND type = push
+  - name: test edge deployemnt
+    if: branch = develop AND type = push
   - name: deploy to heroku
     if: branch = master AND type = push
-  - name: test edge deployemnt
-    if: branch = develop AND type = push # develop branch push, but not PRs
   - name: test prod deployemnt
-    if: branch = master AND type = push # master branch push, but not PRs
+    if: branch = master AND type = push
   - name: build and push docker image
     if: branch = master AND type = push
 
