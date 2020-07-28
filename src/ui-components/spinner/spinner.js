@@ -57,7 +57,7 @@ export default class LoadSpinner extends React.Component {
                         {this.props.loadTimeCounter >=
                         DefaultMaxTimeElapsedWarningInSeconds ? (
                             <span>Strange! this operation took more than{" "}
-                                {DefaultMaxTimeElapsedWarningInSeconds}</span>
+                                {DefaultMaxTimeElapsedWarningInSeconds} seconds</span>
                         ) : (
                             <span/>
                         )}
