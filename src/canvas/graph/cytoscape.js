@@ -9,6 +9,12 @@ cytoscape.use(cxtmenu); // register extension
 export default class CytoscapeEngine extends React.Component {
 
 
+    constructor(props) {
+        super(props);
+
+    }
+
+
     static defaultProps = {
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
         startQuery: () => console.error("startQuery not set"),
@@ -129,11 +135,14 @@ export default class CytoscapeEngine extends React.Component {
     }
 
     componentDidMount() {
+        // this.setupCanvas();
         this.reRender()
     }
 
     reRender() {
         let _this = this;
+
+
         this.cy = cytoscape({
             container: document.querySelector(this.props.htmlSelector),
             boxSelectionEnabled: false,
@@ -194,7 +203,6 @@ export default class CytoscapeEngine extends React.Component {
                 ready: () => console.log("layout ready")
             }
         })
-
         console.log("this.props.vertices", this.props.vertices);
         console.log("this.props.edges", this.props.edges);
         this.addNodes(this.props.vertices)
@@ -202,6 +210,16 @@ export default class CytoscapeEngine extends React.Component {
         this.cy.center(/*eles*/); // Moves the graph to the exact center of your tree
         let layout = this.cy.layout({name: 'circle'});
         layout.run();
+
+
+        this.cy.on("tapdrag", "node", function (event) {
+            // update all relevant labels
+            const labels = event.target.connectedEdges();
+            for (let i = 0; i < labels.length; i++) {
+                // render with the right positions?
+                console.log("============label", deFlattenProperties(labels[i].data(), false));
+            }
+        });
 
         this.cy.on("tap", "node", function (evt) {
             console.log(evt, evt.target.id(), evt.target.data());

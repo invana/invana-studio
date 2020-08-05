@@ -31,7 +31,7 @@ export function deFlattenProperties(node, isNode) {
     if (isNode) {
         mainKeys = ["id", "label", "type"];
     } else {
-        mainKeys = ["id", "label", "type", "target", "source"];
+        mainKeys = ["id", "label", "inV", "inVLabel", "outV", "outVLabel", "source", "target", "type"];
     }
 
     let newNode = {}
