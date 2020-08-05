@@ -1,3 +1,12 @@
+const ColorHash = require('color-hash');
+
+let colorHash = new ColorHash({hue: [{min: 90, max: 230}, {min: 90, max: 230}, {min: 90, max: 230}]});
+
+export function getColorForString(label) {
+    return colorHash.hex(label); // '#8796c5'
+}
+
+
 export function flattenProperties(node, isNode) {
     /*
     converts .properties into flat dictionary
@@ -9,7 +18,7 @@ export function flattenProperties(node, isNode) {
     delete node.properties;
     if (isNode) {
         node.metaShape = "ellipse";
-        node.metaBgColor = "red"; // TODO -
+        node.metaBgColor = getColorForString(node.label);
         node.metaBgImage = null; // TODO -
     }
     return node;

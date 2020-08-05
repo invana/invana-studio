@@ -155,7 +155,7 @@ export default class CytoscapeEngine extends React.Component {
                 {
                     selector: 'node',
                     style: {
-                        label: "data(id)",
+                        label: "data(name)",
                         "background-fit": "cover",
                         "border-color": "#333",
                         "border-width": 5,
@@ -189,29 +189,11 @@ export default class CytoscapeEngine extends React.Component {
             layout: {
                 name: "circle",
                 directed: true,
-                // avoidOverlap: true,
+                avoidOverlap: true,
                 padding: 10,
                 ready: () => console.log("layout ready")
             }
-
         })
-
-        //
-        // this.addNodes([
-        //     {
-        //         id: 'n0',
-        //         metaShape: "ellipse",
-        //         metaBgColor: "green",
-        //         metaBgImage: "https://live.staticflickr.com/7272/7633179468_3e19e45a0c_b.jpg"
-        //     },
-        //     {
-        //         id: 'n1',
-        //         metaShape: "ellipse",
-        //         metaBgColor: "green",
-        //         metaBgImage: "https://live.staticflickr.com/7272/7633179468_3e19e45a0c_b.jpg"
-        //     }
-        // ])
-        // this.addEdges([{id: 'e0', source: 'n0', target: 'n1'}])
 
         console.log("this.props.vertices", this.props.vertices);
         console.log("this.props.edges", this.props.edges);
