@@ -69,7 +69,6 @@ export default class D3ForceDirectedCanvas extends React.Component {
     hideElementProperties() {
         this.props.setSelectedElementData(null)
         this.props.setMiddleBottomContentName(null)
-
     }
 
     getAdjacentNodeIds(nodeId) {
