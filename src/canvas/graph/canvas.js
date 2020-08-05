@@ -9,6 +9,7 @@ export default class GraphCanvas extends React.Component {
 
     static defaultProps = {
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
+        startQuery: () => console.error("startQuery not set"),
 
         vertices: [],
         edges: [],
@@ -20,6 +21,7 @@ export default class GraphCanvas extends React.Component {
 
     static propTypes = {
         queryGremlinServer: PropTypes.func,
+        startQuery: PropTypes.func,
 
         edges: PropTypes.array,
         vertices: PropTypes.array,
@@ -36,6 +38,7 @@ export default class GraphCanvas extends React.Component {
                     edges={this.props.edges}
                     vertices={this.props.vertices}
                     htmlSelector={this.htmlSelector}
+                    startQuery={this.props.startQuery}
                     queryGremlinServer={this.props.queryGremlinServer}
                     setSelectedElementData={this.props.setSelectedElementData}
                     setMiddleBottomContentName={this.props.setMiddleBottomContentName}
