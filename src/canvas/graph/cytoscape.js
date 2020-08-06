@@ -3,14 +3,24 @@ import {flattenProperties, deFlattenProperties} from "./cytoscape-utils";
 import React from "react";
 import PropTypes from "prop-types";
 import cxtmenu from 'cytoscape-cxtmenu';
+import cola from 'cytoscape-cola';
 
 cytoscape.use(cxtmenu); // register extension
+cytoscape.use(cola);
+
 
 export default class CytoscapeEngine extends React.Component {
 
 
     constructor(props) {
         super(props);
+
+        this.layoutOpts = {
+            name: 'cola',
+            refresh: 2,
+            edgeLength: 200,
+            fit: false
+        }
 
     }
 
@@ -134,16 +144,16 @@ export default class CytoscapeEngine extends React.Component {
         console.log("===menu", menu);
     }
 
-    componentDidMount() {
-        // this.setupCanvas();
-        this.reRender()
+
+    refreshLayout() {
+        // layout.stop();
+        // let layout = this.cy.elements().makeLayout(this.layoutOpts);
+        // layout.stop();
+        // layout.run();
     }
 
-    reRender() {
-        let _this = this;
-
-
-        this.cy = cytoscape({
+    setUpCystoscape() {
+        return cytoscape({
             container: document.querySelector(this.props.htmlSelector),
             boxSelectionEnabled: false,
             autounselectify: true,
@@ -172,7 +182,8 @@ export default class CytoscapeEngine extends React.Component {
                         color: "#efefef",
                         "background-color": "data(metaBgColor)",
                         shape: "data(metaShape)",
-                        "background-image": "data(metaBgImage)"
+                        "background-image": "data(metaBgImage)",
+                        "cursor": "pointer"
                     }
                 },
                 {
@@ -191,23 +202,43 @@ export default class CytoscapeEngine extends React.Component {
                         "text-border-color": "#efefef",
                         "text-border-width": 1,
                         "text-border-opacity": 1,
-                        "edge-text-rotation": "autorotate"
+                        "edge-text-rotation": "autorotate",
+                        "cursor": "pointer"
                     }
                 }
             ],
             layout: {
-                name: "circle",
+                name: "cola",
                 directed: true,
                 avoidOverlap: true,
                 padding: 10,
                 ready: () => console.log("layout ready")
             }
         })
+    }
+
+    componentDidMount() {
+        // this.setupCanvas();
+        this.cy = this.setUpCystoscape()
+        this.setupMenu();
+        this.reRender()
+    }
+
+    reRender() {
+        let _this = this;
+
+        this.cy.startBatch();
+        this.cy.on('mouseover', 'node', function (e) {
+            // $('#diagram-wrapper').css('cursor', 'pointer');
+        });
+        this.cy.on('mouseout', 'node', function (e) {
+            // $('#diagram-wrapper').css('cursor', 'default');
+        });
         console.log("this.props.vertices", this.props.vertices);
         console.log("this.props.edges", this.props.edges);
         this.addNodes(this.props.vertices)
         this.addEdges(this.props.edges)
-        this.cy.center(/*eles*/); // Moves the graph to the exact center of your tree
+        // this.cy.center(/*eles*/); // Moves the graph to the exact center of your tree
         let layout = this.cy.layout({name: 'circle'});
         layout.run();
 
@@ -225,7 +256,9 @@ export default class CytoscapeEngine extends React.Component {
             console.log(evt, evt.target.id(), evt.target.data());
             _this.showElementProperties(evt.target.data());
         });
-        this.setupMenu();
+        this.refreshLayout()
+        this.cy.endBatch();
+
     }
 
     addNodes(nodes) {
