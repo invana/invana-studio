@@ -256,6 +256,8 @@ export default class CytoscapeEngine extends React.Component {
             console.log(evt, evt.target.id(), evt.target.data());
             _this.showElementProperties(evt.target.data());
         });
+
+
         this.refreshLayout()
         this.cy.endBatch();
 
