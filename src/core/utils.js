@@ -1,4 +1,4 @@
-import {CONNECT_URL, GREMLIN_SERVER_URL, AUTH_CONSTANTS} from "../config";
+import {CONNECT_URL, AUTH_CONSTANTS} from "../config";
 import GremlinResponseSerializers from "./gremlin-serializer";
 
 const gremlinSerializer = new GremlinResponseSerializers();
@@ -122,14 +122,13 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
     return response.json();
 }
 
-export function redirectToConnectIfNeeded() {
+export function redirectToConnectIfNeeded(gremlinUrl) {
     console.log("redirectToConnectIfNeeded");
     const u = new URL(window.location.href)
-    if ((GREMLIN_SERVER_URL === null || GREMLIN_SERVER_URL === "") && u.pathname !== "/connect") {
+    if ((gremlinUrl === null || gremlinUrl === "") && u.pathname !== "/connect") {
         window.location.href = "/connect";
     } else {
-        // alert("GREMLIN_SERVER_URL" + GREMLIN_SERVER_URL)
-        return true
+        return true;
     }
 }
 

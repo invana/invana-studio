@@ -150,7 +150,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     componentDidMount() {
         console.log("gremlin-component componentDidMount")
-        let shallConnect = redirectToConnectIfNeeded();
+        let shallConnect = redirectToConnectIfNeeded(this.props.gremlinUrl);
         if (shallConnect) {
             const protocol = this.getProtocol();
             console.log("We will be using " + protocol + " protocol");
