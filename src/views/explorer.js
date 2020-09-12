@@ -23,7 +23,6 @@ import MainContentRight from "../ui-components/layout/main-content-right";
 import AsideBottom from "../ui-components/layout/aside-bottom";
 import GEFooter from "../ui-components/layout/footer";
 import AsideRight from "../ui-components/layout/aside-right";
-import LoadSpinner from "../ui-components/spinner/spinner";
 import SettingsComponent from "../viewlets/settings";
 import LearnComponent from "../viewlets/learn";
 import HistoryComponent from "../viewlets/history";
@@ -602,12 +601,6 @@ export default class ExplorerView extends BaseView {
                 ) : (
                     <span/>
                 )}
-                {/*<LoadSpinner*/}
-                {/*    loadingMessage={this.state.loadingMessage}*/}
-                {/*    loadingExtraText={this.state.loadingExtraText}*/}
-                {/*    isLoading={this.state.isLoading}*/}
-                {/*    showSignOut={true}*/}
-                {/*    loadTimeCounter={this.state.loaderElapsedTimer}/>*/}
                 {super.render()}
             </div>
         );

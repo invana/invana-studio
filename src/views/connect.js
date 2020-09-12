@@ -95,7 +95,8 @@ export default class SetupGremlinServerConnection extends React.Component {
         return (
             <div>
                 <div className="github-stars">
-                    <a href="https://github.com/invanalabs/graph-explorer" target={"_blank"}>
+                    <a href="https://github.com/invanalabs/graph-explorer"
+                       target={"_blank"}  rel="noopener noreferrer">
                         <img
                             src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=for-the-badge"
                             alt=""/>
@@ -118,9 +119,9 @@ export default class SetupGremlinServerConnection extends React.Component {
                                 <br/>
 
                                 <p style={{"textAlign": "right", "marginBottom": 0}}>
-                                    <a onClick={this.toggleMoreOptions.bind(this)}>
+                                    <button type={"button"}  onClick={this.toggleMoreOptions.bind(this)}>
                                         <FontAwesomeIcon icon={faAngleDown}/> http headers
-                                    </a>
+                                    </button>
                                 </p>
                                 {
                                     this.state.showExtraHeaderOptions
@@ -142,16 +143,16 @@ export default class SetupGremlinServerConnection extends React.Component {
                                                                placeholder={"header value"}
                                                                name={"headerValue"}
                                                         />
-                                                        <a onClick={this.removeHeader.bind(this)}>
+                                                        <button type={"button"}  onClick={this.removeHeader.bind(this)}>
                                                             <FontAwesomeIcon icon={faTimesCircle}/>
-                                                        </a>
+                                                        </button>
 
                                                     </div>
 
                                                 })
                                             }
 
-                                            <p><a onClick={this.addNewHeader.bind(this)}> + add new header</a></p>
+                                            <p><button type={"button"} onClick={this.addNewHeader.bind(this)}> + add new header</button></p>
                                         </div>
                                         : <span></span>
 
@@ -163,7 +164,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                                         className={" button secondary-btn ml-10"}>
                                     <FontAwesomeIcon icon={faPlayCircle}/> watch demo
                                 </button>
-                                <a target={"_blank"} href="https://invana.io/docs.html">
+                                <a target={"_blank"}  rel="noopener noreferrer" href="https://invana.io/docs.html">
                                     <FontAwesomeIcon icon={faQuestionCircle}/>
                                 </a>
 
