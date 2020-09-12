@@ -4,7 +4,7 @@ import {setDataToLocalStorage} from "../core/utils";
 import {AUTH_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlayCircle, faAngleDown, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {faPlayCircle, faAngleDown, faTimesCircle, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class SetupGremlinServerConnection extends React.Component {
@@ -27,7 +27,7 @@ export default class SetupGremlinServerConnection extends React.Component {
     getHeaders() {
 
         let headers = {};
-        document.querySelectorAll(".headerItem").forEach( (elem) => {
+        document.querySelectorAll(".headerItem").forEach((elem) => {
             const key = elem.querySelector(".headerKey").value;
             const val = elem.querySelector(".headerValue").value;
             console.log("======", key, val);
@@ -153,6 +153,10 @@ export default class SetupGremlinServerConnection extends React.Component {
                                     className={" button secondary-btn ml-10"}>
                                 <FontAwesomeIcon icon={faPlayCircle}/> watch demo
                             </button>
+                            <a target={"_blank"} href="https://invana.io/docs.html">
+                                <FontAwesomeIcon icon={faQuestionCircle}/>
+                            </a>
+
                         </form>
                         {this.state.errorMessage ?
                             (
