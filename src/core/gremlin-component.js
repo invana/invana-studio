@@ -335,7 +335,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     _queryHTTP(query) {
         const payload = {"gremlin": query};
-        const extraHeaders = getDataFromLocalStorage(AUTH_CONSTANTS.httpHeadersKey, true);
+        const extraHeaders = getDataFromLocalStorage(AUTH_CONSTANTS.httpHeadersKey, true) || {};
 
         let _this = this;
         postData(this.props.gremlinUrl, extraHeaders, payload).then(data => {
