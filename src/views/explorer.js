@@ -530,7 +530,12 @@ export default class ExplorerView extends BaseView {
                 <GEFooter>
                     <List type={"nav-left"}>
                         <li className={"ml-5"}><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li>
-                        <li><span>{this.state.statusMessage}</span></li>
+                        <li><span>{this.state.statusMessage} </span></li>
+                        {
+                            this.state.isLoading && this.state.loaderElapsedTimer && this.state.loaderElapsedTimer > 0
+                                ? <li><span>({this.state.loaderElapsedTimer}s elapsed)</span></li>
+                                : <span></span>
+                        }
                     </List>
                     <List type={"nav-right"}>
                         <li>
@@ -597,12 +602,12 @@ export default class ExplorerView extends BaseView {
                 ) : (
                     <span/>
                 )}
-                <LoadSpinner
-                    loadingMessage={this.state.loadingMessage}
-                    loadingExtraText={this.state.loadingExtraText}
-                    isLoading={this.state.isLoading}
-                    showSignOut={true}
-                    loadTimeCounter={this.state.loaderElapsedTimer}/>
+                {/*<LoadSpinner*/}
+                {/*    loadingMessage={this.state.loadingMessage}*/}
+                {/*    loadingExtraText={this.state.loadingExtraText}*/}
+                {/*    isLoading={this.state.isLoading}*/}
+                {/*    showSignOut={true}*/}
+                {/*    loadTimeCounter={this.state.loaderElapsedTimer}/>*/}
                 {super.render()}
             </div>
         );

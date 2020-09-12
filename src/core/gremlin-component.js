@@ -129,7 +129,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             console.log('disConnected2Gremlin');
             if (evt.code !== 3001) {
                 console.log('ws connection error');
-                alert("Failed to connect to the connection url " + this.props.gremlinUrl);
             }
             clearInterval(_this.reconnectingTimerId);
             // automatically try to reconnectWithWS on connection loss
@@ -382,10 +381,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             } else {
                 this._queryHTTP(query);
             }
-
         }
-
-
     }
 
     render() {

@@ -5,42 +5,31 @@ import PropTypes from "prop-types";
 
 export default class LoadSpinner extends React.Component {
 
-
     static propTypes = {
         isLoading: PropTypes.bool,
         loadingMessage: PropTypes.string,
         loadTimeCounter: PropTypes.number,
         loadingExtraText: PropTypes.string,
         isConnected2Gremlin: PropTypes.bool,
-        showSignOut: PropTypes.bool,
-
+        showSignOut: PropTypes.bool
     }
 
     render() {
-        let divTop = 0;
-        let divLeft = 0;
-        let height = "calc(100% - 23px - 46px)";
-        if (window.location.pathname === "/explorer") {
-            divTop = "46px";
-            divLeft = "46px";
-            // height = "auto";
-        } else if (window.location.pathname === "/") {
-            divTop = 0;
-            divLeft = 0;
-            height = "100%"
+
+        let cls = "loadingDivExplorerView";
+        if (window.location.pathname === "/") {
+            cls = "loadingDivFull";
         }
 
         return (
             <div>
                 {this.props.isLoading ? (
-                    <div className={"loadingDiv"} style={{top: divTop, left: divLeft, height: height}}>
-                        <div className={"sk-fold"} style={{margin: "0 auto"}}>
-                            <div className={"sk-fold-cube"}/>
-                            <div className={"sk-fold-cube"}/>
-                            <div className={"sk-fold-cube"}/>
-                            <div className={"sk-fold-cube"}/>
-                        </div>
-                        <h3>{this.props.loadingMessage}...</h3>
+                    <div className={cls}>
+                        {
+                            this.props.isConnected2Gremlin
+                                ? <h3>{this.props.loadingMessage}</h3>
+                                : <h3>Failed to connect to the database.</h3>
+                        }
                         <p>
                             {this.props.loadTimeCounter ? (
                                 <span>Elapsed {this.props.loadTimeCounter}s.</span>
@@ -49,11 +38,6 @@ export default class LoadSpinner extends React.Component {
                             )}{" "}
                             {this.props.loadingExtraText}
                         </p>
-
-                        {this.props.isConnected2Gremlin
-                            ? <span></span>
-                            : <p>Failed to connect to the database.</p>
-                        }
                         {this.props.loadTimeCounter >=
                         DefaultMaxTimeElapsedWarningInSeconds ? (
                             <span>Strange! this operation took more than{" "}
