@@ -93,88 +93,100 @@ export default class SetupGremlinServerConnection extends React.Component {
         const headersArrayTemp = Array.from({length: this.state.extraHeadersCount}, (_, index) => index + 1);
 
         return (
-            <Modal title={null} size={"md"}>
-                <div className={"connect"}>
-                    <div className={"top-section"}>
-                        <h1>Graph Explorer <small>{VERSION}</small></h1>
-                        <p>{ABOUT_TEXT}</p>
-                    </div>
-                    {/*<hr/>*/}
-                    <div className={"bottom-section"}>
-                        <form action="" onSubmit={this.onFormSubmit.bind(this)}>
-                            <input type="text" name={"gremlinServerUrl"}
-                                // defaultValue={"ws://localhost:8182/gremlin"}
-                                   placeholder={"http://user:password@localhost:8182/gremlin"}/>
-                            <br/>
+            <div>
+                <div className="github-stars">
+                    <a href="https://github.com/invanalabs/graph-explorer" target={"_blank"}>
+                        <img
+                            src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=for-the-badge"
+                            alt=""/>
+                    </a>
 
-                            <p style={{"textAlign": "right", "marginBottom": 0}}>
-                                <a onClick={this.toggleMoreOptions.bind(this)}>
-                                    <FontAwesomeIcon icon={faAngleDown}/> http headers
-                                </a>
-                            </p>
-                            {
-                                this.state.showExtraHeaderOptions
-                                    ?
-                                    <div className={"headersList"}>
-
-                                        <h4>Extra HTTP Headers</h4>
-                                        {
-                                            headersArrayTemp.map((headerItem) => {
-                                                return <div key={headerItem}
-                                                            className={"headerItem headerItem-" + headerItem}>
-                                                    <input type="text"
-                                                           className={"headerKey"}
-                                                           placeholder={"header key"}
-                                                           name={"headerKey"}
-                                                    />
-                                                    <input type="text"
-                                                           className={"headerValue"}
-                                                           placeholder={"header value"}
-                                                           name={"headerValue"}
-                                                    />
-                                                    <a onClick={this.removeHeader.bind(this)}>
-                                                        <FontAwesomeIcon icon={faTimesCircle}/>
-                                                    </a>
-
-                                                </div>
-
-                                            })
-                                        }
-
-                                        <p><a onClick={this.addNewHeader.bind(this)}> + add new header</a></p>
-                                    </div>
-                                    : <span></span>
-
-                            }
-
-                            <button type={"submit"} className={"primary-btn button"}>Connect</button>
-
-                            <button onClick={() => this.openDemo()} type={"button"}
-                                    className={" button secondary-btn ml-10"}>
-                                <FontAwesomeIcon icon={faPlayCircle}/> watch demo
-                            </button>
-                            <a target={"_blank"} href="https://invana.io/docs.html">
-                                <FontAwesomeIcon icon={faQuestionCircle}/>
-                            </a>
-
-                        </form>
-                        {this.state.errorMessage ?
-                            (
-                                <p>
-                                    <small className={"errorMessage"}>{this.state.errorMessage}</small>
-                                </p>
-                            ) : (<span></span>)
-                        }
-                        <p className={"built-with"}><small>Built with love for Humans
-                            & Innovations at <a
-                                className={"selected"}
-                                target={"_blank"}
-                                rel="noopener noreferrer"
-                                href="https://invana.io">Invana</a></small>
-                        </p>
-                    </div>
                 </div>
-            </Modal>
+                <Modal title={null} size={"md"}>
+                    <div className={"connect"}>
+                        <div className={"top-section"}>
+                            <h1>Graph Explorer <small>{VERSION}</small></h1>
+                            <p>{ABOUT_TEXT}</p>
+                        </div>
+                        {/*<hr/>*/}
+
+                        <div className={"bottom-section"}>
+                            <form action="" onSubmit={this.onFormSubmit.bind(this)}>
+                                <input type="text" name={"gremlinServerUrl"}
+                                    // defaultValue={"ws://localhost:8182/gremlin"}
+                                       placeholder={"http://user:password@localhost:8182/gremlin"}/>
+                                <br/>
+
+                                <p style={{"textAlign": "right", "marginBottom": 0}}>
+                                    <a onClick={this.toggleMoreOptions.bind(this)}>
+                                        <FontAwesomeIcon icon={faAngleDown}/> http headers
+                                    </a>
+                                </p>
+                                {
+                                    this.state.showExtraHeaderOptions
+                                        ?
+                                        <div className={"headersList"}>
+
+                                            <h4>Extra HTTP Headers</h4>
+                                            {
+                                                headersArrayTemp.map((headerItem) => {
+                                                    return <div key={headerItem}
+                                                                className={"headerItem headerItem-" + headerItem}>
+                                                        <input type="text"
+                                                               className={"headerKey"}
+                                                               placeholder={"header key"}
+                                                               name={"headerKey"}
+                                                        />
+                                                        <input type="text"
+                                                               className={"headerValue"}
+                                                               placeholder={"header value"}
+                                                               name={"headerValue"}
+                                                        />
+                                                        <a onClick={this.removeHeader.bind(this)}>
+                                                            <FontAwesomeIcon icon={faTimesCircle}/>
+                                                        </a>
+
+                                                    </div>
+
+                                                })
+                                            }
+
+                                            <p><a onClick={this.addNewHeader.bind(this)}> + add new header</a></p>
+                                        </div>
+                                        : <span></span>
+
+                                }
+
+                                <button type={"submit"} className={"primary-btn button"}>Connect</button>
+
+                                <button onClick={() => this.openDemo()} type={"button"}
+                                        className={" button secondary-btn ml-10"}>
+                                    <FontAwesomeIcon icon={faPlayCircle}/> watch demo
+                                </button>
+                                <a target={"_blank"} href="https://invana.io/docs.html">
+                                    <FontAwesomeIcon icon={faQuestionCircle}/>
+                                </a>
+
+                            </form>
+                            {this.state.errorMessage ?
+                                (
+                                    <p>
+                                        <small className={"errorMessage"}>{this.state.errorMessage}</small>
+                                    </p>
+                                ) : (<span></span>)
+                            }
+                            <p className={"built-with"}><small>Built with love for Humans
+                                & Innovations at <a
+                                    className={"selected"}
+                                    target={"_blank"}
+                                    rel="noopener noreferrer"
+                                    href="https://invana.io">Invana</a></small>
+                            </p>
+                        </div>
+                    </div>
+                </Modal>
+            </div>
+
         )
     }
 }

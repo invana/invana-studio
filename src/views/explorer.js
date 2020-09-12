@@ -193,7 +193,7 @@ export default class ExplorerView extends BaseView {
                         </li>
                         <li style={{"padding": "0 5px"}}>
                             <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer" alt=""/>
+                                <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=flat-square" alt=""/>
                             </a>
                         </li>
                     </List>

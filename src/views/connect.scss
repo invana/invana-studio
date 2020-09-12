@@ -6,7 +6,8 @@
   hr {
     border-color: lighten($darkBgSecondary, 10%);
   }
-  h4{
+
+  h4 {
     border-bottom: 1px solid #313131;
     padding-bottom: 5px;
   }
@@ -77,6 +78,7 @@
     .built-with {
       position: absolute;
       bottom: 0;
+
       a {
         font-size: 11px;
       }
@@ -88,4 +90,9 @@
   }
 }
 
+.github-stars {
+  position: fixed;
+  top: 20px;
+  right: 20px;
 
+}

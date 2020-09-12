@@ -246,8 +246,8 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   //border: 1px solid green;
-  -webkit-text-fill-color: $defaultTextColor;
-  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+  -webkit-text-fill-color: white;
+  //-webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
   transition: background-color 5000s ease-in-out 0s;
 }
 
