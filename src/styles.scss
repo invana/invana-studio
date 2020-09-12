@@ -227,13 +227,13 @@ li.logo {
 }
 
 ::-moz-selection { /* Code for Firefox */
-  color: $defaultTextColor;
-  background: $darkBg;
+  color: $darkTextColor;
+  background: $primaryColor;
 }
 
 ::selection {
-  color: $defaultTextColor;
-  background: $darkBg;
+  color: $darkTextColor;
+  background: $primaryColor;
 }
 
 body::-webkit-scrollbar,

@@ -1,5 +1,6 @@
 export const AUTH_CONSTANTS = {
-    gremlinServerUrlKey: "GREMLIN_SERVER_URL"
+    gremlinServerUrlKey: "GREMLIN_SERVER_URL",
+    httpHeadersKey: "HTTP_HEADERS"
 }
 
 export const GREMLIN_SERVER_URL = localStorage.getItem(AUTH_CONSTANTS.gremlinServerUrlKey);

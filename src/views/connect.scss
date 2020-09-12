@@ -6,7 +6,36 @@
   hr {
     border-color: lighten($darkBgSecondary, 10%);
   }
+  h4{
+    border-bottom: 1px solid #313131;
+    padding-bottom: 5px;
+  }
 
+  .headersList {
+    margin-bottom: 20px;
+    border: 1px solid #313131;
+    padding: 10px;
+  }
+
+  .headerItem {
+    //background: #1d1d1d;
+    //padding: 5px;
+
+    input {
+      padding: 0 !important;
+      background: transparent;
+    }
+
+    .headerKey {
+      width: 140px;
+      margin-right: 10px;
+    }
+
+    .headerValue {
+      width: 250px;
+      margin-right: 10px;
+    }
+  }
 
   h1 {
     margin-top: .5rem;
@@ -19,25 +48,24 @@
       font-size: 14px;
       padding: 2px 4px 0 4px;
       margin-left: 6px;
-      //padding-bottom: 0;
     }
 
   }
 
   .top-section {
-    //padding-top: 2rem;
-    padding-bottom: 1rem;
+    p {
+      padding-top: 1rem;
+    }
   }
 
   .bottom-section {
-    padding-top: 1rem;
     padding-bottom: 1rem;
 
     form {
       width: 100%;
 
       input {
-        width: 400px;
+        width: calc(100% - 20px);
         margin: 10px auto;
         padding: 10px 10px 5px 10px;
         color: white;
@@ -49,6 +77,9 @@
     .built-with {
       position: absolute;
       bottom: 0;
+      a {
+        font-size: 11px;
+      }
     }
   }
 

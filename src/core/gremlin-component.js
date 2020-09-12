@@ -1,6 +1,7 @@
 import React from 'react';
 import BaseComponent from "./base-component";
 import {
+    AUTH_CONSTANTS,
     DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds,
     GREMLIN_SERVER_URL, historyLocalStorageKey,
@@ -334,8 +335,10 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     _queryHTTP(query) {
         const payload = {"gremlin": query};
+        const extraHeaders = getDataFromLocalStorage(AUTH_CONSTANTS.httpHeadersKey, true);
+
         let _this = this;
-        postData(this.props.gremlinUrl, {}, payload).then(data => {
+        postData(this.props.gremlinUrl, extraHeaders, payload).then(data => {
             // check the status and response type and change isConnected
             // _this.setIsConnected2Gremlin(false);
             _this.gatherDataFromStream(data);
