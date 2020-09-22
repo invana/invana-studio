@@ -1,8 +1,8 @@
 // import React from "react";
 import GremlinBasedComponent from "../core/gremlin-component";
-import GremlinResponseSerializers from "../core/gremlin-serializer";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 
-const serializer = new GremlinResponseSerializers();
+const serializer = new GraphSONDeSerializer();
 
 
 class GremlinViewBase extends GremlinBasedComponent {

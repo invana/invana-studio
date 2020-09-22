@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from 'prop-types';
 import ReactJson from 'react-json-view'
 import "./json.scss";
-import GremlinResponseSerializers from "../core/gremlin-serializer";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 
-const gremlinSerializer = new GremlinResponseSerializers()
+const gremlinDeSerializer = new GraphSONDeSerializer()
 
 export default class JSONCanvas extends React.Component {
 
@@ -24,8 +24,8 @@ export default class JSONCanvas extends React.Component {
 
     UNSAFE_componentWillMount() {
         // there's probably a better way than setTimeout for non-blocking rendering
-        const vertexGroups = gremlinSerializer.groupByLabel(gremlinSerializer.removeMeta(this.props.vertices));
-        const edgeGroups = gremlinSerializer.groupByLabel(gremlinSerializer.removeMeta(this.props.edges));
+        const vertexGroups = gremlinDeSerializer.groupByLabel(gremlinDeSerializer.removeMeta(this.props.vertices));
+        const edgeGroups = gremlinDeSerializer.groupByLabel(gremlinDeSerializer.removeMeta(this.props.edges));
 
         const data = {
             "vertexGroups": vertexGroups,

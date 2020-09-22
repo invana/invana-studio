@@ -1,7 +1,7 @@
 import {CONNECT_URL, AUTH_CONSTANTS} from "../config";
-import GremlinResponseSerializers from "./gremlin-serializer";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 
-const gremlinSerializer = new GremlinResponseSerializers();
+const gremlinDeSerializer = new GraphSONDeSerializer();
 
 function padZero(str, len) {
     len = len || 2;
@@ -139,8 +139,8 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     vertex/edge key data only.
      */
     console.log("setElementColorOptionsToStorageUsingResponse", response)
-    let result = gremlinSerializer.process(response);
-    let nodesAndLinks = gremlinSerializer.separateVerticesAndEdges(result, false);
+    let result = gremlinDeSerializer.process(response);
+    let nodesAndLinks = gremlinDeSerializer.separateVerticesAndEdges(result, false);
     let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
     nodesAndLinks.nodes.forEach(function (node) {
         _nodes[node.properties.name] = node.properties;
@@ -170,7 +170,7 @@ export function convertResponses2JSONs(responses) {
 
     let jsonResponses = [];
     responses.forEach(function (response) {
-        const _ = gremlinSerializer.process(response)
+        const _ = gremlinDeSerializer.process(response)
         jsonResponses.push(_)
     })
     return jsonResponses;

@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./table.scss";
-import GremlinResponseSerializers from "../core/gremlin-serializer";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 import {getDataFromLocalStorage} from "../core/utils";
 
 
-const gremlinSerializer = new GremlinResponseSerializers();
+const gremlinDeSerializer = new GraphSONDeSerializer();
 
 export class TableComponent extends React.Component {
     static defaultProps = {
@@ -109,8 +109,8 @@ export default class TableCanvas extends React.Component {
     }
 
     render() {
-        const vertexGroups = gremlinSerializer.groupByLabel(this.props.vertices);
-        const edgeGroups = gremlinSerializer.groupByLabel(this.props.edges);
+        const vertexGroups = gremlinDeSerializer.groupByLabel(this.props.vertices);
+        const edgeGroups = gremlinDeSerializer.groupByLabel(this.props.edges);
 
         console.log("=====vertexGroups", vertexGroups)
         return (

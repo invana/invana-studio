@@ -2,10 +2,10 @@
 
  */
 
-export default class GremlinResponseSerializers {
+export default class GraphSONDeSerializer {
 
 
-    convert_vertex_property_to_json(property) {
+    convertVertexPropertyToJson(property) {
 
         let _single_prop = property[0];
         if (_single_prop['@type'] !== "g:VertexProperty") {
@@ -33,7 +33,7 @@ export default class GremlinResponseSerializers {
         if (properties) {
             Object.keys(properties).forEach(function (key) {
                 let property = properties[key];
-                let _ = _this.convert_vertex_property_to_json(property);
+                let _ = _this.convertVertexPropertyToJson(property);
                 d.properties[key] = _[key];
             });
         }
@@ -43,7 +43,7 @@ export default class GremlinResponseSerializers {
     }
 
 
-    convert_edge_property_to_json(property) {
+    convertEdgePropertyToJson(property) {
 
         let _single_prop = property;
         if (_single_prop['@type'] !== "g:Property") {
@@ -78,7 +78,7 @@ export default class GremlinResponseSerializers {
         if (properties) {
             Object.keys(properties).forEach(function (key) {
                 let property = properties[key];
-                let _ = _this.convert_edge_property_to_json(property);
+                let _ = _this.convertEdgePropertyToJson(property);
                 d.properties[key] = _[key];
             });
 

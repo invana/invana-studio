@@ -1,5 +1,5 @@
 import GremlinBasedComponent from "../core/gremlin-component";
-import GremlinResponseSerializers from "../core/gremlin-serializer";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 import {managementVertexLabel} from "../config";
 
 export default class HomeView extends GremlinBasedComponent {
@@ -14,11 +14,11 @@ export default class HomeView extends GremlinBasedComponent {
         }, 200)
     }
 
-    gremlinSerializer = new GremlinResponseSerializers();
+    gremlinDeSerializer = new GraphSONDeSerializer();
 
     setLabelsConfigToLocalStorage(response) {
-        let result = this.gremlinSerializer.process(response);
-        let nodesAndLinks = this.gremlinSerializer.separateVerticesAndEdges(result, false);
+        let result = this.gremlinDeSerializer.process(response);
+        let nodesAndLinks = this.gremlinDeSerializer.separateVerticesAndEdges(result, false);
         let _nodes = {};
         nodesAndLinks.nodes.forEach(function (node) {
             _nodes[node.properties.name] = node.properties;
