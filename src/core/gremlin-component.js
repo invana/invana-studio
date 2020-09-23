@@ -232,25 +232,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         for (const [key, value] of Object.entries(event)) {
             this.eventTranslator(key, value)
         }
-
-
-        // if (isSuccess === false) {
-        //     this.setErrorMessage(isSuccess);
-        // } else {
-        //     this.setErrorMessage(null);
-        // }
-        // if (isStreaming !== null) {
-        //     this.setIsStreaming(isStreaming);
-        // }
-        // if (statusMessage !== null) {
-        //     this.setStatusMessage(statusMessage);
-        // }
-        // if (statusCode !== null) {
-        //     this.setState({statusCode: statusCode});
-        // }
-        // if (isConnected !== null) {
-        //     this.setIsConnected2Gremlin(isConnected)
-        // }
     }
 
     //
