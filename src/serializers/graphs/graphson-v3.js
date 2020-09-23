@@ -6,7 +6,6 @@ export default class GraphSONDeSerializer {
 
 
     convertVertexPropertyToJson(property) {
-
         let _single_prop = property[0];
         if (_single_prop['@type'] !== "g:VertexProperty") {
             throw new Error("Not a VertexProperty error. check if this is of g:VertexProperty type:: " + JSON.stringify(property));
@@ -37,14 +36,11 @@ export default class GraphSONDeSerializer {
                 d.properties[key] = _[key];
             });
         }
-
         return d;
-
     }
 
 
     convertEdgePropertyToJson(property) {
-
         let _single_prop = property;
         if (_single_prop['@type'] !== "g:Property") {
             throw new Error("Not a g:Property error. check if this is of g:Property type:: " + JSON.stringify(property));
@@ -53,7 +49,6 @@ export default class GraphSONDeSerializer {
         let value = _single_prop['@value'].value;
         d[_single_prop['@value'].key] = (typeof value === "string") ? value : value['@value'];
         return d;
-
     }
 
 
@@ -83,31 +78,28 @@ export default class GraphSONDeSerializer {
             });
 
         }
-
         return d;
-
     }
 
     // convertSet2Json(set_item) {
 
 
-
-        // if (set_item && "@type" in set_item) {
-        //     if (set_item['@type'] !== "g:Set") {
-        //         throw new Error("Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item));
-        //     }
-        // }
-        // let items = [];
-        // if (set_item && '@value' in set_item) {
-        //     set_item['@value'].forEach(function (item) {
-        //         // TODO - NOT IMPLEMENTED - because no use case found yet.
-        //         // let data_list = _this.processItem(item);
-        //         // data_list.forEach(function (datum) {
-        //         //     items.push(datum);
-        //         // });
-        //     });
-        // }
-        // return items;
+    // if (set_item && "@type" in set_item) {
+    //     if (set_item['@type'] !== "g:Set") {
+    //         throw new Error("Not a g:Set error. check if this is of g:Set type:: " + JSON.stringify(set_item));
+    //     }
+    // }
+    // let items = [];
+    // if (set_item && '@value' in set_item) {
+    //     set_item['@value'].forEach(function (item) {
+    //         // TODO - NOT IMPLEMENTED - because no use case found yet.
+    //         // let data_list = _this.processItem(item);
+    //         // data_list.forEach(function (datum) {
+    //         //     items.push(datum);
+    //         // });
+    //     });
+    // }
+    // return items;
 
     // }
 
@@ -130,7 +122,6 @@ export default class GraphSONDeSerializer {
             });
         }
         return items;
-
     }
 
     convertBulkset2Json(list_item) {
@@ -152,11 +143,9 @@ export default class GraphSONDeSerializer {
             });
         }
         return items;
-
     }
 
     convertMap2Json(list_item) {
-
         if (list_item && "@type" in list_item) {
             if (list_item['@type'] !== "g:Map") {
                 throw new Error("Not a g:Map error. check if this is of g:Map type:: " + JSON.stringify(list_item));
@@ -173,12 +162,10 @@ export default class GraphSONDeSerializer {
             });
         }
         return items;
-
     }
 
 
     convertPath2Json(path_item) {
-
         if (path_item && "@type" in path_item) {
             if (path_item['@type'] !== "g:Path") {
                 throw new Error("Not a g:Path error. check if this is of g:Path type:: " + JSON.stringify(path_item));
@@ -204,7 +191,6 @@ export default class GraphSONDeSerializer {
             }
         }
         return items;
-
     }
 
     processItem(item) {
@@ -240,11 +226,9 @@ export default class GraphSONDeSerializer {
         } else {
             return [];
         }
-
     }
 
-    process(response) {
-        let data = response.result.data;
+    process(data) {
         return this.convertList2Json(data);
     }
 

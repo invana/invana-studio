@@ -2,10 +2,12 @@
 
 
  */
+import GremlinResponse from "../responses/gremlin";
+
 
 class ProtocolBase {
 
-
+    responseObjectCls = GremlinResponse;
     streamResponses = [];
 
     constructor(serverUrl, responseEventsCallback, responseCallback) {
@@ -25,45 +27,38 @@ class ProtocolBase {
         this.streamResponses = [];
     }
 
-    gatherDataFromStream(statusCode, response) {
+    gatherDataFromStream(response, transportStatusCode) {
         console.log("onmessage received", response);
-        if (statusCode >= 200 && statusCode < 300) {
-            // this.setErrorMessage(null)
-            if (statusCode === 206) {
-                // this.setIsStreaming(true);
-                // this.setStatusMessage("Gathering data from the stream");
-                this.responseEventsCallback("Gathering data from the stream",
-                    statusCode,
-                    true
-                )
-                this.streamResponses.push(response);
+
+        const responseObject = new this.responseObjectCls(response, transportStatusCode);
+        if (transportStatusCode >= 200 && transportStatusCode < 300) {
+            if (transportStatusCode === 206) {
+                this.responseEventsCallback({
+                    statusMessage: "Gathering data from the stream",
+                    statusCode: transportStatusCode,
+                    isStreaming: true
+                })
+                this.streamResponses.push(responseObject);
             } else {
-                this.streamResponses.push(response);
-                // this.setIsStreaming(false);
-                // this.setStatusMessage("Responded to the Query Successfully");
-                this.responseEventsCallback("Responded to the Query Successfully",
-                    statusCode,
-                    false
-                )
+                this.responseEventsCallback({
+                    statusMessage: "Responded to the Query Successfully",
+                    statusCode: transportStatusCode,
+                    isStreaming: false
+                })
+                this.streamResponses.push(responseObject);
                 const responses = Object.assign(this.streamResponses);
                 this.flushStreamResponsesData();
-                // this._processResponse(responses);
                 this.responseCallback(responses);
             }
-            // this.setIsConnected2Gremlin(true);
         } else {
-            // this.setIsStreaming(false);
             console.log("response===========", response);
-            // this.setIsConnected2Gremlin(false);
-            // this.setErrorMessage(response.status)
-            // this.setStatusMessage("Query Failed with " + statusCode + " error.");
-            this.streamResponses.push(response);
+            this.streamResponses.push(responseObject);
             const responses = Object.assign(this.streamResponses);
-            // this._processResponse(responses);
-            this.responseEventsCallback("Query Failed with " + statusCode + " error.",
-                statusCode,
-                false
-            )
+            this.responseEventsCallback({
+                statusMessage: "Query Failed with " + transportStatusCode + " error.",
+                statusCode: transportStatusCode,
+                isStreaming: false
+            })
             this.responseCallback(responses);
         }
     }

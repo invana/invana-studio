@@ -1,5 +1,5 @@
 import GremlinBasedComponent from "../core/gremlin-component";
-import GraphSONDeSerializer from "../serializers/graphson-v3";
+import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
 import {managementVertexLabel} from "../config";
 
 export default class HomeView extends GremlinBasedComponent {
@@ -36,8 +36,9 @@ export default class HomeView extends GremlinBasedComponent {
     processResponse(responses) {
         let _this = this;
         let response = responses[0];
-        console.log("onmessage received", response);
-        if (response.status.code >= 200 || response.status.code <= 299) {
+        console.log("processResponse received", response);
+        const statusCode = response.getGremlinStatusCode();
+        if (statusCode >= 200 || statusCode < 300) {
             _this.setStatusMessage("Query Successfully Responded.");
             _this.setLabelsConfigToLocalStorage(response)
             _this.setState({

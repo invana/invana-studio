@@ -1,6 +1,6 @@
 // import React from "react";
 import GremlinBasedComponent from "../core/gremlin-component";
-import GraphSONDeSerializer from "../serializers/graphson-v3";
+import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
 
 const serializer = new GraphSONDeSerializer();
 
@@ -41,7 +41,7 @@ class GremlinViewBase extends GremlinBasedComponent {
         let overallNodes = this.state.vertices;
         let overallLinks = this.state.edges;
         responses.forEach(function (response) {
-            const serializedData = serializer.process(response);
+            const serializedData = serializer.process(response.getResponseData());
             const separatedData = serializer.separateVerticesAndEdges(serializedData);
             overallNodes = overallNodes.concat(separatedData['nodes']);
             overallLinks = overallLinks.concat(separatedData['links']);
@@ -57,10 +57,12 @@ class GremlinViewBase extends GremlinBasedComponent {
 
 
     processResponse(responses) {
+
         this.responseSessions = this.responseSessions.concat(responses);
-        console.log("responseSessions", this.responseSessions);
+        const responseSessions = this.responseSessions.filter(e => e)
+        console.log("responseSessions", responseSessions);
         this.setState({
-            responses: this.responseSessions,
+            responses: responseSessions,
             shallReRenderD3Canvas: true
         })
     }

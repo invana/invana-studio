@@ -1,0 +1,26 @@
+/*
+
+*/
+
+
+export default class GremlinResponse {
+
+    constructor(gremlinResponse, transporterStatusCode) {
+        this.gremlinResponse = gremlinResponse;
+        this.transporterStatusCode = transporterStatusCode;
+    }
+
+    getResponseData() {
+        return this.gremlinResponse.result.data;
+    }
+
+    getResponseResult() {
+        return this.gremlinResponse.result;
+    }
+
+    getGremlinStatusCode() {
+        return this.gremlinResponse.status.code || this.transporterStatusCode;
+    }
+
+
+}

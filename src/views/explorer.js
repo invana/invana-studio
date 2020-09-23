@@ -61,21 +61,18 @@ export default class ExplorerView extends BaseView {
     }
 
     getLatestResponse() {
-        // alert(this.state.responses.length);
         if (this.state.responses.length > 0) {
             const responses = this.state.responses;
             const lastResponse = responses[responses.length - 1];
-            // console.log("=======lastResponse", lastResponse)
+            // const statusCode = lastResponse.status.code;
             return {
-                status: lastResponse.status.code,
-                response: lastResponse
+                status: lastResponse.getGremlinStatusCode(),
+                response: lastResponse.getResponseData()
             }
         } else {
             return {
                 status: null,
-                response: {
-                    result: null
-                }
+                response:  null
             }
         }
     }
@@ -192,7 +189,9 @@ export default class ExplorerView extends BaseView {
                         </li>
                         <li style={{"padding": "0 5px"}}>
                             <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                <img src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=flat-square" alt=""/>
+                                <img
+                                    src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=flat-square"
+                                    alt=""/>
                             </a>
                         </li>
                     </List>
@@ -398,7 +397,7 @@ export default class ExplorerView extends BaseView {
                                             {this.state.errorMessage
                                                 ? <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
                                                 : <span>
-                                                    <pre>{JSON.stringify(this.getLatestResponse().response.result, null, 2)}</pre>
+                                                    <pre>{JSON.stringify(this.getLatestResponse().response, null, 2)}</pre>
                                                 </span>
                                             }
 
@@ -528,7 +527,14 @@ export default class ExplorerView extends BaseView {
                 </Main>
                 <GEFooter>
                     <List type={"nav-left"}>
-                        <li className={"ml-5"}><Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/></li>
+                        {
+                            this.state.isConnected2Gremlin
+                                ?
+                                <li className={"ml-5"}>
+                                    <Indicator isConnected2Gremlin={this.state.isConnected2Gremlin}/>
+                                </li>
+                                : <span></span>
+                        }
                         <li><span>{this.state.statusMessage} </span></li>
                         {
                             this.state.isLoading && this.state.loaderElapsedTimer && this.state.loaderElapsedTimer > 0
@@ -546,7 +552,7 @@ export default class ExplorerView extends BaseView {
                                 <button className={"no-bg"} onClick={() => this.setBottomContentName("error-console")}>
                                     <span>{
                                         this.getLatestResponse().status ?
-                                            this.getLatestResponse().status < 200 && this.getLatestResponse().status >300
+                                            this.getLatestResponse().status < 200 && this.getLatestResponse().status > 300
                                                 ? <strong
                                                     className={"error-badge"}>{this.getLatestResponse().status}</strong>
                                                 : <strong

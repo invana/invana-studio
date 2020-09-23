@@ -1,5 +1,5 @@
 import {CONNECT_URL, AUTH_CONSTANTS} from "../config";
-import GraphSONDeSerializer from "../serializers/graphson-v3";
+import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
 
 const gremlinDeSerializer = new GraphSONDeSerializer();
 
@@ -72,7 +72,6 @@ export function LightenDarkenColor(col, amt) {
 
 }
 
-
 export function getDataFromLocalStorage(itemKey, isJson) {
 
     if (isJson) {
@@ -99,6 +98,11 @@ export function removeEverythingFromLocalStorage() {
     localStorage.clear();
 }
 
+export function getProtocol(gremlinUrl) {
+    const _ = new URL(gremlinUrl).protocol;
+    return _.includes("ws") ? "ws" : "http";
+}
+
 export async function postData(url = '', extraHeaders = {}, data = {}) {
     // Default options are marked with *
     const url_analysed = new URL(url);
@@ -119,7 +123,15 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
         headers: extraHeaders,
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
-    return response.json();
+    console.log(response);
+    let responseJson = null;
+    // let statusCode = response.status; // response from the server.
+    try {
+        responseJson = await response.json();
+    } catch (e) {
+        console.log("failed to get the json data");
+    }
+    return {"response":responseJson, transporterStatusCode: response.status}
 }
 
 export function redirectToConnectIfNeeded(gremlinUrl) {

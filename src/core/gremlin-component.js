@@ -14,6 +14,7 @@ import {
 import LoadSpinner from "../ui-components/spinner/spinner";
 import PropTypes from "prop-types";
 import HttpConnection from "../connections/http";
+import WebSocketConnection from "../connections/websocket";
 
 
 export default class GremlinBasedComponent extends BaseComponent {
@@ -59,7 +60,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     queryStartedAt = null;
     queryEndedAt = null;
     ws = null;
-    streamResponses = null;
+    // streamResponses = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
         // reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
@@ -83,11 +84,24 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             vertices: [],
             edges: []
         }
-        this.http_protocol = new HttpConnection(
-            this.props.gremlinUrl,
-            this.responseEventsCallback.bind(this),
-            this._processResponse.bind(this)
-        );
+
+
+        const protocol = this.getProtocol();
+
+        if (protocol === "ws") {
+            this.connection = new WebSocketConnection(
+                this.props.gremlinUrl,
+                this.responseEventsCallback.bind(this),
+                this._processResponse.bind(this),
+                this.setIsConnected2Gremlin.bind(this)
+            );
+        } else {
+            this.connection = new HttpConnection(
+                this.props.gremlinUrl,
+                this.responseEventsCallback.bind(this),
+                this._processResponse.bind(this)
+            );
+        }
 
     }
 
@@ -124,7 +138,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             const protocol = this.getProtocol();
             console.log("We will be using " + protocol + " protocol");
             if (protocol === "ws") {
-                this.reconnectWithWS()
+                this.connection.reconnectWithWS()
             } else {
                 console.log("protocol will be " + protocol);
             }
@@ -190,22 +204,54 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.setState({isStreaming: status});
     }
 
+    setstatusCode(statusCode) {
+        this.setState({"statusCode": statusCode});
+    }
 
-    responseEventsCallback(statusMessage, statusCode, isStreaming, isSuccess) {
-        this.setState({
-            statusMessage: statusMessage,
-            statusCode: statusCode,
-            // isStreaming: isStreaming,
-            // isSuccess: isSuccess
-        })
-        if (isSuccess === false) {
-            this.setErrorMessage(isSuccess);
-        } else {
-            this.setErrorMessage(null);
+    eventTranslator(eventName, eventValue) {
+        console.log("===eventName", eventName, eventValue);
+
+        if (eventName === "statusMessage") {
+            this.setStatusMessage(eventValue);
+        } else if (eventName === "statusCode") {
+            this.setstatusCode(eventValue);
+        } else if (eventName === "isStreaming") {
+            this.setIsStreaming(eventValue);
+        } else if (eventName === "errorMessage") {
+            this.setErrorMessage(eventValue);
+        } else if (eventName === "errorMessage") {
+            this.setIsConnected2Gremlin(eventValue);
+        }
+        // else {
+        //     this.setState({eventName: eventValue});
+        // }
+    }
+
+
+    responseEventsCallback(event) {
+        console.log("received event", event);
+        for (const [key, value] of Object.entries(event)) {
+            this.eventTranslator(key, value)
         }
 
-        this.setIsStreaming(isStreaming);
-        this.setStatusMessage(statusMessage);
+
+        // if (isSuccess === false) {
+        //     this.setErrorMessage(isSuccess);
+        // } else {
+        //     this.setErrorMessage(null);
+        // }
+        // if (isStreaming !== null) {
+        //     this.setIsStreaming(isStreaming);
+        // }
+        // if (statusMessage !== null) {
+        //     this.setStatusMessage(statusMessage);
+        // }
+        // if (statusCode !== null) {
+        //     this.setState({statusCode: statusCode});
+        // }
+        // if (isConnected !== null) {
+        //     this.setIsConnected2Gremlin(isConnected)
+        // }
     }
 
     //
@@ -298,9 +344,9 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             this.queryStartedAt = new Date();
             this.queryEndedAt = new Date();
             if (protocol === "ws") {
-                this._queryWS(queryData)
+                this.connection.query(queryData);
             } else {
-                this.http_protocol.query(query);
+                this.connection.query(query);
             }
         }
     }
