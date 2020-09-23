@@ -219,12 +219,11 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             this.setIsStreaming(eventValue);
         } else if (eventName === "errorMessage") {
             this.setErrorMessage(eventValue);
-        } else if (eventName === "errorMessage") {
+        } else if (eventName === "isConnected") {
             this.setIsConnected2Gremlin(eventValue);
+        } else {
+            this.setState({eventName: eventValue});
         }
-        // else {
-        //     this.setState({eventName: eventValue});
-        // }
     }
 
 
