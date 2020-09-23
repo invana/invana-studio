@@ -1,5 +1,5 @@
 import ProtocolBase from "./base";
-import {DefaultConnectionRetryTimeout} from "../config";
+import {DefaultConnectionRetryTimeout, UUIDGenerator} from "../config";
 
 
 export default class WebSocketConnection extends ProtocolBase {
@@ -13,6 +13,20 @@ export default class WebSocketConnection extends ProtocolBase {
         this.onCloseCallback = onCloseCallback || this.defaultOnCloseCallback;
         this.setIsConnected2Gremlin = setIsConnected2Gremlin;
     }
+
+    generateQueryPayload(query) {
+        return {
+            "requestId": UUIDGenerator(),
+            "op": "eval",
+            "processor": "",
+            "args": {
+                "gremlin": query,
+                "bindings": {},
+                "language": "gremlin-groovy"
+            }
+        };
+    }
+
 
     defaultOnOpenCallback() {
         console.log('connected')
@@ -85,10 +99,14 @@ export default class WebSocketConnection extends ProtocolBase {
         }
     }
 
-    query(queryData) {
+    query(query) {
         /*
 
          */
+
+        let msg = this.generateQueryPayload(query);
+        let queryData = JSON.stringify(msg);
+        console.log("Query long one", queryData);
 
         let _this = this;
         console.log("===Query", queryData);

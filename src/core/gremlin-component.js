@@ -164,19 +164,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         })
     }
 
-    generateQueryPayload(query) {
-        return {
-            "requestId": UUIDGenerator(),
-            "op": "eval",
-            "processor": "",
-            "args": {
-                "gremlin": query,
-                "bindings": {},
-                "language": "gremlin-groovy"
-            }
-        };
-    }
-
     setQueryElapsedTimeCounter(count) {
         this.setState({queryElapsedTimeCounter: count});
     }
@@ -314,20 +301,12 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.setState({statusMessage: "Querying..."})
         console.log("queryGremlinServer :::  query", query);
         if (query) {
-            this.startQueryTimer();
-            let msg = this.generateQueryPayload(query);
-            let queryData = JSON.stringify(msg);
-            console.log("Query long one", queryData);
-            this.startLoader("Connecting..");
-
-            const protocol = this.getProtocol();
+            // this.startQueryTimer();
+            // this.startLoader("Connecting..");
             this.queryStartedAt = new Date();
             this.queryEndedAt = new Date();
-            if (protocol === "ws") {
-                this.connection.query(queryData);
-            } else {
-                this.connection.query(query);
-            }
+            this.connection.query(query);
+
         }
     }
 
