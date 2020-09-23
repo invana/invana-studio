@@ -13,6 +13,7 @@ import {
 } from "./utils";
 import LoadSpinner from "../ui-components/spinner/spinner";
 import PropTypes from "prop-types";
+import HttpConnection from "../connections/http";
 
 
 export default class GremlinBasedComponent extends BaseComponent {
@@ -82,25 +83,32 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             vertices: [],
             edges: []
         }
-        this.streamResponses = [];
+        this.http_protocol = new HttpConnection(
+            this.props.gremlinUrl,
+            this.responseEventsCallback.bind(this),
+            this._processResponse.bind(this)
+        );
+
     }
+
+    // updateTransporterStatus
 
     getProtocol() {
         const _ = new URL(this.props.gremlinUrl).protocol;
         return _.includes("ws") ? "ws" : "http";
     }
 
-    createWebSocket() {
-        return new WebSocket(this.props.gremlinUrl);
-    }
+    // createWebSocket() {
+    //     return new WebSocket(this.props.gremlinUrl);
+    // }
 
-
-    reconnectWithWS() {
-        clearInterval(this.queryElapsedTimerId);
-        clearInterval(this.reconnectingTimerId);
-        this.ws = this.createWebSocket();
-        this.connect();
-    }
+    //
+    // reconnectWithWS() {
+    //     clearInterval(this.queryElapsedTimerId);
+    //     clearInterval(this.reconnectingTimerId);
+    //     this.ws = this.createWebSocket();
+    //     this.connect();
+    // }
 
     setIsConnected2Gremlin(status) {
         // this.props.eventHandler({isConnected2Gremlin: status});
@@ -108,45 +116,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.setState({isConnected2Gremlin: status});
     }
 
-    setupWebSocket() {
-        let _this = this;
-        console.log("setupWebSocket triggered===========================")
-        this.ws.onopen = () => {
-            // on connecting, do nothing but log it to the console
-            console.log('connected')
-            _this.setIsConnected2Gremlin(true);
-            _this.setStatusMessage("Connected");
-            clearInterval(_this.reconnectingTimerId);
-        }
-
-        this.ws.onmessage = event => {
-            // listen to data sent from the websocket server
-            const response = JSON.parse(event.data)
-            console.log("onmessage", response);
-            _this.gatherDataFromStream(response);
-        }
-
-        this.ws.onclose = (evt) => {
-            console.log('disConnected2Gremlin');
-            if (evt.code !== 3001) {
-                console.log('ws connection error');
-            }
-            clearInterval(_this.reconnectingTimerId);
-            // automatically try to reconnectWithWS on connection loss
-            _this.setIsConnected2Gremlin(false);
-            let i = 0;
-            this.reconnectingTimerId = setInterval((function () {
-                    i += 1;
-                    console.log("Retrying after it is closed ", i, " seconds elapsed")
-                    _this.setStatusMessage("Connection failed. Reconnecting in " + (DefaultConnectionRetryTimeout - i) + "s...");
-                    if (i >= DefaultConnectionRetryTimeout) {
-                        clearInterval(_this.reconnectingTimerId);
-                        _this.reconnectWithWS();
-                    }
-                }
-            ), 1000); // retry in 5 seconds
-        }
-    }
 
     componentDidMount() {
         console.log("gremlin-component componentDidMount")
@@ -167,16 +136,8 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         clearInterval(this.queryElapsedTimerId);
         clearInterval(this.reconnectingTimerId);
         super.componentWillUnmount();
-
     }
 
-    connect() {
-        this.setupWebSocket();
-    }
-
-    flushStreamResponsesData() {
-        this.streamResponses = [];
-    }
 
     flushCanvas() {
         this.setState({
@@ -229,6 +190,24 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.setState({isStreaming: status});
     }
 
+
+    responseEventsCallback(statusMessage, statusCode, isStreaming, isSuccess) {
+        this.setState({
+            statusMessage: statusMessage,
+            statusCode: statusCode,
+            // isStreaming: isStreaming,
+            // isSuccess: isSuccess
+        })
+        if (isSuccess === false) {
+            this.setErrorMessage(isSuccess);
+        } else {
+            this.setErrorMessage(null);
+        }
+
+        this.setIsStreaming(isStreaming);
+        this.setStatusMessage(statusMessage);
+    }
+
     //
     // processResponse = (responses) => console.error("processResponse not implemented. This functions " +
     //     "will get the responses from gremlin server. Use this to access the query response data.");
@@ -239,35 +218,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         this.processResponse(responses);
     }
 
-
-    gatherDataFromStream(response) {
-        console.log("onmessage received", response);
-        if (response.status.code >= 200 && response.status.code < 300) {
-            this.setErrorMessage(null)
-            if (response.status.code === 206) {
-                this.setIsStreaming(true);
-                this.setStatusMessage("Gathering data from the stream");
-                this.streamResponses.push(response);
-            } else {
-                this.streamResponses.push(response);
-                this.setIsStreaming(false);
-                this.setStatusMessage("Responded to the Query Successfully");
-                const responses = Object.assign(this.streamResponses);
-                this.flushStreamResponsesData();
-                this._processResponse(responses);
-            }
-            this.setIsConnected2Gremlin(true);
-        } else {
-            this.setIsStreaming(false);
-            console.log("response===========", response);
-            this.setIsConnected2Gremlin(false);
-            this.setErrorMessage(response.status)
-            this.setStatusMessage("Query Failed with " + response.status.code + " error.");
-            this.streamResponses.push(response);
-            const responses = Object.assign(this.streamResponses);
-            this._processResponse(responses);
-        }
-    }
 
     setErrorMessage(message) {
         if (message) {
@@ -313,38 +263,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
         setDataToLocalStorage(historyLocalStorageKey, existingHistory);
     }
 
-    _queryWS(queryData) {
-        /*
-
-         */
-
-        let _this = this;
-        console.log("===Query", queryData);
-        if (this.ws.readyState === 1) {
-            _this.ws.send(queryData, {mask: true});
-            _this.setStatusMessage("Connecting..")
-        } else {
-            _this.ws.onopen = function () {
-                _this.ws.send(queryData, {mask: true});
-                _this.setStatusMessage("Connecting ..")
-                clearInterval(_this.reconnectingTimerId);
-
-            };
-        }
-    }
-
-    _queryHTTP(query) {
-        const payload = {"gremlin": query};
-        const extraHeaders = getDataFromLocalStorage(AUTH_CONSTANTS.httpHeadersKey, true) || {};
-
-        let _this = this;
-        postData(this.props.gremlinUrl, extraHeaders, payload).then(data => {
-            // check the status and response type and change isConnected
-            // _this.setIsConnected2Gremlin(false);
-            _this.gatherDataFromStream(data);
-        });
-
-    }
 
     makeQuery(query, queryOptions) {
 
@@ -382,7 +300,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             if (protocol === "ws") {
                 this._queryWS(queryData)
             } else {
-                this._queryHTTP(query);
+                this.http_protocol.query(query);
             }
         }
     }
