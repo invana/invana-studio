@@ -1,5 +1,5 @@
 import ProtocolBase from "./base";
-import {DefaultConnectionRetryTimeout, UUIDGenerator} from "../config";
+import { UUIDGenerator} from "../config";
 
 
 export default class WebSocketConnection extends ProtocolBase {

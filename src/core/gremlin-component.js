@@ -1,12 +1,8 @@
 import React from 'react';
 import BaseComponent from "./base-component";
 import {
-    // AUTH_CONSTANTS,
-    // DefaultConnectionRetryTimeout,
-    DefaultMaxTimeElapsedWarningInSeconds,
     GREMLIN_SERVER_URL, historyLocalStorageKey,
     MAX_HISTORY_COUNT_TO_REMEMBER,
-    // UUIDGenerator
 } from "../config";
 import {
     getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage,
@@ -78,7 +74,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             isConnected2Gremlin: null,
             query: null,
             isStreaming: null,
-            queryElapsedTimeCounter: null,
 
             responses: [],
             vertices: [],
@@ -105,24 +100,12 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
 
     }
 
-    // updateTransporterStatus
 
     getProtocol() {
         const _ = new URL(this.props.gremlinUrl).protocol;
         return _.includes("ws") ? "ws" : "http";
     }
 
-    // createWebSocket() {
-    //     return new WebSocket(this.props.gremlinUrl);
-    // }
-
-    //
-    // reconnectWithWS() {
-    //     clearInterval(this.queryElapsedTimerId);
-    //     clearInterval(this.reconnectingTimerId);
-    //     this.ws = this.createWebSocket();
-    //     this.connect();
-    // }
 
     setIsConnected2Gremlin(status) {
         // this.props.eventHandler({isConnected2Gremlin: status});
@@ -163,29 +146,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             middleBottomContentName: null
         })
     }
-
-    setQueryElapsedTimeCounter(count) {
-        this.setState({queryElapsedTimeCounter: count});
-    }
-
-    startQueryTimer() {
-        console.log("Timer started")
-        this.setQueryElapsedTimeCounter(0);
-        let _this = this;
-        this.queryElapsedTimerId = setInterval((function () {
-                console.log("Timer started xyx", _this.state.queryElapsedTimeCounter, _this.state.isLoading);
-                if (_this.state.isLoading === false) {
-                    console.log("clearInterval triggered");
-                    clearInterval(_this.queryElapsedTimerId);
-                }
-                _this.updateTimer(_this.state.queryElapsedTimeCounter + 1, false);
-                if (_this.state.queryElapsedTimeCounter >= DefaultMaxTimeElapsedWarningInSeconds) {
-                    _this.updateTimer(_this.state.queryElapsedTimeCounter + 1, true);
-                }
-            }
-        ), 1000); // check every second.
-    }
-
 
     setIsStreaming(status) {
         this.setState({isStreaming: status});
