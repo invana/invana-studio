@@ -22,5 +22,9 @@ export default class GremlinResponse {
         return this.gremlinResponse.status.code || this.transporterStatusCode;
     }
 
+    getError() {
+        return this.gremlinResponse.status;
+    }
+
 
 }

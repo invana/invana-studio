@@ -64,15 +64,16 @@ export default class ExplorerView extends BaseView {
         if (this.state.responses.length > 0) {
             const responses = this.state.responses;
             const lastResponse = responses[responses.length - 1];
-            // const statusCode = lastResponse.status.code;
             return {
                 status: lastResponse.getGremlinStatusCode(),
-                response: lastResponse.getResponseData()
+                response: lastResponse.getResponseData(),
+                error: lastResponse.getError()
             }
         } else {
             return {
                 status: null,
-                response:  null
+                response:  null,
+                error: null
             }
         }
     }
@@ -397,7 +398,7 @@ export default class ExplorerView extends BaseView {
                                             {this.state.errorMessage
                                                 ? <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
                                                 : <span>
-                                                    <pre>{JSON.stringify(this.getLatestResponse().response, null, 2)}</pre>
+                                                    <pre>{JSON.stringify(this.getLatestResponse().error, null, 2)}</pre>
                                                 </span>
                                             }
 
