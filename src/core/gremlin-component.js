@@ -1,15 +1,15 @@
 import React from 'react';
 import BaseComponent from "./base-component";
 import {
-    AUTH_CONSTANTS,
-    DefaultConnectionRetryTimeout,
+    // AUTH_CONSTANTS,
+    // DefaultConnectionRetryTimeout,
     DefaultMaxTimeElapsedWarningInSeconds,
     GREMLIN_SERVER_URL, historyLocalStorageKey,
     MAX_HISTORY_COUNT_TO_REMEMBER,
-    UUIDGenerator
+    // UUIDGenerator
 } from "../config";
 import {
-    getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage, postData,
+    getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage,
 } from "./utils";
 import LoadSpinner from "../ui-components/spinner/spinner";
 import PropTypes from "prop-types";
