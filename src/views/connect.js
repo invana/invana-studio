@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../ui-components/modal/modal";
 import {setDataToLocalStorage} from "../core/utils";
-import {AUTH_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
+import {GE_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle, faAngleDown, faTimesCircle, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
@@ -49,8 +49,8 @@ export default class SetupGremlinServerConnection extends React.Component {
                 "when you are using Graph Explorer via https connection.")
         } else if (gremlinServerUrl) {
             const headers = this.getHeaders();
-            setDataToLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey, gremlinServerUrl);
-            setDataToLocalStorage(AUTH_CONSTANTS.httpHeadersKey, headers);
+            setDataToLocalStorage(GE_CONSTANTS.gremlinServerUrlKey, gremlinServerUrl);
+            setDataToLocalStorage(GE_CONSTANTS.httpHeadersKey, headers);
             window.location.href = "/";
         }
 

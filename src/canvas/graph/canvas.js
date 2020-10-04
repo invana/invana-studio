@@ -38,7 +38,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         queryGremlinServer: PropTypes.func,
         setHideVertexOptions: PropTypes.func,
         setRightContentName: PropTypes.func,
-        requestBuilder: PropTypes.func,
+        requestBuilder: PropTypes.object,
         middleBottomContentName: PropTypes.string,
         edges: PropTypes.array,
         vertices: PropTypes.array,

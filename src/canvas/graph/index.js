@@ -33,7 +33,7 @@ export default class GraphCanvas extends React.Component {
         setHideVertexOptions: PropTypes.func,
         setRightContentName: PropTypes.func,
         setMiddleBottomContentName: PropTypes.func,
-        requestBuilder: PropTypes.func,
+        requestBuilder: PropTypes.object,
         vertices: PropTypes.array,
         edges: PropTypes.array,
         middleBottomContentName: PropTypes.string,

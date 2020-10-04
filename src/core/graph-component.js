@@ -2,7 +2,7 @@ import React from 'react';
 import BaseComponent from "./base-component";
 import {
     GREMLIN_SERVER_URL, historyLocalStorageKey,
-    MAX_HISTORY_COUNT_TO_REMEMBER, DEFAULT_GRAPH_ENGINE
+    MAX_HISTORY_COUNT_TO_REMEMBER, GRAPH_ENGINE_NAME
 } from "../config";
 import {
     getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage,
@@ -64,7 +64,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     // streamResponses = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
-        graphEngine: DEFAULT_GRAPH_ENGINE,
+        graphEngine: GRAPH_ENGINE_NAME,
         // reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
     }
 

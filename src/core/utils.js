@@ -1,4 +1,4 @@
-import {CONNECT_URL, AUTH_CONSTANTS} from "../config";
+import {CONNECT_URL, GE_CONSTANTS} from "../config";
 import GraphSONDeSerializer from "../serializers/graphson-v3";
 
 const gremlinDeSerializer = new GraphSONDeSerializer();
@@ -172,7 +172,7 @@ export function askToSwitchGremlinServer() {
     var r = window.confirm("You are about to sign out of the workspace. " +
         "Your query history will be preserved. Do you want to continue?");
     if (r === true) {
-        removeItemFromLocalStorage(AUTH_CONSTANTS.gremlinServerUrlKey);
+        removeItemFromLocalStorage(GE_CONSTANTS.gremlinServerUrlKey);
         window.location.href = CONNECT_URL;
     }
 }

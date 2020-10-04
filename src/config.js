@@ -1,12 +1,15 @@
-export const AUTH_CONSTANTS = {
+export const GE_CONSTANTS = {
     gremlinServerUrlKey: "GREMLIN_SERVER_URL",
-    httpHeadersKey: "HTTP_HEADERS"
+    httpHeadersKey: "HTTP_HEADERS",
+    graphEngineName: "GRAPH_ENGINE"
 }
 
-export const GREMLIN_SERVER_URL = localStorage.getItem(AUTH_CONSTANTS.gremlinServerUrlKey);
+
+export const GREMLIN_SERVER_URL = localStorage.getItem(GE_CONSTANTS.gremlinServerUrlKey);
+export const GRAPH_ENGINE_NAME = localStorage.getItem(GE_CONSTANTS.graphEngineName);
 
 export const DefaultMaxTimeElapsedWarningInSeconds = 180;
-export const DefaultConnectionRetryTimeout = 20;
+// export const DefaultConnectionRetryTimeout = 20;
 
 
 export const VERSION = "pre-beta";
@@ -41,4 +44,3 @@ export const historyLocalStorageKey = "GRAPH_EXPLORER_HISTORY";
 export const MAX_HISTORY_COUNT_TO_REMEMBER = 100;
 export const DEMO_URL = "https://www.youtube.com/watch?v=SuxC4EH0RCs";
 
-export const DEFAULT_GRAPH_ENGINE = "gremlin";
