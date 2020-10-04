@@ -16,6 +16,7 @@ export default class GraphCanvas extends React.Component {
         setRightContentName: () => console.error("setRightContentName prop not set for GraphCanvas"),
         setMiddleBottomContentName: () => console.error("setMiddleBottomContentName prop not set for GraphCanvas"),
         middleBottomContentName: () => console.error("middleBottomContentName prop not set for GraphCanvas"),
+        requestBuilder: () => console.error("requestBuilder prop not set for GraphCanvas"),
         vertices: [],
         startQuery: () => console.error("startQuery prop not set for GraphCanvas"),
         edges: []
@@ -32,6 +33,7 @@ export default class GraphCanvas extends React.Component {
         setHideVertexOptions: PropTypes.func,
         setRightContentName: PropTypes.func,
         setMiddleBottomContentName: PropTypes.func,
+        requestBuilder: PropTypes.func,
         vertices: PropTypes.array,
         edges: PropTypes.array,
         middleBottomContentName: PropTypes.string,
@@ -77,6 +79,7 @@ export default class GraphCanvas extends React.Component {
                     middleBottomContentName={this.props.middleBottomContentName}
                     startQuery={this.props.startQuery}
                     setSelectedNode={this.props.setSelectedNode}
+                    requestBuilder={this.props.requestBuilder}
                 />
 
 

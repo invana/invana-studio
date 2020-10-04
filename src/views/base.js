@@ -1,8 +1,6 @@
 // import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
-import GraphSONDeSerializer from "../serializers/graphson-v3";
 
-const serializer = new GraphSONDeSerializer();
 
 
 class RemoteGraphComponentViewBase extends RemoteGraphComponent {
@@ -12,7 +10,7 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
             ...this.state,
             canvasType: "graph",
             selectedElementData: null,
-            query: "g.V().limit(5).toList()",
+            query: this.requestBuilder.initQuery(),
             vertices: [],
             edges: []
         };
@@ -39,9 +37,10 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
     extendGraph(responses) {
         let overallNodes = this.state.vertices;
         let overallLinks = this.state.edges;
+        let _this = this;
         responses.forEach(function (response) {
-            const serializedData = serializer.process(response.getResponseData());
-            const separatedData = serializer.separateVerticesAndEdges(serializedData);
+            const serializedData = _this.responseSerializer.process(response.getResponseData());
+            const separatedData = _this.responseSerializer.separateVerticesAndEdges(serializedData);
             overallNodes = overallNodes.concat(separatedData['nodes']);
             overallLinks = overallLinks.concat(separatedData['links']);
         });

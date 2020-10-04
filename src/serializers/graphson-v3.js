@@ -14,7 +14,6 @@ export default class GraphSONDeSerializer {
         let value = _single_prop['@value'].value;
         d[_single_prop['@value'].label] = (typeof value === "string") ? value : value['@value'];
         return d;
-
     }
 
 

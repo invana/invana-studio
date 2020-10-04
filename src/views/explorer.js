@@ -487,6 +487,7 @@ export default class ExplorerView extends BaseView {
                                                         setRightContentName={this.setRightContentName.bind(this)}
                                                         setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
                                                         middleBottomContentName={this.state.middleBottomContentName}
+                                                        requestBuilder={this.requestBuilder}
                                                         startQuery={this.startQuery.bind(this)}
                                                         queryGremlinServer={this.makeQuery.bind(this)}
                                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}

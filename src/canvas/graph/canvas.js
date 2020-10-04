@@ -26,6 +26,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         vertices: [],
         edges: [],
         shallReRenderD3Canvas: false,
+        requestBuilder: () => console.error("requestBuilder not set"),
         setSelectedElementData: (selectedData) => console.error("setSelectedElementData not set", selectedData),
         setMiddleBottomContentName: (contentName) => console.error("setMiddleBottomContentName not set", contentName),
         queryGremlinServer: () => console.error("queryGremlinServer not set"),
@@ -37,6 +38,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
         queryGremlinServer: PropTypes.func,
         setHideVertexOptions: PropTypes.func,
         setRightContentName: PropTypes.func,
+        requestBuilder: PropTypes.func,
         middleBottomContentName: PropTypes.string,
         edges: PropTypes.array,
         vertices: PropTypes.array,
@@ -110,10 +112,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.stopPropagatingChildClickEventToParentEl();
         console.log("expandInLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
-        let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
-            "edges = g.V(" + selectedNode.id + ").outE().dedup().toList(); " +
-            "other_nodes = g.V(" + selectedNode.id + ").outE().otherV().dedup().toList();" +
-            "[other_nodes,edges,node]";
+
+
+        const query_string = this.props.requestBuilder.getInEdgeVertices(selectedNode.id);
         this.props.queryGremlinServer(query_string);
         return false;
     }
@@ -130,10 +131,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
         this.stopPropagatingChildClickEventToParentEl();
         console.log("expandOutLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
-        let query_string = "node=g.V(" + selectedNode.id + ").toList(); " +
-            "edges = g.V(" + selectedNode.id + ").inE().dedup().toList(); " +
-            "other_nodes = g.V(" + selectedNode.id + ").inE().otherV().dedup().toList();" +
-            "[other_nodes,edges,node]";
+
+
+        const query_string = this.props.requestBuilder.getOutEdgeVertices(selectedNode.id);
+
         this.props.queryGremlinServer(query_string);
         return false;
     }

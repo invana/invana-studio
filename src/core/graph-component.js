@@ -12,6 +12,8 @@ import PropTypes from "prop-types";
 import DefaultHTTPConnector from "../connectors/http";
 import DefaultWebSocketConnector from "../connectors/websocket";
 import InvanaEngineHTTPConnector from "../connectors/invana-engine";
+import GremlinQueryManager from "../query-builder/gremlin";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 
 export default class RemoteGraphComponent extends BaseComponent {
     /*
@@ -91,8 +93,9 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             this.requestBuilder = {};
             this.responseSerializer = {};
         } else {
-            this.requestBuilder = {};
-            this.responseSerializer = {};
+            this.requestBuilder = new GremlinQueryManager();
+            this.responseSerializer = new GraphSONDeSerializer();
+
         }
     }
 
