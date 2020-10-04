@@ -80,9 +80,17 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             edges: []
         }
 
+        if (this.checkIfGremlinUrlValid()) {
+            this.connect();
+        }
+    }
 
+    checkIfGremlinUrlValid() {
+        return !!this.props.gremlinUrl;
+    }
+
+    connect() {
         const protocol = this.getProtocol();
-
         if (protocol === "ws") {
             this.connection = new WebSocketConnection(
                 this.props.gremlinUrl,
@@ -97,7 +105,6 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
                 this._processResponse.bind(this)
             );
         }
-
     }
 
 
