@@ -11,7 +11,7 @@ export default class GremlinResponse {
     }
 
     getResponseData() {
-        return this.gremlinResponse.result.data;
+        return this.getResponseResult().data;
     }
 
     getResponseResult() {
