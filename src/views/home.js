@@ -1,8 +1,8 @@
-import GremlinBasedComponent from "../core/gremlin-component";
+import GraphComponent from "../core/graph-component";
 import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
 import {managementVertexLabel} from "../config";
 
-export default class HomeView extends GremlinBasedComponent {
+export default class HomeView extends GraphComponent {
 
 
     componentDidMount() {

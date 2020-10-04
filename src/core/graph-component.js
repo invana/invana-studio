@@ -13,7 +13,7 @@ import DefaultHTTPConnector from "../connectors/http";
 import DefaultWebSocketConnector from "../connectors/websocket";
 
 
-export default class GremlinBasedComponent extends BaseComponent {
+export default class GraphComponent extends BaseComponent {
     /*
 
     Usage
@@ -21,7 +21,7 @@ export default class GremlinBasedComponent extends BaseComponent {
 import React from "react";
 import GremlinBasedViewBase from "core/gremlin-component";
 
-export default class GremlinQueryBox extends GremlinBasedComponent {
+export default class GremlinQueryBox extends GraphComponent {
 
 // use makeQuery("g.V().toList()") to query
 // use processResponse(responses) method to listen to the responses.

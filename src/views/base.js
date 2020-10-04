@@ -1,11 +1,11 @@
 // import React from "react";
-import GremlinBasedComponent from "../core/gremlin-component";
+import GraphComponent from "../core/graph-component";
 import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
 
 const serializer = new GraphSONDeSerializer();
 
 
-class GremlinViewBase extends GremlinBasedComponent {
+class GremlinViewBase extends GraphComponent {
     constructor(props) {
         super(props);
         this.state = {
