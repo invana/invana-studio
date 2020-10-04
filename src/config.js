@@ -10,7 +10,7 @@ export const DefaultConnectionRetryTimeout = 20;
 
 
 export const VERSION = "pre-beta";
-export const ABOUT_TEXT = "Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.";
+export const ABOUT_TEXT = "Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases.";
 export const CONNECT_URL = "/connect";
 export const REPO_URL = "https://github.com/invanalabs/graph-explorer";
 export const UUIDGenerator = () =>

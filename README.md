@@ -1,6 +1,7 @@
 # Graph Explorer
 
-Open source, extendable data visualiser for Apache TinkerPop's Gremlin supported graph databases.
+Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases.
+
 
 [![Apache license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/invanalabs/graph-explorer/blob/master/LICENSE) 
 [![Build Status](https://travis-ci.org/invanalabs/graph-explorer.svg?branch=master)](https://travis-ci.org/invanalabs/graph-explorer)

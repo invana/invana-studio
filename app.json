@@ -1,6 +1,6 @@
 {
   "name": "Invana Graph Explorer",
-  "description": "Opensource Graph Data Visualiser for Tinkerpop supported Graph Databases.",
+  "description": "Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases.",
   "repository": "https://github.com/invanalabs/graph-explorer",
   "website": "https://invana.io",
   "logo": "https://avatars3.githubusercontent.com/u/26816714?s=200&v=4",
