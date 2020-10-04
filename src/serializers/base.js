@@ -13,16 +13,17 @@ const separatedData = _this.responseSerializer.separateVerticesAndEdges(serializ
 
      */
     processItem(item) {
-        throw new TypeError("Please implement abstract method processItem.");
+        throw new TypeError("Please implement abstract method processItem. Ignoring", item);
 
     }
 
     convertList2Json(list_item) {
-        throw new TypeError("Please implement abstract method convertList2Json.");
+        throw new TypeError("Please implement abstract method convertList2Json. Ignoring", list_item);
     }
 
     separateVerticesAndEdges(items) {
-        throw new TypeError("Please implement abstract method separateVerticesAndEdges.");
+        throw new TypeError("Please implement abstract method separateVerticesAndEdges. " +
+            "Ignoring", items);
     }
 
     process(data) {
