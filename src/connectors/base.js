@@ -5,7 +5,7 @@
 import GremlinResponse from "../responses/gremlin";
 
 
-class ProtocolBase {
+class ConnectorBase {
 
     responseObjectCls = GremlinResponse;
     streamResponses = [];
@@ -29,7 +29,6 @@ class ProtocolBase {
 
     gatherDataFromStream(response, transportStatusCode) {
         console.log("onmessage received", response);
-
         const responseObject = new this.responseObjectCls(response, transportStatusCode);
         if (transportStatusCode >= 200 && transportStatusCode < 300) {
             if (transportStatusCode === 206) {
@@ -66,4 +65,4 @@ class ProtocolBase {
 
 }
 
-export default ProtocolBase
+export default ConnectorBase

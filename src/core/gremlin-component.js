@@ -9,8 +9,8 @@ import {
 } from "./utils";
 import LoadSpinner from "../ui-components/spinner/spinner";
 import PropTypes from "prop-types";
-import HttpConnection from "../connections/http";
-import WebSocketConnection from "../connections/websocket";
+import DefaultHTTPConnector from "../connectors/http";
+import DefaultWebSocketConnector from "../connectors/websocket";
 
 
 export default class GremlinBasedComponent extends BaseComponent {
@@ -92,14 +92,14 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
     connect() {
         const protocol = this.getProtocol();
         if (protocol === "ws") {
-            this.connection = new WebSocketConnection(
+            this.connector = new DefaultWebSocketConnector(
                 this.props.gremlinUrl,
                 this.responseEventsCallback.bind(this),
                 this._processResponse.bind(this),
                 this.setIsConnected2Gremlin.bind(this)
             );
         } else {
-            this.connection = new HttpConnection(
+            this.connector = new DefaultHTTPConnector(
                 this.props.gremlinUrl,
                 this.responseEventsCallback.bind(this),
                 this._processResponse.bind(this)
@@ -128,7 +128,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             const protocol = this.getProtocol();
             console.log("We will be using " + protocol + " protocol");
             if (protocol === "ws") {
-                this.connection.reconnectWithWS()
+                this.connector.reconnectWithWS()
             } else {
                 console.log("protocol will be " + protocol);
             }
@@ -272,7 +272,7 @@ export default class GremlinQueryBox extends GremlinBasedComponent {
             // this.startLoader("Connecting..");
             this.queryStartedAt = new Date();
             this.queryEndedAt = new Date();
-            this.connection.query(query);
+            this.connector.query(query);
 
         }
     }

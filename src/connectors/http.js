@@ -1,8 +1,8 @@
-import ProtocolBase from "./base";
+import ConnectorBase from "./base";
 import {getDataFromLocalStorage, postData} from "../core/utils";
 import {AUTH_CONSTANTS} from "../config";
 
-export default class HttpConnection extends ProtocolBase {
+export default class DefaultHTTPConnector extends ConnectorBase {
 
 
     query(query_string) {
@@ -11,7 +11,6 @@ export default class HttpConnection extends ProtocolBase {
         const _this = this;
         postData(this.serverUrl, extraHeaders, payload).then((data) => {
             // check the status and response type and change isConnected
-            console.log("====data.response", data);
             _this.gatherDataFromStream(data.response, data.transporterStatusCode);
         });
 
