@@ -19,15 +19,15 @@ export default class InvanaEngineDeSerializer extends DeSerializerBase {
         }
         data.forEach(function (d) {
             if (ignoreManagement) {
-                if (d.type === "vertex" && d.label !== "InvanaManagement") {
+                if (d.type === "g:Vertex" && d.label !== "InvanaManagement") {
                     vertices.push(d);
-                } else if (d.type === "edge" && d.label !== "InvanaManagement") {
+                } else if (d.type === "g:Edge" && d.label !== "InvanaManagement") {
                     edges.push(d);
                 }
             } else {
-                if (d.type === "vertex") {
+                if (d.type === "g:Vertex") {
                     vertices.push(d);
-                } else if (d.type === "edge") {
+                } else if (d.type === "g:Edge") {
                     edges.push(d);
                 }
             }

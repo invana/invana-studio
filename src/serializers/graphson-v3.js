@@ -19,9 +19,9 @@ export default class GraphSONDeSerializer extends DeSerializerBase{
         if (vtx['@type'] !== "g:Vertex") {
             throw new Error("Not a vertex error. check if this is of g:Vertex type:: " + JSON.stringify(vtx));
         }
+        let _this = this;
         let d = {};
         d.type = "g:Vertex";
-        let _this = this;
         d.id = vtx['@value'].id['@value'];
         d.label = vtx['@value'].label;
         let properties = vtx['@value'].properties;
