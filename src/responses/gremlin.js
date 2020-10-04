@@ -1,30 +1,21 @@
-/*
+import ResponseBase from "./base";
 
-*/
+export default class GremlinResponse extends ResponseBase{
 
-
-export default class GremlinResponse {
-
-    constructor(gremlinResponse, transporterStatusCode) {
-        this.gremlinResponse = gremlinResponse;
-        this.transporterStatusCode = transporterStatusCode;
-    }
 
     getResponseData() {
         return this.getResponseResult().data;
     }
 
     getResponseResult() {
-        return this.gremlinResponse.result;
+        return this.response.result;
     }
 
-    getGremlinStatusCode() {
-        return this.gremlinResponse.status.code || this.transporterStatusCode;
+    getStatusCode() {
+        return this.response.status.code || this.transporterStatusCode;
     }
 
     getError() {
-        return this.gremlinResponse.status;
+        return this.response.status;
     }
-
-
 }

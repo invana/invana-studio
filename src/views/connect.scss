@@ -18,6 +18,20 @@
     padding: 10px;
   }
 
+  input[name="graphEngineName"] {
+    width: auto !important;
+    display: inline-block !important;
+  }
+
+  .graphEngineNameLabel {
+    width: auto !important;
+    display: inline-block !important;
+    padding-left: 4px !important;
+    top: -3px;
+    position: relative;
+    padding-right: 20px;
+  }
+
   .headerItem {
     //background: #1d1d1d;
     //padding: 5px;

@@ -1,8 +1,6 @@
-/*
+import DeSerializerBase from "./base";
 
- */
-
-export default class GraphSONDeSerializer {
+export default class GraphSONDeSerializer extends DeSerializerBase{
 
 
     convertVertexPropertyToJson(property) {

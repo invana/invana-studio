@@ -65,7 +65,7 @@ export default class ExplorerView extends BaseView {
             const responses = this.state.responses;
             const lastResponse = responses[responses.length - 1];
             return {
-                status: lastResponse.getGremlinStatusCode(),
+                status: lastResponse.getStatusCode(),
                 response: lastResponse.getResponseData(),
                 error: lastResponse.getError()
             }

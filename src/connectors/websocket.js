@@ -1,9 +1,11 @@
 import ConnectorBase from "./base";
 import {UUIDGenerator} from "../config";
+import GremlinResponse from "../responses/gremlin";
 
 
 export default class DefaultWebSocketConnector extends ConnectorBase {
     ws = null;
+    responseObjectCls = GremlinResponse;
 
     constructor(serverUrl, responseEventsCallback, responseCallback, setIsConnected2Gremlin,
                 onOpenCallback, onMessageCallback, onCloseCallback) {

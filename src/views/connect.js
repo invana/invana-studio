@@ -39,11 +39,12 @@ export default class SetupGremlinServerConnection extends React.Component {
     onFormSubmit(e) {
 
         const gremlinServerUrl = e.target.gremlinServerUrl.value;
+        const graphEngineName = e.target.graphEngineName.value;
         // const isHttps = new URL(window.location.href).protocol === "https:" || new URL(window.location.href).protocol === "wss:";
         e.preventDefault();
 
         if (!gremlinServerUrl) {
-            alert("Invalid Gremlin connection string");
+            alert("Invalid connection string");
         } else if (this.checkIfSecureProtocol(window.location.href) && !this.checkIfSecureProtocol(gremlinServerUrl)) {
             alert("Your connection string is not secure. You can only use https or wss connection string " +
                 "when you are using Graph Explorer via https connection.")
@@ -51,13 +52,36 @@ export default class SetupGremlinServerConnection extends React.Component {
             const headers = this.getHeaders();
             setDataToLocalStorage(GE_CONSTANTS.gremlinServerUrlKey, gremlinServerUrl);
             setDataToLocalStorage(GE_CONSTANTS.httpHeadersKey, headers);
+            setDataToLocalStorage(GE_CONSTANTS.graphEngineName, graphEngineName);
             window.location.href = "/";
         }
-
     }
 
     openDemo() {
         window.open(DEMO_URL);
+    }
+
+    componentDidMount() {
+
+        // document.addEventListener('input', (e) => {
+        //
+        //     if (e.target.getAttribute('name') === "graphEngineName")
+        //         console.log(e.target.value)
+        // })
+
+        function updateInputPlaceholder(event) {
+            console.log("event", event.target.id);
+            const el = document.querySelector("[name=gremlinServerUrl]");
+            if (event.target.id === "gremlinEngine") {
+                el.placeholder = "http://localhost:8182/gremlin";
+            } else {
+                el.placeholder = "http://localhost:8000/graphql";
+            }
+        }
+
+        document.querySelectorAll("input[name='graphEngineName']").forEach((input) => {
+            input.addEventListener('change', updateInputPlaceholder);
+        });
     }
 
     toggleMoreOptions() {
@@ -96,7 +120,7 @@ export default class SetupGremlinServerConnection extends React.Component {
             <div>
                 <div className="github-stars">
                     <a href="https://github.com/invanalabs/graph-explorer"
-                       target={"_blank"}  rel="noopener noreferrer">
+                       target={"_blank"} rel="noopener noreferrer">
                         <img
                             src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=for-the-badge"
                             alt=""/>
@@ -113,13 +137,22 @@ export default class SetupGremlinServerConnection extends React.Component {
 
                         <div className={"bottom-section"}>
                             <form action="" onSubmit={this.onFormSubmit.bind(this)}>
+
+
+                                <input type="radio" id="gremlinEngine" name="graphEngineName" value="gremlin"
+                                       defaultChecked/>
+                                <label className={"graphEngineNameLabel"} htmlFor="gremlinEngine">Gremlin</label>
+
+                                <input type="radio" id="invanaEngine" name="graphEngineName" value="invana-engine"/>
+                                <label className={"graphEngineNameLabel"} htmlFor="invanaEngine">Invana Engine</label>
+
                                 <input type="text" name={"gremlinServerUrl"}
                                     // defaultValue={"ws://localhost:8182/gremlin"}
                                        placeholder={"http://user:password@localhost:8182/gremlin"}/>
                                 <br/>
 
                                 <p style={{"textAlign": "right", "marginBottom": 0}}>
-                                    <button type={"button"}  onClick={this.toggleMoreOptions.bind(this)}>
+                                    <button type={"button"} onClick={this.toggleMoreOptions.bind(this)}>
                                         <FontAwesomeIcon icon={faAngleDown}/> http headers
                                     </button>
                                 </p>
@@ -143,7 +176,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                                                                placeholder={"header value"}
                                                                name={"headerValue"}
                                                         />
-                                                        <button type={"button"}  onClick={this.removeHeader.bind(this)}>
+                                                        <button type={"button"} onClick={this.removeHeader.bind(this)}>
                                                             <FontAwesomeIcon icon={faTimesCircle}/>
                                                         </button>
 
@@ -152,7 +185,11 @@ export default class SetupGremlinServerConnection extends React.Component {
                                                 })
                                             }
 
-                                            <p><button type={"button"} onClick={this.addNewHeader.bind(this)}> + add new header</button></p>
+                                            <p>
+                                                <button type={"button"} onClick={this.addNewHeader.bind(this)}> + add
+                                                    new header
+                                                </button>
+                                            </p>
                                         </div>
                                         : <span></span>
 
@@ -164,7 +201,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                                         className={" button secondary-btn ml-10"}>
                                     <FontAwesomeIcon icon={faPlayCircle}/> watch demo
                                 </button>
-                                <a target={"_blank"}  rel="noopener noreferrer" href="https://invana.io/docs.html">
+                                <a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/docs.html">
                                     <FontAwesomeIcon icon={faQuestionCircle}/>
                                 </a>
 

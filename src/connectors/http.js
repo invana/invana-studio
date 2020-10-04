@@ -1,9 +1,11 @@
 import ConnectorBase from "./base";
 import {getDataFromLocalStorage, postData} from "../core/utils";
 import {GE_CONSTANTS} from "../config";
+import GremlinResponse from "../responses/gremlin";
 
 export default class DefaultHTTPConnector extends ConnectorBase {
 
+    responseObjectCls = GremlinResponse;
 
     query(query_string) {
         const payload = {"gremlin": query_string};

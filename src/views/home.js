@@ -37,7 +37,7 @@ export default class HomeView extends RemoteGraphComponent {
         let _this = this;
         let response = responses[0];
         console.log("processResponse received", response);
-        const statusCode = response.getGremlinStatusCode();
+        const statusCode = response.getStatusCode();
         if (statusCode >= 200 || statusCode < 300) {
             _this.setStatusMessage("Query Successfully Responded.");
             _this.setLabelsConfigToLocalStorage(response)

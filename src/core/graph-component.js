@@ -14,6 +14,7 @@ import DefaultWebSocketConnector from "../connectors/websocket";
 import InvanaEngineHTTPConnector from "../connectors/invana-engine";
 import GremlinQueryManager from "../query-builder/gremlin";
 import GraphSONDeSerializer from "../serializers/graphson-v3";
+import InvanaEngineDeSerializer from "../serializers/invana-engine";
 
 export default class RemoteGraphComponent extends BaseComponent {
     /*
@@ -89,13 +90,12 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
         if (this.checkIfGremlinUrlIsValid()) {
             this.connector = this.connect();
         }
-        if (this.checkIfGraphEngineIsValid() === "invana-engine") {
-            this.requestBuilder = {};
-            this.responseSerializer = {};
+        if (this.checkIfGraphEngineIsValid() && this.props.graphEngine === "invana-engine") {
+            this.requestBuilder = new GremlinQueryManager();
+            this.responseSerializer = new InvanaEngineDeSerializer();
         } else {
             this.requestBuilder = new GremlinQueryManager();
             this.responseSerializer = new GraphSONDeSerializer();
-
         }
     }
 
@@ -109,7 +109,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
 
     connect() {
         const protocol = this.getProtocol();
-        let connectorCls = DefaultWebSocketConnector;
+        let connectorCls = null;
 
         if (this.props.graphEngine === "invana-engine") {
             connectorCls = InvanaEngineHTTPConnector;

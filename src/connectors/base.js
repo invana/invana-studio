@@ -2,12 +2,11 @@
 
 
  */
-import GremlinResponse from "../responses/gremlin";
 
 
 class ConnectorBase {
 
-    responseObjectCls = GremlinResponse;
+    responseObjectCls = null;
     streamResponses = [];
 
     constructor(serverUrl, responseEventsCallback, responseCallback) {

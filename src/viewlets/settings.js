@@ -1,7 +1,7 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
-import {GREMLIN_SERVER_URL} from "../config";
+import {GREMLIN_SERVER_URL, GRAPH_ENGINE_NAME} from "../config";
 import {askToSwitchGremlinServer} from "../core/utils";
 
 export default class SettingsComponent extends React.Component {
@@ -11,7 +11,7 @@ export default class SettingsComponent extends React.Component {
     }
 
 
-    removeCredentials() {
+    connectionStringWithoutCreds() {
         const __url = new URL(GREMLIN_SERVER_URL);
         return __url.protocol + "//" + __url.host + __url.pathname;
     }
@@ -32,7 +32,10 @@ export default class SettingsComponent extends React.Component {
     render() {
         return (
             <div className={"p-10"}>
-                <p className={"mb-10"}>Currently using `<span>{this.removeCredentials()}</span>` server </p>
+                <p className={"mb-10"}><strong>Graph Engine Name:</strong> <br/>
+                    <span>{GRAPH_ENGINE_NAME}</span></p>
+                <p className={"mb-0"}><strong>Connection String: </strong> <br/>
+                    <span>{this.connectionStringWithoutCreds()}</span></p>
                 <p>
                     <button id={"connectionStringBtn"} onClick={this.showCredentials.bind(this)} className={"selected"}>
                         <small>show full connection string(toggle)</small>
@@ -40,7 +43,7 @@ export default class SettingsComponent extends React.Component {
                 </p>
                 <p id={"connection-string"} style={{"display": "none"}}>{GREMLIN_SERVER_URL}</p>
 
-                <p><br/><br/></p>
+                <p></p>
                 <button className={"button small"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
                     switch gremlin server <FontAwesomeIcon icon={faSignInAlt}/>
                 </button>
