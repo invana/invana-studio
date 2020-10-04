@@ -1,5 +1,5 @@
 import React from "react";
-import GraphComponent from "../core/graph-component";
+import RemoteGraphComponent from "../core/graph-component";
 import {
     getDataFromLocalStorage,
     setElementColorOptionsToStorageUsingResponse
@@ -10,7 +10,7 @@ import {
 import {getDefaultNodeOptions} from "../canvas/graph/canvas-utils";
 
 
-export default class VertexOptions extends GraphComponent {
+export default class VertexOptions extends RemoteGraphComponent {
 
 
     componentWillUnmount() {

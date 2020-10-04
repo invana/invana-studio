@@ -1,11 +1,11 @@
 // import React from "react";
-import GraphComponent from "../core/graph-component";
-import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
+import RemoteGraphComponent from "../core/graph-component";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 
 const serializer = new GraphSONDeSerializer();
 
 
-class GremlinViewBase extends GraphComponent {
+class RemoteGraphComponentViewBase extends RemoteGraphComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +15,6 @@ class GremlinViewBase extends GraphComponent {
             query: "g.V().limit(5).toList()",
             vertices: [],
             edges: []
-
         };
     }
 
@@ -67,19 +66,6 @@ class GremlinViewBase extends GraphComponent {
         })
     }
 
-    onQuerySubmit(query, queryOptions) {
-        super.onQuerySubmit(query, queryOptions)
-        // this.updateVerticesAndEdges();
-    }
-
-    // setShowVertexOptions(selectedElementData) {
-    //     // alert("setShowVertexOptions");
-    //
-    //     this.setState({
-    //         selectedElementData: selectedElementData,
-    //         middleBottomContentName: "vertex-options"
-    //     })
-    // }
 
     reRenderCanvas() {
         this.setState({
@@ -108,7 +94,7 @@ class GremlinViewBase extends GraphComponent {
 
 }
 
-export default class BaseView extends GremlinViewBase {
+export default class BaseView extends RemoteGraphComponentViewBase {
 
 
     responseSessions = []; // responses from all the queries
@@ -125,6 +111,8 @@ export default class BaseView extends GremlinViewBase {
             middleBottomContentName: null,
             // layout var ends
         };
+
+
     }
 
 
@@ -144,8 +132,6 @@ export default class BaseView extends GremlinViewBase {
         this.setState({middleBottomContentName: contentName});
     }
 
-
-    ///
 
 }
 

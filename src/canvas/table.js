@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./table.scss";
-import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 import {getDataFromLocalStorage} from "../core/utils";
 
 

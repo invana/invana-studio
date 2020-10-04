@@ -2,7 +2,7 @@ import React from 'react';
 import BaseComponent from "./base-component";
 import {
     GREMLIN_SERVER_URL, historyLocalStorageKey,
-    MAX_HISTORY_COUNT_TO_REMEMBER,
+    MAX_HISTORY_COUNT_TO_REMEMBER, DEFAULT_GRAPH_ENGINE
 } from "../config";
 import {
     getDataFromLocalStorage, redirectToConnectIfNeeded, setDataToLocalStorage,
@@ -11,17 +11,20 @@ import LoadSpinner from "../ui-components/spinner/spinner";
 import PropTypes from "prop-types";
 import DefaultHTTPConnector from "../connectors/http";
 import DefaultWebSocketConnector from "../connectors/websocket";
+import InvanaEngineHTTPConnector from "../connectors/invana-engine";
 
-
-export default class GraphComponent extends BaseComponent {
+export default class RemoteGraphComponent extends BaseComponent {
     /*
+
+RemoteGraphComponent shall have abilities to connect to remote
+graph-engines and render data.
 
     Usage
 
 import React from "react";
 import GremlinBasedViewBase from "core/gremlin-component";
 
-export default class GremlinQueryBox extends GraphComponent {
+export default class GremlinQueryBox extends RemoteGraphComponent {
 
 // use makeQuery("g.V().toList()") to query
 // use processResponse(responses) method to listen to the responses.
@@ -51,14 +54,15 @@ export default class GremlinQueryBox extends GraphComponent {
      */
     // timer = null;
     // timer2 = null;
-    queryElapsedTimerId = null;
-    reconnectingTimerId = null;
+    // queryElapsedTimerId = null;
+    // reconnectingTimerId = null;
     queryStartedAt = null;
     queryEndedAt = null;
     ws = null;
     // streamResponses = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
+        graphEngine: DEFAULT_GRAPH_ENGINE,
         // reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
     }
 
@@ -80,31 +84,46 @@ export default class GremlinQueryBox extends GraphComponent {
             edges: []
         }
 
-        if (this.checkIfGremlinUrlValid()) {
-            this.connect();
+        if (this.checkIfGremlinUrlIsValid()) {
+            this.connector = this.connect();
+        }
+        if (this.checkIfGraphEngineIsValid() === "invana-engine") {
+            this.requestBuilder = {};
+            this.responseSerializer = {};
+        } else {
+            this.requestBuilder = {};
+            this.responseSerializer = {};
         }
     }
 
-    checkIfGremlinUrlValid() {
+    checkIfGremlinUrlIsValid() {
         return !!this.props.gremlinUrl;
+    }
+
+    checkIfGraphEngineIsValid() {
+        return !!this.props.graphEngine;
     }
 
     connect() {
         const protocol = this.getProtocol();
-        if (protocol === "ws") {
-            this.connector = new DefaultWebSocketConnector(
-                this.props.gremlinUrl,
-                this.responseEventsCallback.bind(this),
-                this._processResponse.bind(this),
-                this.setIsConnected2Gremlin.bind(this)
-            );
+        let connectorCls = DefaultWebSocketConnector;
+
+        if (this.props.graphEngine === "invana-engine") {
+            connectorCls = InvanaEngineHTTPConnector;
         } else {
-            this.connector = new DefaultHTTPConnector(
-                this.props.gremlinUrl,
-                this.responseEventsCallback.bind(this),
-                this._processResponse.bind(this)
-            );
+            if (protocol === "ws") {
+                connectorCls = DefaultWebSocketConnector
+            } else {
+                connectorCls = DefaultHTTPConnector;
+            }
         }
+
+        return new connectorCls(
+            this.props.gremlinUrl,
+            this.responseEventsCallback.bind(this),
+            this._processResponse.bind(this),
+            this.setIsConnected2Gremlin.bind(this)
+        );
     }
 
 
@@ -137,8 +156,8 @@ export default class GremlinQueryBox extends GraphComponent {
 
     componentWillUnmount() {
         console.log("gremlin-component componentWillUnmount triggered");
-        clearInterval(this.queryElapsedTimerId);
-        clearInterval(this.reconnectingTimerId);
+        // clearInterval(this.queryElapsedTimerId);
+        // clearInterval(this.reconnectingTimerId);
         // super.componentWillUnmount();
     }
 

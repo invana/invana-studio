@@ -1,5 +1,5 @@
 import {CONNECT_URL, AUTH_CONSTANTS} from "../config";
-import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 
 const gremlinDeSerializer = new GraphSONDeSerializer();
 

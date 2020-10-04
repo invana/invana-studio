@@ -1,8 +1,8 @@
-import GraphComponent from "../core/graph-component";
-import GraphSONDeSerializer from "../serializers/graphs/graphson-v3";
+import RemoteGraphComponent from "../core/graph-component";
+import GraphSONDeSerializer from "../serializers/graphson-v3";
 import {managementVertexLabel} from "../config";
 
-export default class HomeView extends GraphComponent {
+export default class HomeView extends RemoteGraphComponent {
 
 
     componentDidMount() {
