@@ -185,7 +185,7 @@ export default class ExplorerView extends BaseView {
                         </li>
                         <li>
                             <button onClick={() => this.setRightContentName("whats-new")}>
-                                <FontAwesomeIcon icon={faCubes}/> What&quot;s New
+                                <FontAwesomeIcon icon={faCubes}/> What's New
                             </button>
                         </li>
                         <li style={{"padding": "0 5px"}}>
@@ -595,7 +595,7 @@ export default class ExplorerView extends BaseView {
                                 : this.state.rightContentName === "whats-new"
                                 ?
                                 <GEPanel
-                                    title={"What&quot;s New"}
+                                    title={"What's New"}
                                     onClickClose={() => this.setRightContentName(null)}
                                     showToggleBtn={false}
                                 > <WhatsNew

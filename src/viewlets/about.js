@@ -20,8 +20,8 @@ export default class AboutComponent extends React.Component {
 
                 <p>This is an opensource project under Apache License 2.0, so
                     feel free to <u><a target={"_blank"} rel="noopener noreferrer"
-                                       href="http://github.com/invanalabs/graph-explorer/">star</a></u> and
-                    <u><a rel="noopener noreferrer" target={"_blank"} href="http://github.com/invanalabs/graph-explorer/">fork.</a></u>
+                                       href="http://github.com/invanalabs/graph-explorer/">star</a></u> and <u><a rel="noopener noreferrer" target={"_blank"}
+                          href="http://github.com/invanalabs/graph-explorer/">fork.</a></u>
                     &nbsp;Any contributions are welcome :)</p>
 
             </div>
