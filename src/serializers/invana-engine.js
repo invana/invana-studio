@@ -8,6 +8,12 @@ export default class InvanaEngineDeSerializer extends DeSerializerBase {
         return item;
     }
 
+    convertEdge2Json(edg) {
+        edg.source = edg.outV;
+        edg.target = edg.inV;
+        return edg;
+    }
+
     separateVerticesAndEdges(data, ignoreManagement) {
         if (typeof ignoreManagement === "undefined") {
             ignoreManagement = true;
@@ -17,18 +23,19 @@ export default class InvanaEngineDeSerializer extends DeSerializerBase {
         if (!data) {
             data = []
         }
+        let _this = this;
         data.forEach(function (d) {
             if (ignoreManagement) {
                 if (d.type === "g:Vertex" && d.label !== "InvanaManagement") {
                     vertices.push(d);
                 } else if (d.type === "g:Edge" && d.label !== "InvanaManagement") {
-                    edges.push(d);
+                    edges.push(_this.convertEdge2Json(d));
                 }
             } else {
                 if (d.type === "g:Vertex") {
                     vertices.push(d);
                 } else if (d.type === "g:Edge") {
-                    edges.push(d);
+                    edges.push(_this.convertEdge2Json(d));
                 }
             }
         });

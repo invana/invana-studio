@@ -9,7 +9,7 @@ export default class InvanaEngineHTTPConnector extends ConnectorBase {
 
     query(query_string) {
 
-        const payload = {"query": "{rawQuery(gremlin:" + JSON.stringify(query_string) + "){id,type,label,properties}}"};
+        const payload = {"query": "{rawQuery(gremlin:" + JSON.stringify(query_string) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
         const extraHeaders = getDataFromLocalStorage(GE_CONSTANTS.httpHeadersKey, true) || {};
         const _this = this;
         postData(this.serverUrl, extraHeaders, payload).then((data) => {
