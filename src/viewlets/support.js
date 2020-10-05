@@ -1,7 +1,11 @@
 import React from "react";
 import {faBook} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGithub, faGitter, faMedium, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import {
+    faGithub,
+    // faGitter,
+    faMedium, faTwitter
+} from "@fortawesome/free-brands-svg-icons";
 import "./support.scss";
 import GEList from "../ui-components/lists/list";
 
@@ -41,12 +45,12 @@ export default class SupportComponent extends React.Component {
                             <p>Stay upto date about the releases, updates, use case blogs, </p>
                         </a>
                     </li>
-                    <li>
-                        <button onClick={() => alert('Its a work in progress')}>
-                            <h4><FontAwesomeIcon icon={faGitter}/> Gitter Community [WIP]</h4>
-                            <p>Chatroom for Community</p>
-                        </button>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <button onClick={() => alert('Its a work in progress')}>*/}
+                    {/*        <h4><FontAwesomeIcon icon={faGitter}/> Gitter Community [WIP]</h4>*/}
+                    {/*        <p>Chatroom for Community</p>*/}
+                    {/*    </button>*/}
+                    {/*</li>*/}
                 </GEList>
 
                 <p>If you need any support beyond the above,
