@@ -186,6 +186,7 @@ export default class ExplorerView extends BaseView {
                         </li>
                         <li>
                             <button onClick={() => this.setRightContentName("whats-new")}>
+                                {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <FontAwesomeIcon icon={faCubes}/> What's New
                             </button>
                         </li>
