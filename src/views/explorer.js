@@ -27,7 +27,8 @@ import SettingsComponent from "../viewlets/settings";
 import LearnComponent from "../viewlets/learn";
 import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
-import QueryConsole from "../viewlets/query-console";
+// import QueryConsole from "../viewlets/query-console";
+import VerticesManagement  from "../viewlets/vertices";
 import AboutComponent from "../viewlets/about";
 import {REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
@@ -72,7 +73,7 @@ export default class ExplorerView extends BaseView {
         } else {
             return {
                 status: null,
-                response:  null,
+                response: null,
                 error: null
             }
         }
@@ -307,11 +308,17 @@ export default class ExplorerView extends BaseView {
                                     showToggleBtn={false}
                                     showCloseBtn={false}
                                 >
-                                    <QueryConsole
-                                        onQuerySubmit={this.onQuerySubmit.bind(this)}
-                                        query={this.state.query}
+                                    {/*<QueryConsole*/}
+                                    {/*    onQuerySubmit={this.onQuerySubmit.bind(this)}*/}
+                                    {/*    query={this.state.query}*/}
+                                    {/*    flushCanvas={this.flushCanvas.bind(this)}*/}
+                                    {/*    // onClose={this.onLeftFlyOutClose.bind(this)}*/}
+                                    {/*/>     */}
+                                    <VerticesManagement
+                                        requestBuilder={this.requestBuilder}
+                                        queryGremlinServer={this.makeQuery.bind(this)}
                                         flushCanvas={this.flushCanvas.bind(this)}
-                                        // onClose={this.onLeftFlyOutClose.bind(this)}
+
                                     />
                                 </GEPanel>
                             </div>
@@ -487,8 +494,8 @@ export default class ExplorerView extends BaseView {
                                                         setRightContentName={this.setRightContentName.bind(this)}
                                                         setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
                                                         middleBottomContentName={this.state.middleBottomContentName}
-                                                        requestBuilder={this.requestBuilder}
                                                         startQuery={this.startQuery.bind(this)}
+                                                        requestBuilder={this.requestBuilder}
                                                         queryGremlinServer={this.makeQuery.bind(this)}
                                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
