@@ -29,13 +29,13 @@ export default class D3ForceDirectedCanvas extends React.Component {
         requestBuilder: () => console.error("requestBuilder not set"),
         setSelectedElementData: (selectedData) => console.error("setSelectedElementData not set", selectedData),
         setMiddleBottomContentName: (contentName) => console.error("setMiddleBottomContentName not set", contentName),
-        queryGremlinServer: () => console.error("queryGremlinServer not set"),
+        makeQuery: () => console.error("makeQuery not set"),
     }
 
     static propTypes = {
         setSelectedElementData: PropTypes.func,
         setMiddleBottomContentName: PropTypes.func,
-        queryGremlinServer: PropTypes.func,
+        makeQuery: PropTypes.func,
         setHideVertexOptions: PropTypes.func,
         setRightContentName: PropTypes.func,
         requestBuilder: PropTypes.object,
@@ -115,7 +115,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
 
         const query_string = this.props.requestBuilder.getInEdgeVertices(selectedNode.id);
-        this.props.queryGremlinServer(query_string);
+        this.props.makeQuery(query_string);
         return false;
     }
 
@@ -135,7 +135,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
         const query_string = this.props.requestBuilder.getOutEdgeVertices(selectedNode.id);
 
-        this.props.queryGremlinServer(query_string);
+        this.props.makeQuery(query_string);
         return false;
     }
 

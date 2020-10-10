@@ -8,7 +8,12 @@ export default class InvanaEngineResponse extends ResponseBase {
     }
 
     getResponseResult() {
-        return this.response.data.rawQuery;
+        console.log("getResponseResult", this.response, Object.keys(this.response.data)[0],  this.response.data[Object.keys(this.response.data)[0]]);
+        if (this.response.data) {
+            return this.response.data[Object.keys(this.response.data)[0]];
+        } else {
+            return [];
+        }
     }
 
     getStatusCode() {
@@ -18,7 +23,7 @@ export default class InvanaEngineResponse extends ResponseBase {
     getError() {
         if (this.response.errors && this.response.errors.length > 0) {
             return this.response.errors[0].message;
-        }else{
+        } else {
             return null;
         }
 

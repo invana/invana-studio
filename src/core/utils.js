@@ -123,7 +123,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
         headers: extraHeaders,
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
-    console.log(response);
+    console.log("response========",response);
     let responseJson = null;
     // let statusCode = response.status; // response from the server.
     try {

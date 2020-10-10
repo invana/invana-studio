@@ -7,12 +7,12 @@ export default class InvanaEngineHTTPConnector extends ConnectorBase {
 
     responseObjectCls = InvanaEngineResponse
 
-    query(query_string) {
-
-        const payload = {"query": "{rawQuery(gremlin:" + JSON.stringify(query_string) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+    query(queryPayload) {
+        // queryPayload = JSON.stringify(queryPayload);
+        // const payload = {"query": "{rawQuery(gremlin:" + JSON.stringify(queryPayload) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
         const extraHeaders = getDataFromLocalStorage(GE_CONSTANTS.httpHeadersKey, true) || {};
         const _this = this;
-        postData(this.serverUrl, extraHeaders, payload).then((data) => {
+        postData(this.serverUrl, extraHeaders, queryPayload).then((data) => {
             // check the status and response type and change isConnected
             console.log("InvanaEngineHTTPConnector", data);
             _this.gatherDataFromStream(data.response, data.transporterStatusCode);

@@ -27,8 +27,8 @@ import SettingsComponent from "../viewlets/settings";
 import LearnComponent from "../viewlets/learn";
 import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
-// import QueryConsole from "../viewlets/query-console";
-import VerticesManagement  from "../viewlets/vertices";
+import QueryConsole from "../viewlets/query-console";
+import VerticesManagement  from "../viewlets/vertices-management";
 import AboutComponent from "../viewlets/about";
 import {REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
@@ -118,14 +118,14 @@ export default class ExplorerView extends BaseView {
         }
     }
 
-    onQuerySubmit(query, queryOptions) {
-        console.log("Query is " + query);
-        // if (queryOptions.source === "canvas") {
-        //     // this is the beginning of a new query.
-        //     this.flushResponsesData();
-        // }
-        this.makeQuery(query, queryOptions);
-    }
+    // onQuerySubmit(query, queryOptions) {
+    //     console.log("Query is " + query);
+    //     // if (queryOptions.source === "canvas") {
+    //     //     // this is the beginning of a new query.
+    //     //     this.flushResponsesData();
+    //     // }
+    //     this.makeQuery(query, queryOptions);
+    // }
 
 
     confirmFlushCanvas() {
@@ -245,6 +245,7 @@ export default class ExplorerView extends BaseView {
                                     >
                                         <HistoryComponent
                                             makeQuery={this.makeQuery.bind(this)}
+                                            requestBuilder={this.requestBuilder}
                                             addQueryToConsole={this.addQueryToConsole.bind(this)}
                                         />
                                     </GEPanel>
@@ -304,23 +305,24 @@ export default class ExplorerView extends BaseView {
                                         : "main-content-top bottom-closed"
                                 }
                             >
+                                {/*<GEPanel*/}
+                                {/*    title={"Query Console"}*/}
+                                {/*    showToggleBtn={false}*/}
+                                {/*    showCloseBtn={false}*/}
+                                {/*>*/}
+                                {/*    <QueryConsole*/}
+                                {/*        onQuerySubmit={this.onQuerySubmit.bind(this)}*/}
+                                {/*        query={this.state.query}*/}
+                                {/*        flushCanvas={this.flushCanvas.bind(this)}*/}
+                                {/*        // onClose={this.onLeftFlyOutClose.bind(this)}*/}
+                                {/*    />*/}
+                                {/*</GEPanel>        */}
                                 <GEPanel
-                                    title={"Query Console"}
+                                    title={"Vertices"}
                                     showToggleBtn={false}
                                     showCloseBtn={false}
                                 >
-                                    {/*<QueryConsole*/}
-                                    {/*    onQuerySubmit={this.onQuerySubmit.bind(this)}*/}
-                                    {/*    query={this.state.query}*/}
-                                    {/*    flushCanvas={this.flushCanvas.bind(this)}*/}
-                                    {/*    // onClose={this.onLeftFlyOutClose.bind(this)}*/}
-                                    {/*/>     */}
-                                    <VerticesManagement
-                                        requestBuilder={this.requestBuilder}
-                                        queryGremlinServer={this.makeQuery.bind(this)}
-                                        flushCanvas={this.flushCanvas.bind(this)}
-
-                                    />
+                                    <VerticesManagement parentGraphComponent={this} />
                                 </GEPanel>
                             </div>
                             <div
@@ -497,7 +499,7 @@ export default class ExplorerView extends BaseView {
                                                         middleBottomContentName={this.state.middleBottomContentName}
                                                         startQuery={this.startQuery.bind(this)}
                                                         requestBuilder={this.requestBuilder}
-                                                        queryGremlinServer={this.makeQuery.bind(this)}
+                                                        makeQuery={this.makeQuery.bind(this)}
                                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
                                                     />

@@ -3,6 +3,9 @@
 */
 
 
+
+
+
 export default class QueryManagerBase {
 
     initQuery() {
@@ -10,22 +13,29 @@ export default class QueryManagerBase {
     }
 
     rawQuery(queryString) {
-        console.log("===queryString", queryString);
         return queryString;
     }
 
 
+    // eslint-disable-next-line no-unused-vars
     getOutEdgeVertices(vertexId) {
-        console.log("===vertexId", vertexId);
         throw new TypeError("Please implement abstract method getOutEdgeVertices.");
 
     }
 
+    // eslint-disable-next-line no-unused-vars
     getInEdgeVertices(vertexId) {
-        console.log("===vertexId", vertexId);
-
         throw new TypeError("Please implement abstract method getInEdgeVertices.");
+    }
 
+    // eslint-disable-next-line no-unused-vars
+    managementGetVertexLabelStats(limit, skip) {
+        throw new TypeError("Please implement abstract method managementGetVertexLabelStats.");
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    managementGetEdgeLabelStats(limit, skip) {
+        throw new TypeError("Please implement abstract method managementGetEdgeLabelStats.");
     }
 
 }

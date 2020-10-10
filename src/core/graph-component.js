@@ -15,6 +15,7 @@ import InvanaEngineHTTPConnector from "../connectors/invana-engine";
 import GremlinQueryManager from "../query-builder/gremlin";
 import GraphSONDeSerializer from "../serializers/graphson-v3";
 import InvanaEngineDeSerializer from "../serializers/invana-engine";
+import InvanaEngineQueryManager from "../query-builder/invana-engine";
 
 export default class RemoteGraphComponent extends BaseComponent {
     /*
@@ -66,12 +67,15 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
         graphEngine: GRAPH_ENGINE_NAME,
+        parentGraphComponent: null
         // reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
     }
 
 
     static propTypes = {
-        gremlinUrl: PropTypes.string
+        gremlinUrl: PropTypes.string,
+        graphEngine: PropTypes.string,
+        parentGraphComponent: PropTypes.object
     }
 
     constructor(props) {
@@ -91,7 +95,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             this.connector = this.connect();
         }
         if (this.checkIfGraphEngineIsValid() && this.props.graphEngine === "invana-engine") {
-            this.requestBuilder = new GremlinQueryManager();
+            this.requestBuilder = new InvanaEngineQueryManager();
             this.responseSerializer = new InvanaEngineDeSerializer();
         } else {
             this.requestBuilder = new GremlinQueryManager();
@@ -286,9 +290,8 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             this.addQueryToHistory(query, queryOptions.source)
         } // remove this part from here soon.
 
-
         this.setState({statusMessage: "Querying..."})
-        console.log("queryGremlinServer :::  query", query);
+        console.log("makeQuery :::  query", query);
         if (query) {
             // this.startQueryTimer();
             // this.startLoader("Connecting..");

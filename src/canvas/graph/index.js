@@ -9,7 +9,7 @@ export default class GraphCanvas extends React.Component {
     static defaultProps = {
         responses: [],
         shallReRenderD3Canvas: null,
-        queryGremlinServer: () => console.error("queryGremlinServer prop not set for GraphCanvas"),
+        makeQuery: () => console.error("makeQuery prop not set for GraphCanvas"),
         // setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas"),
         // setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphCanvas"),
         setSelectedElementData: () => console.error("setSelectedElementData prop not set for GraphCanvas"),
@@ -26,8 +26,8 @@ export default class GraphCanvas extends React.Component {
         shallReRenderD3Canvas: PropTypes.bool,
         resetShallReRenderD3Canvas: PropTypes.func,
         setSelectedElementData: PropTypes.func,
-        queryGremlinServer: PropTypes.func,
-        // TODO - check difference between queryGremlinServer and startQuery
+        makeQuery: PropTypes.func,
+        // TODO - check difference between makeQuery and startQuery
         startQuery: PropTypes.func,
         setSelectedNode: PropTypes.func,
         setHideVertexOptions: PropTypes.func,
@@ -71,7 +71,7 @@ export default class GraphCanvas extends React.Component {
                     edges={this.props.edges}
                     shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                     setSelectedElementData={this.props.setSelectedElementData}
-                    queryGremlinServer={this.props.queryGremlinServer}
+                    makeQuery={this.props.makeQuery}
                     // setShowVertexOptions={this.props.setShowVertexOptions}
                     setHideVertexOptions={this.props.setHideVertexOptions}
                     setRightContentName={this.props.setRightContentName}
