@@ -34,10 +34,10 @@ export default class HistoryComponent extends React.Component {
                             historyToShow.filter(item => item.source !== "internal").map((existingHistoryItem, i) => {
                                 return (
                                     <li className={"historyItem"} key={i}>
-                                        <pre>{existingHistoryItem.query}</pre>
+                                        <pre>{JSON.stringify(existingHistoryItem.query, null, 2)}</pre>
                                         <div>
                                             <button className={"small"}
-                                                    onClick={() => this.props.makeQuery(existingHistoryItem.query)}>
+                                                    onClick={() => this.props.makeQuery(existingHistoryItem.query, {source: 'canvas'})}>
                                                 Run Again
                                             </button>
                                             <button className={"small"}

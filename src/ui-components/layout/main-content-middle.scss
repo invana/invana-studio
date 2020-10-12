@@ -7,7 +7,7 @@
   float: left;
 
   .main-content-top{
-    height: calc(100% - 250px - 1px);
+    height: calc(100% - 450px - 1px);
     // height: calc(100% - 250px - 50px - 24px);
     border-bottom: 1px solid $borderColor;
 
@@ -16,7 +16,7 @@
     height: 100%;
   }
   .main-content-bottom{
-    height: 250px;
+    height: 450px;
     // height: calc(50vh - 45px - 22px - 2px); // -2 for borders
   }
   .main-content-bottom.closed {

@@ -2,6 +2,7 @@ import React from "react";
 import "./query-console.scss";
 // import PropTypes from "prop-types";
 import RemoteGraphComponent from "../core/graph-component";
+import canvas from "../canvas/graph/canvas";
 
 // const Mousetrap = require("mousetrap");
 
@@ -18,7 +19,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
         // this.prop
         console.log("======", this.props, this.requestBuilder);
         const queryPayload = this.requestBuilder.getVerticesLabelStats();
-        this.makeQuery(queryPayload);
+        this.makeQuery(queryPayload );
     }
 
     processResponse(responses) {
@@ -50,7 +51,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
                     {
                         this.state.verticesLabels.map((vertexLabel, index) => {
                             return (<li style={{"marginBottom": "5px", "cursor": "pointer"}} key={index} onClick={()=> this.props.parentGraphComponent.makeQuery(
-                                this.requestBuilder.filterVertices(vertexLabel.label, 10, 0))}>{vertexLabel.label} ({vertexLabel.count})
+                                this.requestBuilder.filterVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>{vertexLabel.label} ({vertexLabel.count})
                             </li>)
                         })
                     }

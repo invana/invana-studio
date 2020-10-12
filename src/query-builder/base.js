@@ -9,7 +9,7 @@
 export default class QueryManagerBase {
 
     initQuery() {
-        return "g.V().limit(10).toList()";
+        throw new TypeError("Please implement abstract method initQuery.");
     }
 
     rawQuery(queryString) {

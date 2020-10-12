@@ -1,6 +1,6 @@
 import RemoteGraphComponent from "../core/graph-component";
-import GraphSONDeSerializer from "../serializers/graphson-v3";
-import {managementVertexLabel} from "../config";
+// import GraphSONDeSerializer from "../serializers/graphson-v3";
+// import {managementVertexLabel} from "../config";
 
 export default class HomeView extends RemoteGraphComponent {
 
@@ -9,28 +9,8 @@ export default class HomeView extends RemoteGraphComponent {
         super.componentDidMount();
         let _this = this;
         setTimeout(function () {
-            _this.makeQuery("g.V().hasLabel('" + managementVertexLabel + "').toList();",
-                {source: "internal"});
+            _this.makeQuery(_this.requestBuilder.initQuery(), {source: "internal"});
         }, 200)
-    }
-
-    gremlinDeSerializer = new GraphSONDeSerializer();
-
-    setLabelsConfigToLocalStorage(response) {
-        let result = this.gremlinDeSerializer.process(response);
-        let nodesAndLinks = this.gremlinDeSerializer.separateVerticesAndEdges(result, false);
-        let _nodes = {};
-        nodesAndLinks.nodes.forEach(function (node) {
-            _nodes[node.properties.name] = node.properties;
-        })
-        let _links = {};
-        nodesAndLinks.links.forEach(function (link) {
-            _links[link.label] = link.properties;
-        })
-        // convert this list into dictionary.
-        console.log("=======((", _nodes, _links)
-        localStorage.setItem('nodeLabels', JSON.stringify(_nodes));
-        localStorage.setItem('linkLabels', JSON.stringify(_links));
     }
 
     processResponse(responses) {
@@ -39,11 +19,6 @@ export default class HomeView extends RemoteGraphComponent {
         console.log("processResponse received", response);
         const statusCode = response.getStatusCode();
         if (statusCode >= 200 || statusCode < 300) {
-            _this.setStatusMessage("Query Successfully Responded.");
-            _this.setLabelsConfigToLocalStorage(response)
-            _this.setState({
-                "successLoading": true,
-            })
             window.location.href = "/explorer";
         } else {
             _this.setState({
@@ -55,8 +30,8 @@ export default class HomeView extends RemoteGraphComponent {
         }
     }
 
-    // render() {
-    //     return super.render();
-    // }
+    render() {
+        return super.render();
+    }
 
 }
