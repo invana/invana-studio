@@ -48,7 +48,7 @@ export default class SelectedDataCanvas extends React.Component {
 
 
         return (
-            <div >
+            <div>
                 {/*<div className={"SelectedDataHeading"}>*/}
                 {/*    <span className={"itemLabel"} style={{*/}
                 {/*        "backgroundColor":*/}
@@ -89,8 +89,8 @@ export default class SelectedDataCanvas extends React.Component {
                             return (
                                 <div className={'singleProperty'} key={cleanedData.id + "-" + propKey}>
                                     <div className={"propertyData"}>
-                                        <strong
-                                            className={"propertyKey"}>{propKey}:</strong> {cleanedData.properties[propKey]}
+                                        <strong className={"propertyKey"}>{propKey}:</strong>
+                                        <div style={{"marginTop": "5px"}}>{cleanedData.properties[propKey]}</div>
                                     </div>
                                 </div>
                             )

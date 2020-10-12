@@ -29,15 +29,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
             queryParams += "limit: " + limit + ",";
         }
         if (skip) {
-            queryParams += "skip: " + skip ;
+            queryParams += "skip: " + skip;
         }
 
         queryParams = queryParams.replace(/,\s*$/, "");
-
-
-        const _=  {"query": "{filterVertex(" + queryParams + "){id,type,label,properties}}"};
-        console.log("=====_", _);
-        return _
+        return {"query": "{filterVertex(" + queryParams + "){id,type,label,properties}}"};
     }
 
     rawQuery(queryString) {
