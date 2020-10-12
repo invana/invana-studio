@@ -28,7 +28,8 @@ import LearnComponent from "../viewlets/learn";
 import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
 import QueryConsole from "../viewlets/query-console";
-import VerticesManagement  from "../viewlets/vertices-management";
+import VerticesManagement from "../viewlets/vertices-management";
+import EdgesManagement from "../viewlets/edges-management";
 import AboutComponent from "../viewlets/about";
 import {REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
@@ -40,6 +41,7 @@ import SelectedDataCanvas from "../canvas/graph/selected-data";
 import VertexOptions from "../viewlets/vertex-options";
 import FounderNote from "../viewlets/founder-note";
 import WhatsNew from "../viewlets/whats-new";
+import GEList from "../ui-components/lists/list";
 
 const Mousetrap = require("mousetrap");
 
@@ -117,16 +119,6 @@ export default class ExplorerView extends BaseView {
             this.makeQuery(query, {source: "console"});
         }
     }
-
-    // onQuerySubmit(query, queryOptions) {
-    //     console.log("Query is " + query);
-    //     // if (queryOptions.source === "canvas") {
-    //     //     // this is the beginning of a new query.
-    //     //     this.flushResponsesData();
-    //     // }
-    //     this.makeQuery(query, queryOptions);
-    // }
-
 
     confirmFlushCanvas() {
         let r = window.confirm("Are you sure you want to clear the canvas");
@@ -317,13 +309,60 @@ export default class ExplorerView extends BaseView {
                                 {/*        // onClose={this.onLeftFlyOutClose.bind(this)}*/}
                                 {/*    />*/}
                                 {/*</GEPanel>        */}
-                                <GEPanel
-                                    title={"Vertices"}
-                                    showToggleBtn={false}
-                                    showCloseBtn={false}
-                                >
-                                    <VerticesManagement parentGraphComponent={this} />
-                                </GEPanel>
+
+                                <div className={"main-content-nav"}>
+                                    <GEList>
+                                        <li style={{"padding-left": "3px"}}>
+                                            <button
+                                                className={this.state.middleTopContentName === 'vertices-management' ? "active" : ''}
+                                                onClick={() => this.setMiddleTopContentName("vertices-management")}>
+                                                Vertices
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                className={this.state.middleTopContentName === 'edges-management' ? "active" : ''}
+                                                onClick={() => this.setMiddleTopContentName("edges-management")}>
+                                                Edges
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                className={this.state.middleTopContentName === "query-console" ? 'active' : ''}
+                                                onClick={() => this.setMiddleTopContentName("query-console")}>
+                                                Query Console
+                                            </button>
+                                        </li>
+                                    </GEList>
+                                </div>
+
+                                {
+                                    this.state.middleTopContentName === "vertices-management" ?
+                                        (
+                                            <VerticesManagement parentGraphComponent={this}/>
+
+                                        ) :
+                                        this.state.middleTopContentName === "edges-management" ?
+                                            (
+                                                <EdgesManagement parentGraphComponent={this}/>
+
+                                            ) :
+                                            this.state.middleTopContentName === "query-console" ? (
+                                                <QueryConsole
+                                                    makeQuery={this.makeQuery.bind(this)}
+                                                    query={this.state.query}
+                                                    requestBuilder={this.requestBuilder}
+                                                    flushCanvas={this.flushCanvas.bind(this)}
+                                                />
+                                            ) : (<div></div>)
+
+                                }
+                                {/*<GEPanel*/}
+                                {/*    title={"Vertices"}*/}
+                                {/*    showToggleBtn={false}*/}
+                                {/*    showCloseBtn={false}*/}
+                                {/*>*/}
+                                {/*</GEPanel>*/}
                             </div>
                             <div
                                 className={

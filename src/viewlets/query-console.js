@@ -11,16 +11,18 @@ export default class QueryConsole extends React.Component {
     repeatTimer = null;
 
     static defaultProps = {
-        onQuerySubmit: () => console.log("No Query Handler added yet"),
+        makeQuery: () => console.log("No Query Handler added yet"),
+        requestBuilder: () => console.error("requestBuilder prop missing for QueryConsole"),
         flushCanvas: () => console.log("flushCanvas added  to QueryConsole"),
         query: null,
         defaultPlaceholderText: "g.V().limit(5).toList();"
     }
 
     static propTypes = {
+        requestBuilder: PropTypes.object,
         query: PropTypes.string,
         onClose: PropTypes.func,
-        onQuerySubmit: PropTypes.func,
+        makeQuery: PropTypes.func,
         flushCanvas: PropTypes.func,
         defaultPlaceholderText: PropTypes.string,
     };
@@ -72,7 +74,8 @@ export default class QueryConsole extends React.Component {
     onFormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        this.props.onQuerySubmit(e.target.query.value, {source: "console"});
+        const query  = this.props.requestBuilder.rawQuery(e.target.query.value)
+        this.props.makeQuery(query, {source: "console"});
     }
 
 
@@ -81,7 +84,7 @@ export default class QueryConsole extends React.Component {
         this.repeatTimer = setInterval((function () {
                 console.log("Repeating the query every " + repeatFrequency)
                 _this.props.flushCanvas();
-                _this.props.onQuerySubmit(
+                _this.props.makeQuery(
                     document.querySelector('textarea[name="query"]').value
                     , {source: "console"}
                 );
@@ -150,7 +153,6 @@ export default class QueryConsole extends React.Component {
                         onChange={this.onQueryChange.bind(this)}
                         name={"query"}
                         onKeyDown={this.onEnterPress.bind(this)}
-                        value={this.state.query || ""}
                         placeholder={this.props.defaultPlaceholderText}/>
                 </form>
             </div>

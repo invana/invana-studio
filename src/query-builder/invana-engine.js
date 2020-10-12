@@ -15,6 +15,10 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         return {"query": "{getVerticesLabelStats{label, count}}"};
     }
 
+    getEdgesLabelStats() {
+        return {"query": "{getEdgesLabelStats{label, count}}"};
+    }
+
     initQuery() {
         return {"query": "{filterVertex(limit: 10){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
     }
@@ -34,6 +38,23 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
         queryParams = queryParams.replace(/,\s*$/, "");
         return {"query": "{filterVertex(" + queryParams + "){id,type,label,properties}}"};
+    }
+
+    filterEdges(label, limit, skip) {
+
+        let queryParams = "";
+        if (label) {
+            queryParams += "label: \"" + label + "\",";
+        }
+        if (limit) {
+            queryParams += "limit: " + limit + ",";
+        }
+        if (skip) {
+            queryParams += "skip: " + skip;
+        }
+
+        queryParams = queryParams.replace(/,\s*$/, "");
+        return {"query": "{filterEdge(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
     }
 
     rawQuery(queryString) {

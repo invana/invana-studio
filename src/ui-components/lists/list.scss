@@ -26,7 +26,7 @@ ul {
       background: transparent;
       border: none;
       box-shadow: none;
-        margin-right: 0;
+      margin-right: 0;
     }
 
     button {
@@ -34,6 +34,9 @@ ul {
     }
 
     a:hover, button:hover {
+      color: $primaryColor;
+    }
+    .active{
       color: $primaryColor;
     }
 
@@ -47,8 +50,8 @@ ul {
   li {
     height: 33px;
 
-    a {
-      padding: 0 7px 0 0;
+    a, span, button {
+      padding: 0 7px 0 7px;
       height: 33px;
     }
   }
@@ -131,19 +134,24 @@ ul {
 }
 
 
-.vertical-list {
+.vertical-list, .vertical-no-border-list {
   li {
     display: block;
     border: none;
-    border-bottom: 1px solid $borderColor;
     margin: 0;
-       padding-bottom: 5px;
+    padding-bottom: 5px;
     margin-bottom: 5px;
 
-    a {
+    a, span, button {
       //padding: 15px 17px;
       //padding: 0;
       padding: 5px 0;
     }
+  }
+}
+
+.vertical-list {
+  li {
+    border-bottom: 1px solid $borderColor;
   }
 }

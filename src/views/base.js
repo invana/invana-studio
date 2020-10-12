@@ -2,7 +2,6 @@
 import RemoteGraphComponent from "../core/graph-component";
 
 
-
 class RemoteGraphComponentViewBase extends RemoteGraphComponent {
     constructor(props) {
         super(props);
@@ -108,6 +107,7 @@ export default class BaseView extends RemoteGraphComponentViewBase {
             rightContentName: null,
             bottomContentName: null,
             middleBottomContentName: null,
+            middleTopContentName: "vertices-management"
             // layout var ends
         };
 
@@ -129,6 +129,10 @@ export default class BaseView extends RemoteGraphComponentViewBase {
 
     setMiddleBottomContentName(contentName) {
         this.setState({middleBottomContentName: contentName});
+    }
+
+    setMiddleTopContentName(contentName) {
+        this.setState({middleTopContentName: contentName});
     }
 
 

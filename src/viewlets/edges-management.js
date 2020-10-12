@@ -1,20 +1,15 @@
 import React from "react";
-// import "./query-console.scss";
 import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 
-
-export default class VerticesManagement extends RemoteGraphComponent {
+export default class EdgesManagement extends RemoteGraphComponent {
 
     state = {
-        verticesLabels: []
+        edgesLabels: []
     }
 
-
     componentDidMount() {
-        // this.prop
-        console.log("======", this.props, this.requestBuilder);
-        const queryPayload = this.requestBuilder.getVerticesLabelStats();
+        const queryPayload = this.requestBuilder.getEdgesLabelStats();
         this.makeQuery(queryPayload);
     }
 
@@ -26,7 +21,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
         //     console.log("Failed to get the vertices labels");
         // }else {
         console.log("===>>", response.getResponseResult());
-        this.setState({verticesLabels: response.getResponseResult()})
+        this.setState({edgesLabels: response.getResponseResult()})
         // }
         // this.props.setStatusMessage("Updated options for label '" + this.props.selectedElementData.label + "'");
         // this.props.reRenderCanvas();
@@ -34,16 +29,16 @@ export default class VerticesManagement extends RemoteGraphComponent {
 
 
     render() {
-        console.log("=====this.state.verticesLabels", this.state.verticesLabels);
+        console.log("=====this.state.edgesLabels", this.state.edgesLabels);
         return (
 
             <div className={" p-10"}>
                 <GEList type={"vertical-no-border"}>
                     {
-                        this.state.verticesLabels.map((vertexLabel, index) => {
+                        this.state.edgesLabels.map((edgeLabel, index) => {
                             return (<li style={{"marginBottom": "5px", "cursor": "pointer"}} key={index}
                                         onClick={() => this.props.parentGraphComponent.makeQuery(
-                                            this.requestBuilder.filterVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>{vertexLabel.label} ({vertexLabel.count})
+                                            this.requestBuilder.filterEdges(edgeLabel.label, 10, 0), {'source': 'canvas'})}>{edgeLabel.label} ({edgeLabel.count})
                             </li>)
                         })
                     }
