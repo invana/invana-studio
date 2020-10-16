@@ -222,8 +222,8 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
         // Arc setting
         var arc = d3.arc()
-            .innerRadius(radiusMenu - 70)
-            .outerRadius(radiusMenu - 35);
+            .innerRadius(radiusMenu - 80)
+            .outerRadius(radiusMenu - 45);
 
         // Graph space
         var svgMenu = this.canvas.append("svg")
@@ -530,12 +530,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
             .attr("id", (d) => "link-arrow-" + d.id)
             .attr("viewBox", "0 -5 10 10")
             .attr("refY", 0)
-            .attr("refX", DefaultNodeRadius)
+            .attr("refX", DefaultNodeRadius * 1.8)
             .attr('orient', "auto")
             .attr('stroke', (d) => getColorForString(d.label))
             .attr('fill', (d) => getColorForString(d.label))
-            .attr('markerWidth', 8 * 2)
-            .attr('markerHeight', 9 * 2)
+            .attr('markerWidth', 6 * 2)
+            .attr('markerHeight', 6 * 2)
             .attr('xoverflow', "visible")
 
 
@@ -683,9 +683,9 @@ export default class D3ForceDirectedCanvas extends React.Component {
         }
 
         function dragStarted(d) {
-            if (!d3.event.active) {
-                _this.simulation.alphaTarget(simulationAlpha).restart();
-            }
+            // if (!d3.event.active) {
+            //     _this.simulation.alphaTarget(simulationAlpha).restart();
+            // }
             d.fx = d.x;
             d.fy = d.y;
             d3.selectAll(".node").each(function (d) {
@@ -695,15 +695,15 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
         function dragEnded(d) {
             console.log("===drag ended", d);
-            if (!d3.event.active) {
-                _this.simulation.alphaTarget(0);
-            }
-            _this.simulation.alpha(simulationAlpha).restart();
+            // if (!d3.event.active) {
+            //     _this.simulation.alphaTarget(0);
+            // }
+            // _this.simulation.alpha(simulationAlpha).restart();
             d3.selectAll(".node").each(function (d) {
                 d.fixed = true;//thsi will fix the node.
             });
-            d.fx = null;
-            d.fy = null;
+            // d.fx = null;
+            // d.fy = null;
         }
 
         d3.select('#center-canvas').on('click', function () {

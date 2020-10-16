@@ -312,7 +312,7 @@ export default class ExplorerView extends BaseView {
 
                                 <div className={"main-content-nav"}>
                                     <GEList>
-                                        <li style={{"padding-left": "3px"}}>
+                                        <li style={{"paddingLeft": "3px"}}>
                                             <button
                                                 className={this.state.middleTopContentName === 'vertices-management' ? "active" : ''}
                                                 onClick={() => this.setMiddleTopContentName("vertices-management")}>
