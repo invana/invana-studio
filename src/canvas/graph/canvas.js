@@ -392,23 +392,28 @@ export default class D3ForceDirectedCanvas extends React.Component {
         // for nodeBgHtml - this will be on top of background image
         let inShapeTextNode = node.append('g')
             .attr("class", "nodeHTML")
+            // .attr('transform', function (d) {
+            //         const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
+            //         const dx = -1 * (side / 2);
+            //         // const dx = d.meta.shapeOptions.radius - (side / 2) * (2.5);
+            //         // const dy = d.meta.shapeOptions.radius - (side / 2) * (2.5) * (2.5 / 3) - 4;
+            //         return 'translate(' + [dx, dx] + ')'
+            //     }
+            // )
             .attr('transform', function (d) {
-                    const side = 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4);
-                    const dx = -1 * (side / 2);
-                    // const dx = d.meta.shapeOptions.radius - (side / 2) * (2.5);
-                    // const dy = d.meta.shapeOptions.radius - (side / 2) * (2.5) * (2.5 / 3) - 4;
-                    return 'translate(' + [dx, dx] + ')'
+                    return 'translate(' + [-10, -35] + ')'
                 }
             )
             .append("foreignObject")
-            .attr("width", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
+            // .attr("width", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
+            .attr("width", (d) => 200) // side
             .style("font-size", "12px")
             .attr("height", (d) => 2 * d.meta.shapeOptions.radius * Math.cos(Math.PI / 4)) // side
             .append("xhtml:body")
             .style("color", (d) => invertColor(d.meta.shapeOptions.fillColor, true))
             .style("font-size", "16px") // make this dynamic based on the node radius also
             .style("margin", "0")
-            .style("text-align", "center")
+            .style("text-align", "left")
             .style("background", "transparent");
 
         inShapeTextNode.append("xhtml:h6")
@@ -688,9 +693,10 @@ export default class D3ForceDirectedCanvas extends React.Component {
             // }
             d.fx = d.x;
             d.fy = d.y;
-            d3.selectAll(".node").each(function (d) {
-                d.fixed = true;//thsi will fix the node.
-            });
+            // d3.selectAll(".node").each(function (d) {
+            //     d.fixed = false;//thsi will fix the node.
+            // });
+            // d.fixed = false;
         }
 
         function dragEnded(d) {
@@ -699,9 +705,12 @@ export default class D3ForceDirectedCanvas extends React.Component {
             //     _this.simulation.alphaTarget(0);
             // }
             // _this.simulation.alpha(simulationAlpha).restart();
-            d3.selectAll(".node").each(function (d) {
-                d.fixed = true;//thsi will fix the node.
-            });
+            // d3.selectAll(".node").each(function (d) {
+            //     d.fixed = false;//thsi will fix the node.
+            // });
+
+                        // d.fixed = true;
+
             // d.fx = null;
             // d.fy = null;
         }
@@ -745,6 +754,11 @@ export default class D3ForceDirectedCanvas extends React.Component {
             }
 
             edgepaths.attr("d", (d) => linkArc(d))
+
+
+             d3.selectAll(".node").each(function (d) {
+                d.fixed = true;//thsi will fix the node.
+            });
         }
     }
 
