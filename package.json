@@ -22,7 +22,11 @@
     "react-dom": "^16.13.1",
     "react-json-view": "^1.19.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "pixi-fps": "^2.0.1",
+    "pixi-viewport": "^4.15.0",
+    "pixi.js": "^5.3.3",
+    "pixi.js-legacy": "^5.3.3"
   },
   "scripts": {
     "start": "react-scripts start",

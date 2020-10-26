@@ -1,6 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
-import {prepareNodesDataWithOptions, getColorForString} from "./canvas-utils";
+import {prepareNodesDataWithOptions, getColorForString} from "../canvas-utils";
 import "d3-selection-multi";
 import "./legend.scss";
 import PropTypes from "prop-types";

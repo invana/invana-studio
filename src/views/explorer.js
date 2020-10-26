@@ -33,7 +33,8 @@ import EdgesManagement from "../viewlets/edges-management";
 import AboutComponent from "../viewlets/about";
 import {REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
-import GraphCanvas from "../canvas/graph";
+import PIXICanvasComponent from "../canvas/pixi-canvas/component";
+// import GraphCanvas from "../canvas/graph";
 import JSONCanvas from "../canvas/json";
 import TableCanvas from "../canvas/table";
 import RawResponsesCanvas from "../canvas/raw-responses";
@@ -525,8 +526,26 @@ export default class ExplorerView extends BaseView {
                                     <ErrorBoundary>
                                         {(() => {
                                             if (this.state.canvasType === "graph" && this.state.responses) {
+                                                // return (
+                                                //     <GraphCanvas
+                                                //         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                                //         setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                                //         responses={this.state.responses}
+                                                //         setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                                //         vertices={this.state.vertices}
+                                                //         edges={this.state.edges}
+                                                //         setRightContentName={this.setRightContentName.bind(this)}
+                                                //         setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
+                                                //         middleBottomContentName={this.state.middleBottomContentName}
+                                                //         startQuery={this.startQuery.bind(this)}
+                                                //         requestBuilder={this.requestBuilder}
+                                                //         makeQuery={this.makeQuery.bind(this)}
+                                                //         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
+                                                //         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                                                //     />
+                                                // )
                                                 return (
-                                                    <GraphCanvas
+                                                    <PIXICanvasComponent
                                                         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                                         setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                                         responses={this.state.responses}
@@ -541,6 +560,7 @@ export default class ExplorerView extends BaseView {
                                                         makeQuery={this.makeQuery.bind(this)}
                                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                                                        selectedElementData={this.state.selectedElementData}
                                                     />
                                                 )
                                             } else if (this.state.canvasType === "json" && this.state.responses) {

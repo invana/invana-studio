@@ -3,7 +3,7 @@ import GraphControls from "./graph-controls";
 import {
     prepareLinksDataForCurves, prepareNodesDataWithOptions, removeVertexMeta,
     removeEdgeMeta, getColorForString
-} from "./canvas-utils";
+} from "../canvas-utils";
 import {LightenDarkenColor, invertColor} from "../../core/utils";
 import "./graph.scss";
 

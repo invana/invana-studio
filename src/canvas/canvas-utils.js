@@ -6,7 +6,7 @@ import {
     DefaultNodeInShapeTextColor,
     DefaultLabelVisibility,
     DefaultNodeLabelColor
-} from "../../config";
+} from "../config";
 
 const ColorHash = require('color-hash');
 
