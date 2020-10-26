@@ -8,6 +8,7 @@ export default class GremlinQueryManager extends QueryManagerBase {
     }
 
     getOutEdgeVertices(vertexId) {
+        // #TODO - improve query performance ?
         console.log("===vertexId", vertexId);
         return "node=g.V(" + vertexId + ").toList(); " +
             "edges = g.V(" + vertexId + ").inE().dedup().toList(); " +
@@ -16,6 +17,8 @@ export default class GremlinQueryManager extends QueryManagerBase {
     }
 
     getInEdgeVertices(vertexId) {
+        // #TODO - improve query performance ?
+
         console.log("===vertexId", vertexId);
         return "node=g.V(" + vertexId + ").toList(); " +
             "edges = g.V(" + vertexId + ").outE().dedup().toList(); " +

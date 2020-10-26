@@ -135,8 +135,12 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
 
 
     getProtocol() {
-        const _ = new URL(this.props.gremlinUrl).protocol;
-        return _.includes("ws") ? "ws" : "http";
+        if (this.props.gremlinUrl) {
+            const _ = new URL(this.props.gremlinUrl).protocol;
+            return _.includes("ws") ? "ws" : "http";
+        }else{
+            return null;
+        }
     }
 
 
