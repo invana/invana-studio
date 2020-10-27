@@ -8,14 +8,15 @@ export default class HomeView extends RemoteGraphComponent {
     componentDidMount() {
         super.componentDidMount();
         let _this = this;
+        console.log("=_this.connector.requestBuilder.initQuery()" , _this.connector.requestBuilder.initQuery())
         setTimeout(function () {
-            _this.makeQuery(_this.requestBuilder.initQuery(), {source: "internal"});
+            _this.makeQuery(_this.connector.requestBuilder.initQuery(), {source: "internal"});
         }, 200)
     }
 
-    processResponse(responses) {
+    processResponse(response) {
         let _this = this;
-        let response = responses[0];
+        // let response = this.connector.getLastResponse();
         console.log("processResponse received", response);
         const statusCode = response.getStatusCode();
         if (statusCode >= 200 || statusCode < 300) {

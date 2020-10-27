@@ -5,7 +5,7 @@ import GremlinResponse from "../responses/gremlin";
 
 export default class DefaultWebSocketConnector extends ConnectorBase {
     ws = null;
-    responseObjectCls = GremlinResponse;
+    responseCls = GremlinResponse;
 
     constructor(serverUrl, responseEventsCallback, responseCallback, setIsConnected2Gremlin,
                 onOpenCallback, onMessageCallback, onCloseCallback) {

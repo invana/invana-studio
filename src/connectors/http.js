@@ -5,7 +5,7 @@ import GremlinResponse from "../responses/gremlin";
 
 export default class DefaultHTTPConnector extends ConnectorBase {
 
-    responseObjectCls = GremlinResponse;
+    responseCls = GremlinResponse;
 
     query(query_string) {
         const payload = {"gremlin": query_string};

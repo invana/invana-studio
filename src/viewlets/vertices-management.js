@@ -14,19 +14,21 @@ export default class VerticesManagement extends RemoteGraphComponent {
     componentDidMount() {
         // this.prop
         console.log("======", this.props, this.requestBuilder);
-        const queryPayload = this.requestBuilder.getVerticesLabelStats();
+        const queryPayload = this.connector.requestBuilder.getVerticesLabelStats();
         this.makeQuery(queryPayload);
     }
 
-    processResponse(responses) {
-        console.log("=====responses===", responses);
-        const response = responses[0];
+    processResponse(response) {
+        console.log("=====responses===", response);
         // if (response.status.code !== 200) {
         //     // this.props.setErrorMessage(response.status);
         //     console.log("Failed to get the vertices labels");
         // }else {
         console.log("===>>", response.getResponseResult());
-        this.setState({verticesLabels: response.getResponseResult()})
+        const lastResponse = response.getResponseResult();
+        if (lastResponse) {
+            this.setState({verticesLabels: response.getResponseResult()})
+        }
         // }
         // this.props.setStatusMessage("Updated options for label '" + this.props.selectedElementData.label + "'");
         // this.props.reRenderCanvas();
@@ -42,7 +44,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
                         this.state.verticesLabels.map((vertexLabel, index) => {
                             return (<li style={{"marginBottom": "5px", "cursor": "pointer"}} key={index}
                                         onClick={() => this.props.parentGraphComponent.makeQuery(
-                                            this.requestBuilder.filterVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>{vertexLabel.label} ({vertexLabel.count})
+                                            this.connector.requestBuilder.filterVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>{vertexLabel.label} ({vertexLabel.count})
                             </li>)
                         })
                     }

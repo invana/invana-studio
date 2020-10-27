@@ -5,7 +5,7 @@ import InvanaEngineResponse from "../responses/invana-engine";
 
 export default class InvanaEngineHTTPConnector extends ConnectorBase {
 
-    responseObjectCls = InvanaEngineResponse
+    responseCls = InvanaEngineResponse
 
     query(queryPayload) {
         // queryPayload = JSON.stringify(queryPayload);

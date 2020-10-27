@@ -98,19 +98,17 @@ export class TableComponent extends React.Component {
 export default class TableCanvas extends React.Component {
 
     static defaultProps = {
-        vertices: [],
-        edges: []
+        dataStore: null
     }
 
     static propTypes = {
-
-        vertices: PropTypes.array,
-        edges: PropTypes.array,
+        dataStore: PropTypes.object
     }
 
     render() {
-        const vertexGroups = gremlinDeSerializer.groupByLabel(this.props.vertices);
-        const edgeGroups = gremlinDeSerializer.groupByLabel(this.props.edges);
+        const {vertices, edges } = this.props.dataStore.getAllData();
+        const vertexGroups = gremlinDeSerializer.groupByLabel(vertices);
+        const edgeGroups = gremlinDeSerializer.groupByLabel(edges);
 
         console.log("=====vertexGroups", vertexGroups)
         return (

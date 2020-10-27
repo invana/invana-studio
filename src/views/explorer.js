@@ -49,9 +49,9 @@ const Mousetrap = require("mousetrap");
 export default class ExplorerView extends BaseView {
 
 
-    processResponse(responses) {
-        super.processResponse(responses);
-        this.extendGraph(responses);
+    processResponse(response) {
+        super.processResponse(response);
+        this.extendGraph(response);
     }
 
     startQuery(query) {
@@ -65,9 +65,8 @@ export default class ExplorerView extends BaseView {
     }
 
     getLatestResponse() {
-        if (this.state.responses.length > 0) {
-            const responses = this.state.responses;
-            const lastResponse = responses[responses.length - 1];
+        const lastResponse = this.connector.getLastResponse();
+        if (lastResponse) {
             return {
                 status: lastResponse.getStatusCode(),
                 response: lastResponse.getResponseData(),
@@ -160,7 +159,7 @@ export default class ExplorerView extends BaseView {
 
 
     render() {
-
+        console.log("explorer render() ")
         return (
             <div className="App">
                 <GEHeader>
@@ -566,21 +565,22 @@ export default class ExplorerView extends BaseView {
                                             } else if (this.state.canvasType === "json" && this.state.responses) {
                                                 return (
                                                     <JSONCanvas
-                                                        vertices={this.state.vertices}
-                                                        edges={this.state.edges}
-                                                        responses={this.state.responses}/>
+                                                        dataStore={this.dataStore}
+                                                        vertices={this.dataStore.getVerticesList()}
+                                                     />
                                                 )
                                             } else if (this.state.canvasType === "table" && this.state.responses) {
                                                 return (
                                                     <TableCanvas
-                                                        vertices={this.state.vertices}
-                                                        edges={this.state.edges}
-                                                        responses={this.state.responses}/>
+                                                        dataStore={this.dataStore}
+
+                                                    />
                                                 )
                                             } else if (this.state.canvasType === "raw" && this.state.responses) {
                                                 return (
                                                     <RawResponsesCanvas
-                                                        responses={this.state.responses}/>
+                                                        connector={this.connector}
+                                                    />
                                                 )
                                             } else {
                                                 return (
@@ -642,7 +642,7 @@ export default class ExplorerView extends BaseView {
                             <span>{this.state.canvasType} canvas</span>
                         </li>
                         <li>
-                            <span>{this.state.vertices.length} vertices, {this.state.edges.length} edges</span>
+                            <span>{this.dataStore.getVerticesCount()} vertices, {this.dataStore.getEdgesCount()} edges</span>
                         </li>
                     </List>
                 </GEFooter>

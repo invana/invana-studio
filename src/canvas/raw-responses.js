@@ -7,13 +7,12 @@ import "./raw-responses.scss";
 export default class RawResponsesCanvas extends React.Component {
 
     static defaultProps = {
-        responses: []
+        connector: null
     }
 
     static propTypes = {
-        responses: PropTypes.arrayOf(
-           PropTypes.object
-        )
+        connector: PropTypes.object
+
     }
 
     state = {
@@ -22,10 +21,11 @@ export default class RawResponsesCanvas extends React.Component {
 
     UNSAFE_componentWillMount() {
 
-        console.log("====raw responses", this.props.responses);
+        console.log("====UNSAFE_componentWillMount", this.props.connector);
         let data = {}
-        if (this.props.responses.length > 0) {
-            data = this.props.responses[this.props.responses.length - 1].result.data;
+        const lastResponse = this.props.connector.getLastResponse();
+        if (lastResponse) {
+            data = lastResponse.result.data;
         }
         if (data !== null) {
 

@@ -3,15 +3,17 @@ import RemoteGraphComponent from "../core/graph-component";
 
 
 class RemoteGraphComponentViewBase extends RemoteGraphComponent {
+
+
     constructor(props) {
         super(props);
         this.state = {
             ...this.state,
             canvasType: "graph",
             selectedElementData: null,
-            query: this.requestBuilder.initQuery(),
-            vertices: [],
-            edges: []
+            // query: this.connector.requestBuilder.initQuery(),
+            // vertices: [],
+            // edges: []
         };
     }
 
@@ -21,55 +23,66 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
         })
     }
 
-    getUniqueItems(data) {
-        let uniqueItems = [];
-        data.forEach(function (item) {
-            const i = uniqueItems.findIndex(x => x.id === item.id);
-            if (i <= -1) {
-                uniqueItems.push(item);
-            }
-        });
-        return uniqueItems
+    // getUniqueItems(data) {
+    //     let uniqueItems = [];
+    //     data.forEach(function (item) {
+    //         const i = uniqueItems.findIndex(x => x.id === item.id);
+    //         if (i <= -1) {
+    //             uniqueItems.push(item);
+    //         }
+    //     });
+    //     return uniqueItems
+    //
+    // }
 
-    }
-
-    extendGraph(responses) {
-        let overallNodes = this.state.vertices;
-        let overallLinks = this.state.edges;
+    extendGraph(response) {
+        // let overallNodes = this.state.vertices;
+        // let overallLinks = this.state.edges;
         let _this = this;
-        responses.forEach(function (response) {
-            const serializedData = _this.responseSerializer.process(response.getResponseData());
-            const separatedData = _this.responseSerializer.separateVerticesAndEdges(serializedData);
-            overallNodes = overallNodes.concat(separatedData['nodes']);
-            overallLinks = overallLinks.concat(separatedData['links']);
+        const serializedData = _this.responseSerializer.process(response.getResponseData());
+        const {nodes, links} = _this.responseSerializer.separateVerticesAndEdges(serializedData);
+
+
+        this.dataStore.addData(nodes, links, () => {
+            // _this.setState({
+            //     shallReRenderD3Canvas: true
+            // })
         });
-        const uniqueNodes = this.getUniqueItems(overallNodes);
-        const uniqueLinks = this.getUniqueItems(overallLinks);
-        this.setState({
-            vertices: uniqueNodes,
-            edges: uniqueLinks,
-            shallReRenderD3Canvas: true
-        })
+
+        // responses.forEach(function (response) {
+        //     const serializedData = _this.responseSerializer.process(response.getResponseData());
+        //     const separatedData = _this.responseSerializer.separateVerticesAndEdges(serializedData);
+        //     overallNodes = overallNodes.concat(separatedData['nodes']);
+        //     overallLinks = overallLinks.concat(separatedData['links']);
+        // });
+        // const uniqueNodes = this.getUniqueItems(overallNodes);
+        // const uniqueLinks = this.getUniqueItems(overallLinks);
+        // this.setState({
+        //     vertices: uniqueNodes,
+        //     edges: uniqueLinks,
+        //     shallReRenderD3Canvas: true
+        // })
     }
 
+    //
+    processResponse(response) {
 
-    processResponse(responses) {
-
-        this.responseSessions = this.responseSessions.concat(responses);
-        const responseSessions = this.responseSessions.filter(e => e)
-        console.log("responseSessions", responseSessions);
-        this.setState({
-            responses: responseSessions,
-            shallReRenderD3Canvas: true
-        })
+        console.log("processResponse", response);
+        this.extendGraph(response);
+        this.reRenderCanvas();
     }
 
 
     reRenderCanvas() {
+        console.log("reRenderCanvas", this.dataStore.getAllData())
         this.setState({
-            shallReRenderD3Canvas: true
+            vertices: this.dataStore.getVerticesList(),
+            edges: this.dataStore.getVerticesList()
         })
+        this.render()
+        this.forceUpdate();
     }
+
 
     setHideVertexOptions() {
         this.setState({

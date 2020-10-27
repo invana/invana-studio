@@ -9,13 +9,11 @@ const gremlinDeSerializer = new GraphSONDeSerializer()
 export default class JSONCanvas extends React.Component {
 
     static defaultProps = {
-        vertices: [],
-        edges: []
+        dataStore: null
     }
 
     static propTypes = {
-        vertices: PropTypes.array,
-        edges: PropTypes.array
+        dataStore: PropTypes.object
     };
 
     state = {
@@ -24,8 +22,11 @@ export default class JSONCanvas extends React.Component {
 
     UNSAFE_componentWillMount() {
         // there's probably a better way than setTimeout for non-blocking rendering
-        const vertexGroups = gremlinDeSerializer.groupByLabel(gremlinDeSerializer.removeMeta(this.props.vertices));
-        const edgeGroups = gremlinDeSerializer.groupByLabel(gremlinDeSerializer.removeMeta(this.props.edges));
+        const {vertices, edges} = this.props.dataStore.getAllData();
+        console.log("JSONCanvas", vertices, edges);
+
+        const vertexGroups = gremlinDeSerializer.groupByLabel(gremlinDeSerializer.removeMeta(vertices));
+        const edgeGroups = gremlinDeSerializer.groupByLabel(gremlinDeSerializer.removeMeta(edges));
 
         const data = {
             "vertexGroups": vertexGroups,

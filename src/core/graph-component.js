@@ -16,6 +16,7 @@ import GremlinQueryManager from "../query-builder/gremlin";
 import GraphSONDeSerializer from "../serializers/graphson-v3";
 import InvanaEngineDeSerializer from "../serializers/invana-engine";
 import InvanaEngineQueryManager from "../query-builder/invana-engine";
+import InMemoryDataStore from "./data-store";
 
 export default class RemoteGraphComponent extends BaseComponent {
     /*
@@ -51,6 +52,9 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     }
 
 
+    // to access responses use this.connector.getLastResponse or this.connector.getLatestResponse
+
+
 
 }
 
@@ -63,7 +67,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     queryStartedAt = null;
     queryEndedAt = null;
     ws = null;
-    // streamResponses = null;
+    // responsesList = null;
     static defaultProps = {
         gremlinUrl: GREMLIN_SERVER_URL,
         graphEngine: GRAPH_ENGINE_NAME,
@@ -78,6 +82,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
         parentGraphComponent: PropTypes.object
     }
 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -86,21 +91,23 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             query: null,
             isStreaming: null,
 
-            responses: [],
-            vertices: [],
-            edges: []
+            // responses: [],
+            // vertices: [],
+            // edges: []
         }
 
         if (this.checkIfGremlinUrlIsValid()) {
             this.connector = this.connect();
         }
         if (this.checkIfGraphEngineIsValid() && this.props.graphEngine === "invana-engine") {
-            this.requestBuilder = new InvanaEngineQueryManager();
+            // this.requestBuilder = new InvanaEngineQueryManager();
             this.responseSerializer = new InvanaEngineDeSerializer();
         } else {
-            this.requestBuilder = new GremlinQueryManager();
+            // this.requestBuilder = new GremlinQueryManager();
             this.responseSerializer = new GraphSONDeSerializer();
         }
+        this.dataStore = new InMemoryDataStore();
+
     }
 
     checkIfGremlinUrlIsValid() {
@@ -124,12 +131,16 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
                 connectorCls = DefaultHTTPConnector;
             }
         }
+        let requestBuilder = new GremlinQueryManager()
+        if (this.checkIfGraphEngineIsValid() && this.props.graphEngine === "invana-engine") {
+            requestBuilder = new InvanaEngineQueryManager();
+        }
 
         return new connectorCls(
             this.props.gremlinUrl,
             this.responseEventsCallback.bind(this),
-            this._processResponse.bind(this),
-            this.setIsConnected2Gremlin.bind(this)
+            this.onResponseCallback.bind(this),
+            requestBuilder
         );
     }
 
@@ -138,7 +149,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
         if (this.props.gremlinUrl) {
             const _ = new URL(this.props.gremlinUrl).protocol;
             return _.includes("ws") ? "ws" : "http";
-        }else{
+        } else {
             return null;
         }
     }
@@ -175,9 +186,9 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
 
     flushCanvas() {
         this.setState({
-            responses: [],
-            vertices: [],
-            edges: [],
+            // responses: [],
+            // vertices: [],
+            // edges: [],
             shallReRenderD3Canvas: true,
             selectedElementData: null,
             middleBottomContentName: null
@@ -222,10 +233,11 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     // processResponse = (responses) => console.error("processResponse not implemented. This functions " +
     //     "will get the responses from gremlin server. Use this to access the query response data.");
 
-    _processResponse(responses) {
+    onResponseCallback(response) {
         this.queryEndedAt = new Date();
-        this.resetLoader();
-        this.processResponse(responses);
+        this.resetLoader(); // updates the status of the ui
+        this.processResponse(response);
+
     }
 
 
