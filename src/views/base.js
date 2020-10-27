@@ -43,11 +43,15 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
         const {nodes, links} = _this.responseSerializer.separateVerticesAndEdges(serializedData);
 
 
-        this.dataStore.addData(nodes, links, () => {
-            // _this.setState({
-            //     shallReRenderD3Canvas: true
-            // })
-        });
+        this.dataStore.addData(nodes, links,
+            //
+            // () => {
+            //     _this.setState({
+            //         shallReRenderD3Canvas: true
+            //     })
+            // }
+        );
+
 
         // responses.forEach(function (response) {
         //     const serializedData = _this.responseSerializer.process(response.getResponseData());
@@ -77,8 +81,10 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
         console.log("reRenderCanvas", this.dataStore.getAllData())
         this.setState({
             vertices: this.dataStore.getVerticesList(),
-            edges: this.dataStore.getVerticesList()
+            edges: this.dataStore.getEdgesList()
         })
+
+
         this.render()
         this.forceUpdate();
     }

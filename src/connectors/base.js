@@ -9,7 +9,7 @@ class ConnectorBase {
     /*
 
         Connector is supposed to take care of requests and responses data.
-        It is supplied with queryBuilder too, so that developers
+        It is supplied with requestBuilder too, so that developers
         can build and query at convenience.
 
 
@@ -20,7 +20,6 @@ class ConnectorBase {
     responseCls = null;
     responsesList = [];
     requestsList = [];
-    queryBuilder = undefined;
 
     constructor(serverUrl, responseEventsCallback, responseCallback, requestBuilder) {
         /*
@@ -29,6 +28,7 @@ class ConnectorBase {
 
 
          */
+        console.log("connector constructor");
         this.serverUrl = serverUrl;
         this.responseEventsCallback = responseEventsCallback;
         this.responseCallback = responseCallback;
@@ -36,12 +36,15 @@ class ConnectorBase {
     }
 
 
-
     addResponse2List(response) {
-        this.requestsList.push(response);
+        const existingResponses = this.responsesList;
+        existingResponses.push(response);
+        this.requestsList = existingResponses;
+
     }
 
     getLastResponse() {
+        console.log("this.responsesList.length", this.responsesList.length)
         return this.responsesList[this.responsesList.length - 1];
     }
 
@@ -72,7 +75,7 @@ class ConnectorBase {
                 })
                 this.addResponse2List(responseObject);
                 // const responses = Object.assign(this.responsesList);
-                this.flushResponseList();
+                // this.flushResponseList();
                 this.responseCallback(responseObject);
             }
         } else {

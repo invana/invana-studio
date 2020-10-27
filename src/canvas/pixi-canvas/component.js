@@ -11,18 +11,40 @@ import {
 } from "../canvas-utils";
 // import UpdaterCls from "./updates";
 
-const connector = new Connector();
+// const connector = new Connector();
 
 export default class PIXICanvasComponent extends React.Component {
 
+    /*
+
+
+    setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+    setSelectedElementData={this.setSelectedElementData.bind(this)}
+    setRightContentName={this.setRightContentName.bind(this)}
+    setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
+    middleBottomContentName={this.state.middleBottomContentName}
+
+    selectedElementData={this.state.selectedElementData}
+
+    connector={this.connector}
+    resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
+    shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+    makeQuery={this.makeQuery.bind(this)}
+
+     */
 
     static defaultProps = {
-        vertices: [],
-        edges: [],
-        shallReRenderD3Canvas: false,
-        requestBuilder: () => console.error("requestBuilder not set"),
+        setHideVertexOptions: () => console.error("setHideVertexOptions not set",),
         setSelectedElementData: (selectedData) => console.error("setSelectedElementData not set", selectedData),
+        setRightContentName: (contentName) => console.error("setRightContentName not set", contentName),
         setMiddleBottomContentName: (contentName) => console.error("setMiddleBottomContentName not set", contentName),
+        middleBottomContentName: null,
+        selectedElementData: null,
+
+        connector: false,
+        dataStore: null,
+        resetShallReRenderD3Canvas: () => console.log("resetShallReRenderD3Canvas"),
+        shallReRenderD3Canvas: false,
         makeQuery: () => console.error("makeQuery not set"),
     }
 
@@ -33,18 +55,23 @@ export default class PIXICanvasComponent extends React.Component {
         setHideVertexOptions: PropTypes.func,
         setRightContentName: PropTypes.func,
         requestBuilder: PropTypes.object,
+        dataStore: PropTypes.object,
         middleBottomContentName: PropTypes.string,
-        edges: PropTypes.array,
-        vertices: PropTypes.array,
+
+
         shallReRenderD3Canvas: PropTypes.bool,
         selectedElementData: PropTypes.object
     }
 
 
     reRender() {
+        console.log("PIXICanvasComponent reRender()", this.props.dataStore.getAllData());
+
+
+        const {vertices, edges} =  this.props.dataStore.getAllData();
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        const cleanedEdges = removeEdgeMeta(this.props.edges);
-        const cleanedVertices = removeVertexMeta(this.props.vertices);
+        const cleanedEdges = removeEdgeMeta(edges);
+        const cleanedVertices = removeVertexMeta(vertices);
         let linksData = prepareLinksDataForCurves(cleanedEdges);
         let nodesData = prepareNodesDataWithOptions(cleanedVertices, nodeOptions);
         this.graphCanvas.addData(nodesData, linksData);
@@ -83,11 +110,14 @@ export default class PIXICanvasComponent extends React.Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.vertices.length !== this.props.vertices.length
-            || prevProps.edges.length !== this.props.edges.length) {
-            this.reRender();
+        console.log("componentDidUpdate",)
+        // if (prevProps.dataStore.getVerticesCount() !== this.props.dataStore.getVerticesCount()
+        //     || prevProps.dataStore.getEdgesCount() !== this.props.dataStore.getEdgesCount()) {
+        //     this.reRender();
+        //
+        // }
+        this.reRender();
 
-        }
     }
 
     onNodeSelected(nodeData) {
@@ -142,6 +172,7 @@ export default class PIXICanvasComponent extends React.Component {
 
 
     render() {
+        console.log("PIXICanvas render()", this.props.dataStore.getVerticesList())
         return (
             <div className={"graphContainer"}>
                 <h3>Focused Nodes</h3>

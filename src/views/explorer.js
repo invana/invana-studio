@@ -52,13 +52,14 @@ export default class ExplorerView extends BaseView {
     processResponse(response) {
         super.processResponse(response);
         this.extendGraph(response);
+
     }
 
-    startQuery(query) {
-        this.setState({
-            query: query,
-        })
-    }
+    // startQuery(query) {
+    //     this.setState({
+    //         query: query,
+    //     })
+    // }
 
     getQueryFromUrl() {
         return new URLSearchParams(window.location.search).get("query");
@@ -157,9 +158,18 @@ export default class ExplorerView extends BaseView {
         this.setState({canvasType: canvasType});
     }
 
+    reRenderCanvas() {
+        super.reRenderCanvas();
+        // const {vertices, edges } = this.dataStore.getAllData()
+        this.setState({
+            // ...this.dataStore.getAllData(),
+            verticesCount: this.dataStore.getVerticesList(),
+            edgesCount: this.dataStore.getEdgesList(),
+        })
+    }
 
     render() {
-        console.log("explorer render() ")
+        console.log("explorer render() ", this.connector.getLastResponse(), this.connector.responsesList)
         return (
             <div className="App">
                 <GEHeader>
@@ -524,7 +534,7 @@ export default class ExplorerView extends BaseView {
 
                                     <ErrorBoundary>
                                         {(() => {
-                                            if (this.state.canvasType === "graph" && this.state.responses) {
+                                            if (this.state.canvasType === "graph" && this.connector.getLastResponse()) {
                                                 // return (
                                                 //     <GraphCanvas
                                                 //         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
@@ -547,36 +557,40 @@ export default class ExplorerView extends BaseView {
                                                     <PIXICanvasComponent
                                                         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                                         setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                                        responses={this.state.responses}
                                                         setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                                        vertices={this.state.vertices}
-                                                        edges={this.state.edges}
                                                         setRightContentName={this.setRightContentName.bind(this)}
                                                         setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
                                                         middleBottomContentName={this.state.middleBottomContentName}
-                                                        startQuery={this.startQuery.bind(this)}
-                                                        requestBuilder={this.requestBuilder}
-                                                        makeQuery={this.makeQuery.bind(this)}
+
+                                                        selectedElementData={this.state.selectedElementData}
+
+                                                        connector={this.connector}
+                                                        dataStore={this.dataStore}
                                                         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                                         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                                        selectedElementData={this.state.selectedElementData}
+                                                        makeQuery={this.makeQuery.bind(this)}
+
+
+                                                        // startQuery={this.startQuery.bind(this)}
+                                                        // responses={this.connector.getLastResponse()}
+                                                        // vertices={this.state.vertices}
+                                                        // edges={this.state.edges}
+                                                        // requestBuilder={this.requestBuilder}
                                                     />
                                                 )
-                                            } else if (this.state.canvasType === "json" && this.state.responses) {
+                                            } else if (this.state.canvasType === "json" && this.connector.getLastResponse()) {
                                                 return (
                                                     <JSONCanvas
                                                         dataStore={this.dataStore}
-                                                        vertices={this.dataStore.getVerticesList()}
-                                                     />
+                                                    />
                                                 )
-                                            } else if (this.state.canvasType === "table" && this.state.responses) {
+                                            } else if (this.state.canvasType === "table" && this.connector.getLastResponse()) {
                                                 return (
                                                     <TableCanvas
                                                         dataStore={this.dataStore}
-
                                                     />
                                                 )
-                                            } else if (this.state.canvasType === "raw" && this.state.responses) {
+                                            } else if (this.state.canvasType === "raw" && this.connector.getLastResponse()) {
                                                 return (
                                                     <RawResponsesCanvas
                                                         connector={this.connector}

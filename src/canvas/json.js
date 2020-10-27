@@ -41,7 +41,14 @@ export default class JSONCanvas extends React.Component {
         }, TIMEOUT)
     }
 
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     // return shallowCompare(this, nextProps, nextState);
+    //     return true
+    // }
+
     render() {
+        console.log("JsonCanvas render()")
         return <div className={"jsonCanvas"}>{this.getJsonOrLoader()}         </div>
     }
 
