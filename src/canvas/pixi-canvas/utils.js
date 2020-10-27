@@ -11,7 +11,7 @@ export function getColor(nodeData) {
 }
 
 export const getNodeLabel = nodeData => nodeData.id;
-export const getLinkLabel = linkData => linkData.source.id + "-" + linkData.target.id + "-"+ linkData.value;
+export const getLinkLabel = linkData => linkData.source.id + "-" + linkData.target.id ;
 
 
 export function prepareLinksDataForCurves(links) {

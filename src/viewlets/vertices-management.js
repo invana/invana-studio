@@ -34,7 +34,6 @@ export default class VerticesManagement extends RemoteGraphComponent {
 
 
     render() {
-        console.log("=====this.state.verticesLabels", this.state.verticesLabels);
         return (
 
             <div className={" p-10"}>

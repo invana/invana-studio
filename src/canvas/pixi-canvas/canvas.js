@@ -124,18 +124,23 @@ export default class GraphCanvas {
         //     .force("x", d3.forceX())
         //     .force("y", d3.forceY())
         //
-        //     .tick(this.settings.FORCE_LAYOUT_ITERATIONS)
+        //     // .tick(this.settings.FORCE_LAYOUT_ITERATIONS)
         //     // .on("tick", () => this.onForceSimulationEnd(this))
         //     .on("end", () => this.onForceSimulationEnd(this))
-        //     // .stop();
+        // .stop();
 
         return d3.forceSimulation()
             .force("charge", d3.forceManyBody().strength(this.settings.FORCE_LAYOUT_NODE_REPULSION_STRENGTH))
-            .force("link", d3.forceLink().id(d => d.id).distance(200))
+            .force("link", d3.forceLink().id(d => d.id).distance(this.settings.DEFAULT_LINK_LENGTH))
             .force("x", d3.forceX())
             .force("y", d3.forceY())
-            // .on("tick", () => this.onForceSimulationEnd(this))
-            .on("end", () => this.onForceSimulationEnd(this));
+                        // .tick(this.settings.FORCE_LAYOUT_ITERATIONS)
+
+            .on("end", () => this.onForceSimulationEnd(this))
+                    // .on("tick", () => this.onForceSimulationEnd(this))
+                    //     .tick([this.settings.FORCE_LAYOUT_ITERATIONS])
+
+        // .alphaTarget(0.8);
 
     }
 
@@ -224,7 +229,7 @@ textColor: "#dddddd"
         nodeContainer.y = nodeData.y;
         nodeContainer.interactive = true;
         nodeContainer.buttonMode = true;
-        nodeContainer.hitArea = new PIXI.Circle(0, 0, nodeData.meta.shapeOptions.radius );
+        nodeContainer.hitArea = new PIXI.Circle(0, 0, nodeData.meta.shapeOptions.radius);
 
         nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, _this.graphStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer, event));
         nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, _this.graphStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
@@ -237,14 +242,14 @@ textColor: "#dddddd"
         circle.x = 0;
         circle.y = 0;
         circle.beginFill(colorToNumber(nodeData.meta.shapeOptions.fillColor));
-        circle.drawCircle(0, 0, nodeData.meta.shapeOptions.radius );
+        circle.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
         nodeContainer.addChild(circle);
 
         const circleBorder = new PIXI.Graphics();
         circle.x = 0;
         circle.y = 0;
         circleBorder.lineStyle(1.5, nodeData.meta.shapeOptions.strokeWidth);
-        circleBorder.drawCircle(0, 0, nodeData.meta.shapeOptions.radius );
+        circleBorder.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
         nodeContainer.addChild(circleBorder);
 
         const icon = new PIXI.Text(ICON_TEXT, {
@@ -294,6 +299,7 @@ textColor: "#dddddd"
 
             const nodeGfx = _this.graphStore.nodeDataToNodeGfx.get(nodeData);
             if (!nodeGfx) {
+                // create node if doesn't exist
                 const {nodeContainer, nodeLabelContainer} = this.createNode(nodeData);
                 this.nodesLayer.addChild(nodeContainer);
                 this.nodeLabelsLayer.addChild(nodeLabelContainer);
@@ -460,60 +466,61 @@ textColor: "#dddddd"
             linkLabelText.y = (linkData.source.y + linkData.target.y) / 2 - 10 * sameIndex;
 
         }
-        // else {
-        //     linkGfx.moveTo(linkData.source.x, linkData.source.y);
-        //
-        //     console.log("linkData=====", linkData, nextPoint.x, nextPoint.y)
-        //
-        //
-        //
-        //     linkGfx
-        //         .bezierCurveTo(linkData.source.x, linkData.source.y,
-        //             nextPoint.x + 50, nextPoint.y + 50,
-        //             linkData.target.x, linkData.target.y)
-        //
-        //     // let linkCurveGfx = new PIXI.Graphics()
-        //     // linkCurveGfx.lineStyle(10, 0xff0000, 1)
-        //     //
-        //     // linkCurveGfx.moveTo(linkData.source.x, linkData.source.y);
-        //     //
-        //     // linkCurveGfx.beginFill(this.settings.LINK_DEFAULT_COLOR, 1);
-        //     // linkCurveGfx.arcTo(
-        //     //     linkData.source.x, linkData.source.y, linkData.target.x, linkData.target.y, linkData.sameIndex * 600
-        //     // )
-        //     console.log("+++", linkData.source.x, linkData.source.y, linkData.target.x, linkData.target.y, linkData.sameIndex * 60)
-        //     // linkCurveGfx.lineStyle(10,0xff0000, 0.5)
-        //     // linkCurveGfx.lineTo(200,200)
-        //
-        //     //             let linkCurveGfx = new PIXI.Graphics()
-        //     // linkCurveGfx.lineStyle(10,0x000000)
-        //     //
-        //     // linkCurveGfx.moveTo(0,0)
-        //     // linkCurveGfx.arcTo(0,100,200,200, 600)
-        //     // linkCurveGfx.lineStyle(10,0xff0000, 0.5)a
-        //     // linkCurveGfx.lineTo(200,200)
-        //
-        //     // linkGfx.addChild(linkCurveGfx)
-        //
-        //
-        //     //
-        //     // linkGfx.beginFill(this.settings.LINK_DEFAULT_COLOR, 1);
-        //     // // triangle for the arrow
-        //     // linkGfx.lineStyle(1, this.settings.LINK_DEFAULT_COLOR, 1, .5)
-        //     //     .moveTo(t1.x, t1.y)
-        //     // linkGfx.lineTo(t2.x, t2.y)
-        //     //     .lineTo(t3.x, t3.y)
-        //     //     .lineTo(t1.x, t1.y)
-        //
-        //     // set label at the next point
-        //     linkLabelText.x = (linkData.source.x + linkData.target.x) / 2 - 10 * sameIndex;
-        //     linkLabelText.y = (linkData.source.y + linkData.target.y) / 2 - 10 * sameIndex;
-        //     // linkLabelText.x = nextPoint.x;
-        //     // linkLabelText.y = nextPoint.y;
-        //
-        //
-        // }
+        /*
+                else {
+                    linkGfx.moveTo(linkData.source.x, linkData.source.y);
 
+                    console.log("linkData=====", linkData, nextPoint.x, nextPoint.y)
+
+
+
+                    linkGfx
+                        .bezierCurveTo(linkData.source.x, linkData.source.y,
+                            nextPoint.x + 50, nextPoint.y + 50,
+                            linkData.target.x, linkData.target.y)
+
+                    // let linkCurveGfx = new PIXI.Graphics()
+                    // linkCurveGfx.lineStyle(10, 0xff0000, 1)
+                    //
+                    // linkCurveGfx.moveTo(linkData.source.x, linkData.source.y);
+                    //
+                    // linkCurveGfx.beginFill(this.settings.LINK_DEFAULT_COLOR, 1);
+                    // linkCurveGfx.arcTo(
+                    //     linkData.source.x, linkData.source.y, linkData.target.x, linkData.target.y, linkData.sameIndex * 600
+                    // )
+                    console.log("+++", linkData.source.x, linkData.source.y, linkData.target.x, linkData.target.y, linkData.sameIndex * 60)
+                    // linkCurveGfx.lineStyle(10,0xff0000, 0.5)
+                    // linkCurveGfx.lineTo(200,200)
+
+                    //             let linkCurveGfx = new PIXI.Graphics()
+                    // linkCurveGfx.lineStyle(10,0x000000)
+                    //
+                    // linkCurveGfx.moveTo(0,0)
+                    // linkCurveGfx.arcTo(0,100,200,200, 600)
+                    // linkCurveGfx.lineStyle(10,0xff0000, 0.5)a
+                    // linkCurveGfx.lineTo(200,200)
+
+                    // linkGfx.addChild(linkCurveGfx)
+
+
+                    //
+                    // linkGfx.beginFill(this.settings.LINK_DEFAULT_COLOR, 1);
+                    // // triangle for the arrow
+                    // linkGfx.lineStyle(1, this.settings.LINK_DEFAULT_COLOR, 1, .5)
+                    //     .moveTo(t1.x, t1.y)
+                    // linkGfx.lineTo(t2.x, t2.y)
+                    //     .lineTo(t3.x, t3.y)
+                    //     .lineTo(t1.x, t1.y)
+
+                    // set label at the next point
+                    linkLabelText.x = (linkData.source.x + linkData.target.x) / 2 - 10 * sameIndex;
+                    linkLabelText.y = (linkData.source.y + linkData.target.y) / 2 - 10 * sameIndex;
+                    // linkLabelText.x = nextPoint.x;
+                    // linkLabelText.y = nextPoint.y;
+
+
+                }
+        */
 
         // )
         // linkGfx.buttonMode = true;
@@ -583,7 +590,7 @@ textColor: "#dddddd"
         this.graphStore.updateLinkPairs(linkDataGfxPairs);
 
         this.updateNodePositions();
-        console.log("log positions updated");
+        console.log("updatePositions triggered");
         this.requestRender();
     };
 
@@ -601,14 +608,13 @@ textColor: "#dddddd"
     }
 
     updateSimulationData(nodes, links) {
+        let _this = this;
         this.forceSimulation.nodes(nodes);
         this.forceSimulation.force("link").links(links)
-        // .id(linkData => linkData.id)
-        // .distance(function (d) {
-        //     return 100
-        // });
+            // .id(linkData => linkData.id)
+            // .distance(_this.settings.DEFAULT_LINK_LENGTH);
 
-        this.forceSimulation.restart();
+        // this.forceSimulation.alphaTarget(0.3).restart();
 
     }
 
@@ -625,6 +631,7 @@ textColor: "#dddddd"
 
         // initial draw
         this.requestRender();
+
     }
 
     addData(newNodes, newLinks) {
@@ -632,9 +639,7 @@ textColor: "#dddddd"
         this.dataStore.addData(newNodes, newLinks);
         const {nodes, links} = this.dataStore;
         console.log("======= total nodes and links after adding new data ", nodes.length, links.length);
-
         const linksCurvesPrepared = prepareLinksDataForCurves(links);
-
         _this.updateSimulationData(nodes, linksCurvesPrepared);
     }
 

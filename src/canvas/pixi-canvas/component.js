@@ -83,7 +83,11 @@ export default class PIXICanvasComponent extends React.Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.reRender();
+        if (prevProps.vertices.length !== this.props.vertices.length
+            || prevProps.edges.length !== this.props.edges.length) {
+            this.reRender();
+
+        }
     }
 
     onNodeSelected(nodeData) {
@@ -126,6 +130,10 @@ export default class PIXICanvasComponent extends React.Component {
         this.graphCanvas.eventStore.hideMenu();
     }
 
+    cleanGraph() {
+        this.graphCanvas.forceSimulation.restart();
+    }
+
     resetFocus() {
         this.graphCanvas.dataStore.removeAllNodes2Focus();
         this.graphCanvas.graphStore.resetFocus();
@@ -151,6 +159,7 @@ export default class PIXICanvasComponent extends React.Component {
                         <li onClick={() => this.resetFocus()}>Reset Focus</li>
                         <li onClick={() => this.onClickShowInV()}>Show InV</li>
                         <li onClick={() => this.onClickShowOutV()}>Show OutV</li>
+                        <li onClick={() => this.cleanGraph()}>Clean Graph</li>
                         <li onClick={() => this.hideMenu()}>hide menu</li>
                     </ul>
                 </div>

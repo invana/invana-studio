@@ -28,6 +28,7 @@ export class DataStore {
             this.focusedNodes.push(nodeData);
         }
     }
+
     removeAllNodes2Focus() {
         this.focusedNodes = [];
     }
@@ -91,17 +92,18 @@ export class DataStore {
         // TODO - review this logic again,
         // this where old data will be merged with the new data.
         let _this = this;
+
+        nodes.forEach((node) => {
+            const isElemExist = _this.checkIfElementExist(node.id, _this.nodes);
+            if (!isElemExist) {
+                _this.nodes.push(node);
+            }
+        });
         links.forEach((link) => {
             const isElemExist = _this.checkIfElementExist(link.id, _this.links);
             // console.log("isElemExist", isElemExist, link.id);
             if (!isElemExist) {
                 _this.links.push(link);
-            }
-        });
-        nodes.forEach((node) => {
-            const isElemExist = _this.checkIfElementExist(node.id, _this.nodes);
-            if (!isElemExist) {
-                _this.nodes.push(node);
             }
         });
 
@@ -186,7 +188,7 @@ export default class GraphStore {
             //
             // _this.hoveredNodeChildrenPairs[node.id] = nodeContainer.children;
 
-            nodeContainer.children[1].alpha =  _this.graphCanvas.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
+            nodeContainer.children[1].alpha = _this.graphCanvas.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
             // // circle border
             // const circleBorder = new PIXI.Graphics();
             // circleBorder.x = 0;
