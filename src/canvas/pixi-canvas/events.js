@@ -1,5 +1,5 @@
-import {colorToNumber, getColor, getLinkLabel, getNodeLabel} from "./utils";
-import * as PIXI from 'pixi.js-legacy'
+// import {colorToNumber, getColor, getLinkLabel, getNodeLabel} from "./old/utils";
+// import * as PIXI from 'pixi.js-legacy'
 
 export default class EventStore {
 
@@ -21,30 +21,30 @@ export default class EventStore {
         this.nodeMenuEl.style.display = "none";
     }
 
-    onLinkClicked(graphCanvas, linkData, linkGfx, event) {
+    onLinkClicked(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, " clicked");
 
     }
 
-    onLinkMouseOver(graphCanvas, linkData, linkGfx, event) {
+    onLinkMouseOver(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, "link MouseOver");
 
     }
 
-    onLinkMouseOut(graphCanvas, linkData, linkGfx, event) {
+    onLinkMouseOut(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, "link MouseOut");
 
     }
 
-    createNodeMenu(graphCanvas, nodeData, event) {
+    createNodeMenu(graphicsEngine, nodeData, event) {
         console.log("createNode Menu", nodeData, event);
         // https://www.programmersought.com/article/2722368758/
-        // while (graphCanvas.nodeMenuLayer.children[0]) {
-        //     graphCanvas.nodeMenuLayer.removeChild(graphCanvas.nodeMenuLayer.children[0]);
+        // while (graphicsEngine.nodeMenuLayer.children[0]) {
+        //     graphicsEngine.nodeMenuLayer.removeChild(graphicsEngine.nodeMenuLayer.children[0]);
         // }
         //
         // const menuList = ["item1", "item2", "item3",];
-        // // const scale = graphCanvas.nodeMenuLayer.state.scale;
+        // // const scale = graphicsEngine.nodeMenuLayer.state.scale;
         // const scale = 1;
         // menuList.forEach((menuItem, currentItemNo) => {
         //
@@ -71,47 +71,47 @@ export default class EventStore {
         //     menuItemContainer.addChild(_txt)
         //     menuItemContainer.interactive = true;
         //     menuItemContainer.buttonMode = true;
-        //     // graphCanvas.nodeMenuLayer.visible = that.curr==0?true:that.show;
+        //     // graphicsEngine.nodeMenuLayer.visible = that.curr==0?true:that.show;
         //
         //     menuItemContainer.on('mousedown', event => {
         //         alert("Clicked " + currentItemNo)
         //     });
         //
         //
-        //     graphCanvas.nodeMenuLayer.addChild(menuItemContainer);
+        //     graphicsEngine.nodeMenuLayer.addChild(menuItemContainer);
         // })
         //
-        // graphCanvas.nodeMenuLayer.x = nodeData.x;
-        // graphCanvas.nodeMenuLayer.y = nodeData.y;
-        this.nodeMenuEl.style.left = event.data.global.x + +graphCanvas.settings.NODE_MENU_X_PADDING + "px";
+        // graphicsEngine.nodeMenuLayer.x = nodeData.x;
+        // graphicsEngine.nodeMenuLayer.y = nodeData.y;
+        this.nodeMenuEl.style.left = event.data.global.x + graphicsEngine.settings.NODE_MENU_X_PADDING + "px";
         this.nodeMenuEl.style.top = event.data.global.y + "px";
     }
 
-    moveNodeMenu(graphCanvas, point, event) {
+    moveNodeMenu(graphicsEngine, point, event) {
         console.log("moveNodeMenu Menu", point, event);
         console.log("move=====", event.data.global.x, event.data.global.y)
-        graphCanvas.nodeMenuLayer.x = point.x;
-        graphCanvas.nodeMenuLayer.y = point.y;
-        this.nodeMenuEl.style.left = event.data.global.x + graphCanvas.settings.NODE_MENU_X_PADDING + "px";
+        graphicsEngine.nodeMenuLayer.x = point.x;
+        graphicsEngine.nodeMenuLayer.y = point.y;
+        this.nodeMenuEl.style.left = event.data.global.x + graphicsEngine.settings.NODE_MENU_X_PADDING + "px";
         this.nodeMenuEl.style.top = event.data.global.y + "px";
     }
 
-    moveNode = (nodeData, point, graphCanvas, event) => {
+    moveNode = (nodeData, point, graphicsEngine, event) => {
         nodeData.x = point.x;
         nodeData.y = point.y;
-        graphCanvas.updatePositions();
-        this.moveNodeMenu(graphCanvas, point, event);
+        graphicsEngine.updatePositions();
+        this.moveNodeMenu(graphicsEngine, point, event);
     };
 
-    appMouseMove(event, graphCanvas) {
+    appMouseMove(event, graphicsEngine) {
         if (!this.clickedNodeData) {
             return;
         }
 
-        this.moveNode(this.clickedNodeData, graphCanvas.viewport.toWorld(event.data.global), graphCanvas, event);
+        this.moveNode(this.clickedNodeData, graphicsEngine.viewport.toWorld(event.data.global), graphicsEngine, event);
     };
 
-    onNodeClicked(graphCanvas, nodeData, nodeContainer, event) {
+    onNodeClicked(graphicsEngine, nodeData, nodeContainer, event) {
 
         this.showMenu();
         this.clickedNodeData = nodeData;
@@ -119,53 +119,53 @@ export default class EventStore {
         console.log(this.clickedNodeData.id, " clicked");
         let _this = this;
 
-        graphCanvas.onNodeSelected(nodeData);
+        graphicsEngine.onNodeSelected(nodeData);
 
         // TODO -  this will make the node drag functionality
         // enable node dragging
-        // graphCanvas.pixiApp.renderer.plugins.interaction.on('mousemove', (mouseEvent) => _this.appMouseMove(mouseEvent, graphCanvas));
+        // graphicsEngine.pixiApp.renderer.plugins.interaction.on('mousemove', (mouseEvent) => _this.appMouseMove(mouseEvent, graphicsEngine));
         // disable viewport dragging
-        // graphCanvas.viewport.pause = true;
+        // graphicsEngine.viewport.pause = true;
         console.log("clicked", event);
-        this.createNodeMenu(graphCanvas, nodeData, event)
+        this.createNodeMenu(graphicsEngine, nodeData, event)
 
     }
 
-    focusGraph(graphCanvas) {
+    focusGraph(graphicsEngine) {
 
     }
 
-    highlightNode(graphCanvas, nodes) {
+    highlightNode(graphicsEngine, nodes) {
         console.log("highlightNodes ", nodes);
         // add hover effect
-        graphCanvas.graphStore.focusOnNodes(nodes);
+        graphicsEngine.graphicsStore.focusOnNodes(nodes);
 
-        // const neighborsData = graphCanvas.dataStore.getNeighborNodesAndLinks([nodeData])
+        // const neighborsData = graphicsEngine.dataStore.getNeighborNodesAndLinks([nodeData])
         // let nodes2Highlight = neighborsData.nodes;
         // nodes2Highlight.push(nodeData);
         // const links2Highlight = neighborsData.links;
         // console.log("====nodes2Highlight, links2Highlight", nodes2Highlight, links2Highlight)
         //
-        // graphCanvas.graphStore.hoveredNodeGfxOriginalChildren = []
-        // graphCanvas.graphStore.hoveredNodeLabelGfxOriginalChildren = []
+        // graphicsEngine.graphicsStore.hoveredNodeGfxOriginalChildren = []
+        // graphicsEngine.graphicsStore.hoveredNodeLabelGfxOriginalChildren = []
         //
-        // graphCanvas.graphStore.hoveredlinkGfxOriginalChildren = [];
-        // graphCanvas.graphStore.hoveredlinkLabelOriginalChildren = [];
+        // graphicsEngine.graphicsStore.hoveredlinkGfxOriginalChildren = [];
+        // graphicsEngine.graphicsStore.hoveredlinkLabelOriginalChildren = [];
         //
         //
-        // const {LINK_DEFAULT_LABEL_FONT_SIZE, LABEL_FONT_FAMILY, LINK_DEFAULT_WIDTH} = graphCanvas.settings;
-        // const {notNeighborLinks, notNeighborNodes} = graphCanvas.dataStore.getNotNeighborLinks([nodeData]);
+        // const {LINK_DEFAULT_LABEL_FONT_SIZE, LABEL_FONT_FAMILY, LINK_DEFAULT_WIDTH} = graphicsEngine.settings;
+        // const {notNeighborLinks, notNeighborNodes} = graphicsEngine.dataStore.getNotNeighborLinks([nodeData]);
         // notNeighborLinks.forEach((linkData) => {
-        //     let linkGfx = graphCanvas.graphStore.linkDataToLinkGfx.get(linkData);
-        //     let linkGfxLabel = graphCanvas.graphStore.linkDataToLabelGfx.get(linkData);
+        //     let linkGfx = graphicsEngine.graphicsStore.linkDataToLinkGfx.get(linkData);
+        //     let linkGfxLabel = graphicsEngine.graphicsStore.linkDataToLabelGfx.get(linkData);
         //     console.log("==linkLayer", linkData, linkGfx);
-        //     const linkLabelGfx = graphCanvas.graphStore.linkDataToLabelGfx.get(linkData);
+        //     const linkLabelGfx = graphicsEngine.graphicsStore.linkDataToLabelGfx.get(linkData);
         //
         //     // delete linkGfx.children[0];
-        //     linkGfx.alpha = graphCanvas.settings.LINK_UN_HIGHLIGHT_ALPHA;
-        //     linkGfxLabel.alpha = graphCanvas.settings.LINK_UN_HIGHLIGHT_ALPHA;
-        //     graphCanvas.graphStore.hoveredlinkGfxOriginalChildren.push([...linkGfx.children]);
-        //     graphCanvas.graphStore.hoveredlinkLabelOriginalChildren.push([...linkLabelGfx.children]);
+        //     linkGfx.alpha = graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
+        //     linkGfxLabel.alpha = graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
+        //     graphicsEngine.graphicsStore.hoveredlinkGfxOriginalChildren.push([...linkGfx.children]);
+        //     graphicsEngine.graphicsStore.hoveredlinkLabelOriginalChildren.push([...linkLabelGfx.children]);
         //
         //     // // circle border
         //     // let linkGfxHilight = new PIXI.Graphics();
@@ -185,7 +185,7 @@ export default class EventStore {
         //     //     fontSize: LINK_DEFAULT_LABEL_FONT_SIZE,
         //     //     fill: 0xefefef
         //     // });
-        //     // linkLabelText.resolution = graphCanvas.settings.LABEL_RESOLUTION;
+        //     // linkLabelText.resolution = graphicsEngine.settings.LABEL_RESOLUTION;
         //     // const sameIndex = 1;
         //     // linkLabelText.x = (linkData.source.x + linkData.target.x) / 2 - 10 * sameIndex;
         //     // linkLabelText.y = (linkData.source.y + linkData.target.y) / 2 - 10 * sameIndex;
@@ -195,94 +195,94 @@ export default class EventStore {
         //     // linkGfxLabel.addChild(linkGfxLabelHighlight)
         //
         //     // move to front layer
-        //     graphCanvas.linksLayer.removeChild(linkGfx);
-        //     graphCanvas.frontLayer.addChild(linkGfx);
-        //     graphCanvas.linksLabelsLayer.removeChild(linkGfxLabel);
-        //     graphCanvas.frontLayer.addChild(linkGfxLabel);
+        //     graphicsEngine.linksLayer.removeChild(linkGfx);
+        //     graphicsEngine.frontLayer.addChild(linkGfx);
+        //     graphicsEngine.linksLabelsLayer.removeChild(linkGfxLabel);
+        //     graphicsEngine.frontLayer.addChild(linkGfxLabel);
         //
         //
         // })
         //
         // notNeighborNodes.forEach((node2Highlight) => {
-        //     let nodeContainer = graphCanvas.graphStore.nodeDataToNodeGfx.get(node2Highlight);
+        //     let nodeContainer = graphicsEngine.graphicsStore.nodeDataToNodeGfx.get(node2Highlight);
         //     console.log("==nodeContainer", node2Highlight, nodeContainer);
-        //     const labelGfx = graphCanvas.graphStore.nodeDataToLabelGfx.get(node2Highlight);
+        //     const labelGfx = graphicsEngine.graphicsStore.nodeDataToLabelGfx.get(node2Highlight);
         //     //
-        //     // graphCanvas.graphStore.hoveredNodeGfxOriginalChildren.push([...nodeContainer.children]);
-        //     // graphCanvas.graphStore.hoveredNodeLabelGfxOriginalChildren.push([...labelGfx.children]);
+        //     // graphicsEngine.graphicsStore.hoveredNodeGfxOriginalChildren.push([...nodeContainer.children]);
+        //     // graphicsEngine.graphicsStore.hoveredNodeLabelGfxOriginalChildren.push([...labelGfx.children]);
         //
         //     // // circle border
         //     // const circleBorder = new PIXI.Graphics();
         //     // circleBorder.x = 0;
         //     // circleBorder.y = 0;
         //     // circleBorder.lineStyle(1.5, 0x000000);
-        //     // circleBorder.drawCircle(0, 0, graphCanvas.settings.NODE_RADIUS);
+        //     // circleBorder.drawCircle(0, 0, graphicsEngine.settings.NODE_RADIUS);
         //     // nodeContainer.addChild(circleBorder);
         //     // nodeContainer.alpha = 0.1
-        //     nodeContainer.alpha = graphCanvas.settings.LINK_UN_HIGHLIGHT_ALPHA;
-        //     labelGfx.alpha = graphCanvas.settings.LINK_UN_HIGHLIGHT_ALPHA;
+        //     nodeContainer.alpha = graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
+        //     labelGfx.alpha = graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
         //
         //     // // move to front layer
-        //     // graphCanvas.nodesLayer.removeChild(nodeContainer);
-        //     // graphCanvas.frontLayer.addChild(nodeContainer);
-        //     // graphCanvas.nodeLabelsLayer.removeChild(labelGfx);
-        //     // graphCanvas.frontLayer.addChild(labelGfx);
+        //     // graphicsEngine.nodesLayer.removeChild(nodeContainer);
+        //     // graphicsEngine.frontLayer.addChild(nodeContainer);
+        //     // graphicsEngine.nodeLabelsLayer.removeChild(labelGfx);
+        //     // graphicsEngine.frontLayer.addChild(labelGfx);
         //
         // });
 
     }
 
-    unHighlightNode(graphCanvas, nodeData) {
+    unHighlightNode(graphicsEngine, nodeData) {
 
-        graphCanvas.graphStore.resetFocus();
+        graphicsEngine.graphicsStore.resetFocus();
 
-        // const neighborsData = graphCanvas.dataStore.getNeighborNodesAndLinks([nodeData])
+        // const neighborsData = graphicsEngine.dataStore.getNeighborNodesAndLinks([nodeData])
         // let nodes2Highlight = neighborsData.nodes;
         // nodes2Highlight.push(nodeData);
         // const links2Highlight = neighborsData.links;
-        // const {notNeighborLinks, notNeighborNodes} = graphCanvas.dataStore.getNotNeighborLinks([nodeData]);
+        // const {notNeighborLinks, notNeighborNodes} = graphicsEngine.dataStore.getNotNeighborLinks([nodeData]);
         // console.log("notNeighborLinks", notNeighborLinks)
         // // reseting the rest of the links
         // notNeighborLinks.forEach((link2Highlight, i) => {
         //
-        //     const linkGfx = graphCanvas.graphStore.linkDataToLinkGfx.get(link2Highlight);
-        //     const linkLabelGfx = graphCanvas.graphStore.linkDataToLabelGfx.get(link2Highlight);
+        //     const linkGfx = graphicsEngine.graphicsStore.linkDataToLinkGfx.get(link2Highlight);
+        //     const linkLabelGfx = graphicsEngine.graphicsStore.linkDataToLabelGfx.get(link2Highlight);
         //     console.log("====unhighlight link", link2Highlight, linkGfx)
         //
-        //     linkGfx.alpha = graphCanvas.settings.LINK_DEFAULT_ALPHA;
-        //     linkLabelGfx.alpha = graphCanvas.settings.LINK_DEFAULT_ALPHA;
+        //     linkGfx.alpha = graphicsEngine.settings.LINK_DEFAULT_ALPHA;
+        //     linkLabelGfx.alpha = graphicsEngine.settings.LINK_DEFAULT_ALPHA;
         //     //
         //     // // move back from front layer
-        //     graphCanvas.frontLayer.removeChild(linkGfx);
-        //     graphCanvas.linksLayer.addChild(linkGfx);
-        //     graphCanvas.frontLayer.removeChild(linkLabelGfx);
-        //     graphCanvas.linksLabelsLayer.addChild(linkLabelGfx);
+        //     graphicsEngine.frontLayer.removeChild(linkGfx);
+        //     graphicsEngine.linksLayer.addChild(linkGfx);
+        //     graphicsEngine.frontLayer.removeChild(linkLabelGfx);
+        //     graphicsEngine.linksLabelsLayer.addChild(linkLabelGfx);
         //
         //     // // clear hover effect
         //     // const nodeGfxChildren = [...linkGfx.children];
         //     // for (let child of nodeGfxChildren) {
-        //     //     if (graphCanvas.graphStore.hoveredlinkGfxOriginalChildren[i]
-        //     //         && !graphCanvas.graphStore.hoveredlinkGfxOriginalChildren[i].includes(child)) {
+        //     //     if (graphicsEngine.graphicsStore.hoveredlinkGfxOriginalChildren[i]
+        //     //         && !graphicsEngine.graphicsStore.hoveredlinkGfxOriginalChildren[i].includes(child)) {
         //     //         linkGfx.removeChild(child);
         //     //     }
         //     // }
         //     // const labelGfxChildren = [...linkLabelGfx.children];
         //     // for (let child of labelGfxChildren) {
-        //     //     if (graphCanvas.graphStore.hoveredlinkLabelOriginalChildren[i]
-        //     //         && !graphCanvas.graphStore.hoveredlinkLabelOriginalChildren[i].includes(child)) {
+        //     //     if (graphicsEngine.graphicsStore.hoveredlinkLabelOriginalChildren[i]
+        //     //         && !graphicsEngine.graphicsStore.hoveredlinkLabelOriginalChildren[i].includes(child)) {
         //     //         linkLabelGfx.removeChild(child);
         //     //     }
         //     // }
         // })
         // notNeighborNodes.forEach((node2Highlight, i) => {
-        //     const nodeGfx = graphCanvas.graphStore.nodeDataToNodeGfx.get(node2Highlight);
-        //     const labelGfx = graphCanvas.graphStore.nodeDataToLabelGfx.get(node2Highlight);
+        //     const nodeGfx = graphicsEngine.graphicsStore.nodeDataToNodeGfx.get(node2Highlight);
+        //     const labelGfx = graphicsEngine.graphicsStore.nodeDataToLabelGfx.get(node2Highlight);
         //
         //     // move back from front layer
-        //     graphCanvas.frontLayer.removeChild(nodeGfx);
-        //     graphCanvas.nodesLayer.addChild(nodeGfx);
-        //     graphCanvas.frontLayer.removeChild(labelGfx);
-        //     graphCanvas.nodeLabelsLayer.addChild(labelGfx);
+        //     graphicsEngine.frontLayer.removeChild(nodeGfx);
+        //     graphicsEngine.nodesLayer.addChild(nodeGfx);
+        //     graphicsEngine.frontLayer.removeChild(labelGfx);
+        //     graphicsEngine.nodeLabelsLayer.addChild(labelGfx);
         //
         //     nodeGfx.alpha = 1;
         //     labelGfx.alpha = 1;
@@ -290,64 +290,64 @@ export default class EventStore {
         //     // // clear hover effect
         //     // const nodeGfxChildren = [...nodeGfx.children];
         //     // for (let child of nodeGfxChildren) {
-        //     //     if (graphCanvas.graphStore.hoveredNodeGfxOriginalChildren[i] && !graphCanvas.graphStore.hoveredNodeGfxOriginalChildren[i].includes(child)) {
+        //     //     if (graphicsEngine.graphicsStore.hoveredNodeGfxOriginalChildren[i] && !graphicsEngine.graphicsStore.hoveredNodeGfxOriginalChildren[i].includes(child)) {
         //     //         nodeGfx.removeChild(child);
         //     //     }
         //     // }
         //     // const labelGfxChildren = [...labelGfx.children];
         //     // for (let child of labelGfxChildren) {
-        //     //     if (graphCanvas.graphStore.hoveredNodeLabelGfxOriginalChildren[i] && !graphCanvas.graphStore.hoveredNodeLabelGfxOriginalChildren[i].includes(child)) {
+        //     //     if (graphicsEngine.graphicsStore.hoveredNodeLabelGfxOriginalChildren[i] && !graphicsEngine.graphicsStore.hoveredNodeLabelGfxOriginalChildren[i].includes(child)) {
         //     //         labelGfx.removeChild(child);
         //     //     }
         //     // }
         // })
         //
         //
-        // graphCanvas.graphStore.hoveredNodeGfxOriginalChildren = [];
-        // graphCanvas.graphStore.hoveredNodeLabelGfxOriginalChildren = [];
+        // graphicsEngine.graphicsStore.hoveredNodeGfxOriginalChildren = [];
+        // graphicsEngine.graphicsStore.hoveredNodeLabelGfxOriginalChildren = [];
         //
-        // graphCanvas.graphStore.hoveredlinkGfxOriginalChildren = [];
-        // graphCanvas.graphStore.hoveredlinkLabelOriginalChildren = [];
+        // graphicsEngine.graphicsStore.hoveredlinkGfxOriginalChildren = [];
+        // graphicsEngine.graphicsStore.hoveredlinkLabelOriginalChildren = [];
 
-        graphCanvas.requestRender();
+        graphicsEngine.requestRender();
     }
 
-    onNodeMouseOver(graphCanvas, nodeData, nodeContainer, event) {
+    onNodeMouseOver(graphicsEngine, nodeData, nodeContainer, event) {
         console.log(nodeData.id, " mouseover");
 
 
-        // const neighborsData = graphCanvas.dataStore.getNeighborNodesAndLinks(nodeData)
+        // const neighborsData = graphicsEngine.dataStore.getNeighborNodesAndLinks(nodeData)
         //
         // let ignoreNodesHoverWhenFocused = [];
         // ignoreNodesHoverWhenFocused.p
         // neighborsData.push(nodeData);
         // neighborsData.
-        if (graphCanvas.dataStore.focusedNodes.length > 0) {
-            // if (graphCanvas.dataStore.checkIfNodeExistInFocused(nodeData){
+        if (graphicsEngine.dataStore.focusedNodes.length > 0) {
+            // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
             // dont hover-highlight when there is focus selected.
             return
         }
 
         if (nodeData) {
-            this.highlightNode(graphCanvas, [nodeData])
+            this.highlightNode(graphicsEngine, [nodeData])
             // for drag feature
             if (this.clickedNodeData) {
                 return;
             }
             this.hoveredNodeData = nodeData;
-            graphCanvas.requestRender();
+            graphicsEngine.requestRender();
         }
 
     }
 
-    onNodeMouseOut(graphCanvas, nodeData, nodeContainer, event) {
+    onNodeMouseOut(graphicsEngine, nodeData, nodeContainer, event) {
         console.log(nodeData.id, " mouseout");
-        if (graphCanvas.dataStore.focusedNodes.length > 0) {
-            // if (graphCanvas.dataStore.checkIfNodeExistInFocused(nodeData){
+        if (graphicsEngine.dataStore.focusedNodes.length > 0) {
+            // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
             // dont hover-highlight when there is focus selected.
             return
         }
-        this.unHighlightNode(graphCanvas, nodeData)
+        this.unHighlightNode(graphicsEngine, nodeData)
 
         if (this.clickedNodeData) {
             return;
@@ -359,14 +359,14 @@ export default class EventStore {
     }
 
 
-    onNodeUnClicked(graphCanvas, nodeData, nodeContainer, event) {
+    onNodeUnClicked(graphicsEngine, nodeData, nodeContainer, event) {
         console.log("===onNodeUnClicked", nodeData);
         this.unsetSelectedNodeData();
 
         // disable node dragging
-        graphCanvas.pixiApp.renderer.plugins.interaction.off('mousemove', (event) => this.appMouseMove(event, graphCanvas));
+        graphicsEngine.pixiApp.renderer.plugins.interaction.off('mousemove', (event) => this.appMouseMove(event, graphicsEngine));
         // enable viewport dragging
-        graphCanvas.viewport.pause = false;
+        graphicsEngine.viewport.pause = false;
     }
 
 }

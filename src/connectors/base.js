@@ -48,7 +48,6 @@ class ConnectorBase {
     }
 
     getLastResponse() {
-        console.log("this.responsesList.length", this.responsesList.length)
         return this.responsesList[this.responsesList.length - 1];
     }
 

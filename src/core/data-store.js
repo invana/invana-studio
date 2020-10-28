@@ -3,12 +3,37 @@
 
  */
 
+import {convertMapKeysToArray} from "./utils";
+import {
+    prepareLinksDataForCurves,
+    prepareNodesDataWithOptions,
+    removeEdgeMeta,
+    removeVertexMeta
+} from "../canvas/canvas-utils";
+
 export default class InMemoryDataStore {
     /*
     in-memory data storage to save the responses data
      */
+
+    focusedNodes = [];
+
+    // Data of raw  data from the response objects; for storage and retrieval purpose
     #vertices = new Map()
     #edges = new Map()
+
+    // For moving and controlling highlighting of the links
+    // TODO - move this to graphics store
+    linkGraphicsArray = [];
+    linkLabelGraphicsArray = [];
+
+    // Data of the 2D arrangement of vertices and links
+    verticesToRender = [];
+    edgesToRender = [];
+
+    constructor() {
+        this.resetData()
+    }
 
 
     addData(newVertices, newEdges, onDataUpdated) {
@@ -38,29 +63,121 @@ export default class InMemoryDataStore {
         return {vertices: this.#vertices, edges: this.#edges}
     }
 
+    setDataToRender(verticesToRender, edgesToRender) {
+        console.log("=====setDataToRender triggered");
+        this.verticesToRender = verticesToRender;
+        this.edgesToRender = edgesToRender;
+    }
+
+    getAllDataToRender() {
+        console.log("=====getAllDataToRender triggered");
+        return {
+            verticesToRender: this.getVerticesList(),
+            edgesToRender: this.getEdgesList()
+        }
+    }
+
     getVerticesCount() {
         return this.#vertices.size;
     }
 
-    flushData() {
-        this.#vertices = [];
-        this.#edges = [];
+    resetData() {
+        this.#vertices = new Map()
+        this.#edges = new Map()
+        this.linkGraphicsArray = [];
+        this.linkLabelGraphicsArray = [];
     }
 
     getVerticesList() {
-        let vertices = [];
-        for (let i in this.#vertices) {
-            vertices.push(this.#vertices[i]);
+        if (this.verticesToRender.length === 0) {
+            // assuming first-time
+            const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+            const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
+            return prepareNodesDataWithOptions(cleanedVertices, nodeOptions);
+
+        } else {
+            return this.verticesToRender;
+
         }
-        return vertices;
     }
 
     getEdgesList() {
-        let edges = [];
-        for (let i in this.#edges) {
-            edges.push(this.#edges[i]);
+        // return convertMapKeysToArray(this.#edges);
+        // return this.getAllDataToRender().edgesToRender;
+        if (this.verticesToRender.length === 0 && this.edgesToRender.length === 0) {
+            // assuming first-time
+            const cleanedEdges = removeEdgeMeta(convertMapKeysToArray(this.#edges));
+            return prepareLinksDataForCurves(cleanedEdges)
+
+        } else {
+            return this.edgesToRender
+
         }
-        return edges;
+
+    }
+
+    getNeighborNodesAndLinks(nodes) {
+        let neighborNodes = [];
+        let neighborLinks = [];
+        // get the links attached to nodeId
+        this.getEdgesList().forEach((link) => {
+            nodes.forEach((nodeData) => {
+                if (link.target.id === nodeData.id) {
+                    neighborLinks.push(link);
+                    neighborNodes.push(link.source);
+                } else if (link.source.id === nodeData.id) {
+                    neighborLinks.push(link);
+                    neighborNodes.push(link.target);
+                }
+            })
+        })
+
+
+        return {
+            nodes: neighborNodes,
+            links: neighborLinks
+        }
+    }
+
+
+    getNotNeighborLinks(selectedNodes) {
+        let notNeighborLinks = [];
+        let notNeighborNodes = [];
+        const {nodes, links} = this.getNeighborNodesAndLinks(selectedNodes);
+
+        nodes.push(...selectedNodes);
+        this.getVerticesList().forEach((node) => {
+            if (!nodes.includes(node)) {
+                notNeighborNodes.push(node);
+            }
+        })
+        this.getEdgesList().forEach((link) => {
+            if (!links.includes(link)) {
+                notNeighborLinks.push(link);
+            }
+        })
+        console.log("=====notNeighborNodes", notNeighborNodes, notNeighborLinks)
+        return {notNeighborLinks, notNeighborNodes};
+    }
+
+    removeAllNodes2Focus() {
+        this.focusedNodes = [];
+    }
+
+    checkIfNodeExistInFocused(nodeData) {
+        this.focusedNodes.forEach((node) => {
+            if (nodeData.id === node.id) {
+                return true;
+            }
+        })
+        return false;
+    }
+
+
+    addNode2Focus(nodeData) {
+        if (!this.checkIfNodeExistInFocused(nodeData)) {
+            this.focusedNodes.push(nodeData);
+        }
     }
 
     getEdgesCount() {

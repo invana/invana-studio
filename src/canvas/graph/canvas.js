@@ -798,7 +798,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
     render() {
         const canvasClass = this.htmlSelectorId.replace(".", "");
         return (
-            <div className={"D3GraphCanvas"}>
+            <div className={"D3GraphicsEngine"}>
                 <svg className={canvasClass} style={{
                     height: 'inherit',
                     width: 'inherit'

@@ -57,6 +57,7 @@ export function removeVertexMeta(data) {
 }
 
 export function removeEdgeMeta(data) {
+    console.log("removeEdgeMeta")
     let newData = [];
     data.forEach((datum) => {
         // delete datum.meta;

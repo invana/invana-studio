@@ -1,16 +1,17 @@
-import * as d3 from "d3";
-import GraphStore, {DataStore} from "./store";
-import GESettings from "./settings";
+
 import * as PIXI from 'pixi.js-legacy'
 // import * as PIXI from "pixi.js";
 import {Viewport} from 'pixi-viewport'
-import {colorToNumber, scale, getColor, getNodeLabel, getLinkLabel} from "./utils";
+import {
+    colorToNumber,
+    // scale, getColor,
+    getNodeLabel, getLinkLabel
+} from "./old/utils";
 // import FontFaceObserver from "fontfaceobserver";
 import EventStore from "./events";
-import {prepareLinksDataForCurves} from "./utils";
-import {node} from "prop-types";
+import GraphicsStore from "../../core/graphics-store";
 
-export default class GraphCanvas {
+export default class GraphicsEngine {
 
 
     renderRequestId = undefined;
@@ -24,24 +25,24 @@ export default class GraphCanvas {
         // new FontFaceObserver(fontFamily).load();
     }
 
-    constructor(canvasElem, nodeMenuEl, width, height, onNodeSelected) {
-        // let _this = this;
-        this.dataStore = new DataStore();
-        this.graphStore = new GraphStore(this.dataStore, this);
+    constructor(canvasElem, nodeMenuEl, settings, dataStore, onNodeSelected) {
+        let _this = this;
+        this.settings = settings;
+        this.dataStore = dataStore;
+        this.graphicsStore = new GraphicsStore(this.dataStore, this);
 
         this.nodeMenuEl = nodeMenuEl;
         this.eventStore = new EventStore(nodeMenuEl);
         this.onNodeSelected = onNodeSelected; // used to send back any message to react component.
 
-        this.settings = new GESettings(width, height);
         this.loadFont(this.settings.ICON_FONT_FAMILY);
 
         // new FontFaceObserver(this.settings.ICON_FONT_FAMILY).load();
 
         // create PIXI application
         this.pixiApp = new PIXI.Application({
-            width: width || this.settings.SCREEN_WIDTH,
-            height: height || this.settings.SCREEN_HEIGHT,
+            width: this.settings.SCREEN_WIDTH,
+            height: this.settings.SCREEN_HEIGHT,
             resolution: this.settings.RESOLUTION,
             transparent: true,
             // backgroundColor: 0xFFFFFF,
@@ -52,7 +53,6 @@ export default class GraphCanvas {
         });
         canvasElem.appendChild(this.pixiApp.view);
 
-        this.forceSimulation = this.generateForceSimulation();
         this.viewport = new Viewport({
             screenWidth: this.settings.SCREEN_WIDTH,
             screenHeight: this.settings.SCREEN_HEIGHT,
@@ -74,6 +74,7 @@ export default class GraphCanvas {
 
         this.setupCanvas();
         this.preventWheelScrolling();
+        this.requestRender();
 
     }
 
@@ -110,57 +111,6 @@ export default class GraphCanvas {
 
     }
 
-    generateForceSimulation() {
-        const defaultLinkLength = this.settings.DEFAULT_LINK_LENGTH;
-        // return d3.forceSimulation()
-        //     .force("link", d3.forceLink()
-        //         .id(linkData => linkData.id)
-        //         .distance(function (d) {
-        //             return d.distance || defaultLinkLength
-        //         })
-        //     )
-        //     .force("charge", d3.forceManyBody().strength(this.settings.FORCE_LAYOUT_NODE_REPULSION_STRENGTH))
-        //     // .force("center", d3.forceCenter())
-        //     .force("x", d3.forceX())
-        //     .force("y", d3.forceY())
-        //
-        //     // .tick(this.settings.FORCE_LAYOUT_ITERATIONS)
-        //     // .on("tick", () => this.onForceSimulationEnd(this))
-        //     .on("end", () => this.onForceSimulationEnd(this))
-        // .stop();
-
-        return d3.forceSimulation()
-            .force("charge", d3.forceManyBody().strength(this.settings.FORCE_LAYOUT_NODE_REPULSION_STRENGTH))
-            .force("link", d3.forceLink().id(d => d.id).distance(this.settings.DEFAULT_LINK_LENGTH))
-            .force("x", d3.forceX())
-            .force("y", d3.forceY())
-                        // .tick(this.settings.FORCE_LAYOUT_ITERATIONS)
-
-            .on("end", () => this.onForceSimulationEnd(this))
-                    // .on("tick", () => this.onForceSimulationEnd(this))
-                    //     .tick([this.settings.FORCE_LAYOUT_ITERATIONS])
-
-        // .alphaTarget(0.8);
-
-    }
-
-    onForceSimulationEnd(graphCanvas) {
-        console.log("onForceSimulationEnd")
-        graphCanvas.render();
-
-        graphCanvas.updatePositions();
-        graphCanvas.isRendering = false;
-
-        if (this.isFirstLoaded === false) {
-            // center the view only for the first time.
-            graphCanvas.resetViewport();
-            this.isFirstLoaded = true;
-        }
-
-        // graphCanvas.updatePositions();
-        // graphCanvas.upd
-
-    }
 
     requestRender = () => {
         let _this = this;
@@ -188,7 +138,7 @@ export default class GraphCanvas {
         // this.viewport.setZoom(0.5, true);
         // this.nodeMenuEl.style.display = "none";
 
-    };
+    }
 
     createNode(nodeData) {
         const _this = this;
@@ -231,11 +181,11 @@ textColor: "#dddddd"
         nodeContainer.buttonMode = true;
         nodeContainer.hitArea = new PIXI.Circle(0, 0, nodeData.meta.shapeOptions.radius);
 
-        nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, _this.graphStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer, event));
-        nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, _this.graphStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
-        nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, _this.graphStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
-        nodeContainer.on('mouseup', (event) => this.eventStore.onNodeUnClicked(_this, _this.graphStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
-        nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, _this.graphStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
+        nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer, event));
+        nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
+        nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
+        nodeContainer.on('mouseup', (event) => this.eventStore.onNodeUnClicked(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
+        nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
 
 
         const circle = new PIXI.Graphics();
@@ -290,14 +240,14 @@ textColor: "#dddddd"
         let _this = this;
         let newNodes = [];
         nodes.forEach(nodeData => {
-            const nodeGfx = _this.graphStore.nodeDataToNodeGfx.get(nodeData);
+            const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(nodeData);
             if (!nodeGfx) {
                 newNodes.push(nodeData);
             }
         })
         return newNodes.map(nodeData => {
 
-            const nodeGfx = _this.graphStore.nodeDataToNodeGfx.get(nodeData);
+            const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(nodeData);
             if (!nodeGfx) {
                 // create node if doesn't exist
                 const {nodeContainer, nodeLabelContainer} = this.createNode(nodeData);
@@ -574,8 +524,16 @@ textColor: "#dddddd"
     }
 
     updatePositions = () => {
-        const {links} = this.dataStore;
+        console.log("updatePositions triggered",);
         this.clearLinkCanvas();
+        this.updateNodePositions();
+        this.updateLinkPositions();
+        this.requestRender();
+    };
+
+
+    updateLinkPositions() {
+        const links = this.dataStore.getEdgesList();
         const linkDataGfxPairs = [];
         for (let i = 0; i < links.length; i++) {
             let {linkGfx, linkGfxLabel} = this.createLink(links[i])
@@ -585,63 +543,55 @@ textColor: "#dddddd"
             this.dataStore.linkLabelGraphicsArray.push(linkGfxLabel);
             this.linksLabelsLayer.addChild(linkGfxLabel);
             linkDataGfxPairs.push([links[i], linkGfx, linkGfxLabel])
-
         }
-        this.graphStore.updateLinkPairs(linkDataGfxPairs);
+        this.graphicsStore.updateLinkPairs(linkDataGfxPairs);
 
-        this.updateNodePositions();
-        console.log("updatePositions triggered");
-        this.requestRender();
-    };
+    }
+
 
     updateNodePositions() {
         let _this = this;
-        const {nodes} = this.dataStore;
+        const nodes = this.dataStore.getVerticesList();
         for (const node of nodes) {
-            if (!!_this.graphStore.nodeDataToNodeGfx.get(node)) {
-                _this.graphStore.nodeDataToNodeGfx.get(node).position = new PIXI.Point(node.x, node.y)
+            if (!!_this.graphicsStore.nodeDataToNodeGfx.get(node.id)) {
+                _this.graphicsStore.nodeDataToNodeGfx.get(node.id).position = new PIXI.Point(node.x, node.y)
             }
-            if (!!_this.graphStore.nodeDataToLabelGfx.get(node)) {
-                _this.graphStore.nodeDataToLabelGfx.get(node).position = new PIXI.Point(node.x, node.y)
+            if (!!_this.graphicsStore.nodeDataToLabelGfx.get(node.id)) {
+                _this.graphicsStore.nodeDataToLabelGfx.get(node.id).position = new PIXI.Point(node.x, node.y)
             }
         }
     }
 
-    updateSimulationData(nodes, links) {
-        let _this = this;
-        this.forceSimulation.nodes(nodes);
-        this.forceSimulation.force("link").links(links)
-            // .id(linkData => linkData.id)
-            // .distance(_this.settings.DEFAULT_LINK_LENGTH);
 
-        // this.forceSimulation.alphaTarget(0.3).restart();
-
-    }
-
-    render() {
+    renderGraphics() {
 
         this.isRendering = true
-        const {nodes, links} = this.dataStore;
-        console.log("rendering with data:: links ======== ", links.length);
-        console.log("rendering with data:: nodes ======== ", nodes, nodes.length);
+        const {verticesToRender, edgesToRender} = this.dataStore.getAllDataToRender();
+        console.log("vertices2Render ======== ", verticesToRender.length);
+        console.log("edges2Render ======== ", edgesToRender.length);
 
+        // Create nodes
+        const nodeDataGfxPairs = this.createNodes(verticesToRender);
+        this.graphicsStore.updateNodePairs(nodeDataGfxPairs);
 
-        const nodeDataGfxPairs = this.createNodes(nodes);
-        this.graphStore.updateNodePairs(nodeDataGfxPairs);
+        // Create Links ?
 
         // initial draw
         this.requestRender();
 
     }
 
-    addData(newNodes, newLinks) {
-        let _this = this;
-        this.dataStore.addData(newNodes, newLinks);
-        const {nodes, links} = this.dataStore;
-        console.log("======= total nodes and links after adding new data ", nodes.length, links.length);
-        const linksCurvesPrepared = prepareLinksDataForCurves(links);
-        _this.updateSimulationData(nodes, linksCurvesPrepared);
-    }
+    // addNewGraphics(newVertices, newEdges) {
+    //     // const {nodes, links} = this.dataStore;
+    //     console.log("======= total nodes and links after adding new data ", newVertices.length, newEdges.length);
+    //
+    //
+    //     const nodeDataGfxPairs = this.createNodes(newVertices);
+    //     this.graphicsStore.updateNodePairs(nodeDataGfxPairs);
+    //
+    //
+    //     this.updatePositions(); // nodes will be created in this step anyways.
+    // }
 
 
     preventWheelScrolling() {

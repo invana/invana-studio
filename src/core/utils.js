@@ -9,6 +9,22 @@ function padZero(str, len) {
     return (zeros + str).slice(-len);
 }
 
+export function convertMapKeysToArray(mapData) {
+    let data = [];
+    for (const [key, value] of mapData.entries()) {
+        data.push(value);
+    }
+    return data;
+}
+export function convertWeakMapKeysToArray(weakMapData) {
+    console.log("weakMap", weakMapData)
+    let data = [];
+    for (const [key, value] of weakMapData.items()) {
+        data.push(value);
+    }
+    return data;
+}
+
 export function invertColor(hex, bw) {
     /*
     https://stackoverflow.com/a/35970186/3448851
@@ -123,7 +139,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
         headers: extraHeaders,
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
-    console.log("response========",response);
+    console.log("response========", response);
     let responseJson = null;
     // let statusCode = response.status; // response from the server.
     try {
@@ -131,7 +147,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
     } catch (e) {
         console.log("failed to get the json data");
     }
-    return {"response":responseJson, transporterStatusCode: response.status}
+    return {"response": responseJson, transporterStatusCode: response.status}
 }
 
 export function redirectToConnectIfNeeded(gremlinUrl) {

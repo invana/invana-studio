@@ -34,7 +34,7 @@ import AboutComponent from "../viewlets/about";
 import {REPO_URL} from "../config";
 import ErrorBoundary from "../canvas/graph/error-boundary";
 import PIXICanvasComponent from "../canvas/pixi-canvas/component";
-// import GraphCanvas from "../canvas/graph";
+// import GraphicsEngine from "../canvas/graph";
 import JSONCanvas from "../canvas/json";
 import TableCanvas from "../canvas/table";
 import RawResponsesCanvas from "../canvas/raw-responses";
@@ -52,7 +52,6 @@ export default class ExplorerView extends BaseView {
     processResponse(response) {
         super.processResponse(response);
         this.extendGraph(response);
-
     }
 
     // startQuery(query) {
@@ -536,7 +535,7 @@ export default class ExplorerView extends BaseView {
                                         {(() => {
                                             if (this.state.canvasType === "graph" && this.connector.getLastResponse()) {
                                                 // return (
-                                                //     <GraphCanvas
+                                                //     <GraphicsEngine
                                                 //         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                                 //         setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                                 //         responses={this.state.responses}
@@ -563,6 +562,7 @@ export default class ExplorerView extends BaseView {
                                                         middleBottomContentName={this.state.middleBottomContentName}
 
                                                         selectedElementData={this.state.selectedElementData}
+                                                        setStatusMessage={this.setStatusMessage.bind(this)}
 
                                                         connector={this.connector}
                                                         dataStore={this.dataStore}

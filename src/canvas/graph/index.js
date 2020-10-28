@@ -4,21 +4,21 @@ import D3ForceDirectedCanvas from "./canvas";
 import LegendCanvas from "./legend";
 import PropTypes from "prop-types";
 
-export default class GraphCanvas extends React.Component {
+export default class GraphicsEngine extends React.Component {
 
     static defaultProps = {
         responses: [],
         shallReRenderD3Canvas: null,
-        makeQuery: () => console.error("makeQuery prop not set for GraphCanvas"),
-        // setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphCanvas"),
-        // setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphCanvas"),
-        setSelectedElementData: () => console.error("setSelectedElementData prop not set for GraphCanvas"),
-        setRightContentName: () => console.error("setRightContentName prop not set for GraphCanvas"),
-        setMiddleBottomContentName: () => console.error("setMiddleBottomContentName prop not set for GraphCanvas"),
-        middleBottomContentName: () => console.error("middleBottomContentName prop not set for GraphCanvas"),
-        requestBuilder: () => console.error("requestBuilder prop not set for GraphCanvas"),
+        makeQuery: () => console.error("makeQuery prop not set for GraphicsEngine"),
+        // setShowVertexOptions: (selectedNode) => console.error("setShowVertexOptions prop not set for GraphicsEngine"),
+        // setHideVertexOptions: () => console.error("setHideVertexOptions prop not set for GraphicsEngine"),
+        setSelectedElementData: () => console.error("setSelectedElementData prop not set for GraphicsEngine"),
+        setRightContentName: () => console.error("setRightContentName prop not set for GraphicsEngine"),
+        setMiddleBottomContentName: () => console.error("setMiddleBottomContentName prop not set for GraphicsEngine"),
+        middleBottomContentName: () => console.error("middleBottomContentName prop not set for GraphicsEngine"),
+        requestBuilder: () => console.error("requestBuilder prop not set for GraphicsEngine"),
         vertices: [],
-        startQuery: () => console.error("startQuery prop not set for GraphCanvas"),
+        startQuery: () => console.error("startQuery prop not set for GraphicsEngine"),
         edges: []
     }
 
@@ -58,7 +58,7 @@ export default class GraphCanvas extends React.Component {
 
     render() {
         return (
-            <div className={"graphCanvas"}>
+            <div className={"GraphicsEngine"}>
                 <LegendCanvas
                     nodes={this.props.vertices}
                     links={this.props.edges}

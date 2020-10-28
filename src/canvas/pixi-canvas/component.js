@@ -1,6 +1,5 @@
 import React from "react";
-import GraphCanvas from "./canvas";
-import Connector from "./connector";
+import GraphicsEngine from "./canvas";
 import "./style.css";
 import PropTypes from "prop-types";
 import {
@@ -9,6 +8,9 @@ import {
     removeEdgeMeta,
     removeVertexMeta
 } from "../canvas-utils";
+import GraphicsStore from "../../core/graphics-store";
+import GESettings from "./old/settings";
+import GraphSimulator from "../../core/graph-simulator";
 // import UpdaterCls from "./updates";
 
 // const connector = new Connector();
@@ -25,6 +27,7 @@ export default class PIXICanvasComponent extends React.Component {
     middleBottomContentName={this.state.middleBottomContentName}
 
     selectedElementData={this.state.selectedElementData}
+    setStatusMessage={this.selectedElementData}
 
     connector={this.connector}
     resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
@@ -40,6 +43,7 @@ export default class PIXICanvasComponent extends React.Component {
         setMiddleBottomContentName: (contentName) => console.error("setMiddleBottomContentName not set", contentName),
         middleBottomContentName: null,
         selectedElementData: null,
+        setStatusMessage: (message) => console.debug("setStatusMessage not set", message),
 
         connector: false,
         dataStore: null,
@@ -60,63 +64,96 @@ export default class PIXICanvasComponent extends React.Component {
         middleBottomContentName: PropTypes.string,
 
         shallReRenderD3Canvas: PropTypes.bool,
-        selectedElementData: PropTypes.object
+        selectedElementData: PropTypes.object,
+        setStatusMessage: PropTypes.func
     }
 
 
-    reRender() {
-        console.log("PIXICanvasComponent reRender()", this.props.dataStore.getAllData());
+    constructor(props) {
+        super(props);
+
+    }
 
 
-        const {vertices, edges} = this.props.dataStore.getAllData();
-        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        const cleanedEdges = removeEdgeMeta(edges);
-        const cleanedVertices = removeVertexMeta(vertices);
-        let linksData = prepareLinksDataForCurves(cleanedEdges);
-        let nodesData = prepareNodesDataWithOptions(cleanedVertices, nodeOptions);
-        this.graphCanvas.addData(nodesData, linksData);
+    checkAndAddNewData2Simulation() {
+        /*
+
+        This will add the new data needed for the new simulation..
+
+         */
+        console.log("PIXICanvasComponent checkAndAddNewData2Simulation()", this.props.dataStore.getAllData());
+        console.log("getAllDataToRender()", this.props.dataStore.getAllDataToRender());
+        this.props.setStatusMessage("Updating the graph...");
+        const {verticesToRender, edgesToRender} = this.props.dataStore.getAllDataToRender();
+
+        // adding this data to force simulation
+        this.forceSimulator.addDataToGraphSimulation(verticesToRender, edgesToRender, this.props.dataStore);
 
 
-        //
-        // const initData = {
-        //     nodes: [
-        //         {"id": "Myriel", "group": 1},
-        //         {"id": "Napoleon", "group": 1},
-        //     ], links: [
-        //         {"id": "Myriel-Napoleon", "source": "Napoleon", "target": "Myriel", "value": 1},
-        //         {"id": "Myriel-Napoleon-2", "source": "Napoleon", "target": "Myriel", "value": 2},
-        //         {"id": "Myriel-Napoleon-3", "source": "Napoleon", "target": "Myriel", "value": 3},
-        //     ]
-        // };
-        // setTimeout(() => {
-        // this.graphCanvas.addData(initData.nodes, initData.links)
-        // this.graphCanvas.addData(connector.getData().nodes, connector.getData().links);
+        // add to simulation.
+        console.log("vertices2RenderPrepared", verticesToRender);
 
     }
 
     componentDidMount() {
+        let _this = this;
         const canvasElem = document.querySelector(".graphContainer");
         const nodeMenuEl = document.querySelector(".nodeMenuContainer");
+        // const graphCanvasStatus = document.querySelector("#graph-canvas-status");
 
         console.log("canvasElem.offsetWidth,", canvasElem.offsetWidth, canvasElem.offsetHeight)
+        this.settings = new GESettings(canvasElem.offsetWidth, canvasElem.offsetHeight);
 
-        this.graphCanvas = new GraphCanvas(canvasElem, nodeMenuEl,
-            canvasElem.offsetWidth,
-            canvasElem.offsetHeight,
+        this.graphicsEngine = new GraphicsEngine(canvasElem, nodeMenuEl,
+            this.settings,
+            this.props.dataStore,
             this.onNodeSelected.bind(this)
         )
-        this.reRender();
+
+        this.forceSimulator = new GraphSimulator(this.settings, () => {
+            console.log("========on onForceSimulationEnd ")
+            // const {vertices2Render, edges2Render} = _this.getDataToRender();
+            _this.onForceSimulationEnd(_this.graphicsEngine, _this.setStatusMessage.bind(_this));
+
+        });
+
+        this.checkAndAddNewData2Simulation();
     }
 
+    setStatusMessage(message) {
+        this.props.setStatusMessage(message);
+    }
+
+    onForceSimulationEnd(graphicsEngine, setStatusMessage) {
+        console.log("onForceSimulationEnd", graphicsEngine, setStatusMessage);
+
+        graphicsEngine.renderGraphics();
+        graphicsEngine.updatePositions();
+        graphicsEngine.isRendering = false;
+        graphicsEngine.requestRender();
+
+
+        if (graphicsEngine.isFirstLoaded === false) {
+            // center the view only for the first time.
+            graphicsEngine.resetViewport();
+            graphicsEngine.isFirstLoaded = true;
+        }
+        setStatusMessage("Updated the graph");
+        // this.graphCanvasStatus.innerHTML = "Updated the data";
+
+        // this.graphicsEngine.updatePositions();
+        // GraphicsEngine.upd
+
+    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("componentDidUpdate",)
-        // if (prevProps.dataStore.getVerticesCount() !== this.props.dataStore.getVerticesCount()
-        //     || prevProps.dataStore.getEdgesCount() !== this.props.dataStore.getEdgesCount()) {
-        //     this.reRender();
-        //
-        // }
-        this.reRender();
+        if (prevProps.dataStore.getVerticesCount() !== this.props.dataStore.getVerticesCount()
+            || prevProps.dataStore.getEdgesCount() !== this.props.dataStore.getEdgesCount()) {
+            this.checkAndAddNewData2Simulation();
+
+        }
+        // this.checkAndAddNewData2Simulation();
 
     }
 
@@ -129,14 +166,14 @@ export default class PIXICanvasComponent extends React.Component {
 
 
     onClickFocus() {
-        const nodeData = this.graphCanvas.eventStore.lastSelectedNodeData;
-        this.graphCanvas.dataStore.addNode2Focus(nodeData);
-        this.graphCanvas.graphStore.focusOnNodes(this.graphCanvas.dataStore.focusedNodes);
-        this.graphCanvas.zoom2Point(nodeData.x, nodeData.y);
+        const nodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
+        this.graphicsEngine.dataStore.addNode2Focus(nodeData);
+        this.graphicsEngine.graphicsStore.focusOnNodes(this.graphicsEngine.dataStore.focusedNodes);
+        this.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
         document.querySelector(".focused-nodes").append(
             "<li>" + nodeData.id + "</li>"
         )
-        this.graphCanvas.eventStore.hideMenu();
+        this.graphicsEngine.eventStore.hideMenu();
     }
 
     onClickShowInV() {
@@ -159,17 +196,18 @@ export default class PIXICanvasComponent extends React.Component {
     }
 
     hideMenu() {
-        this.graphCanvas.eventStore.hideMenu();
+        this.graphicsEngine.eventStore.hideMenu();
     }
 
     cleanGraph() {
-        this.graphCanvas.forceSimulation.restart();
+        console.log("this.forceSimulator", this.forceSimulator);
+        this.forceSimulator.forceSimulator.restart();
     }
 
     resetFocus() {
-        this.graphCanvas.dataStore.removeAllNodes2Focus();
-        this.graphCanvas.graphStore.resetFocus();
-        this.graphCanvas.resetViewport();
+        this.graphicsEngine.dataStore.removeAllNodes2Focus();
+        this.graphicsEngine.graphicsStore.resetFocus();
+        this.graphicsEngine.resetViewport();
     }
 
 
@@ -177,10 +215,7 @@ export default class PIXICanvasComponent extends React.Component {
         console.log("PIXICanvas render()", this.props.dataStore.getVerticesList())
         return (
             <div className={"graphContainer"}>
-                <h3>Focused Nodes</h3>
                 <ul className={"focused-nodes"}>
-
-
                 </ul>
 
 
