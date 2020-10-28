@@ -56,8 +56,8 @@ export default class PIXICanvasComponent extends React.Component {
         setRightContentName: PropTypes.func,
         requestBuilder: PropTypes.object,
         dataStore: PropTypes.object,
+        connector: PropTypes.object,
         middleBottomContentName: PropTypes.string,
-
 
         shallReRenderD3Canvas: PropTypes.bool,
         selectedElementData: PropTypes.object
@@ -68,7 +68,7 @@ export default class PIXICanvasComponent extends React.Component {
         console.log("PIXICanvasComponent reRender()", this.props.dataStore.getAllData());
 
 
-        const {vertices, edges} =  this.props.dataStore.getAllData();
+        const {vertices, edges} = this.props.dataStore.getAllData();
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         const cleanedEdges = removeEdgeMeta(edges);
         const cleanedVertices = removeVertexMeta(vertices);
@@ -121,8 +121,10 @@ export default class PIXICanvasComponent extends React.Component {
     }
 
     onNodeSelected(nodeData) {
-        this.props.setSelectedElementData(nodeData);
-        document.querySelector("#elementId").innerHTML = nodeData.id;
+        if (this.props.middleBottomContentName !== "vertex-options") {
+            this.props.setMiddleBottomContentName('selected-data-overview')
+            this.props.setSelectedElementData(nodeData);
+        }
     }
 
 
@@ -140,7 +142,7 @@ export default class PIXICanvasComponent extends React.Component {
     onClickShowInV() {
         // alert("onClickShowInv clicked");
         const selectedNode = this.props.selectedElementData;
-        const query_string = this.props.requestBuilder.getInEdgeVertices(selectedNode.id);
+        const query_string = this.props.connector.requestBuilder.getInEdgeVertices(selectedNode.id);
         this.props.makeQuery(query_string);
     }
 
@@ -151,7 +153,7 @@ export default class PIXICanvasComponent extends React.Component {
         // TODO - improve performance of the query.
 
 
-        const query_string = this.props.requestBuilder.getOutEdgeVertices(selectedNode.id);
+        const query_string = this.props.connector.requestBuilder.getOutEdgeVertices(selectedNode.id);
 
         this.props.makeQuery(query_string);
     }

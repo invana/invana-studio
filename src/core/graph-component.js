@@ -193,6 +193,8 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             selectedElementData: null,
             middleBottomContentName: null
         })
+        this.dataStore.flushData();
+        this.connector.flushResponses();
     }
 
     setIsStreaming(status) {

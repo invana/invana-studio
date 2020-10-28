@@ -36,6 +36,10 @@ class ConnectorBase {
     }
 
 
+    flushResponses(){
+        this.responsesList = [];
+    }
+
     addResponse2List(response) {
         const existingResponses = this.responsesList;
         existingResponses.push(response);

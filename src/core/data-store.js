@@ -42,6 +42,11 @@ export default class InMemoryDataStore {
         return this.#vertices.size;
     }
 
+    flushData() {
+        this.#vertices = [];
+        this.#edges = [];
+    }
+
     getVerticesList() {
         let vertices = [];
         for (let i in this.#vertices) {
