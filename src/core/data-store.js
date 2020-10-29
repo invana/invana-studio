@@ -92,8 +92,11 @@ export default class InMemoryDataStore {
         if (this.verticesToRender.length === 0) {
             // assuming first-time
             const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-            const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
-            return prepareNodesDataWithOptions(cleanedVertices, nodeOptions);
+            const cleanedVertices = convertMapKeysToArray(this.#vertices);
+            // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
+            const _ = prepareNodesDataWithOptions(cleanedVertices, nodeOptions);
+            this.verticesToRender = _;
+            return _
 
         } else {
             return this.verticesToRender;
@@ -106,8 +109,12 @@ export default class InMemoryDataStore {
         // return this.getAllDataToRender().edgesToRender;
         if (this.verticesToRender.length === 0 && this.edgesToRender.length === 0) {
             // assuming first-time
-            const cleanedEdges = removeEdgeMeta(convertMapKeysToArray(this.#edges));
-            return prepareLinksDataForCurves(cleanedEdges)
+            // const cleanedEdges = removeEdgeMeta(convertMapKeysToArray(this.#edges));
+            const cleanedEdges = convertMapKeysToArray(this.#edges);
+
+            const _ = prepareLinksDataForCurves(cleanedEdges);
+            this.edgesToRender = _;
+            return _;
 
         } else {
             return this.edgesToRender

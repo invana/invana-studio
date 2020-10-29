@@ -233,7 +233,7 @@ export default class EventStore {
     }
 
     unHighlightNode(graphicsEngine, nodeData) {
-
+        console.log("=====unHighlightNode", nodeData)
         graphicsEngine.graphicsStore.resetFocus();
 
         // const neighborsData = graphicsEngine.dataStore.getNeighborNodesAndLinks([nodeData])

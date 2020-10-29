@@ -52,7 +52,7 @@ export default class GraphicsStore {
     focusOnNodes(nodes) {
         console.log("=====focusOnNodes", nodes);
         let _this = this;
-        this.resetFocus();
+        // this.resetFocus();
         const {notNeighborLinks, notNeighborNodes} = _this.dataStore.getNotNeighborLinks(nodes);
         notNeighborLinks.forEach((linkData) => {
             let linkGfx = _this.linkDataToLinkGfx.get(linkData);
@@ -119,21 +119,18 @@ export default class GraphicsStore {
         // const
 
         console.log("++reset focus")
-        console.log("++", this.dataStore.getEdgesList())
-        console.log("++", this.linkDataToLinkGfx)
-
         const {verticesToRender, edgesToRender} = this.dataStore.getAllDataToRender()
+        console.log("++", verticesToRender, edgesToRender)
 
         // TODO - review code, do we need forEach on getEdgesList instead of iterating over all
         //  _this.linkDataToLinkGfx and _this.linkDataToLabelGfx
-        verticesToRender.forEach((link, i) => {
+        edgesToRender.forEach((link, i) => {
             const linkGfx = _this.linkDataToLinkGfx.get(link);
             const linkLabelGfx = _this.linkDataToLabelGfx.get(link);
 
             if (linkGfx) {
                 linkGfx.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
                 linkLabelGfx.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
-
                 // // move back from front layer
                 _this.graphicsEngine.frontLayer.removeChild(linkGfx);
                 _this.graphicsEngine.linksLayer.addChild(linkGfx);
@@ -143,9 +140,9 @@ export default class GraphicsStore {
 
         })
 
-        edgesToRender.forEach((node, i) => {
-            const nodeGfx = _this.nodeDataToNodeGfx.get(node.id);
-            const labelGfx = _this.nodeDataToLabelGfx.get(node.id);
+        verticesToRender.forEach((node, i) => {
+            const nodeGfx = _this.nodeDataToNodeGfx.get(node);
+            const labelGfx = _this.nodeDataToLabelGfx.get(node);
 
             // move back from front layer
             _this.graphicsEngine.frontLayer.removeChild(nodeGfx);
