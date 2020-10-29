@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint-plugin-react": "^7.20.3"
+    "eslint-plugin-react": "^7.20.3",
+    "fontfaceobserver": "^2.1.0"
   }
 }

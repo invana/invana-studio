@@ -33,9 +33,10 @@ export default class GESettings {
     LINK_UN_HIGHLIGHT_ALPHA = 0.08;
 
 
-    ICON_FONT_FAMILY = 'Material Icons';
+    // ICON_FONT_FAMILY = 'Material Icons';
+    ICON_FONT_FAMILY = 'Font Awesome 5 Free';
     ICON_FONT_SIZE = this.NODE_RADIUS / Math.SQRT2 * 2;
-    ICON_TEXT = 'person';
+    ICON_TEXT = 'f542';
 
     ZOOM_CLAMP_MIN_SCALE= .2;
     ZOOM_CLAMP_MAX_SCALE= 3;

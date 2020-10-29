@@ -10,6 +10,7 @@ import {colorToNumber} from "../canvas-utils";
 // import FontFaceObserver from "fontfaceobserver";
 import EventStore from "./events";
 import GraphicsStore from "../../core/graphics-store";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default class GraphicsEngine {
 
@@ -35,8 +36,8 @@ export default class GraphicsEngine {
         this.eventStore = new EventStore(nodeMenuEl);
         this.onNodeSelected = onNodeSelected; // used to send back any message to react component.
 
-        this.loadFont(this.settings.ICON_FONT_FAMILY);
-
+        // this.loadFont(this.settings.ICON_FONT_FAMILY);
+        //
         // new FontFaceObserver(this.settings.ICON_FONT_FAMILY).load();
 
         // create PIXI application
@@ -208,19 +209,19 @@ textColor: "#dddddd"
         const circleBorder = new PIXI.Graphics();
         circle.x = 0;
         circle.y = 0;
-        circleBorder.lineStyle(1.5, nodeData.meta.shapeOptions.strokeWidth);
+        circleBorder.lineStyle(nodeData.meta.shapeOptions.strokeWidth, nodeData.meta.shapeOptions.strokeColor );
         circleBorder.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
         nodeContainer.addChild(circleBorder);
 
-        const icon = new PIXI.Text(ICON_TEXT, {
-            fontFamily: ICON_FONT_FAMILY,
-            fontSize: ICON_FONT_SIZE,
-            fill: colorToNumber(nodeData.meta.shapeOptions.textColor)
-        });
-        icon.x = 0;
-        icon.y = 0;
-        icon.anchor.set(0.5);
-        nodeContainer.addChild(icon);
+        // const icon = new PIXI.Text(ICON_TEXT, {
+        //     fontFamily: ICON_FONT_FAMILY,
+        //     fontSize: ICON_FONT_SIZE,
+        //     fill: colorToNumber(nodeData.meta.shapeOptions.textColor)
+        // });
+        // icon.x = 0;
+        // icon.y = 0;
+        // icon.anchor.set(0.5);
+        // nodeContainer.addChild(icon);
 
         const nodeLabelContainer = new PIXI.Container();
         nodeLabelContainer.x = nodeData.x;
