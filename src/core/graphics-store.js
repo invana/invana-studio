@@ -55,8 +55,8 @@ export default class GraphicsStore {
         // this.resetFocus();
         const {notNeighborLinks, notNeighborNodes} = _this.dataStore.getNotNeighborLinks(nodes);
         notNeighborLinks.forEach((linkData) => {
-            let linkGfx = _this.linkDataToLinkGfx.get(linkData);
-            let linkGfxLabel = _this.linkDataToLabelGfx.get(linkData);
+            let linkGfx = _this.linkDataToLinkGfx.get(linkData.id);
+            let linkGfxLabel = _this.linkDataToLabelGfx.get(linkData.id);
 
             linkGfx.alpha = _this.graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
             linkGfxLabel.alpha = _this.graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
@@ -71,9 +71,9 @@ export default class GraphicsStore {
         })
 
         notNeighborNodes.forEach((node2Highlight) => {
-            let nodeContainer = _this.nodeDataToNodeGfx.get(node2Highlight);
+            let nodeContainer = _this.nodeDataToNodeGfx.get(node2Highlight.id);
             console.log("==nodeContainer", node2Highlight, nodeContainer);
-            const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight);
+            const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight.id);
 
             nodeContainer.alpha = _this.graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
             labelGfx.alpha = _this.graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
@@ -87,7 +87,7 @@ export default class GraphicsStore {
         });
 
         nodes.forEach((node) => {
-            let nodeContainer = _this.nodeDataToNodeGfx.get(node);
+            let nodeContainer = _this.nodeDataToNodeGfx.get(node.id);
             console.log("==nodeContainer", node, nodeContainer);
             //
             // _this.hoveredNodeChildrenPairs[node.id] = nodeContainer.children;
@@ -119,14 +119,14 @@ export default class GraphicsStore {
         // const
 
         console.log("++reset focus")
-        const {verticesToRender, edgesToRender} = this.dataStore.getAllDataToRender()
+        const {verticesToRender, edgesToRender} = this.dataStore.getDataToRender()
         console.log("++", verticesToRender, edgesToRender)
 
-        // TODO - review code, do we need forEach on getEdgesList instead of iterating over all
+        // TODO - review code, do we need forEach on getAllRawEdgesList instead of iterating over all
         //  _this.linkDataToLinkGfx and _this.linkDataToLabelGfx
         edgesToRender.forEach((link, i) => {
-            const linkGfx = _this.linkDataToLinkGfx.get(link);
-            const linkLabelGfx = _this.linkDataToLabelGfx.get(link);
+            const linkGfx = _this.linkDataToLinkGfx.get(link.id);
+            const linkLabelGfx = _this.linkDataToLabelGfx.get(link.id);
 
             if (linkGfx) {
                 linkGfx.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
@@ -141,8 +141,8 @@ export default class GraphicsStore {
         })
 
         verticesToRender.forEach((node, i) => {
-            const nodeGfx = _this.nodeDataToNodeGfx.get(node);
-            const labelGfx = _this.nodeDataToLabelGfx.get(node);
+            const nodeGfx = _this.nodeDataToNodeGfx.get(node.id);
+            const labelGfx = _this.nodeDataToLabelGfx.get(node.id);
 
             // move back from front layer
             _this.graphicsEngine.frontLayer.removeChild(nodeGfx);
@@ -178,10 +178,10 @@ export default class GraphicsStore {
         })
 
         // create lookup tables
-        this.nodeDataToNodeGfx = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeData, nodeGfx]));
-        this.nodeGfxToNodeData = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeGfx, nodeData]));
-        this.nodeDataToLabelGfx = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeData, labelGfx]));
-        this.labelGfxToNodeData = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [labelGfx, nodeData]));
+        this.nodeDataToNodeGfx = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeData.id, nodeGfx]));
+        this.nodeGfxToNodeData = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeGfx, nodeData.id]));
+        this.nodeDataToLabelGfx = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeData.id, labelGfx]));
+        this.labelGfxToNodeData = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [labelGfx, nodeData.id]));
         // add Neighbours map also.
     }
 
@@ -193,10 +193,10 @@ export default class GraphicsStore {
 
 
         // create lookup tables
-        this.linkDataToLinkGfx = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkData, linkGfx]));
-        this.linkGfxToLinkData = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkGfx, linkData]));
-        this.linkDataToLabelGfx = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkData, labelGfx]));
-        this.labelGfxToLinkData = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [labelGfx, linkData]));
+        this.linkDataToLinkGfx = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkData.id, linkGfx]));
+        this.linkGfxToLinkData = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkGfx, linkData.id]));
+        this.linkDataToLabelGfx = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkData.id, labelGfx]));
+        this.labelGfxToLinkData = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [labelGfx, linkData.id]));
         // add Neighbours map also.
     }
 

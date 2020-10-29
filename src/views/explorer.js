@@ -162,13 +162,13 @@ export default class ExplorerView extends BaseView {
         // const {vertices, edges } = this.dataStore.getAllData()
         this.setState({
             // ...this.dataStore.getAllData(),
-            verticesCount: this.dataStore.getVerticesList(),
-            edgesCount: this.dataStore.getEdgesList(),
+            verticesCount: this.dataStore.getVerticesCount(),
+            edgesCount: this.dataStore.getEdgesCount(),
         })
     }
 
     render() {
-        console.log("explorer render() ", this.connector.getLastResponse(), this.connector.responsesList)
+        // console.log("explorer render() ", this.connector.getLastResponse(), this.connector.responsesList)
         return (
             <div className="App">
                 <GEHeader>

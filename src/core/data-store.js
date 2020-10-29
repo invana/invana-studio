@@ -1,14 +1,7 @@
-/*
-
-
- */
-
 import {convertMapKeysToArray} from "./utils";
 import {
     prepareLinksDataForCurves,
-    prepareNodesDataWithOptions,
-    removeEdgeMeta,
-    removeVertexMeta
+    prepareNodesDataWithOptions
 } from "../canvas/canvas-utils";
 
 export default class InMemoryDataStore {
@@ -30,6 +23,9 @@ export default class InMemoryDataStore {
     // Data of the 2D arrangement of vertices and links
     verticesToRender = [];
     edgesToRender = [];
+
+    verticesAlreadyRendered = [];
+    edgesAlreadyRendered = [];
 
     constructor() {
         this.resetData()
@@ -64,21 +60,118 @@ export default class InMemoryDataStore {
     }
 
     setDataToRender(verticesToRender, edgesToRender) {
-        console.log("=====setDataToRender triggered");
+        console.log("=====setDataToRender triggered", verticesToRender.length, edgesToRender.length);
         this.verticesToRender = verticesToRender;
         this.edgesToRender = edgesToRender;
     }
 
-    getAllDataToRender() {
-        console.log("=====getAllDataToRender triggered");
+    getDataToRender() {
+
+        const keyValueArray = this.verticesToRender.map(entry => [entry['id'], entry]);
+        const map = new Map(keyValueArray);
+        const verticesToRender =  Array.from(map.values());
+
+
+        const keyValueArrayEdge = this.edgesToRender.map(entry => [entry['id'], entry]);
+        const mapEdge = new Map(keyValueArrayEdge);
+        const edgesToRender =  Array.from(mapEdge.values());
+
+
+        return {verticesToRender: verticesToRender, edgesToRender: edgesToRender};
+
+    }
+
+    checkIfExist(element, existingElements) {
+        console.log("existingElements", existingElements)
+        existingElements.forEach((_elem) => {
+            console.log("_elem.id, element.id", (_elem.id === element.id), _elem.id, element.id,)
+            if (_elem.id === element.id) {
+                console.log("====>>>>>");
+                return true;
+            }
+        })
+        console.log("=======")
+        return false;
+    }
+
+
+    getNewDataToRender() {
+        const {verticesAlreadyRendered, edgesAlreadyRendered} = this.getAlreadyRenderedData()
+        const allRawVertices = this.getAllRawVerticesList();
+        const allRawEdges = this.getAllRawEdgesList();
+
+        console.log("*****|| allRawVertices allRawEdges", allRawVertices, allRawEdges)
+        let newVerticesToRender = [];
+        allRawVertices.forEach((vertex) => {
+            console.log("-----------");
+            if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, newVerticesToRender)) {
+                console.log("^^node", vertex);
+                newVerticesToRender.push(vertex)
+            }
+        })
+        let newEdgesToRender = [];
+        allRawEdges.forEach((edge) => {
+            if (!this.checkIfExist(edge, edgesAlreadyRendered) && !this.checkIfExist(edge, newEdgesToRender)) {
+                newEdgesToRender.push(edge)
+            }
+        })
+        console.log("*****|| newVerticesToRender", newVerticesToRender, newEdgesToRender)
+        return {newVerticesToRender, newEdgesToRender}
+    }
+
+    determineAllDataToRender() {
+        console.log("=====getDataToRender triggered");
+        const {newVerticesToRender, newEdgesToRender} = this.getNewDataToRender();
+        let {verticesAlreadyRendered, edgesAlreadyRendered} = this.getAlreadyRenderedData();
+
+
+        console.log("(((( newVerticesToRender, newEdgesToRender", newVerticesToRender, newEdgesToRender)
+        console.log("(((( verticesAlreadyRendered, edgesAlreadyRendered", verticesAlreadyRendered, edgesAlreadyRendered)
+
+        /*
+        has to use too many if's :( to not get into duplicates issue
+        when this method is called multiple times.
+
+         if (!this.checkIfExist(vertex, newVerticesToRender)) {
+                if (!this.checkIfExist(vertex, verticesToRender)) {
+                    verticesToRender.push(vertex);
+                }
+            }
+
+
+         */
+
+        let verticesToRender = [].concat(verticesAlreadyRendered); // start with already rendered data.
+        newVerticesToRender.forEach((vertex) => {
+
+            console.log("newV", this.checkIfExist(vertex, verticesAlreadyRendered), this.checkIfExist(vertex, verticesToRender))
+            if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, verticesToRender)) {
+                verticesToRender.push(vertex);
+            }
+
+        })
+
+        let edgesToRender = [].concat(edgesAlreadyRendered)
+        newEdgesToRender.forEach((edge) => {
+            if (!this.checkIfExist(edge, edgesAlreadyRendered) && !this.checkIfExist(edge, edgesToRender)) {
+                edgesToRender.push(edge);
+            }
+        })
+
+        console.log("======verticesToRender, edgesToRender", verticesToRender, edgesToRender)
+
         return {
-            verticesToRender: this.getVerticesList(),
-            edgesToRender: this.getEdgesList()
+            verticesToRender: verticesToRender,
+            edgesToRender: edgesToRender
         }
     }
 
     getVerticesCount() {
         return this.#vertices.size;
+    }
+
+    checkIfShouldBeConvertedToGraphics() {
+
     }
 
     resetData() {
@@ -88,46 +181,39 @@ export default class InMemoryDataStore {
         this.linkLabelGraphicsArray = [];
     }
 
-    getVerticesList() {
-        if (this.verticesToRender.length === 0) {
-            // assuming first-time
-            const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-            const cleanedVertices = convertMapKeysToArray(this.#vertices);
-            // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
-            const _ = prepareNodesDataWithOptions(cleanedVertices, nodeOptions);
-            this.verticesToRender = _;
-            return _
+    prepareNodes(vertices) {
+        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
+        return prepareNodesDataWithOptions(vertices, nodeOptions);
 
-        } else {
-            return this.verticesToRender;
+    }
 
+    getAllRawVerticesList() {
+        return this.prepareNodes(convertMapKeysToArray(this.#vertices))
+    }
+
+    getAllRawEdgesList() {
+        return prepareLinksDataForCurves(convertMapKeysToArray(this.#edges));
+    }
+
+    getAlreadyRenderedData() {
+        return {
+            verticesAlreadyRendered: this.verticesAlreadyRendered,
+            edgesAlreadyRendered: this.edgesAlreadyRendered
         }
     }
 
-    getEdgesList() {
-        // return convertMapKeysToArray(this.#edges);
-        // return this.getAllDataToRender().edgesToRender;
-        if (this.verticesToRender.length === 0 && this.edgesToRender.length === 0) {
-            // assuming first-time
-            // const cleanedEdges = removeEdgeMeta(convertMapKeysToArray(this.#edges));
-            const cleanedEdges = convertMapKeysToArray(this.#edges);
-
-            const _ = prepareLinksDataForCurves(cleanedEdges);
-            this.edgesToRender = _;
-            return _;
-
-        } else {
-            return this.edgesToRender
-
-        }
-
+    setAlreadyRenderedData(verticesAlreadyRendered, edgesAlreadyRendered) {
+        this.verticesAlreadyRendered = verticesAlreadyRendered;
+        this.edgesAlreadyRendered = edgesAlreadyRendered;
     }
+
 
     getNeighborNodesAndLinks(nodes) {
         let neighborNodes = [];
         let neighborLinks = [];
         // get the links attached to nodeId
-        this.getEdgesList().forEach((link) => {
+        this.getAllRawEdgesList().forEach((link) => {
             nodes.forEach((nodeData) => {
                 if (link.target.id === nodeData.id) {
                     neighborLinks.push(link);
@@ -146,19 +232,18 @@ export default class InMemoryDataStore {
         }
     }
 
-
     getNotNeighborLinks(selectedNodes) {
         let notNeighborLinks = [];
         let notNeighborNodes = [];
         const {nodes, links} = this.getNeighborNodesAndLinks(selectedNodes);
 
         nodes.push(...selectedNodes);
-        this.getVerticesList().forEach((node) => {
+        this.getAllRawVerticesList().forEach((node) => {
             if (!nodes.includes(node)) {
                 notNeighborNodes.push(node);
             }
         })
-        this.getEdgesList().forEach((link) => {
+        this.getAllRawEdgesList().forEach((link) => {
             if (!links.includes(link)) {
                 notNeighborLinks.push(link);
             }
@@ -180,7 +265,6 @@ export default class InMemoryDataStore {
         return false;
     }
 
-
     addNode2Focus(nodeData) {
         if (!this.checkIfNodeExistInFocused(nodeData)) {
             this.focusedNodes.push(nodeData);
@@ -191,7 +275,7 @@ export default class InMemoryDataStore {
         return this.#edges.size;
     }
 
-    getNode(edgeId) {
+    getEdge(edgeId) {
         return this.#edges.get(edgeId);
     }
 

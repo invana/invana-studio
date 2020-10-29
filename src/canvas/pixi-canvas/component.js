@@ -9,7 +9,7 @@ import {
     removeVertexMeta
 } from "../canvas-utils";
 import GraphicsStore from "../../core/graphics-store";
-import GESettings from "./old/settings";
+import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
 // import UpdaterCls from "./updates";
 
@@ -64,6 +64,7 @@ export default class PIXICanvasComponent extends React.Component {
         middleBottomContentName: PropTypes.string,
 
         shallReRenderD3Canvas: PropTypes.bool,
+        resetShallReRenderD3Canvas: PropTypes.func,
         selectedElementData: PropTypes.object,
         setStatusMessage: PropTypes.func
     }
@@ -71,7 +72,6 @@ export default class PIXICanvasComponent extends React.Component {
 
     constructor(props) {
         super(props);
-
     }
 
 
@@ -82,18 +82,48 @@ export default class PIXICanvasComponent extends React.Component {
 
          */
         console.log("PIXICanvasComponent checkAndAddNewData2Simulation()", this.props.dataStore.getAllData());
-        console.log("getAllDataToRender()", this.props.dataStore.getAllDataToRender());
+
+
+        this.graphicsEngine.isRendering = true;
         this.props.setStatusMessage("Updating the graph...");
-        const {verticesToRender, edgesToRender} = this.props.dataStore.getAllDataToRender();
+
+        const {verticesToRender, edgesToRender} = this.props.dataStore.determineAllDataToRender();
+
+        console.log("]=====verticesToRender, edgesToRender", verticesToRender, edgesToRender);
 
         // adding this data to force simulation
-        this.forceSimulator.addDataToGraphSimulation(verticesToRender, edgesToRender, this.props.dataStore);
+        this.forceSimulator.addDataToGraphSimulation(verticesToRender, edgesToRender,);
 
+        // save the 2d position data to storage.
+        this.props.dataStore.setDataToRender(verticesToRender, edgesToRender);
+        // saves to already rendered data, to find the diff later.
+        this.props.dataStore.setAlreadyRenderedData(verticesToRender, edgesToRender);
+        // this.graphicsEngine.clearCanvas();
 
         // add to simulation.
         console.log("vertices2RenderPrepared", verticesToRender);
 
+
+        // this.onForceSimulationEnd(this.graphicsEngine, this.setStatusMessage.bind(this));
+
+
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //
+    //     if (this.graphicsEngine.isRendering) {
+    //         return false;
+    //     }
+    //     const {newVerticesToRender, newEdgesToRender} = this.props.dataStore.getNewDataToRender();
+    //     console.log("===newVerticesToRender", newVerticesToRender, newEdgesToRender)
+    //     return newVerticesToRender.length > 0 || newEdgesToRender.length > 0;
+    //
+    // }
+
+    shouldComponentUpdate(nextProps) {
+        return nextProps.shallReRenderD3Canvas;
+    }
+
 
     componentDidMount() {
         let _this = this;
@@ -128,11 +158,7 @@ export default class PIXICanvasComponent extends React.Component {
         console.log("onForceSimulationEnd", graphicsEngine, setStatusMessage);
 
         graphicsEngine.renderGraphics();
-        graphicsEngine.updatePositions();
         graphicsEngine.isRendering = false;
-        graphicsEngine.requestRender();
-
-
         if (graphicsEngine.isFirstLoaded === false) {
             // center the view only for the first time.
             graphicsEngine.resetViewport();
@@ -147,13 +173,14 @@ export default class PIXICanvasComponent extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("componentDidUpdate",)
-        if (prevProps.dataStore.getVerticesCount() !== this.props.dataStore.getVerticesCount()
-            || prevProps.dataStore.getEdgesCount() !== this.props.dataStore.getEdgesCount()) {
-            this.checkAndAddNewData2Simulation();
+        // console.log("componentDidUpdate", this.props.dataStore.getAllRawVerticesList().length, this.props.dataStore.getVerticesCount())
 
+        if (this.props.shallReRenderD3Canvas === true) {
+            this.props.resetShallReRenderD3Canvas()
         }
-        // this.checkAndAddNewData2Simulation();
+
+        this.checkAndAddNewData2Simulation();
+
 
     }
 
@@ -212,7 +239,7 @@ export default class PIXICanvasComponent extends React.Component {
 
 
     render() {
-        console.log("PIXICanvas render()", this.props.dataStore.getVerticesList())
+        // console.log("PIXICanvas render()", this.props.dataStore.getAllRawVerticesList())
         return (
             <div className={"graphContainer"}>
                 <ul className={"focused-nodes"}>

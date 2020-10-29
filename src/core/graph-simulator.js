@@ -49,15 +49,13 @@ export default class GraphSimulator {
 
     }
 
-    addDataToGraphSimulation(vertices2RenderPrepared, edges2RenderPrepared, dataStore) {
+    addDataToGraphSimulation(vertices2RenderPrepared, edges2RenderPrepared) {
         console.log("===addDataToGraphSimulation", vertices2RenderPrepared, edges2RenderPrepared);
 
 
         this.forceSimulator.nodes(vertices2RenderPrepared);
         this.forceSimulator.force("link").links(edges2RenderPrepared);
 
-        // save the 2d position data to storage.
-        dataStore.setDataToRender(vertices2RenderPrepared, edges2RenderPrepared);
 
         // .id(linkData => linkData.id)
         // .distance(_this.settings.DEFAULT_LINK_LENGTH);

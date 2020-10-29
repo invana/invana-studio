@@ -1,4 +1,3 @@
-
 import * as PIXI from 'pixi.js-legacy'
 // import * as PIXI from "pixi.js";
 import {Viewport} from 'pixi-viewport'
@@ -99,7 +98,6 @@ export default class GraphicsEngine {
         this.linksLabelsLayer = new PIXI.Container();
         this.viewport.addChild(this.linksLabelsLayer);
 
-
         this.nodesLayer = new PIXI.Container();
         this.viewport.addChild(this.nodesLayer);
 
@@ -181,11 +179,12 @@ textColor: "#dddddd"
         nodeContainer.buttonMode = true;
         nodeContainer.hitArea = new PIXI.Circle(0, 0, nodeData.meta.shapeOptions.radius);
 
-        nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer, event));
-        nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
-        nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
-        nodeContainer.on('mouseup', (event) => this.eventStore.onNodeUnClicked(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
-        nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, _this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget), nodeContainer));
+        // console.log("event.currentTarget", )
+        nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
+        nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
+        nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
+        nodeContainer.on('mouseup', (event) => this.eventStore.onNodeUnClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
+        nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
 
 
         const circle = new PIXI.Graphics();
@@ -240,14 +239,14 @@ textColor: "#dddddd"
         let _this = this;
         let newNodes = [];
         nodes.forEach(nodeData => {
-            const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(nodeData);
+            const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(nodeData.id);
             if (!nodeGfx) {
                 newNodes.push(nodeData);
             }
         })
         return newNodes.map(nodeData => {
 
-            const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(nodeData);
+            const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(nodeData.id);
             if (!nodeGfx) {
                 // create node if doesn't exist
                 const {nodeContainer, nodeLabelContainer} = this.createNode(nodeData);
@@ -262,6 +261,28 @@ textColor: "#dddddd"
     }
 
 
+    clearCanvas() {
+
+        this.clearNodeCanvas();
+        this.clearLinkCanvas();
+        while (this.frontLayer.firstChild) {
+            this.frontLayer.removeChild(this.frontLayer.firstChild);
+        }
+    }
+
+    clearNodeCanvas() {
+
+        while (this.nodesLayer.firstChild) {
+            console.log("===removing NodeCanvas");
+            this.nodesLayer.removeChild(this.nodesLayer.firstChild);
+        }
+        while (this.nodeLabelsLayer.firstChild) {
+            this.nodeLabelsLayer.removeChild(this.nodeLabelsLayer.firstChild);
+        }
+
+
+    }
+
     clearLinkCanvas() {
         // console.log("this.dataStore.linkGraphicsArray.", this.dataStore.linkGraphicsArray.length)
         while (this.dataStore.linkGraphicsArray.length > 0) {
@@ -273,7 +294,6 @@ textColor: "#dddddd"
             } catch (e) {
 
             }
-
         }
         while (this.dataStore.linkLabelGraphicsArray.length > 0) {
             let linkLabelGraphics = this.dataStore.linkLabelGraphicsArray.pop();
@@ -523,6 +543,7 @@ textColor: "#dddddd"
 
     }
 
+
     updatePositions = () => {
         console.log("updatePositions triggered",);
         this.clearLinkCanvas();
@@ -533,7 +554,7 @@ textColor: "#dddddd"
 
 
     updateLinkPositions() {
-        const links = this.dataStore.getEdgesList();
+        const links = this.dataStore.getAllRawEdgesList();
         const linkDataGfxPairs = [];
         for (let i = 0; i < links.length; i++) {
             let {linkGfx, linkGfxLabel} = this.createLink(links[i])
@@ -551,7 +572,7 @@ textColor: "#dddddd"
 
     updateNodePositions() {
         let _this = this;
-        const nodes = this.dataStore.getVerticesList();
+        const nodes = this.dataStore.getAllRawVerticesList();
         for (const node of nodes) {
             if (!!_this.graphicsStore.nodeDataToNodeGfx.get(node.id)) {
                 _this.graphicsStore.nodeDataToNodeGfx.get(node.id).position = new PIXI.Point(node.x, node.y)
@@ -565,8 +586,11 @@ textColor: "#dddddd"
 
     renderGraphics() {
 
+
+        // this.graphicsStore.clear();
+        // this.
         this.isRendering = true
-        const {verticesToRender, edgesToRender} = this.dataStore.getAllDataToRender();
+        const {verticesToRender, edgesToRender} = this.dataStore.getDataToRender();
         console.log("vertices2Render ======== ", verticesToRender.length);
         console.log("edges2Render ======== ", edgesToRender.length);
 
@@ -575,6 +599,10 @@ textColor: "#dddddd"
         this.graphicsStore.updateNodePairs(nodeDataGfxPairs);
 
         // Create Links ?
+
+        this.updatePositions();
+        this.requestRender();
+
 
         // initial draw
         this.requestRender();
