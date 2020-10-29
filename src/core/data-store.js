@@ -82,85 +82,96 @@ export default class InMemoryDataStore {
     }
 
     checkIfExist(element, existingElements) {
-        console.log("existingElements", existingElements)
+        // console.log("existingElements", existingElements)
         existingElements.forEach((_elem) => {
-            console.log("_elem.id, element.id", (_elem.id === element.id), _elem.id, element.id,)
+            // console.log("_elem.id, element.id", (_elem.id === element.id), _elem.id, element.id,)
             if (_elem.id === element.id) {
-                console.log("====>>>>>");
+                // console.log("====>>>>>");
                 return true;
             }
         })
-        console.log("=======")
+        // console.log("=======")
         return false;
     }
 
 
     getNewDataToRender() {
-        const {verticesAlreadyRendered, edgesAlreadyRendered} = this.getAlreadyRenderedData()
-        const allRawVertices = this.getAllRawVerticesList();
-        const allRawEdges = this.getAllRawEdgesList();
 
-        console.log("*****|| allRawVertices allRawEdges", allRawVertices, allRawEdges)
-        let newVerticesToRender = [];
-        allRawVertices.forEach((vertex) => {
-            console.log("-----------");
-            if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, newVerticesToRender)) {
-                console.log("^^node", vertex);
-                newVerticesToRender.push(vertex)
-            }
-        })
-        let newEdgesToRender = [];
-        allRawEdges.forEach((edge) => {
-            if (!this.checkIfExist(edge, edgesAlreadyRendered) && !this.checkIfExist(edge, newEdgesToRender)) {
-                newEdgesToRender.push(edge)
-            }
-        })
-        console.log("*****|| newVerticesToRender", newVerticesToRender, newEdgesToRender)
-        return {newVerticesToRender, newEdgesToRender}
+        // using all the
+
+        // return { newVerticesToRender: this.getAllRawVerticesList(), newEdgesToRender: this.getAllRawEdgesList()}
+
+        // const {verticesAlreadyRendered, edgesAlreadyRendered} = this.getAlreadyRenderedData()
+        // const allRawVertices = this.getAllRawVerticesList();
+        // const allRawEdges = this.getAllRawEdgesList();
+        //
+        // console.log("*****|| allRawVertices allRawEdges", allRawVertices, allRawEdges)
+        // let newVerticesToRender = [];
+        // allRawVertices.forEach((vertex) => {
+        //     console.log("-----------");
+        //     if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, newVerticesToRender)) {
+        //         console.log("^^node", vertex);
+        //         newVerticesToRender.push(vertex)
+        //     }
+        // })
+        // let newEdgesToRender = [];
+        // allRawEdges.forEach((edge) => {
+        //     if (!this.checkIfExist(edge, edgesAlreadyRendered) && !this.checkIfExist(edge, newEdgesToRender)) {
+        //         newEdgesToRender.push(edge)
+        //     }
+        // })
+        // console.log("*****|| newVerticesToRender", newVerticesToRender, newEdgesToRender)
+        // return {newVerticesToRender, newEdgesToRender}
     }
 
     determineAllDataToRender() {
         console.log("=====getDataToRender triggered");
-        const {newVerticesToRender, newEdgesToRender} = this.getNewDataToRender();
-        let {verticesAlreadyRendered, edgesAlreadyRendered} = this.getAlreadyRenderedData();
 
+        const {newVerticesToRender, newEdgesToRender} = {
+            newVerticesToRender: this.getAllRawVerticesList(),
+            newEdgesToRender: this.getAllRawEdgesList()
+        }
 
-        console.log("(((( newVerticesToRender, newEdgesToRender", newVerticesToRender, newEdgesToRender)
-        console.log("(((( verticesAlreadyRendered, edgesAlreadyRendered", verticesAlreadyRendered, edgesAlreadyRendered)
+        // // const {newVerticesToRender, newEdgesToRender} = this.getNewDataToRender();
+        // let {verticesAlreadyRendered, edgesAlreadyRendered} = this.getAlreadyRenderedData();
+        //
+        //
+        // console.log("(((( newVerticesToRender, newEdgesToRender", newVerticesToRender, newEdgesToRender)
+        // console.log("(((( verticesAlreadyRendered, edgesAlreadyRendered", verticesAlreadyRendered, edgesAlreadyRendered)
+        //
+        // /*
+        // has to use too many if's :( to not get into duplicates issue
+        // when this method is called multiple times.
+        //
+        //  if (!this.checkIfExist(vertex, newVerticesToRender)) {
+        //         if (!this.checkIfExist(vertex, verticesToRender)) {
+        //             verticesToRender.push(vertex);
+        //         }
+        //     }
+        //
+        //
+        //  */
+        //
+        // let verticesToRender = [].concat(verticesAlreadyRendered); // start with already rendered data.
+        // newVerticesToRender.forEach((vertex) => {
+        //     console.log("newV", this.checkIfExist(vertex, verticesAlreadyRendered), this.checkIfExist(vertex, verticesToRender))
+        //     if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, verticesToRender)) {
+        //         verticesToRender.push(vertex);
+        //     }
+        // })
+        //
+        // let edgesToRender = [].concat(edgesAlreadyRendered)
+        // newEdgesToRender.forEach((edge) => {
+        //     if (!this.checkIfExist(edge, edgesAlreadyRendered) && !this.checkIfExist(edge, edgesToRender)) {
+        //         edgesToRender.push(edge);
+        //     }
+        // })
 
-        /*
-        has to use too many if's :( to not get into duplicates issue
-        when this method is called multiple times.
-
-         if (!this.checkIfExist(vertex, newVerticesToRender)) {
-                if (!this.checkIfExist(vertex, verticesToRender)) {
-                    verticesToRender.push(vertex);
-                }
-            }
-
-
-         */
-
-        let verticesToRender = [].concat(verticesAlreadyRendered); // start with already rendered data.
-        newVerticesToRender.forEach((vertex) => {
-            console.log("newV", this.checkIfExist(vertex, verticesAlreadyRendered), this.checkIfExist(vertex, verticesToRender))
-            if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, verticesToRender)) {
-                verticesToRender.push(vertex);
-            }
-        })
-
-        let edgesToRender = [].concat(edgesAlreadyRendered)
-        newEdgesToRender.forEach((edge) => {
-            if (!this.checkIfExist(edge, edgesAlreadyRendered) && !this.checkIfExist(edge, edgesToRender)) {
-                edgesToRender.push(edge);
-            }
-        })
-
-        console.log("======verticesToRender, edgesToRender", verticesToRender, edgesToRender)
+        console.log("======newVerticesToRender, newEdgesToRender", newVerticesToRender, newEdgesToRender)
 
         return {
-            verticesToRender: verticesToRender,
-            edgesToRender: edgesToRender
+            verticesToRender: newVerticesToRender,
+            edgesToRender: newEdgesToRender
         }
     }
 

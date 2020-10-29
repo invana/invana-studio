@@ -46,14 +46,12 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
 
         this.dataStore.addData(nodes, links,
             //
-            // () => {
-            //     _this.setState({
-            //         shallReRenderD3Canvas: true
-            //     })
-            // }
+            () => {
+                _this.setState({
+                    shallReRenderD3Canvas: true
+                })
+            }
         );
-
-
 
 
         // responses.forEach(function (response) {
@@ -81,12 +79,13 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
 
 
     reRenderCanvas() {
-        console.log("reRenderCanvas", this.dataStore.getAllData())
+        console.log("reRenderCanvas",)
         // this.setState({
         //     vertices: this.dataStore.getAllRawVerticesList(),
         //     edges: this.dataStore.getAllRawEdgesList()
         // })
         //
+        this.resetShallReRenderD3Canvas();
         this.render()
         this.forceUpdate();
     }

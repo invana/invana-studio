@@ -2,18 +2,8 @@ import React from "react";
 import GraphicsEngine from "./canvas";
 import "./style.css";
 import PropTypes from "prop-types";
-import {
-    prepareLinksDataForCurves,
-    prepareNodesDataWithOptions,
-    removeEdgeMeta,
-    removeVertexMeta
-} from "../canvas-utils";
-import GraphicsStore from "../../core/graphics-store";
 import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
-// import UpdaterCls from "./updates";
-
-// const connector = new Connector();
 
 export default class PIXICanvasComponent extends React.Component {
 
@@ -84,6 +74,7 @@ export default class PIXICanvasComponent extends React.Component {
         console.log("PIXICanvasComponent checkAndAddNewData2Simulation()", this.props.dataStore.getAllData());
 
 
+        this.graphicsEngine.clearCanvas();
         this.graphicsEngine.isRendering = true;
         this.props.setStatusMessage("Updating the graph...");
 
@@ -105,7 +96,9 @@ export default class PIXICanvasComponent extends React.Component {
 
 
         // this.onForceSimulationEnd(this.graphicsEngine, this.setStatusMessage.bind(this));
-
+        if (this.props.shallReRenderD3Canvas === true) {
+            this.props.resetShallReRenderD3Canvas()
+        }
 
     }
 
@@ -121,15 +114,32 @@ export default class PIXICanvasComponent extends React.Component {
     // }
 
     shouldComponentUpdate(nextProps) {
+        console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
         return nextProps.shallReRenderD3Canvas;
     }
 
 
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("componentDidUpdate", this.props.shallReRenderD3Canvas);
+
+        if (this.props.shallReRenderD3Canvas) {
+            // this.checkAndAddNewData2Simulation();
+            this.renderPIXICanvas();
+        }
+
+
+    }
+
+    renderPIXICanvas() {
         let _this = this;
-        const canvasElem = document.querySelector(".graphContainer");
+        const canvasElem = document.querySelector(".canvas");
         const nodeMenuEl = document.querySelector(".nodeMenuContainer");
         // const graphCanvasStatus = document.querySelector("#graph-canvas-status");
+
+        // remove previous canvas element;
+        while (canvasElem.firstChild) {
+            canvasElem.removeChild(canvasElem.firstChild);
+        }
 
         console.log("canvasElem.offsetWidth,", canvasElem.offsetWidth, canvasElem.offsetHeight)
         this.settings = new GESettings(canvasElem.offsetWidth, canvasElem.offsetHeight);
@@ -148,6 +158,11 @@ export default class PIXICanvasComponent extends React.Component {
         });
 
         this.checkAndAddNewData2Simulation();
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount", this.props.shallReRenderD3Canvas);
+        this.renderPIXICanvas();
     }
 
     setStatusMessage(message) {
@@ -169,18 +184,6 @@ export default class PIXICanvasComponent extends React.Component {
 
         // this.graphicsEngine.updatePositions();
         // GraphicsEngine.upd
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        // console.log("componentDidUpdate", this.props.dataStore.getAllRawVerticesList().length, this.props.dataStore.getVerticesCount())
-
-        if (this.props.shallReRenderD3Canvas === true) {
-            this.props.resetShallReRenderD3Canvas()
-        }
-
-        this.checkAndAddNewData2Simulation();
-
 
     }
 
@@ -257,6 +260,9 @@ export default class PIXICanvasComponent extends React.Component {
                         <li onClick={() => this.cleanGraph()}>Clean Graph</li>
                         <li onClick={() => this.hideMenu()}>hide menu</li>
                     </ul>
+                </div>
+                <div className="graphContainer canvas">
+
                 </div>
 
             </div>
