@@ -1,11 +1,12 @@
 import * as PIXI from 'pixi.js-legacy'
 // import * as PIXI from "pixi.js";
 import {Viewport} from 'pixi-viewport'
-import {
-    colorToNumber,
-    // scale, getColor,
-    getNodeLabel, getLinkLabel
-} from "./old/utils";
+// import {
+//     // colorToNumber,
+//     // scale, getColor,
+//     // getNodeLabel, getLinkLabel
+// } from "./old/utils";
+import {colorToNumber} from "../canvas-utils";
 // import FontFaceObserver from "fontfaceobserver";
 import EventStore from "./events";
 import GraphicsStore from "../../core/graphics-store";
@@ -138,6 +139,16 @@ export default class GraphicsEngine {
 
     }
 
+    getNodeLabel(nodeData) {
+        return nodeData.id;
+    }
+
+
+    getLinkLabel(linkData) {
+        return linkData.source.id + "-" + linkData.target.id;
+    }
+
+
     createNode(nodeData) {
         const _this = this;
         const {
@@ -217,7 +228,7 @@ textColor: "#dddddd"
         nodeLabelContainer.interactive = true;
         nodeLabelContainer.buttonMode = true;
 
-        const nodeLabelText = new PIXI.Text(getNodeLabel(nodeData), {
+        const nodeLabelText = new PIXI.Text(this.getNodeLabel(nodeData), {
             fontFamily: LABEL_FONT_FAMILY,
             fontSize: LABEL_FONT_SIZE,
             fill: colorToNumber(nodeData.meta.labelOptions.labelColor)
@@ -388,7 +399,7 @@ textColor: "#dddddd"
 
 
         // for link label
-        const linkLabelText = new PIXI.Text(getLinkLabel(linkData), {
+        const linkLabelText = new PIXI.Text(this.getLinkLabel(linkData), {
             fontFamily: LABEL_FONT_FAMILY,
             fontSize: LINK_DEFAULT_LABEL_FONT_SIZE,
             fill: _this.settings.LINK_DEFAULT_LABEL_COLOR
