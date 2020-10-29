@@ -39,6 +39,7 @@ export default class GraphSimulator {
             .force("link", d3.forceLink().id(d => d.id).distance(this.settings.DEFAULT_LINK_LENGTH))
             .force("x", d3.forceX())
             .force("y", d3.forceY())
+            .alphaDecay(0.5)
             // .tick(this.settings.FORCE_LAYOUT_ITERATIONS)
 
             .on("end", () => this.onForceSimulationEnd())

@@ -69,12 +69,12 @@ export default class InMemoryDataStore {
 
         const keyValueArray = this.verticesToRender.map(entry => [entry['id'], entry]);
         const map = new Map(keyValueArray);
-        const verticesToRender =  Array.from(map.values());
+        const verticesToRender = Array.from(map.values());
 
 
         const keyValueArrayEdge = this.edgesToRender.map(entry => [entry['id'], entry]);
         const mapEdge = new Map(keyValueArrayEdge);
-        const edgesToRender =  Array.from(mapEdge.values());
+        const edgesToRender = Array.from(mapEdge.values());
 
 
         return {verticesToRender: verticesToRender, edgesToRender: edgesToRender};
@@ -143,12 +143,10 @@ export default class InMemoryDataStore {
 
         let verticesToRender = [].concat(verticesAlreadyRendered); // start with already rendered data.
         newVerticesToRender.forEach((vertex) => {
-
             console.log("newV", this.checkIfExist(vertex, verticesAlreadyRendered), this.checkIfExist(vertex, verticesToRender))
             if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, verticesToRender)) {
                 verticesToRender.push(vertex);
             }
-
         })
 
         let edgesToRender = [].concat(edgesAlreadyRendered)
