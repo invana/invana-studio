@@ -44,7 +44,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
                         this.state.verticesLabels.map((vertexLabel, index) => {
                             return (<li style={{"marginBottom": "5px", "cursor": "pointer"}} key={index}
                                         onClick={() => this.props.parentGraphComponent.makeQuery(
-                                            this.connector.requestBuilder.filterVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>{vertexLabel.label} ({vertexLabel.count})
+                                            this.connector.requestBuilder.getNeighborEdgesAndVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>{vertexLabel.label} ({vertexLabel.count})
                             </li>)
                         })
                     }

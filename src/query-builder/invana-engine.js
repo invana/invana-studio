@@ -40,6 +40,23 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         return {"query": "{filterVertex(" + queryParams + "){id,type,label,properties}}"};
     }
 
+    getNeighborEdgesAndVertices(label, limit, skip) {
+
+        let queryParams = "";
+        if (label) {
+            queryParams += "label: \"" + label + "\",";
+        }
+        if (limit) {
+            queryParams += "limit: " + limit + ",";
+        }
+        if (skip) {
+            queryParams += "skip: " + skip;
+        }
+
+        queryParams = queryParams.replace(/,\s*$/, "");
+        return {"query": "{getNeighborEdgesAndVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+    }
+
     filterEdges(label, limit, skip) {
 
         let queryParams = "";

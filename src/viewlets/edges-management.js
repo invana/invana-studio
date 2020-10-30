@@ -32,7 +32,7 @@ export default class EdgesManagement extends RemoteGraphComponent {
                         this.state.edgesLabels.map((edgeLabel, index) => {
                             return (<li style={{"marginBottom": "5px", "cursor": "pointer"}} key={index}
                                         onClick={() => this.props.parentGraphComponent.makeQuery(
-                                            this.connector.requestBuilder.filterEdges(edgeLabel.label, 10, 0), {'source': 'canvas'})}>{edgeLabel.label} ({edgeLabel.count})
+                                            this.connector.requestBuilder.getNeighborEdgesAndVertices(edgeLabel.label, 10, 0), {'source': 'canvas'})}>{edgeLabel.label} ({edgeLabel.count})
                             </li>)
                         })
                     }
