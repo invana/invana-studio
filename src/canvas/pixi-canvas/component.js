@@ -34,6 +34,7 @@ export default class PIXICanvasComponent extends React.Component {
         middleBottomContentName: null,
         selectedElementData: null,
         setStatusMessage: (message) => console.debug("setStatusMessage not set", message),
+        showVertexOptions: (selectedLabel) => console.debug("this.showVertexOptions not set", selectedLabel),
 
         connector: false,
         dataStore: null,
@@ -53,6 +54,7 @@ export default class PIXICanvasComponent extends React.Component {
         connector: PropTypes.object,
         middleBottomContentName: PropTypes.string,
 
+        showVertexOptions: PropTypes.func,
         shallReRenderD3Canvas: PropTypes.bool,
         resetShallReRenderD3Canvas: PropTypes.func,
         selectedElementData: PropTypes.object,
@@ -160,6 +162,8 @@ export default class PIXICanvasComponent extends React.Component {
         this.checkAndAddNewData2Simulation();
     }
 
+
+
     componentDidMount() {
         console.log("componentDidMount", this.props.shallReRenderD3Canvas);
         this.renderPIXICanvas();
@@ -231,7 +235,7 @@ export default class PIXICanvasComponent extends React.Component {
 
     cleanGraph() {
         console.log("this.forceSimulator", this.forceSimulator);
-        this.forceSimulator.forceSimulator.restart();
+        this.forceSimulator.forceSimulator.alphaTarget(0.8).restart();
     }
 
     resetFocus() {

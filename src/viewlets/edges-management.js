@@ -1,6 +1,7 @@
 import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
+import {managementVertexLabel} from "../config";
 
 export default class EdgesManagement extends RemoteGraphComponent {
 
@@ -29,7 +30,9 @@ export default class EdgesManagement extends RemoteGraphComponent {
             <div className={" p-10"}>
                 <GEList type={"vertical-no-border"}>
                     {
-                        this.state.edgesLabels.map((edgeLabel, index) => {
+                        this.state.edgesLabels.filter((label) => {
+                            return label.label !== managementVertexLabel
+                        }).map((edgeLabel, index) => {
                             return (<li style={{"marginBottom": "5px", "cursor": "pointer"}} key={index}
                                         onClick={() => this.props.parentGraphComponent.makeQuery(
                                             this.connector.requestBuilder.getNeighborEdgesAndVertices(edgeLabel.label, 10, 0), {'source': 'canvas'})}>{edgeLabel.label} ({edgeLabel.count})

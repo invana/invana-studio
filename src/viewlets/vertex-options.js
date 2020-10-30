@@ -29,19 +29,29 @@ export default class VertexOptions extends RemoteGraphComponent {
             "vtx = g.V().has('" + managementVertexLabel + "','name','" + e.target.name.value + "')" +
             ".tryNext()" +
             ".orElseGet{" +
-            " g.addV('" + managementVertexLabel + "').property('name','" + e.target.name.value + "').next()};" +
+            " g.addV('" + managementVertexLabel + "')" +
+            ".property('name','" + e.target.name.value + "')" +
+            ".next()};" +
             "g.V().has('" + managementVertexLabel + "','name','" + e.target.name.value + "')" +
             ".property('bgColor', '" + e.target.bgColor.value + "')" +
             ".property('bgImageUrl', '" + e.target.bgImageUrl.value + "')" +
             ".property('bgImagePropertyKey', '" + e.target.bgImagePropertyKey.value + "')" +
             ".property('borderColor', '" + e.target.borderColor.value + "')" +
-            ".property('tagHtml', '" + e.target.tagHtml.value + "').next();" +
+            ".property('labelPropertyKey', '" + e.target.labelPropertyKey.value + "')" +
+            ".property('tagHtml', '" + e.target.tagHtml.value + "')" +
+            ".next();" +
             "vertex = g.V()" +
             ".hasLabel('" + managementVertexLabel + "')" +
-            ".has('name','" + e.target.name.value + "').toList()";
+            ".has('name','" + e.target.name.value + "')" +
+            ".toList()";
 
         if (query) {
-            this.makeQuery(query, {source: "internal"});
+            // this.makeQuery(query, {source: "internal"});
+
+
+            this.makeQuery(
+                this.connector.requestBuilder.rawQuery(query, {'source': 'canvas'})
+            );
         }
 
     }
@@ -53,23 +63,22 @@ export default class VertexOptions extends RemoteGraphComponent {
     }
 
 
-    processResponse(responses) {
-        console.log("=====responses===", responses);
-        const response = responses[0];
+    processResponse(response) {
+        console.log("=====responses===", response);
         this.updateThisLabelSettings(response);
-        if (response.status.code !== 200) {
-            this.props.setErrorMessage(response.status);
+        if (response.transporterStatusCode !== 200) {
+            this.props.setErrorMessage(response.transporterStatusCode);
         }
-        this.props.setStatusMessage("Updated options for label '" + this.props.selectedElementData.label + "'");
+        this.props.setStatusMessage("Updated options for label '" + this.props.selectedLabel + "'");
         this.props.reRenderCanvas();
     }
 
     render() {
-        const selectedElementData = this.props.selectedElementData;
+        const selectedLabel = this.props.selectedLabel;
         let thisNodeOptions = null;
         try {
             const allNodeOptions = getDataFromLocalStorage("nodeLabels", true);
-            thisNodeOptions = allNodeOptions[this.props.selectedElementData.label];
+            thisNodeOptions = allNodeOptions[this.props.selectedLabel];
 
         } catch (e) {
             console.error("Failed to get the node options with error", e)
@@ -78,7 +87,7 @@ export default class VertexOptions extends RemoteGraphComponent {
         console.log("======thisNodeOptions " + JSON.stringify(thisNodeOptions))
         if (!thisNodeOptions) {
             // alert("setting default")
-            thisNodeOptions = getDefaultNodeOptions(selectedElementData.label, selectedElementData.meta);
+            thisNodeOptions = getDefaultNodeOptions(selectedLabel, {});
         }
         // get nodeOptions from localStorage.
         // console.log("=====selectedElementData>>>", this.props.selectedElementData)
@@ -88,10 +97,10 @@ export default class VertexOptions extends RemoteGraphComponent {
 
                     {/*<label>Vertex Label</label>*/}
                     <input type="hidden" name={"name"} readOnly={true} spellCheck="false"
-                           defaultValue={selectedElementData.label}/>
+                           defaultValue={selectedLabel}/>
                     <input type="hidden" name={"label"}
-                           defaultValue={selectedElementData.properties.name || selectedElementData.id}/>
-                    <input type="hidden" name={"uid"} defaultValue={selectedElementData.id}/>
+                           defaultValue={selectedLabel}/>
+                    {/*<input type="hidden" name={"uid"} defaultValue={selectedElementData.id}/>*/}
 
                     <label className={""}>Background Color</label>
                     <input type="text" name={"bgColor"} maxLength={7} minLength={7}
@@ -101,18 +110,24 @@ export default class VertexOptions extends RemoteGraphComponent {
                     <label className={""}>Border Color</label>
                     <input type="text" name={"borderColor"} maxLength={7} minLength={7}
                            placeholder={"borderColor"} spellCheck="false"
-                           defaultValue={thisNodeOptions.borderColor }/>
+                           defaultValue={thisNodeOptions.borderColor}/>
 
                     {/*<label className={""}>Background Image (from web)</label>*/}
                     <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
-                           defaultValue={thisNodeOptions.bgImageUrl }/>
+                           defaultValue={thisNodeOptions.bgImageUrl}/>
 
                     <label className={""}>Background Image (from data field)</label>
                     <input type="text" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            placeholder={"bgImagePropertyKey (optional)"}
                            defaultValue={thisNodeOptions.bgImagePropertyKey}/>
+
+                    <label className={""}>Label Property Key (from data fields)</label>
+                    <input type="text" name={"labelPropertyKey"}
+                           spellCheck="false"
+                           placeholder={"labelPropertyKey (optional)"}
+                           defaultValue={thisNodeOptions.labelPropertyKey}/>
 
                     {/*<label className={""}>Background HTML</label>*/}
                     <input type="hidden" name={"tagHtml"}

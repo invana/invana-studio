@@ -348,7 +348,10 @@ export default class ExplorerView extends BaseView {
                                 {
                                     this.state.middleTopContentName === "vertices-management" ?
                                         (
-                                            <VerticesManagement parentGraphComponent={this}/>
+                                            <VerticesManagement
+                                                parentGraphComponent={this}
+                                            setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                            />
 
                                         ) :
                                         this.state.middleTopContentName === "edges-management" ?
@@ -417,10 +420,10 @@ export default class ExplorerView extends BaseView {
 
                                         </GEPanel>
                                         :
-                                        this.state.middleBottomContentName === "vertex-options" && this.state.selectedElementData
+                                        this.state.middleBottomContentName === "vertex-options" && this.state.selectedLabel
                                             ?
                                             <GEPanel
-                                                title={this.state.selectedElementData.label + " | Element Options"}
+                                                title={this.state.selectedLabel + " | Element Options"}
                                                 // title={null}
                                                 onClickClose={() => {
                                                     this.setHideVertexOptions();
@@ -428,7 +431,7 @@ export default class ExplorerView extends BaseView {
                                                 }}
                                                 showToggleBtn={false}
                                             >
-                                                <VertexOptions selectedElementData={this.state.selectedElementData}
+                                                <VertexOptions selectedLabel={this.state.selectedLabel}
                                                                setStatusMessage={this.setStatusMessage.bind(this)}
                                                                setErrorMessage={this.setErrorMessage.bind(this)}
                                                                onClose={() => {

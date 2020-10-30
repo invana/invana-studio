@@ -5,7 +5,8 @@ import {
     DefaultInShapeHTMLFn,
     DefaultNodeInShapeTextColor,
     DefaultLabelVisibility,
-    DefaultNodeLabelColor
+    DefaultNodeLabelColor,
+    DefaultNodeLabelPropertyKey
 } from "../config";
 
 const ColorHash = require('color-hash');
@@ -24,6 +25,7 @@ export function getDefaultNodeOptions(label, nodeMeta) {
         'bgColor': getColorForString(label),
         'borderColor': DefaultNodeBorderColor,
         'bgImageUrl': null,
+        'labelPropertyKey': DefaultNodeLabelPropertyKey,
         'tagHtml': null
     }
 

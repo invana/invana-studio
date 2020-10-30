@@ -23,6 +23,7 @@ export const UUIDGenerator = () =>
 
 
 export const DefaultNodeBorderColor = "#efefef";
+export const DefaultNodeLabelPropertyKey = "id";
 export const DefaultNodeStrokeWidth = 2;
 export const DefaultNodeRadius = 10;
 export const DefaultNodeInShapeTextColor = "#dddddd"; // inside the shape

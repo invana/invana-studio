@@ -2,14 +2,20 @@ import React from "react";
 // import "./query-console.scss";
 import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCog, faEye, faCircle, faWrench, faProjectDiagram} from "@fortawesome/free-solid-svg-icons";
+import "./management.scss";
+import {managementVertexLabel} from "../config";
 
 export default class VerticesManagement extends RemoteGraphComponent {
 
     state = {
         verticesLabels: []
     }
-
+    // static defaultProps = {
+    //     setShowVertexOptions: (selectedLabel) => console.debug("this.setShowVertexOptions not set", selectedLabel),
+    //
+    // }
 
     componentDidMount() {
         // this.prop
@@ -41,11 +47,28 @@ export default class VerticesManagement extends RemoteGraphComponent {
             <div className={" p-10"}>
                 <GEList type={"vertical-no-border"}>
                     {
-                        this.state.verticesLabels.map((vertexLabel, index) => {
-                            return (<li style={{"marginBottom": "5px", "cursor": "pointer"}} key={index}
-                                        onClick={() => this.props.parentGraphComponent.makeQuery(
-                                            this.connector.requestBuilder.getNeighborEdgesAndVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>{vertexLabel.label} ({vertexLabel.count})
-                            </li>)
+                        this.state.verticesLabels.filter((label)=> { return label.label !== managementVertexLabel} ).map((vertexLabel, index) => {
+                            return (
+                                <li style={{"marginBottom": "5px",}} key={index}>
+                                    <button className={"management-icon-btn"}
+                                            title={"Show connected edges and vertices"}
+                                            onClick={() => this.props.parentGraphComponent.makeQuery(
+                                                this.connector.requestBuilder.getNeighborEdgesAndVertices(vertexLabel.label, 10, 0), {'source': 'canvas'})}>
+                                        <FontAwesomeIcon icon={faProjectDiagram}/>
+                                    </button>
+                                    <button className={"management-icon-btn"} title={"Show "}
+                                            onClick={() => this.props.parentGraphComponent.makeQuery(
+                                                this.connector.requestBuilder.filterVertices(vertexLabel.label, 10, 0),
+                                                {'source': 'canvas'})}>
+                                        <FontAwesomeIcon icon={faCircle}/>
+                                    </button>
+                                    <button className={"management-icon-btn"} title={"Show the vertices options"}
+                                            onClick={() => this.props.setShowVertexOptions(vertexLabel.label)}>
+                                        <FontAwesomeIcon icon={faWrench}/>
+                                    </button>
+                                    {vertexLabel.label} ({vertexLabel.count})
+
+                                </li>)
                         })
                     }
                 </GEList>
