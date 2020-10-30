@@ -3,6 +3,10 @@ import QueryManagerBase from "./base";
 
 export default class InvanaEngineQueryManager extends QueryManagerBase {
 
+    getOrCreateVertices(label, properties, namespace) {
+        return {"mutation": "{getOrCreateVertex(label:'" + label + "', properties: " + JSON.stringify(properties) + "){id,type,label,properties}}"};
+    }
+
     getOutEdgeVertices(vertexId) {
         return {"query": "{getOutEdgesAndVertices(id:" + JSON.stringify(vertexId) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
     }

@@ -12,13 +12,17 @@ import {getDefaultNodeOptions} from "../canvas/canvas-utils";
 
 export default class VertexOptions extends RemoteGraphComponent {
 
+    firstTime = false;
     componentWillUnmount() {
         super.componentWillUnmount();
         // alert("vertex options unmounted")
     }
 
     componentDidMount() {
-        super.componentDidMount();
+        // super.componentDidMount();
+        console.log("======", this.props, this.requestBuilder);
+        const queryPayload = this.connector.requestBuilder.getVerticesLabelStats();
+        this.makeQuery(queryPayload);
     }
 
     onFormSubmit(e) {
