@@ -16,6 +16,7 @@ export function convertMapKeysToArray(mapData) {
     }
     return data;
 }
+
 export function convertWeakMapKeysToArray(weakMapData) {
     console.log("weakMap", weakMapData)
     let data = [];
@@ -131,6 +132,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
         extraHeaders['Authorization'] = 'Token ' + url_analysed.username;
     }
 
+    console.log("=====request data", data);
     const gremlinUrl = url_analysed.origin + url_analysed.pathname;
     const response = await fetch(gremlinUrl, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -168,20 +170,42 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
      */
     console.log("setElementColorOptionsToStorageUsingResponse", response)
     //
-    // let result = gremlinDeSerializer.process(response);
-    // let nodesAndLinks = gremlinDeSerializer.separateVerticesAndEdges(result, false);
-    // let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
-    // nodesAndLinks.nodes.forEach(function (node) {
-    //     _nodes[node.properties.name] = node.properties;
-    // })
-    // let _links = getDataFromLocalStorage("linkLabels", true) || {};
-    // nodesAndLinks.links.forEach(function (link) {
-    //     _links[link.label] = link.properties;
-    // })
-    // // convert this list into dictionary.
-    // console.log("=======((", _nodes, _links)
-    // setDataToLocalStorage('nodeLabels', _nodes);
-    // setDataToLocalStorage('linkLabels', _links);
+    let result = gremlinDeSerializer.process(response);
+    let nodesAndLinks = gremlinDeSerializer.separateVerticesAndEdges(result, false);
+    let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
+    nodesAndLinks.nodes.forEach(function (node) {
+        _nodes[node.properties.name] = node.properties;
+    })
+    let _links = getDataFromLocalStorage("linkLabels", true) || {};
+    nodesAndLinks.links.forEach(function (link) {
+        _links[link.label] = link.properties;
+    })
+    // convert this list into dictionary.
+    console.log("=======((", _nodes, _links)
+    setDataToLocalStorage('nodeLabels', _nodes);
+    setDataToLocalStorage('linkLabels', _links);
+}
+
+export function setElementColorOptionsToStorage(vertexOption) {
+    /*
+    If sent response from gremlin, it will automatically update those new
+    vertex/edge key data only.
+     */
+    console.log("setElementColorOptionsToStorage", vertexOption)
+
+    if (vertexOption.type === "g:Vertex") {
+        let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
+        _nodes[vertexOption.properties.name] = vertexOption.properties;
+        setDataToLocalStorage('nodeLabels', _nodes);
+
+    } else {
+        let _links = getDataFromLocalStorage("linkLabels", true) || {};
+        _links[vertexOption.properties.name] = vertexOption.properties;
+        setDataToLocalStorage('linkLabels', _links);
+
+
+    }
+
 }
 
 

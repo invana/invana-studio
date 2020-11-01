@@ -8,6 +8,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
                 + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"};
     }
 
+    updateVertexById(vertexId, properties) {
+        return {"query": "mutation{updateVertexById(id: " + vertexId + ", properties: "
+                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"};
+    }
+
     getOutEdgeVertices(vertexId) {
         return {"query": "{getOutEdgesAndVertices(id:" + JSON.stringify(vertexId) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
     }

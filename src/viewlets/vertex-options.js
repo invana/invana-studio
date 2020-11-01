@@ -1,7 +1,8 @@
 import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
 import {
-    getDataFromLocalStorage,
+    // getDataFromLocalStorage,
+    setElementColorOptionsToStorage,
     setElementColorOptionsToStorageUsingResponse
 } from "../core/utils";
 import {
@@ -14,14 +15,15 @@ export default class VertexOptions extends RemoteGraphComponent {
 
     state = {
         ...this.state,
-        nodeOptions: {}
+        nodeOptions: null
     }
     shallReload = true;
 
     // firstTime = false;
     //
     // componentWillUnmount() {
-    //     super.componentWillUnmount();
+    //     this.setState({nodeOptions: null});
+    //     // super.componentWillUnmount();
     //     // alert("vertex options unmounted")
     // }
 
@@ -44,6 +46,7 @@ export default class VertexOptions extends RemoteGraphComponent {
         console.log("VO componentDidUpdate")
         if (prevProps.selectedLabel !== this.props.selectedLabel) {
             // already data exist
+            this.setState({nodeOptions: null});
             this.getSelectedLabelConfigData();
         }
     }
@@ -51,43 +54,17 @@ export default class VertexOptions extends RemoteGraphComponent {
     onFormSubmit(e) {
         e.preventDefault();
         console.log("formdata", e.target);
-        let query = "" +
-            "" +
-            "vtx = g.V().has('" + managementVertexLabel + "','name','" + e.target.name.value + "')" +
-            ".tryNext()" +
-            ".orElseGet{" +
-            " g.addV('" + managementVertexLabel + "')" +
-            ".property('name','" + e.target.name.value + "')" +
-            ".next()};" +
-            "g.V().has('" + managementVertexLabel + "','name','" + e.target.name.value + "')" +
-            ".property('bgColor', '" + e.target.bgColor.value + "')" +
-            ".property('bgImageUrl', '" + e.target.bgImageUrl.value + "')" +
-            ".property('bgImagePropertyKey', '" + e.target.bgImagePropertyKey.value + "')" +
-            ".property('borderColor', '" + e.target.borderColor.value + "')" +
-            ".property('labelPropertyKey', '" + e.target.labelPropertyKey.value + "')" +
-            ".property('tagHtml', '" + e.target.tagHtml.value + "')" +
-            ".next();" +
-            "vertex = g.V()" +
-            ".hasLabel('" + managementVertexLabel + "')" +
-            ".has('name','" + e.target.name.value + "')" +
-            ".toList()";
-
-        if (query) {
-            // this.makeQuery(query, {source: "internal"});
-
-
-            this.makeQuery(
-                this.connector.requestBuilder.rawQuery(query, {'source': 'canvas'})
-            );
-        }
-
+        const query_string = this.connector.requestBuilder.updateVertexById(
+            this.state.nodeOptions.id, this.state.nodeOptions.properties
+        );
+        this.makeQuery(query_string, {'source': 'canvas'});
     }
 
     // add this vertex options to
 
-    updateThisLabelSettings(response) {
-        setElementColorOptionsToStorageUsingResponse(response);
-    }
+    // updateThisLabelSettings(response) {
+    //     setElementColorOptionsToStorageUsingResponse(response);
+    // }
 
     // shouldComponentUpdate(nextProps, nextState, nextContext) {
     //     return nextProps.selectedLabel !== this.props.selectedLabel || nextState.nodeOptions !== this.state.nodeOptions;
@@ -97,35 +74,40 @@ export default class VertexOptions extends RemoteGraphComponent {
 
     processResponse(response) {
         this.shallReload = true;
-        console.log("=====responses===",response.response.data.getOrCreateVertex.id,  response);
-        if (response.response.data.getOrCreateVertex) {
-            // get
+        console.log("=====response===", response);
+        if (response.response.data && response.response.data.getOrCreateVertex) {
+            // get the init data of the vertex options.
+            setElementColorOptionsToStorage(response.response.data.getOrCreateVertex);
             this.setState({nodeOptions: response.response.data.getOrCreateVertex})
-            setElementColorOptionsToStorageUsingResponse(response.response.data.getOrCreateVertex);
             this.forceUpdate();
-
-        } else {
-            this.updateThisLabelSettings(response);
+        } else if (response.response.data && response.response.data.updateVertexById) {
+            // mutation data - update the vertex options.
+            setElementColorOptionsToStorage(response.response.data.updateVertexById);
+            this.props.setStatusMessage("Updated options for label '" + this.props.selectedLabel + "'");
+            this.setState({nodeOptions: response.response.data.updateVertexById})
             if (response.transporterStatusCode !== 200) {
                 this.props.setErrorMessage(response.transporterStatusCode);
             }
-            this.props.setStatusMessage("Updated options for label '" + this.props.selectedLabel + "'");
         }
-        // this.props.reRenderCanvas();
-
     }
 
-    handleValueChange(e){
+    handleValueChange(e) {
+        console.log("handleValueChange=====", e);
+        let nodeOptions = this.state.nodeOptions;
+
+        nodeOptions.properties[e.target.name] = e.target.value;
+        console.log("<<<>>>nodeOptions", nodeOptions)
+        this.setState({nodeOptions: nodeOptions});
 
     }
 
     render() {
         const selectedLabel = this.props.selectedLabel;
-        let thisNodeOptions = this.state.nodeOptions;
-        if (!thisNodeOptions.properties) {
-            thisNodeOptions.properties = {};
-        }
-        console.log("======thisNodeOptions ", thisNodeOptions)
+        // let thisNodeOptions = this.state.nodeOptions;
+        // if (!thisNodeOptions.properties) {
+        //     thisNodeOptions.properties = {};
+        // }
+        console.log("======this.state.nodeOptions ", this.state.nodeOptions)
         const defaultNodeOptions = getDefaultNodeOptions(selectedLabel, {});
         console.log("========defaultNodeOptions", defaultNodeOptions)
         console.log("***");
@@ -147,35 +129,36 @@ export default class VertexOptions extends RemoteGraphComponent {
                     <label className={""}>Background Color</label>
                     <input type="text" name={"bgColor"} maxLength={7} minLength={7}
                            placeholder={"bgColor"} spellCheck="false"
-                           value={thisNodeOptions.properties.bgColor || defaultNodeOptions.bgColor}/>
+                           defaultValue={this.state.nodeOptions.properties.bgColor || defaultNodeOptions.bgColor}/>
 
                     <label className={""}>Border Color</label>
                     <input type="text" name={"borderColor"} maxLength={7} minLength={7}
                            placeholder={"borderColor"} spellCheck="false"
-                           defaultValue={thisNodeOptions.properties.borderColor || defaultNodeOptions.borderColor}/>
+                           defaultValue={this.state.nodeOptions.properties.borderColor || defaultNodeOptions.borderColor}/>
 
                     {/*<label className={""}>Background Image (from web)</label>*/}
                     <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
-                           defaultValue={thisNodeOptions.properties.bgImageUrl || defaultNodeOptions.bgImageUrl}/>
+                           defaultValue={this.state.nodeOptions.properties.bgImageUrl || defaultNodeOptions.bgImageUrl}/>
 
                     <label className={""}>Background Image (from data field)</label>
                     <input type="text" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            placeholder={"bgImagePropertyKey (optional)"}
-                           defaultValue={thisNodeOptions.properties.bgImagePropertyKey || defaultNodeOptions.bgImagePropertyKey}/>
+                           defaultValue={this.state.nodeOptions.properties.bgImagePropertyKey || defaultNodeOptions.bgImagePropertyKey}/>
 
                     <label className={""}>Label Property Key (from data fields)</label>
                     <input type="text" name={"labelPropertyKey"}
                            spellCheck="false"
-                           placeholder={"labelPropertyKey (optional)"} onChange={this.handleValueChange}
-                           value={thisNodeOptions.properties.labelPropertyKey || defaultNodeOptions.labelPropertyKey}/>
+                           placeholder={"labelPropertyKey (optional)"}
+                           onChange={this.handleValueChange.bind(this)}
+                           defaultValue={this.state.nodeOptions.properties.labelPropertyKey || defaultNodeOptions.labelPropertyKey}/>
 
                     {/*<label className={""}>Background HTML</label>*/}
                     <input type="hidden" name={"tagHtml"}
                            spellCheck="false"
                            placeholder={"tagHtml (optional)"}
-                           defaultValue={thisNodeOptions.properties.tagHtml || ""}/>
+                           defaultValue={this.state.nodeOptions.properties.tagHtml || ""}/>
                     <br/>
                     <button className={"mt-10 button primary-btn"} type={"submit"}>update</button>
                 </form>
