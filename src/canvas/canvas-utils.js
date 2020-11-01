@@ -23,6 +23,7 @@ export const colorToNumber = (c) => {
 
 export function getDefaultNodeOptions(label, nodeMeta) {
 
+    console.log("=====nodeMeta", nodeMeta)
     // let optionsData = {
     //     'bgColor': getColorForString(label),
     //     'borderColor': DefaultNodeBorderColor,
@@ -212,11 +213,14 @@ export function prepareNodesDataWithOptions(nodes, options) {
         if (!node.meta.shapeOptions.fillColor) {
             node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || getColorForString(node.label)
         }
-        if (!node.meta.shapeOptions.textColor) {
-            node.meta.shapeOptions.textColor = DefaultNodeInShapeTextColor
+        if (!node.meta.shapeOptions.labelColor) {
+            node.meta.shapeOptions.labelColor = DefaultNodeInShapeTextColor
+        }
+        if (!node.meta.shapeOptions.labelPropertyKey) {
+            node.meta.shapeOptions.labelPropertyKey = metaFromStorage.labelPropertyKey || DefaultNodeLabelPropertyKey;
         }
         if (node.meta.shapeOptions.inShapeHTMLFn) {
-            node.meta.shapeOptions.inShapeHTML = node.meta.shapeOptions.inShapeHTMLFn(node)
+            node.meta.shapeOptions.textPropertyKey = node.meta.shapeOptions.inShapeHTMLFn(node)
         } else {
             node.meta.shapeOptions.inShapeHTML = DefaultInShapeHTMLFn(node);
         }

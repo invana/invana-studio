@@ -371,7 +371,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
 
             .style("background-color", "transparent")
             .append("xhtml:span")
-            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("color", (d) => d.meta.shapeOptions.labelColor)
             .style("background-color", "transparent")
             .style("padding-top", (d) => d.meta.shapeOptions.radius / 4)
             .html(function (d) {
@@ -463,7 +463,7 @@ export default class D3ForceDirectedCanvas extends React.Component {
             // .style("font-weight", "bold")
             .style("background-color", "transparent")
             .append("xhtml:span")
-            .style("color", (d) => d.meta.shapeOptions.textColor)
+            .style("color", (d) => d.meta.shapeOptions.labelColor)
             .style("background-color", "transparent")
             .html(function (d) {
                 if (d.meta.tagOptions.tagHtml) {

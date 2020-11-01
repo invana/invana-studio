@@ -1,9 +1,7 @@
 import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
 import {
-    // getDataFromLocalStorage,
     setElementColorOptionsToStorage,
-    setElementColorOptionsToStorageUsingResponse
 } from "../core/utils";
 import {
     managementVertexLabel
@@ -129,22 +127,26 @@ export default class VertexOptions extends RemoteGraphComponent {
                     <label className={""}>Background Color</label>
                     <input type="text" name={"bgColor"} maxLength={7} minLength={7}
                            placeholder={"bgColor"} spellCheck="false"
+                           onChange={this.handleValueChange.bind(this)}
                            defaultValue={this.state.nodeOptions.properties.bgColor || defaultNodeOptions.bgColor}/>
 
                     <label className={""}>Border Color</label>
                     <input type="text" name={"borderColor"} maxLength={7} minLength={7}
-                           placeholder={"borderColor"} spellCheck="false"
+                           placeholder={"borderColor"} spellCheck="false" readOnly={"readonly"}
+
                            defaultValue={this.state.nodeOptions.properties.borderColor || defaultNodeOptions.borderColor}/>
 
                     {/*<label className={""}>Background Image (from web)</label>*/}
                     <input type="hidden" name={"bgImageUrl"} placeholder={"bgImage (optional)"}
                            spellCheck="false"
+                           onChange={this.handleValueChange.bind(this)}
                            defaultValue={this.state.nodeOptions.properties.bgImageUrl || defaultNodeOptions.bgImageUrl}/>
 
                     <label className={""}>Background Image (from data field)</label>
                     <input type="text" name={"bgImagePropertyKey"}
                            spellCheck="false"
-                           placeholder={"bgImagePropertyKey (optional)"}
+                           onChange={this.handleValueChange.bind(this)}
+                           placeholder={"bgImagePropertyKey (optional)"} readOnly={"readonly"}
                            defaultValue={this.state.nodeOptions.properties.bgImagePropertyKey || defaultNodeOptions.bgImagePropertyKey}/>
 
                     <label className={""}>Label Property Key (from data fields)</label>

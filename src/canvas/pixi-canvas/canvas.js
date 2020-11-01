@@ -36,6 +36,10 @@ export default class GraphicsEngine {
         this.eventStore = new EventStore(nodeMenuEl);
         this.onNodeSelected = onNodeSelected; // used to send back any message to react component.
 
+
+        this.nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        this.linkLabels = Object.assign({}, JSON.parse(localStorage.getItem('linkLabels')));
+        console.log("nodeLabels", this.nodeLabels);
         // this.loadFont(this.settings.ICON_FONT_FAMILY);
         //
         // new FontFaceObserver(this.settings.ICON_FONT_FAMILY).load();
@@ -141,7 +145,18 @@ export default class GraphicsEngine {
     }
 
     getNodeLabel(nodeData) {
-        return nodeData.id;
+        console.log("&&&&", nodeData);
+        console.log("&&&&", nodeData.meta.shapeOptions);
+        let labelString = null;
+        if (nodeData.meta.shapeOptions.labelPropertyKey === "id") {
+            labelString = nodeData.id;
+        } else {
+            labelString = nodeData.properties[nodeData.meta.shapeOptions.labelPropertyKey];
+        }
+        if (!labelString) {
+            labelString = nodeData.id;
+        }
+        return labelString;
     }
 
 
@@ -179,7 +194,7 @@ inShapeHTML: "Hilda"
 radius: 24
 strokeColor: "#efefef"
 strokeWidth: 3
-textColor: "#dddddd"
+labelColor: "#dddddd"
          */
 
 
@@ -199,6 +214,9 @@ textColor: "#dddddd"
         nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
 
 
+        console.log("nodeData======", nodeData)
+
+
         const circle = new PIXI.Graphics();
         circle.x = 0;
         circle.y = 0;
@@ -209,14 +227,14 @@ textColor: "#dddddd"
         const circleBorder = new PIXI.Graphics();
         circle.x = 0;
         circle.y = 0;
-        circleBorder.lineStyle(nodeData.meta.shapeOptions.strokeWidth, nodeData.meta.shapeOptions.strokeColor );
+        circleBorder.lineStyle(nodeData.meta.shapeOptions.strokeWidth, nodeData.meta.shapeOptions.strokeColor);
         circleBorder.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
         nodeContainer.addChild(circleBorder);
 
         // const icon = new PIXI.Text(ICON_TEXT, {
         //     fontFamily: ICON_FONT_FAMILY,
         //     fontSize: ICON_FONT_SIZE,
-        //     fill: colorToNumber(nodeData.meta.shapeOptions.textColor)
+        //     fill: colorToNumber(nodeData.meta.shapeOptions.labelColor)
         // });
         // icon.x = 0;
         // icon.y = 0;
