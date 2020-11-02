@@ -1,16 +1,9 @@
 import * as PIXI from 'pixi.js-legacy'
-// import * as PIXI from "pixi.js";
 import {Viewport} from 'pixi-viewport'
-// import {
-//     // colorToNumber,
-//     // scale, getColor,
-//     // getNodeLabel, getLinkLabel
-// } from "./old/utils";
 import {colorToNumber} from "../canvas-utils";
 // import FontFaceObserver from "fontfaceobserver";
 import EventStore from "./events";
 import GraphicsStore from "../../core/graphics-store";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default class GraphicsEngine {
 
@@ -21,13 +14,12 @@ export default class GraphicsEngine {
     nodeMenuEl = undefined;
     isFirstLoaded = false
 
-
-    loadFont(fontFamily) {
-        // new FontFaceObserver(fontFamily).load();
-    }
+    //
+    // loadFont(fontFamily) {
+    //     // new FontFaceObserver(fontFamily).load();
+    // }
 
     constructor(canvasElem, nodeMenuEl, settings, dataStore, onNodeSelected) {
-        let _this = this;
         this.settings = settings;
         this.dataStore = dataStore;
         this.graphicsStore = new GraphicsStore(this.dataStore, this);
@@ -39,7 +31,6 @@ export default class GraphicsEngine {
 
         this.nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         this.linkLabels = Object.assign({}, JSON.parse(localStorage.getItem('linkLabels')));
-        console.log("nodeLabels", this.nodeLabels);
         // this.loadFont(this.settings.ICON_FONT_FAMILY);
         //
         // new FontFaceObserver(this.settings.ICON_FONT_FAMILY).load();
@@ -324,7 +315,7 @@ labelColor: "#dddddd"
                 this.linksLayer.removeChild(linkGraphics);
                 linkGraphics.destroy();
             } catch (e) {
-
+                console.log("Failed to clear link graphics with error", e);
             }
         }
         while (this.dataStore.linkLabelGraphicsArray.length > 0) {
@@ -334,7 +325,7 @@ labelColor: "#dddddd"
                 this.linksLabelsLayer.removeChild(linkLabelGraphics);
                 linkLabelGraphics.destroy();
             } catch (e) {
-
+                console.log("Failed to clear link graphics with error", e);
             }
         }
     }
@@ -356,12 +347,13 @@ labelColor: "#dddddd"
 
     }
 
-    getTrianglePointsTan
+    // getTrianglePointsTan
 
 
     getNormalAndTangentForTwoPoints(x1, y1, x2, y2, sameIndex) {
         // x1, y1 is the first point and x2, y2 is the second point.
 
+        console.log("I might use sameIndex someday", sameIndex)
 
         let normal = [
             -(y2 - this.settings.NODE_RADIUS),
@@ -388,7 +380,7 @@ labelColor: "#dddddd"
         console.log("=======linkData", linkData);
 
 
-        const linkColor = colorToNumber(linkData.meta.color ) ||  this.settings.LINK_DEFAULT_COLOR;
+        const linkColor = colorToNumber(linkData.meta.color) || this.settings.LINK_DEFAULT_COLOR;
         console.log("linkColor", linkColor)
         const {LINK_DEFAULT_LABEL_FONT_SIZE, LABEL_FONT_FAMILY, LINK_DEFAULT_WIDTH} = this.settings;
         let _this = this;
@@ -613,10 +605,10 @@ labelColor: "#dddddd"
         let _this = this;
         const nodes = this.dataStore.getAllRawVerticesList();
         for (const node of nodes) {
-            if (!!_this.graphicsStore.nodeDataToNodeGfx.get(node.id)) {
+            if (_this.graphicsStore.nodeDataToNodeGfx.get(node.id)) {
                 _this.graphicsStore.nodeDataToNodeGfx.get(node.id).position = new PIXI.Point(node.x, node.y)
             }
-            if (!!_this.graphicsStore.nodeDataToLabelGfx.get(node.id)) {
+            if (_this.graphicsStore.nodeDataToLabelGfx.get(node.id)) {
                 _this.graphicsStore.nodeDataToLabelGfx.get(node.id).position = new PIXI.Point(node.x, node.y)
             }
         }

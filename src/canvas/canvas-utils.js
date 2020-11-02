@@ -150,20 +150,14 @@ export function prepareLinksDataForCurves(links) {
     })
 }
 
-export function prepareLinkDataWithOptions(links, options) {
-
-
-    links.forEach((link) => {
-        const linkOption = options[link.label];
-
-        if (linkOption) {
-
-        } else {
-
-        }
-
-    });
-}
+// export function prepareLinkDataWithOptions(links, options) {
+//
+//
+//     links.forEach((link) => {
+//         const linkOption = options[link.label];
+//
+//     });
+// }
 
 export function prepareNodesDataWithOptions(nodes, options) {
     /*

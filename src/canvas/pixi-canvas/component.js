@@ -121,7 +121,7 @@ export default class PIXICanvasComponent extends React.Component {
     }
 
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate() {
         console.log("componentDidUpdate", this.props.shallReRenderD3Canvas);
 
         if (this.props.shallReRenderD3Canvas) {
@@ -221,8 +221,6 @@ export default class PIXICanvasComponent extends React.Component {
         const selectedNode = this.props.selectedElementData;
         console.log("expandOutLinksAndNodes", selectedNode);
         // TODO - improve performance of the query.
-
-
         const query_string = this.props.connector.requestBuilder.getOutEdgeVertices(selectedNode.id);
 
         this.props.makeQuery(query_string);
