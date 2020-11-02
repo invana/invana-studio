@@ -3,7 +3,7 @@ import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 import {managementVertexLabel} from "../config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircle, faProjectDiagram, faWrench} from "@fortawesome/free-solid-svg-icons";
+import { faProjectDiagram, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {getColorForString} from "../canvas/canvas-utils";
 
 export default class EdgesManagement extends RemoteGraphComponent {

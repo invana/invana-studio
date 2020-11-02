@@ -40,7 +40,7 @@ export default class VertexOptions extends RemoteGraphComponent {
         this.makeQuery(queryPayload);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps) {
         console.log("VO componentDidUpdate")
         if (prevProps.selectedLabel !== this.props.selectedLabel) {
             // already data exist
@@ -111,7 +111,7 @@ export default class VertexOptions extends RemoteGraphComponent {
         //     thisNodeOptions.properties = {};
         // }
         console.log("======this.state.nodeOptions ", this.state.nodeOptions)
-        const defaultNodeOptions = getDefaultNodeOptions(selectedLabel, );
+        const defaultNodeOptions = getDefaultNodeOptions(selectedLabel,);
         console.log("========defaultNodeOptions", defaultNodeOptions)
         console.log("***");
         this.shallReload = false;
@@ -147,7 +147,7 @@ export default class VertexOptions extends RemoteGraphComponent {
                            onChange={this.handleValueChange.bind(this)}
                            defaultValue={this.state.nodeOptions.properties.bgImageUrl || defaultNodeOptions.bgImageUrl}/>
 
-                    <label  style={{"display": "none"}} className={""}>Background Image (from data field)</label>
+                    <label style={{"display": "none"}} className={""}>Background Image (from data field)</label>
                     <input type="hidden" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            onChange={this.handleValueChange.bind(this)}

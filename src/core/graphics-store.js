@@ -124,7 +124,7 @@ export default class GraphicsStore {
 
         // TODO - review code, do we need forEach on getAllRawEdgesList instead of iterating over all
         //  _this.linkDataToLinkGfx and _this.linkDataToLabelGfx
-        edgesToRender.forEach((link, i) => {
+        edgesToRender.forEach((link) => {
             const linkGfx = _this.linkDataToLinkGfx.get(link.id);
             const linkLabelGfx = _this.linkDataToLabelGfx.get(link.id);
 
@@ -140,7 +140,7 @@ export default class GraphicsStore {
 
         })
 
-        verticesToRender.forEach((node, i) => {
+        verticesToRender.forEach((node) => {
             const nodeGfx = _this.nodeDataToNodeGfx.get(node.id);
             const labelGfx = _this.nodeDataToLabelGfx.get(node.id);
 
@@ -178,9 +178,13 @@ export default class GraphicsStore {
         })
 
         // create lookup tables
+        // eslint-disable-next-line no-unused-vars
         this.nodeDataToNodeGfx = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeData.id, nodeGfx]));
+        // eslint-disable-next-line no-unused-vars
         this.nodeGfxToNodeData = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeGfx, nodeData.id]));
+        // eslint-disable-next-line no-unused-vars
         this.nodeDataToLabelGfx = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [nodeData.id, labelGfx]));
+        // eslint-disable-next-line no-unused-vars
         this.labelGfxToNodeData = new Map(this.nodeDataGfxPairs.map(([nodeData, nodeGfx, labelGfx]) => [labelGfx, nodeData.id]));
         // add Neighbours map also.
     }
@@ -193,9 +197,13 @@ export default class GraphicsStore {
 
 
         // create lookup tables
+        // eslint-disable-next-line no-unused-vars
         this.linkDataToLinkGfx = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkData.id, linkGfx]));
+        // eslint-disable-next-line no-unused-vars
         this.linkGfxToLinkData = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkGfx, linkData.id]));
+        // eslint-disable-next-line no-unused-vars
         this.linkDataToLabelGfx = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [linkData.id, labelGfx]));
+        // eslint-disable-next-line no-unused-vars
         this.labelGfxToLinkData = new Map(this.linkDataGfxPairs.map(([linkData, linkGfx, labelGfx]) => [labelGfx, linkData.id]));
         // add Neighbours map also.
     }

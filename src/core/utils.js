@@ -12,6 +12,7 @@ function padZero(str, len) {
 export function convertMapKeysToArray(mapData) {
     let data = [];
     for (const [key, value] of mapData.entries()) {
+        console.log("=====key", key);
         data.push(value);
     }
     return data;
@@ -21,6 +22,7 @@ export function convertWeakMapKeysToArray(weakMapData) {
     console.log("weakMap", weakMapData)
     let data = [];
     for (const [key, value] of weakMapData.items()) {
+        console.log("=====key", key);
         data.push(value);
     }
     return data;
