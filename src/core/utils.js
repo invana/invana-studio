@@ -171,8 +171,10 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     console.log("setElementColorOptionsToStorageUsingResponse", response.response.data.filterVertex);
     let nodeLabelsConfig = {};
     let edgeLabelsConfig = {};
-    response.response.data.filterVertex.forEach((vertexConfig)=> {
-       nodeLabelsConfig[vertexConfig.properties.name] = vertexConfig.properties;
+    response.response.data.filterVertex.forEach((vertexConfig) => {
+        // if (vertexConfig)
+        // const defaultOptins
+        nodeLabelsConfig[vertexConfig.properties.name] = vertexConfig.properties;
     });
     // response.response.data.filterEdge.forEach((edgeConfig)=> {
     //    edgeLabelsConfig[edgeConfig.label] = edgeConfig.properties;
@@ -189,18 +191,18 @@ export function setElementColorOptionsToStorage(vertexOption) {
      */
     console.log("setElementColorOptionsToStorage", vertexOption)
 
-    if (vertexOption.type === "g:Vertex") {
-        let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
-        _nodes[vertexOption.properties.name] = vertexOption.properties;
-        setDataToLocalStorage('nodeLabels', _nodes);
+    // if (vertexOption.type === "g:Vertex") {
+    let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
+    _nodes[vertexOption.properties.name] = vertexOption.properties;
+    setDataToLocalStorage('nodeLabels', _nodes);
 
-    } else {
-        let _links = getDataFromLocalStorage("linkLabels", true) || {};
-        _links[vertexOption.properties.name] = vertexOption.properties;
-        setDataToLocalStorage('linkLabels', _links);
-
-
-    }
+    // } else {
+    //     let _links = getDataFromLocalStorage("linkLabels", true) || {};
+    //     _links[vertexOption.properties.name] = vertexOption.properties;
+    //     setDataToLocalStorage('linkLabels', _links);
+    //
+    //
+    // }
 
 }
 

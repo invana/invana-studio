@@ -21,28 +21,8 @@ export const colorToNumber = (c) => {
     return parseInt(c.slice(1), 16)
 }
 
-export function getDefaultNodeOptions(label, nodeMeta) {
+export function getDefaultNodeOptions(label) {
 
-    console.log("=====nodeMeta", nodeMeta)
-    // let optionsData = {
-    //     'bgColor': getColorForString(label),
-    //     'borderColor': DefaultNodeBorderColor,
-    //     'bgImageUrl': null,
-    //     'labelPropertyKey': DefaultNodeLabelPropertyKey,
-    //     'tagHtml': null
-    // }
-
-    // nodeMeta.shapeOptions.fillColor ||
-    //  nodeMeta.shapeOptions.strokeColor ||
-    //  nodeMeta.shapeOptions.bgImageUrl ||
-    // if (nodeMeta && nodeMeta.shapeOptions) {
-    //     optionsData['bgColor'] = getColorForString(label);
-    //     optionsData['borderColor'] = DefaultNodeBorderColor;
-    //     optionsData['bgImageUrl'] = null;
-    // }
-    // if (nodeMeta) {
-    //     optionsData['bgImagePropertyKey'] = nodeMeta.bgImagePropertyKey || null;
-    // }
     return {
         bgColor: getColorForString(label),
         borderColor: DefaultNodeBorderColor,
@@ -50,6 +30,13 @@ export function getDefaultNodeOptions(label, nodeMeta) {
         bgImagePropertyKey: null,
         labelPropertyKey: DefaultNodeLabelPropertyKey,
         tagHtml: null
+    }
+}
+
+export function getDefaultLinkOptions(label) {
+    return {
+        bgColor: getColorForString(label),
+        labelPropertyKey: DefaultNodeLabelPropertyKey,
     }
 }
 
@@ -95,11 +82,22 @@ export function prepareLinksDataForCurves(links) {
     help us controls the curves of the links.
      */
 
-    const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+    // const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
 
     links.forEach(function (link) {
+        //
+        // let labelOption = nodeLabels[link.label];
+        //
+        // if (labelOption){
+        //
+        // }
 
-        let labelOption = nodeLabels[link.label];
+
+        link.meta = {
+            color: getColorForString(link.label),
+            text: link.id,
+            labelPropertyKey: "id"
+        };
         // find other links with same target+source or source+target
         let same = links.filter(function (v) {
             return ((v.source === link.source && v.target === link.target));
@@ -152,16 +150,20 @@ export function prepareLinksDataForCurves(links) {
     })
 }
 
-// export function prepareLinkDataWithOptions(links, options){
-//
-//
-//     links.forEach((link)=>{
-//        const linkOption = options[link.label];
-//
-//        if (linkOption)
-//
-//     });
-// }
+export function prepareLinkDataWithOptions(links, options) {
+
+
+    links.forEach((link) => {
+        const linkOption = options[link.label];
+
+        if (linkOption) {
+
+        } else {
+
+        }
+
+    });
+}
 
 export function prepareNodesDataWithOptions(nodes, options) {
     /*

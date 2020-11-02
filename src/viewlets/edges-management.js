@@ -57,7 +57,7 @@ export default class EdgesManagement extends RemoteGraphComponent {
                                     </button>
                                     <button style={{"display": "none"}} className={"management-icon-btn"}
                                             title={"Show the vertices options"}
-                                            onClick={() => this.props.setShowVertexOptions(edgeLabel.label)}>
+                                            onClick={() => this.props.setShowVertexOptions(edgeLabel.label, "g:Edge")}>
                                         <FontAwesomeIcon icon={faWrench}/>
                                     </button>
                                     <span style={{

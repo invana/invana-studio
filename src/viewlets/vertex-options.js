@@ -52,8 +52,11 @@ export default class VertexOptions extends RemoteGraphComponent {
     onFormSubmit(e) {
         e.preventDefault();
         console.log("formdata", e.target);
+
+        let properties = this.state.nodeOptions.properties;
+        properties['label_type'] = this.props.selectedLabelType;
         const query_string = this.connector.requestBuilder.updateVertexById(
-            this.state.nodeOptions.id, this.state.nodeOptions.properties
+            this.state.nodeOptions.id, properties
         );
         this.makeQuery(query_string, {'source': 'canvas'});
     }
@@ -108,7 +111,7 @@ export default class VertexOptions extends RemoteGraphComponent {
         //     thisNodeOptions.properties = {};
         // }
         console.log("======this.state.nodeOptions ", this.state.nodeOptions)
-        const defaultNodeOptions = getDefaultNodeOptions(selectedLabel, {});
+        const defaultNodeOptions = getDefaultNodeOptions(selectedLabel, );
         console.log("========defaultNodeOptions", defaultNodeOptions)
         console.log("***");
         this.shallReload = false;

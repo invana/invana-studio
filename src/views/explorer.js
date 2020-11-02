@@ -435,6 +435,7 @@ export default class ExplorerView extends BaseView {
                                                 showToggleBtn={false}
                                             >
                                                 <VertexOptions selectedLabel={this.state.selectedLabel}
+                                                               selectedLabelType={this.state.selectedLabelType}
                                                                setStatusMessage={this.setStatusMessage.bind(this)}
                                                                setErrorMessage={this.setErrorMessage.bind(this)}
                                                                onClose={() => {

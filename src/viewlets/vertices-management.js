@@ -82,7 +82,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
                                         <FontAwesomeIcon icon={faCircle}/>
                                     </button>
                                     <button className={"management-icon-btn"} title={"Show the vertices options"}
-                                            onClick={() => this.props.setShowVertexOptions(vertexLabel.label)}>
+                                            onClick={() => this.props.setShowVertexOptions(vertexLabel.label, "g:Vertex")}>
                                         <FontAwesomeIcon icon={faWrench}/>
                                     </button>
                                     <span style={{'display': 'inline',

@@ -386,13 +386,17 @@ labelColor: "#dddddd"
     createLink(linkData) {
 
         console.log("=======linkData", linkData);
+
+
+        const linkColor = colorToNumber(linkData.meta.color ) ||  this.settings.LINK_DEFAULT_COLOR;
+        console.log("linkColor", linkColor)
         const {LINK_DEFAULT_LABEL_FONT_SIZE, LABEL_FONT_FAMILY, LINK_DEFAULT_WIDTH} = this.settings;
         let _this = this;
         let linkGfx = new PIXI.Graphics();
         let linkGfxLabel = new PIXI.Graphics();
 
 
-        linkGfx.lineStyle(Math.sqrt(LINK_DEFAULT_WIDTH), this.settings.LINK_DEFAULT_COLOR);
+        linkGfx.lineStyle(Math.sqrt(LINK_DEFAULT_WIDTH), linkColor);
         const curvatureConstant = 0.5;
         const sameIndex = linkData.sameIndex;
         let nextPoint = {};
@@ -433,11 +437,12 @@ labelColor: "#dddddd"
         multiple links issue can be fixed here
 
          */
+
         if (sameIndex === 1) {
             linkGfx.moveTo(linkData.source.x, linkData.source.y);
 
             linkGfx.lineTo(linkData.target.x, linkData.target.y);
-            linkGfx.beginFill(this.settings.LINK_DEFAULT_COLOR, 1);
+            linkGfx.beginFill(linkColor, 1);
             // triangle for the arrow
             //  The distance between Start and End point is given by
             // xt, yt are the coordinates at a distance dt from source.
@@ -458,7 +463,7 @@ labelColor: "#dddddd"
                 , 6
             )
 
-            linkGfx.lineStyle(1, this.settings.LINK_DEFAULT_COLOR, 1, .5)
+            linkGfx.lineStyle(1, linkColor, 1, .5)
                 .moveTo(t1.x, t1.y)
             linkGfx.lineTo(t2.x, t2.y)
                 .lineTo(t3.x, t3.y)

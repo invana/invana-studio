@@ -12,6 +12,7 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
             canvasType: "graph",
             selectedElementData: null,
             selectedLabel: null,
+            selectedLabelType: null,
             query: null,
             // vertices: [],
             // edges: []
@@ -93,15 +94,17 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
     setHideVertexOptions() {
         this.setState({
             selectedLabel: null,
+            selectedLabelType: null,
             middleBottomContentName: null
         })
     }
 
 
-    setShowVertexOptions(label) {
-        console.log("setShowVertexOptions", label)
+    setShowVertexOptions(label, labelType) {
+        console.log("setShowVertexOptions", label, labelType)
         this.setState({
             selectedLabel: label,
+            selectedLabelType: labelType,
             middleBottomContentName: "vertex-options"
         })
     }
