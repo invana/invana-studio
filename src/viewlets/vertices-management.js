@@ -5,7 +5,9 @@ import GEList from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCog, faEye, faCircle, faWrench, faProjectDiagram} from "@fortawesome/free-solid-svg-icons";
 import "./management.scss";
+
 import {managementVertexLabel} from "../config";
+import {getColorForString} from "../canvas/canvas-utils";
 
 export default class VerticesManagement extends RemoteGraphComponent {
 
@@ -34,20 +36,40 @@ export default class VerticesManagement extends RemoteGraphComponent {
         const lastResponse = response.getResponseResult();
         if (lastResponse) {
             this.setState({verticesLabels: response.getResponseResult()})
+
         }
         // }
-        // this.props.setStatusMessage("Updated options for label '" + this.props.selectedElementData.label + "'");
-        // this.props.reRenderCanvas();
+        // if (this.props.selectedElementData) {
+        //
+        // }
+
+    }
+
+    getVertexColor(label, nodeLabels) {
+
+        const nodeLabelOption = nodeLabels[label];
+        if (nodeLabelOption && nodeLabelOption.bgColor) {
+            return nodeLabelOption.bgColor;
+        } else {
+            return getColorForString(label);
+        }
+
+
     }
 
 
     render() {
+
+        const nodeLabels = localStorage.getItem('nodeLabels');
+
         return (
 
             <div className={" p-10"}>
                 <GEList type={"vertical-no-border"}>
                     {
-                        this.state.verticesLabels.filter((label)=> { return label.label !== managementVertexLabel} ).map((vertexLabel, index) => {
+                        this.state.verticesLabels.filter((label) => {
+                            return label.label !== managementVertexLabel
+                        }).map((vertexLabel, index) => {
                             return (
                                 <li style={{"marginBottom": "5px",}} key={index}>
                                     <button className={"management-icon-btn"}
@@ -66,7 +88,10 @@ export default class VerticesManagement extends RemoteGraphComponent {
                                             onClick={() => this.props.setShowVertexOptions(vertexLabel.label)}>
                                         <FontAwesomeIcon icon={faWrench}/>
                                     </button>
+                                    <span style={{'display': 'inline',
+                                        'color': this.getVertexColor(vertexLabel.label, nodeLabels)}}>
                                     {vertexLabel.label} ({vertexLabel.count})
+                                        </span>
 
                                 </li>)
                         })

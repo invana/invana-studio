@@ -83,6 +83,8 @@ export default class VertexOptions extends RemoteGraphComponent {
             setElementColorOptionsToStorage(response.response.data.updateVertexById);
             this.props.setStatusMessage("Updated options for label '" + this.props.selectedLabel + "'");
             this.setState({nodeOptions: response.response.data.updateVertexById})
+
+            this.props.reRenderCanvas();
             if (response.transporterStatusCode !== 200) {
                 this.props.setErrorMessage(response.transporterStatusCode);
             }
@@ -130,8 +132,8 @@ export default class VertexOptions extends RemoteGraphComponent {
                            onChange={this.handleValueChange.bind(this)}
                            defaultValue={this.state.nodeOptions.properties.bgColor || defaultNodeOptions.bgColor}/>
 
-                    <label className={""}>Border Color</label>
-                    <input type="text" name={"borderColor"} maxLength={7} minLength={7}
+                    <label style={{"display": "none"}} className={""}>Border Color</label>
+                    <input type="hidden" name={"borderColor"} maxLength={7} minLength={7}
                            placeholder={"borderColor"} spellCheck="false" readOnly={"readonly"}
 
                            defaultValue={this.state.nodeOptions.properties.borderColor || defaultNodeOptions.borderColor}/>
@@ -142,8 +144,8 @@ export default class VertexOptions extends RemoteGraphComponent {
                            onChange={this.handleValueChange.bind(this)}
                            defaultValue={this.state.nodeOptions.properties.bgImageUrl || defaultNodeOptions.bgImageUrl}/>
 
-                    <label className={""}>Background Image (from data field)</label>
-                    <input type="text" name={"bgImagePropertyKey"}
+                    <label  style={{"display": "none"}} className={""}>Background Image (from data field)</label>
+                    <input type="hidden" name={"bgImagePropertyKey"}
                            spellCheck="false"
                            onChange={this.handleValueChange.bind(this)}
                            placeholder={"bgImagePropertyKey (optional)"} readOnly={"readonly"}
