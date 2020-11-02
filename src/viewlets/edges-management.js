@@ -38,10 +38,10 @@ export default class EdgesManagement extends RemoteGraphComponent {
                             return (
                                 <li style={{"marginBottom": "5px",}} key={index}>
                                     <button className={"management-icon-btn"}
-                                            title={"Show connected edges and vertices"}
+                                            title={"Show connected edges and their vertices"}
                                             onClick={() => this.props.parentGraphComponent.makeQuery(
                                                 this.connector.requestBuilder.filterEdgeAndGetNeighborVertices(
-                                                    edgeLabel.label, 1, 0), {'source': 'canvas'})
+                                                    edgeLabel.label, 50, 0), {'source': 'canvas'})
                                             }>
                                         <FontAwesomeIcon icon={faProjectDiagram}/>
                                     </button>
