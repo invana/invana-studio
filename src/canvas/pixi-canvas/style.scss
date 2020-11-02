@@ -1,0 +1,52 @@
+@import "../../config.scss";
+
+
+.nodeMenuContainer {
+  background-color: $darkBg;
+  position: fixed;
+  border: 3px solid $veryDarkBg;
+  //background-color: #efefef;
+  //font-family: "Arial";
+  width: 200px;
+  font-size: 12px;
+  padding: 5px;
+
+  h5 {
+    font-size: 14px
+  }
+
+  p {
+    font-size: 12px;
+    border-bottom: 1px solid $borderColor;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    color: #676767;
+  }
+
+  .nodeMenu {
+    margin-left: 0;
+    padding-left: 0;
+    width: 100px;
+    border: 1px solid $borderColor;
+
+    li {
+      display: block;
+      border-bottom: 1px solid $borderColor;
+      color: $defaultTextColor;
+      cursor: pointer;
+      /*font-size: 14px;*/
+      padding: 5px 5px;
+    }
+
+    li:hover {
+      color: $primaryColor;
+    }
+  }
+
+}
+
+.graphContainer {
+  height: 100%;
+  width: 100%;
+}

@@ -42,7 +42,7 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
         const serializedData = _this.responseSerializer.process(response.getResponseData());
         const {nodes, links} = _this.responseSerializer.separateVerticesAndEdges(serializedData);
 
-        console.log("extending graph=========", nodes, links);
+        console.log("extending graph=========", Object.assign(nodes, {}), Object.assign(links, {}));
         this.dataStore.addData(nodes, links,
             //
             () => {

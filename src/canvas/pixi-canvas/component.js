@@ -1,6 +1,6 @@
 import React from "react";
 import GraphicsEngine from "./canvas";
-import "./style.css";
+import "./style.scss";
 import PropTypes from "prop-types";
 import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
@@ -117,7 +117,7 @@ export default class PIXICanvasComponent extends React.Component {
 
     shouldComponentUpdate(nextProps) {
         console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
-        return nextProps.shallReRenderD3Canvas;
+        return nextProps.shallReRenderD3Canvas || this.props.selectedElementData !== nextProps.selectedElementData;
     }
 
 
@@ -161,7 +161,6 @@ export default class PIXICanvasComponent extends React.Component {
 
         this.checkAndAddNewData2Simulation();
     }
-
 
 
     componentDidMount() {
@@ -244,6 +243,27 @@ export default class PIXICanvasComponent extends React.Component {
         this.graphicsEngine.resetViewport();
     }
 
+    getVerboseIdentifier() {
+        const elementData = this.props.selectedElementData;
+        console.log("=====elementData", elementData)
+        if (elementData) {
+            const color = elementData.meta.shapeOptions.fillColor;
+            document.querySelector('.nodeMenuContainer h5').style.color = color;
+            if (elementData.meta.labelOptions.labelText) {
+                return  elementData.meta.labelOptions.labelText ;
+            } else {
+                return  elementData.id;
+            }
+        }
+    }
+
+    getIdentifier() {
+        const elementData = this.props.selectedElementData;
+        console.log("=====elementData", elementData)
+        if (elementData) {
+            return elementData.id;
+        }
+    }
 
     render() {
         // console.log("PIXICanvas render()", this.props.dataStore.getAllRawVerticesList())
@@ -254,8 +274,8 @@ export default class PIXICanvasComponent extends React.Component {
 
 
                 <div className="nodeMenuContainer" style={{"display": "none"}}>
-                    <h5>Vertex Label</h5>
-                    <p>Id: <span id={"elementId"}></span></p>
+                    <h5>{this.getVerboseIdentifier()}</h5>
+                    <p>ID: {this.getIdentifier()}</p>
                     <ul className={"nodeMenu"}>
                         <li onClick={() => this.onClickFocus()}>Focus</li>
                         <li onClick={() => this.resetFocus()}>Reset Focus</li>
@@ -265,6 +285,7 @@ export default class PIXICanvasComponent extends React.Component {
                         <li onClick={() => this.hideMenu()}>hide menu</li>
                     </ul>
                 </div>
+
                 <div className="graphContainer canvas">
 
                 </div>

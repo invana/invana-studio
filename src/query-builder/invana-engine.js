@@ -4,13 +4,17 @@ import QueryManagerBase from "./base";
 export default class InvanaEngineQueryManager extends QueryManagerBase {
 
     getOrCreateVertices(label, properties, namespace) {
-        return {"query": "{getOrCreateVertex(label:\"" + label + "\", properties: "
-                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"};
+        return {
+            "query": "{getOrCreateVertex(label:\"" + label + "\", properties: "
+                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"
+        };
     }
 
     updateVertexById(vertexId, properties) {
-        return {"query": "mutation{updateVertexById(id: " + vertexId + ", properties: "
-                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"};
+        return {
+            "query": "mutation{updateVertexById(id: " + vertexId + ", properties: "
+                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"
+        };
     }
 
     getOutEdgeVertices(vertexId) {
@@ -82,6 +86,23 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
         queryParams = queryParams.replace(/,\s*$/, "");
         return {"query": "{filterEdge(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+    }
+
+    filterEdgeAndGetNeighborVertices(label, limit, skip) {
+
+        let queryParams = "";
+        if (label) {
+            queryParams += "label: \"" + label + "\",";
+        }
+        if (limit) {
+            queryParams += "limit: " + limit + ",";
+        }
+        if (skip) {
+            queryParams += "skip: " + skip;
+        }
+
+        queryParams = queryParams.replace(/,\s*$/, "");
+        return {"query": "{filterEdgeAndGetNeighborVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
     }
 
     rawQuery(queryString) {

@@ -9,7 +9,7 @@
   .main-content-nav {
     height: 31px;
     border-bottom: 1px solid $borderColor;
-    background-color: #121212;
+    background-color: $veryDarkBg;
   }
 
   .main-content-body::-webkit-scrollbar {

@@ -403,7 +403,7 @@ export default class ExplorerView extends BaseView {
                                         ?
                                         <GEPanel
                                             // title={"Selected Element Data"}
-                                            title={"Properties of hovered element"}
+                                            title={"Properties of the element"}
 
                                             showToggleBtn={false}
                                             showCloseBtn={true}
