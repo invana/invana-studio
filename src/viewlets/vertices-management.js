@@ -46,21 +46,18 @@ export default class VerticesManagement extends RemoteGraphComponent {
     }
 
     getVertexColor(label, nodeLabels) {
-
         const nodeLabelOption = nodeLabels[label];
         if (nodeLabelOption && nodeLabelOption.bgColor) {
             return nodeLabelOption.bgColor;
         } else {
             return getColorForString(label);
         }
-
-
     }
 
 
     render() {
 
-        const nodeLabels = localStorage.getItem('nodeLabels');
+        const nodeLabels =  Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
 
         return (
 

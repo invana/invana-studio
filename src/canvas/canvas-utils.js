@@ -94,8 +94,12 @@ export function prepareLinksDataForCurves(links) {
     This method will set attributes on to the links that will
     help us controls the curves of the links.
      */
+
+    const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+
     links.forEach(function (link) {
 
+        let labelOption = nodeLabels[link.label];
         // find other links with same target+source or source+target
         let same = links.filter(function (v) {
             return ((v.source === link.source && v.target === link.target));
@@ -148,6 +152,16 @@ export function prepareLinksDataForCurves(links) {
     })
 }
 
+// export function prepareLinkDataWithOptions(links, options){
+//
+//
+//     links.forEach((link)=>{
+//        const linkOption = options[link.label];
+//
+//        if (linkOption)
+//
+//     });
+// }
 
 export function prepareNodesDataWithOptions(nodes, options) {
     /*

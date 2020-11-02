@@ -168,12 +168,14 @@ export default class GraphicsEngine {
     createNode(nodeData) {
         const _this = this;
         const {
-            NODE_HIT_RADIUS, NODE_RADIUS, LABEL_FONT_FAMILY, LABEL_FONT_SIZE,
+            NODE_HIT_RADIUS,
+            // NODE_RADIUS,
+            LABEL_FONT_FAMILY, LABEL_FONT_SIZE,
             LABEL_X_PADDING,
             LABEL_Y_PADDING,
-            ICON_TEXT,
-            ICON_FONT_FAMILY,
-            ICON_FONT_SIZE
+            // ICON_TEXT,
+            // ICON_FONT_FAMILY,
+            // ICON_FONT_SIZE
         } = this.settings;
 
 
@@ -382,6 +384,8 @@ labelColor: "#dddddd"
     }
 
     createLink(linkData) {
+
+        console.log("=======linkData", linkData);
         const {LINK_DEFAULT_LABEL_FONT_SIZE, LABEL_FONT_FAMILY, LINK_DEFAULT_WIDTH} = this.settings;
         let _this = this;
         let linkGfx = new PIXI.Graphics();

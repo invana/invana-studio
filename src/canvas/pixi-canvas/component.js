@@ -248,11 +248,14 @@ export default class PIXICanvasComponent extends React.Component {
         console.log("=====elementData", elementData)
         if (elementData) {
             const color = elementData.meta.shapeOptions.fillColor;
-            document.querySelector('.nodeMenuContainer h5').style.color = color;
+            const elem = document.querySelector('.nodeMenuContainer h5');
+            if (elem) {
+                elem.style.color = color;
+            }
             if (elementData.meta.labelOptions.labelText) {
-                return  elementData.meta.labelOptions.labelText ;
+                return elementData.meta.labelOptions.labelText;
             } else {
-                return  elementData.id;
+                return elementData.id;
             }
         }
     }

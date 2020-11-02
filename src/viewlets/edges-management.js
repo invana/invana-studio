@@ -4,6 +4,7 @@ import GEList from "../ui-components/lists/list";
 import {managementVertexLabel} from "../config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircle, faProjectDiagram, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {getColorForString} from "../canvas/canvas-utils";
 
 export default class EdgesManagement extends RemoteGraphComponent {
 
@@ -24,8 +25,17 @@ export default class EdgesManagement extends RemoteGraphComponent {
         }
     }
 
+    getVertexColor(label, nodeLabels) {
+        const nodeLabelOption = nodeLabels[label];
+        if (nodeLabelOption && nodeLabelOption.bgColor) {
+            return nodeLabelOption.bgColor;
+        } else {
+            return getColorForString(label);
+        }
+    }
 
     render() {
+        const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         console.log("=====this.state.edgesLabels", this.state.edgesLabels);
         return (
 
@@ -45,12 +55,17 @@ export default class EdgesManagement extends RemoteGraphComponent {
                                             }>
                                         <FontAwesomeIcon icon={faProjectDiagram}/>
                                     </button>
-                                    <button style={{"display": "none"}} className={"management-icon-btn"} title={"Show the vertices options"}
+                                    <button style={{"display": "none"}} className={"management-icon-btn"}
+                                            title={"Show the vertices options"}
                                             onClick={() => this.props.setShowVertexOptions(edgeLabel.label)}>
                                         <FontAwesomeIcon icon={faWrench}/>
                                     </button>
+                                    <span style={{
+                                        'display': 'inline',
+                                        'color': this.getVertexColor(edgeLabel.label, nodeLabels)
+                                    }}>
                                     {edgeLabel.label} ({edgeLabel.count})
-
+                                        </span>
                                 </li>)
                         })
                     }
