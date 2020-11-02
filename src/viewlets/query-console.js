@@ -12,7 +12,7 @@ export default class QueryConsole extends React.Component {
 
     static defaultProps = {
         makeQuery: () => console.log("No Query Handler added yet"),
-        requestBuilder: () => console.error("requestBuilder prop missing for QueryConsole"),
+        connector: {},
         flushCanvas: () => console.log("flushCanvas added  to QueryConsole"),
         query: null,
         defaultPlaceholderText: "g.V().limit(5).toList();"
@@ -23,6 +23,7 @@ export default class QueryConsole extends React.Component {
         query: PropTypes.string,
         onClose: PropTypes.func,
         makeQuery: PropTypes.func,
+        connector: PropTypes.func,
         flushCanvas: PropTypes.func,
         defaultPlaceholderText: PropTypes.string,
     };
@@ -71,11 +72,12 @@ export default class QueryConsole extends React.Component {
     }
 
 
-    onFormSubmit(e) {
+    onFormSubmit(_this, e) {
         e.preventDefault();
         e.stopPropagation();
-        const query  = this.props.requestBuilder.rawQuery(e.target.query.value)
-        this.props.makeQuery(query, {source: "console"});
+        console.log("=====_this", _this);
+        const query  = _this.props.connector.requestBuilder.rawQuery(e.target.query.value)
+        _this.props.makeQuery(query, {source: "console"});
     }
 
 
@@ -119,7 +121,8 @@ export default class QueryConsole extends React.Component {
         return (
 
             <div className={"queryConsole p-10"}>
-                <form ref={e => this.formRef = e} id={"queryForm"} onSubmit={this.onFormSubmit.bind(this)}>
+                <form ref={e => this.formRef = e} id={"queryForm"}
+                      onSubmit={(e) => this.onFormSubmit(this, e)}>
                     {/*<p className={"small "}>Shift+Enter to submit the Query.</p>*/}
 
                     <div className={"queryOptions"}>
@@ -141,7 +144,7 @@ export default class QueryConsole extends React.Component {
                         </div>
                         <div className={"float-right"}>
                             <button className={"button m-0"} type={"submit"}
-                                    onSubmit={this.onFormSubmit.bind(this)}
+                                    onSubmit={(e)=>this.onFormSubmit.bind(this, e)}
                             >
                                 <FontAwesomeIcon icon={faPlayCircle}/> Run Query
                             </button>

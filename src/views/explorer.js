@@ -366,7 +366,7 @@ export default class ExplorerView extends BaseView {
                                                 <QueryConsole
                                                     makeQuery={this.makeQuery.bind(this)}
                                                     query={this.state.query}
-                                                    requestBuilder={this.requestBuilder}
+                                                    connector={this.connector}
                                                     flushCanvas={this.flushCanvas.bind(this)}
                                                 />
                                             ) : (<div></div>)
@@ -483,9 +483,7 @@ export default class ExplorerView extends BaseView {
                                 <div className={"main-content-nav"}>
                                     <List type={"canvas-nav"}>
                                         <li>
-                                            {/*<span></span>*/}
-                                            <span
-                                                style={{"textTransform": "capitalize"}}>Using {this.state.canvasType} canvas | </span>
+                                            &nbsp;
                                         </li>
                                         <li>
                                             <div className={"canvasToggle"}>
