@@ -15,7 +15,7 @@ export default class HomeView extends RemoteGraphComponent {
         console.log("=_this.connector.requestBuilder.initQuery()", _this.connector.requestBuilder.initQuery())
         setTimeout(function () {
             _this.makeQuery(_this.connector.requestBuilder.filterVertices(
-                managementVertexLabel
+                managementVertexLabel, 50
             ), {source: "internal"});
         }, 200)
     }

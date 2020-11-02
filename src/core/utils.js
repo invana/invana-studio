@@ -168,22 +168,18 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     If sent response from gremlin, it will automatically update those new
     vertex/edge key data only.
      */
-    console.log("setElementColorOptionsToStorageUsingResponse", response)
-    //
-    let result = gremlinDeSerializer.process(response);
-    let nodesAndLinks = gremlinDeSerializer.separateVerticesAndEdges(result, false);
-    let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
-    nodesAndLinks.nodes.forEach(function (node) {
-        _nodes[node.properties.name] = node.properties;
-    })
-    let _links = getDataFromLocalStorage("linkLabels", true) || {};
-    nodesAndLinks.links.forEach(function (link) {
-        _links[link.label] = link.properties;
-    })
-    // convert this list into dictionary.
-    console.log("=======((", _nodes, _links)
-    setDataToLocalStorage('nodeLabels', _nodes);
-    setDataToLocalStorage('linkLabels', _links);
+    console.log("setElementColorOptionsToStorageUsingResponse", response.response.data.filterVertex);
+    let nodeLabelsConfig = {};
+    let edgeLabelsConfig = {};
+    response.response.data.filterVertex.forEach((vertexConfig)=> {
+       nodeLabelsConfig[vertexConfig.properties.name] = vertexConfig.properties;
+    });
+    // response.response.data.filterEdge.forEach((edgeConfig)=> {
+    //    edgeLabelsConfig[edgeConfig.label] = edgeConfig.properties;
+    // });
+    console.log("=======((", nodeLabelsConfig, edgeLabelsConfig)
+    setDataToLocalStorage('nodeLabels', nodeLabelsConfig);
+    setDataToLocalStorage('linkLabels', edgeLabelsConfig);
 }
 
 export function setElementColorOptionsToStorage(vertexOption) {
