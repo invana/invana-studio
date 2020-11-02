@@ -9,14 +9,14 @@ export default class HistoryComponent extends React.Component {
 
     static defaultProps = {
         makeQuery: (query) => console.log("makeQuery prop not set to HistoryFlyOut", query),
-        requestBuilder: null,
+        // connector: null,
         addQueryToConsole: (query) => console.log("addQueryToConsole prop not set to HistoryFlyOut", query),
         query: null
     }
 
     static propTypes = {
         makeQuery: PropTypes.func,
-        requestBuilder: PropTypes.object,
+        // connector: PropTypes.func,
         addQueryToConsole: PropTypes.func,
         query: PropTypes.string
     };

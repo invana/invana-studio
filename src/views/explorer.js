@@ -246,7 +246,7 @@ export default class ExplorerView extends BaseView {
                                     >
                                         <HistoryComponent
                                             makeQuery={this.makeQuery.bind(this)}
-                                            requestBuilder={this.requestBuilder}
+                                            // requestBuilder={this.requestBuilder}
                                             addQueryToConsole={this.addQueryToConsole.bind(this)}
                                         />
                                     </GEPanel>

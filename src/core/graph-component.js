@@ -258,7 +258,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     }
 
     addQueryToState(query) {
-
+console.log("======addQueryToState", query);
         this.setState({
             query: query
         })
