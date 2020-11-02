@@ -31,24 +31,48 @@ export default class InMemoryDataStore {
         this.resetData()
     }
 
+    checkIfVertexExist(vertexId) {
+        this.#vertices.get(vertexId)
+    }
+
+    checkIfEdgeExist(vertexId) {
+        this.#edges.get(vertexId)
+    }
+
+    addVertexToDataSet(vertex) {
+        this.#vertices.set(vertex.id, vertex);
+    }
+
+    addEdgeToDataSet(edge) {
+        this.#edges.set(edge.id, edge);
+    }
 
     addData(newVertices, newEdges, onDataUpdated) {
+        // make sure the newly added edges data has respective nodes data.
         let _this = this;
         for (let vertexI in newVertices) {
-            if (_this.#vertices[vertexI]) {
-                // already indexed
-            } else {
-                let vertex = newVertices[vertexI];
-                _this.#vertices.set(vertex.id, vertex);
+            let vertex = newVertices[vertexI];
+            let doesNodeExist = _this.checkIfVertexExist(vertex.id);
+            if (!doesNodeExist) {
+                _this.addVertexToDataSet(vertex)
             }
         }
         for (let edgeI in newEdges) {
-            if (_this.#edges[edgeI]) {
-                // already indexed
-            } else {
-                let edge = newEdges[edgeI];
-                _this.#edges.set(edge.id, edge);
+            let edge = newEdges[edgeI];
+            let doesEdgeExist = _this.checkIfEdgeExist(edge.id);
+            if (!doesEdgeExist) {
+                this.addEdgeToDataSet(edge)
             }
+            let checkIfInVExistInStore = _this.checkIfVertexExist(edge.inV);
+            if (!checkIfInVExistInStore) {
+                this.addVertexToDataSet({id: edge.inV, label: edge.inVLabel, type: "g:Vertex", properties: {}})
+            }
+            let checkIfOutVExistInStore = _this.checkIfVertexExist(edge.outV);
+
+            if (!checkIfOutVExistInStore) {
+                this.addVertexToDataSet({id: edge.outV, label: edge.outVLabel, type: "g:Vertex", properties: {}})
+            }
+
         }
         if (onDataUpdated) {
             onDataUpdated();
@@ -265,7 +289,7 @@ export default class InMemoryDataStore {
         this.focusedNodes = [];
     }
 
-    checkIfNodeExistInFocused(nodeData) {
+    checkIfVertexExistInFocused(nodeData) {
         this.focusedNodes.forEach((node) => {
             if (nodeData.id === node.id) {
                 return true;
@@ -275,7 +299,7 @@ export default class InMemoryDataStore {
     }
 
     addNode2Focus(nodeData) {
-        if (!this.checkIfNodeExistInFocused(nodeData)) {
+        if (!this.checkIfVertexExistInFocused(nodeData)) {
             this.focusedNodes.push(nodeData);
         }
     }

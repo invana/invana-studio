@@ -350,13 +350,16 @@ export default class ExplorerView extends BaseView {
                                         (
                                             <VerticesManagement
                                                 parentGraphComponent={this}
-                                            setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                                setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                             />
 
                                         ) :
                                         this.state.middleTopContentName === "edges-management" ?
                                             (
-                                                <EdgesManagement parentGraphComponent={this}/>
+                                                <EdgesManagement
+                                                    parentGraphComponent={this}
+                                                    setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                                />
 
                                             ) :
                                             this.state.middleTopContentName === "query-console" ? (
