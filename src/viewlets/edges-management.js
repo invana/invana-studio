@@ -43,12 +43,6 @@ export default class EdgesManagement extends RemoteGraphComponent {
                                                 this.connector.requestBuilder.filterEdges(edgeLabel.label, 10, 0), {'source': 'canvas'})}>
                                         <FontAwesomeIcon icon={faProjectDiagram}/>
                                     </button>
-                                    <button className={"management-icon-btn"} title={"Show "}
-                                            onClick={() => this.props.parentGraphComponent.makeQuery(
-                                                this.connector.requestBuilder.filterEdges(edgeLabel.label, 10, 0),
-                                                {'source': 'canvas'})}>
-                                        <FontAwesomeIcon icon={faCircle}/>
-                                    </button>
                                     <button className={"management-icon-btn"} title={"Show the vertices options"}
                                             onClick={() => this.props.setShowVertexOptions(edgeLabel.label)}>
                                         <FontAwesomeIcon icon={faWrench}/>
