@@ -158,7 +158,7 @@ export default class SetupGremlinServerConnection extends React.Component {
 
                                 <input type="text" name={"gremlinServerUrl"}
                                     // defaultValue={"ws://localhost:8182/gremlin"}
-                                       placeholder={"http://user:password@localhost:8182/gremlin"}/>
+                                       placeholder={"http://127.0.0.1:8000/graphql"}/>
                                 <br/>
 
                                 <p style={{"textAlign": "right", "marginBottom": 0}}>
