@@ -174,7 +174,8 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
                     this.connector.reconnectWithWS()
                 } catch (e) {
                     console.error("Failed to connect to websocket", e);
-                    window.location.href = "/connect?error=Failed to connect to websocket url"
+                    window.location.href = "/connect?error=Failed to connect. " +
+                        "WebSocket connections are not supported at the moment."
                 }
             } else {
                 console.log("protocol will be " + protocol);

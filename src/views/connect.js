@@ -61,6 +61,11 @@ export default class SetupGremlinServerConnection extends React.Component {
         window.open(DEMO_URL);
     }
 
+    getErrorFromUrlString() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('error');
+    }
+
     componentDidMount() {
 
         // document.addEventListener('input', (e) => {
@@ -82,6 +87,11 @@ export default class SetupGremlinServerConnection extends React.Component {
         document.querySelectorAll("input[name='graphEngineName']").forEach((input) => {
             input.addEventListener('change', updateInputPlaceholder);
         });
+
+        const errorMessage = this.getErrorFromUrlString();
+        if (errorMessage){
+            alert(errorMessage);
+        }
     }
 
     toggleMoreOptions() {
