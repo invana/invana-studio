@@ -136,22 +136,34 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
 
     console.log("=====request data", data);
     const gremlinUrl = url_analysed.origin + url_analysed.pathname;
-    const response = await fetch(gremlinUrl, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        // credentials: 'include', // include, *same-origin, omit
-        headers: extraHeaders,
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    console.log("response========", response);
-    let responseJson = null;
-    // let statusCode = response.status; // response from the server.
+    // let response = null
+    let transporterStatusCode = null;
+    let responseJson = {};
+
     try {
-        responseJson = await response.json();
+        const response = await fetch(gremlinUrl, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: 'include', // include, *same-origin, omit
+            headers: extraHeaders,
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        console.log("response========", response);
+
+        transporterStatusCode = response.status
+        try {
+            responseJson = await response.json();
+        } catch (e) {
+            console.error("failed to get the json data with error", e);
+        }
     } catch (e) {
-        console.log("failed to get the json data");
+        console.error("Failed to perform fetch with error ", e);
+        transporterStatusCode = 999;
     }
-    return {"response": responseJson, transporterStatusCode: response.status}
+
+    // let statusCode = response.status; // response from the server.
+
+    return {"response": responseJson, transporterStatusCode: transporterStatusCode}
 }
 
 export function redirectToConnectIfNeeded(gremlinUrl) {

@@ -168,8 +168,14 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
         if (shallConnect) {
             const protocol = this.getProtocol();
             console.log("We will be using " + protocol + " protocol");
+            // DEPRECATED - not using ws for now.
             if (protocol === "ws") {
-                this.connector.reconnectWithWS()
+                try {
+                    this.connector.reconnectWithWS()
+                } catch (e) {
+                    console.error("Failed to connect to websocket", e);
+                    window.location.href = "/connect?error=Failed to connect to websocket url"
+                }
             } else {
                 console.log("protocol will be " + protocol);
             }
@@ -258,7 +264,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     }
 
     addQueryToState(query) {
-console.log("======addQueryToState", query);
+        console.log("======addQueryToState", query);
         this.setState({
             query: query
         })

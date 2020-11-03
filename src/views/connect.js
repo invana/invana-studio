@@ -139,12 +139,12 @@ export default class SetupGremlinServerConnection extends React.Component {
                             <form action="" onSubmit={this.onFormSubmit.bind(this)}>
 
 
-                                <input type="radio" id="gremlinEngine" name="graphEngineName" value="gremlin"
-                                       defaultChecked/>
-                                <label className={"graphEngineNameLabel"} htmlFor="gremlinEngine">Gremlin</label>
+                                {/*<input type="radio" id="gremlinEngine" name="graphEngineName" value="gremlin"*/}
+                                {/*       defaultChecked/>*/}
+                                {/*<label className={"graphEngineNameLabel"} htmlFor="gremlinEngine">Gremlin</label>*/}
 
-                                <input type="radio" id="invanaEngine" name="graphEngineName" value="invana-engine"/>
-                                <label className={"graphEngineNameLabel"} htmlFor="invanaEngine">Invana Engine</label>
+                                <input type="hidden" id="invanaEngine" name="graphEngineName" value="invana-engine"/>
+                                {/*<label className={"graphEngineNameLabel"} htmlFor="invanaEngine">Invana Engine</label>*/}
 
                                 <input type="text" name={"gremlinServerUrl"}
                                     // defaultValue={"ws://localhost:8182/gremlin"}

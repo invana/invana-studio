@@ -24,12 +24,13 @@ export default class HomeView extends RemoteGraphComponent {
         let _this = this;
         // let response = this.connector.getLastResponse();
         console.log("processResponse received", response);
-        const statusCode = response.getStatusCode();
-        if (statusCode >= 200 || statusCode < 300) {
+        // const statusCode = response.getStatusCode();
+        const transporterStatusCode = response.transporterStatusCode;
+        if (transporterStatusCode >= 200 && transporterStatusCode < 300) {
             setElementColorOptionsToStorageUsingResponse(response);
-
             window.location.href = "/explorer";
         } else {
+            window.location.href = "/connect?error=Unable to connect&transporterStatus=" + transporterStatusCode;
             _this.setState({
                 "errorMessage": JSON.stringify(response,),
                 "showErrorMessage": true,

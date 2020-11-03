@@ -22,17 +22,17 @@ export default class EventStore {
     }
 
     onLinkClicked(graphicsEngine, linkData, linkGfx, event) {
-        console.log(linkData.id, " clicked");
+        console.log(linkData.id, linkGfx, event, " clicked");
 
     }
 
     onLinkMouseOver(graphicsEngine, linkData, linkGfx, event) {
-        console.log(linkData.id, "link MouseOver");
+        console.log(linkData.id, linkGfx, event, "link MouseOver");
 
     }
 
     onLinkMouseOut(graphicsEngine, linkData, linkGfx, event) {
-        console.log(linkData.id, "link MouseOut");
+        console.log(linkData.id, linkGfx, event, "link MouseOut");
 
     }
 
@@ -109,7 +109,7 @@ export default class EventStore {
         }
 
         this.moveNode(this.clickedNodeData, graphicsEngine.viewport.toWorld(event.data.global), graphicsEngine, event);
-    };
+    }
 
     onNodeClicked(graphicsEngine, nodeData, nodeContainer, event) {
 
@@ -117,8 +117,6 @@ export default class EventStore {
         this.clickedNodeData = nodeData;
         this.lastSelectedNodeData = nodeData;
         console.log(this.clickedNodeData.id, " clicked");
-        let _this = this;
-
         graphicsEngine.onNodeSelected(nodeData);
 
         // TODO -  this will make the node drag functionality
@@ -127,12 +125,12 @@ export default class EventStore {
         // disable viewport dragging
         // graphicsEngine.viewport.pause = true;
         console.log("clicked", event);
-        this.createNodeMenu(graphicsEngine, nodeData, event)
+        this.createNodeMenu(graphicsEngine, nodeData, event);
 
     }
 
     focusGraph(graphicsEngine) {
-
+        console.log("====graphicsEngine", graphicsEngine)
     }
 
     highlightNode(graphicsEngine, nodes) {
@@ -313,7 +311,7 @@ export default class EventStore {
     }
 
     onNodeMouseOver(graphicsEngine, nodeData, nodeContainer, event) {
-        console.log(nodeData.id, " mouseover");
+        console.log(nodeData.id, nodeContainer, event, " mouseover");
 
 
         // const neighborsData = graphicsEngine.dataStore.getNeighborNodesAndLinks(nodeData)
@@ -341,7 +339,7 @@ export default class EventStore {
     }
 
     onNodeMouseOut(graphicsEngine, nodeData, nodeContainer, event) {
-        console.log(nodeData.id, " mouseout");
+        console.log(nodeData.id, nodeContainer, event, " mouseout");
         if (graphicsEngine.dataStore.focusedNodes.length > 0) {
             // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
             // dont hover-highlight when there is focus selected.
@@ -360,7 +358,7 @@ export default class EventStore {
 
 
     onNodeUnClicked(graphicsEngine, nodeData, nodeContainer, event) {
-        console.log("===onNodeUnClicked", nodeData);
+        console.log("===onNodeUnClicked", nodeContainer, event, nodeData);
         this.unsetSelectedNodeData();
 
         // disable node dragging
