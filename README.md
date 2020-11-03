@@ -2,7 +2,6 @@
 
 Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases.
 
-
 [![Apache license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/invanalabs/graph-explorer/blob/master/LICENSE) 
 [![Build Status](https://travis-ci.org/invanalabs/graph-explorer.svg?branch=master)](https://travis-ci.org/invanalabs/graph-explorer)
 [![Latest Demo](https://img.shields.io/badge/try%20demo-latest%20version-blue)](https://graph-explorer-edge.herokuapp.com)
@@ -12,26 +11,33 @@ Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases
 
 **This project is under active development.** 
 
-## Features 
-
-- Connect to any Apache TinkerPop enabled Graph Database.
-- Connect via HTTP or WebSocket protocols.
-- Connect to Basic and Token based Authentication gremlin server over http/s (you can use [gremlin-proxy](https://github.com/invanalabs/gremlin-proxy).
-- Visualise data in Force Directed Graphs, Tables and JSON.
-- Retain query history in your localstorage.
-- Update colors of nodes and edges.
-
 ## Installation
 
 ```shell script.
 docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
-# This will start a graph explorer service at 8888 port. ex: http://localhost:8888 
+# This will start a graph-explorer service at 8888 port. ex: http://localhost:8888
 ```
 
-If you want to install graph-explorer on Heroku [click here](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master).
+If you want to install graph-explorer on Heroku 
+[click here](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master).
 
 
 ## Connecting to Graph Explorer
+
+Graph Explorer uses [invana-engine](https://github.com/invanalabs/invana-engine) as the backend to 
+connect to graph databases. Invana Engine is a GraphQL API for Apache TinkerPop supported graph databases.
+
+#### Deploying Invana-Engine
+```shell script.
+docker run -p 5000:5000 -d --name invana-engine invanalabs/invana-engine -e GREMLIN_SERVER_URL=ws://localhost:8182
+# This will start an invana-engine service at 5000 port. ex: http://localhost:5000
+```
+
+Check more methods to connect to an authentication enabled gremlin server here.
+
+
+
+
 
 1. wss://localhost:8182/gremlin - connect over ws/wss 
 2. https://localhost:8182/gremlin - connect over http/https
