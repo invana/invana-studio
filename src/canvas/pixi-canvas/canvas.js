@@ -172,20 +172,20 @@ export default class GraphicsEngine {
 
     }
 
-    getNodeLabel(nodeData) {
-        console.log("&&&&", nodeData);
-        console.log("&&&&", nodeData.meta.shapeOptions);
-        let labelString = null;
-        if (nodeData.meta.shapeOptions.labelPropertyKey === "id") {
-            labelString = nodeData.id;
-        } else {
-            labelString = nodeData.properties[nodeData.meta.shapeOptions.labelPropertyKey];
-        }
-        if (!labelString) {
-            labelString = nodeData.id;
-        }
-        return labelString;
-    }
+    // getNodeLabel(nodeData) {
+    //     console.log("&&&&", nodeData);
+    //     console.log("&&&&", nodeData.meta.shapeOptions);
+    //     let labelString = null;
+    //     if (nodeData.meta.shapeOptions.labelPropertyKey === "id") {
+    //         labelString = nodeData.id;
+    //     } else {
+    //         labelString = nodeData.properties[nodeData.meta.shapeOptions.labelPropertyKey];
+    //     }
+    //     if (!labelString) {
+    //         labelString = nodeData.id;
+    //     }
+    //     return labelString;
+    // }
 
 
     getLinkLabel(linkData) {
@@ -277,7 +277,7 @@ labelColor: "#dddddd"
         nodeLabelContainer.interactive = true;
         nodeLabelContainer.buttonMode = true;
 
-        const nodeLabelText = new PIXI.Text(this.getNodeLabel(nodeData), {
+        const nodeLabelText = new PIXI.Text(nodeData.meta.labelOptions.labelText, {
             fontFamily: LABEL_FONT_FAMILY,
             fontSize: LABEL_FONT_SIZE,
             fill: colorToNumber(nodeData.meta.labelOptions.labelColor)

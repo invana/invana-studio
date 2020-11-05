@@ -43,16 +43,28 @@ import VertexOptions from "../viewlets/vertex-options";
 import FounderNote from "../viewlets/founder-note";
 import WhatsNew from "../viewlets/whats-new";
 import GEList from "../ui-components/lists/list";
+import FocusedNodesList from "../canvas/pixi-canvas/focused-nodes-list";
 
 const Mousetrap = require("mousetrap");
 
 export default class ExplorerView extends BaseView {
 
 
+    state = {
+        ...this.state,
+        focusedNodes: []
+    }
+
     processResponse(response) {
         super.processResponse(response);
         this.extendGraph(response);
     }
+
+
+    // removeFocusedNode(nodeId){
+    //     console.log("removeFocusedNode", nodeId);
+    //
+    // }
 
     // startQuery(query) {
     //     this.setState({
@@ -558,30 +570,34 @@ export default class ExplorerView extends BaseView {
                                                 //     />
                                                 // )
                                                 return (
-                                                    <PIXICanvasComponent
-                                                        // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                                        setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                                        setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                                        setRightContentName={this.setRightContentName.bind(this)}
-                                                        setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
-                                                        middleBottomContentName={this.state.middleBottomContentName}
+                                                    <div style={{"width": "100%", "height": "100%"}}>
+                                                        <PIXICanvasComponent
+                                                            // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                                            setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                                            setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                                            setRightContentName={this.setRightContentName.bind(this)}
+                                                            setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
+                                                            middleBottomContentName={this.state.middleBottomContentName}
 
-                                                        selectedElementData={this.state.selectedElementData}
-                                                        setStatusMessage={this.setStatusMessage.bind(this)}
+                                                            selectedElementData={this.state.selectedElementData}
+                                                            setStatusMessage={this.setStatusMessage.bind(this)}
 
-                                                        connector={this.connector}
-                                                        dataStore={this.dataStore}
-                                                        resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
-                                                        shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                                        makeQuery={this.makeQuery.bind(this)}
+                                                            connector={this.connector}
+                                                            dataStore={this.dataStore}
+                                                            resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
+                                                            shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                                                            makeQuery={this.makeQuery.bind(this)}
 
 
-                                                        // startQuery={this.startQuery.bind(this)}
-                                                        // responses={this.connector.getLastResponse()}
-                                                        // vertices={this.state.vertices}
-                                                        // edges={this.state.edges}
-                                                        // requestBuilder={this.requestBuilder}
-                                                    />
+                                                            // startQuery={this.startQuery.bind(this)}
+                                                            // responses={this.connector.getLastResponse()}
+                                                            // vertices={this.state.vertices}
+                                                            // edges={this.state.edges}
+                                                            // requestBuilder={this.requestBuilder}
+                                                        />
+
+
+                                                    </div>
                                                 )
                                             } else if (this.state.canvasType === "json" && this.connector.getLastResponse()) {
                                                 return (

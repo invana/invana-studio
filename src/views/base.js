@@ -114,6 +114,7 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
         super.componentDidMount();
     }
 
+
     resetShallReRenderD3Canvas() {
         this.setState({
             shallReRenderD3Canvas: false

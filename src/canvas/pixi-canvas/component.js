@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowAltCircleRight} from "@fortawesome/free-regular-svg-icons";
+import FocusedNodesList from "./focused-nodes-list";
 
 export default class PIXICanvasComponent extends React.Component {
 
@@ -50,6 +51,8 @@ export default class PIXICanvasComponent extends React.Component {
         resetShallReRenderD3Canvas: () => console.log("resetShallReRenderD3Canvas"),
         shallReRenderD3Canvas: false,
         makeQuery: () => console.error("makeQuery not set"),
+
+        // setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
     }
 
     static propTypes = {
@@ -67,12 +70,18 @@ export default class PIXICanvasComponent extends React.Component {
         shallReRenderD3Canvas: PropTypes.bool,
         resetShallReRenderD3Canvas: PropTypes.func,
         selectedElementData: PropTypes.object,
-        setStatusMessage: PropTypes.func
+        setStatusMessage: PropTypes.func,
+
+        // setFocusedNodes: PropTypes.func
     }
 
 
     constructor(props) {
         super(props);
+        this.state = {
+            focusedNodes: [],
+            shallReRender: true
+        }
     }
 
 
@@ -124,9 +133,14 @@ export default class PIXICanvasComponent extends React.Component {
     //
     // }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate(nextProps, newState) {
         console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
-        return nextProps.shallReRenderD3Canvas || this.props.selectedElementData !== nextProps.selectedElementData;
+        console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
+
+        return nextProps.shallReRenderD3Canvas
+            || this.props.selectedElementData !== nextProps.selectedElementData
+            // || this.state.focusedNodes !== newState.focusedNodes;
+            || this.state.shallReRender === true;
     }
 
 
@@ -207,14 +221,32 @@ export default class PIXICanvasComponent extends React.Component {
     }
 
 
+    removeFocusedNode(nodeId) {
+        //
+        let focusedNodes = this.state.focusedNodes;
+
+        let indexId = null
+        focusedNodes.forEach((focusedNode, index) => {
+
+            if (focusedNode.id === nodeId) {
+                indexId = index
+                return
+            }
+        });
+
+        focusedNodes.splice(indexId, 1)
+        this.setState({focusedNodes: focusedNodes});
+
+    }
+
     onClickFocus() {
         const nodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
         this.graphicsEngine.dataStore.addNode2Focus(nodeData);
         this.graphicsEngine.graphicsStore.focusOnNodes(this.graphicsEngine.dataStore.focusedNodes);
         this.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
-        document.querySelector(".focused-nodes").append(
-            "<li>" + nodeData.id + "</li>"
-        )
+
+        this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
+        // this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
         this.graphicsEngine.eventStore.hideMenu();
     }
 
@@ -259,11 +291,8 @@ export default class PIXICanvasComponent extends React.Component {
             if (elem) {
                 elem.style.color = color;
             }
-            if (elementData.meta.labelOptions.labelText) {
-                return elementData.meta.labelOptions.labelText;
-            } else {
-                return elementData.id;
-            }
+            return elementData.meta.labelOptions.labelText;
+
         }
     }
 
@@ -277,12 +306,11 @@ export default class PIXICanvasComponent extends React.Component {
 
     render() {
         // console.log("PIXICanvas render()", this.props.dataStore.getAllRawVerticesList())
+        console.log("this.state.focusedNodes", this.state.focusedNodes);
         return (
             <div className={"graphContainer"}>
-                <ul className={"focused-nodes"}>
-                </ul>
-
-
+                <FocusedNodesList focusedNodes={this.state.focusedNodes}
+                                  removeFocusedNode={this.removeFocusedNode.bind(this)}/>
                 <div className="nodeMenuContainer" style={{"display": "none"}}>
                     <h5>{this.getVerboseIdentifier()}</h5>
                     <p>ID: {this.getIdentifier()}</p>
@@ -290,12 +318,11 @@ export default class PIXICanvasComponent extends React.Component {
                         <li onClick={() => this.onClickFocus()}>
                             <FontAwesomeIcon icon={faDotCircle}/> Focus
                         </li>
-                        {/*<li onClick={() => this.resetFocus()}>*/}
-                        {/*    Reset focus*/}
-
-                        {/*</li>*/}
+                        <li onClick={() => this.resetFocus()}>
+                            Reset focus
+                        </li>
                         <li onClick={() => this.onClickShowInV()}>
-                            <FontAwesomeIcon icon={faArrowAltCircleLeft} /> Show InV
+                            <FontAwesomeIcon icon={faArrowAltCircleLeft}/> Show InV
                         </li>
                         <li onClick={() => this.onClickShowOutV()}>
                             <FontAwesomeIcon icon={faArrowAltCircleRight}/> Show OutV

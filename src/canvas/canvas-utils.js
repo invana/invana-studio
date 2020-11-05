@@ -242,11 +242,24 @@ export function prepareNodesDataWithOptions(nodes, options) {
         if (typeof node.meta.labelOptions.showLabel === "undefined") {
             node.meta.labelOptions.showLabel = DefaultLabelVisibility
         }
-        if (node.meta.labelOptions.labelTextFn) {
-            node.meta.labelOptions.labelText = node.meta.labelOptions.labelTextFn(node);
+        // if (node.meta.labelOptions.labelTextFn) {
+        //     node.meta.labelOptions.labelText = node.meta.labelOptions.labelTextFn(node);
+        // } else {
+        //     node.meta.labelOptions.labelText = node.properties.name || node.id;
+        // }
+        //
+
+        let labelString = null;
+        if (node.meta.shapeOptions.labelPropertyKey === "id") {
+            labelString = node.id;
         } else {
-            node.meta.labelOptions.labelText = node.properties.name || node.id;
+            labelString = node.properties[node.meta.shapeOptions.labelPropertyKey];
         }
+        if (!labelString) {
+            labelString = node.id;
+        }
+        node.meta.labelOptions.labelText = labelString
+
         if (!node.meta.labelOptions.labelColor) {
             node.meta.labelOptions.labelColor = DefaultNodeLabelColor;
         }
