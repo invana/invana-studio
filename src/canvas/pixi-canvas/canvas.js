@@ -20,6 +20,7 @@ export default class GraphicsEngine {
     // }
 
     constructor(canvasElem, nodeMenuEl, settings, dataStore, onNodeSelected) {
+        let _this = this;
         this.settings = settings;
         this.dataStore = dataStore;
         this.graphicsStore = new GraphicsStore(this.dataStore, this);
@@ -69,9 +70,32 @@ export default class GraphicsEngine {
         });
 
 
-        this.viewport.on('mousemove', (e) => {
-            console.log("viewport mousemove", e);
-        });
+        // this.viewport.on('drag-start', (e) => {
+        //     console.log("viewport drag-start", e);
+        // });
+
+        //
+        // this.viewport.on('moved', (e) => {
+        //     console.log("viewport moved", e);
+        //
+        //
+        //     if (e.viewport.lastViewport) {
+        //         // _this.dataStore.selectedElementData
+        //         const selectedNodeData = this.eventStore.lastSelectedNodeData;
+        //         if (selectedNodeData) {
+        //             const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(selectedNodeData.id);
+        //             console.log("======nodeGfx", nodeGfx.x, nodeGfx.y, nodeGfx);
+        //             if (nodeGfx) {
+        //                 _this.moveNodeMenuToPoint(nodeGfx.x, nodeGfx.y);
+        //             }
+        //
+        //         }
+        //
+        //     }
+        //
+        //     // // get the position of the node that is selected.
+        //
+        // });
 
 
         this.setupCanvas();
@@ -79,6 +103,13 @@ export default class GraphicsEngine {
         this.requestRender();
 
     }
+
+    // moveNodeMenuToPoint(x, y) {
+    //     console.log("moveNodeMenuToPoint", x, y);
+    //     this.nodeMenuEl.style.left = x + "px";
+    //     this.nodeMenuEl.style.top = y + "px";
+    //
+    // }
 
     setupCanvas() {
         // create PIXI viewport
@@ -387,7 +418,6 @@ labelColor: "#dddddd"
 
 
         const linkColor = colorToNumber(linkData.meta.color) || this.settings.LINK_DEFAULT_COLOR;
-        console.log("linkColor", linkColor)
         const {LINK_DEFAULT_LABEL_FONT_SIZE, LABEL_FONT_FAMILY, LINK_DEFAULT_WIDTH} = this.settings;
         let _this = this;
         let linkGfx = new PIXI.Graphics();

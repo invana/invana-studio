@@ -4,6 +4,15 @@ import "./style.scss";
 import PropTypes from "prop-types";
 import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
+import {
+    faDotCircle,
+    faWrench,
+    faArrowAltCircleLeft,
+    faArrowCircleRight,
+    faMinusCircle, faSync
+} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowAltCircleRight} from "@fortawesome/free-regular-svg-icons";
 
 export default class PIXICanvasComponent extends React.Component {
 
@@ -278,12 +287,25 @@ export default class PIXICanvasComponent extends React.Component {
                     <h5>{this.getVerboseIdentifier()}</h5>
                     <p>ID: {this.getIdentifier()}</p>
                     <ul className={"nodeMenu"}>
-                        <li onClick={() => this.onClickFocus()}>Focus</li>
-                        <li onClick={() => this.resetFocus()}>Reset Focus</li>
-                        <li onClick={() => this.onClickShowInV()}>Show InV</li>
-                        <li onClick={() => this.onClickShowOutV()}>Show OutV</li>
-                        <li onClick={() => this.cleanGraph()}>Clean Graph</li>
-                        <li onClick={() => this.hideMenu()}>hide menu</li>
+                        <li onClick={() => this.onClickFocus()}>
+                            <FontAwesomeIcon icon={faDotCircle}/> Focus
+                        </li>
+                        {/*<li onClick={() => this.resetFocus()}>*/}
+                        {/*    Reset focus*/}
+
+                        {/*</li>*/}
+                        <li onClick={() => this.onClickShowInV()}>
+                            <FontAwesomeIcon icon={faArrowAltCircleLeft} /> Show InV
+                        </li>
+                        <li onClick={() => this.onClickShowOutV()}>
+                            <FontAwesomeIcon icon={faArrowAltCircleRight}/> Show OutV
+                        </li>
+                        {/*<li onClick={() => this.cleanGraph()}>*/}
+                        {/*    <FontAwesomeIcon icon={faSync}/> Clean Graph*/}
+                        {/*</li>*/}
+                        <li onClick={() => this.hideMenu()}>
+                            <FontAwesomeIcon icon={faMinusCircle}/> hide menu
+                        </li>
                     </ul>
                 </div>
 
