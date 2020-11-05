@@ -68,6 +68,12 @@ export default class GraphicsEngine {
             }
         });
 
+
+        this.viewport.on('mousemove', (e) => {
+            console.log("viewport mousemove", e);
+        });
+
+
         this.setupCanvas();
         this.preventWheelScrolling();
         this.requestRender();

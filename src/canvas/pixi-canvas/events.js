@@ -84,7 +84,7 @@ export default class EventStore {
         // graphicsEngine.nodeMenuLayer.x = nodeData.x;
         // graphicsEngine.nodeMenuLayer.y = nodeData.y;
         this.nodeMenuEl.style.left = event.data.global.x + graphicsEngine.settings.NODE_MENU_X_PADDING + "px";
-        this.nodeMenuEl.style.top = event.data.global.y + "px";
+        this.nodeMenuEl.style.top = event.data.global.y + graphicsEngine.settings.NODE_MENU_Y_PADDING + "px";
     }
 
     moveNodeMenu(graphicsEngine, point, event) {
@@ -93,7 +93,7 @@ export default class EventStore {
         graphicsEngine.nodeMenuLayer.x = point.x;
         graphicsEngine.nodeMenuLayer.y = point.y;
         this.nodeMenuEl.style.left = event.data.global.x + graphicsEngine.settings.NODE_MENU_X_PADDING + "px";
-        this.nodeMenuEl.style.top = event.data.global.y + "px";
+        this.nodeMenuEl.style.top = event.data.global.y + graphicsEngine.settings.NODE_MENU_Y_PADDING + "px";
     }
 
     moveNode = (nodeData, point, graphicsEngine, event) => {

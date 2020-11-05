@@ -1,13 +1,11 @@
-
 /*
 
 */
 
 
-
 export default class GESettings {
 
-    RESOLUTION = window.devicePixelRatio * 2 ;
+    RESOLUTION = window.devicePixelRatio * 2;
     FORCE_LAYOUT_NODE_REPULSION_STRENGTH = -800;
     FORCE_LAYOUT_ITERATIONS = 150;
     DEFAULT_LINK_LENGTH = 150;
@@ -26,7 +24,7 @@ export default class GESettings {
     NODE_BORDER_UN_HIGHLIGHT_ALPHA = 0.2
 
     LINK_DEFAULT_LABEL_FONT_SIZE = 10;
-    LINK_DEFAULT_WIDTH= 2;
+    LINK_DEFAULT_WIDTH = 2;
     LINK_DEFAULT_COLOR = 0x666666;
     LINK_DEFAULT_LABEL_COLOR = 0x545454;
     LINK_DEFAULT_ALPHA = 0.9;
@@ -38,13 +36,13 @@ export default class GESettings {
     ICON_FONT_SIZE = this.NODE_RADIUS / Math.SQRT2 * 2;
     ICON_TEXT = 'f542';
 
-    ZOOM_CLAMP_MIN_SCALE= .2;
-    ZOOM_CLAMP_MAX_SCALE= 3;
+    ZOOM_CLAMP_MIN_SCALE = .2;
+    ZOOM_CLAMP_MAX_SCALE = 3;
 
-    NODE_MENU_X_PADDING = 500 + this.NODE_RADIUS;
+    NODE_MENU_X_PADDING = 300 + 50 + this.NODE_HIT_RADIUS;
+    NODE_MENU_Y_PADDING = 45 + this.NODE_RADIUS;
 
     LABEL_RESOLUTION = 2;
-
 
 
     constructor(screenWidth, screenHeight) {
