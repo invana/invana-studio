@@ -1,5 +1,5 @@
 import React from "react";
-import GraphicsEngine from "./canvas";
+import GraphicsEngine from "./graphics-engine";
 import "./style.scss";
 import PropTypes from "prop-types";
 import GESettings from "./settings";

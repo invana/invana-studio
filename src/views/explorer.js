@@ -32,17 +32,18 @@ import VerticesManagement from "../viewlets/vertices-management";
 import EdgesManagement from "../viewlets/edges-management";
 import AboutComponent from "../viewlets/about";
 import {REPO_URL} from "../config";
-import ErrorBoundary from "../canvas/graph/error-boundary";
-import PIXICanvasComponent from "../canvas/pixi-canvas/component";
+// import ErrorBoundary from "../canvas/graph/error-boundary";
+// import PIXICanvasComponent from "../canvas/graph/component";
 // import GraphicsEngine from "../canvas/graph";
-import JSONCanvas from "../canvas/json";
-import TableCanvas from "../canvas/table";
-import RawResponsesCanvas from "../canvas/raw-responses";
-import SelectedDataCanvas from "../canvas/graph/selected-data";
+// import JSONCanvas from "../canvas/json";
+// import TableCanvas from "../canvas/table";
+// import RawResponsesCanvas from "../canvas/raw-responses";
+import SelectedData from "../viewlets/selected-data";
 import VertexOptions from "../viewlets/vertex-options";
 import FounderNote from "../viewlets/founder-note";
 import WhatsNew from "../viewlets/whats-new";
 import GEList from "../ui-components/lists/list";
+import Canvas from "../canvas/canvas";
 
 const Mousetrap = require("mousetrap");
 
@@ -152,21 +153,12 @@ export default class ExplorerView extends BaseView {
         })
     }
 
-    switchCanvasTo(canvasType) {
-        this.setState({
-            canvasType: canvasType,
-            statusMessage: "Canvas switched to " + canvasType
-        })
-    }
 
     addQueryToConsole(query) {
         this.addQueryToState(query);
 
     }
 
-    setCanvasType(canvasType) {
-        this.setState({canvasType: canvasType});
-    }
 
     reRenderCanvas() {
         super.reRenderCanvas();
@@ -425,7 +417,7 @@ export default class ExplorerView extends BaseView {
                                         >
 
 
-                                            <SelectedDataCanvas
+                                            <SelectedData
                                                 selectedData={this.state.selectedElementData}
                                                 onClose={() => {
                                                     this.setSelectedElementData(null);
@@ -485,148 +477,24 @@ export default class ExplorerView extends BaseView {
                                 )
                             }
                         >
-                            <div
-                                style={{
-                                    height: "inherit"
-                                }}
-                            >
+                            <Canvas
+                                setStatusMessage={this.setStatusMessage.bind(this)}
 
-                                <div className={"main-content-nav"}>
-                                    <List type={"canvas-nav"}>
-                                        <li>
-                                            &nbsp;
-                                        </li>
-                                        <li>
-                                            <div className={"canvasToggle"}>
-                                                <button className={this.state.canvasType === "graph" ? "selected" : ""}
-                                                        onClick={() => this.switchCanvasTo("graph")}>Graph
-                                                </button>
-                                                <button className={this.state.canvasType === "table" ? "selected" : ""}
-                                                        onClick={() => this.switchCanvasTo("table")}>Table
-                                                </button>
-                                                <button className={this.state.canvasType === "json" ? "selected" : ""}
-                                                        onClick={() => this.switchCanvasTo("json")}>JSON
-                                                </button>
-                                                {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
-                                                {/*   onClick={() => this.switchCanvasTo("raw")}>Raw</a>*/}
+                                setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                setRightContentName={this.setRightContentName.bind(this)}
+                                setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
+                                middleBottomContentName={this.state.middleBottomContentName}
 
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <button title={"clear the canvas"}
-                                                    onClick={() => this.confirmFlushCanvas()}>
-                                                <FontAwesomeIcon icon={faTrashAlt}/>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button title={"re render the canvas"}
-                                                    onClick={() => this.confirmRedrawCanvas()}>
-                                                <FontAwesomeIcon icon={faSync}/>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button onClick={() => alert("Still in the Design stage")}>
-                                                <FontAwesomeIcon icon={faSave}/>
-                                            </button>
-                                        </li>
+                                selectedElementData={this.state.selectedElementData}
 
-                                        <li>
-                                            <button onClick={() => alert("Still in the Design stage")}>
-                                                <FontAwesomeIcon icon={faFilter}/>
-                                            </button>
-                                        </li>
+                                connector={this.connector}
+                                dataStore={this.dataStore}
+                                resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
+                                shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                                makeQuery={this.makeQuery.bind(this)}
 
-                                        {/*<li>*/}
-                                        {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
-                                        {/*        <FontAwesomeIcon icon={faExpand}/>*/}
-                                        {/*    </button>*/}
-                                        {/*</li>*/}
-
-                                    </List>
-                                </div>
-
-                                <div className={"main-content-body"}>
-
-                                    <ErrorBoundary>
-                                        {(() => {
-                                            if (this.state.canvasType === "graph" && this.connector.getLastResponse()) {
-                                                // return (
-                                                //     <GraphicsEngine
-                                                //         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                                //         setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                                //         responses={this.state.responses}
-                                                //         setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                                //         vertices={this.state.vertices}
-                                                //         edges={this.state.edges}
-                                                //         setRightContentName={this.setRightContentName.bind(this)}
-                                                //         setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
-                                                //         middleBottomContentName={this.state.middleBottomContentName}
-                                                //         startQuery={this.startQuery.bind(this)}
-                                                //         requestBuilder={this.requestBuilder}
-                                                //         makeQuery={this.makeQuery.bind(this)}
-                                                //         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
-                                                //         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                                //     />
-                                                // )
-                                                return (
-                                                    <div style={{"width": "100%", "height": "100%"}}>
-                                                        <PIXICanvasComponent
-                                                            // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                                            setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                                            setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                                            setRightContentName={this.setRightContentName.bind(this)}
-                                                            setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
-                                                            middleBottomContentName={this.state.middleBottomContentName}
-
-                                                            selectedElementData={this.state.selectedElementData}
-                                                            setStatusMessage={this.setStatusMessage.bind(this)}
-
-                                                            connector={this.connector}
-                                                            dataStore={this.dataStore}
-                                                            resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
-                                                            shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                                            makeQuery={this.makeQuery.bind(this)}
-
-
-                                                            // startQuery={this.startQuery.bind(this)}
-                                                            // responses={this.connector.getLastResponse()}
-                                                            // vertices={this.state.vertices}
-                                                            // edges={this.state.edges}
-                                                            // requestBuilder={this.requestBuilder}
-                                                        />
-
-
-                                                    </div>
-                                                )
-                                            } else if (this.state.canvasType === "json" && this.connector.getLastResponse()) {
-                                                return (
-                                                    <JSONCanvas
-                                                        dataStore={this.dataStore}
-                                                    />
-                                                )
-                                            } else if (this.state.canvasType === "table" && this.connector.getLastResponse()) {
-                                                return (
-                                                    <TableCanvas
-                                                        dataStore={this.dataStore}
-                                                    />
-                                                )
-                                            } else if (this.state.canvasType === "raw" && this.connector.getLastResponse()) {
-                                                return (
-                                                    <RawResponsesCanvas
-                                                        connector={this.connector}
-                                                    />
-                                                )
-                                            } else {
-                                                return (
-                                                    <span></span>
-                                                )
-                                            }
-                                        })()}
-                                    </ErrorBoundary>
-
-
-                                </div>
-                            </div>
+                            />
                         </MainContentRight>
                     </MainContent>
                 </Main>

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import ReactJson from 'react-json-view'
 import "./json.scss";
-import GraphSONDeSerializer from "../serializers/graphson-v3";
+import GraphSONDeSerializer from "../../serializers/graphson-v3";
 
 const gremlinDeSerializer = new GraphSONDeSerializer()
 

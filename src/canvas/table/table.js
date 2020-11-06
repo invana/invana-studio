@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./table.scss";
-import GraphSONDeSerializer from "../serializers/graphson-v3";
-import {getDataFromLocalStorage} from "../core/utils";
+import GraphSONDeSerializer from "../../serializers/graphson-v3";
+import {getDataFromLocalStorage} from "../../core/utils";
 
 
 const gremlinDeSerializer = new GraphSONDeSerializer();
