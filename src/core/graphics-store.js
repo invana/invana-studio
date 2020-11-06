@@ -54,6 +54,9 @@ export default class GraphicsStore {
         let _this = this;
         // this.resetFocus();
         const {notNeighborLinks, notNeighborNodes} = _this.dataStore.getNotNeighborLinks(nodes);
+        const neighbors = _this.dataStore.getNeighborNodesAndLinks(nodes);
+
+        // unhighlighting not  neighbors
         notNeighborLinks.forEach((linkData) => {
             let linkGfx = _this.linkDataToLinkGfx.get(linkData.id);
             let linkGfxLabel = _this.linkDataToLabelGfx.get(linkData.id);
@@ -66,13 +69,11 @@ export default class GraphicsStore {
             _this.graphicsEngine.frontLayer.addChild(linkGfx);
             _this.graphicsEngine.linksLabelsLayer.removeChild(linkGfxLabel);
             _this.graphicsEngine.frontLayer.addChild(linkGfxLabel);
-
-
         })
 
         notNeighborNodes.forEach((node2Highlight) => {
             let nodeContainer = _this.nodeDataToNodeGfx.get(node2Highlight.id);
-            console.log("==nodeContainer", node2Highlight, nodeContainer);
+            // console.log("==nodeContainer", node2Highlight, nodeContainer);
             const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight.id);
 
             nodeContainer.alpha = _this.graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
@@ -86,27 +87,62 @@ export default class GraphicsStore {
 
         });
 
-        nodes.forEach((node) => {
-            let nodeContainer = _this.nodeDataToNodeGfx.get(node.id);
-            console.log("==nodeContainer", node, nodeContainer);
-            //
-            // _this.hoveredNodeChildrenPairs[node.id] = nodeContainer.children;
-            if (nodeContainer) {
-                // TODO - check why nodeContainer is undefined sometimes.
-                nodeContainer.children[1].alpha = _this.graphicsEngine.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
-            }
-            // // circle border
-            // const circleBorder = new PIXI.Graphics();
-            // circleBorder.x = 0;
-            // circleBorder.y = 0;
-            // circleBorder.lineStyle(2.5, _this.graphicsEngine.settings.NODE_FOCUSED_NODE_BORDER_COLOR);
-            // circleBorder.drawCircle(0, 0, _this.graphicsEngine.settings.NODE_RADIUS);
-            // nodeContainer.addChild(circleBorder);
-            //
+
+        // highlighting neighbors
+        neighbors.links.forEach((linkData) => {
+            let linkGfx = _this.linkDataToLinkGfx.get(linkData.id);
+            let linkGfxLabel = _this.linkDataToLabelGfx.get(linkData.id);
+
+            linkGfx.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
+            linkGfxLabel.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
+
+            // move to front layer
+            _this.graphicsEngine.linksLayer.removeChild(linkGfx);
+            _this.graphicsEngine.frontLayer.addChild(linkGfx);
+            _this.graphicsEngine.linksLabelsLayer.removeChild(linkGfxLabel);
+            _this.graphicsEngine.frontLayer.addChild(linkGfxLabel);
+        })
+        neighbors.nodes.forEach((node2Highlight) => {
+            let nodeContainer = _this.nodeDataToNodeGfx.get(node2Highlight.id);
+            // console.log("==nodeContainer", node2Highlight, nodeContainer);
+            const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight.id);
+
+            nodeContainer.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
+            labelGfx.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
 
             // move to front layer
             _this.graphicsEngine.nodesLayer.removeChild(nodeContainer);
             _this.graphicsEngine.frontLayer.addChild(nodeContainer);
+            _this.graphicsEngine.nodeLabelsLayer.removeChild(labelGfx);
+            _this.graphicsEngine.frontLayer.addChild(labelGfx);
+
+        });
+
+        nodes.forEach((node) => {
+            // let nodeContainer = _this.nodeDataToNodeGfx.get(node.id);
+            // console.log("==nodeContainer", node, nodeContainer);
+
+            let nodeContainer = _this.nodeDataToNodeGfx.get(node.id);
+            console.log("==nodeContainer", node, nodeContainer);
+            if (nodeContainer) {
+                // TODO - check why nodeContainer is undefined sometimes.
+                nodeContainer.children[1].alpha = _this.graphicsEngine.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
+            }
+            const labelGfx = _this.nodeDataToLabelGfx.get(node.id);
+
+            nodeContainer.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
+            labelGfx.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
+
+            // move to front layer
+            _this.graphicsEngine.nodesLayer.removeChild(nodeContainer);
+            _this.graphicsEngine.frontLayer.addChild(nodeContainer);
+            _this.graphicsEngine.nodeLabelsLayer.removeChild(labelGfx);
+            _this.graphicsEngine.frontLayer.addChild(labelGfx);
+
+
+            // move to front layer
+            // _this.graphicsEngine.nodesLayer.removeChild(nodeContainer);
+            // _this.graphicsEngine.frontLayer.addChild(nodeContainer);
 
 
         });

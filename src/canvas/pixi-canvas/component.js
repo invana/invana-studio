@@ -137,6 +137,10 @@ export default class PIXICanvasComponent extends React.Component {
         console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
         console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
 
+        // if (this.state.focusedNodes !== newState.focusedNodes) {
+        //     this.graphicsEngine.graphicsStore.focusOnNodes(this.state.focusedNodes);
+        // }
+
         return nextProps.shallReRenderD3Canvas
             || this.props.selectedElementData !== nextProps.selectedElementData
             // || this.state.focusedNodes !== newState.focusedNodes;
@@ -144,7 +148,7 @@ export default class PIXICanvasComponent extends React.Component {
     }
 
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         console.log("componentDidUpdate", this.props.shallReRenderD3Canvas);
 
         if (this.props.shallReRenderD3Canvas) {
@@ -227,14 +231,15 @@ export default class PIXICanvasComponent extends React.Component {
 
         let indexId = null
         focusedNodes.forEach((focusedNode, index) => {
-
             if (focusedNode.id === nodeId) {
                 indexId = index
-                return
+                return index;
             }
         });
 
-        focusedNodes.splice(indexId, 1)
+        focusedNodes.splice(indexId, 1);
+        console.log("===indexId", indexId);
+        this.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
         this.setState({focusedNodes: focusedNodes});
 
     }
@@ -242,10 +247,11 @@ export default class PIXICanvasComponent extends React.Component {
     onClickFocus() {
         const nodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
         this.graphicsEngine.dataStore.addNode2Focus(nodeData);
-        this.graphicsEngine.graphicsStore.focusOnNodes(this.graphicsEngine.dataStore.focusedNodes);
         this.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
 
         this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
+        this.graphicsEngine.graphicsStore.focusOnNodes(this.graphicsEngine.dataStore.focusedNodes);
+
         // this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
         this.graphicsEngine.eventStore.hideMenu();
     }
