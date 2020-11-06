@@ -201,6 +201,7 @@ export default class GraphicsEngine {
             LABEL_FONT_FAMILY, LABEL_FONT_SIZE,
             LABEL_X_PADDING,
             LABEL_Y_PADDING,
+            NODE_SELECTED_STROKE_WIDTH,
             // ICON_TEXT,
             // ICON_FONT_FAMILY,
             // ICON_FONT_SIZE
@@ -247,6 +248,14 @@ labelColor: "#dddddd"
         console.log("nodeData======", nodeData)
 
 
+        const circleSelectedBorder = new PIXI.Graphics();
+        circleSelectedBorder.x = 0;
+        circleSelectedBorder.y = 0;
+        circleSelectedBorder.lineStyle(NODE_SELECTED_STROKE_WIDTH, nodeData.meta.shapeOptions.strokeColor);
+        circleSelectedBorder.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
+        circleSelectedBorder.alpha = 0;
+        nodeContainer.addChild(circleSelectedBorder);
+
         const circle = new PIXI.Graphics();
         circle.x = 0;
         circle.y = 0;
@@ -255,8 +264,8 @@ labelColor: "#dddddd"
         nodeContainer.addChild(circle);
 
         const circleBorder = new PIXI.Graphics();
-        circle.x = 0;
-        circle.y = 0;
+        circleBorder.x = 0;
+        circleBorder.y = 0;
         circleBorder.lineStyle(nodeData.meta.shapeOptions.strokeWidth, nodeData.meta.shapeOptions.strokeColor);
         circleBorder.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
         nodeContainer.addChild(circleBorder);

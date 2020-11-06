@@ -76,6 +76,10 @@ export default class GraphicsStore {
             // console.log("==nodeContainer", node2Highlight, nodeContainer);
             const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight.id);
 
+            // reset the border
+            nodeContainer.children[0].alpha = _this.graphicsEngine.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
+
+            // reset alpha
             nodeContainer.alpha = _this.graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
             labelGfx.alpha = _this.graphicsEngine.settings.LINK_UN_HIGHLIGHT_ALPHA;
 
@@ -107,6 +111,10 @@ export default class GraphicsStore {
             // console.log("==nodeContainer", node2Highlight, nodeContainer);
             const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight.id);
 
+            // reset the border
+            nodeContainer.children[0].alpha = _this.graphicsEngine.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
+
+            // reset alpha
             nodeContainer.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
             labelGfx.alpha = _this.graphicsEngine.settings.LINK_DEFAULT_ALPHA;
 
@@ -126,7 +134,7 @@ export default class GraphicsStore {
             console.log("==nodeContainer", node, nodeContainer);
             if (nodeContainer) {
                 // TODO - check why nodeContainer is undefined sometimes.
-                nodeContainer.children[1].alpha = _this.graphicsEngine.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
+                nodeContainer.children[0].alpha = _this.graphicsEngine.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
             }
             const labelGfx = _this.nodeDataToLabelGfx.get(node.id);
 
@@ -188,7 +196,7 @@ export default class GraphicsStore {
 
             nodeGfx.alpha = _this.graphicsEngine.settings.NODE_DEFAULT_ALPHA;
             labelGfx.alpha = _this.graphicsEngine.settings.NODE_DEFAULT_ALPHA;
-            nodeGfx.children[1].alpha = _this.graphicsEngine.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
+            nodeGfx.children[0].alpha = _this.graphicsEngine.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
 
             // // // clear hover effect
 

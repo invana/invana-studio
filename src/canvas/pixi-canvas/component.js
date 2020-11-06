@@ -310,6 +310,15 @@ export default class PIXICanvasComponent extends React.Component {
         }
     }
 
+    checkIfAlreadyFocused() {
+        const selectedNode = this.props.selectedElementData;
+        this.state.focusedNodes.forEach((focusedNode) => {
+            if (focusedNode.id === selectedNode.id) {
+                return true;
+            }
+        });
+    }
+
     render() {
         // console.log("PIXICanvas render()", this.props.dataStore.getAllRawVerticesList())
         console.log("this.state.focusedNodes", this.state.focusedNodes);
@@ -321,12 +330,21 @@ export default class PIXICanvasComponent extends React.Component {
                     <h5>{this.getVerboseIdentifier()}</h5>
                     <p>ID: {this.getIdentifier()}</p>
                     <ul className={"nodeMenu"}>
-                        <li onClick={() => this.onClickFocus()}>
-                            <FontAwesomeIcon icon={faDotCircle}/> Focus
-                        </li>
-                        <li onClick={() => this.resetFocus()}>
-                            Reset focus
-                        </li>
+                        {
+                            this.checkIfAlreadyFocused() ?
+                                (
+                                    <li onClick={() => this.resetFocus()}>
+                                        Reset focus
+                                    </li>
+                                ) :
+                                (
+                                    <li onClick={() => this.onClickFocus()}>
+                                        <FontAwesomeIcon icon={faDotCircle}/> Focus
+                                    </li>
+                                )
+                        }
+
+
                         <li onClick={() => this.onClickShowInV()}>
                             <FontAwesomeIcon icon={faArrowAltCircleLeft}/> Show InV
                         </li>
