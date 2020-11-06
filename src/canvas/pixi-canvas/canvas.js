@@ -12,7 +12,7 @@ export default class GraphicsEngine {
     // clickedNodeData = undefined;
     isRendering = undefined;
     nodeMenuEl = undefined;
-    isFirstLoaded = false
+    isFirstLoaded = true
 
     //
     // loadFont(fontFamily) {
@@ -160,6 +160,21 @@ export default class GraphicsEngine {
         this.viewport.fit(true, this.settings.WORLD_WIDTH / 4, this.settings.WORLD_HEIGHT / 4)
         this.viewport.setZoom(1, true);
         this.eventStore.hideMenu();
+    }
+
+    zoom2Node(nodeId) {
+        const nodeContainer = this.graphicsStore.nodeDataToNodeGfx.get(nodeId);
+        this.zoom2Point(nodeContainer.x, nodeContainer.y)
+    }
+
+    highlightNodeById(nodeId) {
+        const nodeContainer = this.graphicsStore.nodeDataToNodeGfx.get(nodeId);
+        nodeContainer.children[0].alpha = this.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
+    }
+
+    unHighlightNodeById(nodeId) {
+        const nodeContainer = this.graphicsStore.nodeDataToNodeGfx.get(nodeId);
+        nodeContainer.children[0].alpha = this.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
     }
 
     resetViewport() {

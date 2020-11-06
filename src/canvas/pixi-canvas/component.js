@@ -6,10 +6,8 @@ import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
 import {
     faDotCircle,
-    faWrench,
     faArrowAltCircleLeft,
-    faArrowCircleRight,
-    faMinusCircle, faSync
+    faMinusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowAltCircleRight} from "@fortawesome/free-regular-svg-icons";
@@ -80,7 +78,8 @@ export default class PIXICanvasComponent extends React.Component {
         super(props);
         this.state = {
             focusedNodes: [],
-            shallReRender: true
+            shallReRender: true,
+            // zoomToPoint: [],
         }
     }
 
@@ -170,19 +169,29 @@ export default class PIXICanvasComponent extends React.Component {
             canvasElem.removeChild(canvasElem.firstChild);
         }
 
+        let lastSelectedNodeData = null;
+        if (this.graphicsEngine) {
+            lastSelectedNodeData = this.graphicsEngine.eventStore.lastSelectedNodeData
+        }
+
         console.log("canvasElem.offsetWidth,", canvasElem.offsetWidth, canvasElem.offsetHeight)
         this.settings = new GESettings(canvasElem.offsetWidth, canvasElem.offsetHeight);
-
         this.graphicsEngine = new GraphicsEngine(canvasElem, nodeMenuEl,
             this.settings,
             this.props.dataStore,
             this.onNodeSelected.bind(this)
         )
 
+        if (lastSelectedNodeData) {
+            // assigning the last selected Node data back
+            this.graphicsEngine.eventStore.lastSelectedNodeData = lastSelectedNodeData;
+        }
+
         this.forceSimulator = new GraphSimulator(this.settings, () => {
             console.log("========on onForceSimulationEnd ")
             // const {vertices2Render, edges2Render} = _this.getDataToRender();
-            _this.onForceSimulationEnd(_this.graphicsEngine, _this.setStatusMessage.bind(_this));
+            _this.onForceSimulationEnd(_this.graphicsEngine, _this.setStatusMessage.bind(_this)
+            );
 
         });
 
@@ -204,10 +213,20 @@ export default class PIXICanvasComponent extends React.Component {
 
         graphicsEngine.renderGraphics();
         graphicsEngine.isRendering = false;
-        if (graphicsEngine.isFirstLoaded === false) {
+        if (graphicsEngine.isFirstLoaded === true) {
             // center the view only for the first time.
             graphicsEngine.resetViewport();
-            graphicsEngine.isFirstLoaded = true;
+            graphicsEngine.isFirstLoaded = false;
+        }
+
+        const lastSelectedNodeData = graphicsEngine.eventStore.lastSelectedNodeData;
+        // const nodeContainer = graphicsEngine.graphicsStore.nodeDataToNodeGfx.get(nodeData.id);
+        console.log("===lastSelectedNodeData", lastSelectedNodeData)
+        if (lastSelectedNodeData) {
+            graphicsEngine.zoom2Node(lastSelectedNodeData.id)
+            graphicsEngine.highlightNodeById(lastSelectedNodeData.id)
+
+
         }
         setStatusMessage("Updated the graph");
         // this.graphCanvasStatus.innerHTML = "Updated the data";
@@ -258,17 +277,27 @@ export default class PIXICanvasComponent extends React.Component {
 
     onClickShowInV() {
         // alert("onClickShowInv clicked");
-        const selectedNode = this.props.selectedElementData;
-        const query_string = this.props.connector.requestBuilder.getInEdgeVertices(selectedNode.id);
+        const lastSelectedNodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
+        const query_string = this.props.connector.requestBuilder.getInEdgeVertices(lastSelectedNodeData.id);
+
+        // adding this node to focused,
+        // this.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
+        // this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
         this.props.makeQuery(query_string);
+
+
     }
 
     onClickShowOutV() {
         // alert("onClickShowOutV clicked");
-        const selectedNode = this.props.selectedElementData;
-        console.log("expandOutLinksAndNodes", selectedNode);
+        const lastSelectedNodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
+        console.log("expandOutLinksAndNodes", lastSelectedNodeData);
         // TODO - improve performance of the query.
-        const query_string = this.props.connector.requestBuilder.getOutEdgeVertices(selectedNode.id);
+        const query_string = this.props.connector.requestBuilder.getOutEdgeVertices(lastSelectedNodeData.id);
+
+        //
+        // this.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
+        // this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
 
         this.props.makeQuery(query_string);
     }

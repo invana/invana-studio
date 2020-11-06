@@ -43,7 +43,6 @@ import VertexOptions from "../viewlets/vertex-options";
 import FounderNote from "../viewlets/founder-note";
 import WhatsNew from "../viewlets/whats-new";
 import GEList from "../ui-components/lists/list";
-import FocusedNodesList from "../canvas/pixi-canvas/focused-nodes-list";
 
 const Mousetrap = require("mousetrap");
 
