@@ -104,24 +104,6 @@ export default class Canvas extends React.Component {
                     <ErrorBoundary>
                         {(() => {
                             if (this.state.canvasType === "graph" && this.props.connector.getLastResponse()) {
-                                // return (
-                                //     <GraphicsEngine
-                                //         // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                //         setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                //         responses={this.state.responses}
-                                //         setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                //         vertices={this.state.vertices}
-                                //         edges={this.state.edges}
-                                //         setRightContentName={this.setRightContentName.bind(this)}
-                                //         setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
-                                //         middleBottomContentName={this.state.middleBottomContentName}
-                                //         startQuery={this.startQuery.bind(this)}
-                                //         requestBuilder={this.requestBuilder}
-                                //         makeQuery={this.makeQuery.bind(this)}
-                                //         resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
-                                //         shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                //     />
-                                // )
                                 return (
                                     <div style={{"width": "100%", "height": "100%"}}>
                                         <PIXICanvasComponent
@@ -140,13 +122,6 @@ export default class Canvas extends React.Component {
                                             resetShallReRenderD3Canvas={this.props.resetShallReRenderD3Canvas}
                                             shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                                             makeQuery={this.props.makeQuery}
-
-
-                                            // startQuery={this.startQuery.bind(this)}
-                                            // responses={this.props.connector.getLastResponse()}
-                                            // vertices={this.state.vertices}
-                                            // edges={this.state.edges}
-                                            // requestBuilder={this.requestBuilder}
                                         />
 
 
