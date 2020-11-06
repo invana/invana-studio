@@ -20,7 +20,7 @@ export default class GraphicsEngine {
     // }
 
     constructor(canvasElem, nodeMenuEl, settings, dataStore, onNodeSelected) {
-        let _this = this;
+        // let _this = this;
         this.settings = settings;
         this.dataStore = dataStore;
         this.graphicsStore = new GraphicsStore(this.dataStore, this);
@@ -328,7 +328,7 @@ labelColor: "#dddddd"
                 newNodes.push(nodeData);
             }
         })
-        return newNodes.map(nodeData => {
+        return newNodes.map((nodeData) => {
 
             const nodeGfx = _this.graphicsStore.nodeDataToNodeGfx.get(nodeData.id);
             if (!nodeGfx) {
@@ -338,7 +338,6 @@ labelColor: "#dddddd"
                 this.nodeLabelsLayer.addChild(nodeLabelContainer);
                 return [nodeData, nodeContainer, nodeLabelContainer];
             }
-
 
         });
 

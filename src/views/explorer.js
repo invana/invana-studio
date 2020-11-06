@@ -7,10 +7,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faBook,
     faCog, faCubes,
-    faFilter,
     faHistory, faInfoCircle, faLifeRing,
-    faSave,
-    faStickyNote, faSync, faTrashAlt
+    faStickyNote
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
 import Main from "../ui-components/layout/main";
@@ -32,12 +30,6 @@ import VerticesManagement from "../viewlets/vertices-management";
 import EdgesManagement from "../viewlets/edges-management";
 import AboutComponent from "../viewlets/about";
 import {REPO_URL} from "../config";
-// import ErrorBoundary from "../canvas/graph/error-boundary";
-// import PIXICanvasComponent from "../canvas/graph/component";
-// import GraphicsEngine from "../canvas/graph";
-// import JSONCanvas from "../canvas/json";
-// import TableCanvas from "../canvas/table";
-// import RawResponsesCanvas from "../canvas/raw-responses";
 import SelectedData from "../viewlets/selected-data";
 import VertexOptions from "../viewlets/vertex-options";
 import FounderNote from "../viewlets/founder-note";

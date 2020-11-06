@@ -11,6 +11,7 @@ function padZero(str, len) {
 
 export function convertMapKeysToArray(mapData) {
     let data = [];
+    // eslint-disable-next-line no-unused-vars
     for (const [key, value] of mapData.entries()) {
         // console.log("=====key", key);
         data.push(value);
@@ -21,6 +22,7 @@ export function convertMapKeysToArray(mapData) {
 export function convertWeakMapKeysToArray(weakMapData) {
     console.log("weakMap", weakMapData)
     let data = [];
+    // eslint-disable-next-line no-unused-vars
     for (const [key, value] of weakMapData.items()) {
         // console.log("=====key", key);
         data.push(value);
