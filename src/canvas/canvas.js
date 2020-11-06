@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ErrorBoundary from "./error-boundary";
-import PIXICanvasComponent from "./graph/component";
+import PIXICanvas from "./graph/pixi-canvas";
 import JSONCanvas from "./json/json";
 import TableCanvas from "./table/table";
 import RawResponsesCanvas from "./raw-response/raw-responses";
@@ -25,7 +25,7 @@ export default class Canvas extends React.Component {
         shallReRenderD3Canvas: false,
         makeQuery: () => console.error("makeQuery not set"),
         flushCanvas: () => console.error("flushCanvas not set"),
-        setShallReRenderD3Canvas: (status) => console.error("setShallReRenderD3Canvas not set"),
+        setShallReRenderD3Canvas: (status) => console.error("setShallReRenderD3Canvas not set", status),
 
         // setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
     }
@@ -55,7 +55,8 @@ export default class Canvas extends React.Component {
     }
 
     state = {
-        canvasType: "graph"
+        canvasType: "graph",
+
     }
 
     switchCanvasTo(canvasType) {
@@ -106,7 +107,7 @@ export default class Canvas extends React.Component {
                             if (this.state.canvasType === "graph" && this.props.connector.getLastResponse()) {
                                 return (
                                     <div style={{"width": "100%", "height": "100%"}}>
-                                        <PIXICanvasComponent
+                                        <PIXICanvas
                                             // setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                             setHideVertexOptions={this.props.setHideVertexOptions}
                                             setSelectedElementData={this.props.setSelectedElementData}

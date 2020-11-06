@@ -13,12 +13,13 @@ export default class GEList extends React.Component {
 
     static propTypes = {
         type: PropTypes.string,
-        children: PropTypes.any
+        children: PropTypes.any,
+        style: PropTypes.any
     }
 
     render() {
         return (
-            <ul className={this.props.type + "-list list"}>{this.props.children}</ul>
+            <ul className={this.props.type + "-list list"} style={this.props.style}>{this.props.children}</ul>
         );
     }
 }

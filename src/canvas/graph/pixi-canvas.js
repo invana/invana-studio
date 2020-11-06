@@ -7,13 +7,14 @@ import GraphSimulator from "../../core/graph-simulator";
 import {
     faDotCircle,
     faArrowAltCircleLeft,
+    faArrowAltCircleRight,
     faMinusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowAltCircleRight} from "@fortawesome/free-regular-svg-icons";
+// import {} from "@fortawesome/free-regular-svg-icons";
 import FocusedNodesList from "./focused-nodes-list";
 
-export default class PIXICanvasComponent extends React.Component {
+export default class PIXICanvas extends React.Component {
 
     /*
 
@@ -90,7 +91,7 @@ export default class PIXICanvasComponent extends React.Component {
         This will add the new data needed for the new simulation..
 
          */
-        console.log("PIXICanvasComponent checkAndAddNewData2Simulation()", this.props.dataStore.getAllData());
+        console.log("PIXICanvas checkAndAddNewData2Simulation()", this.props.dataStore.getAllData());
 
 
         this.graphicsEngine.clearCanvas();
@@ -147,7 +148,7 @@ export default class PIXICanvasComponent extends React.Component {
     }
 
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         console.log("componentDidUpdate", this.props.shallReRenderD3Canvas);
 
         if (this.props.shallReRenderD3Canvas) {

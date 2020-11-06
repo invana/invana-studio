@@ -1,7 +1,7 @@
 import React from "react";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFilter, faSave, faSync, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faFilter, faSave, faSearch, faSync, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 
@@ -9,7 +9,7 @@ export default class CanvasNav extends React.Component {
 
     static defaultProps = {
         canvasType: null,
-        switchCanvasTo: (canvasType) => console.log("switchCanvasTo not set"),
+        switchCanvasTo: (canvasType) => console.log("switchCanvasTo not set", canvasType),
         confirmFlushCanvas: () => console.log("confirmFlushCanvas not set"),
         confirmRedrawCanvas: () => console.log("confirmRedrawCanvas not set")
     }
@@ -23,7 +23,7 @@ export default class CanvasNav extends React.Component {
     render() {
         return (
             <div className={"main-content-nav"}>
-                <List type={"canvas-nav"}>
+                <List type={"canvas-nav"} style={{"float": "left"}}>
                     <li>
                         &nbsp;
                     </li>
@@ -61,18 +61,21 @@ export default class CanvasNav extends React.Component {
                         </button>
                     </li>
 
+
+                </List>
+
+                <List type={"canvas-nav"} style={{"float": "right"}}>
                     <li>
                         <button onClick={() => alert("Still in the Design stage")}>
                             <FontAwesomeIcon icon={faFilter}/>
                         </button>
                     </li>
 
-                    {/*<li>*/}
-                    {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
-                    {/*        <FontAwesomeIcon icon={faExpand}/>*/}
-                    {/*    </button>*/}
-                    {/*</li>*/}
-
+                    <li>
+                        <button onClick={() => alert("Still in the Design stage")}>
+                            <FontAwesomeIcon icon={faSearch}/>
+                        </button>
+                    </li>
                 </List>
             </div>
         );

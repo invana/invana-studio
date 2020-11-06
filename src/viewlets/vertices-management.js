@@ -2,7 +2,7 @@ import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircle, faWrench, faProjectDiagram} from "@fortawesome/free-solid-svg-icons";
+import {faWrench, faProjectDiagram} from "@fortawesome/free-solid-svg-icons";
 import "./management.scss";
 import {managementVertexLabel} from "../config";
 import {getColorForString} from "../canvas/canvas-utils";
@@ -73,12 +73,12 @@ export default class VerticesManagement extends RemoteGraphComponent {
                                                 this.connector.requestBuilder.getNeighborEdgesAndVertices(vertexLabel.label, 50, 0), {'source': 'canvas'})}>
                                         <FontAwesomeIcon icon={faProjectDiagram}/>
                                     </button>
-                                    <button className={"management-icon-btn"} title={"Show "}
-                                            onClick={() => this.props.parentGraphComponent.makeQuery(
-                                                this.connector.requestBuilder.filterVertices(vertexLabel.label, 50, 0),
-                                                {'source': 'canvas'})}>
-                                        <FontAwesomeIcon icon={faCircle}/>
-                                    </button>
+                                    {/*<button className={"management-icon-btn"} title={"Show "}*/}
+                                    {/*        onClick={() => this.props.parentGraphComponent.makeQuery(*/}
+                                    {/*            this.connector.requestBuilder.filterVertices(vertexLabel.label, 50, 0),*/}
+                                    {/*            {'source': 'canvas'})}>*/}
+                                    {/*    <FontAwesomeIcon icon={faCircle}/>*/}
+                                    {/*</button>*/}
                                     <button className={"management-icon-btn"} title={"Show the vertices options"}
                                             onClick={() => this.props.setShowVertexOptions(vertexLabel.label, "g:Vertex")}>
                                         <FontAwesomeIcon icon={faWrench}/>
