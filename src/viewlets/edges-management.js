@@ -64,8 +64,12 @@ export default class EdgesManagement extends RemoteGraphComponent {
                                         'display': 'inline',
                                         'color': this.getVertexColor(edgeLabel.label, nodeLabels)
                                     }}>
-                                    {edgeLabel.label} ({edgeLabel.count})
-                                        </span>
+                                    {edgeLabel.label} <small style={{"color": "#656565"}}>
+                                            ({this.props.parentGraphComponent.dataStore.edgesStats.get(edgeLabel.label)
+                                    || 0} of {edgeLabel.count})
+                                        </small>
+                                    </span>
+
                                 </li>)
                         })
                     }

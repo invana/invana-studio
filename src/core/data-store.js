@@ -20,6 +20,9 @@ export default class InMemoryDataStore {
     linkGraphicsArray = [];
     linkLabelGraphicsArray = [];
 
+    verticesStats = new Map();
+    edgesStats = new Map();
+
     // Data of the 2D arrangement of vertices and links
     verticesToRender = [];
     edgesToRender = [];
@@ -45,6 +48,29 @@ export default class InMemoryDataStore {
 
     addEdgeToDataSet(edge) {
         this.#edges.set(edge.id, edge);
+    }
+
+    computeDataDistributionStats() {
+        this.verticesStats = new Map(); // resetting the stats
+        this.edgesStats = new Map(); // resetting the stats
+
+        convertMapKeysToArray(this.#vertices).forEach((vertex) => {
+            const existingLabelStats = this.verticesStats.get(vertex.label);
+            if (this.verticesStats.get(vertex.label)) {
+                this.verticesStats.set(vertex.label, existingLabelStats + 1)
+            } else {
+                this.verticesStats.set(vertex.label, 1)
+            }
+        })
+
+        convertMapKeysToArray(this.#edges).forEach((edge) => {
+            const existingLabelStats = this.edgesStats.get(edge.label);
+            if (this.edgesStats.get(edge.label)) {
+                this.edgesStats.set(edge.label, existingLabelStats + 1)
+            } else {
+                this.edgesStats.set(edge.label, 1)
+            }
+        })
     }
 
     addData(newVertices, newEdges, onDataUpdated) {
@@ -73,8 +99,9 @@ export default class InMemoryDataStore {
             if (!checkIfOutVExistInStore) {
                 this.addVertexToDataSet({id: edge.outV, label: edge.outVLabel, type: "g:Vertex", properties: {}})
             }
-
         }
+        // this will compute the stats of each nodes and links
+        this.computeDataDistributionStats();
         if (onDataUpdated) {
             onDataUpdated();
         }

@@ -2,7 +2,7 @@ import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faCircle, faWrench, faProjectDiagram} from "@fortawesome/free-solid-svg-icons";
+import {faCircle, faWrench, faProjectDiagram} from "@fortawesome/free-solid-svg-icons";
 import "./management.scss";
 import {managementVertexLabel} from "../config";
 import {getColorForString} from "../canvas/canvas-utils";
@@ -55,7 +55,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
 
     render() {
 
-        const nodeLabels =  Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
 
         return (
 
@@ -83,10 +83,15 @@ export default class VerticesManagement extends RemoteGraphComponent {
                                             onClick={() => this.props.setShowVertexOptions(vertexLabel.label, "g:Vertex")}>
                                         <FontAwesomeIcon icon={faWrench}/>
                                     </button>
-                                    <span style={{'display': 'inline',
-                                        'color': this.getVertexColor(vertexLabel.label, nodeLabels)}}>
-                                    {vertexLabel.label} ({vertexLabel.count})
-                                        </span>
+                                    <span style={{
+                                        'display': 'inline',
+                                        'color': this.getVertexColor(vertexLabel.label, nodeLabels)
+                                    }}>
+                                    {vertexLabel.label} <small style={{"color": "#656565"}}>
+                                            ({this.props.parentGraphComponent.dataStore.verticesStats.get(vertexLabel.label)
+                                    || 0} of {vertexLabel.count})
+                                        </small>
+                                    </span>
 
                                 </li>)
                         })
