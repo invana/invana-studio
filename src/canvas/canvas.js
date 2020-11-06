@@ -1,13 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import List from "../ui-components/lists/list";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFilter, faSave, faSync, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import ErrorBoundary from "./error-boundary";
 import PIXICanvasComponent from "./graph/component";
 import JSONCanvas from "./json/json";
 import TableCanvas from "./table/table";
 import RawResponsesCanvas from "./raw-response/raw-responses";
+import CanvasNav from "./canvas-nav";
 
 export default class Canvas extends React.Component {
 
@@ -26,6 +24,8 @@ export default class Canvas extends React.Component {
         resetShallReRenderD3Canvas: () => console.log("resetShallReRenderD3Canvas"),
         shallReRenderD3Canvas: false,
         makeQuery: () => console.error("makeQuery not set"),
+        flushCanvas: () => console.error("flushCanvas not set"),
+        setShallReRenderD3Canvas: (status) => console.error("setShallReRenderD3Canvas not set"),
 
         // setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
     }
@@ -33,7 +33,6 @@ export default class Canvas extends React.Component {
     static propTypes = {
         setSelectedElementData: PropTypes.func,
         setMiddleBottomContentName: PropTypes.func,
-        makeQuery: PropTypes.func,
         setHideVertexOptions: PropTypes.func,
         setRightContentName: PropTypes.func,
         requestBuilder: PropTypes.object,
@@ -43,9 +42,14 @@ export default class Canvas extends React.Component {
 
         showVertexOptions: PropTypes.func,
         shallReRenderD3Canvas: PropTypes.bool,
+        makeQuery: PropTypes.func,
+
         resetShallReRenderD3Canvas: PropTypes.func,
         selectedElementData: PropTypes.object,
         setStatusMessage: PropTypes.func,
+
+        flushCanvas: PropTypes.func,
+        setShallReRenderD3Canvas: PropTypes.func,
 
         // setFocusedNodes: PropTypes.func
     }
@@ -61,9 +65,23 @@ export default class Canvas extends React.Component {
         this.props.setStatusMessage("Canvas switched to " + canvasType)
     }
 
-    // setCanvasType(canvasType) {
-    //     this.setState({canvasType: canvasType});
-    // }
+
+    confirmFlushCanvas() {
+        let r = window.confirm("Are you sure you want to clear the canvas");
+        if (r === true) {
+            this.props.flushCanvas();
+        }
+    }
+
+    confirmRedrawCanvas() {
+
+        let r = window.confirm("Are you sure you want to re-draw the canvas");
+        if (r === true) {
+            // this.setState({shallReRenderD3Canvas: true})
+            this.props.setShallReRenderD3Canvas(true);
+        }
+    }
+
 
     render() {
         return (
@@ -74,59 +92,12 @@ export default class Canvas extends React.Component {
                 }}
             >
 
-                <div className={"main-content-nav"}>
-                    <List type={"canvas-nav"}>
-                        <li>
-                            &nbsp;
-                        </li>
-                        <li>
-                            <div className={"canvasToggle"}>
-                                <button className={this.state.canvasType === "graph" ? "selected" : ""}
-                                        onClick={() => this.switchCanvasTo("graph")}>Graph
-                                </button>
-                                <button className={this.state.canvasType === "table" ? "selected" : ""}
-                                        onClick={() => this.switchCanvasTo("table")}>Table
-                                </button>
-                                <button className={this.state.canvasType === "json" ? "selected" : ""}
-                                        onClick={() => this.switchCanvasTo("json")}>JSON
-                                </button>
-                                {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
-                                {/*   onClick={() => this.switchCanvasTo("raw")}>Raw</a>*/}
-
-                            </div>
-                        </li>
-                        <li>
-                            <button title={"clear the canvas"}
-                                    onClick={() => this.confirmFlushCanvas()}>
-                                <FontAwesomeIcon icon={faTrashAlt}/>
-                            </button>
-                        </li>
-                        <li>
-                            <button title={"re render the canvas"}
-                                    onClick={() => this.confirmRedrawCanvas()}>
-                                <FontAwesomeIcon icon={faSync}/>
-                            </button>
-                        </li>
-                        <li>
-                            <button onClick={() => alert("Still in the Design stage")}>
-                                <FontAwesomeIcon icon={faSave}/>
-                            </button>
-                        </li>
-
-                        <li>
-                            <button onClick={() => alert("Still in the Design stage")}>
-                                <FontAwesomeIcon icon={faFilter}/>
-                            </button>
-                        </li>
-
-                        {/*<li>*/}
-                        {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
-                        {/*        <FontAwesomeIcon icon={faExpand}/>*/}
-                        {/*    </button>*/}
-                        {/*</li>*/}
-
-                    </List>
-                </div>
+                <CanvasNav
+                    canvasType={this.state.canvasType}
+                    switchCanvasTo={this.switchCanvasTo.bind(this)}
+                    confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
+                    confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
+                />
 
                 <div className={"main-content-body"}>
 

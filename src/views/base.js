@@ -120,6 +120,11 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
             shallReRenderD3Canvas: false
         })
     }
+    setShallReRenderD3Canvas(status) {
+        this.setState({
+            shallReRenderD3Canvas: status
+        })
+    }
 
 
 }

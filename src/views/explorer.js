@@ -124,21 +124,6 @@ export default class ExplorerView extends BaseView {
         }
     }
 
-    confirmFlushCanvas() {
-        let r = window.confirm("Are you sure you want to clear the canvas");
-        if (r === true) {
-            this.flushCanvas();
-        }
-    }
-
-    confirmRedrawCanvas() {
-
-        let r = window.confirm("Are you sure you want to re-draw the canvas");
-        if (r === true) {
-            this.setState({shallReRenderD3Canvas: true})
-        }
-    }
-
     onErrorMessageFlyoutClose() {
         this.setState({
             "errorMessage": null
@@ -484,7 +469,10 @@ export default class ExplorerView extends BaseView {
                                 dataStore={this.dataStore}
                                 resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
                                 shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                                setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
                                 makeQuery={this.makeQuery.bind(this)}
+
+                                flushCanvas={this.flushCanvas.bind(this)}
 
                             />
                         </MainContentRight>
