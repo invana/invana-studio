@@ -1,23 +1,26 @@
 import React from "react";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFilter, faSave, faSearch, faSync, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faCamera, faFilter, faSave, faSearch, faSync, faTerminal, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 
 export default class CanvasNav extends React.Component {
 
+
+    state = {
+        canvasMenuType : null
+    }
+
     static defaultProps = {
         canvasType: null,
-        switchCanvasTo: (canvasType) => console.log("switchCanvasTo not set", canvasType),
-        confirmFlushCanvas: () => console.log("confirmFlushCanvas not set"),
-        confirmRedrawCanvas: () => console.log("confirmRedrawCanvas not set")
+        canvasCtrl: (canvasType) => console.log("switchCanvasTo not set", canvasType),
     }
     static propTypes = {
         canvasType: PropTypes.string,
-        switchCanvasTo: PropTypes.func,
-        confirmFlushCanvas: PropTypes.func,
-        confirmRedrawCanvas: PropTypes.func
+        canvasCtrl: PropTypes.func,
+        // confirmFlushCanvas: PropTypes.func,
+        // confirmRedrawCanvas: PropTypes.func
     }
 
     render() {
@@ -30,13 +33,13 @@ export default class CanvasNav extends React.Component {
                     <li>
                         <div className={"canvasToggle"}>
                             <button className={this.props.canvasType === "graph" ? "selected" : ""}
-                                    onClick={() => this.props.switchCanvasTo("graph")}>Graph
+                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("graph")}>Graph
                             </button>
                             <button className={this.props.canvasType === "table" ? "selected" : ""}
-                                    onClick={() => this.props.switchCanvasTo("table")}>Table
+                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("table")}>Table
                             </button>
                             <button className={this.props.canvasType === "json" ? "selected" : ""}
-                                    onClick={() => this.props.switchCanvasTo("json")}>JSON
+                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("json")}>JSON
                             </button>
                             {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
                             {/*   onClick={() => this.props.switchCanvasTo("raw")}>Raw</a>*/}
@@ -45,13 +48,13 @@ export default class CanvasNav extends React.Component {
                     </li>
                     <li>
                         <button title={"clear the canvas"}
-                                onClick={() => this.props.confirmFlushCanvas()}>
+                                onClick={() => this.props.canvasCtrl.confirmFlushCanvas()}>
                             <FontAwesomeIcon icon={faTrashAlt}/>
                         </button>
                     </li>
                     <li>
                         <button title={"re render the canvas"}
-                                onClick={() => this.props.confirmRedrawCanvas()}>
+                                onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
                             <FontAwesomeIcon icon={faSync}/>
                         </button>
                     </li>
@@ -67,14 +70,21 @@ export default class CanvasNav extends React.Component {
                 <List type={"canvas-nav"} style={{"float": "right"}}>
                     <li>
                         <button onClick={() => alert("Still in the Design stage")}>
+                            <FontAwesomeIcon icon={faCamera}/>
+                        </button>
+                    </li>
+                    <li>
+                        <button onClick={() => alert("Still in the Design stage")}>
                             <FontAwesomeIcon icon={faFilter}/>
                         </button>
                     </li>
 
                     <li>
-                        <button onClick={() => alert("Still in the Design stage")}>
-                            <FontAwesomeIcon icon={faSearch}/>
-                        </button>
+                        {/*<div className={"canvasToggle"}>*/}
+                            <button onClick={() => alert("Still in the Design stage")}>
+                                <FontAwesomeIcon icon={faTerminal}/> <strong>Query Console</strong>
+                            </button>
+                        {/*</div>*/}
                     </li>
                 </List>
             </div>

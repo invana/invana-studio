@@ -6,6 +6,7 @@ import JSONCanvas from "./json/json";
 import TableCanvas from "./table/table";
 import RawResponsesCanvas from "./raw-response/raw-responses";
 import CanvasNav from "./canvas-nav";
+import CanvasController from "./controller";
 
 export default class Canvas extends React.Component {
 
@@ -54,33 +55,24 @@ export default class Canvas extends React.Component {
         // setFocusedNodes: PropTypes.func
     }
 
-    state = {
-        canvasType: "graph",
-
-    }
-
-    switchCanvasTo(canvasType) {
-        this.setState({
-            canvasType: canvasType,
-        })
-        this.props.setStatusMessage("Canvas switched to " + canvasType)
-    }
-
-
-    confirmFlushCanvas() {
-        let r = window.confirm("Are you sure you want to clear the canvas");
-        if (r === true) {
-            this.props.flushCanvas();
+    constructor(props) {
+        super(props);
+        this.state = {
+            canvasType: "graph",
         }
+        // this.updateCanvasState = this.updateCanvasState.bind(this)
+        this.canvasCtrl = new CanvasController(this.props.connector, this.dataStore,
+            this.updateCanvasState.bind(this),
+            this.props.setStatusMessage,
+            this.props.flushCanvas,
+            this.props.setShallReRenderD3Canvas,
+
+        );
+
     }
 
-    confirmRedrawCanvas() {
-
-        let r = window.confirm("Are you sure you want to re-draw the canvas");
-        if (r === true) {
-            // this.setState({shallReRenderD3Canvas: true})
-            this.props.setShallReRenderD3Canvas(true);
-        }
+    updateCanvasState(message) {
+        this.setState(message);
     }
 
 
@@ -95,9 +87,11 @@ export default class Canvas extends React.Component {
 
                 <CanvasNav
                     canvasType={this.state.canvasType}
-                    switchCanvasTo={this.switchCanvasTo.bind(this)}
-                    confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
-                    confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
+                    canvasCtrl={this.canvasCtrl}
+
+                    // switchCanvasTo={this.switchCanvasTo.bind(this)}
+                    // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
+                    // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
                 />
 
                 <div className={"main-content-body"}>
