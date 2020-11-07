@@ -1,0 +1,22 @@
+@import "src/config";
+
+.filter-nodes {
+  position: fixed;
+  width: 300px;
+  border: 1px solid $borderColor;
+  top: 77px;
+  right: 150px;
+  background: $darkBg;
+  padding: 10px;
+  min-height: 150px;
+
+  input[type="text"] {
+    width: 219px;
+  }
+
+  .focus-btn {
+    border: 1px solid $borderColor !important;
+    padding: 5px;
+    margin-left: 5px;
+  }
+}

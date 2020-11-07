@@ -5,7 +5,9 @@
 
 export default class CanvasController {
 
-    constructor(connector, dataStore, updateCanvasState, setStatusMessage,
+    constructor(connector, dataStore,
+                updateCanvasState,
+                setStatusMessage,
                 flushCanvas, setShallReRenderD3Canvas) {
         this.connector = connector;
         this.dataStore = dataStore;
@@ -19,8 +21,8 @@ export default class CanvasController {
     switchCanvasTo(canvasType) {
         this.updateCanvasState({
             canvasType: canvasType,
-        })
-        this.setStatusMessage("Canvas switched to " + canvasType)
+        });
+        this.setStatusMessage("Canvas switched to " + canvasType);
     }
 
 

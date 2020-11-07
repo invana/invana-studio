@@ -61,7 +61,8 @@ export default class Canvas extends React.Component {
             canvasType: "graph",
         }
         // this.updateCanvasState = this.updateCanvasState.bind(this)
-        this.canvasCtrl = new CanvasController(this.props.connector, this.dataStore,
+        this.canvasCtrl = new CanvasController(this.props.connector,
+            this.dataStore,
             this.updateCanvasState.bind(this),
             this.props.setStatusMessage,
             this.props.flushCanvas,

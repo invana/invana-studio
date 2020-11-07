@@ -1,27 +1,44 @@
-import React from "react";
+import React, {Fragment} from "react";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCamera, faFilter, faSave, faSearch, faSync, faTerminal, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCamera, faDotCircle, faFilter, faSave, faSync,
+    faTerminal, faTrashAlt
+} from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import FilterNodes from "./menu/filter-nodes";
+import FocusNode from "./menu/focus-node";
+import QueryConsole from "../viewlets/query-console";
 
 
 export default class CanvasNav extends React.Component {
 
 
-    state = {
-        canvasMenuType : null
-    }
-
     static defaultProps = {
         canvasType: null,
-        canvasCtrl: (canvasType) => console.log("switchCanvasTo not set", canvasType),
+        canvasCtrl: null,
     }
     static propTypes = {
         canvasType: PropTypes.string,
-        canvasCtrl: PropTypes.func,
+        canvasCtrl: PropTypes.object,
         // confirmFlushCanvas: PropTypes.func,
         // confirmRedrawCanvas: PropTypes.func
     }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            canvasMenuType: null
+        }
+    }
+
+    switchToCanvasMenu(canvasMenuType) {
+        console.log("updating canvasMenuType", canvasMenuType);
+        this.setState({
+            canvasMenuType: canvasMenuType
+        });
+    }
+
 
     render() {
         return (
@@ -46,12 +63,7 @@ export default class CanvasNav extends React.Component {
 
                         </div>
                     </li>
-                    <li>
-                        <button title={"clear the canvas"}
-                                onClick={() => this.props.canvasCtrl.confirmFlushCanvas()}>
-                            <FontAwesomeIcon icon={faTrashAlt}/>
-                        </button>
-                    </li>
+
                     <li>
                         <button title={"re render the canvas"}
                                 onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
@@ -63,10 +75,14 @@ export default class CanvasNav extends React.Component {
                             <FontAwesomeIcon icon={faSave}/>
                         </button>
                     </li>
-
+                    <li>
+                        <button title={"clear the canvas"}
+                                onClick={() => this.props.canvasCtrl.confirmFlushCanvas()}>
+                            <FontAwesomeIcon icon={faTrashAlt}/>
+                        </button>
+                    </li>
 
                 </List>
-
                 <List type={"canvas-nav"} style={{"float": "right"}}>
                     <li>
                         <button onClick={() => alert("Still in the Design stage")}>
@@ -74,19 +90,35 @@ export default class CanvasNav extends React.Component {
                         </button>
                     </li>
                     <li>
-                        <button onClick={() => alert("Still in the Design stage")}>
+                        <button onClick={() => this.switchToCanvasMenu("focus-node")}>
+                            <FontAwesomeIcon icon={faDotCircle}/>
+                        </button>
+                    </li>
+                    <li>
+                        <button onClick={() => this.switchToCanvasMenu("filter-nodes")}>
                             <FontAwesomeIcon icon={faFilter}/>
                         </button>
                     </li>
 
                     <li>
                         {/*<div className={"canvasToggle"}>*/}
-                            <button onClick={() => alert("Still in the Design stage")}>
-                                <FontAwesomeIcon icon={faTerminal}/> <strong>Query Console</strong>
-                            </button>
+                        <button onClick={() => alert("Still in the Design stage")}>
+                            <FontAwesomeIcon icon={faTerminal}/> <strong>Query Console</strong>
+                        </button>
                         {/*</div>*/}
                     </li>
                 </List>
+
+                {
+                    this.state.canvasMenuType === "filter-nodes"
+                        ? (<FilterNodes closeCanvasMenu={this.switchToCanvasMenu.bind(this)}/>)
+                        : this.state.canvasMenuType === "query-console"
+                        ? (<QueryConsole/>)
+                        : this.state.canvasMenuType === "focus-node"
+                            ? (<FocusNode closeCanvasMenu={this.switchToCanvasMenu.bind(this)}/>)
+                            : (<Fragment/>)
+                }
+
             </div>
         );
     }
