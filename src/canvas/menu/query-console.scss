@@ -3,13 +3,22 @@
 .queryConsole {
   position: fixed;
   background: $darkBg;
-  //height: 300px;
-  width: calc(100% - 350px - 6px);
+  width: calc(100% - 350px - 6px - 300px);
   top: 77px;
-  left: 346px;
+  //left: calc(346px + 300px);
+  right: 0;
   border: 1px solid $borderColor;
   padding: 0;
   opacity: 0.9;
+  z-index: 1;
+
+  .ge-panel-body {
+    overflow: hidden;
+  }
+
+  .ge-panel-options button {
+    margin-right: 0 !important;
+  }
 
   input[name="queryRepeatFrequency"] {
     width: 35px;
@@ -68,7 +77,7 @@
     }
 
     .float-left {
-      margin-top: 14px;
+      margin-top: 5px;
       //margin-top: 14px;
     }
 

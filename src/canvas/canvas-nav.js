@@ -116,7 +116,7 @@ export default class CanvasNav extends React.Component {
 
                 {
                     this.state.canvasMenuType === "filter-nodes"
-                        ? (<FilterNodes closeCanvasMenu={this.switchToCanvasMenu.bind(this)}/>)
+                        ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
                         : this.state.canvasMenuType === "query-console"
                         ? (
                             <QueryConsole
@@ -126,7 +126,7 @@ export default class CanvasNav extends React.Component {
                             />
                         )
                         : this.state.canvasMenuType === "focus-node"
-                            ? (<FocusNode closeCanvasMenu={this.switchToCanvasMenu.bind(this)}/>)
+                            ? (<FocusNode onClose={this.switchToCanvasMenu.bind(this)}/>)
                             : (<Fragment/>)
                 }
             </div>

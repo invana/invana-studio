@@ -5,10 +5,19 @@
   width: 300px;
   border: 1px solid $borderColor;
   top: 77px;
-  right: 150px;
+  right: 140px;
   background: $darkBg;
-  padding: 10px;
+  //padding: 10px;
   min-height: 150px;
+  opacity: 0.9;
+
+  .ge-panel-body {
+    overflow: hidden;
+  }
+
+  .ge-panel-options button {
+    margin-right: 0 !important;
+  }
 
   input[type="text"] {
     width: 219px;
