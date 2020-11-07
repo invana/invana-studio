@@ -25,7 +25,7 @@ import SettingsComponent from "../viewlets/settings";
 import LearnComponent from "../viewlets/learn";
 import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
-import QueryConsole from "../viewlets/query-console";
+import QueryConsole from "../canvas/menu/query-console";
 import VerticesManagement from "../viewlets/vertices-management";
 import EdgesManagement from "../viewlets/edges-management";
 import AboutComponent from "../viewlets/about";
@@ -315,13 +315,13 @@ export default class ExplorerView extends BaseView {
                                                 Edges
                                             </button>
                                         </li>
-                                        <li>
-                                            <button
-                                                className={this.state.middleTopContentName === "query-console" ? 'active' : ''}
-                                                onClick={() => this.setMiddleTopContentName("query-console")}>
-                                                Query Console
-                                            </button>
-                                        </li>
+                                        {/*<li>*/}
+                                        {/*    <button*/}
+                                        {/*        className={this.state.middleTopContentName === "query-console" ? 'active' : ''}*/}
+                                        {/*        onClick={() => this.setMiddleTopContentName("query-console")}>*/}
+                                        {/*        Query Console*/}
+                                        {/*    </button>*/}
+                                        {/*</li>*/}
                                     </GEList>
                                 </div>
 
@@ -341,15 +341,15 @@ export default class ExplorerView extends BaseView {
                                                     setShowVertexOptions={this.setShowVertexOptions.bind(this)}
                                                 />
 
-                                            ) :
-                                            this.state.middleTopContentName === "query-console" ? (
-                                                <QueryConsole
-                                                    makeQuery={this.makeQuery.bind(this)}
-                                                    query={this.state.query}
-                                                    connector={this.connector}
-                                                    flushCanvas={this.flushCanvas.bind(this)}
-                                                />
                                             ) : (<div></div>)
+                                            // this.state.middleTopContentName === "query-console" ? (
+                                            //     <QueryConsole
+                                            //         makeQuery={this.makeQuery.bind(this)}
+                                            //         query={this.state.query}
+                                            //         connector={this.connector}
+                                            //         flushCanvas={this.flushCanvas.bind(this)}
+                                            //     />
+                                            // ) : (<div></div>)
 
                                 }
                                 {/*<GEPanel*/}

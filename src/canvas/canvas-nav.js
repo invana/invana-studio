@@ -8,7 +8,9 @@ import {
 import PropTypes from "prop-types";
 import FilterNodes from "./menu/filter-nodes";
 import FocusNode from "./menu/focus-node";
-import QueryConsole from "../viewlets/query-console";
+import QueryConsole from "./menu/query-console";
+// import GEPanel from "../ui-components/panels/panel";
+// import HistoryComponent from "../viewlets/history";
 
 
 export default class CanvasNav extends React.Component {
@@ -17,11 +19,15 @@ export default class CanvasNav extends React.Component {
     static defaultProps = {
         canvasType: null,
         canvasCtrl: null,
+        connector: null,
+        makeQuery: (query) => console.log("makeQuery not set ", query),
     }
     static propTypes = {
         canvasType: PropTypes.string,
         canvasCtrl: PropTypes.object,
+        makeQuery: PropTypes.func,
         // confirmFlushCanvas: PropTypes.func,
+        connector: PropTypes.object
         // confirmRedrawCanvas: PropTypes.func
     }
 
@@ -99,10 +105,9 @@ export default class CanvasNav extends React.Component {
                             <FontAwesomeIcon icon={faFilter}/>
                         </button>
                     </li>
-
                     <li>
                         {/*<div className={"canvasToggle"}>*/}
-                        <button onClick={() => alert("Still in the Design stage")}>
+                        <button onClick={() => this.switchToCanvasMenu("query-console")}>
                             <FontAwesomeIcon icon={faTerminal}/> <strong>Query Console</strong>
                         </button>
                         {/*</div>*/}
@@ -113,12 +118,17 @@ export default class CanvasNav extends React.Component {
                     this.state.canvasMenuType === "filter-nodes"
                         ? (<FilterNodes closeCanvasMenu={this.switchToCanvasMenu.bind(this)}/>)
                         : this.state.canvasMenuType === "query-console"
-                        ? (<QueryConsole/>)
+                        ? (
+                            <QueryConsole
+                                makeQuery={this.props.makeQuery}
+                                connector={this.props.connector}
+                                onClose={()=>this.switchToCanvasMenu(null)}
+                            />
+                        )
                         : this.state.canvasMenuType === "focus-node"
                             ? (<FocusNode closeCanvasMenu={this.switchToCanvasMenu.bind(this)}/>)
                             : (<Fragment/>)
                 }
-
             </div>
         );
     }

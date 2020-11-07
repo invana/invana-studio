@@ -89,6 +89,8 @@ export default class Canvas extends React.Component {
                 <CanvasNav
                     canvasType={this.state.canvasType}
                     canvasCtrl={this.canvasCtrl}
+                    makeQuery={this.props.makeQuery}
+                    connector={this.props.connector}
 
                     // switchCanvasTo={this.switchCanvasTo.bind(this)}
                     // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}

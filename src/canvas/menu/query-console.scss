@@ -1,7 +1,15 @@
-@import "../config";
+@import "../../config";
 
 .queryConsole {
-  position: relative;
+  position: fixed;
+  background: $darkBg;
+  //height: 300px;
+  width: calc(100% - 350px - 6px);
+  top: 77px;
+  left: 346px;
+  border: 1px solid $borderColor;
+  padding: 0;
+  opacity: 0.9;
 
   input[name="queryRepeatFrequency"] {
     width: 35px;
@@ -15,7 +23,7 @@
   textarea {
     width: calc(100% - 12px);
     //height: calc(100vh - 46px - 24px - 350px);
-    height: 280px;
+    //height: 200px;
     position: relative;
     padding: 5px;
     border-radius: 2px;
