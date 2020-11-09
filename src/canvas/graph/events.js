@@ -133,7 +133,7 @@ export default class EventStore {
         console.log("====graphicsEngine", graphicsEngine)
     }
 
-    highlightNode(graphicsEngine, nodes) {
+    highlightNodes(graphicsEngine, nodes) {
         console.log("highlightNodes ", nodes);
         // add hover effect
         graphicsEngine.graphicsStore.focusOnNodes(nodes);
@@ -327,7 +327,7 @@ export default class EventStore {
         }
 
         if (nodeData) {
-            this.highlightNode(graphicsEngine, [nodeData])
+            this.highlightNodes(graphicsEngine, [nodeData])
             // for drag feature
             if (this.clickedNodeData) {
                 return;

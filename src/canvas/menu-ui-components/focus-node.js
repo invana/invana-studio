@@ -50,12 +50,16 @@ export default class FocusNode extends React.Component {
         if (nodeData) {
             const graphicsEngine = this.props.getGraphicsEngine();
             if (graphicsEngine) {
+                // graphicsEngine.focusedNodes
+                graphicsEngine.dataStore.addNode2Focus(nodeData)
+                graphicsEngine.graphicsStore.focusOnNodes(graphicsEngine.dataStore.focusedNodes);
                 graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
-                this.setInfoMessage("Centered and highlighted the node " + nodeLabel);
+
+                this.setInfoMessage("Centered and highlighted the node '" + nodeLabel + "'");
             }
         } else {
-            this.setErrorMessage("Unable to find the node with label or text " + nodeLabel +
-                ". NOTE: this search is case sensitive");
+            this.setErrorMessage("Unable to find the node with label or text '" + nodeLabel +
+                "'. NOTE: this search is case sensitive");
         }
     }
 

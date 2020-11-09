@@ -10,7 +10,7 @@ export default class GraphicsStore {
     constructor(dataStore, graphicsEngine) {
         this.dataStore = dataStore;
         this.graphicsEngine = graphicsEngine;
-        this.clear();
+        this.clearAndSetupNew();
     }
 
     alreadyRenderedData() {
@@ -24,7 +24,7 @@ export default class GraphicsStore {
         // return {vertices, edges}
     }
 
-    clear() {
+    clearAndSetupNew() {
         this.hoveredNodeGfxOriginalChildren = [];
         this.hoveredNodeLabelGfxOriginalChildren = [];
 
@@ -156,6 +156,12 @@ export default class GraphicsStore {
         });
     }
 
+    //
+    highlightThisNodeAlso(nodeId) {
+        const nodeGfx = this.nodeDataToNodeGfx.get(nodeId);
+        nodeGfx.children[0].alpha = this.graphicsEngine.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
+
+    }
 
     resetFocus() {
         // reset everything to normal
@@ -198,7 +204,7 @@ export default class GraphicsStore {
             labelGfx.alpha = _this.graphicsEngine.settings.NODE_DEFAULT_ALPHA;
             nodeGfx.children[0].alpha = _this.graphicsEngine.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
 
-            // // // clear hover effect
+            // // // clearAndSetupNew hover effect
 
 
             // const nodeGfxChildren = nodeGfx.children;
@@ -210,7 +216,6 @@ export default class GraphicsStore {
             // }
 
         })
-
 
     }
 

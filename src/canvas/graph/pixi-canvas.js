@@ -50,9 +50,9 @@ export default class PIXICanvas extends React.Component {
         resetShallReRenderD3Canvas: () => console.log("resetShallReRenderD3Canvas"),
         shallReRenderD3Canvas: false,
         makeQuery: () => console.error("makeQuery not set"),
+        setGraphicsEngine: (graphicsEngine) => console.log("setGraphicsEngine not set", graphicsEngine),
 
-        setGraphicsEngine: (graphicsEngine)=> console.log("setGraphicsEngine not set", graphicsEngine)
-
+        // getFocusedNodes: () => console.log("getFocusedNodes"),
         // setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
     }
 
@@ -72,7 +72,9 @@ export default class PIXICanvas extends React.Component {
         resetShallReRenderD3Canvas: PropTypes.func,
         selectedElementData: PropTypes.object,
         setStatusMessage: PropTypes.func,
-        setGraphicsEngine: PropTypes.func
+        setGraphicsEngine: PropTypes.func,
+
+        // getFocusedNodes: PropTypes.func
 
         // setFocusedNodes: PropTypes.func
     }
