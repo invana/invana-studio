@@ -111,8 +111,8 @@ export default class EventStore {
         this.moveNode(this.clickedNodeData, graphicsEngine.viewport.toWorld(event.data.global), graphicsEngine, event);
     }
 
-    onNodeClicked(graphicsEngine, nodeData, nodeContainer, event) {
 
+    onRightClicked(graphicsEngine, nodeData, nodeContainer, event) {
         this.showMenu();
         this.clickedNodeData = nodeData;
         this.lastSelectedNodeData = nodeData;
@@ -126,6 +126,16 @@ export default class EventStore {
         // graphicsEngine.viewport.pause = true;
         console.log("clicked", event);
         this.createNodeMenu(graphicsEngine, nodeData, event);
+
+    }
+
+    onNodeClicked(graphicsEngine, nodeData, nodeContainer, event) {
+
+        this.clickedNodeData = nodeData;
+        this.lastSelectedNodeData = nodeData;
+        console.log(this.clickedNodeData.id, " clicked");
+        graphicsEngine.onNodeSelected(nodeData);
+
 
     }
 

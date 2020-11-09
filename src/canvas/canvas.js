@@ -72,6 +72,7 @@ export default class Canvas extends React.Component {
             this.props.setShallReRenderD3Canvas,
         );
 
+
     }
 
     setFocusedNodes(nodes) {
@@ -92,6 +93,14 @@ export default class Canvas extends React.Component {
 
     getGraphicsEngine() {
         return this.state.graphicsEngine;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        document.querySelector(".main-content-body").addEventListener("contextmenu ", function () {
+            console.log("Right Click");
+            return false;
+        });
     }
 
     removeFocusedNode(nodeId) {

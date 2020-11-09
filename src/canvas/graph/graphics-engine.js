@@ -59,7 +59,12 @@ export default class GraphicsEngine {
             forceCanvas: true,
             autoDensity: true
         });
+        this.pixiApp.view.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); e.stopPropagation();
+            return false;
+        });
         canvasElem.appendChild(this.pixiApp.view);
+
 
         this.viewport = new Viewport({
             screenWidth: this.settings.SCREEN_WIDTH,
@@ -115,7 +120,7 @@ export default class GraphicsEngine {
 
     }
 
-    setNodeElem(nodeMenuEl){
+    setNodeElem(nodeMenuEl) {
         this.nodeMenuEl = nodeMenuEl;
     }
 
@@ -267,6 +272,7 @@ labelColor: "#dddddd"
         nodeContainer.hitArea = new PIXI.Circle(0, 0, nodeData.meta.shapeOptions.radius);
 
         // console.log("event.currentTarget", )
+        nodeContainer.on('rightdown', (event) => _this.eventStore.onRightClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
         nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
         nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
         nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
@@ -290,6 +296,7 @@ labelColor: "#dddddd"
         circle.y = 0;
         circle.beginFill(colorToNumber(nodeData.meta.shapeOptions.fillColor));
         circle.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
+
         nodeContainer.addChild(circle);
 
         const circleBorder = new PIXI.Graphics();
