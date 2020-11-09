@@ -97,7 +97,7 @@ export default class CanvasNav extends React.Component {
                 </List>
                 <List type={"canvas-nav"} style={{"float": "right"}}>
                     <li>
-                        <button onClick={() => alert("Still in the Design stage")}>
+                        <button onClick={() => this.props.canvasCtrl.downloadCanvasImage()}>
                             <FontAwesomeIcon icon={faCamera}/>
                         </button>
                     </li>
