@@ -1,6 +1,6 @@
 import BaseView from "./base";
 import React from "react";
-import {invertColor, redirectToConnectIfNeeded} from "../core/utils";
+import {redirectToConnectIfNeeded} from "../core/utils";
 import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -342,14 +342,14 @@ export default class ExplorerView extends BaseView {
                                                 />
 
                                             ) : (<div></div>)
-                                            // this.state.middleTopContentName === "query-console" ? (
-                                            //     <QueryConsole
-                                            //         makeQuery={this.makeQuery.bind(this)}
-                                            //         query={this.state.query}
-                                            //         connector={this.connector}
-                                            //         flushCanvas={this.flushCanvas.bind(this)}
-                                            //     />
-                                            // ) : (<div></div>)
+                                    // this.state.middleTopContentName === "query-console" ? (
+                                    //     <QueryConsole
+                                    //         makeQuery={this.makeQuery.bind(this)}
+                                    //         query={this.state.query}
+                                    //         connector={this.connector}
+                                    //         flushCanvas={this.flushCanvas.bind(this)}
+                                    //     />
+                                    // ) : (<div></div>)
 
                                 }
                                 {/*<GEPanel*/}
@@ -384,8 +384,10 @@ export default class ExplorerView extends BaseView {
                                         <GEPanel
                                             // title={"Selected Element Data"}
                                             title={this.state.selectedElementData.label + " id:" + this.state.selectedElementData.id}
-                                            headerStyle={{'backgroundColor': this.state.selectedElementData.meta.shapeOptions.fillColor,
-                                            'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)}}
+                                            headerStyle={{
+                                                'color': this.state.selectedElementData.meta.shapeOptions.fillColor,
+                                                // 'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)
+                                            }}
                                             showToggleBtn={false}
                                             showCloseBtn={true}
                                             onClickClose={() => {
