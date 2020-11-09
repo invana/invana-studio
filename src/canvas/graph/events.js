@@ -320,7 +320,7 @@ export default class EventStore {
         // ignoreNodesHoverWhenFocused.p
         // neighborsData.push(nodeData);
         // neighborsData.
-        if (graphicsEngine.dataStore.focusedNodes.length > 0) {
+        if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
             // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
             // dont hover-highlight when there is focus selected.
             return
@@ -340,7 +340,7 @@ export default class EventStore {
 
     onNodeMouseOut(graphicsEngine, nodeData, nodeContainer, event) {
         console.log(nodeData.id, nodeContainer, event, " mouseout");
-        if (graphicsEngine.dataStore.focusedNodes.length > 0) {
+        if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
             // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
             // dont hover-highlight when there is focus selected.
             return

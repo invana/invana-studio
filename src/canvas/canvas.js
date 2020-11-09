@@ -7,6 +7,7 @@ import TableCanvas from "./table/table";
 import RawResponsesCanvas from "./raw-response/raw-responses";
 import CanvasNav from "./canvas-nav";
 import CanvasController from "./controller";
+import FocusedNodesList from "./graph/focused-nodes-list";
 
 export default class Canvas extends React.Component {
 
@@ -59,7 +60,8 @@ export default class Canvas extends React.Component {
         super(props);
         this.state = {
             canvasType: "graph",
-            graphicsEngine: null
+            graphicsEngine: null,
+            focusedNodes: [] //
         }
         // this.updateCanvasState = this.updateCanvasState.bind(this)
         this.canvasCtrl = new CanvasController(this.props.connector,
@@ -72,16 +74,42 @@ export default class Canvas extends React.Component {
 
     }
 
+    setFocusedNodes(nodes) {
+        this.setState({focusedNodes: nodes});
+    }
+
+    getFocusedNodes() {
+        return this.state.focusedNodes;
+    }
+
     updateCanvasState(message) {
         this.setState(message);
     }
 
-    setGraphicsEngine(graphicsEngine){
+    setGraphicsEngine(graphicsEngine) {
         this.setState({graphicsEngine: graphicsEngine})
     }
 
-    getGraphicsEngine(){
+    getGraphicsEngine() {
         return this.state.graphicsEngine;
+    }
+
+    removeFocusedNode(nodeId) {
+        //
+        let focusedNodes = this.state.focusedNodes;
+
+        let indexId = null
+        focusedNodes.forEach((focusedNode, index) => {
+            if (focusedNode.id === nodeId) {
+                indexId = index
+                return index;
+            }
+        });
+        focusedNodes.splice(indexId, 1);
+        console.log("===indexId", indexId);
+        this.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
+        this.setFocusedNodes(focusedNodes);
+
     }
 
 
@@ -101,12 +129,19 @@ export default class Canvas extends React.Component {
                     connector={this.props.connector}
                     dataStore={this.props.dataStore}
                     getGraphicsEngine={this.getGraphicsEngine.bind(this)}
+                    setFocusedNodes={this.setFocusedNodes.bind(this)}
                     // switchCanvasTo={this.switchCanvasTo.bind(this)}
                     // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
                     // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
                 />
 
                 <div className={"main-content-body"}>
+                    {
+                        this.state.canvasType === "graph" && this.props.connector.getLastResponse()
+                            ? <FocusedNodesList focusedNodes={this.state.focusedNodes}
+                                                removeFocusedNode={this.removeFocusedNode.bind(this)}/>
+                            : <span></span>
+                    }
 
                     <ErrorBoundary>
                         {(() => {
@@ -130,6 +165,8 @@ export default class Canvas extends React.Component {
                                             resetShallReRenderD3Canvas={this.props.resetShallReRenderD3Canvas}
                                             shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                                             makeQuery={this.props.makeQuery}
+                                            setFocusedNodes={this.setFocusedNodes.bind(this)}
+                                            getFocusedNodes={this.getFocusedNodes.bind(this)}
                                         />
 
 

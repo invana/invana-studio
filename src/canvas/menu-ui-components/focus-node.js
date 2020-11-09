@@ -10,12 +10,14 @@ export default class FocusNode extends React.Component {
     static defaultProps = {
         onClose: () => console.log(""),
         dataStore: null,
-        getGraphicsEngine: null
+        getGraphicsEngine: null,
+        setFocusedNodes: null
     }
     static propTypes = {
         onClose: PropTypes.func,
         dataStore: PropTypes.object,
-        getGraphicsEngine: PropTypes.func
+        getGraphicsEngine: PropTypes.func,
+        setFocusedNodes: PropTypes.func
     }
 
     state = {
@@ -52,9 +54,12 @@ export default class FocusNode extends React.Component {
             if (graphicsEngine) {
                 // graphicsEngine.focusedNodes
                 graphicsEngine.dataStore.addNode2Focus(nodeData)
-                graphicsEngine.graphicsStore.focusOnNodes(graphicsEngine.dataStore.focusedNodes);
-                graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
 
+                const uniqueNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
+                graphicsEngine.graphicsStore.focusOnNodes(uniqueNodes);
+                console.log("======uniqueNodes", uniqueNodes)
+                this.props.setFocusedNodes(uniqueNodes)
+                graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
                 this.setInfoMessage("Centered and highlighted the node '" + nodeLabel + "'");
             }
         } else {

@@ -37,6 +37,28 @@ export default class InMemoryDataStore {
         this.resetData()
     }
 
+
+    getUniqueFocusedNodes() {
+
+        function checkIfExistsInList(listData, node) {
+            listData.forEach((uniqueNode) => {
+                if (uniqueNode.id === node.id) {
+                    return true
+                }
+            });
+            return false
+        }
+        let uniqueNodes = [];
+        this.focusedNodes.forEach((node) => {
+            // check if this data already exist in uniqueNodes list
+            if (checkIfExistsInList(uniqueNodes, node) === false){
+                uniqueNodes.push(node);
+            }
+        });
+        console.log("=========uniqueNodes", uniqueNodes)
+        return uniqueNodes;
+    }
+
     checkIfVertexExist(vertexId) {
         return !!this.#vertices.get(vertexId)
     }
@@ -63,10 +85,10 @@ export default class InMemoryDataStore {
 
         for (const [nodeId, nodeData] of this.#vertices.entries()) {
             // console.log("=====key", key);
-            if(labelTextOrId === nodeId){
+            if (labelTextOrId === nodeId) {
                 return nodeData;
             }
-            if (nodeData.meta.labelOptions.labelText === labelTextOrId){
+            if (nodeData.meta.labelOptions.labelText === labelTextOrId) {
                 return nodeData;
             }
             // data.push(value);
@@ -74,6 +96,7 @@ export default class InMemoryDataStore {
 
         return
     }
+
     searchNodeByNodeLabelTextOrId(labelTextOrId) {
 
 
@@ -376,12 +399,14 @@ export default class InMemoryDataStore {
         return {notNeighborLinks, notNeighborNodes};
     }
 
+
     removeAllNodes2Focus() {
         this.focusedNodes = [];
     }
 
     checkIfVertexExistInFocused(nodeData) {
         this.focusedNodes.forEach((node) => {
+            console.log("======checkIfVertexExistInFocused node, nodeData", node.id, nodeData.id);
             if (nodeData.id === node.id) {
                 return true;
             }
@@ -390,7 +415,7 @@ export default class InMemoryDataStore {
     }
 
     addNode2Focus(nodeData) {
-        if (!this.checkIfVertexExistInFocused(nodeData)) {
+        if (this.checkIfVertexExistInFocused(nodeData) === false) {
             this.focusedNodes.push(nodeData);
         }
     }

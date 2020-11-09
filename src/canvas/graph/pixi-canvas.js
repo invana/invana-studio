@@ -12,7 +12,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 // import {} from "@fortawesome/free-regular-svg-icons";
-import FocusedNodesList from "./focused-nodes-list";
 
 export default class PIXICanvas extends React.Component {
 
@@ -52,8 +51,8 @@ export default class PIXICanvas extends React.Component {
         makeQuery: () => console.error("makeQuery not set"),
         setGraphicsEngine: (graphicsEngine) => console.log("setGraphicsEngine not set", graphicsEngine),
 
-        // getFocusedNodes: () => console.log("getFocusedNodes"),
-        // setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
+        getFocusedNodes: () => console.log("getFocusedNodes"),
+        setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
     }
 
     static propTypes = {
@@ -74,16 +73,15 @@ export default class PIXICanvas extends React.Component {
         setStatusMessage: PropTypes.func,
         setGraphicsEngine: PropTypes.func,
 
-        // getFocusedNodes: PropTypes.func
-
-        // setFocusedNodes: PropTypes.func
+        getFocusedNodes: PropTypes.func,
+        setFocusedNodes: PropTypes.func
     }
 
 
     constructor(props) {
         super(props);
         this.state = {
-            focusedNodes: [],
+            // focusedNodes: [],
             shallReRender: true,
             // zoomToPoint: [],
         }
@@ -140,7 +138,7 @@ export default class PIXICanvas extends React.Component {
 
     shouldComponentUpdate(nextProps, newState) {
         console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
-        console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
+        // console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
 
         // if (this.state.focusedNodes !== newState.focusedNodes) {
         //     this.graphicsEngine.graphicsStore.focusOnNodes(this.state.focusedNodes);
@@ -251,34 +249,15 @@ export default class PIXICanvas extends React.Component {
     }
 
 
-    removeFocusedNode(nodeId) {
-        //
-        let focusedNodes = this.state.focusedNodes;
-
-        let indexId = null
-        focusedNodes.forEach((focusedNode, index) => {
-            if (focusedNode.id === nodeId) {
-                indexId = index
-                return index;
-            }
-        });
-
-        focusedNodes.splice(indexId, 1);
-        console.log("===indexId", indexId);
-        this.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
-        this.setState({focusedNodes: focusedNodes});
-
-    }
-
     onClickFocus() {
         const nodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
         this.graphicsEngine.dataStore.addNode2Focus(nodeData);
         this.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
 
-        this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
-        this.graphicsEngine.graphicsStore.focusOnNodes(this.graphicsEngine.dataStore.focusedNodes);
+        this.props.setFocusedNodes(this.graphicsEngine.dataStore.getUniqueFocusedNodes());
+        this.graphicsEngine.graphicsStore.focusOnNodes(this.graphicsEngine.dataStore.getUniqueFocusedNodes());
 
-        // this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
+        // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
         this.graphicsEngine.eventStore.hideMenu();
     }
 
@@ -289,7 +268,7 @@ export default class PIXICanvas extends React.Component {
 
         // adding this node to focused,
         // this.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
-        // this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
+        // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
         this.props.makeQuery(query_string);
 
 
@@ -304,7 +283,7 @@ export default class PIXICanvas extends React.Component {
 
         //
         // this.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
-        // this.setState({focusedNodes: this.graphicsEngine.dataStore.focusedNodes});
+        // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
 
         this.props.makeQuery(query_string);
     }
@@ -348,20 +327,21 @@ export default class PIXICanvas extends React.Component {
 
     checkIfAlreadyFocused() {
         const selectedNode = this.props.selectedElementData;
-        this.state.focusedNodes.forEach((focusedNode) => {
-            if (focusedNode.id === selectedNode.id) {
-                return true;
-            }
-        });
+        if (selectedNode) {
+            this.props.getFocusedNodes().forEach((focusedNode) => {
+                if (focusedNode.id === selectedNode.id) {
+                    return true;
+                }
+            });
+        }
+
     }
 
     render() {
         // console.log("PIXICanvas render()", this.props.dataStore.getAllRawVerticesList())
-        console.log("this.state.focusedNodes", this.state.focusedNodes);
+        console.log("this.state.focusedNodes", this.props.getFocusedNodes());
         return (
             <div style={{"width": "100%", "height": "100%"}}>
-                <FocusedNodesList focusedNodes={this.state.focusedNodes}
-                                  removeFocusedNode={this.removeFocusedNode.bind(this)}/>
                 <div className="nodeMenuContainer" style={{"display": "none"}}>
                     <h5>{this.getVerboseIdentifier()}</h5>
                     <p>ID: {this.getIdentifier()}</p>

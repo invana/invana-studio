@@ -23,6 +23,7 @@ export default class CanvasNav extends React.Component {
         dataStore: null,
         getGraphicsEngine: ()=>console.log("getGraphicsEngine not set"),
         makeQuery: (query) => console.log("makeQuery not set ", query),
+        setFocusedNodes: (nodes) => console.log("setFocusedNodes not set ", nodes),
     }
     static propTypes = {
         canvasType: PropTypes.string,
@@ -31,7 +32,8 @@ export default class CanvasNav extends React.Component {
         dataStore: PropTypes.object,
         getGraphicsEngine: PropTypes.func,
         // confirmFlushCanvas: PropTypes.func,
-        connector: PropTypes.object
+        connector: PropTypes.object,
+        setFocusedNodes: PropTypes.func,
         // confirmRedrawCanvas: PropTypes.func
     }
 
@@ -104,7 +106,7 @@ export default class CanvasNav extends React.Component {
                             <FontAwesomeIcon icon={faDotCircle}/>
                         </button>
                     </li>
-                    <li>
+                    <li style={{"display": "none"}}>
                         <button onClick={() => this.switchToCanvasMenu("filter-nodes")}>
                             <FontAwesomeIcon icon={faFilter}/>
                         </button>
@@ -134,6 +136,7 @@ export default class CanvasNav extends React.Component {
                                 onClose={this.switchToCanvasMenu.bind(this)}
                                 dataStore={this.props.dataStore}
                                 getGraphicsEngine={this.props.getGraphicsEngine}
+                                setFocusedNodes={this.props.setFocusedNodes}
                             />)
                             : (<Fragment/>)
                 }
