@@ -50,16 +50,17 @@ export default class FocusNode extends React.Component {
         console.log("======****nodeData", nodeData)
         console.log("======****nodeLabel", nodeLabel)
         if (nodeData) {
-            const graphicsEngine = this.props.getGraphicsEngine();
-            if (graphicsEngine) {
+            // const graphicsEngine = this.props.getGraphicsEngine();
+            if (this.props.getGraphicsEngine()) {
                 // graphicsEngine.focusedNodes
-                graphicsEngine.dataStore.addNode2Focus(nodeData)
+                this.props.getGraphicsEngine().dataStore.addNode2Focus(nodeData)
 
-                const uniqueNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
-                graphicsEngine.graphicsStore.focusOnNodes(uniqueNodes);
+                const uniqueNodes = Object.assign([],
+                    this.props.getGraphicsEngine().dataStore.getUniqueFocusedNodes());
+                this.props.getGraphicsEngine().graphicsStore.focusOnNodes(uniqueNodes);
                 console.log("======uniqueNodes", uniqueNodes)
                 this.props.setFocusedNodes(uniqueNodes)
-                graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
+                this.props.getGraphicsEngine().zoom2Point(nodeData.x, nodeData.y);
                 this.setInfoMessage("Centered and highlighted the node '" + nodeLabel + "'");
             }
         } else {

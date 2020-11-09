@@ -39,29 +39,18 @@ export default class InMemoryDataStore {
 
 
     getUniqueFocusedNodes() {
-
-        function checkIfExistsInList(listData, node) {
-            listData.forEach((uniqueNode) => {
-                if (uniqueNode.id === node.id) {
-                    return true
-                }
-            });
-            return false
-        }
-
-        let uniqueNodes = [];
-        this.focusedNodes.forEach((node) => {
-            // check if this data already exist in uniqueNodes list
-            if (checkIfExistsInList(uniqueNodes, node) === false) {
-                uniqueNodes.push(node);
-            }
+        const focusedNodes = Object.assign([], this.focusedNodes);
+        let uniqueMap = {};
+        focusedNodes.forEach((node) => {
+            uniqueMap[node.id] = node;
         });
-        console.log("=========uniqueNodes", uniqueNodes)
+        const uniqueNodes = Object.values(uniqueMap);
+        console.log("=========uniqueNodes==>>", uniqueNodes)
         return uniqueNodes;
     }
 
     checkIfVertexExist(vertexId) {
-        return !!this.#vertices.get(vertexId)
+        return !!this.#vertices.get(vertexId);
     }
 
     checkIfEdgeExist(vertexId) {
