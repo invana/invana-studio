@@ -22,7 +22,7 @@ export const UUIDGenerator = () =>
     );
 
 
-export const DefaultNodeBorderColor = "#efefef";
+export const DefaultNodeBorderColor = 0x121212;
 export const DefaultNodeLabelPropertyKey = "id";
 export const DefaultNodeStrokeWidth = 2;
 export const DefaultNodeRadius = 10;
