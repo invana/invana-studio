@@ -4,7 +4,7 @@
 export default class EventStore {
 
     clickedNodeData = undefined;//
-    lastSelectedNodeData = undefined;// used to get the last selected data for menu.
+    lastSelectedNodeData = undefined;// used to get the last selected data for menu-ui-components.
     hoveredNodeData = undefined;
 
     nodeMenuEl = undefined;

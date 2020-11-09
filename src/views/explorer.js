@@ -25,7 +25,7 @@ import SettingsComponent from "../viewlets/settings";
 import LearnComponent from "../viewlets/learn";
 import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
-import QueryConsole from "../canvas/menu/query-console";
+// import QueryConsole from "../canvas/menu-ui-components/query-console";
 import VerticesManagement from "../viewlets/vertices-management";
 import EdgesManagement from "../viewlets/edges-management";
 import AboutComponent from "../viewlets/about";

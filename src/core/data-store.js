@@ -30,6 +30,9 @@ export default class InMemoryDataStore {
     verticesAlreadyRendered = [];
     edgesAlreadyRendered = [];
 
+    //{ "vertexId": {"neighbourLinks": [ "linkid-1", "linkid-2"], "neighbourNodes": ["nodeid-1" ]}
+    neighbourVerticesAndLinksMap = new Map();
+
     constructor() {
         this.resetData()
     }
@@ -48,6 +51,45 @@ export default class InMemoryDataStore {
 
     addEdgeToDataSet(edge) {
         this.#edges.set(edge.id, edge);
+    }
+
+    computeNeighbors() {
+
+
+        // this.neighbourVerticesAndLinksMap
+    }
+
+    getNodeByNodeLabelTextOrId(labelTextOrId) {
+
+        for (const [nodeId, nodeData] of this.#vertices.entries()) {
+            // console.log("=====key", key);
+            if(labelTextOrId === nodeId){
+                return nodeData;
+            }
+            if (nodeData.meta.labelOptions.labelText === labelTextOrId){
+                return nodeData;
+            }
+            // data.push(value);
+        }
+
+        return
+    }
+    searchNodeByNodeLabelTextOrId(labelTextOrId) {
+
+
+        let results = []
+        // for (const [nodeId, nodeData] of this.#vertices.entries()) {
+        //     // console.log("=====key", key);
+        //     if(labelTextOrId === nodeId){
+        //         return nodeData;
+        //     }
+        //     if (nodeData.meta.nodeShape.labelText === labelTextOrId){
+        //         return nodeData;
+        //     }
+        //     // data.push(value);
+        // }
+
+        return results;
     }
 
     computeDataDistributionStats() {
@@ -267,6 +309,27 @@ export default class InMemoryDataStore {
     setAlreadyRenderedData(verticesAlreadyRendered, edgesAlreadyRendered) {
         this.verticesAlreadyRendered = verticesAlreadyRendered;
         this.edgesAlreadyRendered = edgesAlreadyRendered;
+    }
+
+    getNeighborNodesAndLinksOfNode(nodeId) {
+        let neighborNodes = [];
+        let neighborLinks = [];
+        // get the links attached to nodeId
+        this.getAllRawEdgesList().forEach((link) => {
+            if (link.target.id === nodeId) {
+                neighborLinks.push(link);
+                neighborNodes.push(link.source);
+            } else if (link.source.id === nodeId) {
+                neighborLinks.push(link);
+                neighborNodes.push(link.target);
+            }
+        })
+
+
+        return {
+            nodes: neighborNodes,
+            links: neighborLinks
+        }
     }
 
 

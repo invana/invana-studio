@@ -67,13 +67,16 @@ export default class Canvas extends React.Component {
             this.props.setStatusMessage,
             this.props.flushCanvas,
             this.props.setShallReRenderD3Canvas,
-
         );
 
     }
 
     updateCanvasState(message) {
         this.setState(message);
+    }
+
+    getGraphicsEngine(){
+
     }
 
 
@@ -91,7 +94,8 @@ export default class Canvas extends React.Component {
                     canvasCtrl={this.canvasCtrl}
                     makeQuery={this.props.makeQuery}
                     connector={this.props.connector}
-
+                    dataStore={this.props.dataStore}
+                    graphicsEngine={this.props.graphicsEngine}
                     // switchCanvasTo={this.switchCanvasTo.bind(this)}
                     // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
                     // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}

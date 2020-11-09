@@ -8,6 +8,17 @@ import GraphicsStore from "../../core/graphics-store";
 export default class GraphicsEngine {
 
 
+    /*
+
+
+
+    let graphicsEngine = new GraphicsEngine(settings, dataStore, onNodeSelected);
+
+
+
+
+     */
+
     renderRequestId = undefined;
     // clickedNodeData = undefined;
     isRendering = undefined;
@@ -104,6 +115,10 @@ export default class GraphicsEngine {
 
     }
 
+    setNodeElem(nodeMenuEl){
+        this.nodeMenuEl = nodeMenuEl;
+    }
+
     // moveNodeMenuToPoint(x, y) {
     //     console.log("moveNodeMenuToPoint", x, y);
     //     this.nodeMenuEl.style.left = x + "px";
@@ -142,7 +157,6 @@ export default class GraphicsEngine {
         this.viewport.addChild(this.frontLayer);
 
     }
-
 
     requestRender = () => {
         let _this = this;

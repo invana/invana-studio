@@ -33,7 +33,7 @@ export default class PIXICanvas extends React.Component {
     shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
     makeQuery={this.makeQuery.bind(this)}
 
-     */
+    */
 
     static defaultProps = {
         setHideVertexOptions: () => console.error("setHideVertexOptions not set",),
@@ -353,7 +353,7 @@ export default class PIXICanvas extends React.Component {
         // console.log("PIXICanvas render()", this.props.dataStore.getAllRawVerticesList())
         console.log("this.state.focusedNodes", this.state.focusedNodes);
         return (
-            <div className={"graphContainer"}>
+            <div style={{"width": "100%", "height": "100%"}}>
                 <FocusedNodesList focusedNodes={this.state.focusedNodes}
                                   removeFocusedNode={this.removeFocusedNode.bind(this)}/>
                 <div className="nodeMenuContainer" style={{"display": "none"}}>
@@ -391,7 +391,6 @@ export default class PIXICanvas extends React.Component {
                 </div>
 
                 <div className="graphContainer canvas">
-
                 </div>
 
             </div>

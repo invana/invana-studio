@@ -1,8 +1,8 @@
 import React from "react";
 import "./filter-nodes.scss";
 import PropTypes from "prop-types";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFilter} from "@fortawesome/free-solid-svg-icons";
+// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+// import {faFilter} from "@fortawesome/free-solid-svg-icons";
 import GEPanel from "../../ui-components/panels/panel";
 
 export default class FilterNodes extends React.Component {

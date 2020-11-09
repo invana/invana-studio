@@ -6,9 +6,9 @@ import {
     faTerminal, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import FilterNodes from "./menu/filter-nodes";
-import FocusNode from "./menu/focus-node";
-import QueryConsole from "./menu/query-console";
+import FilterNodes from "./menu-ui-components/filter-nodes";
+import FocusNode from "./menu-ui-components/focus-node";
+import QueryConsole from "./menu-ui-components/query-console";
 // import GEPanel from "../ui-components/panels/panel";
 // import HistoryComponent from "../viewlets/history";
 
@@ -20,12 +20,16 @@ export default class CanvasNav extends React.Component {
         canvasType: null,
         canvasCtrl: null,
         connector: null,
+        dataStore: null,
+        graphicsEngine: null,
         makeQuery: (query) => console.log("makeQuery not set ", query),
     }
     static propTypes = {
         canvasType: PropTypes.string,
         canvasCtrl: PropTypes.object,
         makeQuery: PropTypes.func,
+        dataStore: PropTypes.object,
+        graphicsEngine: PropTypes.object,
         // confirmFlushCanvas: PropTypes.func,
         connector: PropTypes.object
         // confirmRedrawCanvas: PropTypes.func
@@ -126,7 +130,11 @@ export default class CanvasNav extends React.Component {
                             />
                         )
                         : this.state.canvasMenuType === "focus-node"
-                            ? (<FocusNode onClose={this.switchToCanvasMenu.bind(this)}/>)
+                            ? (<FocusNode
+                                onClose={this.switchToCanvasMenu.bind(this)}
+                                dataStore={this.props.dataStore}
+                                graphicsEngine={this.props.graphicsEngine}
+                            />)
                             : (<Fragment/>)
                 }
             </div>
