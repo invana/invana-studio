@@ -55,9 +55,11 @@ export default class GraphicsStore {
         let _this = this;
         // this.resetFocus();
         const {notNeighborLinks, notNeighborNodes} = _this.dataStore.getNotNeighborLinks(nodes);
+        // const {verticesToRender, edgesToRender} = this.dataStore.getDataToRender()
         const neighbors = _this.dataStore.getNeighborNodesAndLinks(nodes);
 
-        // unhighlighting not  neighbors
+
+        // // unhighlighting not  neighbors
         notNeighborLinks.forEach((linkData) => {
             let linkGfx = _this.linkDataToLinkGfx.get(linkData.id);
             let linkGfxLabel = _this.linkDataToLabelGfx.get(linkData.id);

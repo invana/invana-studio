@@ -207,6 +207,7 @@ export default class PIXICanvas extends React.Component {
     componentDidMount() {
         console.log("componentDidMount", this.props.shallReRenderD3Canvas);
         this.renderPIXICanvas();
+        this.onClickFocus();
     }
 
     setStatusMessage(message) {
@@ -215,6 +216,7 @@ export default class PIXICanvas extends React.Component {
 
     onForceSimulationEnd(graphicsEngine, setStatusMessage) {
         console.log("onForceSimulationEnd", graphicsEngine, setStatusMessage);
+
 
         graphicsEngine.renderGraphics();
         graphicsEngine.isRendering = false;
@@ -227,10 +229,15 @@ export default class PIXICanvas extends React.Component {
         const lastSelectedNodeData = graphicsEngine.eventStore.lastSelectedNodeData;
         // const nodeContainer = graphicsEngine.graphicsStore.nodeDataToNodeGfx.get(nodeData.id);
         console.log("===lastSelectedNodeData", lastSelectedNodeData)
-        if (lastSelectedNodeData) {
+        const focusedNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
+
+        if (lastSelectedNodeData && focusedNodes.length === 0) {
             graphicsEngine.zoom2Node(lastSelectedNodeData.id)
             graphicsEngine.highlightNodeById(lastSelectedNodeData.id)
-
+        } else if (focusedNodes.length > 0) {
+            // graphicsEngine.zoom2Node(lastSelectedNodeData.id)
+            graphicsEngine.graphicsStore.focusOnNodes(focusedNodes)
+            graphicsEngine.zoom2Node(focusedNodes[-0].id)
 
         }
         setStatusMessage("Updated the graph");
@@ -251,14 +258,16 @@ export default class PIXICanvas extends React.Component {
 
     onClickFocus() {
         const nodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
-        this.graphicsEngine.dataStore.addNode2Focus(nodeData);
-        this.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
+        if (nodeData) {
+            this.graphicsEngine.dataStore.addNode2Focus(nodeData);
+            this.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
+            const focusedNodes = this.graphicsEngine.dataStore.getUniqueFocusedNodes();
+            this.props.setFocusedNodes(focusedNodes);
+            this.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
+            // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
+            this.graphicsEngine.eventStore.hideMenu();
+        }
 
-        this.props.setFocusedNodes(this.graphicsEngine.dataStore.getUniqueFocusedNodes());
-        this.graphicsEngine.graphicsStore.focusOnNodes(this.graphicsEngine.dataStore.getUniqueFocusedNodes());
-
-        // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-        this.graphicsEngine.eventStore.hideMenu();
     }
 
     onClickShowInV() {
