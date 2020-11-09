@@ -21,7 +21,7 @@ export default class CanvasNav extends React.Component {
         canvasCtrl: null,
         connector: null,
         dataStore: null,
-        graphicsEngine: null,
+        getGraphicsEngine: ()=>console.log("getGraphicsEngine not set"),
         makeQuery: (query) => console.log("makeQuery not set ", query),
     }
     static propTypes = {
@@ -29,7 +29,7 @@ export default class CanvasNav extends React.Component {
         canvasCtrl: PropTypes.object,
         makeQuery: PropTypes.func,
         dataStore: PropTypes.object,
-        graphicsEngine: PropTypes.object,
+        getGraphicsEngine: PropTypes.func,
         // confirmFlushCanvas: PropTypes.func,
         connector: PropTypes.object
         // confirmRedrawCanvas: PropTypes.func
@@ -133,7 +133,7 @@ export default class CanvasNav extends React.Component {
                             ? (<FocusNode
                                 onClose={this.switchToCanvasMenu.bind(this)}
                                 dataStore={this.props.dataStore}
-                                graphicsEngine={this.props.graphicsEngine}
+                                getGraphicsEngine={this.props.getGraphicsEngine}
                             />)
                             : (<Fragment/>)
                 }

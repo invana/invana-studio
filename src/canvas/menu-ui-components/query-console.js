@@ -94,7 +94,7 @@ export default class QueryConsole extends React.Component {
                 >
                     <div className={"p-10"}>
 
-                        <form ref={e => this.formRef = e} id={"queryForm"} c
+                        <form ref={e => this.formRef = e} id={"queryForm"}
                               onSubmit={(e) => this.onFormSubmit(this, e)}>
                             {/*<p className={"small "}>Shift+Enter to submit the Query.</p>*/}
 

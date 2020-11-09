@@ -276,3 +276,12 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 
+.info-message {
+  margin-bottom: 0;
+  color: $infoColor;
+}
+
+.error-message {
+  margin-bottom: 0;
+  color: $errorColor;
+}

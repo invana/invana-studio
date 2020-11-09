@@ -59,6 +59,7 @@ export default class Canvas extends React.Component {
         super(props);
         this.state = {
             canvasType: "graph",
+            graphicsEngine: null
         }
         // this.updateCanvasState = this.updateCanvasState.bind(this)
         this.canvasCtrl = new CanvasController(this.props.connector,
@@ -75,8 +76,12 @@ export default class Canvas extends React.Component {
         this.setState(message);
     }
 
-    getGraphicsEngine(){
+    setGraphicsEngine(graphicsEngine){
+        this.setState({graphicsEngine: graphicsEngine})
+    }
 
+    getGraphicsEngine(){
+        return this.state.graphicsEngine;
     }
 
 
@@ -95,7 +100,7 @@ export default class Canvas extends React.Component {
                     makeQuery={this.props.makeQuery}
                     connector={this.props.connector}
                     dataStore={this.props.dataStore}
-                    graphicsEngine={this.props.graphicsEngine}
+                    getGraphicsEngine={this.getGraphicsEngine.bind(this)}
                     // switchCanvasTo={this.switchCanvasTo.bind(this)}
                     // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
                     // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
@@ -119,6 +124,7 @@ export default class Canvas extends React.Component {
                                             selectedElementData={this.props.selectedElementData}
                                             setStatusMessage={this.props.setStatusMessage}
 
+                                            setGraphicsEngine={this.setGraphicsEngine.bind(this)}
                                             connector={this.props.connector}
                                             dataStore={this.props.dataStore}
                                             resetShallReRenderD3Canvas={this.props.resetShallReRenderD3Canvas}
