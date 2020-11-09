@@ -29,12 +29,12 @@ export default class FocusNode extends React.Component {
         const searchWord = e.target.value;
         if (searchWord) {
             // find search results and
-            const results = []; // this.dataStore.searchByNodeLabelTextOrId
-            this.setState({nodeTextOrId: searchWord,})
+            // const results = this.dataStore.searchByNodeLabelTextOrId(
+            this.setState({nodeTextOrId: searchWord})
         }
     }
 
-    onFormSubmit( e) {
+    onFormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
         this.onFocusNodeClicked();
