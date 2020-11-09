@@ -33,37 +33,13 @@ docker run -p 5000:5000 -d --name invana-engine invanalabs/invana-engine -e GREM
 # This will start an invana-engine service at 5000 port. ex: http://localhost:5000
 ```
 
-Check more methods to connect to an authentication enabled gremlin server here.
 
-
-
-
-
-1. wss://localhost:8182/gremlin - connect over ws/wss 
-2. https://localhost:8182/gremlin - connect over http/https
-3. https://user:password@awesome-proxy-domain.local/gremlin -  with basic authentication
-4. https://access-or-session-token@awesome-proxy-domain.local/gremlin - with token based authentication
-
-Apache TinkerPop's Gremlin Server does not handle Cross-origin resource sharing (CORS), for the 
-obvious security reasons. But to access gremlin server from web browser you can use [gremlin proxy](https://github.com/invanalabs/gremlin-proxy). 
-It is a Proxy layer for Apache TinkerPop's Gremlin Server to enable Cross-origin resource sharing (CORS).
- 
- 
-Refer [documentation](https://invana.io/docs/graph-explorer/01-get-started) for more information.
+Refer invana-engine [documentation](https://github.com/invanalabs/invana-engine) for more information.
 
 ## Screenshots
 ![1](./docs/screenshots/1.png)
 
-![2](./docs/screenshots/2.png)
-
-![3](./docs/screenshots/3.png)
-
-![4](./docs/screenshots/4.png)
-
-![5](./docs/screenshots/5.png)
-
-![6](./docs/screenshots/6.png)
-
+ 
 
 ## License
 
