@@ -420,6 +420,21 @@ export default class InMemoryDataStore {
         }
     }
 
+    removeNodeFromFocus(nodeId) {
+        let focusedNodes = this.getUniqueFocusedNodes();
+        let indexId = null
+
+        focusedNodes.forEach((focusedNode, index) => {
+            if (focusedNode.id === nodeId) {
+                indexId = index
+                return index;
+            }
+        });
+        focusedNodes.splice(indexId, 1);
+
+        this.focusedNodes = focusedNodes;
+    }
+
     getEdgesCount() {
         return this.#edges.size;
     }

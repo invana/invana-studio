@@ -96,8 +96,10 @@ export default class Canvas extends React.Component {
 
     removeFocusedNode(nodeId) {
         //
-        let focusedNodes = this.state.focusedNodes;
 
+        let graphicsEngine = this.getGraphicsEngine();
+        let focusedNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
+        graphicsEngine.dataStore.removeNodeFromFocus(nodeId);
         let indexId = null
         focusedNodes.forEach((focusedNode, index) => {
             if (focusedNode.id === nodeId) {
@@ -107,9 +109,9 @@ export default class Canvas extends React.Component {
         });
         focusedNodes.splice(indexId, 1);
         console.log("===indexId", indexId);
-        this.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
+        console.log("focusedNodes removed", focusedNodes);
+        graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
         this.setFocusedNodes(focusedNodes);
-
     }
 
 
