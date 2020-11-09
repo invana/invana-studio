@@ -82,6 +82,7 @@ export default class EventStore {
     }
 
     onNodeClicked(graphicsEngine, nodeData, nodeContainer, event) {
+        console.log("onNodeClicked", nodeContainer, event )
         this.clickedNodeData = nodeData;
         this.lastSelectedNodeData = nodeData;
         console.log(this.clickedNodeData.id, " clicked");

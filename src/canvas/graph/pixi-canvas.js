@@ -52,7 +52,7 @@ export default class PIXICanvas extends React.Component {
         setGraphicsEngine: (graphicsEngine) => console.log("setGraphicsEngine not set", graphicsEngine),
 
         getFocusedNodes: () => console.log("getFocusedNodes"),
-        setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
+        setFocusedNodes: (nodes) => console.error("setFocusedNodes not set", nodes),
     }
 
     static propTypes = {
@@ -136,7 +136,7 @@ export default class PIXICanvas extends React.Component {
     //
     // }
 
-    shouldComponentUpdate(nextProps, newState) {
+    shouldComponentUpdate(nextProps) {
         console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
         // console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
 

@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCamera, faDotCircle, faFilter, faSave, faSync,
+    faCamera, faDotCircle, faFilter, faSync,
     faTerminal, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -21,7 +21,7 @@ export default class CanvasNav extends React.Component {
         canvasCtrl: null,
         connector: null,
         dataStore: null,
-        getGraphicsEngine: ()=>console.log("getGraphicsEngine not set"),
+        getGraphicsEngine: () => console.log("getGraphicsEngine not set"),
         makeQuery: (query) => console.log("makeQuery not set ", query),
         setFocusedNodes: (nodes) => console.log("setFocusedNodes not set ", nodes),
     }
@@ -128,7 +128,7 @@ export default class CanvasNav extends React.Component {
                             <QueryConsole
                                 makeQuery={this.props.makeQuery}
                                 connector={this.props.connector}
-                                onClose={()=>this.switchToCanvasMenu(null)}
+                                onClose={() => this.switchToCanvasMenu(null)}
                             />
                         )
                         : this.state.canvasMenuType === "focus-node"

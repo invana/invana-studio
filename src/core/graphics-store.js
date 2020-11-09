@@ -1,12 +1,6 @@
-/*
-
-
- */
 import {convertMapKeysToArray} from "./utils";
-import {node} from "prop-types";
 
 export default class GraphicsStore {
-
 
     constructor(dataStore, graphicsEngine) {
         this.dataStore = dataStore;

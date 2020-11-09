@@ -95,8 +95,7 @@ export default class Canvas extends React.Component {
         return this.state.graphicsEngine;
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
+    componentDidUpdate() {
         document.querySelector(".main-content-body").addEventListener("contextmenu ", function () {
             console.log("Right Click");
             return false;
