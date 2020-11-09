@@ -82,11 +82,11 @@ export default class CanvasNav extends React.Component {
                             <FontAwesomeIcon icon={faSync}/>
                         </button>
                     </li>
-                    <li>
-                        <button onClick={() => alert("Still in the Design stage")}>
-                            <FontAwesomeIcon icon={faSave}/>
-                        </button>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
+                    {/*        <FontAwesomeIcon icon={faSave}/>*/}
+                    {/*    </button>*/}
+                    {/*</li>*/}
                     <li>
                         <button title={"clear the canvas"}
                                 onClick={() => this.props.canvasCtrl.confirmFlushCanvas()}>

@@ -45,7 +45,7 @@ export default class GESettings {
     NODE_MENU_X_PADDING = 300 + 50 + this.NODE_HIT_RADIUS;
     NODE_MENU_Y_PADDING = 45 + this.NODE_RADIUS;
 
-    LABEL_RESOLUTION = 2;
+    LABEL_RESOLUTION = 4;
 
 
     constructor(screenWidth, screenHeight) {
