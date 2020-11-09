@@ -1,6 +1,6 @@
 import BaseView from "./base";
 import React from "react";
-import {redirectToConnectIfNeeded} from "../core/utils";
+import {invertColor, redirectToConnectIfNeeded} from "../core/utils";
 import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -25,7 +25,7 @@ import SettingsComponent from "../viewlets/settings";
 import LearnComponent from "../viewlets/learn";
 import HistoryComponent from "../viewlets/history";
 import SupportComponent from "../viewlets/support";
-// import QueryConsole from "../canvas/menu-ui-components/query-console";
+// import QueryConsole from "../canvas/nav-ui-components/query-console";
 import VerticesManagement from "../viewlets/vertices-management";
 import EdgesManagement from "../viewlets/edges-management";
 import AboutComponent from "../viewlets/about";
@@ -383,8 +383,9 @@ export default class ExplorerView extends BaseView {
                                         ?
                                         <GEPanel
                                             // title={"Selected Element Data"}
-                                            title={"Properties of the element"}
-
+                                            title={this.state.selectedElementData.label + " id:" + this.state.selectedElementData.id}
+                                            headerStyle={{'backgroundColor': this.state.selectedElementData.meta.shapeOptions.fillColor,
+                                            'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)}}
                                             showToggleBtn={false}
                                             showCloseBtn={true}
                                             onClickClose={() => {
@@ -392,8 +393,6 @@ export default class ExplorerView extends BaseView {
                                                 this.setRightContentName(null)
                                             }}
                                         >
-
-
                                             <SelectedData
                                                 selectedData={this.state.selectedElementData}
                                                 onClose={() => {

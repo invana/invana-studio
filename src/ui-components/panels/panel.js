@@ -14,7 +14,8 @@ export default class GEPanel extends React.Component {
         onClickToggle: () => console.error("onClickToggle prop not added to GUIPanel"),
         onClickClose: () => console.error("onCickClose prop not added to GUIPanel"),
         showCloseBtn: true,
-        showToggleBtn: true
+        showToggleBtn: true,
+        headerStyle: null
     };
 
     static propTypes = {
@@ -23,19 +24,20 @@ export default class GEPanel extends React.Component {
         showCloseBtn: PropTypes.bool,
         onClickClose: PropTypes.func,
         onClickToggle: PropTypes.func,
-        children: PropTypes.any
+        children: PropTypes.any,
+        headerStyle: PropTypes.object
     }
 
     render() {
         return (
             <div className={"ge-panel"}>
-                <div className={"ge-panel-header"}>
+                <div className={"ge-panel-header"} style={this.props.headerStyle}>
                     <h4>{this.props.title}</h4>
                     <div className={"ge-panel-options"}>
                         <GEList>
                             {this.props.showToggleBtn ? (
                                 <li>
-                                    <button onClick={() => this.props.onClickToggle()}>
+                                    <button style={this.props.headerStyle} onClick={() => this.props.onClickToggle()}>
                                         <FontAwesomeIcon icon={faWindowRestore}/>
                                     </button>
                                 </li>
@@ -44,7 +46,7 @@ export default class GEPanel extends React.Component {
                             )}
                             {this.props.showCloseBtn ? (
                                 <li>
-                                    <button onClick={() => this.props.onClickClose()}>
+                                    <button style={this.props.headerStyle} onClick={() => this.props.onClickClose()}>
                                         <FontAwesomeIcon icon={faWindowClose}/>
                                     </button>
                                 </li>

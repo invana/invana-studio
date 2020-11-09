@@ -6,9 +6,9 @@ import {
     faTerminal, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import FilterNodes from "./menu-ui-components/filter-nodes";
-import FocusNode from "./menu-ui-components/focus-node";
-import QueryConsole from "./menu-ui-components/query-console";
+import FilterNodes from "./nav-ui-components/filter-nodes";
+import FocusNode from "./nav-ui-components/focus-node";
+import QueryConsole from "./nav-ui-components/query-console";
 // import GEPanel from "../ui-components/panels/panel";
 // import HistoryComponent from "../viewlets/history";
 
