@@ -48,10 +48,11 @@ export default class InMemoryDataStore {
             });
             return false
         }
+
         let uniqueNodes = [];
         this.focusedNodes.forEach((node) => {
             // check if this data already exist in uniqueNodes list
-            if (checkIfExistsInList(uniqueNodes, node) === false){
+            if (checkIfExistsInList(uniqueNodes, node) === false) {
                 uniqueNodes.push(node);
             }
         });
@@ -98,8 +99,7 @@ export default class InMemoryDataStore {
     }
 
     searchNodeByNodeLabelTextOrId(labelTextOrId) {
-
-
+        console.log("searchNodeByNodeLabelTextOrId", labelTextOrId)
         let results = []
         // for (const [nodeId, nodeData] of this.#vertices.entries()) {
         //     // console.log("=====key", key);
