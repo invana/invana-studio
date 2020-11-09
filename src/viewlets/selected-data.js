@@ -30,6 +30,19 @@ export default class SelectedData extends React.Component {
         }
     }
 
+    renderPropertyData(key, value) {
+        console.log("renderPropertyData", typeof value, value instanceof Boolean, value,);
+        if (typeof value === "boolean") {
+            console.log("======renderPropertyData", value.toString());
+            return value.toString();
+        }
+        else if ( value === null) {
+            console.log("======renderPropertyData");
+            return "None";
+        }
+        return value;
+    }
+
 
     render() {
         let cleanedData = this.getCleanedData();
@@ -90,7 +103,8 @@ export default class SelectedData extends React.Component {
                                 <div className={'singleProperty'} key={cleanedData.id + "-" + propKey}>
                                     <div className={"propertyData"}>
                                         <strong className={"propertyKey"}>{propKey}:</strong>
-                                        <div style={{"marginTop": "5px"}}>{cleanedData.properties[propKey]}</div>
+                                        <div
+                                            style={{"marginTop": "5px"}}>{this.renderPropertyData(propKey, cleanedData.properties[propKey])}</div>
                                     </div>
                                 </div>
                             )
