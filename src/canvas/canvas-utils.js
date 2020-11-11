@@ -294,10 +294,13 @@ export function prepareNodesDataWithOptions(nodes, options) {
         }
         // shapeOptions
         if (!node.meta.shapeOptions.radius) {
-            node.meta.shapeOptions.radius = DefaultNodeRadius
+            node.meta.shapeOptions.radius = DefaultNodeRadius;
+        }
+        if (!node.meta.shapeOptions.radiusBuffered) {
+            node.meta.shapeOptions.radiusBuffered = DefaultNodeRadius + DefaultNodeStrokeWidth - 1;
         }
         if (!node.meta.shapeOptions.strokeWidth) {
-            node.meta.shapeOptions.strokeWidth = DefaultNodeStrokeWidth
+            node.meta.shapeOptions.strokeWidth = DefaultNodeStrokeWidth;
         }
         if (!node.meta.shapeOptions.strokeColor) {
             node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor

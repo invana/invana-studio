@@ -60,7 +60,8 @@ export default class GraphicsEngine {
             autoDensity: true
         });
         this.pixiApp.view.addEventListener('contextmenu', (e) => {
-            e.preventDefault(); e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
             return false;
         });
         canvasElem.appendChild(this.pixiApp.view);
@@ -456,9 +457,54 @@ labelColor: "#dddddd"
         return {normal, tangent,}
     }
 
+
+    createTriangle(linkData, linkColor) {
+        // 4d. Create a triangle https://stackoverflow.com/a/58573859/3448851
+        let triangle = new PIXI.Graphics();
+        triangle.lineStyle(1, linkColor, 1);
+        triangle.beginFill(linkColor, 1)
+        // first, let's compute normalized vector for our link:
+        let dx = linkData.target.x - linkData.source.x;
+        let dy = linkData.target.y - linkData.source.y;
+        let l = Math.sqrt(dx * dx + dy * dy);
+
+        if (l === 0) return; // if length is 0 - can't render arrows
+
+        // This is our normal vector. It describes direction of the graph
+        // link, and has length == 1:
+        let nx = dx / l;
+        let ny = dy / l;
+
+        // Now let's draw the arrow:
+        let arrowLength = 3;       // Length of the arrow
+        let arrowWingsLength = 2.5;  // How far arrow wings are from the link?
+
+        // This is where arrow should end. We do `(l - NODE_WIDTH)` to
+        // make sure it ends before the node UI element.
+        let ex = linkData.source.x + nx * (l - linkData.target.meta.shapeOptions.radiusBuffered);
+        let ey = linkData.source.y + ny * (l - linkData.target.meta.shapeOptions.radiusBuffered);
+
+        // Offset on the graph link, where arrow wings should be
+        let sx = linkData.source.x + nx * (l - linkData.target.meta.shapeOptions.radiusBuffered - arrowLength);
+        let sy = linkData.source.y + ny * (l - linkData.target.meta.shapeOptions.radiusBuffered - arrowLength);
+
+        // orthogonal vector to the link vector is easy to compute:
+        let topX = -ny;
+        let topY = nx;
+
+        // Let's draw the arrow:
+        triangle.moveTo(ex, ey);
+        triangle.lineTo(sx + topX * arrowWingsLength, sy + topY * arrowWingsLength);
+        // triangle.moveTo(ex, ey);
+        triangle.lineTo(sx - topX * arrowWingsLength, sy - topY * arrowWingsLength);
+        triangle.lineTo(ex, ey);
+        triangle.endFill();
+        return triangle;
+    }
+
     createLink(linkData) {
 
-        console.log("=======linkData",linkData.meta.shapeOptions.strokeColor,  linkData);
+        console.log("=======linkData", linkData.meta.shapeOptions.strokeColor, linkData);
 
 
         const linkColor = linkData.meta.shapeOptions.strokeColor;
@@ -469,32 +515,32 @@ labelColor: "#dddddd"
 
 
         linkGfx.lineStyle(Math.sqrt(LINK_DEFAULT_WIDTH), linkColor);
-        const curvatureConstant = 0.5;
-        const sameIndex = linkData.sameIndex;
-        let nextPoint = {};
-        nextPoint.x = linkData.target.x;
-        nextPoint.y = linkData.target.y;
-        let {normal, tangent} = this.getNormalAndTangentForTwoPoints(
-            linkData.source.x,
-            linkData.source.y,
-            linkData.target.x,
-            linkData.target.y,
-            linkData.sameIndex
-        )
+        // const curvatureConstant = 0.5;
+        // const sameIndex = linkData.sameIndex;
+        // let nextPoint = {};
+        // nextPoint.x = linkData.target.x;
+        // nextPoint.y = linkData.target.y;
+        // let {normal, tangent} = this.getNormalAndTangentForTwoPoints(
+        //     linkData.source.x,
+        //     linkData.source.y,
+        //     linkData.target.x,
+        //     linkData.target.y,
+        //     linkData.sameIndex
+        // )
 
 
-        if (sameIndex > 1) {
-            // for curved links
-            nextPoint.y = linkData.target.x - 300 * sameIndex * curvatureConstant;
-            nextPoint.y = linkData.target.y - 300 * sameIndex * curvatureConstant;
-            normal = [
-                -(linkData.target.y - this.settings.NODE_RADIUS - nextPoint.y),
-                linkData.target.x - this.settings.NODE_RADIUS - nextPoint.x,
-            ]
-        }
+        // if (sameIndex > 1) {
+        //     // for curved links
+        //     nextPoint.y = linkData.target.x - 300 * sameIndex * curvatureConstant;
+        //     nextPoint.y = linkData.target.y - 300 * sameIndex * curvatureConstant;
+        //     normal = [
+        //         -(linkData.target.y - this.settings.NODE_RADIUS - nextPoint.y),
+        //         linkData.target.x - this.settings.NODE_RADIUS - nextPoint.x,
+        //     ]
+        // }
 
 
-        console.log("tangent", tangent);
+        // console.log("tangent", tangent);
 
 
         // for link label
@@ -505,16 +551,27 @@ labelColor: "#dddddd"
         });
         linkLabelText.resolution = this.settings.LABEL_RESOLUTION;
 
+        linkGfx.moveTo(linkData.source.x, linkData.source.y);
+        linkGfx.lineTo(linkData.target.x, linkData.target.y);
+
+
+        const triangle = this.createTriangle(linkData, linkColor);
+        linkGfx.addChild(triangle);
+        // linkGfx.endFill();
+
         /*
         multiple links issue can be fixed here
 
          */
 
+        /*
         if (sameIndex === 1) {
             linkGfx.moveTo(linkData.source.x, linkData.source.y);
 
             linkGfx.lineTo(linkData.target.x, linkData.target.y);
             linkGfx.beginFill(linkColor, 1);
+
+
             // triangle for the arrow
             //  The distance between Start and End point is given by
             // xt, yt are the coordinates at a distance dt from source.
@@ -547,6 +604,8 @@ labelColor: "#dddddd"
             linkLabelText.y = (linkData.source.y + linkData.target.y) / 2 - 10 * sameIndex;
 
         }
+        */
+
         /*
                 else {
                     linkGfx.moveTo(linkData.source.x, linkData.source.y);
