@@ -60,6 +60,11 @@ export default class VerticesManagement extends RemoteGraphComponent {
         return (
 
             <div className={" p-10"}>
+                {
+                    this.state.verticesLabels.length === 0
+                        ? <span className={"text-muted"}>No vertices data found</span>
+                        : <span></span>
+                }
                 <GEList type={"vertical-no-border"}>
                     {
                         this.state.verticesLabels.filter((label) => {

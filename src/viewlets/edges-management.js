@@ -3,7 +3,7 @@ import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 import {managementVertexLabel} from "../config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faProjectDiagram, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {faProjectDiagram, faWrench} from "@fortawesome/free-solid-svg-icons";
 import {getColorForString} from "../canvas/canvas-utils";
 
 export default class EdgesManagement extends RemoteGraphComponent {
@@ -40,6 +40,11 @@ export default class EdgesManagement extends RemoteGraphComponent {
         return (
 
             <div className={" p-10"}>
+                {
+                    this.state.edgesLabels.length === 0
+                        ? <span className={"text-muted"}>No edges data found</span>
+                        : <span></span>
+                }
                 <GEList type={"vertical-no-border"}>
                     {
                         this.state.edgesLabels.filter((edgeLabel) => {
