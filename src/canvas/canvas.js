@@ -8,7 +8,7 @@ import RawResponsesCanvas from "./raw-response/raw-responses";
 import CanvasNav from "./canvas-nav";
 import CanvasController from "./controller";
 import FocusedNodesList from "./graph/focused-nodes-list";
-import GetStarted from "../viewlets/get-started";
+// import GetStarted from "../viewlets/get-started";
 
 export default class Canvas extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from "react";
 import GEPanel from "../ui-components/panels/panel";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import "./get-started.scss";
 
 export default class GetStarted extends React.Component {

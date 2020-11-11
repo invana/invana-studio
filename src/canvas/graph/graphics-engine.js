@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js-legacy'
 import {Viewport} from 'pixi-viewport'
-import {colorToNumber} from "../canvas-utils";
+// import {colorToNumber} from "../canvas-utils";
 // import FontFaceObserver from "fontfaceobserver";
 import EventStore from "./events";
 import GraphicsStore from "../../core/graphics-store";

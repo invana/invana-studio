@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faWindowClose
 } from "@fortawesome/free-solid-svg-icons";
+import {invertColor} from "../../core/utils";
 
 export default class FocusedNodesList extends React.Component {
 
@@ -33,10 +34,14 @@ export default class FocusedNodesList extends React.Component {
                             console.log("=====focusedNode", focusedNode);
                             return (
                                 <li key={index} className={"focused-node"}
-                                    style={{"backgroundColor": focusedNode.meta.shapeOptions.fillColorHex,
-                                    "color": "#121212"}}>
+                                    style={{
+                                        "backgroundColor": focusedNode.meta.shapeOptions.fillColorHex,
+                                        "color": invertColor(focusedNode.meta.shapeOptions.fillColorHex, true)
+                                    }}>
                                     {focusedNode.meta.labelOptions.labelText}
-                                    <span className={"close"} onClick={()=>this.removeFocusedNode(focusedNode.id)}>
+                                    <span className={"close"}
+                                          style={{"color": invertColor(focusedNode.meta.shapeOptions.fillColorHex, true)}}
+                                          onClick={() => this.removeFocusedNode(focusedNode.id)}>
                                         <FontAwesomeIcon icon={faWindowClose}/>
                                     </span>
                                 </li>

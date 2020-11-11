@@ -6,7 +6,6 @@ import {
     DefaultLabelVisibility,
     DefaultNodeLabelColor,
     DefaultNodeLabelPropertyKey,
-    DefaultLinkPathColor,
     DefaultLinkStrokeWidth,
     DefaultLinkLabelPropertyKey,
     DefaultLinkLabelColor
@@ -14,7 +13,7 @@ import {
 
 const ColorHash = require('color-hash');
 
-let colorHash = new ColorHash({hue: [{min: 90, max: 230}, {min: 90, max: 230}, {min: 90, max: 230}]});
+let colorHash = new ColorHash({hue: [{min: 120, max: 190}, {min: 120, max: 190}, {min: 120, max: 190}]});
 
 export function getColorForString(label) {
     return colorHash.hex(label); // '#8796c5'
