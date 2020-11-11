@@ -97,7 +97,7 @@ export default class SelectedData extends React.Component {
                                 <div className={"propertyData"}>
                                     <strong className={"propertyKey"}>source:</strong>
                                     <span style={{"color": cleanedData.source.meta.shapeOptions.fillColorHex}}>
-                                          {cleanedData.source.meta.labelOptions.labelText}
+                                          &nbsp;{cleanedData.source.meta.labelOptions.labelText}
                                     </span>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ export default class SelectedData extends React.Component {
                                 <div className={"propertyData"}>
                                     <strong className={"propertyKey"}>target:</strong>
                                     <span style={{"color": cleanedData.target.meta.shapeOptions.fillColorHex}}>
-                                         {cleanedData.target.meta.labelOptions.labelText}
+                                         &nbsp;{cleanedData.target.meta.labelOptions.labelText}
                                     </span>
                                 </div>
                             </div>

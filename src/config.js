@@ -32,7 +32,7 @@ export const DefaultNodeLabelColor = "#dddddd";
 export const DefaultLinkLabelPropertyKey = "id";
 export const DefaultLinkPathColor = 0xc9c9c9;
 export const DefaultLinkLabelColor = "#c9c9c9";
-export const DefaultLinkStrokeWidth = 1;
+export const DefaultLinkStrokeWidth = 2;
 export const DefaultLinkDistance = 180;
 
 export const DefaultInShapeHTMLFn = (node) => node.properties.name ? node.properties.name.substring(0, 10) : node.id;
