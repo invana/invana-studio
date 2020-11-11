@@ -29,12 +29,13 @@ connect to graph databases. Invana Engine is a GraphQL API for Apache TinkerPop 
 
 #### Deploying Invana-Engine
 ```shell script.
-docker run -p 5000:5000 -d --name invana-engine invanalabs/invana-engine -e GREMLIN_SERVER_URL=ws://localhost:8182
-# This will start an invana-engine service at 5000 port. ex: http://localhost:5000
+docker run -p 8000:8000 -d --name invana-engine invanalabs/invana-engine -e GREMLIN_SERVER_URL=ws://localhost:8182
+# This will start an invana-engine service at 8000 port. ex: http://localhost:8000
 ```
 
 
-Refer invana-engine [documentation](https://github.com/invanalabs/invana-engine) for more information.
+Refer invana-engine [documentation](https://github.com/invanalabs/invana-engine) for more information on
+how to authenticate a gremlin server with username and password.
 
 ## Screenshots
 ![1](./docs/screenshots/1.png)
