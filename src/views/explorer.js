@@ -379,13 +379,16 @@ export default class ExplorerView extends BaseView {
                                 {/*    <span/>*/}
                                 {/*)}*/}
                                 {
+
                                     this.state.middleBottomContentName === "selected-data-overview" && this.state.selectedElementData
                                         ?
                                         <GEPanel
                                             // title={"Selected Element Data"}
                                             title={this.state.selectedElementData.meta.labelOptions.labelText}
                                             headerStyle={{
-                                                'color': this.state.selectedElementData.meta.shapeOptions.fillColor,
+                                                'color': this.state.selectedElementData.type === "g:Vertex"
+                                                    ? this.state.selectedElementData.meta.shapeOptions.fillColorHex
+                                                    : this.state.selectedElementData.meta.shapeOptions.strokeColorHex,
                                                 // 'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)
                                             }}
                                             showToggleBtn={false}

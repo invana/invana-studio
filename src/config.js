@@ -22,14 +22,16 @@ export const UUIDGenerator = () =>
     );
 
 
-export const DefaultNodeBorderColor = 0x121212;
+export const DefaultNodeBorderColor = "#121212";
 export const DefaultNodeLabelPropertyKey = "id";
 export const DefaultNodeStrokeWidth = 2;
 export const DefaultNodeRadius = 10;
 export const DefaultNodeInShapeTextColor = "#dddddd"; // inside the shape
 export const DefaultNodeLabelColor = "#dddddd";
-export const DefaultLinkPathColor = "#c9c9c9";
-// export const DefaultLinkTextColor = "#c9c9c9";
+
+export const DefaultLinkLabelPropertyKey = "id";
+export const DefaultLinkPathColor = 0xc9c9c9;
+export const DefaultLinkLabelColor = "#c9c9c9";
 export const DefaultLinkStrokeWidth = 1;
 export const DefaultLinkDistance = 180;
 

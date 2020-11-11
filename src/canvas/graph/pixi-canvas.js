@@ -183,7 +183,7 @@ export default class PIXICanvas extends React.Component {
         this.graphicsEngine = new GraphicsEngine(canvasElem, nodeMenuEl,
             this.settings,
             this.props.dataStore,
-            this.onNodeSelected.bind(this)
+            this.onElementSelected.bind(this)
         )
 
         this.props.setGraphicsEngine(this.graphicsEngine);
@@ -248,7 +248,7 @@ export default class PIXICanvas extends React.Component {
 
     }
 
-    onNodeSelected(nodeData) {
+    onElementSelected(nodeData) {
         if (this.props.middleBottomContentName !== "vertex-options") {
             this.props.setMiddleBottomContentName('selected-data-overview')
             this.props.setSelectedElementData(nodeData);

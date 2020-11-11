@@ -33,13 +33,12 @@ export default class FocusedNodesList extends React.Component {
                             console.log("=====focusedNode", focusedNode);
                             return (
                                 <li key={index} className={"focused-node"}
-                                    style={{"backgroundColor": focusedNode.meta.shapeOptions.fillColor,
+                                    style={{"backgroundColor": focusedNode.meta.shapeOptions.fillColorHex,
                                     "color": "#121212"}}>
                                     {focusedNode.meta.labelOptions.labelText}
                                     <span className={"close"} onClick={()=>this.removeFocusedNode(focusedNode.id)}>
                                         <FontAwesomeIcon icon={faWindowClose}/>
                                     </span>
-
                                 </li>
                             )
                         })

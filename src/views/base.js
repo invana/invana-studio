@@ -20,6 +20,7 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
     }
 
     setSelectedElementData(selectedData) {
+        console.log("=====selectedData", selectedData)
         this.setState({
             selectedElementData: selectedData,
         })

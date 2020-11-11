@@ -23,6 +23,12 @@ export default class EventStore {
 
     onLinkClicked(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, linkGfx, event, " clicked");
+
+        // console.log("onNodeClicked", nodeContainer, event)
+        this.clickedNodeData = null;
+        this.lastSelectedNodeData = null;
+        // console.log(this.clickedNodeData.id, " clicked");
+        graphicsEngine.onElementSelected(linkData);
     }
 
     onLinkMouseOver(graphicsEngine, linkData, linkGfx, event) {
@@ -38,6 +44,7 @@ export default class EventStore {
         this.nodeMenuEl.style.left = event.data.global.x + graphicsEngine.settings.NODE_MENU_X_PADDING + "px";
         this.nodeMenuEl.style.top = event.data.global.y + graphicsEngine.settings.NODE_MENU_Y_PADDING + "px";
     }
+
     //
     // moveNodeMenu(graphicsEngine, point, event) {
     //     console.log("moveNodeMenu Menu", point, event);
@@ -69,7 +76,7 @@ export default class EventStore {
         this.clickedNodeData = nodeData;
         this.lastSelectedNodeData = nodeData;
         console.log(this.clickedNodeData.id, " clicked");
-        graphicsEngine.onNodeSelected(nodeData);
+        graphicsEngine.onElementSelected(nodeData);
 
         // TODO -  this will make the node drag functionality
         // enable node dragging
@@ -82,11 +89,11 @@ export default class EventStore {
     }
 
     onNodeClicked(graphicsEngine, nodeData, nodeContainer, event) {
-        console.log("onNodeClicked", nodeContainer, event )
+        console.log("onNodeClicked", nodeContainer, event)
         this.clickedNodeData = nodeData;
         this.lastSelectedNodeData = nodeData;
         console.log(this.clickedNodeData.id, " clicked");
-        graphicsEngine.onNodeSelected(nodeData);
+        graphicsEngine.onElementSelected(nodeData);
     }
 
     focusGraph(graphicsEngine) {
@@ -111,10 +118,9 @@ export default class EventStore {
 
         // if the last selected elemented is not this node, hide the menu.
         // const lastSelectedNodeData  = graphicsEngine.dataStore.lastSelectedNodeData;
-        if(this.clickedNodeData && this.clickedNodeData.id !== nodeData.id){
+        if (this.clickedNodeData && this.clickedNodeData.id !== nodeData.id) {
             this.hideMenu();
         }
-
 
 
         // const neighborsData = graphicsEngine.dataStore.getNeighborNodesAndLinks(nodeData)

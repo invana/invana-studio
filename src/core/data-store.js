@@ -1,5 +1,6 @@
 import {convertMapKeysToArray} from "./utils";
 import {
+    prepareLinkDataWithOptions,
     prepareLinksDataForCurves,
     prepareNodesDataWithOptions
 } from "../canvas/canvas-utils";
@@ -308,7 +309,9 @@ export default class InMemoryDataStore {
     }
 
     getAllRawEdgesList() {
-        return prepareLinksDataForCurves(convertMapKeysToArray(this.#edges));
+        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+
+        return prepareLinkDataWithOptions(prepareLinksDataForCurves(convertMapKeysToArray(this.#edges)), nodeOptions);
     }
 
     getAlreadyRenderedData() {

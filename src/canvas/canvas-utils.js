@@ -2,11 +2,14 @@ import {
     DefaultNodeRadius,
     DefaultNodeBorderColor,
     DefaultNodeStrokeWidth,
-    DefaultInShapeHTMLFn,
     DefaultNodeInShapeTextColor,
     DefaultLabelVisibility,
     DefaultNodeLabelColor,
-    DefaultNodeLabelPropertyKey
+    DefaultNodeLabelPropertyKey,
+    DefaultLinkPathColor,
+    DefaultLinkStrokeWidth,
+    DefaultLinkLabelPropertyKey,
+    DefaultLinkLabelColor
 } from "../config";
 
 const ColorHash = require('color-hash');
@@ -33,12 +36,12 @@ export function getDefaultNodeOptions(label) {
     }
 }
 
-export function getDefaultLinkOptions(label) {
-    return {
-        bgColor: getColorForString(label),
-        labelPropertyKey: DefaultNodeLabelPropertyKey,
-    }
-}
+// export function getDefaultLinkOptions(label) {
+//     return {
+//         bgColor: getColorForString(label),
+//         labelPropertyKey: DefaultNodeLabelPropertyKey,
+//     }
+// }
 
 export function removeVertexMeta(data) {
     let newData = [];
@@ -75,6 +78,40 @@ export function removeEdgeMeta(data) {
     return newData
 }
 
+function getLabelOptionsOfElement(element, isNode) {
+    // nodeLabelOptions
+    if (!element.meta.labelOptions) {
+        element.meta.labelOptions = {}
+    }
+    if (typeof element.meta.labelOptions.showLabel === "undefined") {
+        element.meta.labelOptions.showLabel = DefaultLabelVisibility
+    }
+    // if (node.meta.labelOptions.labelTextFn) {
+    //     node.meta.labelOptions.labelText = node.meta.labelOptions.labelTextFn(node);
+    // } else {
+    //     node.meta.labelOptions.labelText = node.properties.name || node.id;
+    // }
+    //
+
+    let labelString = null;
+    if (element.meta.shapeOptions && element.meta.shapeOptions.labelPropertyKey === "id") {
+        labelString = element.id;
+    } else {
+        labelString = element.properties[element.meta.shapeOptions.labelPropertyKey];
+    }
+    if (!labelString) {
+        labelString = element.id;
+    }
+    element.meta.labelOptions.labelText = labelString
+
+    if (!element.meta.labelOptions.labelColor) {
+        element.meta.labelOptions.labelColor = isNode ? colorToNumber(DefaultNodeLabelColor) :
+            colorToNumber(DefaultLinkLabelColor);
+    }
+
+    return element;
+
+}
 
 export function prepareLinksDataForCurves(links) {
     /*
@@ -93,11 +130,13 @@ export function prepareLinksDataForCurves(links) {
         // }
 
 
-        link.meta = {
-            color: getColorForString(link.label),
-            text: link.id,
-            labelPropertyKey: "id"
-        };
+        // link.meta = {
+        //     color: getColorForString(link.label),
+        //     text: link.id,
+        //     labelPropertyKey: "id"
+        // };
+
+
         // find other links with same target+source or source+target
         let same = links.filter(function (v) {
             return ((v.source === link.source && v.target === link.target));
@@ -150,14 +189,65 @@ export function prepareLinksDataForCurves(links) {
     })
 }
 
-// export function prepareLinkDataWithOptions(links, options) {
-//
-//
-//     links.forEach((link) => {
-//         const linkOption = options[link.label];
-//
-//     });
-// }
+export function prepareLinkDataWithOptions(links, options) {
+
+    if (typeof options === "undefined") {
+        options = {};
+    } else if (typeof options === "string") {
+        options = JSON.parse(options);
+    }
+
+    links.forEach((link) => {
+        const metaFromStorage = getDefaultMeta(link.label, options);
+
+        link.meta = {};
+
+        if (!link.meta.shapeOptions) {
+            link.meta.shapeOptions = {}
+        }
+
+        link = getLabelOptionsOfElement(link, false);
+
+        if (!link.meta.shapeOptions.strokeWidth) {
+            link.meta.shapeOptions.strokeWidth = DefaultLinkStrokeWidth
+        }
+        if (!link.meta.shapeOptions.strokeColor) {
+            // link.meta.shapeOptions.strokeColor = metaFromStorage.borderColor ?
+            //     metaFromStorage.borderColor : getColorForString(link.label);
+            link.meta.shapeOptions.strokeColor = colorToNumber(getColorForString(link.label));
+        }
+        if (!link.meta.shapeOptions.strokeColorHex) {
+            // link.meta.shapeOptions.strokeColor = metaFromStorage.borderColor ?
+            //     metaFromStorage.borderColor : getColorForString(link.label);
+            link.meta.shapeOptions.strokeColorHex = getColorForString(link.label);
+        }
+        // if (!node.meta.shapeOptions.fillColor) {
+        //     node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || getColorForString(node.label)
+        // }
+        if (!link.meta.shapeOptions.labelColor) {
+            link.meta.shapeOptions.labelColor = DefaultNodeInShapeTextColor
+        }
+        if (!link.meta.shapeOptions.labelPropertyKey) {
+            link.meta.shapeOptions.labelPropertyKey = metaFromStorage.labelPropertyKey || DefaultLinkLabelPropertyKey;
+        }
+    });
+
+    return links;
+}
+
+
+function getDefaultMeta(label, options) {
+    let metaFromStorage = {}
+    try {
+        metaFromStorage = options[label];
+    } catch (e) {
+        metaFromStorage = {}
+    }
+    if (!metaFromStorage) {
+        metaFromStorage = {}
+    }
+    return metaFromStorage
+}
 
 export function prepareNodesDataWithOptions(nodes, options) {
     /*
@@ -196,15 +286,8 @@ export function prepareNodesDataWithOptions(nodes, options) {
         // let node = Object.assign({}, nodeData)
         let node = nodeData;
         // check if options data has node.label meta data or set defaults.
-        let metaFromStorage = {}
-        try {
-            metaFromStorage = options[node.label];
-        } catch (e) {
-            metaFromStorage = {}
-        }
-        if (!metaFromStorage) {
-            metaFromStorage = {}
-        }
+
+        const metaFromStorage = getDefaultMeta(node.label, options);
         node.meta = {"bgImageUrl": null, "nodeShape": "circle"};
         node.meta.bgImagePropertyKey = metaFromStorage.bgImagePropertyKey;
         if (!node.meta.shapeOptions) {
@@ -218,10 +301,19 @@ export function prepareNodesDataWithOptions(nodes, options) {
             node.meta.shapeOptions.strokeWidth = DefaultNodeStrokeWidth
         }
         if (!node.meta.shapeOptions.strokeColor) {
-            node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor || DefaultNodeBorderColor
+            node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor
+                ? colorToNumber(metaFromStorage.borderColor)
+                : colorToNumber(DefaultNodeBorderColor)
         }
         if (!node.meta.shapeOptions.fillColor) {
-            node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || getColorForString(node.label)
+            node.meta.shapeOptions.fillColor = metaFromStorage.bgColor
+                ? colorToNumber(metaFromStorage.bgColor)
+                : colorToNumber(getColorForString(node.label))
+        }
+        if (!node.meta.shapeOptions.fillColorHex) {
+            node.meta.shapeOptions.fillColorHex = metaFromStorage.bgColor
+                ? metaFromStorage.bgColor
+                : getColorForString(node.label)
         }
         if (!node.meta.shapeOptions.labelColor) {
             node.meta.shapeOptions.labelColor = DefaultNodeInShapeTextColor
@@ -229,40 +321,15 @@ export function prepareNodesDataWithOptions(nodes, options) {
         if (!node.meta.shapeOptions.labelPropertyKey) {
             node.meta.shapeOptions.labelPropertyKey = metaFromStorage.labelPropertyKey || DefaultNodeLabelPropertyKey;
         }
-        if (node.meta.shapeOptions.inShapeHTMLFn) {
-            node.meta.shapeOptions.textPropertyKey = node.meta.shapeOptions.inShapeHTMLFn(node)
-        } else {
-            node.meta.shapeOptions.inShapeHTML = DefaultInShapeHTMLFn(node);
-        }
-
-        // nodeLabelOptions
-        if (!node.meta.labelOptions) {
-            node.meta.labelOptions = {}
-        }
-        if (typeof node.meta.labelOptions.showLabel === "undefined") {
-            node.meta.labelOptions.showLabel = DefaultLabelVisibility
-        }
-        // if (node.meta.labelOptions.labelTextFn) {
-        //     node.meta.labelOptions.labelText = node.meta.labelOptions.labelTextFn(node);
+        // if (node.meta.shapeOptions.inShapeHTMLFn) {
+        //     node.meta.shapeOptions.textPropertyKey = node.meta.shapeOptions.inShapeHTMLFn(node)
         // } else {
-        //     node.meta.labelOptions.labelText = node.properties.name || node.id;
+        //     node.meta.shapeOptions.inShapeHTML = DefaultInShapeHTMLFn(node);
         // }
-        //
 
-        let labelString = null;
-        if (node.meta.shapeOptions.labelPropertyKey === "id") {
-            labelString = node.id;
-        } else {
-            labelString = node.properties[node.meta.shapeOptions.labelPropertyKey];
-        }
-        if (!labelString) {
-            labelString = node.id;
-        }
-        node.meta.labelOptions.labelText = labelString
 
-        if (!node.meta.labelOptions.labelColor) {
-            node.meta.labelOptions.labelColor = DefaultNodeLabelColor;
-        }
+        node = getLabelOptionsOfElement(node, true);
+
         // tagOptions
         if (!node.meta.tagOptions) {
             node.meta.tagOptions = {}

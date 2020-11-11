@@ -12,7 +12,7 @@ export default class GraphicsEngine {
 
 
 
-    let graphicsEngine = new GraphicsEngine(settings, dataStore, onNodeSelected);
+    let graphicsEngine = new GraphicsEngine(settings, dataStore, onElementSelected);
 
 
 
@@ -30,7 +30,7 @@ export default class GraphicsEngine {
     //     // new FontFaceObserver(fontFamily).load();
     // }
 
-    constructor(canvasElem, nodeMenuEl, settings, dataStore, onNodeSelected) {
+    constructor(canvasElem, nodeMenuEl, settings, dataStore, onElementSelected) {
         // let _this = this;
         this.settings = settings;
         this.dataStore = dataStore;
@@ -38,7 +38,7 @@ export default class GraphicsEngine {
 
         this.nodeMenuEl = nodeMenuEl;
         this.eventStore = new EventStore(nodeMenuEl);
-        this.onNodeSelected = onNodeSelected; // used to send back any message to react component.
+        this.onElementSelected = onElementSelected; // used to send back any message to react component.
 
 
         this.nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
@@ -294,7 +294,7 @@ labelColor: "#dddddd"
         const circle = new PIXI.Graphics();
         circle.x = 0;
         circle.y = 0;
-        circle.beginFill(colorToNumber(nodeData.meta.shapeOptions.fillColor));
+        circle.beginFill(nodeData.meta.shapeOptions.fillColor);
         circle.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
 
         nodeContainer.addChild(circle);
@@ -325,7 +325,7 @@ labelColor: "#dddddd"
         const nodeLabelText = new PIXI.Text(nodeData.meta.labelOptions.labelText, {
             fontFamily: LABEL_FONT_FAMILY,
             fontSize: LABEL_FONT_SIZE,
-            fill: colorToNumber(nodeData.meta.labelOptions.labelColor)
+            fill: nodeData.meta.labelOptions.labelColor
         });
         nodeLabelText.resolution = this.settings.LABEL_RESOLUTION;
 
@@ -458,10 +458,10 @@ labelColor: "#dddddd"
 
     createLink(linkData) {
 
-        console.log("=======linkData", linkData);
+        console.log("=======linkData",linkData.meta.shapeOptions.strokeColor,  linkData);
 
 
-        const linkColor = colorToNumber(linkData.meta.color) || this.settings.LINK_DEFAULT_COLOR;
+        const linkColor = linkData.meta.shapeOptions.strokeColor;
         const {LINK_DEFAULT_LABEL_FONT_SIZE, LABEL_FONT_FAMILY, LINK_DEFAULT_WIDTH} = this.settings;
         let _this = this;
         let linkGfx = new PIXI.Graphics();

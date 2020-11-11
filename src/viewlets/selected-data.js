@@ -24,6 +24,8 @@ export default class SelectedData extends React.Component {
             cleanedData.type = data.type.replace("g:", "");
             cleanedData.id = data.id;
             cleanedData.properties = properties;
+            cleanedData.target = data.target;
+            cleanedData.source = data.source;
             return cleanedData;
         } else {
             return {"properties": {}};
@@ -33,11 +35,8 @@ export default class SelectedData extends React.Component {
     renderPropertyData(key, value) {
         console.log("renderPropertyData", typeof value, value instanceof Boolean, value,);
         if (typeof value === "boolean") {
-            console.log("======renderPropertyData", value.toString());
             return value.toString();
-        }
-        else if ( value === null) {
-            console.log("======renderPropertyData");
+        } else if (value === null) {
             return "None";
         }
         return value;
@@ -58,6 +57,8 @@ export default class SelectedData extends React.Component {
         if (!selectedDataColorSchema) {
             selectedDataColorSchema = {bgColor: "#7d8296"};
         }
+
+        console.log("cleanedData", cleanedData)
 
 
         return (
@@ -90,6 +91,32 @@ export default class SelectedData extends React.Component {
                             <strong className={"propertyKey"}>label:</strong> {cleanedData.label}
                         </div>
                     </div>
+                    {
+                        cleanedData.source
+                            ? <div className={'singleProperty dark'} key={cleanedData.source.id}>
+                                <div className={"propertyData"}>
+                                    <strong className={"propertyKey"}>source:</strong>
+                                    <span style={{"color": cleanedData.source.meta.shapeOptions.fillColorHex}}>
+                                          {cleanedData.source.meta.labelOptions.labelText}
+                                    </span>
+                                </div>
+                            </div>
+                            : <span></span>
+                    }
+
+                    {
+                        cleanedData.target
+                            ? <div className={'singleProperty dark'} key={cleanedData.target.id}>
+                                <div className={"propertyData"}>
+                                    <strong className={"propertyKey"}>target:</strong>
+                                    <span style={{"color": cleanedData.target.meta.shapeOptions.fillColorHex}}>
+                                         {cleanedData.target.meta.labelOptions.labelText}
+                                    </span>
+                                </div>
+                            </div>
+                            : <span></span>
+                    }
+
                 </div>
                 <div className="SelectedDataList">
                     <div className={'singleProperty dark'} key={"properties-list"}>
