@@ -85,29 +85,15 @@ function getLabelOptionsOfElement(element, isNode) {
     if (typeof element.meta.labelOptions.showLabel === "undefined") {
         element.meta.labelOptions.showLabel = DefaultLabelVisibility
     }
-    // if (node.meta.labelOptions.labelTextFn) {
-    //     node.meta.labelOptions.labelText = node.meta.labelOptions.labelTextFn(node);
-    // } else {
-    //     node.meta.labelOptions.labelText = node.properties.name || node.id;
-    // }
-    //
-
     let labelString = null;
-    if (element.meta.shapeOptions && element.meta.shapeOptions.labelPropertyKey === "id") {
-        labelString = element.id;
-    } else {
+    if (element.meta.shapeOptions && element.meta.shapeOptions.labelPropertyKey) {
         labelString = element.properties[element.meta.shapeOptions.labelPropertyKey];
     }
-    if (!labelString) {
-        labelString = element.id;
-    }
     element.meta.labelOptions.labelText = labelString
-
     if (!element.meta.labelOptions.labelColor) {
         element.meta.labelOptions.labelColor = isNode ? colorToNumber(DefaultNodeLabelColor) :
             colorToNumber(DefaultLinkLabelColor);
     }
-
     return element;
 
 }
@@ -121,20 +107,6 @@ export function prepareLinksDataForCurves(links) {
     // const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
 
     links.forEach(function (link) {
-        //
-        // let labelOption = nodeLabels[link.label];
-        //
-        // if (labelOption){
-        //
-        // }
-
-
-        // link.meta = {
-        //     color: getColorForString(link.label),
-        //     text: link.id,
-        //     labelPropertyKey: "id"
-        // };
-
 
         // find other links with same target+source or source+target
         let same = links.filter(function (v) {
@@ -297,7 +269,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
             node.meta.shapeOptions.radius = DefaultNodeRadius;
         }
         if (!node.meta.shapeOptions.radiusBuffered) {
-            node.meta.shapeOptions.radiusBuffered = DefaultNodeRadius + DefaultNodeStrokeWidth - 1;
+            node.meta.shapeOptions.radiusBuffered = DefaultNodeRadius + DefaultNodeStrokeWidth - 0.5;
         }
         if (!node.meta.shapeOptions.strokeWidth) {
             node.meta.shapeOptions.strokeWidth = DefaultNodeStrokeWidth;

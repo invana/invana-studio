@@ -223,9 +223,9 @@ export default class GraphicsEngine {
     // }
 
 
-    getLinkLabel(linkData) {
-        return linkData.source.id + "-" + linkData.target.id;
-    }
+    // getLinkLabel(linkData) {
+    //     return linkData.source.id + "-" + linkData.target.id;
+    // }
 
 
     createNode(nodeData) {
@@ -502,8 +502,14 @@ labelColor: "#dddddd"
         return triangle;
     }
 
+
     createLink(linkData) {
 
+        /*
+
+        refer for curved lines with arrows
+        https://stackoverflow.com/questions/11808860/how-to-place-arrow-head-triangles-on-svg-lines
+         */
         console.log("=======linkData", linkData.meta.shapeOptions.strokeColor, linkData);
 
 
@@ -512,52 +518,29 @@ labelColor: "#dddddd"
         let _this = this;
         let linkGfx = new PIXI.Graphics();
         let linkGfxLabel = new PIXI.Graphics();
-
-
         linkGfx.lineStyle(Math.sqrt(LINK_DEFAULT_WIDTH), linkColor);
-        // const curvatureConstant = 0.5;
-        // const sameIndex = linkData.sameIndex;
-        // let nextPoint = {};
-        // nextPoint.x = linkData.target.x;
-        // nextPoint.y = linkData.target.y;
-        // let {normal, tangent} = this.getNormalAndTangentForTwoPoints(
-        //     linkData.source.x,
-        //     linkData.source.y,
-        //     linkData.target.x,
-        //     linkData.target.y,
-        //     linkData.sameIndex
-        // )
 
-
-        // if (sameIndex > 1) {
-        //     // for curved links
-        //     nextPoint.y = linkData.target.x - 300 * sameIndex * curvatureConstant;
-        //     nextPoint.y = linkData.target.y - 300 * sameIndex * curvatureConstant;
-        //     normal = [
-        //         -(linkData.target.y - this.settings.NODE_RADIUS - nextPoint.y),
-        //         linkData.target.x - this.settings.NODE_RADIUS - nextPoint.x,
-        //     ]
-        // }
-
-
-        // console.log("tangent", tangent);
-
-
-        // for link label
-        const linkLabelText = new PIXI.Text(this.getLinkLabel(linkData), {
-            fontFamily: LABEL_FONT_FAMILY,
-            fontSize: LINK_DEFAULT_LABEL_FONT_SIZE,
-            fill: _this.settings.LINK_DEFAULT_LABEL_COLOR
-        });
-        linkLabelText.resolution = this.settings.LABEL_RESOLUTION;
-
+        // draw straight line with arrow and label if avaiable!
         linkGfx.moveTo(linkData.source.x, linkData.source.y);
         linkGfx.lineTo(linkData.target.x, linkData.target.y);
-
-
         const triangle = this.createTriangle(linkData, linkColor);
         linkGfx.addChild(triangle);
-        // linkGfx.endFill();
+
+        if (linkData.meta.labelOptions.labelText) {
+            const linkLabelText = new PIXI.Text(linkData.meta.labelOptions.labelText, {
+                fontFamily: LABEL_FONT_FAMILY,
+                fontSize: LINK_DEFAULT_LABEL_FONT_SIZE,
+                fill: _this.settings.LINK_DEFAULT_LABEL_COLOR
+            });
+            linkLabelText.resolution = this.settings.LABEL_RESOLUTION;
+            // set label in the middle
+            linkLabelText.x = (linkData.source.x + linkData.target.x) / 2 - 10;
+            linkLabelText.y = (linkData.source.y + linkData.target.y) / 2 - 10;
+            // const sameIndex = 1;
+            linkLabelText.anchor.set(0.5, 0);
+            linkGfxLabel.addChild(linkLabelText)
+        }
+
 
         /*
         multiple links issue can be fixed here
@@ -599,9 +582,6 @@ labelColor: "#dddddd"
                 .lineTo(t1.x, t1.y)
                 .closePath()
 
-            // set label in the middle
-            linkLabelText.x = (linkData.source.x + linkData.target.x) / 2 - 10 * sameIndex;
-            linkLabelText.y = (linkData.source.y + linkData.target.y) / 2 - 10 * sameIndex;
 
         }
         */
@@ -665,11 +645,6 @@ labelColor: "#dddddd"
         // )
         // linkGfx.buttonMode = true;
         linkGfx.endFill();
-
-
-        // const sameIndex = 1;
-        linkLabelText.anchor.set(0.5, 0);
-        linkGfxLabel.addChild(linkLabelText)
 
 
         let interval = setInterval(() => {
