@@ -119,11 +119,20 @@ export default class SelectedData extends React.Component {
 
                 </div>
                 <div className="SelectedDataList">
-                    <div className={'singleProperty dark'} key={"properties-list"}>
+                    <div className={'singleProperty darkest'} key={"properties-list"}>
                         <div className={"propertyData"}>
                             <strong className={"propertyKey "}>PROPERTIES</strong>
                         </div>
                     </div>
+                    {
+                        Object.keys(cleanedData.properties).length === 0
+                            ? <div className={'singleProperty'} key={cleanedData.id + "-no-properties-exist"}>
+                                <div className={"propertyData"}><span
+                                    className={"text-muted"}>No properties exist for this {cleanedData.type}</span>
+                                </div>
+                            </div>
+                            : <span></span>
+                    }
                     {
                         Object.keys(cleanedData.properties).map((propKey) => {
                             return (
