@@ -15,7 +15,8 @@ export default class GEPanel extends React.Component {
         onClickClose: () => console.error("onCickClose prop not added to GUIPanel"),
         showCloseBtn: true,
         showToggleBtn: true,
-        headerStyle: null
+        headerStyle: null,
+        bodyStyle: null
     };
 
     static propTypes = {
@@ -25,7 +26,8 @@ export default class GEPanel extends React.Component {
         onClickClose: PropTypes.func,
         onClickToggle: PropTypes.func,
         children: PropTypes.any,
-        headerStyle: PropTypes.object
+        headerStyle: PropTypes.object,
+        bodyStyle: PropTypes.object
     }
 
     render() {
