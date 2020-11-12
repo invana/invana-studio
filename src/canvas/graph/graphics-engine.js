@@ -189,14 +189,19 @@ export default class GraphicsEngine {
         this.zoom2Point(nodeContainer.x, nodeContainer.y)
     }
 
+
+    getNodeBorderGfx(nodeContainer) {
+        return nodeContainer.children[0];
+    }
+
     highlightNodeById(nodeId) {
         const nodeContainer = this.graphicsStore.nodeDataToNodeGfx.get(nodeId);
-        nodeContainer.children[0].alpha = this.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
+        this.getNodeBorderGfx(nodeContainer).alpha = this.settings.NODE_BORDER_HIGHLIGHT_ALPHA;
     }
 
     unHighlightNodeById(nodeId) {
         const nodeContainer = this.graphicsStore.nodeDataToNodeGfx.get(nodeId);
-        nodeContainer.children[0].alpha = this.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
+        this.getNodeBorderGfx(nodeContainer).alpha = this.settings.NODE_BORDER_UN_HIGHLIGHT_ALPHA;
     }
 
     resetViewport() {
@@ -239,6 +244,7 @@ export default class GraphicsEngine {
             LABEL_X_PADDING,
             LABEL_Y_PADDING,
             NODE_SELECTED_STROKE_WIDTH,
+            NODE_FOCUSED_NODE_BORDER_COLOR
             // ICON_TEXT,
             // ICON_FONT_FAMILY,
             // ICON_FONT_SIZE
@@ -289,7 +295,7 @@ labelColor: "#dddddd"
         const circleSelectedBorder = new PIXI.Graphics();
         circleSelectedBorder.x = 0;
         circleSelectedBorder.y = 0;
-        circleSelectedBorder.lineStyle(NODE_SELECTED_STROKE_WIDTH, nodeData.meta.shapeOptions.strokeColor);
+        circleSelectedBorder.lineStyle(NODE_SELECTED_STROKE_WIDTH, NODE_FOCUSED_NODE_BORDER_COLOR);
         circleSelectedBorder.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
         circleSelectedBorder.alpha = 0;
         nodeContainer.addChild(circleSelectedBorder);
@@ -478,8 +484,8 @@ labelColor: "#dddddd"
         let ny = dy / l;
 
         // Now let's draw the arrow:
-        let arrowLength = 3;       // Length of the arrow
-        let arrowWingsLength = 2.5;  // How far arrow wings are from the link?
+        let arrowLength = 3 * 2;       // Length of the arrow
+        let arrowWingsLength = 2.5 * 2;  // How far arrow wings are from the link?
 
         // This is where arrow should end. We do `(l - NODE_WIDTH)` to
         // make sure it ends before the node UI element.

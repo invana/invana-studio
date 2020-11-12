@@ -10,6 +10,7 @@ import {
     DefaultLinkLabelPropertyKey,
     DefaultLinkLabelColor
 } from "../config";
+import {LightenDarkenColor} from "../core/utils";
 
 const ColorHash = require('color-hash');
 
@@ -273,7 +274,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
             node.meta.shapeOptions.radius = DefaultNodeRadius;
         }
         if (!node.meta.shapeOptions.radiusBuffered) {
-            node.meta.shapeOptions.radiusBuffered = DefaultNodeRadius + DefaultNodeStrokeWidth - 0.5;
+            node.meta.shapeOptions.radiusBuffered = DefaultNodeRadius + 5;
         }
         if (!node.meta.shapeOptions.strokeWidth) {
             node.meta.shapeOptions.strokeWidth = DefaultNodeStrokeWidth;
@@ -281,7 +282,7 @@ export function prepareNodesDataWithOptions(nodes, options) {
         if (!node.meta.shapeOptions.strokeColor) {
             node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor
                 ? colorToNumber(metaFromStorage.borderColor)
-                : colorToNumber(DefaultNodeBorderColor)
+                : colorToNumber(LightenDarkenColor(getColorForString(node.label), -40))
         }
         if (!node.meta.shapeOptions.fillColor) {
             node.meta.shapeOptions.fillColor = metaFromStorage.bgColor
