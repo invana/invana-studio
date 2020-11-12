@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js-legacy'
+// import * as PIXI from 'pixi.js';
 import {Viewport} from 'pixi-viewport'
 // import {colorToNumber} from "../canvas-utils";
 // import FontFaceObserver from "fontfaceobserver";
@@ -67,7 +68,6 @@ export default class GraphicsEngine {
             return false;
         });
         canvasElem.appendChild(this.pixiApp.view);
-
 
         this.viewport = new Viewport({
             screenWidth: this.settings.SCREEN_WIDTH,
@@ -234,6 +234,57 @@ export default class GraphicsEngine {
     //     return linkData.source.id + "-" + linkData.target.id;
     // }
 
+//
+//     background(bgSize, inputSprite, type, forceSize) {
+//         /*
+//         https://gist.github.com/ClickSimply/581823db9cdc8d94ed3f78c1a548f50d
+// *  PixiJS Background Cover/Contain Script
+// *   Returns object
+// * . {
+// *       container: PixiJS Container
+// * .     doResize: Resize callback
+// *   }
+// *   ARGS:
+// *   bgSize: Object with x and y representing the width and height of background. Example: {x:1280,y:720}
+// *   inputSprite: Pixi Sprite containing a loaded image or other asset.  Make sure you preload assets into this sprite.
+// *   type: String, either "cover" or "contain".
+// *   forceSize: Optional object containing the width and height of the source sprite, example:  {x:1280,y:720}
+// */
+//         var sprite = inputSprite;
+//         var bgContainer = new PIXI.Container();
+//         var mask = new PIXI.Graphics().beginFill(0x8bc5ff).drawRect(0, 0, bgSize.x, bgSize.y).endFill();
+//         bgContainer.mask = mask;
+//         bgContainer.addChild(mask);
+//         bgContainer.addChild(sprite);
+//
+//         function resize() {
+//             var sp = {x: sprite.width, y: sprite.height};
+//             if (forceSize) sp = forceSize;
+//             var winratio = bgSize.x / bgSize.y;
+//             var spratio = sp.x / sp.y;
+//             var scale = 1;
+//             var pos = new PIXI.Point(0, 0);
+//             if (type === 'cover' ? (winratio > spratio) : (winratio < spratio)) {
+//                 //photo is wider than background
+//                 scale = bgSize.x / sp.x;
+//                 pos.y = -((sp.y * scale) - bgSize.y) / 2
+//             } else {
+//                 //photo is taller than background
+//                 scale = bgSize.y / sp.y;
+//                 pos.x = -((sp.x * scale) - bgSize.x) / 2
+//             }
+//
+//             sprite.scale = new PIXI.Point(scale, scale);
+//             sprite.position = pos;
+//         }
+//
+//         resize();
+//
+//         return {
+//             container: bgContainer,
+//             doResize: resize
+//         }
+//     }
 
     createNode(nodeData) {
         const _this = this;
@@ -306,6 +357,43 @@ labelColor: "#dddddd"
         circle.beginFill(nodeData.meta.shapeOptions.fillColor);
         circle.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
 
+
+        const imagePath = "https://media.flaticon.com/dist/min/img/logo/flaticon_negative.svg";
+        // //
+        // const background = new PIXI.Sprite(PIXI.loader.resources["https://media.flaticon.com/dist/min/img/logo/flaticon_negative.svg"].texture);
+        // background.scale.set(1.05, 1.05);
+        // background.position.set(0, 0);
+        //
+        //
+        var landscapeTexture = PIXI.Texture.from(imagePath);
+        //
+        //
+        var texture2 = new PIXI.Texture(landscapeTexture,
+            new PIXI.Rectangle(0, 0, 40, 40));
+        //
+        // const background = new PIXI.Sprite(texture2);
+        //
+
+        // this.pixiApp.loader.add(imagePath).load(function () {
+        //     var slide = _this.background({x: this.settings.WORLD_WIDTH,
+        //         y: this.settings.WORLD_HEIGHT}, new PIXI.Sprite.from(imagePath), 'cover');
+        //     nodeContainer.addChild(slide.container);
+        //     // force resize: slide.doResize();
+        //     // renderer.render(stage);
+        // });
+
+
+// // create a new Sprite from an image path.
+//         var bunny = PIXI.Sprite.fromImage('https://media.flaticon.com/dist/min/img/logo/flaticon_negative.svg');
+//
+// // center the sprite's anchor point
+//         bunny.anchor.set(0.5);
+//
+// // move the sprite to the center of the screen
+//         bunny.position.x = 0.5;
+//         bunny.position.y = 0.5;
+
+        // circle.addChild(background);
         nodeContainer.addChild(circle);
 
         const circleBorder = new PIXI.Graphics();
