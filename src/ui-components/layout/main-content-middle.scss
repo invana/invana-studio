@@ -17,6 +17,8 @@
   }
   .main-content-bottom{
     height: 450px;
+    position: relative;
+    z-index: 1000;
     // height: calc(50vh - 45px - 22px - 2px); // -2 for borders
   }
   .main-content-bottom.closed {
