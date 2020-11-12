@@ -24,7 +24,7 @@ export default class GraphSimulator {
 
             .force("x", d3.forceX())
             .force("y", d3.forceY())
-            // .alphaDecay(0.5)
+            .alphaDecay(0.5)
             // .tick(this.settings.FORCE_LAYOUT_ITERATIONS)
             .on("end", () => this.onForceSimulationEnd());
             //.on("tick", () => this.onForceSimulationEnd(this))

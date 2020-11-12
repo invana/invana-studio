@@ -75,7 +75,8 @@ export default class VerticesManagement extends RemoteGraphComponent {
                                     <button className={"management-icon-btn"}
                                             title={"Show connected edges and vertices"}
                                             onClick={() => this.props.parentGraphComponent.makeQuery(
-                                                this.connector.requestBuilder.getNeighborEdgesAndVertices(vertexLabel.label, 50, 0), {'source': 'canvas'})}>
+                                                this.connector.requestBuilder.getNeighborEdgesAndVertices(
+                                                    vertexLabel.label, 10, 0), {'source': 'canvas'})}>
                                         <FontAwesomeIcon icon={faProjectDiagram}/>
                                     </button>
                                     {/*<button className={"management-icon-btn"} title={"Show "}*/}
