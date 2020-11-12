@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCamera, faDotCircle, faFilter, faSync,
+    faCamera, faFilter, faSearch, faSync,
     faTerminal, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -103,7 +103,7 @@ export default class CanvasNav extends React.Component {
                     </li>
                     <li>
                         <button onClick={() => this.switchToCanvasMenu("focus-node")}>
-                            <FontAwesomeIcon icon={faDotCircle}/>
+                            <FontAwesomeIcon icon={faSearch}/>
                         </button>
                     </li>
                     <li style={{"display": "none"}}>
