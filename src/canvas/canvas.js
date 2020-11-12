@@ -119,9 +119,15 @@ export default class Canvas extends React.Component {
         focusedNodes.splice(indexId, 1);
         console.log("===indexId", indexId);
         console.log("focusedNodes removed", focusedNodes);
-        graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
-        graphicsEngine.requestRender();
         this.setFocusedNodes(focusedNodes);
+
+        if (focusedNodes.length !== 0) {
+            graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
+        }else{
+            graphicsEngine.graphicsStore.resetFocus();
+        }
+        graphicsEngine.requestRender();
+
     }
 
 
