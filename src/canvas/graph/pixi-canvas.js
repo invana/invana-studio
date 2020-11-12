@@ -11,6 +11,7 @@ import {
     faMinusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import NodeMenu from "./node-menu";
 // import {} from "@fortawesome/free-regular-svg-icons";
 
 export default class PIXICanvas extends React.Component {
@@ -44,7 +45,7 @@ export default class PIXICanvas extends React.Component {
         setStatusMessage: (message) => console.debug("setStatusMessage not set", message),
         showVertexOptions: (selectedLabel) => console.debug("this.showVertexOptions not set", selectedLabel),
 
-        connector: false,
+        connector: null,
         dataStore: null,
         resetShallReRenderD3Canvas: () => console.log("resetShallReRenderD3Canvas"),
         shallReRenderD3Canvas: false,
@@ -207,7 +208,6 @@ export default class PIXICanvas extends React.Component {
     componentDidMount() {
         console.log("componentDidMount", this.props.shallReRenderD3Canvas);
         this.renderPIXICanvas();
-        this.onClickFocus();
     }
 
     setStatusMessage(message) {
@@ -262,136 +262,20 @@ export default class PIXICanvas extends React.Component {
         }
     }
 
-
-    onClickFocus() {
-        const nodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
-        if (nodeData) {
-            this.graphicsEngine.dataStore.addNode2Focus(nodeData);
-            this.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
-            const focusedNodes = this.graphicsEngine.dataStore.getUniqueFocusedNodes();
-            this.props.setFocusedNodes(focusedNodes);
-            this.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
-            // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-            this.graphicsEngine.eventStore.hideMenu();
-        }
-
-    }
-
-    onClickShowInV() {
-        // alert("onClickShowInv clicked");
-        const lastSelectedNodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
-        const query_string = this.props.connector.requestBuilder.getInEdgeVertices(lastSelectedNodeData.id);
-
-        // adding this node to focused,
-        // this.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
-        // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-        this.props.makeQuery(query_string);
-
-
-    }
-
-    onClickShowOutV() {
-        // alert("onClickShowOutV clicked");
-        const lastSelectedNodeData = this.graphicsEngine.eventStore.lastSelectedNodeData;
-        console.log("expandOutLinksAndNodes", lastSelectedNodeData);
-        // TODO - improve performance of the query.
-        const query_string = this.props.connector.requestBuilder.getOutEdgeVertices(lastSelectedNodeData.id);
-
-        //
-        // this.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
-        // this.setState({focusedNodes: this.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-
-        this.props.makeQuery(query_string);
-    }
-
-    hideMenu() {
-        this.graphicsEngine.eventStore.hideMenu();
-    }
-
-    cleanGraph() {
-        console.log("this.forceSimulator", this.forceSimulator);
-        this.forceSimulator.forceSimulator.alphaTarget(0.8).restart();
-    }
-
-    resetFocus() {
-        this.graphicsEngine.dataStore.removeAllNodes2Focus();
-        this.graphicsEngine.graphicsStore.resetFocus();
-        this.graphicsEngine.resetViewport();
-    }
-
-    getVerboseIdentifier() {
-        const elementData = this.props.selectedElementData;
-        console.log("=====elementData", elementData)
-        if (elementData) {
-            const color = elementData.meta.shapeOptions.fillColor;
-            const elem = document.querySelector('.nodeMenuContainer h5');
-            if (elem) {
-                elem.style.color = color;
-            }
-            return elementData.meta.labelOptions.labelText;
-
-        }
-    }
-
-    getIdentifier() {
-        const elementData = this.props.selectedElementData;
-        console.log("=====elementData", elementData)
-        if (elementData) {
-            return elementData.id;
-        }
-    }
-
-    checkIfAlreadyFocused() {
-        const selectedNode = this.props.selectedElementData;
-        if (selectedNode) {
-            this.props.getFocusedNodes().forEach((focusedNode) => {
-                if (focusedNode.id === selectedNode.id) {
-                    return true;
-                }
-            });
-        }
-
-    }
-
     render() {
         // console.log("PIXICanvas render()", this.props.dataStore.getAllRawVerticesList())
         console.log("this.state.focusedNodes", this.props.getFocusedNodes());
         return (
             <div style={{"width": "100%", "height": "100%"}}>
-                <div className="nodeMenuContainer" style={{"display": "none"}}>
-                    <h5>{this.getVerboseIdentifier()}</h5>
-                    <p>ID: {this.getIdentifier()}</p>
-                    <ul className={"nodeMenu"}>
-                        {
-                            this.checkIfAlreadyFocused() ?
-                                (
-                                    <li onClick={() => this.resetFocus()}>
-                                        Reset focus
-                                    </li>
-                                ) :
-                                (
-                                    <li onClick={() => this.onClickFocus()}>
-                                        <FontAwesomeIcon icon={faDotCircle}/> Focus
-                                    </li>
-                                )
-                        }
 
-
-                        <li onClick={() => this.onClickShowInV()}>
-                            <FontAwesomeIcon icon={faArrowAltCircleLeft}/> Show InV
-                        </li>
-                        <li onClick={() => this.onClickShowOutV()}>
-                            <FontAwesomeIcon icon={faArrowAltCircleRight}/> Show OutV
-                        </li>
-                        {/*<li onClick={() => this.cleanGraph()}>*/}
-                        {/*    <FontAwesomeIcon icon={faSync}/> Clean Graph*/}
-                        {/*</li>*/}
-                        <li onClick={() => this.hideMenu()}>
-                            <FontAwesomeIcon icon={faMinusCircle}/> hide menu
-                        </li>
-                    </ul>
-                </div>
-
+                <NodeMenu
+                    getFocusedNodes={this.props.getFocusedNodes}
+                    setFocusedNodes={this.props.setFocusedNodes}
+                    connector={this.props.connector}
+                    // selectedElementData={this.props.selectedElementData}
+                    makeQuery={this.props.makeQuery}
+                    graphicsEngine={this.graphicsEngine}
+                />
                 <div className="graphContainer canvas">
                 </div>
 

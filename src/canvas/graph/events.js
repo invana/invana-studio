@@ -24,18 +24,24 @@ export default class EventStore {
     onLinkClicked(graphicsEngine, linkData, linkGfx, event) {
         console.log("onNodeClicked", linkData.id, linkGfx, event,)
         this.clickedNodeData = null;
-        this.lastSelectedNodeData = null;
+        // this.lastSelectedNodeData = null;
+        // graphicsEngine.eventStore.hideMenu();
         graphicsEngine.onElementSelected(linkData);
     }
 
     onLinkMouseOver(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, linkGfx, event, "link MouseOver");
+        // this.lastSelectedNodeData = null;
+
+        // graphicsEngine.eventStore.hideMenu();
         graphicsEngine.onElementSelected(linkData);
 
     }
 
     onLinkMouseOut(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, linkGfx, event, "link MouseOut");
+        // this.lastSelectedNodeData = null;
+        // graphicsEngine.eventStore.hideMenu();
         graphicsEngine.onElementSelected(null);
     }
 
