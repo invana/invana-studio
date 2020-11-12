@@ -250,8 +250,15 @@ export default class PIXICanvas extends React.Component {
 
     onElementSelected(nodeData) {
         if (this.props.middleBottomContentName !== "vertex-options") {
-            this.props.setMiddleBottomContentName('selected-data-overview')
-            this.props.setSelectedElementData(nodeData);
+            if (nodeData) {
+                this.props.setMiddleBottomContentName('selected-data-overview');
+                this.props.setSelectedElementData(nodeData);
+            } else {
+                // if data is none, remove the bottom content
+                this.props.setMiddleBottomContentName(null);
+                this.props.setSelectedElementData(null);
+            }
+
         }
     }
 

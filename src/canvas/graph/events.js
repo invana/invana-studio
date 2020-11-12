@@ -22,21 +22,21 @@ export default class EventStore {
     }
 
     onLinkClicked(graphicsEngine, linkData, linkGfx, event) {
-        console.log(linkData.id, linkGfx, event, " clicked");
-
-        // console.log("onNodeClicked", nodeContainer, event)
+        console.log("onNodeClicked", linkData.id, linkGfx, event,)
         this.clickedNodeData = null;
         this.lastSelectedNodeData = null;
-        // console.log(this.clickedNodeData.id, " clicked");
         graphicsEngine.onElementSelected(linkData);
     }
 
     onLinkMouseOver(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, linkGfx, event, "link MouseOver");
+        graphicsEngine.onElementSelected(linkData);
+
     }
 
     onLinkMouseOut(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, linkGfx, event, "link MouseOut");
+        graphicsEngine.onElementSelected(null);
     }
 
     createNodeMenu(graphicsEngine, nodeData, event) {
@@ -45,44 +45,13 @@ export default class EventStore {
         this.nodeMenuEl.style.top = event.data.global.y + graphicsEngine.settings.NODE_MENU_Y_PADDING + "px";
     }
 
-    //
-    // moveNodeMenu(graphicsEngine, point, event) {
-    //     console.log("moveNodeMenu Menu", point, event);
-    //     console.log("move=====", event.data.global.x, event.data.global.y)
-    //     graphicsEngine.nodeMenuLayer.x = point.x;
-    //     graphicsEngine.nodeMenuLayer.y = point.y;
-    //     this.nodeMenuEl.style.left = event.data.global.x + graphicsEngine.settings.NODE_MENU_X_PADDING + "px";
-    //     this.nodeMenuEl.style.top = event.data.global.y + graphicsEngine.settings.NODE_MENU_Y_PADDING + "px";
-    // }
-    //
-    // moveNode = (nodeData, point, graphicsEngine, event) => {
-    //     nodeData.x = point.x;
-    //     nodeData.y = point.y;
-    //     graphicsEngine.updatePositions();
-    //     this.moveNodeMenu(graphicsEngine, point, event);
-    // };
-    //
-    // appMouseMove(event, graphicsEngine) {
-    //     if (!this.clickedNodeData) {
-    //         return;
-    //     }
-    //
-    //     this.moveNode(this.clickedNodeData, graphicsEngine.viewport.toWorld(event.data.global), graphicsEngine, event);
-    // }
 
-
-    onRightClicked(graphicsEngine, nodeData, nodeContainer, event) {
+    onNodeRightClicked(graphicsEngine, nodeData, nodeContainer, event) {
         this.showMenu();
         this.clickedNodeData = nodeData;
         this.lastSelectedNodeData = nodeData;
         console.log(this.clickedNodeData.id, " clicked");
         graphicsEngine.onElementSelected(nodeData);
-
-        // TODO -  this will make the node drag functionality
-        // enable node dragging
-        // graphicsEngine.pixiApp.renderer.plugins.interaction.on('mousemove', (mouseEvent) => _this.appMouseMove(mouseEvent, graphicsEngine));
-        // disable viewport dragging
-        // graphicsEngine.viewport.pause = true;
         console.log("clicked", event);
         this.createNodeMenu(graphicsEngine, nodeData, event);
 
@@ -115,20 +84,15 @@ export default class EventStore {
     onNodeMouseOver(graphicsEngine, nodeData, nodeContainer, event) {
         console.log(nodeData.id, nodeContainer, event, " mouseover");
 
+        graphicsEngine.onElementSelected(nodeData);
 
-        // if the last selected elemented is not this node, hide the menu.
+        // if the last selected element is not this node, hide the menu.
         // const lastSelectedNodeData  = graphicsEngine.dataStore.lastSelectedNodeData;
         if (this.clickedNodeData && this.clickedNodeData.id !== nodeData.id) {
             this.hideMenu();
         }
 
 
-        // const neighborsData = graphicsEngine.dataStore.getNeighborNodesAndLinks(nodeData)
-        //
-        // let ignoreNodesHoverWhenFocused = [];
-        // ignoreNodesHoverWhenFocused.p
-        // neighborsData.push(nodeData);
-        // neighborsData.
         if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
             // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
             // dont hover-highlight when there is focus selected.
@@ -136,6 +100,11 @@ export default class EventStore {
         }
 
         if (nodeData) {
+            // let focusedNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
+            // const isExist = graphicsEngine.dataStore.checkIfVertexExistInFocused(nodeData);
+            // if (!isExist){
+            //     focusedNodes.push(nodeData);
+            // }
             this.highlightNodes(graphicsEngine, [nodeData])
             // for drag feature
             if (this.clickedNodeData) {
@@ -170,10 +139,10 @@ export default class EventStore {
         console.log("===onNodeUnClicked", nodeContainer, event, nodeData);
         this.unsetSelectedNodeData();
 
-        // disable node dragging
-        graphicsEngine.pixiApp.renderer.plugins.interaction.off('mousemove', (event) => this.appMouseMove(event, graphicsEngine));
-        // enable viewport dragging
-        graphicsEngine.viewport.pause = false;
+        // // disable node dragging
+        // graphicsEngine.pixiApp.renderer.plugins.interaction.off('mousemove', (event) => this.appMouseMove(event, graphicsEngine));
+        // // enable viewport dragging
+        // graphicsEngine.viewport.pause = false;
     }
 
 }

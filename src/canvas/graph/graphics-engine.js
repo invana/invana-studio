@@ -273,7 +273,7 @@ labelColor: "#dddddd"
         nodeContainer.hitArea = new PIXI.Circle(0, 0, nodeData.meta.shapeOptions.radius);
 
         // console.log("event.currentTarget", )
-        nodeContainer.on('rightdown', (event) => _this.eventStore.onRightClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
+        nodeContainer.on('rightdown', (event) => _this.eventStore.onNodeRightClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
         nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
         nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
         nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));

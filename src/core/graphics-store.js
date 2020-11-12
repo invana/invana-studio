@@ -2,6 +2,7 @@ import {convertMapKeysToArray} from "./utils";
 
 export default class GraphicsStore {
 
+
     constructor(dataStore, graphicsEngine) {
         this.dataStore = dataStore;
         this.graphicsEngine = graphicsEngine;
@@ -215,7 +216,6 @@ export default class GraphicsStore {
         })
 
     }
-
 
     updateNodePairs(newNodeDataGfxPairs) {
 
