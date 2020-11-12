@@ -4,6 +4,8 @@ import {Viewport} from 'pixi-viewport'
 // import FontFaceObserver from "fontfaceobserver";
 import EventStore from "./events";
 import GraphicsStore from "../../core/graphics-store";
+import {colorToNumber} from "../canvas-utils";
+import {LightenDarkenColor} from "../../core/utils";
 
 export default class GraphicsEngine {
 
@@ -458,11 +460,11 @@ labelColor: "#dddddd"
     }
 
 
-    createTriangle(linkData, linkColor) {
+    createTriangle(linkData, arrowColor) {
         // 4d. Create a triangle https://stackoverflow.com/a/58573859/3448851
         let triangle = new PIXI.Graphics();
-        triangle.lineStyle(1, linkColor, 1);
-        triangle.beginFill(linkColor, 1)
+        triangle.lineStyle(1, arrowColor, 1);
+        triangle.beginFill(arrowColor, 1)
         // first, let's compute normalized vector for our link:
         let dx = linkData.target.x - linkData.source.x;
         let dy = linkData.target.y - linkData.source.y;
@@ -523,7 +525,11 @@ labelColor: "#dddddd"
         // draw straight line with arrow and label if avaiable!
         linkGfx.moveTo(linkData.source.x, linkData.source.y);
         linkGfx.lineTo(linkData.target.x, linkData.target.y);
-        const triangle = this.createTriangle(linkData, linkColor);
+
+        const strokeColor = linkData.meta.shapeOptions.strokeColorHex;
+        const arrowColor = colorToNumber(LightenDarkenColor(strokeColor, -30));
+
+        const triangle = this.createTriangle(linkData, arrowColor);
         linkGfx.addChild(triangle);
 
         if (linkData.meta.labelOptions.labelText) {

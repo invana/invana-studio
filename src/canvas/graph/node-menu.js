@@ -52,7 +52,7 @@ export default class NodeMenu extends React.Component {
             this.props.setFocusedNodes(focusedNodes);
             this.props.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
             // this.setState({focusedNodes: this.props.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-            this.props.graphicsEngine.eventStore.hideMenu();
+            this.hideMenu();
         }
 
     }
@@ -65,6 +65,7 @@ export default class NodeMenu extends React.Component {
         // adding this node to focused,
         // this.props.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
         // this.setState({focusedNodes: this.props.graphicsEngine.dataStore.getUniqueFocusedNodes()});
+        this.hideMenu();
         this.props.makeQuery(query_string);
 
 
@@ -80,7 +81,7 @@ export default class NodeMenu extends React.Component {
         //
         // this.props.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
         // this.setState({focusedNodes: this.props.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-
+        this.hideMenu();
         this.props.makeQuery(query_string);
     }
 
