@@ -120,6 +120,7 @@ export default class Canvas extends React.Component {
         console.log("===indexId", indexId);
         console.log("focusedNodes removed", focusedNodes);
         graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
+        graphicsEngine.requestRender();
         this.setFocusedNodes(focusedNodes);
     }
 

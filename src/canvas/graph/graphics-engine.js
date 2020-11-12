@@ -356,44 +356,6 @@ labelColor: "#dddddd"
         circle.y = 0;
         circle.beginFill(nodeData.meta.shapeOptions.fillColor);
         circle.drawCircle(0, 0, nodeData.meta.shapeOptions.radius);
-
-
-        const imagePath = "https://media.flaticon.com/dist/min/img/logo/flaticon_negative.svg";
-        // //
-        // const background = new PIXI.Sprite(PIXI.loader.resources["https://media.flaticon.com/dist/min/img/logo/flaticon_negative.svg"].texture);
-        // background.scale.set(1.05, 1.05);
-        // background.position.set(0, 0);
-        //
-        //
-        var landscapeTexture = PIXI.Texture.from(imagePath);
-        //
-        //
-        var texture2 = new PIXI.Texture(landscapeTexture,
-            new PIXI.Rectangle(0, 0, 40, 40));
-        //
-        // const background = new PIXI.Sprite(texture2);
-        //
-
-        // this.pixiApp.loader.add(imagePath).load(function () {
-        //     var slide = _this.background({x: this.settings.WORLD_WIDTH,
-        //         y: this.settings.WORLD_HEIGHT}, new PIXI.Sprite.from(imagePath), 'cover');
-        //     nodeContainer.addChild(slide.container);
-        //     // force resize: slide.doResize();
-        //     // renderer.render(stage);
-        // });
-
-
-// // create a new Sprite from an image path.
-//         var bunny = PIXI.Sprite.fromImage('https://media.flaticon.com/dist/min/img/logo/flaticon_negative.svg');
-//
-// // center the sprite's anchor point
-//         bunny.anchor.set(0.5);
-//
-// // move the sprite to the center of the screen
-//         bunny.position.x = 0.5;
-//         bunny.position.y = 0.5;
-
-        // circle.addChild(background);
         nodeContainer.addChild(circle);
 
         const circleBorder = new PIXI.Graphics();
