@@ -384,7 +384,8 @@ export default class ExplorerView extends BaseView {
                                         ?
                                         <GEPanel
                                             // title={"Selected Element Data"}
-                                            title={this.state.selectedElementData.meta.labelOptions.labelText}
+                                            title={this.state.selectedElementData.meta.labelOptions.labelText
+                                            || this.state.selectedElementData.id}
                                             headerStyle={{
                                                 'color': this.state.selectedElementData.type === "g:Vertex"
                                                     ? this.state.selectedElementData.meta.shapeOptions.fillColorHex
