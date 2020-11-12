@@ -281,7 +281,7 @@ labelColor: "#dddddd"
         nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
 
 
-        console.log("nodeData======", nodeData)
+        console.log("nodeData======", nodeData.label, nodeData.meta.labelOptions.labelText, nodeData)
 
 
         const circleSelectedBorder = new PIXI.Graphics();

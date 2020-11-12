@@ -89,6 +89,10 @@ function getLabelOptionsOfElement(element, isNode) {
     if (element.meta.shapeOptions && element.meta.shapeOptions.labelPropertyKey) {
         labelString = element.properties[element.meta.shapeOptions.labelPropertyKey];
     }
+    if (!labelString && isNode === true) { // fallback to id as default label for nodes
+        labelString = element.id;
+    }
+
     element.meta.labelOptions.labelText = labelString
     if (!element.meta.labelOptions.labelColor) {
         element.meta.labelOptions.labelColor = isNode ? colorToNumber(DefaultNodeLabelColor) :
