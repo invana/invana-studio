@@ -87,8 +87,8 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
         // })
         //
         this.resetShallReRenderD3Canvas();
-        this.render()
-        this.forceUpdate();
+        // this.render()
+        // this.forceUpdate();
     }
 
 
@@ -117,10 +117,12 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
 
 
     resetShallReRenderD3Canvas() {
+        console.log("======resetShallReRenderD3Canvas", this.state.shallReRenderD3Canvas)
         this.setState({
             shallReRenderD3Canvas: false
         })
     }
+
     setShallReRenderD3Canvas(status) {
         this.setState({
             shallReRenderD3Canvas: status

@@ -4,15 +4,7 @@ import "./style.scss";
 import PropTypes from "prop-types";
 import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
-import {
-    faDotCircle,
-    faArrowAltCircleLeft,
-    faArrowAltCircleRight,
-    faMinusCircle
-} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import NodeMenu from "./node-menu";
-// import {} from "@fortawesome/free-regular-svg-icons";
 
 export default class PIXICanvas extends React.Component {
 

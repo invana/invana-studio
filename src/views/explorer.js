@@ -140,11 +140,13 @@ export default class ExplorerView extends BaseView {
     reRenderCanvas() {
         super.reRenderCanvas();
         // const {vertices, edges } = this.dataStore.getAllData()
+        // this.resetShallReRenderD3Canvas();
         this.setState({
             // ...this.dataStore.getAllData(),
             verticesCount: this.dataStore.getVerticesCount(),
             edgesCount: this.dataStore.getEdgesCount(),
         })
+
     }
 
     render() {
@@ -428,6 +430,7 @@ export default class ExplorerView extends BaseView {
                                                                    this.setRightContentName(null)
                                                                }}
                                                                reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                                               setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
                                                 />
 
                                             </GEPanel>

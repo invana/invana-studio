@@ -86,8 +86,8 @@ export default class VertexOptions extends RemoteGraphComponent {
             setElementColorOptionsToStorage(response.response.data.updateVertexById);
             this.props.setStatusMessage("Updated options for label '" + this.props.selectedLabel + "'");
             this.setState({nodeOptions: response.response.data.updateVertexById})
-
-            this.props.reRenderCanvas();
+            // this.props.reRenderCanvas();
+            this.props.setShallReRenderD3Canvas(true);
             if (response.transporterStatusCode !== 200) {
                 this.props.setErrorMessage(response.transporterStatusCode);
             }
