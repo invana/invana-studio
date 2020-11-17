@@ -1,8 +1,6 @@
 import React from "react";
 import "./focus-node.scss";
 import PropTypes from "prop-types";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDotCircle} from "@fortawesome/free-solid-svg-icons";
 import GEPanel from "../../ui-components/panels/panel";
 
 export default class FocusNode extends React.Component {
