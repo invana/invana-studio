@@ -46,6 +46,9 @@ export default class PIXICanvas extends React.Component {
 
         getFocusedNodes: () => console.log("getFocusedNodes"),
         setFocusedNodes: (nodes) => console.error("setFocusedNodes not set", nodes),
+
+        setDefaultQuery: (query) => console.log("setDefaultQuery not set", query),
+
     }
 
     static propTypes = {
@@ -67,7 +70,9 @@ export default class PIXICanvas extends React.Component {
         setGraphicsEngine: PropTypes.func,
 
         getFocusedNodes: PropTypes.func,
-        setFocusedNodes: PropTypes.func
+        setFocusedNodes: PropTypes.func,
+
+        setDefaultQuery: PropTypes.func
     }
 
 
@@ -267,6 +272,7 @@ export default class PIXICanvas extends React.Component {
                     // selectedElementData={this.props.selectedElementData}
                     makeQuery={this.props.makeQuery}
                     graphicsEngine={this.graphicsEngine}
+                    setDefaultQuery={this.props.setDefaultQuery}
                 />
                 <div className="graphContainer canvas">
                 </div>

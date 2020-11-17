@@ -60,6 +60,7 @@ export default class Canvas extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            defaultQuery: "",
             canvasType: "graph",
             graphicsEngine: null,
             focusedNodes: [] //
@@ -123,11 +124,15 @@ export default class Canvas extends React.Component {
 
         if (focusedNodes.length !== 0) {
             graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
-        }else{
+        } else {
             graphicsEngine.graphicsStore.resetFocus();
         }
         graphicsEngine.requestRender();
 
+    }
+
+    setDefaultQuery(query) {
+        this.setState({defaultQuery: query});
     }
 
 
@@ -148,6 +153,9 @@ export default class Canvas extends React.Component {
                     dataStore={this.props.dataStore}
                     getGraphicsEngine={this.getGraphicsEngine.bind(this)}
                     setFocusedNodes={this.setFocusedNodes.bind(this)}
+                    defaultQuery={this.state.defaultQuery}
+                    setDefaultQuery={this.setDefaultQuery.bind(this)}
+
                     // switchCanvasTo={this.switchCanvasTo.bind(this)}
                     // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
                     // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
@@ -190,6 +198,7 @@ export default class Canvas extends React.Component {
                                             makeQuery={this.props.makeQuery}
                                             setFocusedNodes={this.setFocusedNodes.bind(this)}
                                             getFocusedNodes={this.getFocusedNodes.bind(this)}
+                                            setDefaultQuery={this.setDefaultQuery.bind(this)}
                                         />
 
 

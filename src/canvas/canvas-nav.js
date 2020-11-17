@@ -9,8 +9,6 @@ import PropTypes from "prop-types";
 import FilterNodes from "./nav-ui-components/filter-nodes";
 import FocusNode from "./nav-ui-components/focus-node";
 import QueryConsole from "./nav-ui-components/query-console";
-// import GEPanel from "../ui-components/panels/panel";
-// import HistoryComponent from "../viewlets/history";
 
 
 export default class CanvasNav extends React.Component {
@@ -24,6 +22,9 @@ export default class CanvasNav extends React.Component {
         getGraphicsEngine: () => console.log("getGraphicsEngine not set"),
         makeQuery: (query) => console.log("makeQuery not set ", query),
         setFocusedNodes: (nodes) => console.log("setFocusedNodes not set ", nodes),
+        defaultQuery: null,
+        setDefaultQuery: (query) => console.log("setDefaultQuery", query)
+
     }
     static propTypes = {
         canvasType: PropTypes.string,
@@ -34,6 +35,9 @@ export default class CanvasNav extends React.Component {
         // confirmFlushCanvas: PropTypes.func,
         connector: PropTypes.object,
         setFocusedNodes: PropTypes.func,
+        defaultQuery: PropTypes.string,
+        setDefaultQuery: PropTypes.func
+
         // confirmRedrawCanvas: PropTypes.func
     }
 
@@ -49,6 +53,12 @@ export default class CanvasNav extends React.Component {
         this.setState({
             canvasMenuType: canvasMenuType
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.defaultQuery !== this.props.defaultQuery && this.props.defaultQuery) {
+            this.switchToCanvasMenu("query-console");
+        }
     }
 
 
@@ -128,7 +138,11 @@ export default class CanvasNav extends React.Component {
                             <QueryConsole
                                 makeQuery={this.props.makeQuery}
                                 connector={this.props.connector}
-                                onClose={() => this.switchToCanvasMenu(null)}
+                                defaultQuery={this.props.defaultQuery}
+                                onClose={() => {
+                                    this.switchToCanvasMenu(null);
+                                    this.props.setDefaultQuery("");
+                                }}
                             />
                         )
                         : this.state.canvasMenuType === "focus-node"

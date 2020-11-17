@@ -4,7 +4,7 @@ import {
     faArrowAltCircleLeft,
     faArrowAltCircleRight,
     faDotCircle,
-    faMinusCircle
+    faMinusCircle, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
@@ -17,7 +17,8 @@ export default class NodeMenu extends React.Component {
         connector: null,
         // selectedElementData: null,
         makeQuery: () => console.error("makeQuery not set"),
-        graphicsEngine: null
+        graphicsEngine: null,
+        setDefaultQuery: (query) => console.log("setDefaultQuery", query)
 
     }
     static propTypes = {
@@ -26,7 +27,8 @@ export default class NodeMenu extends React.Component {
         connector: PropTypes.object,
         // selectedElementData: PropTypes.object,
         makeQuery: PropTypes.func,
-        graphicsEngine: PropTypes.object
+        graphicsEngine: PropTypes.object,
+        setDefaultQuery: PropTypes.func
 
     }
 
@@ -134,6 +136,18 @@ export default class NodeMenu extends React.Component {
 
     }
 
+    startNewQuery() {
+        const lastSelectedNodeData = this.getLastSelectedNodeData();
+
+        const elementId = lastSelectedNodeData.id;
+        let query = "";
+        if (Number.isInteger(elementId)) {
+            query = "g.V(" + lastSelectedNodeData.id + ")";
+        } else {
+            query = "g.V(\"" + lastSelectedNodeData.id + "\")";
+        }
+        this.props.setDefaultQuery(query);
+    }
 
     render() {
         return (
@@ -159,6 +173,9 @@ export default class NodeMenu extends React.Component {
                     </li>
                     <li onClick={() => this.onClickShowOutV()}>
                         <FontAwesomeIcon icon={faArrowAltCircleRight}/> Show OutV
+                    </li>
+                    <li onClick={() => this.startNewQuery()}>
+                        <FontAwesomeIcon icon={faTerminal}/> Start Query
                     </li>
                     {/*<li onClick={() => this.cleanGraph()}>*/}
                     {/*    <FontAwesomeIcon icon={faSync}/> Clean Graph*/}

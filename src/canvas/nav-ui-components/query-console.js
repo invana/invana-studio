@@ -13,11 +13,12 @@ export default class QueryConsole extends React.Component {
 
     static defaultProps = {
         makeQuery: () => console.log("No Query Handler added yet"),
-        connector: {},
+        connector: null,
         flushCanvas: () => console.log("flushCanvas added  to QueryConsole"),
         query: null,
         defaultPlaceholderText: "g.V().limit(5).toList();",
-        onClose: () => console.log("onClose not implemented")
+        onClose: () => console.log("onClose not implemented"),
+        defaultQuery: null
     }
 
     static propTypes = {
@@ -25,9 +26,10 @@ export default class QueryConsole extends React.Component {
         query: PropTypes.string,
         onClose: PropTypes.func,
         makeQuery: PropTypes.func,
-        connector: PropTypes.func,
+        connector: PropTypes.object,
         flushCanvas: PropTypes.func,
         defaultPlaceholderText: PropTypes.string,
+        defaultQuery: PropTypes.string
     };
 
     constructor(props) {
@@ -78,8 +80,13 @@ export default class QueryConsole extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         console.log("=====_this", _this);
-        const query = _this.props.connector.requestBuilder.rawQuery(e.target.query.value)
-        _this.props.makeQuery(query, {source: "console"});
+        if (e.target.query.value) {
+            const query = _this.props.connector.requestBuilder.rawQuery(e.target.query.value)
+            _this.props.makeQuery(query, {source: "console"});
+        } else {
+            alert("Query cannot be null")
+        }
+
     }
 
 
@@ -105,6 +112,7 @@ export default class QueryConsole extends React.Component {
                                 onChange={this.onQueryChange.bind(this)}
                                 name={"query"}
                                 onKeyDown={this.onEnterPress.bind(this)}
+                                value={this.props.defaultQuery}
                                 placeholder={this.props.defaultPlaceholderText}/>
                             <div className={"queryOptions"}>
                                 <div className={"float-left"}>
