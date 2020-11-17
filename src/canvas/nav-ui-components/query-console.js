@@ -9,13 +9,10 @@ const Mousetrap = require("mousetrap");
 
 export default class QueryConsole extends React.Component {
 
-    repeatTimer = null;
-
     static defaultProps = {
         makeQuery: () => console.log("No Query Handler added yet"),
         connector: null,
         flushCanvas: () => console.log("flushCanvas added  to QueryConsole"),
-        query: null,
         defaultPlaceholderText: "g.V().limit(5).toList();",
         onClose: () => console.log("onClose not implemented"),
         defaultQuery: null
@@ -23,7 +20,6 @@ export default class QueryConsole extends React.Component {
 
     static propTypes = {
         requestBuilder: PropTypes.object,
-        query: PropTypes.string,
         onClose: PropTypes.func,
         makeQuery: PropTypes.func,
         connector: PropTypes.object,
@@ -35,20 +31,18 @@ export default class QueryConsole extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: this.props.query
+            defaultQuery: this.props.defaultQuery
         }
     }
 
     componentDidMount() {
         document.getElementsByTagName('textarea')[0].focus();
         Mousetrap.bind("esc", () => this.props.onClose());
-
     }
 
     componentWillUnmount() {
         // super.componentWillUnmount();
         Mousetrap.unbind("esc");
-        clearInterval(this.repeatTimer);
     }
 
 
@@ -66,13 +60,13 @@ export default class QueryConsole extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
-        if (this.props.query !== prevProps.query) {
-            this.setState({query: this.props.query});
+        if (this.props.defaultQuery !== prevProps.defaultQuery && prevProps.defaultQuery) {
+            this.setState({defaultQuery: this.props.defaultQuery});
         }
     }
 
     onQueryChange(e) {
-        this.setState({query: e.target.value});
+        this.setState({defaultQuery: e.target.value});
     }
 
 
@@ -86,7 +80,6 @@ export default class QueryConsole extends React.Component {
         } else {
             alert("Query cannot be null")
         }
-
     }
 
 
@@ -112,7 +105,7 @@ export default class QueryConsole extends React.Component {
                                 onChange={this.onQueryChange.bind(this)}
                                 name={"query"}
                                 onKeyDown={this.onEnterPress.bind(this)}
-                                value={this.props.defaultQuery}
+                                value={this.state.defaultQuery}
                                 placeholder={this.props.defaultPlaceholderText}/>
                             <div className={"queryOptions"}>
                                 <div className={"float-left"}>

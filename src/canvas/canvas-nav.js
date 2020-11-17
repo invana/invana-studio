@@ -139,6 +139,7 @@ export default class CanvasNav extends React.Component {
                                 makeQuery={this.props.makeQuery}
                                 connector={this.props.connector}
                                 defaultQuery={this.props.defaultQuery}
+                                // value={this.state.defaultQuery}
                                 onClose={() => {
                                     this.switchToCanvasMenu(null);
                                     this.props.setDefaultQuery("");
