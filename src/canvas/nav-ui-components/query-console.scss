@@ -4,6 +4,7 @@
   position: fixed;
   background: $darkBg;
   width: calc(100% - 350px - 6px - 300px);
+  max-width: 800px;
   top: 77px;
   //left: calc(346px + 300px);
   right: 0;
