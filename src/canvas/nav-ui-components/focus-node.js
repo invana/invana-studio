@@ -22,18 +22,27 @@ export default class FocusNode extends React.Component {
 
     state = {
         nodeTextOrId: "",
-        results: [], // the results returned when searched for node text.
+        queryResults: [], // the results returned when searched for node text.
         infoMessage: null,
         errorMessage: null
     }
 
     onQueryChange(e) {
         const searchWord = e.target.value;
+        let queryResults = []
         if (searchWord) {
-            // find search results and
-            // const results = this.dataStore.searchByNodeLabelTextOrId(
-            this.setState({nodeTextOrId: searchWord})
+            queryResults = this.props.dataStore.searchNodeByNodeLabelTextOrId(searchWord);
+        }else {
+            this.setState({infoMessage: null, errorMessage: null });
         }
+        // if (searchWord) {
+        // find search results and
+        // const results = this.dataStore.searchByNodeLabelTextOrId(
+        this.setState({
+            nodeTextOrId: searchWord,
+            queryResults: queryResults
+        });
+        // }
     }
 
     onFormSubmit(e) {
@@ -43,10 +52,10 @@ export default class FocusNode extends React.Component {
     }
 
 
-    onFocusNodeClicked() {
+    onFocusNodeClicked(nodeData) {
         //
         const nodeLabel = this.state.nodeTextOrId;
-        const nodeData = this.props.dataStore.getNodeByNodeLabelTextOrId(nodeLabel);
+        // const nodeData = this.props.dataStore.getNodeByNodeLabelTextOrId(nodeLabel);
         console.log("======****nodeData", nodeData)
         console.log("======****nodeLabel", nodeLabel)
         if (nodeData) {
@@ -89,7 +98,7 @@ export default class FocusNode extends React.Component {
                         <form id={"queryForm"}
                               onSubmit={(e) => this.onFormSubmit(e)}>
 
-                            <label>Search for node by label to focus on</label>
+                            <label>Search for node by label or Id to focus on</label>
                             <input type="text"
                                    spellCheck={false}
                                    autoFocus
@@ -97,13 +106,31 @@ export default class FocusNode extends React.Component {
                                    onChange={this.onQueryChange.bind(this)}
                                    placeholder={"Node label text or Id"}
                             />
-                            <button className={"focus-btn"} type={"submit"} onClick={() => this.onFocusNodeClicked()}>
-                                <FontAwesomeIcon icon={faDotCircle}/> Focus
-                            </button>
+                            {/*<button className={"focus-btn"} type={"submit"} onClick={() => this.onFocusNodeClicked()}>*/}
+                            {/*    <FontAwesomeIcon icon={faDotCircle}/> Focus*/}
+                            {/*</button>*/}
                         </form>
                         {/*<hr/>*/}
                         <br/>
 
+
+                        {
+                            this.state.queryResults
+                                ? <ul className={"focus-results"}>
+                                    {
+                                        this.state.queryResults.map((result, index) => {
+                                            return (
+                                                <li onClick={() => this.onFocusNodeClicked(result)}
+                                                    key={index}>
+                                                    <span style={{"backgroundColor": result.meta.shapeOptions.fillColorHex}}>.</span>
+                                                    {result.meta.labelOptions.labelText}
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ul>
+                                : <span></span>
+                        }
 
                         {
                             this.state.errorMessage
@@ -119,13 +146,6 @@ export default class FocusNode extends React.Component {
                                 <span></span>
                         }
 
-                        {/*{*/}
-                        {/*    this.state.results.map((result, index) => {*/}
-                        {/*        return (*/}
-                        {/*            <div key={index}>{result.id} - {result.title}</div>*/}
-                        {/*        )*/}
-                        {/*    })*/}
-                        {/*}*/}
                     </div>
                 </GEPanel>
             </div>

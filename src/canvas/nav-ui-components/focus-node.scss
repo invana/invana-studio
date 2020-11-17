@@ -20,13 +20,32 @@
   }
 
   input[type="text"] {
-    width: 229px;
+    width: calc(100% - 12px);
   }
 
   .focus-btn {
     border: 1px solid $borderColor !important;
     padding: 5px;
     margin-left: 5px;
+  }
+}
+
+.focus-results {
+  li {
+     cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid $borderColor;
+    span {
+      background-color: rgb(210, 186, 45);
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: baseline;
+    }
+  }
+  li:hover{
+    color: $primaryColor;
   }
 }
 

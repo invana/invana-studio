@@ -89,18 +89,25 @@ export default class InMemoryDataStore {
     }
 
     searchNodeByNodeLabelTextOrId(labelTextOrId) {
-        console.log("searchNodeByNodeLabelTextOrId", labelTextOrId)
-        let results = []
-        // for (const [nodeId, nodeData] of this.#vertices.entries()) {
-        //     // console.log("=====key", key);
-        //     if(labelTextOrId === nodeId){
-        //         return nodeData;
-        //     }
-        //     if (nodeData.meta.nodeShape.labelText === labelTextOrId){
-        //         return nodeData;
-        //     }
-        //     // data.push(value);
-        // }
+        console.log("searchNodeByNodeLabelTextOrId", labelTextOrId, Number.isInteger(labelTextOrId))
+        let results = [];
+        const intLabelTextOrIdInt = parseInt(labelTextOrId);
+        const strLabelTextOrIdInt = labelTextOrId.toString();
+        for (const [nodeId, nodeData] of this.#vertices.entries()) {
+            // console.log("=====key", key);
+            if (strLabelTextOrIdInt === nodeId || intLabelTextOrIdInt === nodeId) {
+                // covers both text and string version of the word
+                results.push(nodeData);
+            } else if (nodeData.meta.labelOptions.labelText) {
+                // const intVersionOfTextOrId = parseInt(nodeData.meta.labelOptions.labelText);
+                const strVersionOfTextOrId = nodeData.meta.labelOptions.labelText.toString().toLowerCase();
+                if (strVersionOfTextOrId.includes(strLabelTextOrIdInt)) {
+                    results.push(nodeData);
+                }
+                // .includes(labelTextOrId)
+            }
+            // data.push(value);
+        }
 
         return results;
     }
