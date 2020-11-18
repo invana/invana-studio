@@ -45,17 +45,67 @@ export default class GraphicsStore {
     }
 
 
-    focusOnNodes(nodes) {
-        console.log("=====focusOnNodes", nodes);
+    getElementsToHighlightFromNodes(nodes) {
+        /*
+        This method will return the nodes and links to highlight.
+        from nodes.
+         */
+
+        const notNeighborData = this.dataStore.getNotNeighborLinks(nodes);
+        // const {verticesToRender, edgesToRender} = this.dataStore.getDataToRender()
+        const neighborsData = this.dataStore.getNeighborNodesAndLinks(nodes);
+        // let notNeighborData ={}
+        return {notNeighborData, neighborsData}
+
+    }
+
+    getElementsToHighlightFromLink(linkData) {
+        /*
+        This method will return the nodes and links to highlight
+        from link.
+         */
+
+        const neighborsData = {
+            links: [linkData],
+            nodes: [linkData.source, linkData.target]
+        }
+        let notNeighborData = {
+            notNeighborNodes: [],
+            notNeighborLinks: []
+        }
+
+        this.dataStore.getAllRawVerticesList().forEach((node) => {
+            if (!neighborsData.nodes.includes(node)) {
+                notNeighborData.notNeighborNodes.push(node);
+            }
+        })
+        this.dataStore.getAllRawEdgesList().forEach((link) => {
+            if (!neighborsData.links.includes(link)) {
+                notNeighborData.notNeighborLinks.push(link);
+            }
+        })
+
+        return {notNeighborData, neighborsData}
+
+    }
+
+
+    focusOnElements(nodes, linkData) {
+        console.log("=====focusOnElements", nodes, linkData);
         let _this = this;
         // this.resetFocus();
-        const {notNeighborLinks, notNeighborNodes} = _this.dataStore.getNotNeighborLinks(nodes);
-        // const {verticesToRender, edgesToRender} = this.dataStore.getDataToRender()
-        const neighbors = _this.dataStore.getNeighborNodesAndLinks(nodes);
+        let data = null;
 
-
+        if (linkData) {
+            data = this.getElementsToHighlightFromLink(linkData)
+        } else {
+            data = this.getElementsToHighlightFromNodes(nodes)
+        }
+        if (!nodes) {
+            nodes = data.neighborsData.nodes;
+        }
         // // unhighlighting not  neighbors
-        notNeighborLinks.forEach((linkData) => {
+        data.notNeighborData.notNeighborLinks.forEach((linkData) => {
             let linkGfx = _this.linkDataToLinkGfx.get(linkData.id);
             let linkGfxLabel = _this.linkDataToLabelGfx.get(linkData.id);
 
@@ -68,8 +118,7 @@ export default class GraphicsStore {
             _this.graphicsEngine.linksLabelsLayer.removeChild(linkGfxLabel);
             _this.graphicsEngine.frontLayer.addChild(linkGfxLabel);
         })
-
-        notNeighborNodes.forEach((node2Highlight) => {
+        data.notNeighborData.notNeighborNodes.forEach((node2Highlight) => {
             let nodeContainer = _this.nodeDataToNodeGfx.get(node2Highlight.id);
             // console.log("==nodeContainer", node2Highlight, nodeContainer);
             const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight.id);
@@ -91,7 +140,7 @@ export default class GraphicsStore {
 
 
         // highlighting neighbors
-        neighbors.links.forEach((linkData) => {
+        data.neighborsData.links.forEach((linkData) => {
             let linkGfx = _this.linkDataToLinkGfx.get(linkData.id);
             let linkGfxLabel = _this.linkDataToLabelGfx.get(linkData.id);
 
@@ -104,7 +153,7 @@ export default class GraphicsStore {
             _this.graphicsEngine.linksLabelsLayer.removeChild(linkGfxLabel);
             _this.graphicsEngine.frontLayer.addChild(linkGfxLabel);
         })
-        neighbors.nodes.forEach((node2Highlight) => {
+        data.neighborsData.nodes.forEach((node2Highlight) => {
             let nodeContainer = _this.nodeDataToNodeGfx.get(node2Highlight.id);
             // console.log("==nodeContainer", node2Highlight, nodeContainer);
             const labelGfx = _this.nodeDataToLabelGfx.get(node2Highlight.id);
@@ -149,9 +198,9 @@ export default class GraphicsStore {
             // move to front layer
             // _this.graphicsEngine.nodesLayer.removeChild(nodeContainer);
             // _this.graphicsEngine.frontLayer.addChild(nodeContainer);
-
-
         });
+
+
     }
 
     //

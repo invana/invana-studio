@@ -64,7 +64,7 @@ export default class FocusNode extends React.Component {
 
                 const uniqueNodes = Object.assign([],
                     this.props.getGraphicsEngine().dataStore.getUniqueFocusedNodes());
-                this.props.getGraphicsEngine().graphicsStore.focusOnNodes(uniqueNodes);
+                this.props.getGraphicsEngine().graphicsStore.focusOnElements(uniqueNodes);
                 console.log("======uniqueNodes", uniqueNodes)
                 this.props.setFocusedNodes(uniqueNodes)
                 this.props.getGraphicsEngine().zoom2Point(nodeData.x, nodeData.y);

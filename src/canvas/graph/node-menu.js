@@ -52,7 +52,7 @@ export default class NodeMenu extends React.Component {
             this.props.graphicsEngine.zoom2Point(lastSelectedNodeData.x, lastSelectedNodeData.y);
             const focusedNodes = this.props.graphicsEngine.dataStore.getUniqueFocusedNodes();
             this.props.setFocusedNodes(focusedNodes);
-            this.props.graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
+            this.props.graphicsEngine.graphicsStore.focusOnElements(focusedNodes);
             // this.setState({focusedNodes: this.props.graphicsEngine.dataStore.getUniqueFocusedNodes()});
             this.hideMenu();
         }

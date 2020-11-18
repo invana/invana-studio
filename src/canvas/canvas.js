@@ -123,7 +123,7 @@ export default class Canvas extends React.Component {
         this.setFocusedNodes(focusedNodes);
 
         if (focusedNodes.length !== 0) {
-            graphicsEngine.graphicsStore.focusOnNodes(focusedNodes);
+            graphicsEngine.graphicsStore.focusOnElements(focusedNodes);
         } else {
             graphicsEngine.graphicsStore.resetFocus();
         }

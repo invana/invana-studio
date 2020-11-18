@@ -139,7 +139,7 @@ export default class PIXICanvas extends React.Component {
         // console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
 
         // if (this.state.focusedNodes !== newState.focusedNodes) {
-        //     this.graphicsEngine.graphicsStore.focusOnNodes(this.state.focusedNodes);
+        //     this.graphicsEngine.graphicsStore.focusOnElements(this.state.focusedNodes);
         // }
 
         return nextProps.shallReRenderD3Canvas
@@ -233,7 +233,7 @@ export default class PIXICanvas extends React.Component {
             graphicsEngine.highlightNodeById(lastSelectedNodeData.id)
         } else if (focusedNodes.length > 0) {
             // graphicsEngine.zoom2Node(lastSelectedNodeData.id)
-            graphicsEngine.graphicsStore.focusOnNodes(focusedNodes)
+            graphicsEngine.graphicsStore.focusOnElements(focusedNodes)
             graphicsEngine.zoom2Node(focusedNodes[-0].id)
 
         }

@@ -35,7 +35,8 @@ export default class EventStore {
         console.log(linkData.id, linkGfx, event, "link MouseOver");
         // this.lastSelectedNodeData = null;
 
-        // graphicsEngine.eventStore.hideMenu();
+        this.highlightLink(graphicsEngine, linkData);
+        graphicsEngine.eventStore.hideMenu();
         graphicsEngine.onElementSelected(linkData);
 
     }
@@ -44,6 +45,7 @@ export default class EventStore {
         console.log(linkData.id, linkGfx, event, "link MouseOut");
         // this.lastSelectedNodeData = null;
         // graphicsEngine.eventStore.hideMenu();
+        this.unHighlightLink(graphicsEngine, linkData);
         graphicsEngine.onElementSelected(null);
     }
 
@@ -83,9 +85,19 @@ export default class EventStore {
     highlightNodes(graphicsEngine, nodes) {
         console.log("highlightNodes ", nodes);
         // add hover effect
-        graphicsEngine.graphicsStore.focusOnNodes(nodes);
+        graphicsEngine.graphicsStore.focusOnElements(nodes);
         graphicsEngine.requestRender();
+    }
 
+    highlightLink(graphicsEngine, linkData) {
+        console.log("highlightLink ", linkData);
+        graphicsEngine.graphicsStore.focusOnElements(null, linkData);
+        graphicsEngine.requestRender();
+    }
+    unHighlightLink(graphicsEngine, linkData) {
+        console.log("unHighlightLink ", linkData);
+        graphicsEngine.graphicsStore.resetFocus();
+        graphicsEngine.requestRender();
     }
 
     unHighlightNode(graphicsEngine, nodeData) {
