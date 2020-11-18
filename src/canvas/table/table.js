@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import "./table.scss";
 import GraphSONDeSerializer from "../../serializers/graphson-v3";
 import {getDataFromLocalStorage} from "../../core/utils";
+import {renderPropertyData} from "../canvas-utils";
 
 
 const gremlinDeSerializer = new GraphSONDeSerializer();
@@ -93,7 +94,7 @@ export class TableComponent extends React.Component {
                                     {
 
                                         propertyKeys.map((prop, index) => {
-                                            return (<td key={index}>{node.properties[prop]}</td>)
+                                            return (<td key={index}>{renderPropertyData(prop, node.properties[prop])}</td>)
                                         })
                                     }
                                 </tr>

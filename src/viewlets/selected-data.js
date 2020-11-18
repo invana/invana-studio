@@ -1,6 +1,7 @@
 import React from "react";
 import "./selected-data.scss";
 import PropTypes from "prop-types";
+import {renderPropertyData} from "../canvas/canvas-utils";
 
 export default class SelectedData extends React.Component {
 
@@ -32,15 +33,7 @@ export default class SelectedData extends React.Component {
         }
     }
 
-    renderPropertyData(key, value) {
-        console.log("renderPropertyData", typeof value, value instanceof Boolean, value,);
-        if (typeof value === "boolean") {
-            return value.toString();
-        } else if (value === null) {
-            return "None";
-        }
-        return value;
-    }
+
 
 
     render() {
@@ -140,7 +133,7 @@ export default class SelectedData extends React.Component {
                                     <div className={"propertyData"}>
                                         <strong className={"propertyKey"}>{propKey}:</strong>
                                         <div
-                                            style={{"marginTop": "5px"}}>{this.renderPropertyData(propKey, cleanedData.properties[propKey])}</div>
+                                            style={{"marginTop": "5px"}}>{renderPropertyData(propKey, cleanedData.properties[propKey])}</div>
                                     </div>
                                 </div>
                             )

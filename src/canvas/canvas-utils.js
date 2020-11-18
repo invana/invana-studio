@@ -24,6 +24,17 @@ export const colorToNumber = (c) => {
     return parseInt(c.slice(1), 16)
 }
 
+
+export function renderPropertyData(key, value) {
+    console.log("renderPropertyData", typeof value, value instanceof Boolean, value,);
+    if (typeof value === "boolean") {
+        return value.toString();
+    } else if (value === null) {
+        return "None";
+    }
+    return value;
+}
+
 export function getDefaultNodeOptions(label) {
 
     return {
