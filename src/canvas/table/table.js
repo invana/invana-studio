@@ -8,7 +8,195 @@ import {renderPropertyData} from "../canvas-utils";
 
 const gremlinDeSerializer = new GraphSONDeSerializer();
 
-export class TableComponent extends React.Component {
+export class VertexTableComponent extends React.Component {
+    static defaultProps = {
+        data: null,
+        label: null,
+        type: null
+    }
+
+    static propTypes = {
+        data: PropTypes.arrayOf(
+            PropTypes.shape({
+                properties: PropTypes.object,
+                type: PropTypes.string
+            })
+        ),
+        label: PropTypes.string,
+        type: PropTypes.string,
+    }
+
+    getPropertyKeys() {
+        if (this.props.data.length === 0) {
+            return []
+        } else {
+            return Object.keys(this.props.data[0].properties || {})
+        }
+    }
+
+    getElementType(elem) {
+        return elem.type === "g:Vertex" ? "V" : "E";
+    }
+
+    getElementColor(elem) {
+        const elType = this.getElementType(elem);
+        if (elType === "V" && elem.meta) {
+            return elem.meta.shapeOptions.fillColorHex;
+        } else if (elType === "E" && elem.meta) {
+            return elem.meta.shapeOptions.strokeColorHex;
+        }
+    }
+
+    getInELabels() {
+        // TODO - right now, schema is decided based on first element, need to fix this ASAP
+        // what if there were more edge labels for the second element. !! :(
+        const elem = this.getFirstElement();
+        let labels = [];
+        console.log("getInELabels", elem);
+        Object.keys(elem.inData).map((inELabel) => {
+            labels.push(inELabel);
+        })
+        return labels;
+    }
+
+    getOutELabels() {
+        const elem = this.getFirstElement();
+        let labels = [];
+        Object.keys(elem.outData).map((outELabel) => {
+            labels.push(outELabel);
+        })
+        return labels;
+    }
+
+    getFirstElement() {
+        return this.props.data[0];
+    }
+
+    render() {
+        const propertyKeys = this.getPropertyKeys();
+        const elColor = this.getElementColor(this.props.data[0]);
+        console.log("VertexTableComponent here", this.props.label)
+        console.log("VertexTableComponent here  this.props.data[0]", this.props.data[0])
+        let colorOptions = {};
+        if (this.props.type === "Vertex") {
+            const _ = getDataFromLocalStorage("nodeLabels", true) || {}
+            colorOptions = _[this.props.label] || {};
+        } else {
+            const _ = getDataFromLocalStorage("linkLabels", true) || {}
+            colorOptions = _[this.props.label] || {}
+        }
+
+        return (
+            <div className={"VertexTableComponent"}>
+                {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
+                <table className={" mb-10 "}>
+                    <thead>
+                    <tr style={{
+                        "backgroundColor": colorOptions.bgColor,
+                    }}>
+
+
+                        <th colSpan={2}>MetaData</th>
+                        <th colSpan={propertyKeys.length}>Properties</th>
+                        <th colSpan={this.getInELabels().length}>InE Data</th>
+                        <th colSpan={this.getOutELabels().length}>OutE Data</th>
+                    </tr>
+                    <tr style={{
+                        "backgroundColor": colorOptions.bgColor,
+                    }}>
+
+                        <td>Label<span>({this.getElementType(this.getFirstElement())})</span></td>
+                        <td>Id</td>
+                        {
+                            propertyKeys.map((propertyKey, index) => {
+                                return (
+                                    <td key={index}>{propertyKey}</td>
+                                )
+                            })
+                        }
+                        {
+                            this.getInELabels().map((edgeLabel, index) => {
+                                return (
+                                    <td key={index}
+                                        style={{"color": this.getFirstElement().inData[edgeLabel].edgeFillColorHex}}>{edgeLabel}</td>
+                                )
+                            })
+                        }
+                        {
+                            this.getOutELabels().map((edgeLabel, index) => {
+                                return (
+                                    <td key={index}
+                                        style={{"color": this.getFirstElement().outData[edgeLabel].edgeFillColorHex}}>{edgeLabel}</td>
+                                )
+                            })
+                        }
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        this.props.data.map((node) => {
+                            return (
+                                <tr key={node.id}>
+                                    {/*<td>{node.type}</td>*/}
+                                    <td style={{"color": elColor}}>{node.label}</td>
+                                    <td>{node.id}</td>
+                                    {
+                                        propertyKeys.map((prop, index) => {
+                                            return (
+                                                <td key={index}>{renderPropertyData(prop, node.properties[prop])}</td>)
+                                        })
+                                    }
+                                    {
+                                        Object.keys(node.inData).map((inELabel, index) => {
+                                            return (
+                                                <td key={index}>
+                                                    {
+                                                        node.inData[inELabel].vertices.map((vertex, vtxIndex) => {
+                                                            return (
+                                                                <button className={"btn"} key={vtxIndex} title={vertex.label}
+                                                                        style={{"borderColor": vertex.fillColorHex}}>
+                                                                    {vertex.labelText}
+                                                                </button>
+                                                            )
+                                                        })
+                                                    }
+                                                </td>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        Object.keys(node.outData).map((outELabel, index) => {
+                                            return (
+                                                <td key={index}>
+                                                    {
+                                                        node.outData[outELabel].vertices.map((vertex, vtxIndex) => {
+                                                            return (
+                                                                <button className={"btn"} key={vtxIndex} title={vertex.label}
+                                                                        style={{"borderColor": vertex.fillColorHex}}>
+                                                                    {vertex.labelText}
+                                                                </button>
+                                                            )
+                                                        })
+                                                    }
+                                                </td>
+                                            )
+                                        })
+                                    }
+                                </tr>
+                            )
+                        })
+                    }
+                    </tbody>
+                </table>
+
+
+            </div>
+        )
+    }
+
+}
+
+export class EdgeTableComponent extends React.Component {
     static defaultProps = {
         data: null,
         label: null,
@@ -50,7 +238,8 @@ export class TableComponent extends React.Component {
     render() {
         const propertyKeys = this.getPropertyKeys();
         const elColor = this.getElementColor(this.props.data[0]);
-        console.log("TableComponent here", this.props.label)
+        console.log("EdgeTableComponent here", this.props.label)
+        console.log("EdgeTableComponent here  this.props.data[0]", this.props.data[0])
         let colorOptions = {};
         if (this.props.type === "Vertex") {
             const _ = getDataFromLocalStorage("nodeLabels", true) || {}
@@ -61,7 +250,7 @@ export class TableComponent extends React.Component {
         }
 
         return (
-            <div className={"tableComponent"}>
+            <div className={"VertexTableComponent"}>
                 {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
                 <table className={" mb-10 "}>
                     <thead>
@@ -73,8 +262,8 @@ export class TableComponent extends React.Component {
                         <th colSpan={2}>MetaData</th>
 
                         <th colSpan={propertyKeys.length}>Properties</th>
-                        <th>InE</th>
-                        <th>OutE</th>
+                        <th>from</th>
+                        <th>to (outV)</th>
                     </tr>
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor,
@@ -82,17 +271,17 @@ export class TableComponent extends React.Component {
 
                         {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
                         {/*<th>Type</th>*/}
-                        <th>Label<span>({this.getElementType(this.props.data[0])})</span></th>
-                        <th>Id</th>
+                        <td>Label<span>({this.getElementType(this.props.data[0])})</span></td>
+                        <td>Id</td>
                         {
                             propertyKeys.map((propertyKey, index) => {
                                 return (
-                                    <th key={index}>{propertyKey}</th>
+                                    <td key={index}>{propertyKey}</td>
                                 )
                             })
                         }
-                        <th>InV</th>
-                        <th>OutV</th>
+                        <td>from</td>
+                        <td>to (outV)</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -102,7 +291,7 @@ export class TableComponent extends React.Component {
                                 <tr key={node.id}>
                                     {/*<td>{node.type}</td>*/}
                                     <td style={{"color": elColor}}>{node.label}</td>
-                                    <td style={{"color": elColor}}>{node.id}</td>
+                                    <td>{node.id}</td>
                                     {
 
                                         propertyKeys.map((prop, index) => {
@@ -110,6 +299,16 @@ export class TableComponent extends React.Component {
                                                 <td key={index}>{renderPropertyData(prop, node.properties[prop])}</td>)
                                         })
                                     }
+                                    <td>
+                                        <button className={"btn"} title={node.label}
+                                                style={{"borderColor": node.source.meta.shapeOptions.fillColorHex}}>
+                                            {node.source.meta.labelOptions.labelText}</button>
+                                    </td>
+                                    <td>
+                                        <button className={"btn"} title={node.label}
+                                                style={{"borderColor": node.target.meta.shapeOptions.fillColorHex}}>
+                                            {node.target.meta.labelOptions.labelText}</button>
+                                    </td>
                                 </tr>
                             )
                         })
@@ -151,14 +350,14 @@ export default class TableCanvas extends React.Component {
 
                     {
                         Object.keys(vertexGroups).map((nodeLabel, index) => (
-                            <TableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
-                                            data={vertexGroups[nodeLabel]}/>
+                            <VertexTableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
+                                                  data={vertexGroups[nodeLabel]}/>
                         ))
                     }
                     {
                         Object.keys(edgeGroups).map((linkLabel, index) => (
-                            <TableComponent type={"Edge"} key={edgeGroups + index} label={linkLabel}
-                                            data={edgeGroups[linkLabel]}/>
+                            <EdgeTableComponent type={"Edge"} key={edgeGroups + index} label={linkLabel}
+                                                data={edgeGroups[linkLabel]}/>
                         ))
                     }
                 </div>

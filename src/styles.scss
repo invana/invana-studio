@@ -11,9 +11,11 @@ body {
   //line-height: 1.6rem;
   font-size: 13px;
 }
-body{
+
+body {
   overflow: hidden;
 }
+
 ul li, p, a, button {
   font-size: 13px;
 
@@ -81,6 +83,15 @@ input, textarea {
   overflow: auto;
   white-space: nowrap;
   color: white;
+}
+
+.btn {
+  border: 1px solid;
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1rem;
+  border-radius: 2px;
+  margin-right: 5px;
 }
 
 button {
@@ -288,6 +299,7 @@ textarea::-webkit-scrollbar-thumb {
   margin-bottom: 0;
   color: $errorColor;
 }
-.text-muted{
+
+.text-muted {
   color: #696969;
 }

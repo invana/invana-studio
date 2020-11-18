@@ -242,23 +242,120 @@ export default class InMemoryDataStore {
         // return {newVerticesToRender, newEdgesToRender}
     }
 
+
+    checkIfNodeIsInVorOutV(link, nodeData) {
+        if (link.inV === nodeData.id) {
+            return "inV";
+        } else if (link.outV === nodeData.id) {
+            return "outV";
+        }
+    }
+
+
+    getNodeBasicInfo(nodeData){
+        return {
+            id: nodeData.id,
+            labelText: nodeData.meta.labelOptions.labelText,
+            label: nodeData.label,
+            fillColorHex: nodeData.meta.shapeOptions.fillColorHex
+        }
+    }
+
+    groupLinksToInEAndOutEByLabel(links, nodeData) {
+        let inVGroups = {};
+        let outVGroups = {};
+        let _this = this;
+        links.forEach(function (link) {
+            // TODO - review this for performance.
+
+            const linkType = _this.checkIfNodeIsInVorOutV(link, nodeData);
+            if (linkType === "inV") {
+                // so this node is an inV, so lets gather the info or outV for this, which is source (from d3)
+                if (link.label in inVGroups) {
+                    inVGroups[link.label].vertices.push(_this.getNodeBasicInfo(link.source))
+                } else {
+                    inVGroups[link.label] = {
+                        // edgeLabel: "InE Label 1",
+                        edgeFillColorHex: link.meta.shapeOptions.strokeColorHex,
+                        vertices: [_this.getNodeBasicInfo(link.source)]
+                    }
+
+                }
+            } else if (linkType === "outV") {
+                if (link.label in outVGroups) {
+                    outVGroups[link.label].vertices.push(_this.getNodeBasicInfo(link.target))
+                } else {
+                    outVGroups[link.label] = {
+                        // edgeLabel: "InE Label 1",
+                        edgeFillColorHex: link.meta.shapeOptions.strokeColorHex,
+                        vertices: [_this.getNodeBasicInfo(link.target)]
+                    }
+                }
+            }
+
+        });
+        return {inVGroups, outVGroups};
+    }
+
     determineAllDataToRender() {
         console.log("=====getDataToRender triggered");
         const verticesData = this.getAllRawVerticesList();
         const edgesData = this.getAllRawEdgesList();
+        const _this = this;
 
 
-        edgesData.map((edge) => {
+        verticesData.map((vertex) => {
+            //
+            // TODO - fix performance ASAP.
+            const neighborData = this.getNeighborNodesAndLinks([vertex])
             //
 
+            // const links = neighborData.links;
+            const {inVGroups, outVGroups} = _this.groupLinksToInEAndOutEByLabel(neighborData.links, vertex)
+
+            // group links by label
+            vertex.inData = inVGroups;
+            vertex.outData = outVGroups;
+
+            // vertex.inData = {
+            //     "InE Label 1": {
+            //         // edgeLabel: "InE Label 1",
+            //         edgeFillColorHex: "red",
+            //         vertices: [{
+            //             id: 'abc',
+            //             label: "ABC",
+            //             fillColorHex: "#efefef"
+            //         }]
+            //     },
+            //     "InE Label 2": {
+            //         edgeLabel: "InE Label 2",
+            //         edgeFillColorHex: "green",
+            //         vertices: [{
+            //             id: 'abc',
+            //             label: "ABC",
+            //             fillColorHex: "#efefef"
+            //         }]
+            //     }
+            //
+            // }
+            // vertex.outData = {
+            //     "outE Label": {
+            //         // edgeLabel: "outE Label",
+            //         edgeFillColorHex: "yellow",
+            //         vertices: [{
+            //             id: 'abc',
+            //             label: "ABC",
+            //             fillColorHex: "#efefef"
+            //         }]
+            //     }
+            // }
 
         });
 
         const {newVerticesToRender, newEdgesToRender} = {
             newVerticesToRender: verticesData,
-            newEdgesToRender: this.getAllRawEdgesList()
+            newEdgesToRender: edgesData
         }
-
 
 
         console.log("======newVerticesToRender, newEdgesToRender", newVerticesToRender, newEdgesToRender)
