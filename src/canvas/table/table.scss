@@ -3,7 +3,8 @@
 
 .tableCanvas {
   overflow-y: scroll;
-  height: 100%;
+  height: calc(100% - 20px);
+  position: relative;
 
 
   table {

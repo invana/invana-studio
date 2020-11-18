@@ -11,7 +11,9 @@ body {
   //line-height: 1.6rem;
   font-size: 13px;
 }
-
+body{
+  overflow: hidden;
+}
 ul li, p, a, button {
   font-size: 13px;
 
@@ -253,25 +255,26 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-body::-webkit-scrollbar,
+//body::-webkit-scrollbar,
 .tableCanvas::-webkit-scrollbar,
 .jsonCanvas::-webkit-scrollbar,
 textarea::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
-body::-webkit-scrollbar-track,
+//body::-webkit-scrollbar-track,
 .tableCanvas::-webkit-scrollbar-track,
 .jsonCanvas::-webkit-scrollbar-track,
 textarea::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-body::-webkit-scrollbar-thumb,
+//body::-webkit-scrollbar-thumb,
 .tableCanvas::-webkit-scrollbar-thumb,
 .jsonCanvas::-webkit-scrollbar-thumb,
 textarea::-webkit-scrollbar-thumb {
-  background-color: $darkBgSecondary;
+  background-color: $primaryColor;
   outline: 1px solid $borderColor;
 }
 
