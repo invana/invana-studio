@@ -1,6 +1,8 @@
 // import {colorToNumber, getColor, getLinkLabel, getNodeLabel} from "./old/utils";
 // import * as PIXI from 'pixi.js-legacy'
 
+import {node} from "prop-types";
+
 export default class EventStore {
 
     clickedNodeData = undefined;//
@@ -60,6 +62,9 @@ export default class EventStore {
         graphicsEngine.onElementSelected(nodeData);
         console.log("clicked", event);
         this.createNodeMenu(graphicsEngine, nodeData, event);
+        if (nodeData) {
+            this.highlightNodes(graphicsEngine, [nodeData])
+        }
 
     }
 
@@ -79,6 +84,8 @@ export default class EventStore {
         console.log("highlightNodes ", nodes);
         // add hover effect
         graphicsEngine.graphicsStore.focusOnNodes(nodes);
+        graphicsEngine.requestRender();
+
     }
 
     unHighlightNode(graphicsEngine, nodeData) {
@@ -117,7 +124,6 @@ export default class EventStore {
                 return;
             }
             this.hoveredNodeData = nodeData;
-            graphicsEngine.requestRender();
         }
 
     }
