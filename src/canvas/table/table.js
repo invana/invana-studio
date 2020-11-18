@@ -69,10 +69,20 @@ export class TableComponent extends React.Component {
                         "backgroundColor": colorOptions.bgColor,
                     }}>
 
+
+                        <th colSpan={2}>MetaData</th>
+
+                        <th colSpan={propertyKeys.length}>Properties</th>
+                        <th>InE</th>
+                        <th>OutE</th>
+                    </tr>
+                    <tr style={{
+                        "backgroundColor": colorOptions.bgColor,
+                    }}>
+
                         {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
                         {/*<th>Type</th>*/}
-                        <th>Label<span>({this.getElementType(this.props.data[0])})</span>
-                        </th>
+                        <th>Label<span>({this.getElementType(this.props.data[0])})</span></th>
                         <th>Id</th>
                         {
                             propertyKeys.map((propertyKey, index) => {
@@ -81,6 +91,8 @@ export class TableComponent extends React.Component {
                                 )
                             })
                         }
+                        <th>InV</th>
+                        <th>OutV</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -94,7 +106,8 @@ export class TableComponent extends React.Component {
                                     {
 
                                         propertyKeys.map((prop, index) => {
-                                            return (<td key={index}>{renderPropertyData(prop, node.properties[prop])}</td>)
+                                            return (
+                                                <td key={index}>{renderPropertyData(prop, node.properties[prop])}</td>)
                                         })
                                     }
                                 </tr>
@@ -122,9 +135,12 @@ export default class TableCanvas extends React.Component {
     }
 
     render() {
-        const {vertices, edges} = this.props.dataStore.getAllData();
-        const vertexGroups = gremlinDeSerializer.groupByLabel(vertices);
-        const edgeGroups = gremlinDeSerializer.groupByLabel(edges);
+        // const {vertices, edges} = this.props.dataStore.getAllData();
+
+        const {verticesToRender, edgesToRender} = this.props.dataStore.determineAllDataToRender();
+
+        const vertexGroups = gremlinDeSerializer.groupByLabel(verticesToRender);
+        const edgeGroups = gremlinDeSerializer.groupByLabel(edgesToRender);
 
         console.log("=====vertexGroups", vertexGroups)
         return (
