@@ -77,9 +77,9 @@ export default class CanvasNav extends React.Component {
                             <button className={this.props.canvasType === "table" ? "selected" : ""}
                                     onClick={() => this.props.canvasCtrl.switchCanvasTo("table")}>Table
                             </button>
-                            <button className={this.props.canvasType === "json" ? "selected" : ""}
-                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("json")}>JSON
-                            </button>
+                            {/*<button className={this.props.canvasType === "json" ? "selected" : ""}*/}
+                            {/*        onClick={() => this.props.canvasCtrl.switchCanvasTo("json")}>JSON*/}
+                            {/*</button>*/}
                             {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
                             {/*   onClick={() => this.props.switchCanvasTo("raw")}>Raw</a>*/}
 

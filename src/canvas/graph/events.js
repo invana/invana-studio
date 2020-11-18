@@ -1,7 +1,7 @@
 // import {colorToNumber, getColor, getLinkLabel, getNodeLabel} from "./old/utils";
 // import * as PIXI from 'pixi.js-legacy'
 
-import {node} from "prop-types";
+// import {node} from "prop-types";
 
 export default class EventStore {
 
@@ -34,6 +34,11 @@ export default class EventStore {
     onLinkMouseOver(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, linkGfx, event, "link MouseOver");
         // this.lastSelectedNodeData = null;
+        if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
+            // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
+            // dont hover-highlight when there is focus selected.
+            return
+        }
 
         this.highlightLink(graphicsEngine, linkData);
         graphicsEngine.eventStore.hideMenu();
@@ -45,6 +50,12 @@ export default class EventStore {
         console.log(linkData.id, linkGfx, event, "link MouseOut");
         // this.lastSelectedNodeData = null;
         // graphicsEngine.eventStore.hideMenu();
+
+        if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
+            // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
+            // dont hover-highlight when there is focus selected.
+            return
+        }
         this.unHighlightLink(graphicsEngine, linkData);
         graphicsEngine.onElementSelected(null);
     }
@@ -64,9 +75,9 @@ export default class EventStore {
         graphicsEngine.onElementSelected(nodeData);
         console.log("clicked", event);
         this.createNodeMenu(graphicsEngine, nodeData, event);
-        if (nodeData) {
-            this.highlightNodes(graphicsEngine, [nodeData])
-        }
+        // if (nodeData) {
+        //     this.highlightNodes(graphicsEngine, [nodeData])
+        // }
 
     }
 
@@ -94,6 +105,7 @@ export default class EventStore {
         graphicsEngine.graphicsStore.focusOnElements(null, linkData);
         graphicsEngine.requestRender();
     }
+
     unHighlightLink(graphicsEngine, linkData) {
         console.log("unHighlightLink ", linkData);
         graphicsEngine.graphicsStore.resetFocus();
