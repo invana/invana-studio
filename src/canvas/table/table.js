@@ -33,8 +33,22 @@ export class TableComponent extends React.Component {
         }
     }
 
+    getElementType(elem) {
+        return elem.type === "g:Vertex" ? "V" : "E";
+    }
+
+    getElementColor(elem) {
+        const elType = this.getElementType(elem);
+        if (elType === "V" && elem.meta) {
+            return elem.meta.shapeOptions.fillColorHex;
+        } else if (elType === "E" && elem.meta) {
+            return elem.meta.shapeOptions.strokeColorHex;
+        }
+    }
+
     render() {
         const propertyKeys = this.getPropertyKeys();
+        const elColor = this.getElementColor(this.props.data[0]);
         console.log("TableComponent here", this.props.label)
         let colorOptions = {};
         if (this.props.type === "Vertex") {
@@ -55,8 +69,9 @@ export class TableComponent extends React.Component {
                     }}>
 
                         {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
-                        <th>Type</th>
-                        <th>Label</th>
+                        {/*<th>Type</th>*/}
+                        <th>Label<span>({this.getElementType(this.props.data[0])})</span>
+                        </th>
                         <th>Id</th>
                         {
                             propertyKeys.map((propertyKey, index) => {
@@ -72,9 +87,9 @@ export class TableComponent extends React.Component {
                         this.props.data.map((node) => {
                             return (
                                 <tr key={node.id}>
-                                    <td>{node.type}</td>
-                                    <td>{node.label}</td>
-                                    <td>{node.id}</td>
+                                    {/*<td>{node.type}</td>*/}
+                                    <td style={{"color": elColor}}>{node.label}</td>
+                                    <td style={{"color": elColor}}>{node.id}</td>
                                     {
 
                                         propertyKeys.map((prop, index) => {
@@ -106,7 +121,7 @@ export default class TableCanvas extends React.Component {
     }
 
     render() {
-        const {vertices, edges } = this.props.dataStore.getAllData();
+        const {vertices, edges} = this.props.dataStore.getAllData();
         const vertexGroups = gremlinDeSerializer.groupByLabel(vertices);
         const edgeGroups = gremlinDeSerializer.groupByLabel(edges);
 
