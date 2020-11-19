@@ -1,4 +1,5 @@
-import React from "react";
+import React, {Fragment} from "react";
+
 import PropTypes from 'prop-types';
 import "./table.scss";
 import GraphSONDeSerializer from "../../serializers/graphson-v3";
@@ -97,7 +98,11 @@ export class VertexTableComponent extends React.Component {
 
 
                         <th colSpan={2}>MetaData</th>
-                        <th colSpan={propertyKeys.length}>Properties</th>
+                        {propertyKeys.length
+                            ? <th colSpan={propertyKeys.length}>Properties</th>
+                            : <Fragment/>
+                        }
+
                         <th colSpan={this.getInELabels().length}>InE Data</th>
                         <th colSpan={this.getOutELabels().length}>OutE Data</th>
                     </tr>
@@ -153,7 +158,8 @@ export class VertexTableComponent extends React.Component {
                                                     {
                                                         node.inData[inELabel].vertices.map((vertex, vtxIndex) => {
                                                             return (
-                                                                <button className={"btn"} key={vtxIndex} title={vertex.label}
+                                                                <button className={"btn"} key={vtxIndex}
+                                                                        title={vertex.label}
                                                                         style={{"borderColor": vertex.fillColorHex}}>
                                                                     {vertex.labelText}
                                                                 </button>
@@ -171,7 +177,8 @@ export class VertexTableComponent extends React.Component {
                                                     {
                                                         node.outData[outELabel].vertices.map((vertex, vtxIndex) => {
                                                             return (
-                                                                <button className={"btn"} key={vtxIndex} title={vertex.label}
+                                                                <button className={"btn"} key={vtxIndex}
+                                                                        title={vertex.label}
                                                                         style={{"borderColor": vertex.fillColorHex}}>
                                                                     {vertex.labelText}
                                                                 </button>
@@ -260,8 +267,10 @@ export class EdgeTableComponent extends React.Component {
 
 
                         <th colSpan={2}>MetaData</th>
-
-                        <th colSpan={propertyKeys.length}>Properties</th>
+                        {propertyKeys.length
+                            ? <th colSpan={propertyKeys.length}>Properties</th>
+                            : <Fragment/>
+                        }
                         <th>from</th>
                         <th>to (outV)</th>
                     </tr>

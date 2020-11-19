@@ -305,10 +305,8 @@ export default class InMemoryDataStore {
 
 
         verticesData.map((vertex) => {
-            //
             // TODO - fix performance ASAP.
             const neighborData = this.getNeighborNodesAndLinks([vertex])
-            //
 
             // const links = neighborData.links;
             const {inVGroups, outVGroups} = _this.groupLinksToInEAndOutEByLabel(neighborData.links, vertex)
@@ -316,39 +314,9 @@ export default class InMemoryDataStore {
             // group links by label
             vertex.inData = inVGroups;
             vertex.outData = outVGroups;
+        });
 
-            // vertex.inData = {
-            //     "InE Label 1": {
-            //         // edgeLabel: "InE Label 1",
-            //         edgeFillColorHex: "red",
-            //         vertices: [{
-            //             id: 'abc',
-            //             label: "ABC",
-            //             fillColorHex: "#efefef"
-            //         }]
-            //     },
-            //     "InE Label 2": {
-            //         edgeLabel: "InE Label 2",
-            //         edgeFillColorHex: "green",
-            //         vertices: [{
-            //             id: 'abc',
-            //             label: "ABC",
-            //             fillColorHex: "#efefef"
-            //         }]
-            //     }
-            //
-            // }
-            // vertex.outData = {
-            //     "outE Label": {
-            //         // edgeLabel: "outE Label",
-            //         edgeFillColorHex: "yellow",
-            //         vertices: [{
-            //             id: 'abc',
-            //             label: "ABC",
-            //             fillColorHex: "#efefef"
-            //         }]
-            //     }
-            // }
+        edgesData.map((edge)=>{
 
         });
 

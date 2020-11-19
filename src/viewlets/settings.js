@@ -25,7 +25,6 @@ export default class SettingsComponent extends React.Component {
         } else {
             document.getElementById("connection-string").style.display = "none";
             // document.querySelector("connectionStringBtn small").innerText = "show full connection string";
-
         }
     }
 
