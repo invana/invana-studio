@@ -26,7 +26,7 @@ export class VertexTableComponent extends React.Component {
             })
         ),
         vertexSchema: PropTypes.object,
-        dataStore: PropTypes.func,
+        dataStore: PropTypes.object,
         label: PropTypes.string,
         type: PropTypes.string,
     }

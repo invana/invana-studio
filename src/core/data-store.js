@@ -271,63 +271,15 @@ export default class InMemoryDataStore {
     }
 
     getDataToRender() {
-
         const keyValueArray = this.verticesToRender.map(entry => [entry['id'], entry]);
         const map = new Map(keyValueArray);
         const verticesToRender = Array.from(map.values());
 
-
         const keyValueArrayEdge = this.edgesToRender.map(entry => [entry['id'], entry]);
         const mapEdge = new Map(keyValueArrayEdge);
         const edgesToRender = Array.from(mapEdge.values());
-
-
         return {verticesToRender: verticesToRender, edgesToRender: edgesToRender};
-
     }
-
-    checkIfExist(element, existingElements) {
-        // console.log("existingElements", existingElements)
-        existingElements.forEach((_elem) => {
-            // console.log("_elem.id, element.id", (_elem.id === element.id), _elem.id, element.id,)
-            if (_elem.id === element.id) {
-                // console.log("====>>>>>");
-                return true;
-            }
-        })
-        // console.log("=======")
-        return false;
-    }
-
-    getNewDataToRender() {
-
-        // using all the
-
-        // return { newVerticesToRender: this.getAllRawVerticesList(), newEdgesToRender: this.getAllRawEdgesList()}
-
-        // const {verticesAlreadyRendered, edgesAlreadyRendered} = this.getAlreadyRenderedData()
-        // const allRawVertices = this.getAllRawVerticesList();
-        // const allRawEdges = this.getAllRawEdgesList();
-        //
-        // console.log("*****|| allRawVertices allRawEdges", allRawVertices, allRawEdges)
-        // let newVerticesToRender = [];
-        // allRawVertices.forEach((vertex) => {
-        //     console.log("-----------");
-        //     if (!this.checkIfExist(vertex, verticesAlreadyRendered) && !this.checkIfExist(vertex, newVerticesToRender)) {
-        //         console.log("^^node", vertex);
-        //         newVerticesToRender.push(vertex)
-        //     }
-        // })
-        // let newEdgesToRender = [];
-        // allRawEdges.forEach((edge) => {
-        //     if (!this.checkIfExist(edge, edgesAlreadyRendered) && !this.checkIfExist(edge, newEdgesToRender)) {
-        //         newEdgesToRender.push(edge)
-        //     }
-        // })
-        // console.log("*****|| newVerticesToRender", newVerticesToRender, newEdgesToRender)
-        // return {newVerticesToRender, newEdgesToRender}
-    }
-
 
     checkIfNodeIsInVorOutV(link, nodeData) {
         if (link.inV === nodeData.id) {
@@ -448,7 +400,6 @@ export default class InMemoryDataStore {
 
     getAllRawEdgesList() {
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-
         return prepareLinkDataWithOptions(prepareLinksDataForCurves(convertMapKeysToArray(this.#edges)), nodeOptions);
     }
 
