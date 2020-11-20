@@ -36,6 +36,11 @@ export default class InMemoryDataStore {
     verticesAlreadyRendered = [];
     edgesAlreadyRendered = [];
 
+
+    vertexOptions = new Map() // to save vertex meta options
+    edgeOptions = new Map() // to save edge meta options.
+
+
     edgeUniqueStringDelimiter = "====="; // used to create unique links info for the schema
     schema = new Map() // {'sourceLabel': ['sourceLabel--targetLabel--edgeLabel],
     // 'targetLabel': ['sourceLabel--targetLabel--edgeLabel],
@@ -197,6 +202,26 @@ export default class InMemoryDataStore {
         return {inE, outE}
     }
 
+    addToVertexOptions(vertex) {
+        if (!this.vertexOptions.get(vertex.label)) {
+            this.vertexOptions.set(vertex.label, vertex.meta);
+        }
+    }
+
+    getVertexOptions(vertexLabel) {
+        return this.vertexOptions.get(vertexLabel);
+    }
+
+    getEdgeOptions(edgeLabel) {
+        return this.edgeOptions.get(edgeLabel);
+    }
+
+    addToEdgeOptions(edge) {
+        if (!this.edgeOptions.get(edge.label)) {
+            this.edgeOptions.set(edge.label, edge.meta);
+        }
+    }
+
     addData(newVertices, newEdges, onDataUpdated) {
         // make sure the newly added edges data has respective nodes data.
         let _this = this;
@@ -204,9 +229,10 @@ export default class InMemoryDataStore {
             let vertex = newVertices[vertexI];
             let doesNodeExist = _this.checkIfVertexExist(vertex.id);
             if (!doesNodeExist) {
-                _this.addVertexToDataSet(vertex)
+                _this.addVertexToDataSet(vertex);
             }
-            this.addVertexToSchema(vertex)
+            this.addVertexToSchema(vertex);
+            this.addToVertexOptions(vertex);
         }
         for (let edgeI in newEdges) {
             let edge = newEdges[edgeI];
@@ -217,14 +243,15 @@ export default class InMemoryDataStore {
             let checkIfInVExistInStore = _this.checkIfVertexExist(edge.inV);
             console.log("checkIfInVExistInStore", checkIfInVExistInStore, edge.inV);
             if (!checkIfInVExistInStore) {
-                this.addVertexToDataSet({id: edge.inV, label: edge.inVLabel, type: "g:Vertex", properties: {}})
+                this.addVertexToDataSet({id: edge.inV, label: edge.inVLabel, type: "g:Vertex", properties: {}});
             }
             let checkIfOutVExistInStore = _this.checkIfVertexExist(edge.outV);
 
             if (!checkIfOutVExistInStore) {
-                this.addVertexToDataSet({id: edge.outV, label: edge.outVLabel, type: "g:Vertex", properties: {}})
+                this.addVertexToDataSet({id: edge.outV, label: edge.outVLabel, type: "g:Vertex", properties: {}});
             }
-            this.addEdgeToSchema(edge)
+            this.addEdgeToSchema(edge);
+            this.addToEdgeOptions(edge);
         }
         // this will compute the stats of each nodes and links
         this.computeDataDistributionStats();

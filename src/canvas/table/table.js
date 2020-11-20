@@ -14,6 +14,7 @@ export class VertexTableComponent extends React.Component {
         data: null,
         label: null,
         vertexSchema: {},
+        dataStore: null,
         type: null
     }
 
@@ -25,6 +26,7 @@ export class VertexTableComponent extends React.Component {
             })
         ),
         vertexSchema: PropTypes.object,
+        dataStore: PropTypes.func,
         label: PropTypes.string,
         type: PropTypes.string,
     }
@@ -54,7 +56,7 @@ export class VertexTableComponent extends React.Component {
         let inELabelsConfig = []
         this.props.vertexSchema.inE.map((inELabel) => {
             inELabelsConfig.push({
-                edgeFillColorHex: "#eeeeee",
+                edgeFillColorHex: this.props.dataStore.getEdgeOptions(inELabel).shapeOptions.strokeColorHex,
                 edgeLabel: inELabel
             })
         });
@@ -64,8 +66,9 @@ export class VertexTableComponent extends React.Component {
     getOutELabels() {
         let outELabelsConfig = []
         this.props.vertexSchema.outE.map((outELabel) => {
+            console.log("====this.props.getEdgeOptions(outELabel)", this.props.dataStore.getEdgeOptions(outELabel))
             outELabelsConfig.push({
-                edgeFillColorHex: "#eeeeee",
+                edgeFillColorHex: this.props.dataStore.getEdgeOptions(outELabel).shapeOptions.strokeColorHex,
                 edgeLabel: outELabel
             })
         });
@@ -366,6 +369,8 @@ export default class TableCanvas extends React.Component {
                         Object.keys(vertexGroups).map((nodeLabel, index) => (
                             <VertexTableComponent type={"Vertex"} key={nodeLabel + index}
                                                   vertexSchema={this.props.dataStore.getVertexSchema(nodeLabel)}
+                                                  dataStore={this.props.dataStore}
+
                                                   label={nodeLabel}
                                                   data={vertexGroups[nodeLabel]}/>
                         ))
