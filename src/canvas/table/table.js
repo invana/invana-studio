@@ -5,6 +5,8 @@ import "./table.scss";
 import GraphSONDeSerializer from "../../serializers/graphson-v3";
 import {getDataFromLocalStorage} from "../../core/utils";
 import {renderPropertyData} from "../canvas-utils";
+import GraphSimulator from "../../core/graph-simulator";
+import GESettings from "../graph/settings";
 
 
 const gremlinDeSerializer = new GraphSONDeSerializer();
@@ -352,13 +354,15 @@ export default class TableCanvas extends React.Component {
     }
 
     static propTypes = {
-        dataStore: PropTypes.object
+        dataStore: PropTypes.object,
     }
 
     render() {
         // const {vertices, edges} = this.props.dataStore.getAllData();
-
+        const settings = new GESettings(0, 0);
+        const forceSimulator = new GraphSimulator(settings, null, 0.5);
         const {verticesToRender, edgesToRender} = this.props.dataStore.determineAllDataToRender();
+        forceSimulator.addDataToGraphSimulation(verticesToRender, edgesToRender,);
 
         const vertexGroups = gremlinDeSerializer.groupByLabel(verticesToRender);
         const edgeGroups = gremlinDeSerializer.groupByLabel(edgesToRender);
