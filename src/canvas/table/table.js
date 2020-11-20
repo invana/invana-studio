@@ -13,6 +13,7 @@ export class VertexTableComponent extends React.Component {
     static defaultProps = {
         data: null,
         label: null,
+        vertexSchema: {},
         type: null
     }
 
@@ -23,6 +24,7 @@ export class VertexTableComponent extends React.Component {
                 type: PropTypes.string
             })
         ),
+        vertexSchema: PropTypes.object,
         label: PropTypes.string,
         type: PropTypes.string,
     }
@@ -49,24 +51,25 @@ export class VertexTableComponent extends React.Component {
     }
 
     getInELabels() {
-        // TODO - right now, schema is decided based on first element, need to fix this ASAP
-        // what if there were more edge labels for the second element. !! :(
-        const elem = this.getFirstElement();
-        let labels = [];
-        console.log("getInELabels", elem);
-        Object.keys(elem.inData).map((inELabel) => {
-            labels.push(inELabel);
-        })
-        return labels;
+        let inELabelsConfig = []
+        this.props.vertexSchema.inE.map((inELabel) => {
+            inELabelsConfig.push({
+                edgeFillColorHex: "#eeeeee",
+                edgeLabel: inELabel
+            })
+        });
+        return inELabelsConfig;
     }
 
     getOutELabels() {
-        const elem = this.getFirstElement();
-        let labels = [];
-        Object.keys(elem.outData).map((outELabel) => {
-            labels.push(outELabel);
-        })
-        return labels;
+        let outELabelsConfig = []
+        this.props.vertexSchema.outE.map((outELabel) => {
+            outELabelsConfig.push({
+                edgeFillColorHex: "#eeeeee",
+                edgeLabel: outELabel
+            })
+        });
+        return outELabelsConfig;
     }
 
     getFirstElement() {
@@ -78,6 +81,7 @@ export class VertexTableComponent extends React.Component {
         const elColor = this.getElementColor(this.props.data[0]);
         console.log("VertexTableComponent here", this.props.label)
         console.log("VertexTableComponent here  this.props.data[0]", this.props.data[0])
+        console.log("VertexTableComponent vertexSchema", this.props.label, this.props.vertexSchema)
         let colorOptions = {};
         if (this.props.type === "Vertex") {
             const _ = getDataFromLocalStorage("nodeLabels", true) || {}
@@ -120,18 +124,18 @@ export class VertexTableComponent extends React.Component {
                             })
                         }
                         {
-                            this.getInELabels().map((edgeLabel, index) => {
+                            this.getInELabels().map((edgeLabelConfig, index) => {
                                 return (
                                     <td key={index}
-                                        style={{"color": this.getFirstElement().inData[edgeLabel].edgeFillColorHex}}>{edgeLabel}</td>
+                                        style={{"color": edgeLabelConfig.edgeFillColorHex}}>{edgeLabelConfig.edgeLabel}</td>
                                 )
                             })
                         }
                         {
-                            this.getOutELabels().map((edgeLabel, index) => {
+                            this.getOutELabels().map((edgeLabelConfig, index) => {
                                 return (
                                     <td key={index}
-                                        style={{"color": this.getFirstElement().outData[edgeLabel].edgeFillColorHex}}>{edgeLabel}</td>
+                                        style={{"color": edgeLabelConfig.edgeFillColorHex}}>{edgeLabelConfig.edgeLabel}</td>
                                 )
                             })
                         }
@@ -152,11 +156,14 @@ export class VertexTableComponent extends React.Component {
                                         })
                                     }
                                     {
-                                        Object.keys(node.inData).map((inELabel, index) => {
+                                        this.getInELabels().map((inELabelConfig, index) => {
+                                            const vertices = node.inData[inELabelConfig.edgeLabel]
+                                                ? node.inData[inELabelConfig.edgeLabel].vertices
+                                                : [];
                                             return (
                                                 <td key={index}>
                                                     {
-                                                        node.inData[inELabel].vertices.map((vertex, vtxIndex) => {
+                                                        vertices.map((vertex, vtxIndex) => {
                                                             return (
                                                                 <button className={"btn"} key={vtxIndex}
                                                                         title={vertex.label}
@@ -171,11 +178,14 @@ export class VertexTableComponent extends React.Component {
                                         })
                                     }
                                     {
-                                        Object.keys(node.outData).map((outELabel, index) => {
+                                        this.getOutELabels().map((outELabelConfig, index) => {
+                                            const vertices = node.outData[outELabelConfig.edgeLabel]
+                                                ? node.outData[outELabelConfig.edgeLabel].vertices
+                                                : [];
                                             return (
                                                 <td key={index}>
                                                     {
-                                                        node.outData[outELabel].vertices.map((vertex, vtxIndex) => {
+                                                        vertices.map((vertex, vtxIndex) => {
                                                             return (
                                                                 <button className={"btn"} key={vtxIndex}
                                                                         title={vertex.label}
@@ -349,17 +359,14 @@ export default class TableCanvas extends React.Component {
 
         const vertexGroups = gremlinDeSerializer.groupByLabel(verticesToRender);
         const edgeGroups = gremlinDeSerializer.groupByLabel(edgesToRender);
-
-        console.log("=====vertexGroups", vertexGroups)
         return (
             <div className={"p-10 tableCanvas"}>
-
-
                 <div className={"___responseBox "}>
-
                     {
                         Object.keys(vertexGroups).map((nodeLabel, index) => (
-                            <VertexTableComponent type={"Vertex"} key={nodeLabel + index} label={nodeLabel}
+                            <VertexTableComponent type={"Vertex"} key={nodeLabel + index}
+                                                  vertexSchema={this.props.dataStore.getVertexSchema(nodeLabel)}
+                                                  label={nodeLabel}
                                                   data={vertexGroups[nodeLabel]}/>
                         ))
                     }
@@ -370,7 +377,6 @@ export default class TableCanvas extends React.Component {
                         ))
                     }
                 </div>
-
             </div>
         )
     }

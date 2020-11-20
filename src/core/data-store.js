@@ -36,8 +36,12 @@ export default class InMemoryDataStore {
     verticesAlreadyRendered = [];
     edgesAlreadyRendered = [];
 
+    edgeUniqueStringDelimiter = "====="; // used to create unique links info for the schema
+    schema = new Map() // {'sourceLabel': ['sourceLabel--targetLabel--edgeLabel],
+    // 'targetLabel': ['sourceLabel--targetLabel--edgeLabel],
+    // 'otherLabel': [] // no links)
     //{ "vertexId": {"neighbourLinks": [ "linkid-1", "linkid-2"], "neighbourNodes": ["nodeid-1" ]}
-    neighbourVerticesAndLinksMap = new Map();
+    // neighbourVerticesAndLinksMap = new Map();
 
     constructor() {
         this.resetData()
@@ -71,27 +75,27 @@ export default class InMemoryDataStore {
         this.#edges.set(edge.id, edge);
     }
 
-    computeNeighbors() {
-
-
-        // this.neighbourVerticesAndLinksMap
-    }
-
-    getNodeByNodeLabelTextOrId(labelTextOrId) {
-
-        for (const [nodeId, nodeData] of this.#vertices.entries()) {
-            // console.log("=====key", key);
-            if (labelTextOrId === nodeId) {
-                return nodeData;
-            }
-            if (nodeData.meta.labelOptions.labelText === labelTextOrId) {
-                return nodeData;
-            }
-            // data.push(value);
-        }
-
-        return
-    }
+    // computeNeighbors() {
+    //
+    //
+    //     // this.neighbourVerticesAndLinksMap
+    // }
+    //
+    // getNodeByNodeLabelTextOrId(labelTextOrId) {
+    //
+    //     for (const [nodeId, nodeData] of this.#vertices.entries()) {
+    //         // console.log("=====key", key);
+    //         if (labelTextOrId === nodeId) {
+    //             return nodeData;
+    //         }
+    //         if (nodeData.meta.labelOptions.labelText === labelTextOrId) {
+    //             return nodeData;
+    //         }
+    //         // data.push(value);
+    //     }
+    //
+    //     return
+    // }
 
     searchNodeByNodeLabelTextOrId(labelTextOrId) {
         console.log("searchNodeByNodeLabelTextOrId", labelTextOrId, Number.isInteger(labelTextOrId))
@@ -140,6 +144,59 @@ export default class InMemoryDataStore {
         })
     }
 
+
+    addVertexToSchema(vertex) {
+
+        if (!this.schema.get(vertex.label)) {
+            this.schema.set(vertex.label, []);
+        }
+    }
+
+    checkIfEdgeExistInSchema(vertexEdges, edgeUniqueStr) {
+        // const nodeSchema = this.schema.get(vertexLabel);
+        return vertexEdges.includes(edgeUniqueStr);
+    }
+
+    generateEdgeUniqueString(edge) {
+        // sourceVLabel + delimiter + targetVLabel + delimiter + edgeLabel
+        return edge.outVLabel + this.edgeUniqueStringDelimiter + edge.inVLabel + this.edgeUniqueStringDelimiter + edge.label;
+    }
+
+    addEdgeToSchema(edge) {
+        const edgeUniqueStr = this.generateEdgeUniqueString(edge);
+        // inV label data
+        const inVEdges = this.schema.get(edge.inVLabel);
+        const outVEdges = this.schema.get(edge.outVLabel);
+        if (inVEdges && !this.checkIfEdgeExistInSchema(inVEdges, edgeUniqueStr)) {
+            inVEdges.push(edgeUniqueStr);
+            this.schema.set(edge.inVLabel, inVEdges);
+        }
+        if (outVEdges && !this.checkIfEdgeExistInSchema(outVEdges, edgeUniqueStr)) {
+            outVEdges.push(edgeUniqueStr);
+            this.schema.set(edge.outVLabel, outVEdges);
+        }
+    }
+
+    getVertexSchema(vertexLabel) {
+        const vertexEdges = this.schema.get(vertexLabel);
+        let inE = [];
+        let outE = [];
+
+        vertexEdges.map((vertexEdge) => {
+            const [sourceLabel, targetLabel, edgeLabel] = vertexEdge.split(this.edgeUniqueStringDelimiter);
+            if (sourceLabel === vertexLabel) {
+                if (!outE.includes(sourceLabel)) {
+                    outE.push(edgeLabel)
+                }
+            } else if (targetLabel === vertexLabel) {
+                if (!inE.includes(targetLabel)) {
+                    inE.push(edgeLabel)
+                }
+            }
+        });
+        return {inE, outE}
+    }
+
     addData(newVertices, newEdges, onDataUpdated) {
         // make sure the newly added edges data has respective nodes data.
         let _this = this;
@@ -149,6 +206,7 @@ export default class InMemoryDataStore {
             if (!doesNodeExist) {
                 _this.addVertexToDataSet(vertex)
             }
+            this.addVertexToSchema(vertex)
         }
         for (let edgeI in newEdges) {
             let edge = newEdges[edgeI];
@@ -166,6 +224,7 @@ export default class InMemoryDataStore {
             if (!checkIfOutVExistInStore) {
                 this.addVertexToDataSet({id: edge.outV, label: edge.outVLabel, type: "g:Vertex", properties: {}})
             }
+            this.addEdgeToSchema(edge)
         }
         // this will compute the stats of each nodes and links
         this.computeDataDistributionStats();
@@ -252,7 +311,7 @@ export default class InMemoryDataStore {
     }
 
 
-    getNodeBasicInfo(nodeData){
+    getNodeBasicInfo(nodeData) {
         return {
             id: nodeData.id,
             labelText: nodeData.meta.labelOptions.labelText,
@@ -316,9 +375,9 @@ export default class InMemoryDataStore {
             vertex.outData = outVGroups;
         });
 
-        edgesData.map((edge)=>{
-
-        });
+        // edgesData.map((edge) => {
+        //
+        // });
 
         const {newVerticesToRender, newEdgesToRender} = {
             newVerticesToRender: verticesData,
