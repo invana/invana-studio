@@ -58,7 +58,9 @@ export class VertexTableComponent extends React.Component {
         let inELabelsConfig = []
         this.props.vertexSchema.inE.map((inELabel) => {
             inELabelsConfig.push({
-                edgeFillColorHex: this.props.dataStore.getEdgeOptions(inELabel).shapeOptions.strokeColorHex,
+                edgeFillColorHex: this.props.dataStore.getEdgeOptions(inELabel)
+                    ? this.props.dataStore.getEdgeOptions(inELabel).shapeOptions.strokeColorHex
+                    : "#efefef",
                 edgeLabel: inELabel
             })
         });
@@ -70,7 +72,9 @@ export class VertexTableComponent extends React.Component {
         this.props.vertexSchema.outE.map((outELabel) => {
             console.log("====this.props.getEdgeOptions(outELabel)", this.props.dataStore.getEdgeOptions(outELabel))
             outELabelsConfig.push({
-                edgeFillColorHex: this.props.dataStore.getEdgeOptions(outELabel).shapeOptions.strokeColorHex,
+                edgeFillColorHex: this.props.dataStore.getEdgeOptions(outELabel)
+                    ? this.props.dataStore.getEdgeOptions(outELabel).shapeOptions.strokeColorHex
+                    : "#efefef",
                 edgeLabel: outELabel
             })
         });
