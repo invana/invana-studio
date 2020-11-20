@@ -86,12 +86,7 @@ export default class CanvasNav extends React.Component {
                         </div>
                     </li>
 
-                    <li>
-                        <button title={"re render the canvas"}
-                                onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
-                            <FontAwesomeIcon icon={faSync}/>
-                        </button>
-                    </li>
+
                     {/*<li>*/}
                     {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
                     {/*        <FontAwesomeIcon icon={faSave}/>*/}
@@ -106,12 +101,19 @@ export default class CanvasNav extends React.Component {
 
                 </List>
                 <List type={"canvas-nav"} style={{"float": "right"}}>
-                    <li>
+
+                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell": "none"}}>
+                        <button title={"re render the canvas"}
+                                onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
+                            <FontAwesomeIcon icon={faSync}/>
+                        </button>
+                    </li>
+                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell": "none"}}>
                         <button onClick={() => this.props.canvasCtrl.downloadCanvasImage()}>
                             <FontAwesomeIcon icon={faCamera}/>
                         </button>
                     </li>
-                    <li>
+                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell": "none"}}>
                         <button onClick={() => this.switchToCanvasMenu("focus-node")}>
                             <FontAwesomeIcon icon={faSearch}/>
                         </button>
