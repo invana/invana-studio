@@ -19,7 +19,7 @@ export default class SupportComponent extends React.Component {
 
                     <li>
                         <a target={"_blank"} rel="noopener noreferrer"
-                           href={"https://invana.io/docs/graph-explorer/01-get-started.html"}>
+                           href={"https://invana.io/help.html"}>
                             <h4><FontAwesomeIcon icon={faBook}/> Documentation</h4>
                             <p>Beginner tutorials, usage and developer documentation.</p>
                         </a>
@@ -54,7 +54,7 @@ export default class SupportComponent extends React.Component {
                 </GEList>
 
                 <p>If you need any support beyond the above,
-                    please get in touch with me at <br/><span className={"selected"}>hi[ at ]invana.io</span>
+                    please get in touch with us at <br/><span className={"selected"}>hi[ at ]invana.io</span>
                 </p>
 
             </div>

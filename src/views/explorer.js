@@ -161,21 +161,51 @@ export default class ExplorerView extends BaseView {
                         </li>
                     </List>
                     <List type={"nav-right"}>
+
+
                         <li>
-                            <button onClick={() => this.setRightContentName("founder-note")}>
-                                <FontAwesomeIcon icon={faStickyNote}/> Note from the Author
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("whats-new")}>
+                                {/* eslint-disable-next-line react/no-unescaped-entities */}
+                                <FontAwesomeIcon icon={faCubes}/> Get Started
                             </button>
                         </li>
                         <li>
-                            <button onClick={() => this.setRightContentName("whats-new")}>
-                                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                                <FontAwesomeIcon icon={faCubes}/> What's New
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("history")}>
+                                <FontAwesomeIcon icon={faHistory}/>
+                            </button>
+                        </li>
+                        <li>
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("support")}>
+                                <FontAwesomeIcon icon={faLifeRing}/>
+                            </button>
+                        </li>
+                        <li>
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>
+                                <FontAwesomeIcon icon={faBook}/>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("founder-note")}>
+                                <FontAwesomeIcon icon={faStickyNote}/>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("settings")}>
+                                <FontAwesomeIcon icon={faCog}/>
+                            </button>
+                        </li>
+
+                        <li>
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("about")}>
+                                <FontAwesomeIcon icon={faInfoCircle}/>
                             </button>
                         </li>
                         <li style={{"padding": "0 5px"}}>
                             <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
                                 <img
-                                    src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=flat-square"
+                                    src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars&logo=github&style=flat-square"
                                     alt=""/>
                             </a>
                         </li>
@@ -218,67 +248,9 @@ export default class ExplorerView extends BaseView {
                         </List>
                     </AsideNav>
                     <MainContent>
-                        <AsideLeft extraClass={this.state.leftContentName ? "" : "closed"}>
-                            {this.state.leftContentName === "history" ? (
-                                    <GEPanel
-                                        title={"History"}
-                                        onClickClose={() => this.setLeftContent(null)}
-                                        showToggleBtn={false}
-                                    >
-                                        <HistoryComponent
-                                            makeQuery={this.makeQuery.bind(this)}
-                                            // requestBuilder={this.requestBuilder}
-                                            addQueryToConsole={this.addQueryToConsole.bind(this)}
-                                        />
-                                    </GEPanel>
-                                ) :
-                                this.state.leftContentName === "settings"
-                                    ? (
-                                        <GEPanel
-                                            title={"Settings"}
-                                            onClickClose={() => this.setLeftContent(null)}
-                                            showToggleBtn={false}
-                                        >
-                                            <SettingsComponent/>
-                                        </GEPanel>
-                                    ) :
-                                    this.state.leftContentName === "learn"
-                                        ? (
-                                            <GEPanel
-                                                title={"Learn"}
-                                                onClickClose={() => this.setLeftContent(null)}
-                                                showToggleBtn={false}
-                                            >
-                                                <LearnComponent
-                                                    addQueryToConsole={this.addQueryToConsole.bind(this)}
-                                                    makeQuery={this.makeQuery.bind(this)}
-                                                    onClose={() => this.setLeftContent(null)}/>
+                        {/*<AsideLeft extraClass={this.state.leftContentName ? "" : "closed"}>*/}
 
-
-                                            </GEPanel>
-                                        ) :
-                                        this.state.leftContentName === "support"
-                                            ? (
-                                                <GEPanel
-                                                    title={"Support"}
-                                                    onClickClose={() => this.setLeftContent(null)}
-                                                    showToggleBtn={false}
-                                                >
-                                                    <SupportComponent/>
-                                                </GEPanel>
-                                            ) :
-                                            this.state.leftContentName === "about"
-                                                ? (
-                                                    <GEPanel
-                                                        title={"About"}
-                                                        onClickClose={() => this.setLeftContent(null)}
-                                                        showToggleBtn={false}
-                                                    >
-                                                        <AboutComponent/>
-                                                    </GEPanel>
-                                                ) : (<span></span>)
-                            }
-                        </AsideLeft>
+                        {/*</AsideLeft>*/}
                         <MainContentMiddle>
                             <div
                                 className={
@@ -566,7 +538,65 @@ export default class ExplorerView extends BaseView {
                                 </GEPanel>
                                 : <span></span>
                         }
+                        {this.state.rightContentName === "history" ? (
+                                <GEPanel
+                                    title={"History"}
+                                    onClickClose={() => this.setRightContentName(null)}
+                                    showToggleBtn={false}
+                                >
+                                    <HistoryComponent
+                                        makeQuery={this.makeQuery.bind(this)}
+                                        // requestBuilder={this.requestBuilder}
+                                        addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                    />
+                                </GEPanel>
+                            ) :
+                            this.state.rightContentName === "settings"
+                                ? (
+                                    <GEPanel
+                                        title={"Settings"}
+                                        onClickClose={() => this.setRightContentName(null)}
+                                        showToggleBtn={false}
+                                    >
+                                        <SettingsComponent/>
+                                    </GEPanel>
+                                ) :
+                                this.state.rightContentName === "learn"
+                                    ? (
+                                        <GEPanel
+                                            title={"Learn"}
+                                            onClickClose={() => this.setRightContentName(null)}
+                                            showToggleBtn={false}
+                                        >
+                                            <LearnComponent
+                                                addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                                makeQuery={this.makeQuery.bind(this)}
+                                                onClose={() => this.setLeftContent(null)}/>
 
+
+                                        </GEPanel>
+                                    ) :
+                                    this.state.rightContentName === "support"
+                                        ? (
+                                            <GEPanel
+                                                title={"Support"}
+                                                onClickClose={() => this.setRightContentName(null)}
+                                                showToggleBtn={false}
+                                            >
+                                                <SupportComponent/>
+                                            </GEPanel>
+                                        ) :
+                                        this.state.rightContentName === "about"
+                                            ? (
+                                                <GEPanel
+                                                    title={"About"}
+                                                    onClickClose={() => this.setRightContentName(null)}
+                                                    showToggleBtn={false}
+                                                >
+                                                    <AboutComponent/>
+                                                </GEPanel>
+                                            ) : (<span></span>)
+                        }
                     </AsideRight>
                 ) : (
                     <span/>
