@@ -4,7 +4,14 @@ import {setDataToLocalStorage} from "../core/utils";
 import {GE_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlayCircle, faAngleDown, faTimesCircle, faQuestionCircle, faPlug} from "@fortawesome/free-solid-svg-icons";
+import {
+    faPlayCircle,
+    faAngleDown,
+    faTimesCircle,
+    faQuestionCircle,
+    faPlug,
+    faVideo
+} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class SetupGremlinServerConnection extends React.Component {
@@ -143,7 +150,8 @@ export default class SetupGremlinServerConnection extends React.Component {
                 </div>
                 <Modal title={null} size={"md"}
                     // style={{"top": "100px", "left": "auto","right": "20px", }}
-                       style={{"top": "250px", "left": "20px",}}
+                    //    style={{"top": "250px", "left": "20px",}}
+                       style={{"position": "relative", "left": "20px"}}
                 >
                     <div className={"connect"}>
                         <div className={"top-section"}>
@@ -171,7 +179,7 @@ export default class SetupGremlinServerConnection extends React.Component {
 
                                 <p>
                                     <button type={"button"} onClick={this.toggleMoreOptions.bind(this)}>
-                                         http headers <FontAwesomeIcon icon={faAngleDown}/>
+                                        http headers <FontAwesomeIcon icon={faAngleDown}/>
                                     </button>
                                 </p>
                                 {
@@ -219,9 +227,9 @@ export default class SetupGremlinServerConnection extends React.Component {
                                         className={" button secondary-btn ml-10"}>
                                     <FontAwesomeIcon icon={faPlayCircle}/> watch demo
                                 </button>
-                                <a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/help.html">
-                                    <FontAwesomeIcon icon={faQuestionCircle}/>
-                                </a>
+                                {/*<a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/help.html">*/}
+                                {/*    <FontAwesomeIcon icon={faQuestionCircle}/>*/}
+                                {/*</a>*/}
 
                             </form>
                             {this.state.errorMessage ?
@@ -231,16 +239,31 @@ export default class SetupGremlinServerConnection extends React.Component {
                                     </p>
                                 ) : (<span></span>)
                             }
-                            <p className={"built-with"}><small>Built with love for Humans
-                                & Innovations at <a
-                                    className={"selected"}
-                                    target={"_blank"}
-                                    rel="noopener noreferrer"
-                                    href="https://invana.io">Invana</a></small>
+                            <p style={{"marginTop": "1rem"}}>
+                                {/*<FontAwesomeIcon icon={faQuestionCircle}/> | &nbsp;*/}
+                                {/*<a href="">Training Videos &nbsp;</a>*/}
+                                {/*<FontAwesomeIcon icon={faQuestionCircle}/> &nbsp; | &nbsp;*/}
+                                <a href="https://invana.io/help.html">How to setup Invana Engine</a>&nbsp;
+                                | &nbsp; <a href="https://invana.io/help.html">Help</a>
                             </p>
+
                         </div>
                     </div>
                 </Modal>
+                <p className={"built-with"}><small>Built with love for Humans
+                    & Innovations at <a
+                        className={"selected"}
+                        target={"_blank"}
+                        rel="noopener noreferrer"
+                        href="https://invana.io">Invana</a></small>
+                </p>
+
+                {/*<Modal title={null} size={"md"} style={{"top": "250px", "right": "20px"}}>*/}
+                {/*    <iframe width="560" height="315" src="https://www.youtube.com/embed/SuxC4EH0RCs" frameBorder="0"*/}
+                {/*            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"*/}
+                {/*            allowFullScreen></iframe>*/}
+                {/*</Modal>*/}
+
             </div>
 
         )

@@ -2,9 +2,9 @@
 
 .connect-heading {
   width: 600px;
-  position: absolute;
-  left: 20px;
-  top: 140px;
+  //position: absolute;
+  margin-left: 20px;
+  margin-top: 140px;
   color: $defaultTextColor;
 
   .invana-logo {
@@ -13,6 +13,7 @@
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    color: $primaryColor;
   }
 
   h1 {
@@ -121,20 +122,24 @@
       }
     }
 
-    .built-with {
-      //position: absolute;
-      //bottom: 0;
-      padding-top: 20px;
-      margin-bottom: 0;
 
-      a {
-        font-size: 11px;
-      }
-    }
   }
 
   a {
     //color: #aaaaaa;
+  }
+}
+
+.built-with {
+  //position: absolute;
+  //bottom: 0;
+  padding-top: 20px;
+  margin-bottom: 0;
+  color: $defaultTextColor;
+  margin-left: 20px;
+
+  a {
+    font-size: 11px;
   }
 }
 
