@@ -13,7 +13,7 @@ export const DefaultMaxTimeElapsedWarningInSeconds = 180;
 
 
 export const VERSION = "pre-beta";
-export const ABOUT_TEXT = "Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases.";
+export const ABOUT_TEXT = "Open source visualiser for knowledge Graphs using Invana Engine";
 export const CONNECT_URL = "/connect";
 export const REPO_URL = "https://github.com/invanalabs/graph-explorer";
 export const UUIDGenerator = () =>

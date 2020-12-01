@@ -4,7 +4,7 @@ import {setDataToLocalStorage} from "../core/utils";
 import {GE_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlayCircle, faAngleDown, faTimesCircle, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
+import {faPlayCircle, faAngleDown, faTimesCircle, faQuestionCircle, faPlug} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class SetupGremlinServerConnection extends React.Component {
@@ -89,7 +89,7 @@ export default class SetupGremlinServerConnection extends React.Component {
         });
 
         const errorMessage = this.getErrorFromUrlString();
-        if (errorMessage){
+        if (errorMessage) {
             alert(errorMessage);
         }
     }
@@ -128,6 +128,11 @@ export default class SetupGremlinServerConnection extends React.Component {
 
         return (
             <div>
+                <div className={"connect-heading"}>
+                    <p className={"invana-logo"}>Invana</p>
+                    <h1>Graph Explorer <small>({VERSION})</small></h1>
+                    <p>{ABOUT_TEXT}</p>
+                </div>
                 <div className="github-stars">
                     <a href="https://github.com/invanalabs/graph-explorer"
                        target={"_blank"} rel="noopener noreferrer">
@@ -135,13 +140,16 @@ export default class SetupGremlinServerConnection extends React.Component {
                             src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars%20on%20github&logo=github&style=for-the-badge"
                             alt=""/>
                     </a>
-
                 </div>
-                <Modal title={null} size={"md"}>
+                <Modal title={null} size={"md"}
+                    // style={{"top": "100px", "left": "auto","right": "20px", }}
+                       style={{"top": "250px", "left": "20px",}}
+                >
                     <div className={"connect"}>
                         <div className={"top-section"}>
-                            <h1>Graph Explorer <small>{VERSION}</small></h1>
-                            <p>{ABOUT_TEXT}</p>
+                            <h4><FontAwesomeIcon icon={faPlug}/> Connect to Invana Engine </h4>
+                            {/*<p>Invana Engine is a GraphQL API for Apache TinkerPop supported*/}
+                            {/*    Graph Databases.</p>*/}
                         </div>
                         {/*<hr/>*/}
 
@@ -161,9 +169,9 @@ export default class SetupGremlinServerConnection extends React.Component {
                                        placeholder={"http://127.0.0.1:8000/graphql"}/>
                                 <br/>
 
-                                <p style={{"textAlign": "right", "marginBottom": 0}}>
+                                <p>
                                     <button type={"button"} onClick={this.toggleMoreOptions.bind(this)}>
-                                        <FontAwesomeIcon icon={faAngleDown}/> http headers
+                                         http headers <FontAwesomeIcon icon={faAngleDown}/>
                                     </button>
                                 </p>
                                 {
@@ -211,7 +219,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                                         className={" button secondary-btn ml-10"}>
                                     <FontAwesomeIcon icon={faPlayCircle}/> watch demo
                                 </button>
-                                <a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/docs.html">
+                                <a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/help.html">
                                     <FontAwesomeIcon icon={faQuestionCircle}/>
                                 </a>
 
