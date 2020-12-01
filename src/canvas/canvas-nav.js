@@ -65,17 +65,18 @@ export default class CanvasNav extends React.Component {
     render() {
         return (
             <div className={"main-content-nav-left"}>
-                <List type={"aside-nav"} >
+                <List type={"aside-nav"}>
 
                     <li>
                         <div className={"canvasToggle"}>
                             <button className={this.props.canvasType === "graph" ? "selected" : ""}
+                                    style={{"padding": "11px 11px", 'fontSize': "11px"}}
                                     onClick={() => this.props.canvasCtrl.switchCanvasTo("graph")}>
-                                 <FontAwesomeIcon icon={faProjectDiagram}/>
+                                <FontAwesomeIcon icon={faProjectDiagram}/>
                             </button>
                             <button className={this.props.canvasType === "table" ? "selected" : ""}
                                     onClick={() => this.props.canvasCtrl.switchCanvasTo("table")}>
-                                 <FontAwesomeIcon icon={faTable}/>
+                                <FontAwesomeIcon icon={faTable}/>
                             </button>
                             {/*<button className={this.props.canvasType === "json" ? "selected" : ""}*/}
                             {/*        onClick={() => this.props.canvasCtrl.switchCanvasTo("json")}>JSON*/}
@@ -100,7 +101,7 @@ export default class CanvasNav extends React.Component {
                     </li>
 
                 </List>
-                <List type={"aside-nav"}  >
+                <List type={"aside-nav"}>
 
                     <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
                         <button title={"re render the canvas"}
@@ -125,7 +126,9 @@ export default class CanvasNav extends React.Component {
                     </li>
                     <li>
                         {/*<div className={"canvasToggle"}>*/}
-                        <button onClick={() => this.switchToCanvasMenu("query-console")}>
+                        <button onClick={() => this.switchToCanvasMenu("query-console")}
+                                style={{"padding": "11px 9.5px"}}
+                        >
                             <FontAwesomeIcon icon={faTerminal}/>
                         </button>
                         {/*</div>*/}

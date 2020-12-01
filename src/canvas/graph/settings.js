@@ -42,7 +42,7 @@ export default class GESettings {
     ZOOM_CLAMP_MIN_SCALE = .2;
     ZOOM_CLAMP_MAX_SCALE = 3;
 
-    NODE_MENU_X_PADDING = 300 + 50 + this.NODE_HIT_RADIUS;
+    NODE_MENU_X_PADDING =  50 + this.NODE_HIT_RADIUS;
     NODE_MENU_Y_PADDING = 45 + this.NODE_RADIUS;
 
     LABEL_RESOLUTION = 4;

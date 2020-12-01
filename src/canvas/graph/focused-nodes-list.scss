@@ -2,7 +2,8 @@
 
 .focused-nodes-list {
   position: fixed;
-  top: 45px + 36px + 2px;
+  //top: 45px + 36px + 2px;
+  margin-top:10px;
   //left: 45px + 300px + 1px;
 
   .focused-node {

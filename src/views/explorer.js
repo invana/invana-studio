@@ -251,7 +251,58 @@ export default class ExplorerView extends BaseView {
                         <AsideLeft extraClass={this.state.leftContentName ? "" : "closed"}>
 
                         </AsideLeft>
-                        <MainContentMiddle>
+
+                        <MainContentRight
+                            extraClass={this.state.leftContentName ? "" : "expanded"}
+                            secondaryChild={
+                                this.state.bottomContentName === "error-console" ? (
+                                    <AsideBottom>
+                                        <GEPanel
+                                            title={"Response Console"}
+                                            onClickClose={() => this.setBottomContentName(null)}
+                                            showToggleBtn={false}
+                                        >
+                                            {this.state.errorMessage
+                                                ? <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
+                                                : <span>
+                                                    <pre>{JSON.stringify(this.getLatestResponse().error, null, 2)}</pre>
+                                                </span>
+                                            }
+
+                                        </GEPanel>
+                                    </AsideBottom>
+                                ) : (
+                                    <span/>
+                                )
+                            }
+                        >
+                            <Canvas
+                                setStatusMessage={this.setStatusMessage.bind(this)}
+
+                                setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                setRightContentName={this.setRightContentName.bind(this)}
+                                setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
+                                middleBottomContentName={this.state.middleBottomContentName}
+
+                                selectedElementData={this.state.selectedElementData}
+
+                                connector={this.connector}
+                                dataStore={this.dataStore}
+                                resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
+                                shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                                setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
+                                makeQuery={this.makeQuery.bind(this)}
+
+                                flushCanvas={this.flushCanvas.bind(this)}
+
+                                query={this.state.query}
+
+                                addQueryToState={this.addQueryToState.bind(this)}
+
+                            />
+                        </MainContentRight>
+                                    <MainContentMiddle>
                             <div
                                 className={
                                     this.state.middleBottomContentName
@@ -409,56 +460,6 @@ export default class ExplorerView extends BaseView {
                                 }
                             </div>
                         </MainContentMiddle>
-                        <MainContentRight
-                            extraClass={this.state.leftContentName ? "" : "expanded"}
-                            secondaryChild={
-                                this.state.bottomContentName === "error-console" ? (
-                                    <AsideBottom>
-                                        <GEPanel
-                                            title={"Response Console"}
-                                            onClickClose={() => this.setBottomContentName(null)}
-                                            showToggleBtn={false}
-                                        >
-                                            {this.state.errorMessage
-                                                ? <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
-                                                : <span>
-                                                    <pre>{JSON.stringify(this.getLatestResponse().error, null, 2)}</pre>
-                                                </span>
-                                            }
-
-                                        </GEPanel>
-                                    </AsideBottom>
-                                ) : (
-                                    <span/>
-                                )
-                            }
-                        >
-                            <Canvas
-                                setStatusMessage={this.setStatusMessage.bind(this)}
-
-                                setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                setRightContentName={this.setRightContentName.bind(this)}
-                                setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
-                                middleBottomContentName={this.state.middleBottomContentName}
-
-                                selectedElementData={this.state.selectedElementData}
-
-                                connector={this.connector}
-                                dataStore={this.dataStore}
-                                resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
-                                shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
-                                makeQuery={this.makeQuery.bind(this)}
-
-                                flushCanvas={this.flushCanvas.bind(this)}
-
-                                query={this.state.query}
-
-                                addQueryToState={this.addQueryToState.bind(this)}
-
-                            />
-                        </MainContentRight>
                     </MainContent>
                 </Main>
                 <GEFooter>

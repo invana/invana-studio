@@ -1,17 +1,28 @@
 @import "../../config";
 
 .queryConsole {
-  position: fixed;
-  background: $darkBg;
-  width: calc(100% - 350px - 6px - 300px);
-  max-width: 800px;
-  top: 77px;
-  //left: calc(346px + 300px);
-  right: 0;
-  border: 1px solid $borderColor;
-  padding: 0;
-  opacity: 0.9;
-  z-index: 1;
+  //position: fixed;
+  //background: $darkBg;
+  //width: calc(100% - 350px - 6px - 300px);
+  //max-width: 800px;
+  //top: 77px;
+  ////left: calc(346px + 300px);
+  //right: 0;
+  //border: 1px solid $borderColor;
+  //padding: 0;
+  //opacity: 0.9;
+  //z-index: 1;
+      position: fixed;
+    background: #181818;
+    width: calc(100% - 339px);
+    /* max-width: 800px; */
+    top: 45px;
+    left: 36px;
+    border: 1px solid #343434;
+    padding: 0;
+    opacity: 0.9;
+    z-index: 1;
+
 
   .ge-panel-body {
     overflow: hidden;
@@ -40,7 +51,7 @@
     background: darken($darkBg, 2%);
     color: $defaultTextColor;
     font-family: Courier;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.5rem;
     min-height: 200px;
   }

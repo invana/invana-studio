@@ -2,6 +2,7 @@ import React from "react";
 import "./focus-node.scss";
 import PropTypes from "prop-types";
 import GEPanel from "../../ui-components/panels/panel";
+import GEModal from "../../ui-components/modal/modal";
 
 export default class FocusNode extends React.Component {
 
@@ -30,8 +31,8 @@ export default class FocusNode extends React.Component {
         let queryResults = []
         if (searchWord) {
             queryResults = this.props.dataStore.searchNodeByNodeLabelTextOrId(searchWord);
-        }else {
-            this.setState({infoMessage: null, errorMessage: null });
+        } else {
+            this.setState({infoMessage: null, errorMessage: null});
         }
         // if (searchWord) {
         // find search results and
@@ -87,65 +88,71 @@ export default class FocusNode extends React.Component {
     render() {
         return (
             <div className={"focus-node"}>
-                <GEPanel
-                    title={"Find and Focus a node in canvas"}
-                    onClickClose={() => this.props.onClose(null)}
-                    showToggleBtn={false}
-                >
-                    <div className={"p-10"}>
-                        <form id={"queryForm"}
-                              onSubmit={(e) => this.onFormSubmit(e)}>
+                <GEModal>
+                    <GEPanel
+                        title={"Find and Focus a node in canvas"}
+                        onClickClose={() => this.props.onClose(null)}
+                        showToggleBtn={false}
+                    >
 
-                            <label>Search for node by label or Id to focus on</label>
-                            <input type="text"
-                                   spellCheck={false}
-                                   autoFocus
-                                   value={this.state.nodeTextOrId}
-                                   onChange={this.onQueryChange.bind(this)}
-                                   placeholder={"Node label text or Id"}
-                            />
-                            {/*<button className={"focus-btn"} type={"submit"} onClick={() => this.onFocusNodeClicked()}>*/}
-                            {/*    <FontAwesomeIcon icon={faDotCircle}/> Focus*/}
-                            {/*</button>*/}
-                        </form>
-                        {/*<hr/>*/}
-                        <br/>
+                        <div className={"p-10"}>
+                            <form id={"queryForm"}
+                                  onSubmit={(e) => this.onFormSubmit(e)}>
+
+                                <label>Search for node by label or Id to focus on</label>
+                                <input type="text"
+                                       spellCheck={false}
+                                       autoFocus
+                                       value={this.state.nodeTextOrId}
+                                       onChange={this.onQueryChange.bind(this)}
+                                       placeholder={"Node label text or Id"}
+                                />
+                                {/*<button className={"focus-btn"} type={"submit"} onClick={() => this.onFocusNodeClicked()}>*/}
+                                {/*    <FontAwesomeIcon icon={faDotCircle}/> Focus*/}
+                                {/*</button>*/}
+                            </form>
+                            {/*<hr/>*/}
+                            <br/>
 
 
-                        {
-                            this.state.queryResults
-                                ? <ul className={"focus-results"}>
-                                    {
-                                        this.state.queryResults.map((result, index) => {
-                                            return (
-                                                <li onClick={() => this.onFocusNodeClicked(result)}
-                                                    key={index}>
-                                                    <span style={{"backgroundColor": result.meta.shapeOptions.fillColorHex}}>.</span>
-                                                    {result.meta.labelOptions.labelText}
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                </ul>
-                                : <span></span>
-                        }
+                            {
+                                this.state.queryResults
+                                    ? <ul className={"focus-results"}>
+                                        {
+                                            this.state.queryResults.map((result, index) => {
+                                                return (
+                                                    <li onClick={() => this.onFocusNodeClicked(result)}
+                                                        key={index}>
+                                                        <span
+                                                            style={{"backgroundColor": result.meta.shapeOptions.fillColorHex}}>.</span>
+                                                        {result.meta.labelOptions.labelText}
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                    : <span></span>
+                            }
 
-                        {
-                            this.state.errorMessage
-                                ? <p className={"error-message small"}><strong>Error:</strong> {this.state.errorMessage}
-                                </p> :
-                                <span></span>
-                        }
+                            {
+                                this.state.errorMessage
+                                    ? <p className={"error-message small"}>
+                                        <strong>Error:</strong> {this.state.errorMessage}
+                                    </p> :
+                                    <span></span>
+                            }
 
-                        {
-                            this.state.infoMessage
-                                ? <p className={"info-message small"}><strong>Info:</strong> {this.state.infoMessage}
-                                </p> :
-                                <span></span>
-                        }
+                            {
+                                this.state.infoMessage
+                                    ?
+                                    <p className={"info-message small"}><strong>Info:</strong> {this.state.infoMessage}
+                                    </p> :
+                                    <span></span>
+                            }
 
-                    </div>
-                </GEPanel>
+                        </div>
+                    </GEPanel>
+                </GEModal>
             </div>
         )
     }

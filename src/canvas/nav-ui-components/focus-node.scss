@@ -1,15 +1,15 @@
 @import "src/config";
 
 .focus-node {
-  position: fixed;
-  width: 330px;
-  border: 1px solid $borderColor;
-  top: 77px;
-  right: 133px;
-  background: $darkBg;
-  //padding: 10px;
-  opacity: 0.95;
-  z-index: 1;
+  //position: fixed;
+  //width: 330px;
+  //border: 1px solid $borderColor;
+  //top: 77px;
+  //right: 133px;
+  //background: $darkBg;
+  ////padding: 10px;
+  //opacity: 0.95;
+  //z-index: 1;
 
   .ge-panel-body {
     overflow: hidden;
