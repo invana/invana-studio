@@ -70,7 +70,7 @@ export class VertexTableComponent extends React.Component {
     getOutELabels() {
         let outELabelsConfig = []
         this.props.vertexSchema.outE.map((outELabel) => {
-            console.log("====this.props.getEdgeOptions(outELabel)", this.props.dataStore.getEdgeOptions(outELabel))
+            // console.log("====this.props.getEdgeOptions(outELabel)", this.props.dataStore.getEdgeOptions(outELabel))
             outELabelsConfig.push({
                 edgeFillColorHex: this.props.dataStore.getEdgeOptions(outELabel)
                     ? this.props.dataStore.getEdgeOptions(outELabel).shapeOptions.strokeColorHex
@@ -88,9 +88,9 @@ export class VertexTableComponent extends React.Component {
     render() {
         const propertyKeys = this.getPropertyKeys();
         const elColor = this.getElementColor(this.props.data[0]);
-        console.log("VertexTableComponent here", this.props.label)
-        console.log("VertexTableComponent here  this.props.data[0]", this.props.data[0])
-        console.log("VertexTableComponent vertexSchema", this.props.label, this.props.vertexSchema)
+        // console.log("VertexTableComponent here", this.props.label)
+        // console.log("VertexTableComponent here  this.props.data[0]", this.props.data[0])
+        // console.log("VertexTableComponent vertexSchema", this.props.label, this.props.vertexSchema)
         let colorOptions = {};
         if (this.props.type === "Vertex") {
             const _ = getDataFromLocalStorage("nodeLabels", true) || {}
@@ -264,8 +264,8 @@ export class EdgeTableComponent extends React.Component {
     render() {
         const propertyKeys = this.getPropertyKeys();
         const elColor = this.getElementColor(this.props.data[0]);
-        console.log("EdgeTableComponent here", this.props.label)
-        console.log("EdgeTableComponent here  this.props.data[0]", this.props.data[0])
+        // console.log("EdgeTableComponent here", this.props.label)
+        // console.log("EdgeTableComponent here  this.props.data[0]", this.props.data[0])
         let colorOptions = {};
         if (this.props.type === "Vertex") {
             const _ = getDataFromLocalStorage("nodeLabels", true) || {}

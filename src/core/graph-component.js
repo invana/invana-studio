@@ -295,7 +295,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
     }
 
 
-    makeQuery(query, queryOptions) {
+    makeQuery(queryObj, queryOptions) {
 
         /*
             queryOptions.source = "internal|console|canvas"
@@ -310,19 +310,19 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             queryOptions.source = "internal";
         }
         if (queryOptions.source) {
-            this.setQueryToUrl(query);
-            this.addQueryToState(query)
-            this.addQueryToHistory(query, queryOptions.source)
+            this.setQueryToUrl(queryObj);
+            this.addQueryToState(queryObj)
+            this.addQueryToHistory(queryObj, queryOptions.source)
         } // remove this part from here soon.
 
         this.setState({statusMessage: "Querying..."})
-        console.log("makeQuery :::  query", query);
-        if (query) {
+        console.log("makeQuery :::  query", JSON.stringify(queryObj));
+        if (queryObj) {
             // this.startQueryTimer();
             // this.startLoader("Connecting..");
             this.queryStartedAt = new Date();
             this.queryEndedAt = new Date();
-            this.connector.query(query);
+            this.connector.query(queryObj);
 
         }
     }

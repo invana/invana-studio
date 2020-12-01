@@ -340,7 +340,7 @@ labelColor: "#dddddd"
         nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
 
 
-        console.log("nodeData======", nodeData.label, nodeData.meta.labelOptions.labelText, nodeData)
+        // console.log("nodeData======", nodeData.label, nodeData.meta.labelOptions.labelText, nodeData)
 
 
         const circleSelectedBorder = new PIXI.Graphics();
@@ -568,7 +568,7 @@ labelColor: "#dddddd"
         refer for curved lines with arrows
         https://stackoverflow.com/questions/11808860/how-to-place-arrow-head-triangles-on-svg-lines
          */
-        console.log("=======linkData", linkData.meta.shapeOptions.strokeColor, linkData);
+        // console.log("=======linkData", linkData.meta.shapeOptions.strokeColor, linkData);
 
 
         const linkColor = linkData.meta.shapeOptions.strokeColor;

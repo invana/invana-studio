@@ -26,7 +26,7 @@ export const colorToNumber = (c) => {
 
 
 export function renderPropertyData(key, value) {
-    console.log("renderPropertyData", typeof value, value instanceof Boolean, value,);
+    // console.log("renderPropertyData", typeof value, value instanceof Boolean, value,);
     if (typeof value === "boolean") {
         return value.toString();
     } else if (value === null) {

@@ -133,7 +133,6 @@ export default class ExplorerView extends BaseView {
 
     addQueryToConsole(query) {
         this.addQueryToState(query);
-
     }
 
 
@@ -481,6 +480,10 @@ export default class ExplorerView extends BaseView {
                                 makeQuery={this.makeQuery.bind(this)}
 
                                 flushCanvas={this.flushCanvas.bind(this)}
+
+                                query={this.state.query}
+
+                                addQueryToState={this.addQueryToState.bind(this)}
 
                             />
                         </MainContentRight>

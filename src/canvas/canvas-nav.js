@@ -102,18 +102,18 @@ export default class CanvasNav extends React.Component {
                 </List>
                 <List type={"canvas-nav"} style={{"float": "right"}}>
 
-                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell": "none"}}>
+                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell" : "none"}}>
                         <button title={"re render the canvas"}
                                 onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
                             <FontAwesomeIcon icon={faSync}/>
                         </button>
                     </li>
-                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell": "none"}}>
+                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell" : "none"}}>
                         <button onClick={() => this.props.canvasCtrl.downloadCanvasImage()}>
                             <FontAwesomeIcon icon={faCamera}/>
                         </button>
                     </li>
-                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell": "none"}}>
+                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell" : "none"}}>
                         <button onClick={() => this.switchToCanvasMenu("focus-node")}>
                             <FontAwesomeIcon icon={faSearch}/>
                         </button>
@@ -136,6 +136,8 @@ export default class CanvasNav extends React.Component {
                     this.state.canvasMenuType === "filter-nodes"
                         ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
                         : this.state.canvasMenuType === "query-console"
+                            && this.props.defaultQuery
+                            && !this.props.defaultQuery.query
                         ? (
                             <QueryConsole
                                 makeQuery={this.props.makeQuery}

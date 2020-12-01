@@ -29,7 +29,8 @@ export default class Canvas extends React.Component {
         makeQuery: () => console.error("makeQuery not set"),
         flushCanvas: () => console.error("flushCanvas not set"),
         setShallReRenderD3Canvas: (status) => console.error("setShallReRenderD3Canvas not set", status),
-
+        query: null,
+        addQueryToState: (query) => console.error("addQueryToState not implemented", query)
         // setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
     }
 
@@ -53,6 +54,9 @@ export default class Canvas extends React.Component {
 
         flushCanvas: PropTypes.func,
         setShallReRenderD3Canvas: PropTypes.func,
+
+        query: PropTypes.string,
+        addQueryToState: PropTypes.func
 
         // setFocusedNodes: PropTypes.func
     }
@@ -133,10 +137,12 @@ export default class Canvas extends React.Component {
 
     setDefaultQuery(query) {
         this.setState({defaultQuery: query});
+        this.props.addQueryToState(query);
     }
 
 
     render() {
+        console.log("canvasQuery:",this.state.defaultQuery,"---", this.props.query);
         return (
 
             <div
@@ -153,7 +159,7 @@ export default class Canvas extends React.Component {
                     dataStore={this.props.dataStore}
                     getGraphicsEngine={this.getGraphicsEngine.bind(this)}
                     setFocusedNodes={this.setFocusedNodes.bind(this)}
-                    defaultQuery={this.state.defaultQuery}
+                    defaultQuery={this.props.query}
                     setDefaultQuery={this.setDefaultQuery.bind(this)}
 
                     // switchCanvasTo={this.switchCanvasTo.bind(this)}

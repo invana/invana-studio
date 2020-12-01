@@ -241,7 +241,7 @@ export default class InMemoryDataStore {
                 this.addEdgeToDataSet(edge)
             }
             let checkIfInVExistInStore = _this.checkIfVertexExist(edge.inV);
-            console.log("checkIfInVExistInStore", checkIfInVExistInStore, edge.inV);
+            // console.log("checkIfInVExistInStore", checkIfInVExistInStore, edge.inV);
             if (!checkIfInVExistInStore) {
                 this.addVertexToDataSet({id: edge.inV, label: edge.inVLabel, type: "g:Vertex", properties: {}});
             }
