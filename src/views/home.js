@@ -30,7 +30,7 @@ export default class HomeView extends RemoteGraphComponent {
             setElementColorOptionsToStorageUsingResponse(response);
             window.location.href = "/explorer";
         } else {
-            window.location.href = "/connect?error=Unable to connect&transporterStatus=" + transporterStatusCode;
+            window.location.href = "/connect?error=Failed to connect&transporterStatus=" + transporterStatusCode;
             _this.setState({
                 "errorMessage": JSON.stringify(response,),
                 "showErrorMessage": true,

@@ -151,7 +151,10 @@ export default class SetupGremlinServerConnection extends React.Component {
                 <Modal title={null} size={"md"}
                     // style={{"top": "100px", "left": "auto","right": "20px", }}
                     //    style={{"top": "250px", "left": "20px",}}
-                       style={{"position": "relative", "left": "20px"}}
+                       style={{
+                           "position": "relative", "left": "20px", "width": "450px",
+                           "borderBottomWidth": "4px"
+                       }}
                 >
                     <div className={"connect"}>
                         <div className={"top-section"}>
@@ -178,7 +181,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                                 <br/>
 
                                 <p>
-                                    <button type={"button"} onClick={this.toggleMoreOptions.bind(this)}>
+                                    <button className={"extra-headers-btn"} type={"button"} onClick={this.toggleMoreOptions.bind(this)}>
                                         http headers <FontAwesomeIcon icon={faAngleDown}/>
                                     </button>
                                 </p>

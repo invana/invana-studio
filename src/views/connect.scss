@@ -4,7 +4,7 @@
   width: 600px;
   //position: absolute;
   margin-left: 20px;
-  margin-top: 140px;
+  margin-top: 16%;
   color: $defaultTextColor;
 
   .invana-logo {
@@ -23,8 +23,9 @@
 
   small {
     //color: $primaryColor;
-    color: $darkTextColor;
+    //color: $darkTextColor;
     font-size: 14px;
+    text-transform: uppercase;
   }
 }
 
@@ -38,6 +39,10 @@
   h4 {
     border-bottom: 1px solid #313131;
     padding-bottom: 5px;
+  }
+
+  .extra-headers-btn {
+    color: $darkTextColor;
   }
 
   .headersList {
@@ -75,7 +80,7 @@
     }
 
     .headerValue {
-      width: 250px;
+      width: 235px;
       margin-right: 10px;
     }
   }

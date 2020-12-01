@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 export default class FounderNote extends React.Component {
 
     static defaultProps = {
-        onClose: ()=>console.error("onClose prop not set for <FounderNote> component"),
-        setLeftContent: ()=>console.error("setLeftContent prop not set for <FounderNote> component")
+        onClose: () => console.error("onClose prop not set for <FounderNote> component"),
+        setLeftContent: () => console.error("setLeftContent prop not set for <FounderNote> component")
     }
 
 
@@ -23,8 +23,8 @@ export default class FounderNote extends React.Component {
                 <p>Hi there! </p>
                 <p>Introducing Graph Explorer ({VERSION}) - {ABOUT_TEXT}</p>
                 <p>In the words of General Patton, “If a man does his best, what else is there!”, so I
-                    believe there is always a next best thing. In the spirit of every <em>new technology</em>
-                    that disrupts the way Humans solves the problems.
+                    believe there is always a next best thing. In the spirit of
+                    every <em>new technology</em> that disrupts the way Humans solves the problems.
                     This project is yet an attempt to gather the best of the tech
                     from graph computing and
                     data visualisations, to give Innovators a great way to find
@@ -39,7 +39,8 @@ export default class FounderNote extends React.Component {
                 <p>This project is shared
                     under open source <em>Apache License 2.0</em> license.
                     Please feel free to contribute and star
-                    the project at <a href={REPO_URL} rel="noopener noreferrer" target={"_blank"} className={"selected"}>Github.</a>.</p>
+                    the project at <a href={REPO_URL} rel="noopener noreferrer" target={"_blank"}
+                                      className={"selected"}>Github.</a>.</p>
                 <p>Best <br/>
                     Ravi Raja Merugu <a target={"_blank"} rel="noopener noreferrer"
                                         href="https://www.linkedin.com/in/rrmerugu/">(linkedin.com/in/rrmerugu/)</a>
