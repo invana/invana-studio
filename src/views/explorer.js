@@ -164,7 +164,7 @@ export default class ExplorerView extends BaseView {
 
 
                         <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("whats-new")}>
+                            <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>
                                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <FontAwesomeIcon icon={faCubes}/> Get Started
                             </button>
@@ -179,11 +179,11 @@ export default class ExplorerView extends BaseView {
                                 <FontAwesomeIcon icon={faLifeRing}/>
                             </button>
                         </li>
-                        <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>
-                                <FontAwesomeIcon icon={faBook}/>
-                            </button>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>*/}
+                        {/*        <FontAwesomeIcon icon={faBook}/>*/}
+                        {/*    </button>*/}
+                        {/*</li>*/}
 
                         <li>
                             <button className={"no-bg"} onClick={() => this.setRightContentName("founder-note")}>
