@@ -310,8 +310,8 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             queryOptions.source = "internal";
         }
         if (queryOptions.source) {
-            this.setQueryToUrl(queryObj);
-            this.addQueryToState(queryObj)
+            // this.setQueryToUrl(queryObj);
+            // this.addQueryToState(queryObj)
             this.addQueryToHistory(queryObj, queryOptions.source)
         } // remove this part from here soon.
 

@@ -136,8 +136,7 @@ export default class CanvasNav extends React.Component {
                     this.state.canvasMenuType === "filter-nodes"
                         ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
                         : this.state.canvasMenuType === "query-console"
-                            && this.props.defaultQuery
-                            && !this.props.defaultQuery.query
+                        // && (this.props.defaultQuery && !this.props.defaultQuery.query)
                         ? (
                             <QueryConsole
                                 makeQuery={this.props.makeQuery}
