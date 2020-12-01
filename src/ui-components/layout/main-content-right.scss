@@ -1,3 +1,4 @@
+@import "../../config";
 
 .main-content-right {
   width: calc(100vw - 300px - 250px - 45px - 2px); // 2px used for borders of left and middle
@@ -8,10 +9,21 @@
   justify-content: flex-end;
   flex-direction: column;
   background: #252529;
+
+  .main-content-nav-left {
+    height: 100%;
+    width: 35px;
+    float: left;
+    border-right: 1px solid $borderColor;
+    //background-color: $veryDarkBg;
+  }
+
 }
 
+
 .main-content-right.expanded {
-  width: calc(100vw - 300px - 45px - 2px);
+  //width: calc(100vw - 300px - 45px - 2px);
+  width: calc(100vw - 300px - 2px);
   // 2px used for borders of left and middle
   // 8px for scroll bar width.
 }

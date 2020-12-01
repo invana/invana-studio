@@ -212,45 +212,45 @@ export default class ExplorerView extends BaseView {
                     </List>
                 </GEHeader>
                 <Main>
-                    <AsideNav>
-                        <List type={"aside-nav"}>
-                            {/*<li>*/}
-                            {/*    <a onClick={() => this.setLeftContent("something")}>*/}
-                            {/*        <FontAwesomeIcon icon={faSearch}/>*/}
-                            {/*    </a>*/}
-                            {/*</li>*/}
-                            <li>
-                                <button onClick={() => this.setLeftContent("history")}>
-                                    <FontAwesomeIcon icon={faHistory}/>
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => this.setLeftContent("settings")}>
-                                    <FontAwesomeIcon icon={faCog}/>
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => this.setLeftContent("support")}>
-                                    <FontAwesomeIcon icon={faLifeRing}/>
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => this.setLeftContent("learn")}>
-                                    <FontAwesomeIcon icon={faBook}/>
-                                </button>
-                            </li>
+                    {/*<AsideNav>*/}
+                    {/*    <List type={"aside-nav"}>*/}
+                    {/*        /!*<li>*!/*/}
+                    {/*        /!*    <a onClick={() => this.setLeftContent("something")}>*!/*/}
+                    {/*        /!*        <FontAwesomeIcon icon={faSearch}/>*!/*/}
+                    {/*        /!*    </a>*!/*/}
+                    {/*        /!*</li>*!/*/}
+                    {/*        <li>*/}
+                    {/*            <button onClick={() => this.setLeftContent("history")}>*/}
+                    {/*                <FontAwesomeIcon icon={faHistory}/>*/}
+                    {/*            </button>*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <button onClick={() => this.setLeftContent("settings")}>*/}
+                    {/*                <FontAwesomeIcon icon={faCog}/>*/}
+                    {/*            </button>*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <button onClick={() => this.setLeftContent("support")}>*/}
+                    {/*                <FontAwesomeIcon icon={faLifeRing}/>*/}
+                    {/*            </button>*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <button onClick={() => this.setLeftContent("learn")}>*/}
+                    {/*                <FontAwesomeIcon icon={faBook}/>*/}
+                    {/*            </button>*/}
+                    {/*        </li>*/}
 
-                            <li>
-                                <button onClick={() => this.setLeftContent("about")}>
-                                    <FontAwesomeIcon icon={faInfoCircle}/>
-                                </button>
-                            </li>
-                        </List>
-                    </AsideNav>
+                    {/*        <li>*/}
+                    {/*            <button onClick={() => this.setLeftContent("about")}>*/}
+                    {/*                <FontAwesomeIcon icon={faInfoCircle}/>*/}
+                    {/*            </button>*/}
+                    {/*        </li>*/}
+                    {/*    </List>*/}
+                    {/*</AsideNav>*/}
                     <MainContent>
-                        {/*<AsideLeft extraClass={this.state.leftContentName ? "" : "closed"}>*/}
+                        <AsideLeft extraClass={this.state.leftContentName ? "" : "closed"}>
 
-                        {/*</AsideLeft>*/}
+                        </AsideLeft>
                         <MainContentMiddle>
                             <div
                                 className={

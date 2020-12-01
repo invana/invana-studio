@@ -2,7 +2,8 @@
 
 
 .main-content {
-  width: calc(100% - 45px);
+  //width: calc(100% - 45px);
+  width: 100%;
   float: right;
   height: calc(100vh - 45px - 24px);
 
@@ -13,8 +14,10 @@
   }
 
 
-
   .main-content-body {
-    height: calc(100% - 22px - 10px);
+    //height: calc(100% - 22px - 10px);
+    height: 100%;
+    width: calc(100% - 36px);
+    float: right;
   }
 }

@@ -3,7 +3,7 @@ import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera, faFilter, faSearch, faSync,
-    faTerminal, faTrashAlt
+    faTerminal, faTrashAlt, faTable, faProjectDiagram
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import FilterNodes from "./nav-ui-components/filter-nodes";
@@ -64,18 +64,18 @@ export default class CanvasNav extends React.Component {
 
     render() {
         return (
-            <div className={"main-content-nav"}>
-                <List type={"canvas-nav"} style={{"float": "left"}}>
-                    <li>
-                        &nbsp;
-                    </li>
+            <div className={"main-content-nav-left"}>
+                <List type={"aside-nav"} >
+
                     <li>
                         <div className={"canvasToggle"}>
                             <button className={this.props.canvasType === "graph" ? "selected" : ""}
-                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("graph")}>Graph
+                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("graph")}>
+                                 <FontAwesomeIcon icon={faProjectDiagram}/>
                             </button>
                             <button className={this.props.canvasType === "table" ? "selected" : ""}
-                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("table")}>Table
+                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("table")}>
+                                 <FontAwesomeIcon icon={faTable}/>
                             </button>
                             {/*<button className={this.props.canvasType === "json" ? "selected" : ""}*/}
                             {/*        onClick={() => this.props.canvasCtrl.switchCanvasTo("json")}>JSON*/}
@@ -100,20 +100,20 @@ export default class CanvasNav extends React.Component {
                     </li>
 
                 </List>
-                <List type={"canvas-nav"} style={{"float": "right"}}>
+                <List type={"aside-nav"}  >
 
-                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell" : "none"}}>
+                    <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
                         <button title={"re render the canvas"}
                                 onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
                             <FontAwesomeIcon icon={faSync}/>
                         </button>
                     </li>
-                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell" : "none"}}>
+                    <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
                         <button onClick={() => this.props.canvasCtrl.downloadCanvasImage()}>
                             <FontAwesomeIcon icon={faCamera}/>
                         </button>
                     </li>
-                    <li style={{"display": this.props.canvasType === "graph" ? "table-cell" : "none"}}>
+                    <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
                         <button onClick={() => this.switchToCanvasMenu("focus-node")}>
                             <FontAwesomeIcon icon={faSearch}/>
                         </button>
@@ -126,7 +126,7 @@ export default class CanvasNav extends React.Component {
                     <li>
                         {/*<div className={"canvasToggle"}>*/}
                         <button onClick={() => this.switchToCanvasMenu("query-console")}>
-                            <FontAwesomeIcon icon={faTerminal}/> <strong>Query Console</strong>
+                            <FontAwesomeIcon icon={faTerminal}/>
                         </button>
                         {/*</div>*/}
                     </li>
