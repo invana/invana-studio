@@ -1,14 +1,18 @@
 @import "../../config.scss";
 
 
-  .aside-right {
-    width: 300px;
-    height: calc(100vh - 45px - 24px);
-    position: fixed;
-    top: 46px;
-    right: 0;
-    border-left: 1px solid $borderColor;
-    background: $darkBg;
-    z-index: 10000;
+.aside-right {
+  width: 300px;
+  height: calc(100vh - 45px - 24px);
+  position: fixed;
+  top: 46px;
+  right: 24px;
+  border-left: 1px solid $borderColor;
+  background: $darkBg;
+  z-index: 10000;
 
-  }
+}
+
+.aside-right-lg {
+  width: 600px;
+}

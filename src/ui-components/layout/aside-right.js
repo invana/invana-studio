@@ -5,10 +5,12 @@ import PropTypes from "prop-types";
 export default class AsideRight extends React.Component {
 
     static propTypes = {
-        children: PropTypes.any
+        children: PropTypes.any,
+        size: PropTypes.string
     }
 
     render() {
-        return <div className={"aside-right"}>{this.props.children}</div>;
+        // let clsName = (this.props.size === "lg"? "aside-right aside-right-lg" : "aside-right");
+        return <div className={this.props.size === "lg"? "aside-right aside-right-lg" : "aside-right"}>{this.props.children}</div>;
     }
 }

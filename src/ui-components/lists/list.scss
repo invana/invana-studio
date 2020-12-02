@@ -36,7 +36,8 @@ ul {
     a:hover, button:hover {
       color: $primaryColor;
     }
-    .active{
+
+    .active {
       color: $primaryColor;
     }
 
@@ -53,6 +54,58 @@ ul {
     a, span, button {
       padding: 0 7px 0 7px;
       height: 31px;
+    }
+  }
+}
+
+.aside-list {
+  width: 23px;
+  float: left;
+  height: 100%;
+
+  li {
+    transform: rotate(90deg);
+    transform-origin: right top;
+    -ms-transform: rotate(90deg);
+    -ms-transform-origin: right top;
+    -webkit-transform: rotate(90deg);
+    -webkit-transform-origin: right top;
+    display: block;
+    font-weight: bold;
+    //margin-top:  20px;
+    margin: 0;
+    //margin-bottom: 100px;
+    left: -2px;
+    position: relative;
+    border-left: 1px solid $borderColor;
+    padding-left: 15px;
+
+    li:first-of-type {
+      border-left: none !important;
+    }
+
+    button, span {
+      display: inline-flex;
+      font-weight: bold;
+    }
+    svg{
+          transform: rotate(-90deg);
+    transform-origin: center;
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: center;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: center;
+    }
+
+    span {
+      margin-left: 5px;
+    }
+
+    .selected {
+      span {
+        color: $primaryColor !important;
+
+      }
     }
   }
 }

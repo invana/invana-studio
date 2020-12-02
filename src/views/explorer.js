@@ -7,8 +7,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faBook,
     faCog, faCubes,
-    faHistory, faInfoCircle, faLifeRing,
-    faStickyNote
+    faHistory, faHome, faInfoCircle, faLifeRing,
+    faStickyNote, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
 import Main from "../ui-components/layout/main";
@@ -36,6 +36,7 @@ import FounderNote from "../viewlets/founder-note";
 import WhatsNew from "../viewlets/whats-new";
 import GEList from "../ui-components/lists/list";
 import Canvas from "../canvas/canvas";
+import QueryConsole from "../canvas/nav-ui-components/query-console";
 
 const Mousetrap = require("mousetrap");
 
@@ -294,7 +295,7 @@ export default class ExplorerView extends BaseView {
 
                             />
                         </MainContentRight>
-                                    <MainContentMiddle>
+                        <MainContentMiddle>
                             <div
                                 className={
                                     this.state.middleBottomContentName
@@ -451,7 +452,47 @@ export default class ExplorerView extends BaseView {
                                             : <span></span>
                                 }
                             </div>
+
                         </MainContentMiddle>
+                        <GEList type={"aside"}>
+
+                            <li style={{"marginTop": "22px"}}>
+                                <button onClick={() => this.setRightContentName(null)}
+                                        className={this.state.rightContentName === null ? "selected" : ""}
+                                >
+                                    <FontAwesomeIcon icon={faHome}/><span>Overview</span>
+                                </button>
+                            </li>
+
+                            <li style={{"marginTop": "97px"}}>
+                                <button onClick={() => this.setRightContentName("query-console")}
+                                        className={this.state.rightContentName === "query-console" ? "selected" : ""}
+                                >
+                                    <FontAwesomeIcon icon={faTerminal}/><span>Query&nbsp;Console</span>
+                                </button>
+                            </li>
+                            <li style={{"marginTop": "125px"}}>
+                                <button onClick={() => this.setRightContentName("history")}
+                                        className={this.state.rightContentName === "history" ? "selected" : ""}
+                                >
+                                    <FontAwesomeIcon icon={faHistory}/><span>History</span>
+                                </button>
+                            </li>
+                            <li style={{"marginTop": "80px"}}>
+                                <button onClick={() => this.setRightContentName("support")}
+                                        className={this.state.rightContentName === "support" ? "selected" : ""}
+                                >
+                                    <FontAwesomeIcon icon={faLifeRing}/><span>Support</span>
+                                </button>
+                            </li>
+                            <li style={{"marginTop": "80px"}}>
+                                <button onClick={() => this.setRightContentName("about")}
+                                        className={this.state.rightContentName === "about" ? "selected" : ""}
+                                >
+                                    <FontAwesomeIcon icon={faInfoCircle}/><span>About</span>
+                                </button>
+                            </li>
+                        </GEList>
                     </MainContent>
                 </Main>
                 <GEFooter>
@@ -504,6 +545,8 @@ export default class ExplorerView extends BaseView {
                         </li>
                     </List>
                 </GEFooter>
+
+
                 {this.state.rightContentName ? (
                     <AsideRight>
                         {console.log("========== rightContentName", this.state.rightContentName)}
@@ -531,19 +574,7 @@ export default class ExplorerView extends BaseView {
                                 </GEPanel>
                                 : <span></span>
                         }
-                        {this.state.rightContentName === "history" ? (
-                                <GEPanel
-                                    title={"History"}
-                                    onClickClose={() => this.setRightContentName(null)}
-                                    showToggleBtn={false}
-                                >
-                                    <HistoryComponent
-                                        makeQuery={this.makeQuery.bind(this)}
-                                        // requestBuilder={this.requestBuilder}
-                                        addQueryToConsole={this.addQueryToConsole.bind(this)}
-                                    />
-                                </GEPanel>
-                            ) :
+                        {
                             this.state.rightContentName === "settings"
                                 ? (
                                     <GEPanel
@@ -589,6 +620,38 @@ export default class ExplorerView extends BaseView {
                                                     <AboutComponent/>
                                                 </GEPanel>
                                             ) : (<span></span>)
+                        }
+                    </AsideRight>
+                ) : (
+                    <span/>
+                )}
+                {this.state.rightContentName && (this.state.rightContentName === "history" || this.state.rightContentName === "query-console") ? (
+                    <AsideRight size={"lg"}>
+                        {
+                            this.state.rightContentName === "history" ? (
+                                <GEPanel
+                                    title={"History"}
+                                    onClickClose={() => this.setRightContentName(null)}
+                                    showToggleBtn={false}
+                                >
+                                    <HistoryComponent
+                                        makeQuery={this.makeQuery.bind(this)}
+                                        // requestBuilder={this.requestBuilder}
+                                        addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                    />
+                                </GEPanel>
+                            ) : this.state.rightContentName === "query-console" ? (
+                                <QueryConsole
+                                    makeQuery={this.makeQuery.bind(this)}
+                                    connector={this.connector}
+                                    defaultQuery={this.state.defaultQuery}
+                                    // value={this.state.defaultQuery}
+                                    onClose={() => {
+                                        this.setRightContentName(null);
+                                        // this.setDefaultQuery("");
+                                    }}
+                                />
+                            ) : <span></span>
                         }
                     </AsideRight>
                 ) : (
