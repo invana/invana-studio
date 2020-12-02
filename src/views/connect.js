@@ -8,9 +8,7 @@ import {
     faPlayCircle,
     faAngleDown,
     faTimesCircle,
-    faQuestionCircle,
     faPlug,
-    faVideo
 } from "@fortawesome/free-solid-svg-icons";
 
 

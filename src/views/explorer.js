@@ -5,14 +5,13 @@ import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faBook,
     faCog, faCubes,
     faHistory, faHome, faInfoCircle, faLifeRing,
     faStickyNote, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import Indicator from "../ui-components/indicator/indicator";
 import Main from "../ui-components/layout/main";
-import AsideNav from "../ui-components/layout/aside-nav";
+// import AsideNav from "../ui-components/layout/aside-nav";
 import MainContent from "../ui-components/layout/main-content";
 import AsideLeft from "../ui-components/layout/aside-left";
 import GEPanel from "../ui-components/panels/panel";
@@ -165,8 +164,8 @@ export default class ExplorerView extends BaseView {
 
 
                         <li>
-                            <button  className={this.state.rightContentName === "learn" ? "selected no-bg" : "no-bg"}
-                                     onClick={() => this.setRightContentName("learn")}>
+                            <button className={this.state.rightContentName === "learn" ? "selected no-bg" : "no-bg"}
+                                    onClick={() => this.setRightContentName("learn")}>
                                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <FontAwesomeIcon icon={faCubes}/> Get Started
                             </button>
@@ -184,8 +183,9 @@ export default class ExplorerView extends BaseView {
                         {/*</li>*/}
 
                         <li>
-                            <button  className={this.state.rightContentName === "founder-note" ? "selected no-bg" : "no-bg"}
-                                     onClick={() => this.setRightContentName("founder-note")}>
+                            <button
+                                className={this.state.rightContentName === "founder-note" ? "selected no-bg" : "no-bg"}
+                                onClick={() => this.setRightContentName("founder-note")}>
                                 <FontAwesomeIcon icon={faStickyNote}/>
                             </button>
                         </li>

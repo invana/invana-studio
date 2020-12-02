@@ -3,12 +3,11 @@ import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera, faFilter, faSearch, faSync,
-    faTerminal, faTrashAlt, faTable, faProjectDiagram, faInfoCircle, faLifeRing
+    faTrashAlt, faTable, faProjectDiagram
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import FilterNodes from "./nav-ui-components/filter-nodes";
 import FocusNode from "./nav-ui-components/focus-node";
-import QueryConsole from "./nav-ui-components/query-console";
 
 
 export default class CanvasNav extends React.Component {
@@ -164,13 +163,13 @@ export default class CanvasNav extends React.Component {
                         //     />
                         // )
                         : this.state.canvasMenuType === "focus-node"
-                            ? (<FocusNode
-                                onClose={this.switchToCanvasMenu.bind(this)}
-                                dataStore={this.props.dataStore}
-                                getGraphicsEngine={this.props.getGraphicsEngine}
-                                setFocusedNodes={this.props.setFocusedNodes}
-                            />)
-                            : (<Fragment/>)
+                        ? (<FocusNode
+                            onClose={this.switchToCanvasMenu.bind(this)}
+                            dataStore={this.props.dataStore}
+                            getGraphicsEngine={this.props.getGraphicsEngine}
+                            setFocusedNodes={this.props.setFocusedNodes}
+                        />)
+                        : (<Fragment/>)
                 }
             </div>
         );
