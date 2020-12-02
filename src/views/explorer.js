@@ -631,7 +631,9 @@ export default class ExplorerView extends BaseView {
                 ) : (
                     <span/>
                 )}
-                {this.state.rightContentName && (this.state.rightContentName === "history" || this.state.rightContentName === "query-console") ? (
+                {this.state.rightContentName &&
+                (this.state.rightContentName === "history"
+                    || this.state.rightContentName === "query-console") ? (
                     <AsideRight size={"lg"}>
                         {
                             this.state.rightContentName === "history" ? (
@@ -639,9 +641,7 @@ export default class ExplorerView extends BaseView {
                                     title={"History"}
                                     // onClickClose={() => this.setRightContentName(null)}
                                     showToggleBtn={false}
-                                    showCloseBtn={false}
-
-                                >
+                                    showCloseBtn={false}>
                                     <HistoryComponent
                                         makeQuery={this.makeQuery.bind(this)}
                                         // requestBuilder={this.requestBuilder}
@@ -652,7 +652,7 @@ export default class ExplorerView extends BaseView {
                                 <QueryConsole
                                     makeQuery={this.makeQuery.bind(this)}
                                     connector={this.connector}
-                                    defaultQuery={this.state.defaultQuery}
+                                    defaultQuery={this.state.query}
                                     // value={this.state.defaultQuery}
                                     onClose={() => {
                                         this.setRightContentName(null);

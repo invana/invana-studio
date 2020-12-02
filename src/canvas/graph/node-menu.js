@@ -18,7 +18,8 @@ export default class NodeMenu extends React.Component {
         // selectedElementData: null,
         makeQuery: () => console.error("makeQuery not set"),
         graphicsEngine: null,
-        setDefaultQuery: (query) => console.log("setDefaultQuery", query)
+        setDefaultQuery: (query) => console.log("setDefaultQuery", query),
+        setRightContentName: (name) => console.log("setRightContentName not set", name)
 
     }
     static propTypes = {
@@ -28,7 +29,8 @@ export default class NodeMenu extends React.Component {
         // selectedElementData: PropTypes.object,
         makeQuery: PropTypes.func,
         graphicsEngine: PropTypes.object,
-        setDefaultQuery: PropTypes.func
+        setDefaultQuery: PropTypes.func,
+        setRightContentName: PropTypes.func
 
     }
 
@@ -146,6 +148,7 @@ export default class NodeMenu extends React.Component {
         } else {
             query = "g.V(\"" + lastSelectedNodeData.id + "\")";
         }
+        this.props.setRightContentName("query-console");
         this.props.setDefaultQuery(query);
     }
 

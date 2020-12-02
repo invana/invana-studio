@@ -273,6 +273,7 @@ export default class PIXICanvas extends React.Component {
                     makeQuery={this.props.makeQuery}
                     graphicsEngine={this.graphicsEngine}
                     setDefaultQuery={this.props.setDefaultQuery}
+                    setRightContentName={this.props.setRightContentName}
                 />
                 <div className="graphContainer canvas">
                 </div>
