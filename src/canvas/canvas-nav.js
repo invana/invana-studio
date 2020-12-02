@@ -3,7 +3,7 @@ import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera, faFilter, faSearch, faSync,
-    faTerminal, faTrashAlt, faTable, faProjectDiagram
+    faTerminal, faTrashAlt, faTable, faProjectDiagram, faInfoCircle, faLifeRing
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import FilterNodes from "./nav-ui-components/filter-nodes";
@@ -23,7 +23,8 @@ export default class CanvasNav extends React.Component {
         makeQuery: (query) => console.log("makeQuery not set ", query),
         setFocusedNodes: (nodes) => console.log("setFocusedNodes not set ", nodes),
         defaultQuery: null,
-        setDefaultQuery: (query) => console.log("setDefaultQuery", query)
+        setDefaultQuery: (query) => console.log("setDefaultQuery", query),
+        setRightContentName: () => console.log("setRightContentName")
 
     }
     static propTypes = {
@@ -36,7 +37,8 @@ export default class CanvasNav extends React.Component {
         connector: PropTypes.object,
         setFocusedNodes: PropTypes.func,
         defaultQuery: PropTypes.string,
-        setDefaultQuery: PropTypes.func
+        setDefaultQuery: PropTypes.func,
+        setRightContentName: PropTypes.func
 
         // confirmRedrawCanvas: PropTypes.func
     }
@@ -66,7 +68,15 @@ export default class CanvasNav extends React.Component {
         return (
             <div className={"main-content-nav-left"}>
                 <List type={"aside-nav"}>
-
+                    <li>
+                        {/*<div className={"canvasToggle"}>*/}
+                        <button onClick={() => this.switchToCanvasMenu("query-console")}
+                                style={{"padding": "11px 9.5px"}}
+                        >
+                            <FontAwesomeIcon icon={faTerminal}/>
+                        </button>
+                        {/*</div>*/}
+                    </li>
                     <li>
                         <div className={"canvasToggle"}>
                             <button className={this.props.canvasType === "graph" ? "selected" : ""}
@@ -99,13 +109,9 @@ export default class CanvasNav extends React.Component {
                             <FontAwesomeIcon icon={faTrashAlt}/>
                         </button>
                     </li>
-
-                </List>
-                <List type={"aside-nav"}>
-
                     <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
                         <button title={"re render the canvas"}
-                                onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
+                                a onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
                             <FontAwesomeIcon icon={faSync}/>
                         </button>
                     </li>
@@ -124,14 +130,19 @@ export default class CanvasNav extends React.Component {
                             <FontAwesomeIcon icon={faFilter}/>
                         </button>
                     </li>
+                </List>
+                <List type={"aside-nav"}>
+
+
                     <li>
-                        {/*<div className={"canvasToggle"}>*/}
-                        <button onClick={() => this.switchToCanvasMenu("query-console")}
-                                style={{"padding": "11px 9.5px"}}
-                        >
-                            <FontAwesomeIcon icon={faTerminal}/>
+                        <button onClick={() => this.props.setRightContentName("support")}>
+                            <FontAwesomeIcon icon={faLifeRing}/>
                         </button>
-                        {/*</div>*/}
+                    </li>
+                    <li>
+                        <button onClick={() => this.props.setRightContentName("about")}>
+                            <FontAwesomeIcon icon={faInfoCircle}/>
+                        </button>
                     </li>
                 </List>
 

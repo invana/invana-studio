@@ -161,6 +161,7 @@ export default class Canvas extends React.Component {
                     setFocusedNodes={this.setFocusedNodes.bind(this)}
                     defaultQuery={this.props.query}
                     setDefaultQuery={this.setDefaultQuery.bind(this)}
+                    setRightContentName={this.props.setRightContentName}
 
                     // switchCanvasTo={this.switchCanvasTo.bind(this)}
                     // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}

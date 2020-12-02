@@ -174,11 +174,7 @@ export default class ExplorerView extends BaseView {
                                 <FontAwesomeIcon icon={faHistory}/>
                             </button>
                         </li>
-                        <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("support")}>
-                                <FontAwesomeIcon icon={faLifeRing}/>
-                            </button>
-                        </li>
+
                         {/*<li>*/}
                         {/*    <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>*/}
                         {/*        <FontAwesomeIcon icon={faBook}/>*/}
@@ -197,11 +193,7 @@ export default class ExplorerView extends BaseView {
                             </button>
                         </li>
 
-                        <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("about")}>
-                                <FontAwesomeIcon icon={faInfoCircle}/>
-                            </button>
-                        </li>
+
                         <li style={{"padding": "0 5px"}}>
                             <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
                                 <img
@@ -524,7 +516,7 @@ export default class ExplorerView extends BaseView {
                                     onClickClose={() => this.setRightContentName(null)}
                                     showToggleBtn={false}
                                 > <FounderNote
-                                    setLeftContent={this.setLeftContent.bind(this)}
+                                    setRightContentName={this.setRightContentName.bind(this)}
                                     onClose={() => this.setRightContentName(null)}/>
                                 </GEPanel>
                                 : this.state.rightContentName === "whats-new"
