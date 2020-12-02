@@ -110,7 +110,7 @@ export default class CanvasNav extends React.Component {
                     </li>
                     <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
                         <button title={"re render the canvas"}
-                                a onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
+                                 onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
                             <FontAwesomeIcon icon={faSync}/>
                         </button>
                     </li>

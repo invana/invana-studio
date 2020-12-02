@@ -59,9 +59,10 @@ ul {
 }
 
 .aside-list {
-  width: 23px;
+  width: 22px;
   float: left;
   height: 100%;
+  border-right: 1px solid $borderColor;
 
   li {
     transform: rotate(90deg);
