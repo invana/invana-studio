@@ -92,8 +92,10 @@ export default class QueryConsole extends React.Component {
             <div className={"queryConsole"}>
                 <GEPanel
                     title={"Query Console"}
-                    onClickClose={() => this.props.onClose(null)}
+                    // onClickClose={() => this.props.onClose(null)}
                     showToggleBtn={false}
+                    showCloseBtn={false}
+
                 >
                     <div className={"p-10"}>
 

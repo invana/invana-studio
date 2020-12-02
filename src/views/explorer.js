@@ -165,16 +165,17 @@ export default class ExplorerView extends BaseView {
 
 
                         <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>
+                            <button  className={this.state.rightContentName === "learn" ? "selected no-bg" : "no-bg"}
+                                     onClick={() => this.setRightContentName("learn")}>
                                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <FontAwesomeIcon icon={faCubes}/> Get Started
                             </button>
                         </li>
-                        <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("history")}>
-                                <FontAwesomeIcon icon={faHistory}/>
-                            </button>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <button className={"no-bg"} onClick={() => this.setRightContentName("history")}>*/}
+                        {/*        <FontAwesomeIcon icon={faHistory}/>*/}
+                        {/*    </button>*/}
+                        {/*</li>*/}
 
                         {/*<li>*/}
                         {/*    <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>*/}
@@ -183,13 +184,15 @@ export default class ExplorerView extends BaseView {
                         {/*</li>*/}
 
                         <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("founder-note")}>
+                            <button  className={this.state.rightContentName === "founder-note" ? "selected no-bg" : "no-bg"}
+                                     onClick={() => this.setRightContentName("founder-note")}>
                                 <FontAwesomeIcon icon={faStickyNote}/>
                             </button>
                         </li>
 
                         <li>
-                            <button className={"no-bg"} onClick={() => this.setRightContentName("settings")}>
+                            <button className={this.state.rightContentName === "settings" ? "selected no-bg" : "no-bg"}
+                                    onClick={() => this.setRightContentName("settings")}>
                                 <FontAwesomeIcon icon={faCog}/>
                             </button>
                         </li>
@@ -588,14 +591,15 @@ export default class ExplorerView extends BaseView {
                                 this.state.rightContentName === "learn"
                                     ? (
                                         <GEPanel
-                                            title={"Learn"}
+                                            title={"Get Started"}
                                             onClickClose={() => this.setRightContentName(null)}
                                             showToggleBtn={false}
                                         >
                                             <LearnComponent
                                                 addQueryToConsole={this.addQueryToConsole.bind(this)}
                                                 makeQuery={this.makeQuery.bind(this)}
-                                                onClose={() => this.setLeftContent(null)}/>
+                                                onClose={() => this.setLeftContent(null)}
+                                            />
 
 
                                         </GEPanel>
@@ -604,7 +608,8 @@ export default class ExplorerView extends BaseView {
                                         ? (
                                             <GEPanel
                                                 title={"Support"}
-                                                onClickClose={() => this.setRightContentName(null)}
+                                                // onClickClose={() => this.setRightContentName(null)}
+                                                showCloseBtn={false}
                                                 showToggleBtn={false}
                                             >
                                                 <SupportComponent/>
@@ -614,7 +619,8 @@ export default class ExplorerView extends BaseView {
                                             ? (
                                                 <GEPanel
                                                     title={"About"}
-                                                    onClickClose={() => this.setRightContentName(null)}
+                                                    // onClickClose={() => this.setRightContentName(null)}
+                                                    showCloseBtn={false}
                                                     showToggleBtn={false}
                                                 >
                                                     <AboutComponent/>
@@ -631,8 +637,10 @@ export default class ExplorerView extends BaseView {
                             this.state.rightContentName === "history" ? (
                                 <GEPanel
                                     title={"History"}
-                                    onClickClose={() => this.setRightContentName(null)}
+                                    // onClickClose={() => this.setRightContentName(null)}
                                     showToggleBtn={false}
+                                    showCloseBtn={false}
+
                                 >
                                     <HistoryComponent
                                         makeQuery={this.makeQuery.bind(this)}

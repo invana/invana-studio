@@ -68,15 +68,15 @@ export default class CanvasNav extends React.Component {
         return (
             <div className={"main-content-nav-left"}>
                 <List type={"aside-nav"}>
-                    <li>
-                        {/*<div className={"canvasToggle"}>*/}
-                        <button onClick={() => this.switchToCanvasMenu("query-console")}
-                                style={{"padding": "11px 9.5px"}}
-                        >
-                            <FontAwesomeIcon icon={faTerminal}/>
-                        </button>
-                        {/*</div>*/}
-                    </li>
+                    {/*<li>*/}
+                    {/*    /!*<div className={"canvasToggle"}>*!/*/}
+                    {/*    <button onClick={() => this.switchToCanvasMenu("query-console")}*/}
+                    {/*            style={{"padding": "11px 9.5px"}}*/}
+                    {/*    >*/}
+                    {/*        <FontAwesomeIcon icon={faTerminal}/>*/}
+                    {/*    </button>*/}
+                    {/*    /!*</div>*!/*/}
+                    {/*</li>*/}
                     <li>
                         <div className={"canvasToggle"}>
                             <button className={this.props.canvasType === "graph" ? "selected" : ""}
@@ -134,35 +134,35 @@ export default class CanvasNav extends React.Component {
                 <List type={"aside-nav"}>
 
 
-                    <li>
-                        <button onClick={() => this.props.setRightContentName("support")}>
-                            <FontAwesomeIcon icon={faLifeRing}/>
-                        </button>
-                    </li>
-                    <li>
-                        <button onClick={() => this.props.setRightContentName("about")}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
-                        </button>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <button onClick={() => this.props.setRightContentName("support")}>*/}
+                    {/*        <FontAwesomeIcon icon={faLifeRing}/>*/}
+                    {/*    </button>*/}
+                    {/*</li>*/}
+                    {/*<li>*/}
+                    {/*    <button onClick={() => this.props.setRightContentName("about")}>*/}
+                    {/*        <FontAwesomeIcon icon={faInfoCircle}/>*/}
+                    {/*    </button>*/}
+                    {/*</li>*/}
                 </List>
 
                 {
                     this.state.canvasMenuType === "filter-nodes"
                         ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
-                        : this.state.canvasMenuType === "query-console"
-                        // && (this.props.defaultQuery && !this.props.defaultQuery.query)
-                        ? (
-                            <QueryConsole
-                                makeQuery={this.props.makeQuery}
-                                connector={this.props.connector}
-                                defaultQuery={this.props.defaultQuery}
-                                // value={this.state.defaultQuery}
-                                onClose={() => {
-                                    this.switchToCanvasMenu(null);
-                                    this.props.setDefaultQuery("");
-                                }}
-                            />
-                        )
+                        // : this.state.canvasMenuType === "query-console"
+                        // // && (this.props.defaultQuery && !this.props.defaultQuery.query)
+                        // ? (
+                        //     <QueryConsole
+                        //         makeQuery={this.props.makeQuery}
+                        //         connector={this.props.connector}
+                        //         defaultQuery={this.props.defaultQuery}
+                        //         // value={this.state.defaultQuery}
+                        //         onClose={() => {
+                        //             this.switchToCanvasMenu(null);
+                        //             this.props.setDefaultQuery("");
+                        //         }}
+                        //     />
+                        // )
                         : this.state.canvasMenuType === "focus-node"
                             ? (<FocusNode
                                 onClose={this.switchToCanvasMenu.bind(this)}
