@@ -2,7 +2,7 @@ import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faWrench, faProjectDiagram} from "@fortawesome/free-solid-svg-icons";
+import {faWrench, faProjectDiagram, faCircle} from "@fortawesome/free-solid-svg-icons";
 import "./management.scss";
 import {managementVertexLabel} from "../config";
 import {getColorForString} from "../canvas/canvas-utils";
@@ -59,7 +59,7 @@ export default class VerticesManagement extends RemoteGraphComponent {
 
         return (
 
-            <div className={" p-10"}>
+            <div className={" p-10 pb-0"}>
                 {
                     this.state.verticesLabels.length === 0
                         ? <span className={"text-muted"}>No vertices data found</span>
@@ -74,10 +74,25 @@ export default class VerticesManagement extends RemoteGraphComponent {
                                 <li style={{"marginBottom": "5px",}} key={index}>
                                     <button className={"management-icon-btn"}
                                             title={"Show connected edges and vertices"}
+                                            style={{
+                                                'color': this.getVertexColor(vertexLabel.label, nodeLabels)
+                                            }}
                                             onClick={() => this.props.parentGraphComponent.makeQuery(
                                                 this.connector.requestBuilder.getNeighborEdgesAndVertices(
                                                     vertexLabel.label, 10, 0), {'source': 'canvas'})}>
-                                        <FontAwesomeIcon icon={faProjectDiagram}/>
+                                        <FontAwesomeIcon
+                                            style={{'color': this.getVertexColor(vertexLabel.label, nodeLabels)}}
+                                            icon={faCircle}/>
+
+                                        <span style={{
+                                            'display': 'inline',
+                                            // 'color': this.getVertexColor(vertexLabel.label, nodeLabels)
+                                        }}>
+                                    {vertexLabel.label} <small style={{"color": "#656565"}}>
+                                            ({this.props.parentGraphComponent.dataStore.verticesStats.get(vertexLabel.label)
+                                        || 0} of {vertexLabel.count})
+                                        </small>
+                                    </span>
                                     </button>
                                     {/*<button className={"management-icon-btn"} title={"Show "}*/}
                                     {/*        onClick={() => this.props.parentGraphComponent.makeQuery(*/}
@@ -85,19 +100,13 @@ export default class VerticesManagement extends RemoteGraphComponent {
                                     {/*            {'source': 'canvas'})}>*/}
                                     {/*    <FontAwesomeIcon icon={faCircle}/>*/}
                                     {/*</button>*/}
-                                    <button className={"management-icon-btn"} title={"Show the vertices options"}
-                                            onClick={() => this.props.setShowVertexOptions(vertexLabel.label, "g:Vertex")}>
+                                    <button
+                                        className={"management-icon-btn management-icon-btn-right"}
+                                        title={"Show the vertices options"}
+                                        onClick={() => this.props.setShowVertexOptions(vertexLabel.label, "g:Vertex")}>
                                         <FontAwesomeIcon icon={faWrench}/>
                                     </button>
-                                    <span style={{
-                                        'display': 'inline',
-                                        'color': this.getVertexColor(vertexLabel.label, nodeLabels)
-                                    }}>
-                                    {vertexLabel.label} <small style={{"color": "#656565"}}>
-                                            ({this.props.parentGraphComponent.dataStore.verticesStats.get(vertexLabel.label)
-                                    || 0} of {vertexLabel.count})
-                                        </small>
-                                    </span>
+
 
                                 </li>)
                         })

@@ -3,9 +3,9 @@
 
 .main-content {
   //width: calc(100% - 45px);
-  width: 100%;
-  float: right;
-  height: calc(100vh - 45px - 24px);
+  width: calc(100% - 22px - 22px);
+  float: left;
+  height: calc(100vh - 35px - 24px);
 
   .main-content-nav {
     height: 31px;

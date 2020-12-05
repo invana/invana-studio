@@ -90,6 +90,7 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             isConnected2Gremlin: null,
             query: null,
             isStreaming: null,
+            isLoading: null,
 
             // responses: [],
             // vertices: [],
@@ -244,7 +245,8 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
 
     onResponseCallback(response) {
         this.queryEndedAt = new Date();
-        this.resetLoader(); // updates the status of the ui
+        // this.resetLoader(); // updates the status of the ui
+        // this.setState({isStreaming: false});
         this.processResponse(response);
 
     }
@@ -315,7 +317,10 @@ export default class GremlinQueryBox extends RemoteGraphComponent {
             this.addQueryToHistory(queryObj, queryOptions.source)
         } // remove this part from here soon.
 
-        this.setState({statusMessage: "Querying..."})
+        this.setState({
+            statusMessage: "Querying...",
+            isLoading: true
+        });
         console.log("makeQuery :::  query", JSON.stringify(queryObj));
         if (queryObj) {
             // this.startQueryTimer();

@@ -15,7 +15,7 @@ export default class BaseComponent extends React.Component {
         super(props);
         this.state = {
             statusMessage: null,
-            isLoading: false,
+            // isLoading: false,
             loaderElapsedTimer: 0,
             loadingMessage: null,
             loadingExtraText: null,
@@ -28,7 +28,7 @@ export default class BaseComponent extends React.Component {
         this.setState({
             loadingMessage: null,
             loadingExtraText: null,
-            isLoading: false,
+            // isLoading: false,
             loaderElapsedTimer: null
         })
 

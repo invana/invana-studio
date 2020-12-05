@@ -167,7 +167,9 @@ export default class VertexOptions extends RemoteGraphComponent {
                            placeholder={"tagHtml (optional)"}
                            defaultValue={this.state.nodeOptions.properties.tagHtml || ""}/>
                     <br/>
+                    {/*<br/>*/}
                     <button className={"mt-10 button primary-btn"} type={"submit"}>update</button>
+                    <button className={"mt-10 button "} onClick={()=> this.props.setHideVertexOptions()} type={"type"}>cancel</button>
                 </form>
 
                 }

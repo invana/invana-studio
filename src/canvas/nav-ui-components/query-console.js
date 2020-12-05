@@ -89,59 +89,51 @@ export default class QueryConsole extends React.Component {
         console.log("queryConsole=======", this.props.defaultQuery);
         return (
 
-            <div className={"queryConsole"}>
-                <GEPanel
-                    title={"Query Console"}
-                    // onClickClose={() => this.props.onClose(null)}
-                    showToggleBtn={false}
-                    showCloseBtn={false}
 
-                >
-                    <div className={"p-10"}>
+            <div className={"p-10 queryConsole"}>
 
-                        <form ref={e => this.formRef = e} id={"queryForm"}
-                              onSubmit={(e) => this.onFormSubmit(this, e)}>
-                            {/*<p className={"small "}>Shift+Enter to submit the Query.</p>*/}
+                <form ref={e => this.formRef = e} id={"queryForm"}
+                      onSubmit={(e) => this.onFormSubmit(this, e)}>
+                    {/*<p className={"small "}>Shift+Enter to submit the Query.</p>*/}
 
 
-                            <textarea
-                                spellCheck={false}
-                                autoFocus
-                                onChange={this.onQueryChange.bind(this)}
-                                name={"query"}
-                                onKeyDown={this.onEnterPress.bind(this)}
-                                value={this.state.defaultQuery}
-                                placeholder={this.props.defaultPlaceholderText}/>
-                            <div className={"queryOptions"}>
-                                <div className={"float-left"}>
-                                    {/*    <label htmlFor="isQueryRepeatEnabled">*/}
-                                    {/*        <input type="checkbox" name="isQueryRepeatEnabled"*/}
-                                    {/*            // defaultChecked={"checked"}*/}
-                                    {/*               onClick={this.handleChange.bind(this)}*/}
-                                    {/*            // onChange={this.handleQueryRepeater}*/}
-                                    {/*               value="."/>*/}
-                                    {/*        Repeat query <span className={"repeatInfoCls"}>every*/}
-                                    {/*<input type="number"*/}
-                                    {/*       min={5}*/}
-                                    {/*       defaultValue={5}*/}
-                                    {/*    // value={15}*/}
-                                    {/*       name={"queryRepeatFrequency"}/>s.*/}
-                                    {/*    </span>*/}
-                                    {/*    </label>*/}
-                                    <button className={"button m-0"} type={"submit"}
-                                            onSubmit={(e) => this.onFormSubmit.bind(this, e)}
-                                    >
-                                        <FontAwesomeIcon icon={faPlayCircle}/> Run Query
-                                    </button>
-                                </div>
-                                <div className={"float-right"}>
+                    <textarea
+                        spellCheck={false}
+                        autoFocus
+                        onChange={this.onQueryChange.bind(this)}
+                        name={"query"}
+                        onKeyDown={this.onEnterPress.bind(this)}
+                        value={this.state.defaultQuery}
+                        placeholder={this.props.defaultPlaceholderText}/>
+                    <div className={"queryOptions"}>
+                        <div className={"float-left"}>
+                            {/*    <label htmlFor="isQueryRepeatEnabled">*/}
+                            {/*        <input type="checkbox" name="isQueryRepeatEnabled"*/}
+                            {/*            // defaultChecked={"checked"}*/}
+                            {/*               onClick={this.handleChange.bind(this)}*/}
+                            {/*            // onChange={this.handleQueryRepeater}*/}
+                            {/*               value="."/>*/}
+                            {/*        Repeat query <span className={"repeatInfoCls"}>every*/}
+                            {/*<input type="number"*/}
+                            {/*       min={5}*/}
+                            {/*       defaultValue={5}*/}
+                            {/*    // value={15}*/}
+                            {/*       name={"queryRepeatFrequency"}/>s.*/}
+                            {/*    </span>*/}
+                            {/*    </label>*/}
+                            <button className={"button m-0"} type={"submit"}
+                                    onSubmit={(e) => this.onFormSubmit.bind(this, e)}
+                            >
+                                <FontAwesomeIcon icon={faPlayCircle}/> Run Query
+                            </button>
+                        </div>
+                        <div className={"float-right"}>
 
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </GEPanel>
+                </form>
             </div>
+
 
         );
     }

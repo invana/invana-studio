@@ -8,12 +8,12 @@ export default class WhatsNew extends React.Component {
 
     static defaultProps = {
         onClose: () => console.error("onClose prop not set for <WhatsNew> component"),
-        setLeftContent: () => console.error("setLeftContent prop not set for <WhatsNew> component")
+        setLeftContentName: () => console.error("setLeftContentName prop not set for <WhatsNew> component")
     }
 
 
     static propTypes = {
-        setLeftContent: PropTypes.func,
+        setLeftContentName: PropTypes.func,
         onClose: PropTypes.func
     };
 

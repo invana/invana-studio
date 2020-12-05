@@ -13,7 +13,7 @@ import Indicator from "../ui-components/indicator/indicator";
 import Main from "../ui-components/layout/main";
 // import AsideNav from "../ui-components/layout/aside-nav";
 import MainContent from "../ui-components/layout/main-content";
-import AsideLeft from "../ui-components/layout/aside-left";
+import AsideLeftNav from "../ui-components/layout/aside-left-nav";
 import GEPanel from "../ui-components/panels/panel";
 import MainContentMiddle from "../ui-components/layout/main-content-middle";
 import MainContentRight from "../ui-components/layout/main-content-right";
@@ -36,6 +36,11 @@ import WhatsNew from "../viewlets/whats-new";
 import GEList from "../ui-components/lists/list";
 import Canvas from "../canvas/canvas";
 import QueryConsole from "../canvas/nav-ui-components/query-console";
+import AsideTop from "../ui-components/layout/aside-top";
+import AsideContent from "../ui-components/layout/aside-content";
+import GraphOverview from "../viewlets/overview";
+import CanvasNav from "../canvas/canvas-nav";
+import GetStarted from "../viewlets/get-started";
 
 const Mousetrap = require("mousetrap");
 
@@ -44,7 +49,8 @@ export default class ExplorerView extends BaseView {
 
     state = {
         ...this.state,
-        focusedNodes: []
+        focusedNodes: [],
+        leftContentName: "overview"
     }
 
     processResponse(response) {
@@ -90,9 +96,9 @@ export default class ExplorerView extends BaseView {
         Mousetrap.bind("ctrl+2", () => this.switchCanvasTo("table"));
         Mousetrap.bind("ctrl+3", () => this.switchCanvasTo("json"));
         Mousetrap.bind("ctrl+4", () => this.switchCanvasTo("raw"));
-        // Mousetrap.bind("shift+/", () => this.setLeftContent("query-console"));
-        Mousetrap.bind("shift+h", () => this.setLeftContent("history"));
-        Mousetrap.bind("esc", () => this.setLeftContent(null));
+        // Mousetrap.bind("shift+/", () => this.setLeftContentName("query-console"));
+        Mousetrap.bind("shift+h", () => this.setLeftContentName("history"));
+        Mousetrap.bind("esc", () => this.setLeftContentName(null));
     }
 
     unSetupHotKeys() {
@@ -132,6 +138,7 @@ export default class ExplorerView extends BaseView {
 
 
     addQueryToConsole(query) {
+        this.setState({rightContentName: "query-console"});
         this.addQueryToState(query);
     }
 
@@ -160,12 +167,29 @@ export default class ExplorerView extends BaseView {
                             </a>
                         </li>
                     </List>
+                    {/*<CanvasNav*/}
+                    {/*    canvasType={this.state.canvasType}*/}
+                    {/*    canvasCtrl={this.canvasCtrl}*/}
+                    {/*    makeQuery={this.props.makeQuery}*/}
+                    {/*    connector={this.props.connector}*/}
+                    {/*    dataStore={this.props.dataStore}*/}
+                    {/*    getGraphicsEngine={this.getGraphicsEngine.bind(this)}*/}
+                    {/*    setFocusedNodes={this.setFocusedNodes.bind(this)}*/}
+                    {/*    defaultQuery={this.props.query}*/}
+                    {/*    setDefaultQuery={this.setDefaultQuery.bind(this)}*/}
+                    {/*    setRightContentName={this.props.setRightContentName}*/}
+
+                    {/*    // switchCanvasTo={this.switchCanvasTo.bind(this)}*/}
+                    {/*    // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}*/}
+                    {/*    // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}*/}
+                    {/*/>*/}
+
                     <List type={"nav-right"}>
 
 
                         <li>
-                            <button className={this.state.rightContentName === "learn" ? "selected no-bg" : "no-bg"}
-                                    onClick={() => this.setRightContentName("learn")}>
+                            <button className={this.state.leftContentName === "learn" ? "selected no-bg" : "no-bg"}
+                                    onClick={() => this.setLeftContentName("learn")}>
                                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <FontAwesomeIcon icon={faCubes}/> Get Started
                             </button>
@@ -185,318 +209,360 @@ export default class ExplorerView extends BaseView {
                         <li>
                             <button
                                 className={this.state.rightContentName === "founder-note" ? "selected no-bg" : "no-bg"}
-                                onClick={() => this.setRightContentName("founder-note")}>
+                                onClick={() => this.setLeftContentName("founder-note")}>
                                 <FontAwesomeIcon icon={faStickyNote}/>
                             </button>
                         </li>
 
                         <li>
-                            <button className={this.state.rightContentName === "settings" ? "selected no-bg" : "no-bg"}
-                                    onClick={() => this.setRightContentName("settings")}>
+                            <button className={this.state.leftContentName === "settings" ? "selected no-bg" : "no-bg"}
+                                    onClick={() => this.setLeftContentName("settings")}>
                                 <FontAwesomeIcon icon={faCog}/>
                             </button>
                         </li>
 
 
-                        <li style={{"padding": "0 5px"}}>
-                            <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>
-                                <img
-                                    src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars&logo=github&style=flat-square"
-                                    alt=""/>
-                            </a>
-                        </li>
+                        {/*<li style={{"padding": "0 5px"}}>*/}
+                        {/*    <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>*/}
+                        {/*        <img*/}
+                        {/*            src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars&logo=github&style=flat-square"*/}
+                        {/*            alt=""/>*/}
+                        {/*    </a>*/}
+                        {/*</li>*/}
                     </List>
                 </GEHeader>
                 <Main>
-                    {/*<AsideNav>*/}
-                    {/*    <List type={"aside-nav"}>*/}
-                    {/*        /!*<li>*!/*/}
-                    {/*        /!*    <a onClick={() => this.setLeftContent("something")}>*!/*/}
-                    {/*        /!*        <FontAwesomeIcon icon={faSearch}/>*!/*/}
-                    {/*        /!*    </a>*!/*/}
-                    {/*        /!*</li>*!/*/}
-                    {/*        <li>*/}
-                    {/*            <button onClick={() => this.setLeftContent("history")}>*/}
-                    {/*                <FontAwesomeIcon icon={faHistory}/>*/}
-                    {/*            </button>*/}
-                    {/*        </li>*/}
-                    {/*        <li>*/}
-                    {/*            <button onClick={() => this.setLeftContent("settings")}>*/}
-                    {/*                <FontAwesomeIcon icon={faCog}/>*/}
-                    {/*            </button>*/}
-                    {/*        </li>*/}
-                    {/*        <li>*/}
-                    {/*            <button onClick={() => this.setLeftContent("support")}>*/}
-                    {/*                <FontAwesomeIcon icon={faLifeRing}/>*/}
-                    {/*            </button>*/}
-                    {/*        </li>*/}
-                    {/*        <li>*/}
-                    {/*            <button onClick={() => this.setLeftContent("learn")}>*/}
-                    {/*                <FontAwesomeIcon icon={faBook}/>*/}
-                    {/*            </button>*/}
-                    {/*        </li>*/}
+                    {/*<AsideTop>*/}
 
-                    {/*        <li>*/}
-                    {/*            <button onClick={() => this.setLeftContent("about")}>*/}
-                    {/*                <FontAwesomeIcon icon={faInfoCircle}/>*/}
-                    {/*            </button>*/}
-                    {/*        </li>*/}
-                    {/*    </List>*/}
-                    {/*</AsideNav>*/}
-                    <MainContent>
-                        <AsideLeft extraClass={this.state.leftContentName ? "" : "closed"}>
+                    {/*</AsideTop>*/}
+                    <AsideLeftNav>
+                        <GEList type={"aside-left"}>
 
-                        </AsideLeft>
-
-                        <MainContentRight
-                            extraClass={this.state.leftContentName ? "" : "expanded"}
-                            secondaryChild={
-                                this.state.bottomContentName === "error-console" ? (
-                                    <AsideBottom>
-                                        <GEPanel
-                                            title={"Response Console"}
-                                            onClickClose={() => this.setBottomContentName(null)}
-                                            showToggleBtn={false}
-                                        >
-                                            {this.state.errorMessage
-                                                ? <pre>{JSON.stringify(this.state.errorMessage, null, 2)}</pre>
-                                                : <span>
-                                                    <pre>{JSON.stringify(this.getLatestResponse().error, null, 2)}</pre>
-                                                </span>
-                                            }
-
-                                        </GEPanel>
-                                    </AsideBottom>
-                                ) : (
-                                    <span/>
-                                )
-                            }
-                        >
-                            <Canvas
-                                setStatusMessage={this.setStatusMessage.bind(this)}
-
-                                setHideVertexOptions={this.setHideVertexOptions.bind(this)}
-                                setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                setRightContentName={this.setRightContentName.bind(this)}
-                                setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
-                                middleBottomContentName={this.state.middleBottomContentName}
-
-                                selectedElementData={this.state.selectedElementData}
-
-                                connector={this.connector}
-                                dataStore={this.dataStore}
-                                resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
-                                shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
-                                setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
-                                makeQuery={this.makeQuery.bind(this)}
-
-                                flushCanvas={this.flushCanvas.bind(this)}
-
-                                query={this.state.query}
-
-                                addQueryToState={this.addQueryToState.bind(this)}
-
-                            />
-                        </MainContentRight>
-                        <MainContentMiddle>
-                            <div
-                                className={
-                                    this.state.middleBottomContentName
-                                        ? "main-content-top"
-                                        : "main-content-top bottom-closed"
-                                }
-                            >
-                                {/*<GEPanel*/}
-                                {/*    title={"Query Console"}*/}
-                                {/*    showToggleBtn={false}*/}
-                                {/*    showCloseBtn={false}*/}
-                                {/*>*/}
-                                {/*    <QueryConsole*/}
-                                {/*        onQuerySubmit={this.onQuerySubmit.bind(this)}*/}
-                                {/*        query={this.state.query}*/}
-                                {/*        flushCanvas={this.flushCanvas.bind(this)}*/}
-                                {/*        // onClose={this.onLeftFlyOutClose.bind(this)}*/}
-                                {/*    />*/}
-                                {/*</GEPanel>        */}
-
-                                <div className={"main-content-nav"}>
-                                    <GEList>
-                                        <li style={{"paddingLeft": "3px"}}>
-                                            <button
-                                                className={this.state.middleTopContentName === 'vertices-management' ? "active" : ''}
-                                                onClick={() => this.setMiddleTopContentName("vertices-management")}>
-                                                Vertices
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                className={this.state.middleTopContentName === 'edges-management' ? "active" : ''}
-                                                onClick={() => this.setMiddleTopContentName("edges-management")}>
-                                                Edges
-                                            </button>
-                                        </li>
-                                        {/*<li>*/}
-                                        {/*    <button*/}
-                                        {/*        className={this.state.middleTopContentName === "query-console" ? 'active' : ''}*/}
-                                        {/*        onClick={() => this.setMiddleTopContentName("query-console")}>*/}
-                                        {/*        Query Console*/}
-                                        {/*    </button>*/}
-                                        {/*</li>*/}
-                                    </GEList>
-                                </div>
-
-                                {
-                                    this.state.middleTopContentName === "vertices-management" ?
-                                        (
-                                            <VerticesManagement
-                                                parentGraphComponent={this}
-                                                setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                            />
-
-                                        ) :
-                                        this.state.middleTopContentName === "edges-management" ?
-                                            (
-                                                <EdgesManagement
-                                                    parentGraphComponent={this}
-                                                    setShowVertexOptions={this.setShowVertexOptions.bind(this)}
-                                                />
-
-                                            ) : (<div></div>)
-                                    // this.state.middleTopContentName === "query-console" ? (
-                                    //     <QueryConsole
-                                    //         makeQuery={this.makeQuery.bind(this)}
-                                    //         query={this.state.query}
-                                    //         connector={this.connector}
-                                    //         flushCanvas={this.flushCanvas.bind(this)}
-                                    //     />
-                                    // ) : (<div></div>)
-
-                                }
-                                {/*<GEPanel*/}
-                                {/*    title={"Vertices"}*/}
-                                {/*    showToggleBtn={false}*/}
-                                {/*    showCloseBtn={false}*/}
-                                {/*>*/}
-                                {/*</GEPanel>*/}
-                            </div>
-                            <div
-                                className={
-                                    this.state.middleBottomContentName
-                                        ? "main-content-bottom"
-                                        : "main-content-bottom closed"
-                                }
-                            >
-                                {/*{this.state.middleBottomContentName ? (*/}
-                                {/*    <GEPanel*/}
-                                {/*        title={"Middle Bottom Content"}*/}
-                                {/*        showToggleBtn={false}*/}
-                                {/*        onClickClose={() => this.setMiddleBottomContentName(null)}*/}
-                                {/*        // showCloseBtn={true}*/}
-                                {/*    >*/}
-                                {/*        <p>middle bottom here</p>*/}
-                                {/*    </GEPanel>*/}
-                                {/*) : (*/}
-                                {/*    <span/>*/}
-                                {/*)}*/}
-                                {
-
-                                    this.state.middleBottomContentName === "selected-data-overview" && this.state.selectedElementData
-                                        ?
-                                        <GEPanel
-                                            // title={"Selected Element Data"}
-                                            title={this.state.selectedElementData.meta.labelOptions.labelText
-                                            || this.state.selectedElementData.id.toString()}
-                                            headerStyle={{
-                                                'color': this.state.selectedElementData.type === "g:Vertex"
-                                                    ? this.state.selectedElementData.meta.shapeOptions.fillColorHex
-                                                    : this.state.selectedElementData.meta.shapeOptions.strokeColorHex,
-                                                // 'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)
-                                            }}
-                                            showToggleBtn={false}
-                                            showCloseBtn={true}
-                                            onClickClose={() => {
-                                                this.setHideVertexOptions();
-                                                this.setRightContentName(null)
-                                            }}
-                                        >
-                                            <SelectedData
-                                                selectedData={this.state.selectedElementData}
-                                                onClose={() => {
-                                                    this.setSelectedElementData(null);
-                                                    this.setRightContentName(null)
-                                                }}/>
-
-                                        </GEPanel>
-                                        :
-                                        this.state.middleBottomContentName === "vertex-options" && this.state.selectedLabel
-                                            ?
-                                            <GEPanel
-                                                title={this.state.selectedLabel + " | Element Options"}
-                                                // title={null}
-                                                onClickClose={() => {
-                                                    this.setHideVertexOptions();
-                                                    this.setRightContentName(null)
-                                                }}
-                                                showToggleBtn={false}
-                                            >
-                                                <VertexOptions selectedLabel={this.state.selectedLabel}
-                                                               selectedLabelType={this.state.selectedLabelType}
-                                                               setStatusMessage={this.setStatusMessage.bind(this)}
-                                                               setErrorMessage={this.setErrorMessage.bind(this)}
-                                                               onClose={() => {
-                                                                   this.setHideVertexOptions.bind(this);
-                                                                   this.setRightContentName(null)
-                                                               }}
-                                                               reRenderCanvas={this.reRenderCanvas.bind(this)}
-                                                               setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
-                                                />
-
-                                            </GEPanel>
-                                            : <span></span>
-                                }
-                            </div>
-
-                        </MainContentMiddle>
-                        <GEList type={"aside"}>
-
-                            <li style={{"marginTop": "22px"}}>
-                                <button onClick={() => this.setRightContentName(null)}
-                                        className={this.state.rightContentName === null ? "selected" : ""}
+                            <li style={{"marginTop": "105px"}}>
+                                <button onClick={() => this.toggleLeftContentName("overview")}
+                                        className={this.state.leftContentName === "overview" ? "selected" : ""}
                                 >
-                                    <FontAwesomeIcon icon={faHome}/><span>Overview</span>
+                                    <FontAwesomeIcon icon={faHome}/> <span>Overview</span>
                                 </button>
                             </li>
 
-                            <li style={{"marginTop": "97px"}}>
-                                <button onClick={() => this.setRightContentName("query-console")}
+
+                            <li style={{"marginTop": "82px"}}>
+                                <button onClick={() => this.toggleLeftContentName("settings")}
+                                        className={this.state.leftContentName === "settings" ? "selected" : ""}
+                                >
+                                    <FontAwesomeIcon icon={faCog}/><span>Settings</span>
+                                </button>
+                            </li>
+                            <li style={{"marginTop": "100px"}}>
+                                <button onClick={() => this.toggleLeftContentName("learn")}
+                                        className={this.state.leftContentName === "learn" ? "selected" : ""}
+                                >
+                                    <FontAwesomeIcon icon={faCubes}/><span>Get&nbsp;Started</span>
+                                </button>
+                            </li>
+                            {/*<li style={{"marginTop": "80px"}}>*/}
+                            {/*    <button onClick={() => this.toggleLeftContentName("about")}*/}
+                            {/*            className={this.state.leftContentName === "about" ? "selected" : ""}*/}
+                            {/*    >*/}
+                            {/*        <FontAwesomeIcon icon={faInfoCircle}/><span>About</span>*/}
+                            {/*    </button>*/}
+                            {/*</li>*/}
+                        </GEList>
+                    </AsideLeftNav>
+
+                    <MainContent>
+                        <Canvas
+                            setStatusMessage={this.setStatusMessage.bind(this)}
+
+                            setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                            setSelectedElementData={this.setSelectedElementData.bind(this)}
+                            setRightContentName={this.setRightContentName.bind(this)}
+                            setMiddleBottomContentName={this.setMiddleBottomContentName.bind(this)}
+                            middleBottomContentName={this.state.middleBottomContentName}
+
+                            selectedElementData={this.state.selectedElementData}
+
+                            connector={this.connector}
+                            dataStore={this.dataStore}
+                            resetShallReRenderD3Canvas={this.resetShallReRenderD3Canvas.bind(this)}
+                            shallReRenderD3Canvas={this.state.shallReRenderD3Canvas}
+                            setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
+                            makeQuery={this.makeQuery.bind(this)}
+
+                            flushCanvas={this.flushCanvas.bind(this)}
+
+                            query={this.state.query}
+
+                            addQueryToState={this.addQueryToState.bind(this)}
+
+                        />
+                    </MainContent>
+                    <AsideRight>
+                        <GEList type={"aside-right"}>
+
+                            {/*<li style={{"marginTop": "22px"}}>*/}
+                            {/*    <button onClick={() => this.toggleRightContentName("overview")}*/}
+                            {/*            className={this.state.rightContentName === "overview" ? "selected" : ""}*/}
+                            {/*    >*/}
+                            {/*        <FontAwesomeIcon icon={faHome}/><span>Overview</span>*/}
+                            {/*    </button>*/}
+                            {/*</li>*/}
+
+                            <li style={{"marginTop": "20px"}}>
+                                <button onClick={() => this.toggleRightContentName("query-console")}
                                         className={this.state.rightContentName === "query-console" ? "selected" : ""}
                                 >
                                     <FontAwesomeIcon icon={faTerminal}/><span>Query&nbsp;Console</span>
                                 </button>
                             </li>
-                            <li style={{"marginTop": "125px"}}>
-                                <button onClick={() => this.setRightContentName("history")}
+                            <li style={{"marginTop": "122px"}}>
+                                <button onClick={() => this.toggleRightContentName("history")}
                                         className={this.state.rightContentName === "history" ? "selected" : ""}
                                 >
                                     <FontAwesomeIcon icon={faHistory}/><span>History</span>
                                 </button>
                             </li>
                             <li style={{"marginTop": "80px"}}>
-                                <button onClick={() => this.setRightContentName("support")}
+                                <button onClick={() => this.toggleRightContentName("support")}
                                         className={this.state.rightContentName === "support" ? "selected" : ""}
                                 >
                                     <FontAwesomeIcon icon={faLifeRing}/><span>Support</span>
                                 </button>
                             </li>
                             <li style={{"marginTop": "80px"}}>
-                                <button onClick={() => this.setRightContentName("about")}
+                                <button onClick={() => this.toggleRightContentName("about")}
                                         className={this.state.rightContentName === "about" ? "selected" : ""}
                                 >
                                     <FontAwesomeIcon icon={faInfoCircle}/><span>About</span>
                                 </button>
                             </li>
                         </GEList>
-                    </MainContent>
+                    </AsideRight>
+
+
+                    {(() => {
+                        if (this.state.leftContentName === "settings") {
+                            return (
+                                <AsideContent position={"left"} size={"sm"}>
+                                    <GEPanel
+                                        title={"Settings"}
+                                        onClickClose={() => this.setLeftContentName(null)}
+                                        showToggleBtn={false}
+                                        showCloseBtn={false}
+                                        headerIcon={faCog}
+                                    >
+                                        <SettingsComponent/>
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+                        } else if (this.state.leftContentName === "overview") {
+                            return (
+                                <AsideContent position={"left"} size={"sm"}>
+                                    <GEPanel
+                                        title={"Overview"}
+                                        onClickClose={() => this.setLeftContentName(null)}
+                                        headerIcon={faHome}
+                                        showCloseBtn={false}
+                                        showToggleBtn={false}
+                                    >
+                                        <GraphOverview setShowVertexOptions={this.setShowVertexOptions.bind(this)}
+                                                       parentElem={this}
+                                        />
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+
+                        } else if (this.state.leftContentName === "learn") {
+                            return (
+                                <AsideContent position={"left"} size={"md"}>
+                                    <GEPanel
+                                        title={"Get Started"}
+                                        // onClickClose={() => this.setLeftContentName(null)}
+                                        showCloseBtn={false}
+                                        showToggleBtn={false}
+                                        headerIcon={faCubes}
+
+                                    >
+                                        <LearnComponent
+                                            addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                            makeQuery={this.makeQuery.bind(this)}
+                                            onClose={() => this.setLeftContentName(null)}
+                                        />
+
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+                        } else if (this.state.leftContentName === "founder-note") {
+                            return (
+                                <AsideContent position={"left"} size={"md"}>
+                                    <GEPanel
+                                        title={"Note from Founder"}
+                                        // onClickClose={() => this.setLeftContentName(null)}
+                                        showCloseBtn={false}
+                                        showToggleBtn={false}
+                                        headerIcon={faStickyNote}
+
+                                    >
+                                        <FounderNote
+                                            setRightContentName={this.setRightContentName.bind(this)}
+                                            setLeftContentName={this.setLeftContentName.bind(this)}
+                                            onClose={() => this.setRightContentName(null)}/>
+
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+
+                        } else {
+                            return (
+                                <span></span>
+                            )
+                        }
+                    })()}
+                    {this.state.middleBottomContentName === "vertex-options" && this.state.selectedLabel
+                        ?
+                        <AsideContent position={"left"} size={"sm"}>
+
+                            <GEPanel
+                                title={this.state.selectedLabel + " | Element Options"}
+                                // title={null}
+                                onClickClose={() => {
+                                    this.setHideVertexOptions();
+                                    this.setRightContentName(null)
+                                }}
+                                showToggleBtn={false}
+                                showCloseBtn={false}
+                            >
+                                <VertexOptions selectedLabel={this.state.selectedLabel}
+                                               selectedLabelType={this.state.selectedLabelType}
+                                               setStatusMessage={this.setStatusMessage.bind(this)}
+                                               setErrorMessage={this.setErrorMessage.bind(this)}
+                                               setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                               onClose={() => {
+                                                   this.setHideVertexOptions.bind(this);
+                                                   this.setRightContentName(null)
+                                               }}
+                                               reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                               setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
+                                />
+
+                            </GEPanel>
+                        </AsideContent>
+                        : <span></span>
+                    }
+
+
+                    {(() => {
+                        if (this.state.rightContentName === "query-console") {
+                            return (
+                                <AsideContent position={"right"} size={"lg"}>
+                                    <GEPanel
+                                        title={"Query Console"}
+                                        onClickClose={() => this.setRightContentName(null)}
+                                        showToggleBtn={false}
+                                        showCloseBtn={false}
+                                        headerIcon={faTerminal}
+                                    >
+                                        <QueryConsole
+                                            makeQuery={this.makeQuery.bind(this)}
+                                            connector={this.connector}
+                                            defaultQuery={this.state.query}
+                                            // value={this.state.defaultQuery}
+                                            onClose={() => {
+                                                this.setRightContentName(null);
+                                                // this.setDefaultQuery("");
+                                            }}
+                                        />
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+                        } else if (this.state.rightContentName === "history") {
+                            return (
+                                <AsideContent position={"right"} size={"lg"}>
+                                    <GEPanel
+                                        title={"History"}
+                                        // onClickClose={() => this.setRightContentName(null)}
+                                        showCloseBtn={false}
+                                        showToggleBtn={false}
+                                        headerIcon={faHistory}
+                                    >
+                                        <HistoryComponent
+                                            makeQuery={this.makeQuery.bind(this)}
+                                            // requestBuilder={this.requestBuilder}
+                                            addQueryToConsole={this.addQueryToConsole.bind(this)}
+                                        />
+                                        {/*<AboutComponent/>*/}
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+                        } else if (this.state.rightContentName === "support") {
+                            return (
+                                <AsideContent position={"right"} size={"md"}>
+                                    <GEPanel
+                                        title={"Support"}
+                                        // onClickClose={() => this.setRightContentName(null)}
+                                        showCloseBtn={false}
+                                        showToggleBtn={false}
+                                        headerIcon={faLifeRing}
+                                    >
+                                        <SupportComponent/>
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+                        } else if (this.state.rightContentName === "about") {
+                            return (
+                                <AsideContent position={"right"} size={"md"}>
+                                    <GEPanel
+                                        title={"About"}
+                                        // onClickClose={() => this.setRightContentName(null)}
+                                        showCloseBtn={false}
+                                        showToggleBtn={false}
+                                        headerIcon={faInfoCircle}
+                                    >
+                                        <AboutComponent/>
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+                        } else {
+                            return (
+                                <span></span>
+                            )
+                        }
+                    })()}
+
+                    {
+                        this.state.middleBottomContentName === "selected-data-overview" && this.state.selectedElementData
+                            ? <AsideContent position={"left"} size={"sm"}>
+
+                                <GEPanel
+                                    // title={"Selected Element Data"}
+                                    title={this.state.selectedElementData.meta.labelOptions.labelText
+                                    || this.state.selectedElementData.id.toString()}
+                                    headerStyle={{
+                                        'color': this.state.selectedElementData.type === "g:Vertex"
+                                            ? this.state.selectedElementData.meta.shapeOptions.fillColorHex
+                                            : this.state.selectedElementData.meta.shapeOptions.strokeColorHex,
+                                        // 'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)
+                                    }}
+                                    showToggleBtn={false}
+                                    showCloseBtn={true}
+                                    onClickClose={() => {
+                                        this.setHideVertexOptions();
+                                        // this.setLeftContentName(null)
+                                    }}
+                                >
+                                    <SelectedData
+                                        selectedData={this.state.selectedElementData}
+                                        onClose={() => {
+                                            this.setSelectedElementData(null);
+                                            // this.setLeftContentName(null)
+                                        }}/>
+
+                                </GEPanel>
+                            </AsideContent>
+                            : <span></span>
+                    }
+
                 </Main>
                 <GEFooter>
                     <List type={"nav-left"}>
@@ -549,122 +615,6 @@ export default class ExplorerView extends BaseView {
                     </List>
                 </GEFooter>
 
-
-                {this.state.rightContentName ? (
-                    <AsideRight>
-                        {console.log("========== rightContentName", this.state.rightContentName)}
-
-                        {
-                            this.state.rightContentName === "founder-note"
-                                ?
-                                <GEPanel
-                                    title={"Note from Author"}
-                                    onClickClose={() => this.setRightContentName(null)}
-                                    showToggleBtn={false}
-                                > <FounderNote
-                                    setRightContentName={this.setRightContentName.bind(this)}
-                                    onClose={() => this.setRightContentName(null)}/>
-                                </GEPanel>
-                                : this.state.rightContentName === "whats-new"
-                                ?
-                                <GEPanel
-                                    title={"What's New"}
-                                    onClickClose={() => this.setRightContentName(null)}
-                                    showToggleBtn={false}
-                                > <WhatsNew
-                                    setLeftContent={this.setLeftContent.bind(this)}
-                                    onClose={() => this.setRightContentName(null)}/>
-                                </GEPanel>
-                                : <span></span>
-                        }
-                        {
-                            this.state.rightContentName === "settings"
-                                ? (
-                                    <GEPanel
-                                        title={"Settings"}
-                                        onClickClose={() => this.setRightContentName(null)}
-                                        showToggleBtn={false}
-                                    >
-                                        <SettingsComponent/>
-                                    </GEPanel>
-                                ) :
-                                this.state.rightContentName === "learn"
-                                    ? (
-                                        <GEPanel
-                                            title={"Get Started"}
-                                            onClickClose={() => this.setRightContentName(null)}
-                                            showToggleBtn={false}
-                                        >
-                                            <LearnComponent
-                                                addQueryToConsole={this.addQueryToConsole.bind(this)}
-                                                makeQuery={this.makeQuery.bind(this)}
-                                                onClose={() => this.setLeftContent(null)}
-                                            />
-
-
-                                        </GEPanel>
-                                    ) :
-                                    this.state.rightContentName === "support"
-                                        ? (
-                                            <GEPanel
-                                                title={"Support"}
-                                                // onClickClose={() => this.setRightContentName(null)}
-                                                showCloseBtn={false}
-                                                showToggleBtn={false}
-                                            >
-                                                <SupportComponent/>
-                                            </GEPanel>
-                                        ) :
-                                        this.state.rightContentName === "about"
-                                            ? (
-                                                <GEPanel
-                                                    title={"About"}
-                                                    // onClickClose={() => this.setRightContentName(null)}
-                                                    showCloseBtn={false}
-                                                    showToggleBtn={false}
-                                                >
-                                                    <AboutComponent/>
-                                                </GEPanel>
-                                            ) : (<span></span>)
-                        }
-                    </AsideRight>
-                ) : (
-                    <span/>
-                )}
-                {this.state.rightContentName &&
-                (this.state.rightContentName === "history"
-                    || this.state.rightContentName === "query-console") ? (
-                    <AsideRight size={"lg"}>
-                        {
-                            this.state.rightContentName === "history" ? (
-                                <GEPanel
-                                    title={"History"}
-                                    // onClickClose={() => this.setRightContentName(null)}
-                                    showToggleBtn={false}
-                                    showCloseBtn={false}>
-                                    <HistoryComponent
-                                        makeQuery={this.makeQuery.bind(this)}
-                                        // requestBuilder={this.requestBuilder}
-                                        addQueryToConsole={this.addQueryToConsole.bind(this)}
-                                    />
-                                </GEPanel>
-                            ) : this.state.rightContentName === "query-console" ? (
-                                <QueryConsole
-                                    makeQuery={this.makeQuery.bind(this)}
-                                    connector={this.connector}
-                                    defaultQuery={this.state.query}
-                                    // value={this.state.defaultQuery}
-                                    onClose={() => {
-                                        this.setRightContentName(null);
-                                        // this.setDefaultQuery("");
-                                    }}
-                                />
-                            ) : <span></span>
-                        }
-                    </AsideRight>
-                ) : (
-                    <span/>
-                )}
                 {super.render()}
             </div>
         );

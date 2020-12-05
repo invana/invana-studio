@@ -3,7 +3,13 @@ import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 import {managementVertexLabel} from "../config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faProjectDiagram, faWrench} from "@fortawesome/free-solid-svg-icons";
+import {
+    faGripHorizontal,
+    faProjectDiagram,
+    faRulerHorizontal,
+    faVectorSquare,
+    faWrench
+} from "@fortawesome/free-solid-svg-icons";
 import {getColorForString} from "../canvas/canvas-utils";
 
 export default class EdgesManagement extends RemoteGraphComponent {
@@ -39,7 +45,7 @@ export default class EdgesManagement extends RemoteGraphComponent {
         console.log("=====this.state.edgesLabels", this.state.edgesLabels);
         return (
 
-            <div className={" p-10"}>
+            <div className={" p-10 pt-0"}>
                 {
                     this.state.edgesLabels.length === 0
                         ? <span className={"text-muted"}>No edges data found</span>
@@ -54,26 +60,33 @@ export default class EdgesManagement extends RemoteGraphComponent {
                                 <li style={{"marginBottom": "5px",}} key={index}>
                                     <button className={"management-icon-btn"}
                                             title={"Show connected edges and their vertices"}
+                                            style={{
+                                                'color': this.getVertexColor(edgeLabel.label, nodeLabels)
+                                            }}
                                             onClick={() => this.props.parentGraphComponent.makeQuery(
                                                 this.connector.requestBuilder.filterEdgeAndGetNeighborVertices(
                                                     edgeLabel.label, 10, 0), {'source': 'canvas'})
                                             }>
-                                        <FontAwesomeIcon icon={faProjectDiagram}/>
+                                        <FontAwesomeIcon icon={faVectorSquare}
+                                                         style={{
+                                                             'color': this.getVertexColor(edgeLabel.label, nodeLabels)
+                                                         }}/>
+                                        <span style={{
+                                            'display': 'inline',
+                                        }}>
+                                    {edgeLabel.label} <small style={{"color": "#656565"}}>
+                                            ({this.props.parentGraphComponent.dataStore.edgesStats.get(edgeLabel.label)
+                                        || 0} of {edgeLabel.count})
+                                        </small>
+                                    </span>
                                     </button>
-                                    <button style={{"display": "none"}} className={"management-icon-btn"}
+                                    <button style={{"display": "none"}}
+                                            className={"management-icon-btn management-icon-btn-right"}
                                             title={"Show the vertices options"}
                                             onClick={() => this.props.setShowVertexOptions(edgeLabel.label, "g:Edge")}>
                                         <FontAwesomeIcon icon={faWrench}/>
                                     </button>
-                                    <span style={{
-                                        'display': 'inline',
-                                        'color': this.getVertexColor(edgeLabel.label, nodeLabels)
-                                    }}>
-                                    {edgeLabel.label} <small style={{"color": "#656565"}}>
-                                            ({this.props.parentGraphComponent.dataStore.edgesStats.get(edgeLabel.label)
-                                    || 0} of {edgeLabel.count})
-                                        </small>
-                                    </span>
+
 
                                 </li>)
                         })

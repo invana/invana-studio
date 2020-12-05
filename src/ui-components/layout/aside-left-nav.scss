@@ -1,14 +1,15 @@
 @import "../../config.scss";
 
 .aside-left{
-  width: 250px;
+  width: 22px;
   height: 100%;
   // background: red;
   float: left;
   border-right: 1px solid $borderColor;
+  border-left: 1px solid $borderColor;
   background: $darkBg;
 
 }
-.aside-left.closed{
-  width: 0;
-}
+//.aside-left.closed{
+//  width: 0;
+//}

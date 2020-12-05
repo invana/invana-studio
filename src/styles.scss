@@ -93,7 +93,7 @@ input, textarea {
   line-height: 1rem;
   border-radius: 2px;
   margin-right: 5px;
-      margin-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 button {
@@ -186,6 +186,13 @@ button {
   padding: 10px;
 }
 
+.pt-0 {
+  padding-top: 0 !important;
+}
+
+.pb-0 {
+  padding-bottom: 0 !important;
+}
 
 .mb-0 {
   margin-bottom: 0;

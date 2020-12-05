@@ -151,22 +151,6 @@ export default class Canvas extends React.Component {
                 }}
             >
 
-                <CanvasNav
-                    canvasType={this.state.canvasType}
-                    canvasCtrl={this.canvasCtrl}
-                    makeQuery={this.props.makeQuery}
-                    connector={this.props.connector}
-                    dataStore={this.props.dataStore}
-                    getGraphicsEngine={this.getGraphicsEngine.bind(this)}
-                    setFocusedNodes={this.setFocusedNodes.bind(this)}
-                    defaultQuery={this.props.query}
-                    setDefaultQuery={this.setDefaultQuery.bind(this)}
-                    setRightContentName={this.props.setRightContentName}
-
-                    // switchCanvasTo={this.switchCanvasTo.bind(this)}
-                    // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
-                    // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
-                />
 
                 <div className={"main-content-body"}>
                     {

@@ -6,12 +6,14 @@ export default class FounderNote extends React.Component {
 
     static defaultProps = {
         onClose: () => console.error("onClose prop not set for <FounderNote> component"),
-        setRightContentName: () => console.error("setRightContentName prop not set for <FounderNote> component")
+        setRightContentName: () => console.error("setRightContentName prop not set for <FounderNote> component"),
+        setLeftContentName: () => console.error("setLeftContentName prop not set for <FounderNote> component")
     }
 
 
     static propTypes = {
         setRightContentName: PropTypes.func,
+        setLeftContentName: PropTypes.func,
         onClose: PropTypes.func
     };
 
@@ -47,7 +49,7 @@ export default class FounderNote extends React.Component {
                 </p>
 
                 <p>
-                    <button className={"selected"} onClick={() => this.props.setRightContentName("learn")}>
+                    <button className={"selected"} onClick={() => this.props.setLeftContentName("learn")}>
                         <u>Build your first Graph &rarr;</u>
                     </button>
                     <span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>

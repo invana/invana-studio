@@ -2,12 +2,13 @@
 
 
 .aside-right {
-  width: 300px;
-  height: calc(100vh - 45px - 24px);
-  position: fixed;
-  top: 46px;
-  right: 24px;
+  width: 22px;
+  height: calc(100vh - 35px - 24px);
+  //position: fixed;
+  //top: 36px;
+  //right: 24px;
   border-left: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
   background: $darkBg;
   z-index: 10000;
 

@@ -2,6 +2,7 @@ import React from "react";
 import "./panel.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
+    faHome,
     faWindowClose,
     faWindowRestore
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +22,7 @@ export default class GEPanel extends React.Component {
 
     static propTypes = {
         title: PropTypes.string,
+        headerIcon: PropTypes.object,
         showToggleBtn: PropTypes.bool,
         showCloseBtn: PropTypes.bool,
         onClickClose: PropTypes.func,
@@ -34,7 +36,7 @@ export default class GEPanel extends React.Component {
         return (
             <div className={"ge-panel"}>
                 <div className={"ge-panel-header"} style={this.props.headerStyle}>
-                    <h4>{this.props.title}</h4>
+                    <h4 style={this.props.headerStyle}><FontAwesomeIcon icon={this.props.headerIcon} /> {this.props.title}</h4>
                     <div className={"ge-panel-options"}>
                         <GEList>
                             {this.props.showToggleBtn ? (

@@ -38,7 +38,7 @@ export default class HistoryComponent extends React.Component {
                                         <div>
                                             <button className={"small"}
                                                     onClick={() => this.props.makeQuery(existingHistoryItem.query, {source: 'canvas'})}>
-                                                Run Again
+                                                <span className={"selected"}>Run Again</span>
                                             </button>
                                             <button className={"small"}
                                                     onClick={() => this.props.addQueryToConsole(existingHistoryItem.query)}>

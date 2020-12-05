@@ -58,12 +58,32 @@ ul {
   }
 }
 
-.aside-list {
-  width: 22px;
-  float: left;
-  height: 100%;
-  border-right: 1px solid $borderColor;
+.aside-left-list {
+  li {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: left top;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: left top;
 
+    right: -2px;
+    border-left: 1px solid $borderColor;
+    padding-left: 15px;
+
+    svg {
+      transform: rotate(90deg);
+      transform-origin: center;
+      -ms-transform: rotate(90deg);
+      -ms-transform-origin: center;
+      -webkit-transform: rotate(90deg);
+      -webkit-transform-origin: center;
+    }
+
+  }
+}
+
+.aside-right-list {
   li {
     transform: rotate(90deg);
     transform-origin: right top;
@@ -71,15 +91,37 @@ ul {
     -ms-transform-origin: right top;
     -webkit-transform: rotate(90deg);
     -webkit-transform-origin: right top;
-    display: block;
-    font-weight: bold;
-    //margin-top:  20px;
-    margin: 0;
-    //margin-bottom: 100px;
+
     left: -2px;
-    position: relative;
     border-left: 1px solid $borderColor;
     padding-left: 15px;
+
+    svg {
+      transform: rotate(-90deg);
+      transform-origin: center;
+      -ms-transform: rotate(-90deg);
+      -ms-transform-origin: center;
+      -webkit-transform: rotate(-90deg);
+      -webkit-transform-origin: center;
+    }
+
+  }
+}
+
+
+.aside-right-list, .aside-left-list {
+  width: 22px;
+  float: left;
+  height: 100%;
+  border-right: 1px solid $borderColor;
+
+  li {
+
+    display: block;
+    //font-weight: bold;
+    margin: 0;
+    position: relative;
+
 
     li:first-of-type {
       border-left: none !important;
@@ -87,15 +129,11 @@ ul {
 
     button, span {
       display: inline-flex;
-      font-weight: bold;
+      //font-weight: bold;
     }
+
     svg{
-          transform: rotate(-90deg);
-    transform-origin: center;
-    -ms-transform: rotate(-90deg);
-    -ms-transform-origin: center;
-    -webkit-transform: rotate(-90deg);
-    -webkit-transform-origin: center;
+      //font-size: 0.9rem;
     }
 
     span {
@@ -111,39 +149,40 @@ ul {
   }
 }
 
-.canvas-nav-list {
-  li {
-    // height: 33px;
-    padding: 4px 0;
-
-    a, span, button {
-      padding: 3px 10px;
-      font-size: 12px;
-      // height:33px;
-    }
-
-
-  }
-
-  .canvasToggle {
-    background-color: $darkBg;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 1px solid $borderColor;
-
-    a, button {
-      padding: 3px 6px !important;
-      border-radius: 2px;
-      border-right: 1px solid $darkBgSecondary !important;
-      margin-right: 0;
-    }
-
-    a:last-child, button:last-child {
-      border-right: none !important;
-    }
-  }
-}
-
+//
+//.canvas-nav-list {
+//  li {
+//    // height: 33px;
+//    padding: 9px;
+//
+//    a, span, button {
+//      //padding: 3px 10px;
+//      font-size: 12px;
+//      // height:33px;
+//    }
+//
+//
+//  }
+//
+//  .canvasToggle {
+//    background-color: $darkBg;
+//    padding-left: 5px;
+//    padding-right: 5px;
+//    border: 1px solid $borderColor;
+//
+//    a, button {
+//      padding: 3px 6px !important;
+//      border-radius: 2px;
+//      border-right: 1px solid $darkBgSecondary !important;
+//      margin-right: 0;
+//    }
+//
+//    a:last-child, button:last-child {
+//      border-right: none !important;
+//    }
+//  }
+//}
+//
 
 .aside-nav-list {
   li {
@@ -151,7 +190,7 @@ ul {
     margin: 0;
 
     a, span, button {
-      padding: 11px 11.5px;
+      //padding: 11px 11.5px;
       font-size: 12px;
       border-bottom: 1px solid $borderColor;
     }
@@ -168,12 +207,13 @@ ul {
 
 .nav-left-list, .nav-right-list {
   li {
-    padding: 12px 5px;
+    //padding: 12px 5px;
+    padding: 9px;
 
     a, span, button {
-      padding: 3px 5px;
+      //padding: 3px 5px;
       // border-left: 1px solid $darkBgSecondary;
-      background: $darkBgSecondary;
+      //background: $darkBgSecondary;
     }
 
   }

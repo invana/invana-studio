@@ -24,13 +24,6 @@
   //  z-index: 1;
 
 
-  .ge-panel-body {
-    overflow: hidden;
-  }
-
-  .ge-panel-options button {
-    margin-right: 0 !important;
-  }
 
   input[name="queryRepeatFrequency"] {
     width: 35px;
@@ -53,7 +46,7 @@
     font-family: Courier;
     font-size: 12px;
     line-height: 1.5rem;
-    min-height: 200px;
+    min-height: 450px;
   }
 
   button {

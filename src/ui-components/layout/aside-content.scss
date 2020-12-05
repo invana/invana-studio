@@ -1,0 +1,43 @@
+@import "../../config.scss";
+
+.aside-content {
+  //width: 22px;
+  //height: calc(100vh - 36px - 24px);
+  height: calc(100vh - 36px - 24px);
+  // background: red;
+  border-right: 1px solid $borderColor;
+  border-left: 1px solid $borderColor;
+  background: $darkBg;
+  position: fixed;
+  top: 36px;
+  //left: 300px;
+
+}
+
+.aside-content.sm {
+  width: 250px;
+}
+
+.aside-content.md {
+  width: 300px;
+}
+
+.aside-content.lg {
+  width: 500px;
+}
+
+.aside-content.left {
+  left: 22px;
+  float: left;
+
+}
+
+.aside-content.right {
+  right: 22px;
+  float: right;
+
+}
+
+//.aside-left.closed{
+//  width: 0;
+//}

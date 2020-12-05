@@ -46,7 +46,6 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
 
         console.log("extending graph=========", Object.assign(nodes, {}), Object.assign(links, {}));
         this.dataStore.addData(nodes, links,
-            //
             () => {
                 _this.setState({
                     shallReRenderD3Canvas: true
@@ -76,6 +75,7 @@ class RemoteGraphComponentViewBase extends RemoteGraphComponent {
         console.log("processResponse", response);
         this.extendGraph(response);
         this.reRenderCanvas();
+        // this.setState({isLoading: false});
     }
 
 
@@ -154,8 +154,23 @@ export default class BaseView extends RemoteGraphComponentViewBase {
 
     }
 
+    toggleRightContentName(contentName) {
+        if (this.state.rightContentName === contentName) {
+            this.setRightContentName(null);
+        } else {
+            this.setRightContentName(contentName);
+        }
+    }
 
-    setLeftContent(contentName) {
+    toggleLeftContentName(contentName) {
+        if (this.state.leftContentName === contentName) {
+            this.setLeftContentName(null);
+        } else {
+            this.setLeftContentName(contentName);
+        }
+    }
+
+    setLeftContentName(contentName) {
         this.setState({leftContentName: contentName});
     }
 
