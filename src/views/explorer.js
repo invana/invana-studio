@@ -43,6 +43,7 @@ import CanvasNav from "../canvas/canvas-nav";
 import GetStarted from "../viewlets/get-started";
 import FilterNodes from "../canvas/nav-ui-components/filter-nodes";
 import FocusNode from "../canvas/nav-ui-components/focus-node";
+import NodeMenu from "../canvas/graph/node-menu";
 
 const Mousetrap = require("mousetrap");
 
@@ -176,6 +177,17 @@ export default class ExplorerView extends BaseView {
         this.setState({canvasCtrl: canvasCtrl});
     }
 
+    setFocusedNodes(nodes) {
+        console.log("setFocusedNodes", nodes);
+        this.setState({focusedNodes: nodes});
+        // this.props.getSetFocusedNodes(nodes);
+    }
+
+    getFocusedNodes() {
+        console.log("getFocusedNodes", this.state.focusedNodes);
+        return this.state.focusedNodes;
+    }
+
     render() {
         // console.log("explorer render() ", this.connector.getLastResponse(), this.connector.responsesList)
         return (
@@ -203,6 +215,11 @@ export default class ExplorerView extends BaseView {
                         leftContentName={this.state.leftContentName}
                         // setRightContentName={this.setRightContentName.bind(this)}
                         setLeftContentName={this.setLeftContentName.bind(this)}
+
+
+                        setFocusedNodes={this.setFocusedNodes.bind(this)}
+                        getFocusedNodes={this.getFocusedNodes.bind(this)}
+
 
                         // switchCanvasTo={this.switchCanvasTo.bind(this)}
                         // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
@@ -326,10 +343,13 @@ export default class ExplorerView extends BaseView {
                             // getSetFocusedNodes={this.getSetFocusedNodes.bind(this)}
                             //
                             canvasType={this.state.canvasType}
+                            focusedNodes={this.state.focusedNodes}
 
                             setCanvasType={this.setCanvasType.bind(this)}
                             setCanvasCtrl={this.setCanvasCtrl.bind(this)}
 
+                            getFocusedNodes={this.getFocusedNodes.bind(this)}
+                            setFocusedNodes={this.setFocusedNodes.bind(this)}
 
                         />
                     </MainContent>
@@ -565,38 +585,51 @@ export default class ExplorerView extends BaseView {
                         }
                     })()}
 
-                    {
-                        this.state.middleBottomContentName === "selected-data-overview" && this.state.selectedElementData
-                            ? <AsideContent position={"left"} size={"sm"}>
-
-                                <GEPanel
-                                    // title={"Selected Element Data"}
-                                    title={this.state.selectedElementData.meta.labelOptions.labelText
-                                    || this.state.selectedElementData.id.toString()}
-                                    headerStyle={{
-                                        'color': this.state.selectedElementData.type === "g:Vertex"
-                                            ? this.state.selectedElementData.meta.shapeOptions.fillColorHex
-                                            : this.state.selectedElementData.meta.shapeOptions.strokeColorHex,
-                                        // 'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)
-                                    }}
-                                    showToggleBtn={false}
-                                    showCloseBtn={true}
-                                    onClickClose={() => {
-                                        this.setHideVertexOptions();
-                                        // this.setLeftContentName(null)
-                                    }}
-                                >
-                                    <SelectedData
-                                        selectedData={this.state.selectedElementData}
-                                        onClose={() => {
-                                            this.setSelectedElementData(null);
-                                            // this.setLeftContentName(null)
-                                        }}/>
-
-                                </GEPanel>
-                            </AsideContent>
-                            : <span></span>
-                    }
+                    {/*{*/}
+                    {/*    this.state.middleBottomContentName === "selected-data-overview" && this.state.selectedElementData*/}
+                    {/*        ? <AsideContent position={"left"} size={"sm"}>*/}
+                    
+                    {/*            <GEPanel*/}
+                    {/*                // title={"Selected Element Data"}*/}
+                    {/*                title={this.state.selectedElementData.meta.labelOptions.labelText*/}
+                    {/*                || this.state.selectedElementData.id.toString()}*/}
+                    {/*                headerStyle={{*/}
+                    {/*                    'color': this.state.selectedElementData.type === "g:Vertex"*/}
+                    {/*                        ? this.state.selectedElementData.meta.shapeOptions.fillColorHex*/}
+                    {/*                        : this.state.selectedElementData.meta.shapeOptions.strokeColorHex,*/}
+                    {/*                    // 'color': invertColor(this.state.selectedElementData.meta.shapeOptions.fillColor, true)*/}
+                    {/*                }}*/}
+                    {/*                showToggleBtn={false}*/}
+                    {/*                showCloseBtn={true}*/}
+                    {/*                onClickClose={() => {*/}
+                    {/*                    this.setHideVertexOptions();*/}
+                    {/*                    // this.setLeftContentName(null)*/}
+                    {/*                }}*/}
+                    {/*            >*/}
+                    {/*                <SelectedData*/}
+                    
+                    {/*                    setFocusedNodes={this.setFocusedNodes.bind(this)}*/}
+                    {/*                    getFocusedNodes={this.getFocusedNodes.bind(this)}*/}
+                    
+                    
+                    {/*                    connector={this.connector}*/}
+                    {/*                    selectedElementData={this.props.selectedElementData}*/}
+                    {/*                    makeQuery={this.makeQuery.bind(this)}*/}
+                    {/*                    graphicsEngine={this.state.graphicsEngine}*/}
+                    {/*                    setDefaultQuery={this.addQueryToConsole.bind(this)}*/}
+                    {/*                    setRightContentName={this.state.setRightContentName}*/}
+                    
+                    
+                    {/*                    selectedData={this.state.selectedElementData}*/}
+                    {/*                    onClose={() => {*/}
+                    {/*                        this.setSelectedElementData(null);*/}
+                    {/*                        // this.setLeftContentName(null)*/}
+                    {/*                    }}/>*/}
+                    
+                    {/*            </GEPanel>*/}
+                    {/*        </AsideContent>*/}
+                    {/*        : <span></span>*/}
+                    {/*}*/}
 
 
                     {

@@ -7,6 +7,7 @@ import {
     faMinusCircle, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import SelectedData from "../../viewlets/selected-data";
 
 
 export default class NodeMenu extends React.Component {
@@ -41,9 +42,12 @@ export default class NodeMenu extends React.Component {
     }
 
     getLastSelectedNodeData() {
-        return this.props.graphicsEngine
-            ? this.props.graphicsEngine.eventStore.lastSelectedNodeData
-            : null;
+        // return this.props.graphicsEngine
+        //     ? this.props.graphicsEngine.eventStore.lastSelectedNodeData
+        //     : null;
+        //
+        return this.props.selectedElementData
+        // return this.props.selectedElementData;
     }
 
     onClickFocus() {
@@ -153,42 +157,57 @@ export default class NodeMenu extends React.Component {
     }
 
     render() {
+        console.log("this.getLastSelectedNodeData()", this.getLastSelectedNodeData())
         return (
             <div className="nodeMenuContainer" style={{"display": "none"}}>
-                <h5>{this.getVerboseIdentifier()}</h5>
+                {this.getLastSelectedNodeData()
+                    ?
+                    <p style={{"color": this.getLastSelectedNodeData().meta.shapeOptions.fillColorHex}}>
+                        {this.getLastSelectedNodeData().type.replace("g:", "")} / {this.getLastSelectedNodeData().label}</p>
+                    : <span></span>
+                } {this.getLastSelectedNodeData()
+                    ?
+                    <h5  style={{"color": this.getLastSelectedNodeData().meta.shapeOptions.fillColorHex}}>{this.getVerboseIdentifier()}</h5>
+                    : <span></span>
+                }
+
+
                 <p>ID: {this.getIdentifier()}</p>
                 <ul className={"nodeMenu"}>
                     {
                         this.checkIfAlreadyFocused() ?
                             (
                                 <li onClick={() => this.resetFocus()}>
-                                    Reset focus
+                                    <span>Reset focus</span>
                                 </li>
                             ) :
                             (
                                 <li onClick={() => this.onClickFocus()}>
-                                    <FontAwesomeIcon icon={faDotCircle}/> Focus
+                                    <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>
                                 </li>
                             )
                     }
                     <li onClick={() => this.onClickShowInV()}>
-                        <FontAwesomeIcon icon={faArrowAltCircleLeft}/> Show InV
+                        <FontAwesomeIcon icon={faArrowAltCircleLeft}/> <span>Show InV</span>
                     </li>
                     <li onClick={() => this.onClickShowOutV()}>
-                        <FontAwesomeIcon icon={faArrowAltCircleRight}/> Show OutV
+                        <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>Show OutV</span>
                     </li>
                     <li onClick={() => this.startNewQuery()}>
-                        <FontAwesomeIcon icon={faTerminal}/> Start Query
+                        <FontAwesomeIcon icon={faTerminal}/> <span>Start Query</span>
                     </li>
                     {/*<li onClick={() => this.cleanGraph()}>*/}
                     {/*    <FontAwesomeIcon icon={faSync}/> Clean Graph*/}
                     {/*</li>*/}
                     <li onClick={() => this.hideMenu()}>
-                        <FontAwesomeIcon icon={faMinusCircle}/> hide menu
+                        <FontAwesomeIcon icon={faMinusCircle}/> <span>hide menu</span>
                     </li>
                 </ul>
+                <SelectedData selectedData={this.props.selectedElementData}/>
+
             </div>
 
         )
     }
+
 }

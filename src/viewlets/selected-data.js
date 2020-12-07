@@ -2,16 +2,23 @@ import React from "react";
 import "./selected-data.scss";
 import PropTypes from "prop-types";
 import {renderPropertyData} from "../canvas/canvas-utils";
+import NodeMenu from "../canvas/graph/node-menu";
 
 export default class SelectedData extends React.Component {
 
     static defaultProps = {
         selectedData: null,
-        onClose: () => console.error("onFlyOutSelectedDataClose not implemented")
+        onClose: () => console.error("onFlyOutSelectedDataClose not implemented"),
+        getFocusedNodes: () => console.log("getFocusedNodes"),
+        setFocusedNodes: (nodes) => console.error("setFocusedNodes not set", nodes),
+
     }
 
     static propTypes = {
-        selectedData: PropTypes.object
+        selectedData: PropTypes.object,
+        getFocusedNodes: PropTypes.func,
+        setFocusedNodes: PropTypes.func,
+
     }
 
     getCleanedData() {
@@ -34,8 +41,6 @@ export default class SelectedData extends React.Component {
     }
 
 
-
-
     render() {
         let cleanedData = this.getCleanedData();
         let nodeLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
@@ -56,6 +61,18 @@ export default class SelectedData extends React.Component {
 
         return (
             <div>
+
+
+                {/*<NodeMenu*/}
+                {/*    getFocusedNodes={this.props.getFocusedNodes}*/}
+                {/*    setFocusedNodes={this.props.setFocusedNodes}*/}
+                {/*    connector={this.props.connector}*/}
+                {/*    selectedElementData={this.props.selectedElementData}*/}
+                {/*    makeQuery={this.props.makeQuery}*/}
+                {/*    graphicsEngine={this.graphicsEngine}*/}
+                {/*    setDefaultQuery={this.props.setDefaultQuery}*/}
+                {/*    setRightContentName={this.props.setRightContentName}*/}
+                {/*/>*/}
                 {/*<div className={"SelectedDataHeading"}>*/}
                 {/*    <span className={"itemLabel"} style={{*/}
                 {/*        "backgroundColor":*/}
@@ -69,21 +86,21 @@ export default class SelectedData extends React.Component {
                 <div className="SelectedDataList mainDetails">
 
 
-                    <div className={'singleProperty dark'} key={cleanedData.id}>
-                        <div className={"propertyData"}>
-                            <strong className={"propertyKey"}>id:</strong> {cleanedData.id}
-                        </div>
-                    </div>
-                    <div className={'singleProperty dark'} key={cleanedData.type}>
-                        <div className={"propertyData"}>
-                            <strong className={"propertyKey"}>type:</strong> {cleanedData.type}
-                        </div>
-                    </div>
-                    <div className={'singleProperty dark'} key={cleanedData.label}>
-                        <div className={"propertyData"}>
-                            <strong className={"propertyKey"}>label:</strong> {cleanedData.label}
-                        </div>
-                    </div>
+                    {/*<div className={'singleProperty dark'} key={cleanedData.id}>*/}
+                    {/*    <div className={"propertyData"}>*/}
+                    {/*        <strong className={"propertyKey"}>id:</strong> {cleanedData.id}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    {/*<div className={'singleProperty dark'} key={cleanedData.type}>*/}
+                    {/*    <div className={"propertyData"}>*/}
+                    {/*        <strong className={"propertyKey"}>type:</strong> {cleanedData.type}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    {/*<div className={'singleProperty dark'} key={cleanedData.label}>*/}
+                    {/*    <div className={"propertyData"}>*/}
+                    {/*        <strong className={"propertyKey"}>label:</strong> {cleanedData.label}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                     {
                         cleanedData.source
                             ? <div className={'singleProperty dark'} key={cleanedData.source.id}>

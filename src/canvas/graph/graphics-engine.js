@@ -334,8 +334,8 @@ labelColor: "#dddddd"
         // console.log("event.currentTarget", )
         nodeContainer.on('rightdown', (event) => _this.eventStore.onNodeRightClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
         nodeContainer.on('mousedown', (event) => _this.eventStore.onNodeClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
-        nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
-        nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
+        nodeContainer.on('mouseover', (event) => _this.eventStore.onNodeMouseOver(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
+        nodeContainer.on('mouseout', (event) => _this.eventStore.onNodeMouseOut(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer, event));
         nodeContainer.on('mouseup', (event) => this.eventStore.onNodeUnClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
         nodeContainer.on('mouseupoutside', (event) => this.eventStore.onNodeUnClicked(_this, this.dataStore.getVertex(_this.graphicsStore.nodeGfxToNodeData.get(event.currentTarget)), nodeContainer));
 

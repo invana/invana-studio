@@ -64,6 +64,7 @@ export default class EventStore {
         console.log("createNode Menu", nodeData, event);
         this.nodeMenuEl.style.left = event.data.global.x + graphicsEngine.settings.NODE_MENU_X_PADDING + "px";
         this.nodeMenuEl.style.top = event.data.global.y + graphicsEngine.settings.NODE_MENU_Y_PADDING + "px";
+        this.showMenu();
     }
 
 
@@ -143,11 +144,16 @@ export default class EventStore {
             //     focusedNodes.push(nodeData);
             // }
             this.highlightNodes(graphicsEngine, [nodeData])
+
+
+            this.createNodeMenu(graphicsEngine, nodeData, event);
+
             // for drag feature
             if (this.clickedNodeData) {
                 return;
             }
             this.hoveredNodeData = nodeData;
+
         }
 
     }
@@ -160,6 +166,8 @@ export default class EventStore {
             return
         }
         this.unHighlightNode(graphicsEngine, nodeData)
+
+        // this.hideMenu();
 
         if (this.clickedNodeData) {
             return;

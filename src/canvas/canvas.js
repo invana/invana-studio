@@ -8,6 +8,7 @@ import RawResponsesCanvas from "./raw-response/raw-responses";
 import CanvasNav from "./canvas-nav";
 import CanvasController from "./controller";
 import FocusedNodesList from "./graph/focused-nodes-list";
+import NodeMenu from "./graph/node-menu";
 // import GetStarted from "../viewlets/get-started";
 
 export default class Canvas extends React.Component {
@@ -36,6 +37,8 @@ export default class Canvas extends React.Component {
         getGraphicsEngine: (graphicsEngine) => console.error("graphicsEngine not implemented", graphicsEngine),
         getSetFocusedNodes: (focusedNodes) => console.error("getSetFocusedNodes not implemented", focusedNodes),
 
+        getFocusedNodes: () => console.log("getFocusedNodes"),
+        setFocusedNodes: (nodes) => console.error("setFocusedNodes not set", nodes),
 
     }
 
@@ -69,7 +72,10 @@ export default class Canvas extends React.Component {
         setCanvasCtrl: PropTypes.func,
         setCanvasType: PropTypes.func,
 
-        canvasType: PropTypes.string
+        canvasType: PropTypes.string,
+
+        getFocusedNodes: PropTypes.func,
+        setFocusedNodes: PropTypes.func,
 
 
         // setFocusedNodes: PropTypes.func
@@ -96,19 +102,10 @@ export default class Canvas extends React.Component {
 
     }
 
-    setFocusedNodes(nodes) {
-        this.setState({focusedNodes: nodes});
-        // this.props.getSetFocusedNodes(nodes);
-    }
-
-    getFocusedNodes() {
-        return this.state.focusedNodes;
-    }
-
     updateCanvasState(message) {
         this.props.setCanvasType(message.canvasType);
 
-        this.setState(message);
+        // this.setState(message);
     }
 
     setGraphicsEngine(graphicsEngine) {
@@ -142,7 +139,7 @@ export default class Canvas extends React.Component {
         focusedNodes.splice(indexId, 1);
         console.log("===indexId", indexId);
         console.log("focusedNodes removed", focusedNodes);
-        this.setFocusedNodes(focusedNodes);
+        this.props.setFocusedNodes(focusedNodes);
 
         if (focusedNodes.length !== 0) {
             graphicsEngine.graphicsStore.focusOnElements(focusedNodes);
@@ -172,8 +169,8 @@ export default class Canvas extends React.Component {
 
                 <div className={"main-content-body"}>
                     {
-                        this.props.canvasType=== "graph" && this.props.connector.getLastResponse()
-                            ? <FocusedNodesList focusedNodes={this.state.focusedNodes}
+                        this.props.canvasType === "graph" && this.props.connector.getLastResponse()
+                            ? <FocusedNodesList focusedNodes={this.props.focusedNodes}
                                                 removeFocusedNode={this.removeFocusedNode.bind(this)}/>
                             : <span></span>
                     }
@@ -185,7 +182,7 @@ export default class Canvas extends React.Component {
 
                     <ErrorBoundary>
                         {(() => {
-                            if (this.props.canvasType=== "graph" && this.props.connector.getLastResponse()) {
+                            if (this.props.canvasType === "graph" && this.props.connector.getLastResponse()) {
                                 return (
                                     <div style={{"width": "100%", "height": "100%"}}>
                                         <PIXICanvas
@@ -200,32 +197,35 @@ export default class Canvas extends React.Component {
                                             setStatusMessage={this.props.setStatusMessage}
 
                                             setGraphicsEngine={this.setGraphicsEngine.bind(this)}
+                                            getGraphicsEngine={this.getGraphicsEngine.bind(this)}
                                             connector={this.props.connector}
                                             dataStore={this.props.dataStore}
                                             resetShallReRenderD3Canvas={this.props.resetShallReRenderD3Canvas}
                                             shallReRenderD3Canvas={this.props.shallReRenderD3Canvas}
                                             makeQuery={this.props.makeQuery}
-                                            setFocusedNodes={this.setFocusedNodes.bind(this)}
-                                            getFocusedNodes={this.getFocusedNodes.bind(this)}
+                                            setFocusedNodes={this.props.setFocusedNodes}
+                                            getFocusedNodes={this.props.getFocusedNodes}
+
+
                                             setDefaultQuery={this.setDefaultQuery.bind(this)}
                                         />
 
 
                                     </div>
                                 )
-                            } else if (this.props.canvasType=== "json" && this.props.connector.getLastResponse()) {
+                            } else if (this.props.canvasType === "json" && this.props.connector.getLastResponse()) {
                                 return (
                                     <JSONCanvas
                                         dataStore={this.props.dataStore}
                                     />
                                 )
-                            } else if (this.props.canvasType=== "table" && this.props.connector.getLastResponse()) {
+                            } else if (this.props.canvasType === "table" && this.props.connector.getLastResponse()) {
                                 return (
                                     <TableCanvas
                                         dataStore={this.props.dataStore}
                                     />
                                 )
-                            } else if (this.props.canvasType=== "raw" && this.props.connector.getLastResponse()) {
+                            } else if (this.props.canvasType === "raw" && this.props.connector.getLastResponse()) {
                                 return (
                                     <RawResponsesCanvas
                                         connector={this.props.connector}

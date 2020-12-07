@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
 import NodeMenu from "./node-menu";
+import SelectedData from "../../viewlets/selected-data";
+import GEPanel from "../../ui-components/panels/panel";
 
 export default class PIXICanvas extends React.Component {
 
@@ -196,7 +198,7 @@ export default class PIXICanvas extends React.Component {
             _this.onForceSimulationEnd(_this.graphicsEngine, _this.setStatusMessage.bind(_this)
             );
 
-        });
+        }, 0.1);
 
         this.checkAndAddNewData2Simulation();
     }
@@ -268,13 +270,15 @@ export default class PIXICanvas extends React.Component {
                 <NodeMenu
                     getFocusedNodes={this.props.getFocusedNodes}
                     setFocusedNodes={this.props.setFocusedNodes}
+
                     connector={this.props.connector}
-                    // selectedElementData={this.props.selectedElementData}
+                    selectedElementData={this.props.selectedElementData}
                     makeQuery={this.props.makeQuery}
-                    graphicsEngine={this.graphicsEngine}
+                    graphicsEngine={ this.graphicsEngine}
                     setDefaultQuery={this.props.setDefaultQuery}
                     setRightContentName={this.props.setRightContentName}
                 />
+
                 <div className="graphContainer canvas">
                 </div>
 
