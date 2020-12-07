@@ -44,23 +44,17 @@ export default class CanvasNav extends React.Component {
         // confirmRedrawCanvas: PropTypes.func
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            canvasMenuType: null
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         canvasMenuType: null
+    //     }
+    // }
 
-    switchToCanvasMenu(canvasMenuType) {
-        console.log("updating canvasMenuType", canvasMenuType);
-        this.setState({
-            canvasMenuType: canvasMenuType
-        });
-    }
 
     componentDidUpdate(prevProps) {
         if (prevProps.defaultQuery !== this.props.defaultQuery && this.props.defaultQuery) {
-            this.switchToCanvasMenu("query-console");
+            this.props.switchToCanvasMenu("query-console");
         }
     }
 
@@ -86,12 +80,12 @@ export default class CanvasNav extends React.Component {
                 {/*    </button>*/}
                 {/*</li>*/}
                 <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
-                    <button onClick={() => this.switchToCanvasMenu("focus-node")}>
+                    <button onClick={() => this.props.switchToCanvasMenu("focus-node")}>
                         <FontAwesomeIcon icon={faSearch}/>
                     </button>
                 </li>
                 <li style={{"display": "none"}}>
-                    <button onClick={() => this.switchToCanvasMenu("filter-nodes")}>
+                    <button onClick={() => this.props.switchToCanvasMenu("filter-nodes")}>
                         <FontAwesomeIcon icon={faFilter}/>
                     </button>
                 </li>

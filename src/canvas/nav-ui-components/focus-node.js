@@ -9,13 +9,13 @@ export default class FocusNode extends React.Component {
     static defaultProps = {
         onClose: () => console.log(""),
         dataStore: null,
-        getGraphicsEngine: null,
+        graphicsEngine: null,
         setFocusedNodes: null
     }
     static propTypes = {
         onClose: PropTypes.func,
         dataStore: PropTypes.object,
-        getGraphicsEngine: PropTypes.func,
+        graphicsEngine: PropTypes.object,
         setFocusedNodes: PropTypes.func
     }
 
@@ -57,18 +57,19 @@ export default class FocusNode extends React.Component {
         // const nodeData = this.props.dataStore.getNodeByNodeLabelTextOrId(nodeLabel);
         console.log("======****nodeData", nodeData)
         console.log("======****nodeLabel", nodeLabel)
+        console.log("this.props.graphicsEngine", this.props.graphicsEngine)
         if (nodeData) {
-            // const graphicsEngine = this.props.getGraphicsEngine();
-            if (this.props.getGraphicsEngine()) {
+            // const graphicsEngine = this.props.graphicsEngine;
+            if (this.props.graphicsEngine) {
                 // graphicsEngine.focusedNodes
-                this.props.getGraphicsEngine().dataStore.addNode2Focus(nodeData)
+                this.props.graphicsEngine.dataStore.addNode2Focus(nodeData)
 
                 const uniqueNodes = Object.assign([],
-                    this.props.getGraphicsEngine().dataStore.getUniqueFocusedNodes());
-                this.props.getGraphicsEngine().graphicsStore.focusOnElements(uniqueNodes);
+                    this.props.graphicsEngine.dataStore.getUniqueFocusedNodes());
+                this.props.graphicsEngine.graphicsStore.focusOnElements(uniqueNodes);
                 console.log("======uniqueNodes", uniqueNodes)
                 this.props.setFocusedNodes(uniqueNodes)
-                this.props.getGraphicsEngine().zoom2Point(nodeData.x, nodeData.y);
+                this.props.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
                 this.setInfoMessage("Centered and highlighted the node '" + nodeLabel + "'");
             }
         } else {

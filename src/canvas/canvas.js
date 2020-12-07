@@ -108,13 +108,10 @@ export default class Canvas extends React.Component {
         // this.setState(message);
     }
 
-    setGraphicsEngine(graphicsEngine) {
-        this.setState({graphicsEngine: graphicsEngine})
-    }
 
-    getGraphicsEngine() {
-        return this.state.graphicsEngine;
-    }
+    // getGraphicsEngine() {
+    //     return this.state.graphicsEngine;
+    // }
 
     componentDidUpdate() {
         document.querySelector(".main-content-body").addEventListener("contextmenu ", function () {
@@ -126,7 +123,7 @@ export default class Canvas extends React.Component {
     removeFocusedNode(nodeId) {
         //
 
-        let graphicsEngine = this.getGraphicsEngine();
+        let graphicsEngine = this.props.getGraphicsEngine();
         let focusedNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
         graphicsEngine.dataStore.removeNodeFromFocus(nodeId);
         let indexId = null
@@ -196,8 +193,8 @@ export default class Canvas extends React.Component {
                                             selectedElementData={this.props.selectedElementData}
                                             setStatusMessage={this.props.setStatusMessage}
 
-                                            setGraphicsEngine={this.setGraphicsEngine.bind(this)}
-                                            getGraphicsEngine={this.getGraphicsEngine.bind(this)}
+                                            setGraphicsEngine={this.props.setGraphicsEngine}
+                                            getGraphicsEngine={this.props.getGraphicsEngine}
                                             connector={this.props.connector}
                                             dataStore={this.props.dataStore}
                                             resetShallReRenderD3Canvas={this.props.resetShallReRenderD3Canvas}

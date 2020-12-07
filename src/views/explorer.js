@@ -54,7 +54,8 @@ export default class ExplorerView extends BaseView {
         ...this.state,
         focusedNodes: [],
         leftContentName: "overview",
-        canvasType: "graph"
+        canvasType: "graph",
+        canvasMenuType: null
     }
 
     processResponse(response) {
@@ -158,9 +159,12 @@ export default class ExplorerView extends BaseView {
         })
 
     }
+    setGraphicsEngine(graphicsEngine) {
+        this.setState({graphicsEngine: graphicsEngine})
+    }
 
-    getGraphicsEngine(graphicsEngine) {
-        return graphicsEngine;
+    getGraphicsEngine() {
+        return this.state.graphicsEngine;
     }
 
     getSetFocusedNodes(focusedNodes) {
@@ -187,6 +191,12 @@ export default class ExplorerView extends BaseView {
         console.log("getFocusedNodes", this.state.focusedNodes);
         return this.state.focusedNodes;
     }
+    switchToCanvasMenu(canvasMenuType) {
+        console.log("updating canvasMenuType", canvasMenuType);
+        this.setState({
+            canvasMenuType: canvasMenuType
+        });
+    }
 
     render() {
         // console.log("explorer render() ", this.connector.getLastResponse(), this.connector.responsesList)
@@ -206,6 +216,7 @@ export default class ExplorerView extends BaseView {
                         makeQuery={this.makeQuery.bind(this)}
                         connector={this.connector}
                         dataStore={this.dataStore}
+                        canvasMenuType={this.state.canvasMenuType}
                         // getGraphicsEngine={this.getGraphicsEngine.bind(this)}
                         // setFocusedNodes={this.setFocusedNodes.bind(this)}
                         defaultQuery={this.state.query}
@@ -216,6 +227,8 @@ export default class ExplorerView extends BaseView {
                         // setRightContentName={this.setRightContentName.bind(this)}
                         setLeftContentName={this.setLeftContentName.bind(this)}
 
+
+                        switchToCanvasMenu={this.switchToCanvasMenu.bind(this)}
 
                         setFocusedNodes={this.setFocusedNodes.bind(this)}
                         getFocusedNodes={this.getFocusedNodes.bind(this)}
@@ -344,6 +357,8 @@ export default class ExplorerView extends BaseView {
                             //
                             canvasType={this.state.canvasType}
                             focusedNodes={this.state.focusedNodes}
+
+                            setGraphicsEngine={this.setGraphicsEngine.bind(this)}
 
                             setCanvasType={this.setCanvasType.bind(this)}
                             setCanvasCtrl={this.setCanvasCtrl.bind(this)}
@@ -652,9 +667,9 @@ export default class ExplorerView extends BaseView {
                             : this.state.canvasMenuType === "focus-node"
                             ? (<FocusNode
                                 onClose={this.switchToCanvasMenu.bind(this)}
-                                dataStore={this.props.dataStore}
-                                getGraphicsEngine={this.props.getGraphicsEngine}
-                                setFocusedNodes={this.props.setFocusedNodes}
+                                dataStore={this.dataStore}
+                                graphicsEngine={this.state.graphicsEngine}
+                                setFocusedNodes={this.setFocusedNodes.bind(this)}
                             />)
                             : (<Fragment/>)
                     }
