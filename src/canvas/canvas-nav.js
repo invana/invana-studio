@@ -3,13 +3,13 @@ import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera, faFilter, faSearch, faSync,
-    faTrashAlt, faTable, faProjectDiagram, faUserAstronaut
+    faTrashAlt, faTable, faProjectDiagram, faUserAstronaut, faStickyNote
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import FilterNodes from "./nav-ui-components/filter-nodes";
 import FocusNode from "./nav-ui-components/focus-node";
 import GEHeader from "../ui-components/layout/header";
-import {faStickyNote} from "@fortawesome/free-regular-svg-icons";
+// import {faStickyNote} from "@fortawesome/free-regular-svg-icons";
 
 
 export default class CanvasNav extends React.Component {
@@ -145,13 +145,13 @@ export default class CanvasNav extends React.Component {
                 <li>
                     <span>|</span>
                 </li>
-       <li>
-                            <button
-                                className={this.props.leftContentName === "founder-note" ? "selected no-bg" : "no-bg"}
-                                onClick={() => this.props.setLeftContentName("founder-note")}>
-                                <FontAwesomeIcon icon={faStickyNote}/>
-                            </button>
-                        </li>
+                <li>
+                    <button
+                        className={this.props.leftContentName === "founder-note" ? "selected no-bg" : "no-bg"}
+                        onClick={() => this.props.setLeftContentName("founder-note")}>
+                        <FontAwesomeIcon icon={faStickyNote}/>
+                    </button>
+                </li>
                 <li>
                     <button title={"clear the canvas"}
                             onClick={() => alert("Hello World!")}>

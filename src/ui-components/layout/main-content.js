@@ -4,10 +4,12 @@ import PropTypes from "prop-types";
 
 export default class MainContent extends React.Component {
     static propTypes = {
-        children: PropTypes.any
+        children: PropTypes.any,
+        leftContentName: PropTypes.string
     }
 
     render() {
-        return <div className={"main-content"}>{this.props.children}</div>;
+        return <div
+            className={!this.props.leftContentName ? "main-content " : "main-content left-content-opened "}>{this.props.children}</div>;
     }
 }

@@ -296,7 +296,7 @@ export default class ExplorerView extends BaseView {
                         </GEList>
                     </AsideLeftNav>
 
-                    <MainContent>
+                    <MainContent leftContentName={this.state.leftContentName}>
                         <Canvas
                             setStatusMessage={this.setStatusMessage.bind(this)}
 
@@ -432,7 +432,7 @@ export default class ExplorerView extends BaseView {
                             return (
                                 <AsideContent position={"left"} size={"md"}>
                                     <GEPanel
-                                        title={"Note from Founder"}
+                                        title={"Note from Project Creator"}
                                         // onClickClose={() => this.setLeftContentName(null)}
                                         showCloseBtn={false}
                                         showToggleBtn={false}

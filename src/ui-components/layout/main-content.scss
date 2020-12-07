@@ -17,7 +17,11 @@
   .main-content-body {
     //height: calc(100% - 22px - 10px);
     height: 100%;
-    width: calc(100vw - 44px);
+    width: 100%;
     float: right;
   }
+}
+.main-content.left-content-opened{
+  padding-left: 250px;
+  width: calc(100% - 22px - 22px - 250px);
 }
