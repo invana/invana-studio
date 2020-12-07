@@ -10,6 +10,8 @@ import {
     faTimesCircle,
     faPlug, faUserAstronaut, faRocket, faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
+import GEPanel from "../ui-components/panels/panel";
+import GEModal from "../ui-components/modal/modal";
 
 
 export default class SetupGremlinServerConnection extends React.Component {
@@ -147,21 +149,30 @@ export default class SetupGremlinServerConnection extends React.Component {
                             alt=""/>
                     </a>
                 </div>
+
+
                 <Modal title={null} size={"md"}
                     // style={{"top": "100px", "left": "auto","right": "20px", }}
                     //    style={{"top": "250px", "left": "20px",}}
+                       headerIcon={faPlug}
                        style={{
                            "position": "relative", "left": "20px", "width": "450px",
                            "borderBottomWidth": "4px"
                        }}
                 >
-                    <div className={"connect"}>
-                        <div className={"top-section"}>
-                            <h4><FontAwesomeIcon icon={faPlug}/> Connect to Invana Engine </h4>
-                            {/*<p>Invana Engine is a GraphQL API for Apache TinkerPop supported*/}
-                            {/*    Graph Databases.</p>*/}
-                        </div>
-                        {/*<hr/>*/}
+        <GEPanel
+                    title={"Find and Focus a node in canvas"}
+                    headerIcon={faPlug}
+                    showToggleBtn={false}
+                    showCloseBtn={false}
+                >
+                    <div className={"connect p-10"}>
+                        {/*<div className={"top-section"}>*/}
+                        {/*    <h4><FontAwesomeIcon icon={faPlug}/> Connect to Invana Engine </h4>*/}
+                        {/*    /!*<p>Invana Engine is a GraphQL API for Apache TinkerPop supported*!/*/}
+                        {/*    /!*    Graph Databases.</p>*!/*/}
+                        {/*</div>*/}
+                        {/*/!*<hr/>*!/*/}
 
                         <div className={"bottom-section"}>
                             <form action="" onSubmit={this.onFormSubmit.bind(this)}>
@@ -180,7 +191,8 @@ export default class SetupGremlinServerConnection extends React.Component {
                                 <br/>
 
                                 <p>
-                                    <button className={"extra-headers-btn"} type={"button"} onClick={this.toggleMoreOptions.bind(this)}>
+                                    <button className={"extra-headers-btn"} type={"button"}
+                                            onClick={this.toggleMoreOptions.bind(this)}>
                                         http headers <FontAwesomeIcon icon={faAngleDown}/>
                                     </button>
                                 </p>
@@ -247,12 +259,13 @@ export default class SetupGremlinServerConnection extends React.Component {
                                 {/*<a href="">Training Videos &nbsp;</a>*/}
                                 {/*<FontAwesomeIcon icon={faQuestionCircle}/> &nbsp; | &nbsp;*/}
                                 <a href="https://invana.io/get-started.html">Setup Instructions</a>&nbsp;
-                                | &nbsp; <a  href={""} onClick={() => this.openDemo()}>Watch demo</a>&nbsp;
+                                | &nbsp; <a href={""} onClick={() => this.openDemo()}>Watch demo</a>&nbsp;
                                 {/*| &nbsp; <a href="https://invana.io/help.html">Help</a>*/}
                             </p>
 
                         </div>
                     </div>
+                </GEPanel>
                 </Modal>
                 <p className={"built-with"}><small>Built with love for Humans
                     & Innovations at <a

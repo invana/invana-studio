@@ -92,6 +92,7 @@ export default class FocusNode extends React.Component {
                 <GEModal>
                     <GEPanel
                         title={"Find and Focus a node in canvas"}
+                        // headerIcon={}
                         onClickClose={() => this.props.onClose(null)}
                         showToggleBtn={false}
                     >

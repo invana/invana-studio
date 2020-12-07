@@ -1,27 +1,29 @@
 @import "../../config";
 
-.ge-modal{
-    min-height: 120px;
-    width: 500px;
-    position: fixed;
-    top: calc(50% - 150px);
-    left: calc(50% - 250px);
-    border: 1px solid $borderColor;
-    border-bottom-width: 2px;
-    color: $defaultTextColor;
+.ge-modal {
+  min-height: 120px;
+  width: 500px;
+  position: fixed;
+  top: calc(50% - 150px);
+  left: calc(50% - 250px);
+  border: 1px solid $borderColor;
+  border-bottom-width: 2px;
+  color: $defaultTextColor;
+  background: $darkBg;
 
-  .ge-modal-header{
+  .ge-modal-header {
     border-bottom: 1px solid $borderColor;
     max-height: 30px;
     padding: 8px 10px;
 
-     h4{
-       margin: 0;
-       padding: 0;
-     }
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
 
   }
-  .ge-modal-body{
+
+  .ge-modal-body {
     //padding: 10px
   }
 }
