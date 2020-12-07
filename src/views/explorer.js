@@ -359,6 +359,7 @@ export default class ExplorerView extends BaseView {
                             focusedNodes={this.state.focusedNodes}
 
                             setGraphicsEngine={this.setGraphicsEngine.bind(this)}
+                            getGraphicsEngine={this.getGraphicsEngine.bind(this)}
 
                             setCanvasType={this.setCanvasType.bind(this)}
                             setCanvasCtrl={this.setCanvasCtrl.bind(this)}
