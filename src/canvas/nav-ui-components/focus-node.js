@@ -1,6 +1,6 @@
 import React from "react";
 import "./focus-node.scss";
-import PropTypes from "prop-types";
+import PropTypes, {node} from "prop-types";
 import GEPanel from "../../ui-components/panels/panel";
 import GEModal from "../../ui-components/modal/modal";
 
@@ -70,7 +70,7 @@ export default class FocusNode extends React.Component {
                 console.log("======uniqueNodes", uniqueNodes)
                 this.props.setFocusedNodes(uniqueNodes)
                 this.props.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
-                this.setInfoMessage("Centered and highlighted the node '" + nodeLabel + "'");
+                this.setInfoMessage("Centered and highlighted the node '" + nodeData.meta.labelOptions.labelText + "'");
             }
         } else {
             this.setErrorMessage("Unable to find the node with label or text '" + nodeLabel +
