@@ -30,8 +30,13 @@ export default class Canvas extends React.Component {
         flushCanvas: () => console.error("flushCanvas not set"),
         setShallReRenderD3Canvas: (status) => console.error("setShallReRenderD3Canvas not set", status),
         query: null,
-        addQueryToState: (query) => console.error("addQueryToState not implemented", query)
+        addQueryToState: (query) => console.error("addQueryToState not implemented", query),
         // setFocusedNodes: (nodes) => console.error("setFocusedNodes not set"),
+
+        getGraphicsEngine: (graphicsEngine) => console.error("graphicsEngine not implemented", graphicsEngine),
+        getSetFocusedNodes: (focusedNodes) => console.error("getSetFocusedNodes not implemented", focusedNodes),
+
+
     }
 
     static propTypes = {
@@ -56,7 +61,16 @@ export default class Canvas extends React.Component {
         setShallReRenderD3Canvas: PropTypes.func,
 
         query: PropTypes.string,
-        addQueryToState: PropTypes.func
+        addQueryToState: PropTypes.func,
+
+
+        getGraphicsEngine: PropTypes.func,
+        getSetFocusedNodes: PropTypes.func,
+        setCanvasCtrl: PropTypes.func,
+        setCanvasType: PropTypes.func,
+
+        canvasType: PropTypes.string
+
 
         // setFocusedNodes: PropTypes.func
     }
@@ -77,12 +91,14 @@ export default class Canvas extends React.Component {
             this.props.flushCanvas,
             this.props.setShallReRenderD3Canvas,
         );
+        this.props.setCanvasCtrl(this.canvasCtrl)
 
 
     }
 
     setFocusedNodes(nodes) {
         this.setState({focusedNodes: nodes});
+        // this.props.getSetFocusedNodes(nodes);
     }
 
     getFocusedNodes() {
@@ -91,6 +107,7 @@ export default class Canvas extends React.Component {
 
     updateCanvasState(message) {
         this.setState(message);
+        this.props.setCanvasType(message.canvasType);
     }
 
     setGraphicsEngine(graphicsEngine) {
@@ -142,7 +159,7 @@ export default class Canvas extends React.Component {
 
 
     render() {
-        console.log("canvasQuery:",this.state.defaultQuery,"---", this.props.query);
+        console.log("canvasQuery:", this.state.defaultQuery, "---", this.props.query);
         return (
 
             <div
@@ -154,7 +171,7 @@ export default class Canvas extends React.Component {
 
                 <div className={"main-content-body"}>
                     {
-                        this.state.canvasType === "graph" && this.props.connector.getLastResponse()
+                        this.props.canvasType=== "graph" && this.props.connector.getLastResponse()
                             ? <FocusedNodesList focusedNodes={this.state.focusedNodes}
                                                 removeFocusedNode={this.removeFocusedNode.bind(this)}/>
                             : <span></span>
@@ -167,7 +184,7 @@ export default class Canvas extends React.Component {
 
                     <ErrorBoundary>
                         {(() => {
-                            if (this.state.canvasType === "graph" && this.props.connector.getLastResponse()) {
+                            if (this.props.canvasType=== "graph" && this.props.connector.getLastResponse()) {
                                 return (
                                     <div style={{"width": "100%", "height": "100%"}}>
                                         <PIXICanvas
@@ -195,19 +212,19 @@ export default class Canvas extends React.Component {
 
                                     </div>
                                 )
-                            } else if (this.state.canvasType === "json" && this.props.connector.getLastResponse()) {
+                            } else if (this.props.canvasType=== "json" && this.props.connector.getLastResponse()) {
                                 return (
                                     <JSONCanvas
                                         dataStore={this.props.dataStore}
                                     />
                                 )
-                            } else if (this.state.canvasType === "table" && this.props.connector.getLastResponse()) {
+                            } else if (this.props.canvasType=== "table" && this.props.connector.getLastResponse()) {
                                 return (
                                     <TableCanvas
                                         dataStore={this.props.dataStore}
                                     />
                                 )
-                            } else if (this.state.canvasType === "raw" && this.props.connector.getLastResponse()) {
+                            } else if (this.props.canvasType=== "raw" && this.props.connector.getLastResponse()) {
                                 return (
                                     <RawResponsesCanvas
                                         connector={this.props.connector}

@@ -4,7 +4,7 @@
   width: 600px;
   //position: absolute;
   margin-left: 20px;
-  margin-top: 16%;
+  margin-top: 12% !important;
   color: $defaultTextColor;
 
   .invana-logo {
@@ -14,10 +14,11 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     color: $primaryColor;
+    margin-top: 4rem;
   }
 
   h1 {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     margin: 0;
   }
 

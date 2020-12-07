@@ -8,7 +8,7 @@ import {
     faPlayCircle,
     faAngleDown,
     faTimesCircle,
-    faPlug,
+    faPlug, faUserAstronaut, faRocket, faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -134,6 +134,7 @@ export default class SetupGremlinServerConnection extends React.Component {
         return (
             <div>
                 <div className={"connect-heading"}>
+                    <FontAwesomeIcon icon={faUserAstronaut} style={{"fontSize": "4rem"}}/>
                     <p className={"invana-logo"}>Invana</p>
                     <h1>Graph Explorer <small>({VERSION})</small></h1>
                     <p>{ABOUT_TEXT}</p>
@@ -222,12 +223,13 @@ export default class SetupGremlinServerConnection extends React.Component {
 
                                 }
 
-                                <button type={"submit"} className={"primary-btn button"}>Connect</button>
+                                <button type={"submit"} className={"primary-btn button"}>
+                                    Start Exploring <FontAwesomeIcon icon={faChevronCircleRight}/></button>
 
-                                <button onClick={() => this.openDemo()} type={"button"}
-                                        className={" button secondary-btn ml-10"}>
-                                    <FontAwesomeIcon icon={faPlayCircle}/> watch demo
-                                </button>
+                                {/*<button onClick={() => this.openDemo()} type={"button"}*/}
+                                {/*        className={" button secondary-btn ml-10"}>*/}
+                                {/*    <FontAwesomeIcon icon={faPlayCircle}/> watch demo*/}
+                                {/*</button>*/}
                                 {/*<a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/help.html">*/}
                                 {/*    <FontAwesomeIcon icon={faQuestionCircle}/>*/}
                                 {/*</a>*/}
@@ -244,8 +246,9 @@ export default class SetupGremlinServerConnection extends React.Component {
                                 {/*<FontAwesomeIcon icon={faQuestionCircle}/> | &nbsp;*/}
                                 {/*<a href="">Training Videos &nbsp;</a>*/}
                                 {/*<FontAwesomeIcon icon={faQuestionCircle}/> &nbsp; | &nbsp;*/}
-                                <a href="https://invana.io/help.html">How to setup Invana Engine</a>&nbsp;
-                                | &nbsp; <a href="https://invana.io/help.html">Help</a>
+                                <a href="https://invana.io/get-started.html">Setup Instructions</a>&nbsp;
+                                | &nbsp; <a  href={""} onClick={() => this.openDemo()}>Watch demo</a>&nbsp;
+                                {/*| &nbsp; <a href="https://invana.io/help.html">Help</a>*/}
                             </p>
 
                         </div>

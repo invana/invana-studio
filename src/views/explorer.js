@@ -50,7 +50,8 @@ export default class ExplorerView extends BaseView {
     state = {
         ...this.state,
         focusedNodes: [],
-        leftContentName: "overview"
+        leftContentName: "overview",
+        canvasType: "graph"
     }
 
     processResponse(response) {
@@ -155,6 +156,23 @@ export default class ExplorerView extends BaseView {
 
     }
 
+    getGraphicsEngine(graphicsEngine) {
+        return graphicsEngine;
+    }
+
+    getSetFocusedNodes(focusedNodes) {
+        return focusedNodes;
+    }
+
+    setCanvasType(canvasType) {
+
+        this.setState({canvasType: canvasType});
+        this.resetShallReRenderD3Canvas();
+    }
+    setCanvasCtrl(canvasCtrl) {
+        this.setState({canvasCtrl: canvasCtrl});
+    }
+
     render() {
         // console.log("explorer render() ", this.connector.getLastResponse(), this.connector.responsesList)
         return (
@@ -167,69 +185,69 @@ export default class ExplorerView extends BaseView {
                             </a>
                         </li>
                     </List>
-                    {/*<CanvasNav*/}
-                    {/*    canvasType={this.state.canvasType}*/}
-                    {/*    canvasCtrl={this.canvasCtrl}*/}
-                    {/*    makeQuery={this.props.makeQuery}*/}
-                    {/*    connector={this.props.connector}*/}
-                    {/*    dataStore={this.props.dataStore}*/}
-                    {/*    getGraphicsEngine={this.getGraphicsEngine.bind(this)}*/}
-                    {/*    setFocusedNodes={this.setFocusedNodes.bind(this)}*/}
-                    {/*    defaultQuery={this.props.query}*/}
-                    {/*    setDefaultQuery={this.setDefaultQuery.bind(this)}*/}
-                    {/*    setRightContentName={this.props.setRightContentName}*/}
+                    <CanvasNav
+                        canvasType={this.state.canvasType}
+                        canvasCtrl={this.state.canvasCtrl}
+                        makeQuery={this.makeQuery.bind(this)}
+                        connector={this.connector}
+                        dataStore={this.dataStore}
+                        // getGraphicsEngine={this.getGraphicsEngine.bind(this)}
+                        // setFocusedNodes={this.setFocusedNodes.bind(this)}
+                        defaultQuery={this.state.query}
+                        setDefaultQuery={this.addQueryToConsole.bind(this)}
+                        setRightContentName={this.setRightContentName.bind(this)}
 
-                    {/*    // switchCanvasTo={this.switchCanvasTo.bind(this)}*/}
-                    {/*    // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}*/}
-                    {/*    // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}*/}
-                    {/*/>*/}
+                        // switchCanvasTo={this.switchCanvasTo.bind(this)}
+                        // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
+                        // confirmRedrawCanvas={this.confirmRedrawCanvas.bind(this)}
+                    />
 
-                    <List type={"nav-right"}>
-
-
-                        <li>
-                            <button className={this.state.leftContentName === "learn" ? "selected no-bg" : "no-bg"}
-                                    onClick={() => this.setLeftContentName("learn")}>
-                                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                                <FontAwesomeIcon icon={faCubes}/> Get Started
-                            </button>
-                        </li>
-                        {/*<li>*/}
-                        {/*    <button className={"no-bg"} onClick={() => this.setRightContentName("history")}>*/}
-                        {/*        <FontAwesomeIcon icon={faHistory}/>*/}
-                        {/*    </button>*/}
-                        {/*</li>*/}
-
-                        {/*<li>*/}
-                        {/*    <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>*/}
-                        {/*        <FontAwesomeIcon icon={faBook}/>*/}
-                        {/*    </button>*/}
-                        {/*</li>*/}
-
-                        <li>
-                            <button
-                                className={this.state.rightContentName === "founder-note" ? "selected no-bg" : "no-bg"}
-                                onClick={() => this.setLeftContentName("founder-note")}>
-                                <FontAwesomeIcon icon={faStickyNote}/>
-                            </button>
-                        </li>
-
-                        <li>
-                            <button className={this.state.leftContentName === "settings" ? "selected no-bg" : "no-bg"}
-                                    onClick={() => this.setLeftContentName("settings")}>
-                                <FontAwesomeIcon icon={faCog}/>
-                            </button>
-                        </li>
+                    {/*<List type={"nav-right"}>*/}
 
 
-                        {/*<li style={{"padding": "0 5px"}}>*/}
-                        {/*    <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>*/}
-                        {/*        <img*/}
-                        {/*            src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars&logo=github&style=flat-square"*/}
-                        {/*            alt=""/>*/}
-                        {/*    </a>*/}
-                        {/*</li>*/}
-                    </List>
+                    {/*    <li>*/}
+                    {/*        <button className={this.state.leftContentName === "learn" ? "selected no-bg" : "no-bg"}*/}
+                    {/*                onClick={() => this.setLeftContentName("learn")}>*/}
+                    {/*            /!* eslint-disable-next-line react/no-unescaped-entities *!/*/}
+                    {/*            <FontAwesomeIcon icon={faCubes}/> Get Started*/}
+                    {/*        </button>*/}
+                    {/*    </li>*/}
+                    {/*    /!*<li>*!/*/}
+                    {/*    /!*    <button className={"no-bg"} onClick={() => this.setRightContentName("history")}>*!/*/}
+                    {/*    /!*        <FontAwesomeIcon icon={faHistory}/>*!/*/}
+                    {/*    /!*    </button>*!/*/}
+                    {/*    /!*</li>*!/*/}
+
+                    {/*    /!*<li>*!/*/}
+                    {/*    /!*    <button className={"no-bg"} onClick={() => this.setRightContentName("learn")}>*!/*/}
+                    {/*    /!*        <FontAwesomeIcon icon={faBook}/>*!/*/}
+                    {/*    /!*    </button>*!/*/}
+                    {/*    /!*</li>*!/*/}
+
+                    {/*    <li>*/}
+                    {/*        <button*/}
+                    {/*            className={this.state.rightContentName === "founder-note" ? "selected no-bg" : "no-bg"}*/}
+                    {/*            onClick={() => this.setLeftContentName("founder-note")}>*/}
+                    {/*            <FontAwesomeIcon icon={faStickyNote}/>*/}
+                    {/*        </button>*/}
+                    {/*    </li>*/}
+
+                    {/*    <li>*/}
+                    {/*        <button className={this.state.leftContentName === "settings" ? "selected no-bg" : "no-bg"}*/}
+                    {/*                onClick={() => this.setLeftContentName("settings")}>*/}
+                    {/*            <FontAwesomeIcon icon={faCog}/>*/}
+                    {/*        </button>*/}
+                    {/*    </li>*/}
+
+
+                    {/*    /!*<li style={{"padding": "0 5px"}}>*!/*/}
+                    {/*    /!*    <a style={{"padding": 0}} rel="noopener noreferrer" target={"_blank"} href={REPO_URL}>*!/*/}
+                    {/*    /!*        <img*!/*/}
+                    {/*    /!*            src="https://img.shields.io/github/stars/invanalabs/graph-explorer?color=%23429770&label=stars&logo=github&style=flat-square"*!/*/}
+                    {/*    /!*            alt=""/>*!/*/}
+                    {/*    /!*    </a>*!/*/}
+                    {/*    /!*</li>*!/*/}
+                    {/*</List>*/}
                 </GEHeader>
                 <Main>
                     {/*<AsideTop>*/}
@@ -295,6 +313,15 @@ export default class ExplorerView extends BaseView {
                             query={this.state.query}
 
                             addQueryToState={this.addQueryToState.bind(this)}
+
+
+                            // getGraphicsEngine={this.getGraphicsEngine.bind(this)}
+                            // getSetFocusedNodes={this.getSetFocusedNodes.bind(this)}
+                            //
+
+                            setCanvasType ={this.setCanvasType.bind(this)}
+                            setCanvasCtrl ={this.setCanvasCtrl.bind(this)}
+
 
                         />
                     </MainContent>

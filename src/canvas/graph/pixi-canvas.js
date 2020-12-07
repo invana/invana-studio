@@ -134,19 +134,19 @@ export default class PIXICanvas extends React.Component {
     //
     // }
 
-    shouldComponentUpdate(nextProps) {
-        console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
-        // console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
-
-        // if (this.state.focusedNodes !== newState.focusedNodes) {
-        //     this.graphicsEngine.graphicsStore.focusOnElements(this.state.focusedNodes);
-        // }
-
-        return nextProps.shallReRenderD3Canvas
-            || this.props.selectedElementData !== nextProps.selectedElementData
-            // || this.state.focusedNodes !== newState.focusedNodes;
-            || this.state.shallReRender === true;
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     console.log("shouldComponentUpdate || nextProps.shallReRenderD3Canvas", nextProps.shallReRenderD3Canvas)
+    //     // console.log("=this.state.focusedNodes !== newState.focusedNodes", this.state.focusedNodes !== newState.focusedNodes, this.state.focusedNodes, newState.focusedNodes)
+    //
+    //     // if (this.state.focusedNodes !== newState.focusedNodes) {
+    //     //     this.graphicsEngine.graphicsStore.focusOnElements(this.state.focusedNodes);
+    //     // }
+    //
+    //     return nextProps.shallReRenderD3Canvas
+    //         || this.props.selectedElementData !== nextProps.selectedElementData
+    //         // || this.state.focusedNodes !== newState.focusedNodes;
+    //         || this.state.shallReRender === true;
+    // }
 
 
     componentDidUpdate() {

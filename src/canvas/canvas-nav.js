@@ -3,7 +3,7 @@ import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera, faFilter, faSearch, faSync,
-    faTrashAlt, faTable, faProjectDiagram
+    faTrashAlt, faTable, faProjectDiagram, faUserAstronaut
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import FilterNodes from "./nav-ui-components/filter-nodes";
@@ -65,113 +65,121 @@ export default class CanvasNav extends React.Component {
 
     render() {
         return (
-            <div className={"main-content-nav-left"}>
-                <List type={"aside-nav"}>
-                    {/*<li>*/}
-                    {/*    /!*<div className={"canvasToggle"}>*!/*/}
-                    {/*    <button onClick={() => this.switchToCanvasMenu("query-console")}*/}
-                    {/*            style={{"padding": "11px 9.5px"}}*/}
-                    {/*    >*/}
-                    {/*        <FontAwesomeIcon icon={faTerminal}/>*/}
-                    {/*    </button>*/}
-                    {/*    /!*</div>*!/*/}
-                    {/*</li>*/}
-                    <li>
-                        <div className={"canvasToggle"}>
-                            <button className={this.props.canvasType === "graph" ? "selected" : ""}
-                                    style={{"padding": "11px 11px", 'fontSize': "11px"}}
-                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("graph")}>
-                                <FontAwesomeIcon icon={faProjectDiagram}/>
-                            </button>
-                            <button className={this.props.canvasType === "table" ? "selected" : ""}
-                                    onClick={() => this.props.canvasCtrl.switchCanvasTo("table")}>
-                                <FontAwesomeIcon icon={faTable}/>
-                            </button>
-                            {/*<button className={this.props.canvasType === "json" ? "selected" : ""}*/}
-                            {/*        onClick={() => this.props.canvasCtrl.switchCanvasTo("json")}>JSON*/}
-                            {/*</button>*/}
-                            {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
-                            {/*   onClick={() => this.props.switchCanvasTo("raw")}>Raw</a>*/}
-
-                        </div>
-                    </li>
+            // <div className={"main-content-nav-left"}>
+            <List type={"nav-right"}>
+                {/*<li>*/}
+                {/*    /!*<div className={"canvasToggle"}>*!/*/}
+                {/*    <button onClick={() => this.switchToCanvasMenu("query-console")}*/}
+                {/*            style={{"padding": "11px 9.5px"}}*/}
+                {/*    >*/}
+                {/*        <FontAwesomeIcon icon={faTerminal}/>*/}
+                {/*    </button>*/}
+                {/*    /!*</div>*!/*/}
+                {/*</li>*/}
 
 
-                    {/*<li>*/}
-                    {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
-                    {/*        <FontAwesomeIcon icon={faSave}/>*/}
-                    {/*    </button>*/}
-                    {/*</li>*/}
-                    <li>
-                        <button title={"clear the canvas"}
-                                onClick={() => this.props.canvasCtrl.confirmFlushCanvas()}>
-                            <FontAwesomeIcon icon={faTrashAlt}/>
-                        </button>
-                    </li>
-                    <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
-                        <button title={"re render the canvas"}
-                                 onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
-                            <FontAwesomeIcon icon={faSync}/>
-                        </button>
-                    </li>
-                    <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
-                        <button onClick={() => this.props.canvasCtrl.downloadCanvasImage()}>
-                            <FontAwesomeIcon icon={faCamera}/>
-                        </button>
-                    </li>
-                    <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
-                        <button onClick={() => this.switchToCanvasMenu("focus-node")}>
-                            <FontAwesomeIcon icon={faSearch}/>
-                        </button>
-                    </li>
-                    <li style={{"display": "none"}}>
-                        <button onClick={() => this.switchToCanvasMenu("filter-nodes")}>
-                            <FontAwesomeIcon icon={faFilter}/>
-                        </button>
-                    </li>
-                </List>
-                <List type={"aside-nav"}>
+                {/*<li>*/}
+                {/*    <button onClick={() => alert("Still in the Design stage")}>*/}
+                {/*        <FontAwesomeIcon icon={faSave}/>*/}
+                {/*    </button>*/}
+                {/*</li>*/}
+                <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
+                    <button onClick={() => this.switchToCanvasMenu("focus-node")}>
+                        <FontAwesomeIcon icon={faSearch}/>
+                    </button>
+                </li>
+                <li style={{"display": "none"}}>
+                    <button onClick={() => this.switchToCanvasMenu("filter-nodes")}>
+                        <FontAwesomeIcon icon={faFilter}/>
+                    </button>
+                </li>
+                <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
+                    <button title={"re render the canvas"}
+                            onClick={() => this.props.canvasCtrl.confirmRedrawCanvas()}>
+                        <FontAwesomeIcon icon={faSync}/>
+                    </button>
+                </li>
+                <li style={{"display": this.props.canvasType === "graph" ? "" : "none"}}>
+                    <button onClick={() => this.props.canvasCtrl.downloadCanvasImage()}>
+                        <FontAwesomeIcon icon={faCamera}/>
+                    </button>
+                </li>
 
 
-                    {/*<li>*/}
-                    {/*    <button onClick={() => this.props.setRightContentName("support")}>*/}
-                    {/*        <FontAwesomeIcon icon={faLifeRing}/>*/}
-                    {/*    </button>*/}
-                    {/*</li>*/}
-                    {/*<li>*/}
-                    {/*    <button onClick={() => this.props.setRightContentName("about")}>*/}
-                    {/*        <FontAwesomeIcon icon={faInfoCircle}/>*/}
-                    {/*    </button>*/}
-                    {/*</li>*/}
-                </List>
+                <li>
+                    <button title={"clear the canvas"}
+                            onClick={() => this.props.canvasCtrl.confirmFlushCanvas()}>
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                    </button>
+                </li>
 
-                {
-                    this.state.canvasMenuType === "filter-nodes"
-                        ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
-                        // : this.state.canvasMenuType === "query-console"
-                        // // && (this.props.defaultQuery && !this.props.defaultQuery.query)
-                        // ? (
-                        //     <QueryConsole
-                        //         makeQuery={this.props.makeQuery}
-                        //         connector={this.props.connector}
-                        //         defaultQuery={this.props.defaultQuery}
-                        //         // value={this.state.defaultQuery}
-                        //         onClose={() => {
-                        //             this.switchToCanvasMenu(null);
-                        //             this.props.setDefaultQuery("");
-                        //         }}
-                        //     />
-                        // )
-                        : this.state.canvasMenuType === "focus-node"
-                        ? (<FocusNode
-                            onClose={this.switchToCanvasMenu.bind(this)}
-                            dataStore={this.props.dataStore}
-                            getGraphicsEngine={this.props.getGraphicsEngine}
-                            setFocusedNodes={this.props.setFocusedNodes}
-                        />)
-                        : (<Fragment/>)
-                }
-            </div>
+                <li>
+                    <span>|</span>
+                </li>
+
+
+                <li>
+
+                    <button className={this.props.canvasType === "graph" ? "selected" : ""}
+                            style={{'fontSize': "11px"}}
+                            onClick={() => this.props.canvasCtrl.switchCanvasTo("graph")}>
+                        <FontAwesomeIcon icon={faProjectDiagram}/>
+                    </button>
+
+                    {/*<button className={this.props.canvasType === "json" ? "selected" : ""}*/}
+                    {/*        onClick={() => this.props.canvasCtrl.switchCanvasTo("json")}>JSON*/}
+                    {/*</button>*/}
+                    {/*<a className={this.canvasType === "raw" ? "selected" : ""}*/}
+                    {/*   onClick={() => this.props.switchCanvasTo("raw")}>Raw</a>*/}
+
+
+                </li>
+                <li>
+                    <button className={this.props.canvasType === "table" ? "selected" : ""}
+                            onClick={() => this.props.canvasCtrl.switchCanvasTo("table")}>
+                        <FontAwesomeIcon icon={faTable}/>
+                    </button>
+                </li>
+                <li>
+                    <span>|</span>
+                </li>
+
+                <li>
+                    <button title={"clear the canvas"}
+                            onClick={() => alert("Hello World!")}>
+                        <FontAwesomeIcon icon={faUserAstronaut}/>
+                    </button>
+                </li>
+            </List>
+
+
+            // {
+            //     this.state.canvasMenuType === "filter-nodes"
+            //         ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
+            //         // : this.state.canvasMenuType === "query-console"
+            //         // // && (this.props.defaultQuery && !this.props.defaultQuery.query)
+            //         // ? (
+            //         //     <QueryConsole
+            //         //         makeQuery={this.props.makeQuery}
+            //         //         connector={this.props.connector}
+            //         //         defaultQuery={this.props.defaultQuery}
+            //         //         // value={this.state.defaultQuery}
+            //         //         onClose={() => {
+            //         //             this.switchToCanvasMenu(null);
+            //         //             this.props.setDefaultQuery("");
+            //         //         }}
+            //         //     />
+            //         // )
+            //         : this.state.canvasMenuType === "focus-node"
+            //         ? (<FocusNode
+            //             onClose={this.switchToCanvasMenu.bind(this)}
+            //             dataStore={this.props.dataStore}
+            //             getGraphicsEngine={this.props.getGraphicsEngine}
+            //             setFocusedNodes={this.props.setFocusedNodes}
+            //         />)
+            //         : (<Fragment/>)
+            // }
+            // </div>
         );
     }
 
