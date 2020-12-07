@@ -8,6 +8,8 @@ import {
 import PropTypes from "prop-types";
 import FilterNodes from "./nav-ui-components/filter-nodes";
 import FocusNode from "./nav-ui-components/focus-node";
+import GEHeader from "../ui-components/layout/header";
+import {faStickyNote} from "@fortawesome/free-regular-svg-icons";
 
 
 export default class CanvasNav extends React.Component {
@@ -143,7 +145,13 @@ export default class CanvasNav extends React.Component {
                 <li>
                     <span>|</span>
                 </li>
-
+       <li>
+                            <button
+                                className={this.props.leftContentName === "founder-note" ? "selected no-bg" : "no-bg"}
+                                onClick={() => this.props.setLeftContentName("founder-note")}>
+                                <FontAwesomeIcon icon={faStickyNote}/>
+                            </button>
+                        </li>
                 <li>
                     <button title={"clear the canvas"}
                             onClick={() => alert("Hello World!")}>
@@ -153,32 +161,7 @@ export default class CanvasNav extends React.Component {
             </List>
 
 
-            // {
-            //     this.state.canvasMenuType === "filter-nodes"
-            //         ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
-            //         // : this.state.canvasMenuType === "query-console"
-            //         // // && (this.props.defaultQuery && !this.props.defaultQuery.query)
-            //         // ? (
-            //         //     <QueryConsole
-            //         //         makeQuery={this.props.makeQuery}
-            //         //         connector={this.props.connector}
-            //         //         defaultQuery={this.props.defaultQuery}
-            //         //         // value={this.state.defaultQuery}
-            //         //         onClose={() => {
-            //         //             this.switchToCanvasMenu(null);
-            //         //             this.props.setDefaultQuery("");
-            //         //         }}
-            //         //     />
-            //         // )
-            //         : this.state.canvasMenuType === "focus-node"
-            //         ? (<FocusNode
-            //             onClose={this.switchToCanvasMenu.bind(this)}
-            //             dataStore={this.props.dataStore}
-            //             getGraphicsEngine={this.props.getGraphicsEngine}
-            //             setFocusedNodes={this.props.setFocusedNodes}
-            //         />)
-            //         : (<Fragment/>)
-            // }
+
             // </div>
         );
     }

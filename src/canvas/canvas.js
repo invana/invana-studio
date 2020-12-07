@@ -106,8 +106,9 @@ export default class Canvas extends React.Component {
     }
 
     updateCanvasState(message) {
-        this.setState(message);
         this.props.setCanvasType(message.canvasType);
+
+        this.setState(message);
     }
 
     setGraphicsEngine(graphicsEngine) {

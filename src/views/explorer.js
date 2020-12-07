@@ -1,5 +1,5 @@
 import BaseView from "./base";
-import React from "react";
+import React, {Fragment} from "react";
 import {redirectToConnectIfNeeded} from "../core/utils";
 import GEHeader from "../ui-components/layout/header";
 import List from "../ui-components/lists/list";
@@ -41,6 +41,8 @@ import AsideContent from "../ui-components/layout/aside-content";
 import GraphOverview from "../viewlets/overview";
 import CanvasNav from "../canvas/canvas-nav";
 import GetStarted from "../viewlets/get-started";
+import FilterNodes from "../canvas/nav-ui-components/filter-nodes";
+import FocusNode from "../canvas/nav-ui-components/focus-node";
 
 const Mousetrap = require("mousetrap");
 
@@ -165,10 +167,11 @@ export default class ExplorerView extends BaseView {
     }
 
     setCanvasType(canvasType) {
-
+        console.log("setCanvasType", canvasType);
         this.setState({canvasType: canvasType});
         this.resetShallReRenderD3Canvas();
     }
+
     setCanvasCtrl(canvasCtrl) {
         this.setState({canvasCtrl: canvasCtrl});
     }
@@ -195,7 +198,11 @@ export default class ExplorerView extends BaseView {
                         // setFocusedNodes={this.setFocusedNodes.bind(this)}
                         defaultQuery={this.state.query}
                         setDefaultQuery={this.addQueryToConsole.bind(this)}
-                        setRightContentName={this.setRightContentName.bind(this)}
+
+                        // rightContentName={this.state.rightContentName}
+                        leftContentName={this.state.leftContentName}
+                        // setRightContentName={this.setRightContentName.bind(this)}
+                        setLeftContentName={this.setLeftContentName.bind(this)}
 
                         // switchCanvasTo={this.switchCanvasTo.bind(this)}
                         // confirmFlushCanvas={this.confirmFlushCanvas.bind(this)}
@@ -318,9 +325,10 @@ export default class ExplorerView extends BaseView {
                             // getGraphicsEngine={this.getGraphicsEngine.bind(this)}
                             // getSetFocusedNodes={this.getSetFocusedNodes.bind(this)}
                             //
+                            canvasType={this.state.canvasType}
 
-                            setCanvasType ={this.setCanvasType.bind(this)}
-                            setCanvasCtrl ={this.setCanvasCtrl.bind(this)}
+                            setCanvasType={this.setCanvasType.bind(this)}
+                            setCanvasCtrl={this.setCanvasCtrl.bind(this)}
 
 
                         />
@@ -590,6 +598,33 @@ export default class ExplorerView extends BaseView {
                             : <span></span>
                     }
 
+
+                    {
+                        this.state.canvasMenuType === "filter-nodes"
+                            ? (<FilterNodes onClose={this.switchToCanvasMenu.bind(this)}/>)
+                            // : this.state.canvasMenuType === "query-console"
+                            // // && (this.props.defaultQuery && !this.props.defaultQuery.query)
+                            // ? (
+                            //     <QueryConsole
+                            //         makeQuery={this.props.makeQuery}
+                            //         connector={this.props.connector}
+                            //         defaultQuery={this.props.defaultQuery}
+                            //         // value={this.state.defaultQuery}
+                            //         onClose={() => {
+                            //             this.switchToCanvasMenu(null);
+                            //             this.props.setDefaultQuery("");
+                            //         }}
+                            //     />
+                            // )
+                            : this.state.canvasMenuType === "focus-node"
+                            ? (<FocusNode
+                                onClose={this.switchToCanvasMenu.bind(this)}
+                                dataStore={this.props.dataStore}
+                                getGraphicsEngine={this.props.getGraphicsEngine}
+                                setFocusedNodes={this.props.setFocusedNodes}
+                            />)
+                            : (<Fragment/>)
+                    }
                 </Main>
                 <GEFooter>
                     <List type={"nav-left"}>
