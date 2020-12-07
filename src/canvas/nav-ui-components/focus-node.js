@@ -1,6 +1,6 @@
 import React from "react";
 import "./focus-node.scss";
-import PropTypes, {node} from "prop-types";
+import PropTypes from "prop-types";
 import GEPanel from "../../ui-components/panels/panel";
 import GEModal from "../../ui-components/modal/modal";
 

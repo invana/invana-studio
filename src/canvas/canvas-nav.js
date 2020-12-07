@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -6,9 +6,9 @@ import {
     faTrashAlt, faTable, faProjectDiagram, faUserAstronaut, faStickyNote
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import FilterNodes from "./nav-ui-components/filter-nodes";
-import FocusNode from "./nav-ui-components/focus-node";
-import GEHeader from "../ui-components/layout/header";
+// import FilterNodes from "./nav-ui-components/filter-nodes";
+// import FocusNode from "./nav-ui-components/focus-node";
+// import GEHeader from "../ui-components/layout/header";
 // import {faStickyNote} from "@fortawesome/free-regular-svg-icons";
 
 
@@ -39,7 +39,8 @@ export default class CanvasNav extends React.Component {
         setFocusedNodes: PropTypes.func,
         defaultQuery: PropTypes.string,
         setDefaultQuery: PropTypes.func,
-        setRightContentName: PropTypes.func
+        setRightContentName: PropTypes.func,
+        switchToCanvasMenu: PropTypes.func
 
         // confirmRedrawCanvas: PropTypes.func
     }

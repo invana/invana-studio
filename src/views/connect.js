@@ -5,13 +5,13 @@ import {GE_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faPlayCircle,
+    // faPlayCircle,
     faAngleDown,
     faTimesCircle,
-    faPlug, faUserAstronaut, faRocket, faChevronCircleRight,
+    faPlug, faUserAstronaut, faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import GEPanel from "../ui-components/panels/panel";
-import GEModal from "../ui-components/modal/modal";
+// import GEModal from "../ui-components/modal/modal";
 
 
 export default class SetupGremlinServerConnection extends React.Component {
@@ -160,112 +160,115 @@ export default class SetupGremlinServerConnection extends React.Component {
                            "borderBottomWidth": "4px"
                        }}
                 >
-        <GEPanel
-                    title={"Find and Focus a node in canvas"}
-                    headerIcon={faPlug}
-                    showToggleBtn={false}
-                    showCloseBtn={false}
-                >
-                    <div className={"connect p-10"}>
-                        {/*<div className={"top-section"}>*/}
-                        {/*    <h4><FontAwesomeIcon icon={faPlug}/> Connect to Invana Engine </h4>*/}
-                        {/*    /!*<p>Invana Engine is a GraphQL API for Apache TinkerPop supported*!/*/}
-                        {/*    /!*    Graph Databases.</p>*!/*/}
-                        {/*</div>*/}
-                        {/*/!*<hr/>*!/*/}
+                    <GEPanel
+                        title={"Find and Focus a node in canvas"}
+                        headerIcon={faPlug}
+                        showToggleBtn={false}
+                        showCloseBtn={false}
+                    >
+                        <div className={"connect p-10"}>
+                            {/*<div className={"top-section"}>*/}
+                            {/*    <h4><FontAwesomeIcon icon={faPlug}/> Connect to Invana Engine </h4>*/}
+                            {/*    /!*<p>Invana Engine is a GraphQL API for Apache TinkerPop supported*!/*/}
+                            {/*    /!*    Graph Databases.</p>*!/*/}
+                            {/*</div>*/}
+                            {/*/!*<hr/>*!/*/}
 
-                        <div className={"bottom-section"}>
-                            <form action="" onSubmit={this.onFormSubmit.bind(this)}>
+                            <div className={"bottom-section"}>
+                                <form action="" onSubmit={this.onFormSubmit.bind(this)}>
 
 
-                                {/*<input type="radio" id="gremlinEngine" name="graphEngineName" value="gremlin"*/}
-                                {/*       defaultChecked/>*/}
-                                {/*<label className={"graphEngineNameLabel"} htmlFor="gremlinEngine">Gremlin</label>*/}
+                                    {/*<input type="radio" id="gremlinEngine" name="graphEngineName" value="gremlin"*/}
+                                    {/*       defaultChecked/>*/}
+                                    {/*<label className={"graphEngineNameLabel"} htmlFor="gremlinEngine">Gremlin</label>*/}
 
-                                <input type="hidden" id="invanaEngine" name="graphEngineName" value="invana-engine"/>
-                                {/*<label className={"graphEngineNameLabel"} htmlFor="invanaEngine">Invana Engine</label>*/}
+                                    <input type="hidden" id="invanaEngine" name="graphEngineName"
+                                           value="invana-engine"/>
+                                    {/*<label className={"graphEngineNameLabel"} htmlFor="invanaEngine">Invana Engine</label>*/}
 
-                                <input type="text" name={"gremlinServerUrl"}
-                                    // defaultValue={"ws://localhost:8182/gremlin"}
-                                       placeholder={"http://127.0.0.1:8000/graphql"}/>
-                                <br/>
+                                    <input type="text" name={"gremlinServerUrl"}
+                                        // defaultValue={"ws://localhost:8182/gremlin"}
+                                           placeholder={"http://127.0.0.1:8000/graphql"}/>
+                                    <br/>
 
-                                <p>
-                                    <button className={"extra-headers-btn"} type={"button"}
-                                            onClick={this.toggleMoreOptions.bind(this)}>
-                                        http headers <FontAwesomeIcon icon={faAngleDown}/>
-                                    </button>
-                                </p>
-                                {
-                                    this.state.showExtraHeaderOptions
-                                        ?
-                                        <div className={"headersList"}>
-
-                                            <h4>Extra HTTP Headers</h4>
-                                            {
-                                                headersArrayTemp.map((headerItem) => {
-                                                    return <div key={headerItem}
-                                                                className={"headerItem headerItem-" + headerItem}>
-                                                        <input type="text"
-                                                               className={"headerKey"}
-                                                               placeholder={"header key"}
-                                                               name={"headerKey"}
-                                                        />
-                                                        <input type="text"
-                                                               className={"headerValue"}
-                                                               placeholder={"header value"}
-                                                               name={"headerValue"}
-                                                        />
-                                                        <button type={"button"} onClick={this.removeHeader.bind(this)}>
-                                                            <FontAwesomeIcon icon={faTimesCircle}/>
-                                                        </button>
-
-                                                    </div>
-
-                                                })
-                                            }
-
-                                            <p>
-                                                <button type={"button"} onClick={this.addNewHeader.bind(this)}> + add
-                                                    new header
-                                                </button>
-                                            </p>
-                                        </div>
-                                        : <span></span>
-
-                                }
-
-                                <button type={"submit"} className={"primary-btn button"}>
-                                    Start Exploring <FontAwesomeIcon icon={faChevronCircleRight}/></button>
-
-                                {/*<button onClick={() => this.openDemo()} type={"button"}*/}
-                                {/*        className={" button secondary-btn ml-10"}>*/}
-                                {/*    <FontAwesomeIcon icon={faPlayCircle}/> watch demo*/}
-                                {/*</button>*/}
-                                {/*<a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/help.html">*/}
-                                {/*    <FontAwesomeIcon icon={faQuestionCircle}/>*/}
-                                {/*</a>*/}
-
-                            </form>
-                            {this.state.errorMessage ?
-                                (
                                     <p>
-                                        <small className={"errorMessage"}>{this.state.errorMessage}</small>
+                                        <button className={"extra-headers-btn"} type={"button"}
+                                                onClick={this.toggleMoreOptions.bind(this)}>
+                                            http headers <FontAwesomeIcon icon={faAngleDown}/>
+                                        </button>
                                     </p>
-                                ) : (<span></span>)
-                            }
-                            <p style={{"marginTop": "1rem"}}>
-                                {/*<FontAwesomeIcon icon={faQuestionCircle}/> | &nbsp;*/}
-                                {/*<a href="">Training Videos &nbsp;</a>*/}
-                                {/*<FontAwesomeIcon icon={faQuestionCircle}/> &nbsp; | &nbsp;*/}
-                                <a href="https://invana.io/get-started.html">Setup Instructions</a>&nbsp;
-                                | &nbsp; <a href={""} onClick={() => this.openDemo()}>Watch demo</a>&nbsp;
-                                {/*| &nbsp; <a href="https://invana.io/help.html">Help</a>*/}
-                            </p>
+                                    {
+                                        this.state.showExtraHeaderOptions
+                                            ?
+                                            <div className={"headersList"}>
 
+                                                <h4>Extra HTTP Headers</h4>
+                                                {
+                                                    headersArrayTemp.map((headerItem) => {
+                                                        return <div key={headerItem}
+                                                                    className={"headerItem headerItem-" + headerItem}>
+                                                            <input type="text"
+                                                                   className={"headerKey"}
+                                                                   placeholder={"header key"}
+                                                                   name={"headerKey"}
+                                                            />
+                                                            <input type="text"
+                                                                   className={"headerValue"}
+                                                                   placeholder={"header value"}
+                                                                   name={"headerValue"}
+                                                            />
+                                                            <button type={"button"}
+                                                                    onClick={this.removeHeader.bind(this)}>
+                                                                <FontAwesomeIcon icon={faTimesCircle}/>
+                                                            </button>
+
+                                                        </div>
+
+                                                    })
+                                                }
+
+                                                <p>
+                                                    <button type={"button"} onClick={this.addNewHeader.bind(this)}> +
+                                                        add
+                                                        new header
+                                                    </button>
+                                                </p>
+                                            </div>
+                                            : <span></span>
+
+                                    }
+
+                                    <button type={"submit"} className={"primary-btn button"}>
+                                        Start Exploring <FontAwesomeIcon icon={faChevronCircleRight}/></button>
+
+                                    {/*<button onClick={() => this.openDemo()} type={"button"}*/}
+                                    {/*        className={" button secondary-btn ml-10"}>*/}
+                                    {/*    <FontAwesomeIcon icon={faPlayCircle}/> watch demo*/}
+                                    {/*</button>*/}
+                                    {/*<a target={"_blank"} rel="noopener noreferrer" href="https://invana.io/help.html">*/}
+                                    {/*    <FontAwesomeIcon icon={faQuestionCircle}/>*/}
+                                    {/*</a>*/}
+
+                                </form>
+                                {this.state.errorMessage ?
+                                    (
+                                        <p>
+                                            <small className={"errorMessage"}>{this.state.errorMessage}</small>
+                                        </p>
+                                    ) : (<span></span>)
+                                }
+                                <p style={{"marginTop": "1rem"}}>
+                                    {/*<FontAwesomeIcon icon={faQuestionCircle}/> | &nbsp;*/}
+                                    {/*<a href="">Training Videos &nbsp;</a>*/}
+                                    {/*<FontAwesomeIcon icon={faQuestionCircle}/> &nbsp; | &nbsp;*/}
+                                    <a href="https://invana.io/get-started.html" target={"_blank"} rel="noopener noreferrer" >Setup Instructions</a>&nbsp;
+                                    | &nbsp; <a href={DEMO_URL} rel="noopener noreferrer"  target={"_blank"} >Watch demo</a>&nbsp;
+                                    {/*| &nbsp; <a href="https://invana.io/help.html">Help</a>*/}
+                                </p>
+
+                            </div>
                         </div>
-                    </div>
-                </GEPanel>
+                    </GEPanel>
                 </Modal>
                 <p className={"built-with"}><small>Built with love for Humans
                     & Innovations at <a

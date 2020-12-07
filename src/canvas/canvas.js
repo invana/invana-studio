@@ -5,10 +5,10 @@ import PIXICanvas from "./graph/pixi-canvas";
 import JSONCanvas from "./json/json";
 import TableCanvas from "./table/table";
 import RawResponsesCanvas from "./raw-response/raw-responses";
-import CanvasNav from "./canvas-nav";
+// import CanvasNav from "./canvas-nav";
 import CanvasController from "./controller";
 import FocusedNodesList from "./graph/focused-nodes-list";
-import NodeMenu from "./graph/node-menu";
+// import NodeMenu from "./graph/node-menu";
 // import GetStarted from "../viewlets/get-started";
 
 export default class Canvas extends React.Component {

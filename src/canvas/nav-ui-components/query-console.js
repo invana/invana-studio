@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
 import "./query-console.scss";
 import PropTypes from "prop-types";
-import GEPanel from "../../ui-components/panels/panel";
+// import GEPanel from "../../ui-components/panels/panel";
 
 const Mousetrap = require("mousetrap");
 

@@ -2,7 +2,6 @@ import React from "react";
 import "./panel.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faHome,
     faWindowClose,
     faWindowRestore
 } from "@fortawesome/free-solid-svg-icons";

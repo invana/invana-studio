@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import GESettings from "./settings";
 import GraphSimulator from "../../core/graph-simulator";
 import NodeMenu from "./node-menu";
-import SelectedData from "../../viewlets/selected-data";
-import GEPanel from "../../ui-components/panels/panel";
+// import SelectedData from "../../viewlets/selected-data";
+// import GEPanel from "../../ui-components/panels/panel";
 
 export default class PIXICanvas extends React.Component {
 

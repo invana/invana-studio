@@ -2,7 +2,7 @@ import React from "react";
 import RemoteGraphComponent from "../core/graph-component";
 import GEList from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faWrench, faProjectDiagram, faCircle} from "@fortawesome/free-solid-svg-icons";
+import {faWrench, faCircle} from "@fortawesome/free-solid-svg-icons";
 import "./management.scss";
 import {managementVertexLabel} from "../config";
 import {getColorForString} from "../canvas/canvas-utils";

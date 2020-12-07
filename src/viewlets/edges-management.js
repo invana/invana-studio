@@ -4,9 +4,9 @@ import GEList from "../ui-components/lists/list";
 import {managementVertexLabel} from "../config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faGripHorizontal,
-    faProjectDiagram,
-    faRulerHorizontal,
+    // faGripHorizontal,
+    // faProjectDiagram,
+    // faRulerHorizontal,
     faVectorSquare,
     faWrench
 } from "@fortawesome/free-solid-svg-icons";

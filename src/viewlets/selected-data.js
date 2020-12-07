@@ -2,7 +2,7 @@ import React from "react";
 import "./selected-data.scss";
 import PropTypes from "prop-types";
 import {renderPropertyData} from "../canvas/canvas-utils";
-import NodeMenu from "../canvas/graph/node-menu";
+// import NodeMenu from "../canvas/graph/node-menu";
 
 export default class SelectedData extends React.Component {
 
