@@ -25,7 +25,9 @@ export default class CanvasNav extends React.Component {
         setFocusedNodes: (nodes) => console.log("setFocusedNodes not set ", nodes),
         defaultQuery: null,
         setDefaultQuery: (query) => console.log("setDefaultQuery", query),
-        setRightContentName: () => console.log("setRightContentName")
+        leftContentName: null,
+        setRightContentName: () => console.log("setRightContentName not set"),
+        setLeftContentName: (contentName) => console.log("setLeftContentName not set", contentName),
 
     }
     static propTypes = {
@@ -40,7 +42,10 @@ export default class CanvasNav extends React.Component {
         defaultQuery: PropTypes.string,
         setDefaultQuery: PropTypes.func,
         setRightContentName: PropTypes.func,
-        switchToCanvasMenu: PropTypes.func
+        switchToCanvasMenu: PropTypes.func,
+
+        leftContentName: PropTypes.string,
+        setLeftContentName: PropTypes.func
 
         // confirmRedrawCanvas: PropTypes.func
     }

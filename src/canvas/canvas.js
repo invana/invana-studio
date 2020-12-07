@@ -77,6 +77,9 @@ export default class Canvas extends React.Component {
         getFocusedNodes: PropTypes.func,
         setFocusedNodes: PropTypes.func,
 
+        focusedNodes: PropTypes.array,
+        setGraphicsEngine: PropTypes.func,
+
 
         // setFocusedNodes: PropTypes.func
     }

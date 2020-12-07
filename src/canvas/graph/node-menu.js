@@ -31,7 +31,8 @@ export default class NodeMenu extends React.Component {
         makeQuery: PropTypes.func,
         graphicsEngine: PropTypes.object,
         setDefaultQuery: PropTypes.func,
-        setRightContentName: PropTypes.func
+        setRightContentName: PropTypes.func,
+        selectedElementData: PropTypes.object
 
     }
 
