@@ -55,7 +55,8 @@ export default class ExplorerView extends BaseView {
         focusedNodes: [],
         leftContentName: "overview",
         canvasType: "graph",
-        canvasMenuType: null
+        canvasMenuType: null,
+        canvasBgColor: "#181818"
     }
 
     processResponse(response) {
@@ -159,6 +160,7 @@ export default class ExplorerView extends BaseView {
         })
 
     }
+
     setGraphicsEngine(graphicsEngine) {
         this.setState({graphicsEngine: graphicsEngine})
     }
@@ -191,11 +193,16 @@ export default class ExplorerView extends BaseView {
         console.log("getFocusedNodes", this.state.focusedNodes);
         return this.state.focusedNodes;
     }
+
     switchToCanvasMenu(canvasMenuType) {
         console.log("updating canvasMenuType", canvasMenuType);
         this.setState({
             canvasMenuType: canvasMenuType
         });
+    }
+
+    setCanvasBgColor(canvasBgColor) {
+        this.setState({canvasBgColor: canvasBgColor});
     }
 
     render() {
@@ -326,7 +333,8 @@ export default class ExplorerView extends BaseView {
                         </GEList>
                     </AsideLeftNav>
 
-                    <MainContent leftContentName={this.state.leftContentName}>
+                    <MainContent leftContentName={this.state.leftContentName}
+                                 style={{"backgroundColor": this.state.canvasBgColor}}>
                         <Canvas
                             setStatusMessage={this.setStatusMessage.bind(this)}
 
@@ -423,7 +431,9 @@ export default class ExplorerView extends BaseView {
                                         showCloseBtn={false}
                                         headerIcon={faCog}
                                     >
-                                        <SettingsComponent/>
+                                        <SettingsComponent
+                                            canvasBgColor={this.state.canvasBgColor}
+                                            setCanvasBgColor={this.setCanvasBgColor.bind(this)}/>
                                     </GEPanel>
                                 </AsideContent>
                             )
@@ -604,7 +614,7 @@ export default class ExplorerView extends BaseView {
                     {/*{*/}
                     {/*    this.state.middleBottomContentName === "selected-data-overview" && this.state.selectedElementData*/}
                     {/*        ? <AsideContent position={"left"} size={"sm"}>*/}
-                    
+
                     {/*            <GEPanel*/}
                     {/*                // title={"Selected Element Data"}*/}
                     {/*                title={this.state.selectedElementData.meta.labelOptions.labelText*/}
@@ -623,25 +633,25 @@ export default class ExplorerView extends BaseView {
                     {/*                }}*/}
                     {/*            >*/}
                     {/*                <SelectedData*/}
-                    
+
                     {/*                    setFocusedNodes={this.setFocusedNodes.bind(this)}*/}
                     {/*                    getFocusedNodes={this.getFocusedNodes.bind(this)}*/}
-                    
-                    
+
+
                     {/*                    connector={this.connector}*/}
                     {/*                    selectedElementData={this.props.selectedElementData}*/}
                     {/*                    makeQuery={this.makeQuery.bind(this)}*/}
                     {/*                    graphicsEngine={this.state.graphicsEngine}*/}
                     {/*                    setDefaultQuery={this.addQueryToConsole.bind(this)}*/}
                     {/*                    setRightContentName={this.state.setRightContentName}*/}
-                    
-                    
+
+
                     {/*                    selectedData={this.state.selectedElementData}*/}
                     {/*                    onClose={() => {*/}
                     {/*                        this.setSelectedElementData(null);*/}
                     {/*                        // this.setLeftContentName(null)*/}
                     {/*                    }}/>*/}
-                    
+
                     {/*            </GEPanel>*/}
                     {/*        </AsideContent>*/}
                     {/*        : <span></span>*/}
