@@ -1,7 +1,9 @@
 @import "../../config.scss";
 
-.header{
+.header {
   height: 35px;
   border-bottom: 1px solid $borderColor;
   background: $veryDarkBg;
+  position: relative;
+  z-index: 100;
 }

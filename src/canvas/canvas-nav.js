@@ -3,7 +3,7 @@ import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera, faFilter, faSearch, faSync,
-    faTrashAlt, faTable, faProjectDiagram, faUserAstronaut, faStickyNote, faCloudMoon, faMoon
+    faTrashAlt, faTable, faProjectDiagram, faUserAstronaut, faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 // import FilterNodes from "./nav-ui-components/filter-nodes";

@@ -3,13 +3,13 @@
 .aside-content {
   //width: 22px;
   //height: calc(100vh - 36px - 24px);
-  height: calc(100vh - 36px - 24px);
+  height: calc(100vh - 35px - 22px);
   // background: red;
   border-right: 1px solid $borderColor;
   border-left: 1px solid $borderColor;
   background: $darkBg;
   position: fixed;
-  top: 36px;
+  top: 35px;
   //left: 300px;
 
 }
