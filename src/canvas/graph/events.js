@@ -132,11 +132,11 @@ export default class EventStore {
         }
 
 
-        if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
-            // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
-            // dont hover-highlight when there is focus selected.
-            return
-        }
+        // if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
+        //     // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
+        //     // dont hover-highlight when there is focus selected.
+        //     return
+        // }
 
         if (nodeData) {
             // let focusedNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
