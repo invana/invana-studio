@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../ui-components/modal/modal";
 import {setDataToLocalStorage} from "../core/utils";
-import {GE_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_URL} from "../config";
+import {GE_CONSTANTS, VERSION, ABOUT_TEXT, DEMO_VIDEO_URL} from "../config";
 import "./connect.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -65,7 +65,7 @@ export default class SetupGremlinServerConnection extends React.Component {
     }
 
     openDemo() {
-        window.open(DEMO_URL);
+        window.open(DEMO_VIDEO_URL);
     }
 
     getErrorFromUrlString() {
@@ -262,7 +262,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                                     {/*<a href="">Training Videos &nbsp;</a>*/}
                                     {/*<FontAwesomeIcon icon={faQuestionCircle}/> &nbsp; | &nbsp;*/}
                                     <a href="https://invana.io/get-started.html" target={"_blank"} rel="noopener noreferrer" >Setup Instructions</a>&nbsp;
-                                    | &nbsp; <a href={DEMO_URL} rel="noopener noreferrer"  target={"_blank"} >Watch demo</a>&nbsp;
+                                    | &nbsp; <a href={DEMO_VIDEO_URL} rel="noopener noreferrer"  target={"_blank"} >Watch demo</a>&nbsp;
                                     {/*| &nbsp; <a href="https://invana.io/help.html">Help</a>*/}
                                 </p>
 

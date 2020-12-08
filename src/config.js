@@ -21,7 +21,6 @@ export const UUIDGenerator = () =>
         (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
     );
 
-
 export const DefaultNodeBorderColor = "#121212";
 export const DefaultNodeLabelPropertyKey = "id";
 export const DefaultNodeStrokeWidth = 2;
@@ -45,5 +44,5 @@ export const linkCurvature = .85;
 export const managementVertexLabel = "InvanaManagement";
 export const historyLocalStorageKey = "GRAPH_EXPLORER_HISTORY";
 export const MAX_HISTORY_COUNT_TO_REMEMBER = 100;
-export const DEMO_URL = "https://www.youtube.com/watch?v=SuxC4EH0RCs";
+export const DEMO_VIDEO_URL = "https://www.youtube.com/watch?v=tZS_-7SX_f8";
 
