@@ -11,7 +11,7 @@ Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases
 
 **This project is under active development.** 
 
-## Installation
+## Setup Graph Explorer
 
 ```shell script.
 docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
@@ -21,23 +21,14 @@ docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
 If you want to install graph-explorer on Heroku 
 [click here](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master).
 
-
-## Connecting to Graph Explorer
-
-Graph Explorer uses [invana-engine](https://github.com/invanalabs/invana-engine) as the backend to 
+> Graph Explorer uses [invana-engine](https://github.com/invanalabs/invana-engine) as the backend to 
 connect to graph databases. Invana Engine is a GraphQL API for Apache TinkerPop supported graph databases.
+Check here for information on how to setup invana-engine 
 
-#### Deploying Invana-Engine
-```shell script.
-docker run -p 8000:8000 -d -e GREMLIN_SERVER_URL=ws://xx.xx.xx.xx:8182/gremlin --name invana-engine invanalabs/invana-engine
-# This will start an invana-engine service at 8000 port. ex: http://localhost:8000
-```
+Refer [here](https://invana.io/get-started.html) for more information on how to setup invana-engine 
+and JanusGraph for Graph Explorer.
 
-
-Refer invana-engine [documentation](https://github.com/invanalabs/invana-engine) for more information on
-how to authenticate a gremlin server with username and password.
-
-## Screenshots
+## Screenshot
 ![1](./docs/screenshots/1.png)
 
  
@@ -48,4 +39,4 @@ Apache License 2.0
 
 ## Support 
 
-For any further queries or dedicated support, please feel free to get in touch with me at hi[at]invana.io.
+For any other assistance, please feel free to get in touch with me at hi[at]invana.io.
