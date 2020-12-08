@@ -3,7 +3,7 @@ import List from "../ui-components/lists/list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera, faFilter, faSearch, faSync,
-    faTrashAlt, faTable, faProjectDiagram, faUserAstronaut, faStickyNote,
+    faTrashAlt, faTable, faProjectDiagram, faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 // import FilterNodes from "./nav-ui-components/filter-nodes";
@@ -159,12 +159,12 @@ export default class CanvasNav extends React.Component {
                         <FontAwesomeIcon icon={faStickyNote}/>
                     </button>
                 </li>
-                <li>
-                    <button title={"clear the canvas"}
-                            onClick={() => alert("Hello World!")}>
-                        <FontAwesomeIcon icon={faUserAstronaut}/>
-                    </button>
-                </li>
+                {/*<li>*/}
+                {/*    <button title={"clear the canvas"}*/}
+                {/*            onClick={() => alert("Hello World!")}>*/}
+                {/*        <FontAwesomeIcon icon={faUserAstronaut}/>*/}
+                {/*    </button>*/}
+                {/*</li>*/}
             </List>
 
 
