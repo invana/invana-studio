@@ -229,9 +229,10 @@ export default class ExplorerView extends BaseView {
                         defaultQuery={this.state.query}
                         setDefaultQuery={this.addQueryToConsole.bind(this)}
 
-                        // rightContentName={this.state.rightContentName}
+                        rightContentName={this.state.rightContentName}
                         leftContentName={this.state.leftContentName}
-                        // setRightContentName={this.setRightContentName.bind(this)}
+
+                        setRightContentName={this.setRightContentName.bind(this)}
                         setLeftContentName={this.setLeftContentName.bind(this)}
 
 
@@ -474,25 +475,7 @@ export default class ExplorerView extends BaseView {
                                     </GEPanel>
                                 </AsideContent>
                             )
-                        } else if (this.state.leftContentName === "founder-note") {
-                            return (
-                                <AsideContent position={"left"} size={"md"}>
-                                    <GEPanel
-                                        title={"Note from Project Creator"}
-                                        // onClickClose={() => this.setLeftContentName(null)}
-                                        showCloseBtn={false}
-                                        showToggleBtn={false}
-                                        headerIcon={faStickyNote}
 
-                                    >
-                                        <FounderNote
-                                            setRightContentName={this.setRightContentName.bind(this)}
-                                            setLeftContentName={this.setLeftContentName.bind(this)}
-                                            onClose={() => this.setRightContentName(null)}/>
-
-                                    </GEPanel>
-                                </AsideContent>
-                            )
 
                         } else {
                             return (
@@ -554,6 +537,25 @@ export default class ExplorerView extends BaseView {
                                                 // this.setDefaultQuery("");
                                             }}
                                         />
+                                    </GEPanel>
+                                </AsideContent>
+                            )
+                        } else if (this.state.rightContentName === "founder-note") {
+                            return (
+                                <AsideContent position={"right"} size={"lg"}>
+                                    <GEPanel
+                                        title={"Note from Project Creator"}
+                                        // onClickClose={() => this.setLeftContentName(null)}
+                                        showCloseBtn={false}
+                                        showToggleBtn={false}
+                                        headerIcon={faStickyNote}
+
+                                    >
+                                        <FounderNote
+                                            setRightContentName={this.setRightContentName.bind(this)}
+                                            setLeftContentName={this.setLeftContentName.bind(this)}
+                                            onClose={() => this.setRightContentName(null)}/>
+
                                     </GEPanel>
                                 </AsideContent>
                             )

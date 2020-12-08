@@ -58,14 +58,12 @@ export default class QueryConsole extends React.Component {
         }
     }
 
-    // componentDidUpdate(prevProps) {
-    //     // Typical usage (don't forget to compare props):
-    //     if (this.props.defaultQuery !== prevProps.defaultQuery ) {
-    //         this.setState({defaultQuery: this.props.defaultQuery});
-    //     }
-    //
-    //
-    // }
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.defaultQuery !== prevProps.defaultQuery ) {
+            this.setState({defaultQuery: this.props.defaultQuery});
+        }
+    }
 
     onQueryChange(e) {
         this.setState({defaultQuery: e.target.value});

@@ -41,9 +41,11 @@ export default class CanvasNav extends React.Component {
         setFocusedNodes: PropTypes.func,
         defaultQuery: PropTypes.string,
         setDefaultQuery: PropTypes.func,
-        setRightContentName: PropTypes.func,
         switchToCanvasMenu: PropTypes.func,
 
+        setRightContentName: PropTypes.func,
+        rightContentName: PropTypes.string,
+        
         leftContentName: PropTypes.string,
         setLeftContentName: PropTypes.func
 
@@ -154,8 +156,8 @@ export default class CanvasNav extends React.Component {
                 {/*</li>*/}
                 <li>
                     <button
-                        className={this.props.leftContentName === "founder-note" ? "selected no-bg" : "no-bg"}
-                        onClick={() => this.props.setLeftContentName("founder-note")}>
+                        className={this.props.rightContentName === "founder-note" ? "selected no-bg" : "no-bg"}
+                        onClick={() => this.props.setRightContentName("founder-note")}>
                         <FontAwesomeIcon icon={faStickyNote}/>
                     </button>
                 </li>
