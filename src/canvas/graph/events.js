@@ -34,11 +34,11 @@ export default class EventStore {
     onLinkMouseOver(graphicsEngine, linkData, linkGfx, event) {
         console.log(linkData.id, linkGfx, event, "link MouseOver");
         // this.lastSelectedNodeData = null;
-        if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
-            // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
-            // dont hover-highlight when there is focus selected.
-            return
-        }
+        // if (graphicsEngine.dataStore.getUniqueFocusedNodes().length > 0) {
+        //     // if (graphicsEngine.dataStore.checkIfNodeExistInFocused(nodeData){
+        //     // dont hover-highlight when there is focus selected.
+        //     return
+        // }
 
         this.highlightLink(graphicsEngine, linkData);
         graphicsEngine.eventStore.hideMenu();

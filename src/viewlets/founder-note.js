@@ -63,11 +63,13 @@ export default class FounderNote extends React.Component {
                         check support
                     </button>
 
-                    <span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>
-                    <button onClick={() => this.props.setRightContentName(null)}>
-                        close
-                    </button>
+
                 </p>
+                <p>
+                    {/*<span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>*/}
+                    <button style={{"color": "#666"}} onClick={() => this.props.setRightContentName(null)}>
+                        close this
+                    </button></p>
 
 
             </div>

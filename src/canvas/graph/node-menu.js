@@ -170,41 +170,57 @@ export default class NodeMenu extends React.Component {
 
     render() {
         console.log("this.getLastSelectedNodeData()", this.getLastSelectedNodeData())
+        const selectedElement = this.getLastSelectedNodeData();
         return (
             <div className="nodeMenuContainer" style={{"display": "none"}}>
-                {this.getLastSelectedNodeData()
+                {selectedElement
                     ?
                     <p style={{"color": this.getElementColor()}}>
-                        {this.getLastSelectedNodeData().type.replace("g:", "")} / {this.getLastSelectedNodeData().label}</p>
+                        {selectedElement.type.replace("g:", "")} / {selectedElement.label}</p>
                     : <span></span>
-                } {this.getLastSelectedNodeData()
-                ?
-                <h5 style={{"color": this.getLastSelectedNodeData().meta.shapeOptions.fillColorHex}}>{this.getVerboseIdentifier()}</h5>
-                : <span></span>
-            }
+                }
+                {selectedElement
+                    ?
+                    <h5 style={{"color": selectedElement.meta.shapeOptions.fillColorHex}}>{this.getVerboseIdentifier()}</h5>
+                    : <span></span>
+                }
 
 
                 <p>ID: {this.getIdentifier()}</p>
                 <ul className={"nodeMenu"}>
-                    {
-                        this.checkIfAlreadyFocused() ?
-                            (
-                                <li onClick={() => this.resetFocus()}>
-                                    <span>Reset focus</span>
-                                </li>
-                            ) :
-                            (
-                                <li onClick={() => this.onClickFocus()}>
-                                    <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>
-                                </li>
-                            )
+
+                    {/*{*/}
+                    {/*    this.checkIfAlreadyFocused() ?*/}
+                    {/*        (*/}
+                    {/*            <li onClick={() => this.resetFocus()}>*/}
+                    {/*                <span>Reset focus</span>*/}
+                    {/*            </li>*/}
+                    {/*        ) :*/}
+                    {/*        (*/}
+                    {/*            <li onClick={() => this.onClickFocus()}>*/}
+                    {/*                <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>*/}
+                    {/*            </li>*/}
+                    {/*        )*/}
+                    {/*}*/}
+
+                    {selectedElement && selectedElement.type === "g:Vertex"
+                        ? <li onClick={() => this.onClickFocus()}>
+                            <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>
+                        </li>
+                        : <span></span>
                     }
-                    <li onClick={() => this.onClickShowInV()}>
-                        <FontAwesomeIcon icon={faArrowAltCircleLeft}/> <span>InV</span>
-                    </li>
-                    <li onClick={() => this.onClickShowOutV()}>
-                        <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>OutV</span>
-                    </li>
+                    {selectedElement && selectedElement.type === "g:Vertex"
+                        ? <li onClick={() => this.onClickShowInV()}>
+                            <FontAwesomeIcon icon={faArrowAltCircleLeft}/> <span>InV</span>
+                        </li> : <span></span>
+                    }
+                    {selectedElement && selectedElement.type === "g:Vertex"
+                        ? <li onClick={() => this.onClickShowOutV()}>
+                            <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>OutV</span>
+                        </li> : <span></span>
+                    }
+
+
                     <li onClick={() => this.startNewQuery()}>
                         <FontAwesomeIcon icon={faTerminal}/> <span>Query</span>
                     </li>

@@ -546,8 +546,8 @@ export default class ExplorerView extends BaseView {
                                 <AsideContent position={"right"} size={"lg"}>
                                     <GEPanel
                                         title={"Note from Project Creator"}
-                                        // onClickClose={() => this.setLeftContentName(null)}
-                                        showCloseBtn={false}
+                                        onClickClose={() => this.setRightContentName(null)}
+                                        showCloseBtn={true}
                                         showToggleBtn={false}
                                         headerIcon={faStickyNote}
 
