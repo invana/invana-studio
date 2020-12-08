@@ -41,7 +41,7 @@ export default class LearnComponent extends React.Component {
 
 
                 </GEList>
-                <p>Awesome! <u><button onClick={() => this.props.onClose()}> Close this tour </button></u> and start exploring
+                <p>Awesome! <button onClick={() => this.props.onClose()}><u> Close this tour </u></button> and start exploring
                     your graph data.
                 </p>
                 <h3 style={{"marginTop": "30px"}}>More Resources</h3>

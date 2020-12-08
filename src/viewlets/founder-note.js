@@ -50,7 +50,10 @@ export default class FounderNote extends React.Component {
                 </p>
 
                 <p>
-                    <button className={"selected"} onClick={() => this.props.setLeftContentName("learn")}>
+                    <button className={"selected"} onClick={() => {
+                        this.props.setLeftContentName("learn");
+                        this.props.setRightContentName(null)
+                    }}>
                         <u>Build your first Graph &rarr;</u>
                     </button>
                     <span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>

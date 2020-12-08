@@ -470,7 +470,7 @@ export default class ExplorerView extends BaseView {
                                         <LearnComponent
                                             addQueryToConsole={this.addQueryToConsole.bind(this)}
                                             makeQuery={this.makeQuery.bind(this)}
-                                            onClose={() => this.setLeftContentName(null)}
+                                            onClose={() => this.setLeftContentName("overview")}
                                         />
 
                                     </GEPanel>
