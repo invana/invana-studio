@@ -200,19 +200,19 @@ export default class NodeMenu extends React.Component {
                             )
                     }
                     <li onClick={() => this.onClickShowInV()}>
-                        <FontAwesomeIcon icon={faArrowAltCircleLeft}/> <span>Show InV</span>
+                        <FontAwesomeIcon icon={faArrowAltCircleLeft}/> <span>InV</span>
                     </li>
                     <li onClick={() => this.onClickShowOutV()}>
-                        <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>Show OutV</span>
+                        <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>OutV</span>
                     </li>
                     <li onClick={() => this.startNewQuery()}>
-                        <FontAwesomeIcon icon={faTerminal}/> <span>Start Query</span>
+                        <FontAwesomeIcon icon={faTerminal}/> <span>Query</span>
                     </li>
                     {/*<li onClick={() => this.cleanGraph()}>*/}
                     {/*    <FontAwesomeIcon icon={faSync}/> Clean Graph*/}
                     {/*</li>*/}
                     <li onClick={() => this.hideMenu()}>
-                        <FontAwesomeIcon icon={faMinusCircle}/> <span>hide menu</span>
+                        <FontAwesomeIcon icon={faMinusCircle}/>
                     </li>
                 </ul>
                 <SelectedData selectedData={this.props.selectedElementData}/>
