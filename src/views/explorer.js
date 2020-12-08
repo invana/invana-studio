@@ -54,6 +54,7 @@ export default class ExplorerView extends BaseView {
         ...this.state,
         focusedNodes: [],
         leftContentName: "overview",
+        rightContentName: "founder-note",
         canvasType: "graph",
         canvasMenuType: null,
         canvasBgColor: "#181818"
