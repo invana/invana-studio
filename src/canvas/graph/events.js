@@ -73,9 +73,9 @@ export default class EventStore {
         // this.showMenu();
         // this.clickedNodeData = nodeData;
         // this.lastSelectedNodeData = nodeData;
-        console.log(this.clickedNodeData.id, " clicked");
+        // console.log(this.clickedNodeData.id, " clicked");
         // graphicsEngine.onElementSelected(nodeData);
-        console.log("clicked", event);
+        console.log("onNodeRightClicked", event);
         // this.createNodeMenu(graphicsEngine, nodeData, event);
         // if (nodeData) {
         //     this.highlightNodes(graphicsEngine, [nodeData])

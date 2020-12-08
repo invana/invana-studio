@@ -60,7 +60,7 @@ export default class FounderNote extends React.Component {
                     </button>
 
                     <span style={{"marginLeft": "5px", "marginRight": "5px"}}>|</span>
-                    <button onClick={() => this.props.onClose()}>
+                    <button onClick={() => this.props.setLeftContentName("overview")}>
                         close
                     </button>
                 </p>

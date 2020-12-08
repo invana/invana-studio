@@ -364,7 +364,7 @@ export default class TableCanvas extends React.Component {
     render() {
         // const {vertices, edges} = this.props.dataStore.getAllData();
         const settings = new GESettings(0, 0);
-        const forceSimulator = new GraphSimulator(settings, null, 0.5);
+        const forceSimulator = new GraphSimulator(settings, null, );
         const {verticesToRender, edgesToRender} = this.props.dataStore.determineAllDataToRender();
         forceSimulator.addDataToGraphSimulation(verticesToRender, edgesToRender,);
 

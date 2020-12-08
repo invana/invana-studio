@@ -88,7 +88,13 @@ export default class GraphicsEngine {
             }
         });
 
+        this.viewport.on('rightdown', (e) => {
+            // alert("right down",);
+                    this.eventStore.hideMenu();
 
+            // let pos = this.viewport.toWorld(e.data.global);
+            // this.clientEngine.sendInput('mousePos', { x: pos.x, y: this.gameEngine.worldHeight - pos.y });
+        })
         // this.viewport.on('drag-start', (e) => {
         //     console.log("viewport drag-start", e);
         // });

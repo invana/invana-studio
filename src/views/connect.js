@@ -161,7 +161,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                        }}
                 >
                     <GEPanel
-                        title={"Find and Focus a node in canvas"}
+                        title={"Connect to Invana Engine"}
                         headerIcon={faPlug}
                         showToggleBtn={false}
                         showCloseBtn={false}
@@ -261,7 +261,7 @@ export default class SetupGremlinServerConnection extends React.Component {
                                     {/*<FontAwesomeIcon icon={faQuestionCircle}/> | &nbsp;*/}
                                     {/*<a href="">Training Videos &nbsp;</a>*/}
                                     {/*<FontAwesomeIcon icon={faQuestionCircle}/> &nbsp; | &nbsp;*/}
-                                    <a href="https://invana.io/get-started.html" target={"_blank"} rel="noopener noreferrer" >Setup Instructions</a>&nbsp;
+                                    <a href="https://invana.io/get-started.html" target={"_blank"} rel="noopener noreferrer" >Get Started instructions</a>&nbsp;
                                     | &nbsp; <a href={DEMO_URL} rel="noopener noreferrer"  target={"_blank"} >Watch demo</a>&nbsp;
                                     {/*| &nbsp; <a href="https://invana.io/help.html">Help</a>*/}
                                 </p>
