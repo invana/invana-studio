@@ -28,6 +28,11 @@ Check here for information on how to setup invana-engine
 Refer [here](https://invana.io/get-started.html) for more information on how to setup invana-engine 
 and JanusGraph for Graph Explorer.
 
+## Demos
+
+- stable version - [graph-explorer.herokuapp.com](http://graph-explorer.herokuapp.com/)
+- latest version - [graph-explorer-edge.herokuapp.com](http://graph-explorer-edge.herokuapp.com/)
+
 ## Screenshot
 ![1](./docs/screenshots/1.png)
 
