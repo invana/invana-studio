@@ -43,6 +43,7 @@ export default class EventStore {
         this.highlightLink(graphicsEngine, linkData);
         graphicsEngine.eventStore.hideMenu();
         graphicsEngine.onElementSelected(linkData);
+        this.createNodeMenu(graphicsEngine, linkData, event);
 
     }
 
@@ -57,7 +58,7 @@ export default class EventStore {
             return
         }
         this.unHighlightLink(graphicsEngine, linkData);
-        graphicsEngine.onElementSelected(null);
+        // graphicsEngine.onElementSelected(null);
     }
 
     createNodeMenu(graphicsEngine, nodeData, event) {
@@ -69,13 +70,13 @@ export default class EventStore {
 
 
     onNodeRightClicked(graphicsEngine, nodeData, nodeContainer, event) {
-        this.showMenu();
-        this.clickedNodeData = nodeData;
-        this.lastSelectedNodeData = nodeData;
+        // this.showMenu();
+        // this.clickedNodeData = nodeData;
+        // this.lastSelectedNodeData = nodeData;
         console.log(this.clickedNodeData.id, " clicked");
-        graphicsEngine.onElementSelected(nodeData);
+        // graphicsEngine.onElementSelected(nodeData);
         console.log("clicked", event);
-        this.createNodeMenu(graphicsEngine, nodeData, event);
+        // this.createNodeMenu(graphicsEngine, nodeData, event);
         // if (nodeData) {
         //     this.highlightNodes(graphicsEngine, [nodeData])
         // }

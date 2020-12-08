@@ -157,20 +157,31 @@ export default class NodeMenu extends React.Component {
         this.props.setDefaultQuery(query);
     }
 
+    getElementColor() {
+
+        const elementData = this.getLastSelectedNodeData();
+        console.log("getColor", elementData)
+        if (elementData.type === "g:Vertex") {
+            return elementData.meta.shapeOptions.fillColorHex;
+        } else {
+            return elementData.meta.shapeOptions.strokeColorHex;
+        }
+    }
+
     render() {
         console.log("this.getLastSelectedNodeData()", this.getLastSelectedNodeData())
         return (
             <div className="nodeMenuContainer" style={{"display": "none"}}>
                 {this.getLastSelectedNodeData()
                     ?
-                    <p style={{"color": this.getLastSelectedNodeData().meta.shapeOptions.fillColorHex}}>
+                    <p style={{"color": this.getElementColor()}}>
                         {this.getLastSelectedNodeData().type.replace("g:", "")} / {this.getLastSelectedNodeData().label}</p>
                     : <span></span>
                 } {this.getLastSelectedNodeData()
-                    ?
-                    <h5  style={{"color": this.getLastSelectedNodeData().meta.shapeOptions.fillColorHex}}>{this.getVerboseIdentifier()}</h5>
-                    : <span></span>
-                }
+                ?
+                <h5 style={{"color": this.getLastSelectedNodeData().meta.shapeOptions.fillColorHex}}>{this.getVerboseIdentifier()}</h5>
+                : <span></span>
+            }
 
 
                 <p>ID: {this.getIdentifier()}</p>
