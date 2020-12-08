@@ -461,8 +461,8 @@ export default class ExplorerView extends BaseView {
                                 <AsideContent position={"left"} size={"md"}>
                                     <GEPanel
                                         title={"Get Started"}
-                                        // onClickClose={() => this.setLeftContentName(null)}
-                                        showCloseBtn={false}
+                                        onClickClose={() => this.setLeftContentName("overview")}
+                                        showCloseBtn={true}
                                         showToggleBtn={false}
                                         headerIcon={faCubes}
 
@@ -525,7 +525,7 @@ export default class ExplorerView extends BaseView {
                                         title={"Query Console"}
                                         onClickClose={() => this.setRightContentName(null)}
                                         showToggleBtn={false}
-                                        showCloseBtn={false}
+                                        showCloseBtn={true}
                                         headerIcon={faTerminal}
                                     >
                                         <QueryConsole
@@ -565,8 +565,8 @@ export default class ExplorerView extends BaseView {
                                 <AsideContent position={"right"} size={"lg"}>
                                     <GEPanel
                                         title={"History"}
-                                        // onClickClose={() => this.setRightContentName(null)}
-                                        showCloseBtn={false}
+                                        onClickClose={() => this.setRightContentName(null)}
+                                        showCloseBtn={true}
                                         showToggleBtn={false}
                                         headerIcon={faHistory}
                                     >
@@ -584,8 +584,8 @@ export default class ExplorerView extends BaseView {
                                 <AsideContent position={"right"} size={"md"}>
                                     <GEPanel
                                         title={"Support"}
-                                        // onClickClose={() => this.setRightContentName(null)}
-                                        showCloseBtn={false}
+                                        onClickClose={() => this.setRightContentName(null)}
+                                        showCloseBtn={true}
                                         showToggleBtn={false}
                                         headerIcon={faLifeRing}
                                     >
@@ -598,8 +598,8 @@ export default class ExplorerView extends BaseView {
                                 <AsideContent position={"right"} size={"md"}>
                                     <GEPanel
                                         title={"About"}
-                                        // onClickClose={() => this.setRightContentName(null)}
-                                        showCloseBtn={false}
+                                        onClickClose={() => this.setRightContentName(null)}
+                                        showCloseBtn={true}
                                         showToggleBtn={false}
                                         headerIcon={faInfoCircle}
                                     >
