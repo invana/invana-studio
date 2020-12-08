@@ -198,7 +198,7 @@ export default class PIXICanvas extends React.Component {
             _this.onForceSimulationEnd(_this.graphicsEngine, _this.setStatusMessage.bind(_this)
             );
 
-        }, 0.1);
+        }, 0.05);
 
         this.checkAndAddNewData2Simulation();
     }
