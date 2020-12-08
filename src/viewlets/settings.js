@@ -62,7 +62,7 @@ export default class SettingsComponent extends React.Component {
 
 
                     <button className={"button  mt-10"} type={"submit"}>
-                        update background color
+                        update
                     </button>
                 </form>
                 <br/><br/>
