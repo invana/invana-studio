@@ -28,8 +28,8 @@ export default class FounderNote extends React.Component {
                     with the help of the data and technology.
                     This project is yet another attempt to gather the best of the tech
                     from graph computing and
-                    data visualisations to connect the dots within the data and give insights that you would not
-                    wonder otherwise.
+                    data visualisations to connect the dots within the data and give insights that you would not have
+                    wondered otherwise.
                 </p>
 
                 <p>Introducing Graph Explorer ({VERSION}) - {ABOUT_TEXT}</p>
