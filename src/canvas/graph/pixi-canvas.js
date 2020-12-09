@@ -230,10 +230,12 @@ export default class PIXICanvas extends React.Component {
         console.log("===lastSelectedNodeData", lastSelectedNodeData)
         const focusedNodes = graphicsEngine.dataStore.getUniqueFocusedNodes();
 
-        if (lastSelectedNodeData && focusedNodes.length === 0) {
+        if (lastSelectedNodeData) {
+            // if last selected node, zoom to that
             graphicsEngine.zoom2Node(lastSelectedNodeData.id)
             graphicsEngine.highlightNodeById(lastSelectedNodeData.id)
         } else if (focusedNodes.length > 0) {
+            // if if focused nodes exist, zoom to them.
             // graphicsEngine.zoom2Node(lastSelectedNodeData.id)
             graphicsEngine.graphicsStore.focusOnElements(focusedNodes)
             graphicsEngine.zoom2Node(focusedNodes[-0].id)

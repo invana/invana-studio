@@ -125,7 +125,6 @@ export default class EventStore {
     onNodeMouseOver(graphicsEngine, nodeData, nodeContainer, event) {
         console.log(nodeData.id, nodeContainer, event, " mouseover");
         this.lastSelectedNodeData = nodeData;
-
         graphicsEngine.onElementSelected(nodeData);
 
         // // if the last selected element is not this node, hide the menu.
