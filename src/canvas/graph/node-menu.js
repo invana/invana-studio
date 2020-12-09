@@ -51,12 +51,11 @@ export default class NodeMenu extends React.Component {
         // return this.props.selectedElementData;
     }
 
-    onClickFocus() {
-        const lastSelectedNodeData = this.getLastSelectedNodeData();
-        console.log("onClickFocus========", lastSelectedNodeData)
-        if (lastSelectedNodeData) {
-            this.props.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
-            this.props.graphicsEngine.zoom2Point(lastSelectedNodeData.x, lastSelectedNodeData.y);
+
+    focusAndCenterNode(nodeData) {
+        if (nodeData) {
+            this.props.graphicsEngine.dataStore.addNode2Focus(nodeData);
+            this.props.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
             const focusedNodes = this.props.graphicsEngine.dataStore.getUniqueFocusedNodes();
             this.props.setFocusedNodes(focusedNodes);
             this.props.graphicsEngine.graphicsStore.focusOnElements(focusedNodes);
@@ -66,32 +65,33 @@ export default class NodeMenu extends React.Component {
 
     }
 
+    onClickFocus() {
+        const lastSelectedNodeData = this.getLastSelectedNodeData();
+        console.log("onClickFocus========", lastSelectedNodeData)
+        if (lastSelectedNodeData) {
+            this.focusAndCenterNode(lastSelectedNodeData)
+        }
+
+    }
+
     onClickShowInV() {
         // alert("onClickShowInv clicked");
         const lastSelectedNodeData = this.getLastSelectedNodeData();
-        const query_string = this.props.connector.requestBuilder.getInEdgeVertices(lastSelectedNodeData.id);
-
-        // adding this node to focused,
-        // this.props.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
-        // this.setState({focusedNodes: this.props.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-        this.hideMenu();
-        this.props.makeQuery(query_string);
-
-
+        if (lastSelectedNodeData) {
+            this.focusAndCenterNode(lastSelectedNodeData)
+            const queryString = this.props.connector.requestBuilder.getInEdgeVertices(lastSelectedNodeData.id);
+            this.props.makeQuery(queryString);
+        }
     }
 
     onClickShowOutV() {
         // alert("onClickShowOutV clicked");
-        const lastSelectedNodeData = this.getLastSelectedNodeData();
-        console.log("expandOutLinksAndNodes", lastSelectedNodeData);
-        // TODO - improve performance of the query.
-        const query_string = this.props.connector.requestBuilder.getOutEdgeVertices(lastSelectedNodeData.id);
-
-        //
-        // this.props.graphicsEngine.dataStore.addNode2Focus(lastSelectedNodeData);
-        // this.setState({focusedNodes: this.props.graphicsEngine.dataStore.getUniqueFocusedNodes()});
-        this.hideMenu();
-        this.props.makeQuery(query_string);
+            const lastSelectedNodeData = this.getLastSelectedNodeData();
+        if (lastSelectedNodeData) {
+            this.focusAndCenterNode(lastSelectedNodeData)
+            const queryString = this.props.connector.requestBuilder.getOutEdgeVertices(lastSelectedNodeData.id);
+            this.props.makeQuery(queryString);
+        }
     }
 
     hideMenu() {

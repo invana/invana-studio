@@ -232,6 +232,9 @@ export default class PIXICanvas extends React.Component {
 
         if (lastSelectedNodeData) {
             // if last selected node, zoom to that
+            // graphicsEngine.graphicsStore.focusOnElements([lastSelectedNodeData])
+            graphicsEngine.graphicsStore.focusOnElements(focusedNodes)
+
             graphicsEngine.zoom2Node(lastSelectedNodeData.id)
             graphicsEngine.highlightNodeById(lastSelectedNodeData.id)
         } else if (focusedNodes.length > 0) {
@@ -251,14 +254,14 @@ export default class PIXICanvas extends React.Component {
 
     onElementSelected(nodeData) {
         // if (this.props.middleBottomContentName !== "vertex-options") {
-            if (nodeData) {
-                // this.props.setMiddleBottomContentName('selected-data-overview');
-                this.props.setSelectedElementData(nodeData);
-            } else {
-                // if data is none, remove the bottom content
-                // this.props.setMiddleBottomContentName(null);
-                this.props.setSelectedElementData(null);
-            }
+        if (nodeData) {
+            // this.props.setMiddleBottomContentName('selected-data-overview');
+            this.props.setSelectedElementData(nodeData);
+        } else {
+            // if data is none, remove the bottom content
+            // this.props.setMiddleBottomContentName(null);
+            this.props.setSelectedElementData(null);
+        }
 
         // }
     }
@@ -276,7 +279,7 @@ export default class PIXICanvas extends React.Component {
                     connector={this.props.connector}
                     selectedElementData={this.props.selectedElementData}
                     makeQuery={this.props.makeQuery}
-                    graphicsEngine={ this.graphicsEngine}
+                    graphicsEngine={this.graphicsEngine}
                     setDefaultQuery={this.props.setDefaultQuery}
                     setRightContentName={this.props.setRightContentName}
                 />
