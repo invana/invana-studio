@@ -1,20 +1,21 @@
 import React from 'react';
 import DefaultLayout from "../layout/default";
 import {Col, Row, Nav} from "react-bootstrap";
-import MenuComponent from "../components/menu";
-import CanvasComponent from "../components/canvas";
+import MenuComponent from "../ui-components/menu";
+import CanvasComponent from "../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "../components/sidebar";
+import Sidebar from "../ui-components/sidebar";
 
 
 export default class GraphView extends React.Component {
 
     render() {
-        return (<DefaultLayout>
+        console.log("this.props", this.props.location);
+        return (<DefaultLayout {...this.props}>
 
             <Row>
-                <Col md={3}>
+                <Col class={"aside"}>
                     <Sidebar>
                         sidebar
                     </Sidebar>
@@ -29,6 +30,11 @@ export default class GraphView extends React.Component {
                             </Nav.Item>
                         </Nav>
                         <Nav className="ml-auto">
+                            <Nav.Item>
+                                <button className={"nav-link"}>
+                                    <FontAwesomeIcon icon={faUserAstronaut}/>
+                                </button>
+                            </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link href="/connect">
                                     <FontAwesomeIcon icon={faUserAstronaut}/>

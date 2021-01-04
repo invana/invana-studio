@@ -1,12 +1,13 @@
 import React, {Suspense} from "react";
-import SwitchServerView from "./views/switch-server";
+import SwitchServerView from "./web/views/switch-server";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import ConnectView from "./views/connect";
-import Page404 from "./views/page-404";
-import IndexView from "./views";
-import SchemaView from "./views/schema";
-import GraphView from "./views/graph";
-import TableView from "./views/table";
+import ConnectView from "./web/views/connect";
+import Page404 from "./web/views/page-404";
+import IndexView from "./web/views";
+import SchemaView from "./web/views/schema";
+import GraphView from "./web/views/graph";
+import TableView from "./web/views/table";
+import SettingsView from "./web/views/settings";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class App extends React.Component {
@@ -20,6 +21,7 @@ export default class App extends React.Component {
                         <Route exact path="/table" component={TableView}/>
                         <Route exact path="/schema" component={SchemaView}/>
                         <Route exact path="/connect" component={ConnectView}/>
+                        <Route exact path="/settings" component={SettingsView}/>
                         <Route exact path="/switch-server" component={SwitchServerView}/>
                         <Route component={Page404}/>
                     </Switch>

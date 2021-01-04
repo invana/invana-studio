@@ -2,6 +2,15 @@ body {
   font-size: 14px !important;
 }
 
+button:active,
+button:focus,
+button:focus:active {
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 .navbar {
   padding: 0 1rem !important;
 }
@@ -26,6 +35,6 @@ h1 {
   margin-right: 0 !important;
 }
 
-.container-fluid{
+.container-fluid {
   padding: 0 !important;
 }

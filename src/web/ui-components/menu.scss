@@ -1,5 +1,15 @@
 .menu-component .nav-link {
   padding: .3rem .45rem !important
+
+}
+
+.menu-component {
+  .nav-item button{
+
+    border: none;
+    background: transparent;
+    padding: 5px 10px;
+  }
 }
 
 .md-menu {

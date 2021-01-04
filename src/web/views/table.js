@@ -1,17 +1,17 @@
 import React from 'react';
 import DefaultLayout from "../layout/default";
 import {Col, Row, Nav} from "react-bootstrap";
-import MenuComponent from "../components/menu";
-import CanvasComponent from "../components/canvas";
+import MenuComponent from "../ui-components/menu";
+import CanvasComponent from "../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "../components/sidebar";
+import Sidebar from "../ui-components/sidebar";
 
 
 export default class TableView extends React.Component {
 
     render() {
-        return (<DefaultLayout>
+        return (<DefaultLayout {...this.props}>
 
             <Row>
                 <Col md={3}>
