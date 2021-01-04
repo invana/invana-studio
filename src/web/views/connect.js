@@ -135,7 +135,7 @@ export default class ConnectView extends React.Component {
                 </Col>
                 <Col md={"5"}>
                     {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
-                    <h1 className={"pb-0 mb-0"}>invana <small>({VERSION})</small></h1>
+                    <h1 className={"pb-0 mb-0"}>Invana Studio <small>({VERSION})</small></h1>
                     <p>{ABOUT_TEXT}</p>
                 </Col>
             </Row>

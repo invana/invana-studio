@@ -3,6 +3,7 @@
 Web UI for Invana Engine: Import, edit and browse data with rich filters and 
 Apache TinkerPop's Gremlin Query language.
 
+**NOTE: Under active development**
 
 ## License 
 Apache License 2.0

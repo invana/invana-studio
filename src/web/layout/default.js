@@ -21,7 +21,7 @@ export default class DefaultLayout extends React.Component {
         return (
             <Container fluid>
                 <Navbar bg="transparent" className={"border-bottom"} expand="lg">
-                    <Navbar.Brand href="/">Graph Explorer</Navbar.Brand>
+                    <Navbar.Brand href="/">Invana Studio</Navbar.Brand>
                     <Nav className="ml-auto">
                         <Nav.Item>
                             <Nav.Link href="/connect"
