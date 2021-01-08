@@ -1,11 +1,11 @@
 import React from 'react';
-import DefaultLayout from "../layout/default";
+import DefaultLayout from "../../layout/default";
 import Card from "react-bootstrap/Card";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown, faTimesCircle, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {VERSION, ABOUT_TEXT, GE_CONSTANTS} from "../../config";
-import {setDataToLocalStorage} from "../utils";
+import {STUDIO_SETTINGS, STUDIO_CONNECT_CONSTANTS} from "../../../settings";
+import {setDataToLocalStorage} from "../../utils";
 import "./connect.scss";
 
 export default class ConnectView extends React.Component {
@@ -65,9 +65,9 @@ export default class ConnectView extends React.Component {
                 "when you are using Graph Explorer via https connection.")
         } else if (connectionUrl) {
             const headers = this.getHeaders();
-            setDataToLocalStorage(GE_CONSTANTS.connectionUrlKey, connectionUrl);
-            setDataToLocalStorage(GE_CONSTANTS.httpHeadersKey, headers);
-            setDataToLocalStorage(GE_CONSTANTS.graphEngineName, graphEngineName);
+            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.connectionUrlKey, connectionUrl);
+            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.httpHeadersKey, headers);
+            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.graphEngineName, graphEngineName);
             window.location.href = "/";
         }
     }
@@ -127,7 +127,7 @@ export default class ConnectView extends React.Component {
         return (<DefaultLayout {...this.props}>
 
 
-            <Row className={"pl-3"} style={{paddingTop: "12rem"}}>
+            <Row className={"pl-3"} style={{paddingTop: "26%"}}>
                 <Col md={"1"} className={"mt-2 pl-3"} style={{"width": "4.5rem", "flex": "none"}}>
                     <FontAwesomeIcon icon={faUserAstronaut}
                                      className={"mt-2"}
@@ -135,8 +135,8 @@ export default class ConnectView extends React.Component {
                 </Col>
                 <Col md={"5"}>
                     {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
-                    <h1 className={"pb-0 mb-0"}>Invana Studio <small>({VERSION})</small></h1>
-                    <p>{ABOUT_TEXT}</p>
+                    <h1 className={"pb-0 mb-0"}>Invana Studio <small>({STUDIO_SETTINGS.VERSION})</small></h1>
+                    <p>{STUDIO_SETTINGS.ABOUT_TEXT}</p>
                 </Col>
             </Row>
 
@@ -154,14 +154,10 @@ export default class ConnectView extends React.Component {
                                     placeholder="http://localhost:8000/graphql"
                                     style={{width: "320px"}}
                                 />
-                                <Form.Control
-                                    name="graphEngineName"
-                                    placeholder="http://localhost:8000/graphql"
-                                    type={"hidden"}
-                                />
+                                <Form.Control name="graphEngineName" value={"invana-engine"} type={"hidden"}/>
 
 
-                                <Button type="submit" className="mb-2">
+                                <Button type="submit" className="">
                                     Connect
                                 </Button>
                                 <p>
@@ -199,7 +195,6 @@ export default class ConnectView extends React.Component {
 
                                                 })
                                             }
-
                                             <p>
                                                 <button type={"button"} className={""}
                                                         onClick={this.addNewHeader.bind(this)}> +
@@ -209,12 +204,11 @@ export default class ConnectView extends React.Component {
                                             </p>
                                         </div>
                                         : <span></span>
-
                                 }
-
                             </Form>
                             <p>
-                                <a href="">Setup Instructions</a> | <a href="">Watch demo</a>
+                                <a href={STUDIO_SETTINGS.SETUP_README_URL}>Setup Instructions</a> | <a
+                                href={STUDIO_SETTINGS.DEMO_VIDEO_URL}>Watch demo</a>
                             </p>
                         </Card.Body>
                     </Card>

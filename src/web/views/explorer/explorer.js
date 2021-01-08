@@ -1,34 +1,39 @@
 import React from 'react';
-import DefaultLayout from "../layout/default";
-import {Col, Row, Nav} from "react-bootstrap";
-import MenuComponent from "../ui-components/menu";
-import CanvasComponent from "../ui-components/canvas";
+import DefaultLayout from "../../layout/default";
+import { Row, Nav} from "react-bootstrap";
+import MenuComponent from "../../ui-components/menu";
+import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "../ui-components/sidebar";
+import Sidebar from "../../ui-components/sidebar";
+import MainContent from "../../ui-components/main-content";
 
 
-export default class TableView extends React.Component {
+export default class ExplorerView extends React.Component {
 
     render() {
+        console.log("this.props", this.props.location);
         return (<DefaultLayout {...this.props}>
 
             <Row>
-                <Col md={3}>
-                    <Sidebar>
-                        sidebar
-                    </Sidebar>
-                </Col>
-                <Col md={9}>
+                <Sidebar>
+                    sidebar
+                </Sidebar>
+                <MainContent className={"main-content"}>
                     <MenuComponent>
                         <Nav className="mr-auto">
                             <Nav.Item>
                                 <Nav.Link>
-                                    Table
+                                    Graph Canvas
                                 </Nav.Link>
                             </Nav.Item>
                         </Nav>
                         <Nav className="ml-auto">
+                            <Nav.Item>
+                                <button className={"nav-link"}>
+                                    <FontAwesomeIcon icon={faUserAstronaut}/>
+                                </button>
+                            </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link href="/connect">
                                     <FontAwesomeIcon icon={faUserAstronaut}/>
@@ -66,7 +71,7 @@ export default class TableView extends React.Component {
 
                         </Nav>
                     </MenuComponent>
-                </Col>
+                </MainContent>
             </Row>
 
         </DefaultLayout>)

@@ -1,8 +1,8 @@
 import ConnectorBase from "./base";
-import {getDataFromLocalStorage, } from "../utils";
 import {postData} from "./utils";
-import {GE_CONSTANTS} from "../config";
+import {STUDIO_CONNECT_CONSTANTS} from "../settings";
 import GremlinResponse from "./responses/gremlin";
+import {getDataFromLocalStorage} from "../web/utils";
 
 export default class DefaultHTTPConnector extends ConnectorBase {
 
@@ -10,7 +10,7 @@ export default class DefaultHTTPConnector extends ConnectorBase {
 
     query(query_string) {
         const payload = {"gremlin": query_string};
-        const extraHeaders = getDataFromLocalStorage(GE_CONSTANTS.httpHeadersKey, true) || {};
+        const extraHeaders = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.httpHeadersKey, true) || {};
         const _this = this;
         postData(this.serverUrl, extraHeaders, payload).then((data) => {
             // check the status and response type and change isConnected

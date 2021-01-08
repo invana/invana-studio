@@ -1,13 +1,13 @@
 import React from "react";
-import {Nav, Navbar, Container} from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCog} from "@fortawesome/free-solid-svg-icons";
+import BlankLayout from "./blank";
+import RemoteEngine from "./remote";
 
-export default class DefaultLayout extends React.Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+export default class DefaultLayout extends RemoteEngine {
+
 
     // static propTypes = {
     //     children: PropTypes.any,
@@ -19,26 +19,26 @@ export default class DefaultLayout extends React.Component {
 
     render() {
         return (
-            <Container fluid>
+            <BlankLayout>
                 <Navbar bg="transparent" className={"border-bottom"} expand="lg">
                     <Navbar.Brand href="/">Invana Studio</Navbar.Brand>
                     <Nav className="ml-auto">
+                        {/*<Nav.Item>*/}
+                        {/*    <Nav.Link href="/connect"*/}
+                        {/*              className={this.props.location.pathname === "/connect" ? "active" : ""}>*/}
+                        {/*        Connect*/}
+                        {/*    </Nav.Link>*/}
+                        {/*</Nav.Item>*/}
                         <Nav.Item>
-                            <Nav.Link href="/connect"
-                                      className={this.props.location.pathname === "/connect" ? "active" : ""}>
-                                Connect
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href={"/graph"}
-                                      className={this.props.location.pathname === "/graph" ? "active" : ""}>
+                            <Nav.Link href={"/explorer"}
+                                      className={this.props.location.pathname === "/explorer" ? "active" : ""}>
 
-                                Graph</Nav.Link>
+                                Explorer</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/table"
-                                      className={this.props.location.pathname === "/table" ? "active" : ""}>
-                                Table</Nav.Link>
+                            <Nav.Link href="/data"
+                                      className={this.props.location.pathname === "/data" ? "active" : ""}>
+                                Data</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/schema"
@@ -55,7 +55,7 @@ export default class DefaultLayout extends React.Component {
                     </Nav>
                 </Navbar>
                 {this.props.children}
-            </Container>
+            </BlankLayout>
         )
     }
 }

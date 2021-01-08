@@ -5,22 +5,22 @@ import React from "react";
 // import {managementVertexLabel} from "../config";
 import {
     managementVertexLabel
-} from "../../config";
+} from "../../settings";
+import RemoteEngine from "../layout/remote";
 // import {setElementColorOptionsToStorageUsingResponse} from "../core/utils";
 
-export default class IndexView extends React.Component {
+export default class IndexView extends RemoteEngine {
 
 
     componentDidMount() {
-        // super.componentDidMount();
-        // let _this = this;
-        // console.log("=_this.connector.requestBuilder.initQuery()", _this.connector.requestBuilder.initQuery())
-        // setTimeout(function () {
-        //     _this.makeQuery(_this.connector.requestBuilder.filterVertices(
-        //         managementVertexLabel, 50
-        //     ), {source: "internal"});
-        // }, 200)
-        window.location.href = "/connect";
+        super.componentDidMount();
+        let _this = this;
+        console.log("=_this.connector.requestBuilder.initQuery()", _this.connector.requestBuilder.initQuery())
+        setTimeout(function () {
+            _this.makeQuery(_this.connector.requestBuilder.filterVertices(
+                managementVertexLabel, 50
+            ), {source: "internal"});
+        }, 200)
     }
 
     processResponse(response) {
@@ -44,7 +44,7 @@ export default class IndexView extends React.Component {
     }
 
     render() {
-        return(<div></div>)
+        return (<div></div>)
     }
 
 }
