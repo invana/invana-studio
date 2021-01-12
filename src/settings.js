@@ -16,6 +16,8 @@ export const STUDIO_SETTINGS = {
     CONNECTION_URL: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.connectionUrlKey),
     GRAPH_ENGINE_NAME: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.graphEngineName),
 
+    managementVertexLabel : "InvanaManagement"
+
 }
 
 export const HISTORY_SETTINGS = {
@@ -28,5 +30,3 @@ export const ROUTE_URLS = {
     CONNECT_URL: "/connect"
 }
 
-
-export const managementVertexLabel = "InvanaManagement";
