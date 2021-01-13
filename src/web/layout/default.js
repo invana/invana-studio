@@ -1,13 +1,14 @@
 import React from "react";
-import {Nav, Navbar, Container} from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCog} from "@fortawesome/free-solid-svg-icons";
+import BlankLayout from "./blank";
+import RemoteEngine from "./remote";
+import {STUDIO_SETTINGS} from "../../settings";
 
-export default class DefaultLayout extends React.Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+export default class DefaultLayout extends RemoteEngine {
+
 
     // static propTypes = {
     //     children: PropTypes.any,
@@ -17,9 +18,13 @@ export default class DefaultLayout extends React.Component {
     //     secondaryNav: PropTypes.any,
     // };
 
+    // static defaultProp = {
+    //     connectionUrl: STUDIO_SETTINGS.CONNECTION_URL
+    // }
+
     render() {
         return (
-            <Container fluid>
+            <BlankLayout>
                 <Navbar bg="transparent" className={"border-bottom"} expand="lg">
                     <Navbar.Brand href="/">Invana Studio</Navbar.Brand>
                     <Nav className="ml-auto">
@@ -35,10 +40,12 @@ export default class DefaultLayout extends React.Component {
                                 Data</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
+
                             <Nav.Link href={"/explorer"}
                                       className={this.props.location.pathname === "/explorer" ? "active" : ""}>
 
                                 Explorer</Nav.Link>
+
                         </Nav.Item>
 
                         <Nav.Item>
@@ -56,7 +63,7 @@ export default class DefaultLayout extends React.Component {
                     </Nav>
                 </Navbar>
                 {this.props.children}
-            </Container>
+            </BlankLayout>
         )
     }
 }

@@ -1,11 +1,12 @@
-import React, {ReactPropTypes as PropTypes} from "react";
+import React from "react";
 import Container from "react-bootstrap/Container";
+import PropTypes from "prop-types";
 
 export default class BlankLayout extends React.Component {
 
     static propTypes = {
-        children: PropTypes.func,
-    };
+        children: PropTypes.any,
+    }
 
     render() {
         return (

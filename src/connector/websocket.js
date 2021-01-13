@@ -1,6 +1,6 @@
 import ConnectorBase from "./base";
-import {UUIDGenerator} from "../config";
 import GremlinResponse from "./responses/gremlin";
+import {UUIDGenerator} from "../query-builder/utils";
 
 
 export default class DefaultWebSocketConnector extends ConnectorBase {

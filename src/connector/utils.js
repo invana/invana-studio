@@ -11,13 +11,13 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
     }
 
     console.log("=====request data", data);
-    const gremlinUrl = urlAnalysed.origin + urlAnalysed.pathname;
+    const connectionUrl = urlAnalysed.origin + urlAnalysed.pathname;
     // let response = null
     let transporterStatusCode = null;
     let responseJson = {};
 
     try {
-        const response = await fetch(gremlinUrl, {
+        const response = await fetch(connectionUrl, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             // credentials: 'include', // include, *same-origin, omit

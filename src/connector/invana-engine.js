@@ -1,7 +1,8 @@
 import ConnectorBase from "./base";
-import {getDataFromLocalStorage, postData} from "../utils";
-import {GE_CONSTANTS} from "../config";
+import {STUDIO_CONNECT_CONSTANTS} from "../settings";
 import InvanaEngineResponse from "./responses/invana-engine";
+import {getDataFromLocalStorage} from "../web/utils";
+import {postData} from "./utils";
 
 export default class InvanaEngineHTTPConnector extends ConnectorBase {
 
@@ -10,7 +11,7 @@ export default class InvanaEngineHTTPConnector extends ConnectorBase {
     query(queryPayload) {
         // queryPayload = JSON.stringify(queryPayload);
         // const payload = {"query": "{rawQuery(gremlin:" + JSON.stringify(queryPayload) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
-        const extraHeaders = getDataFromLocalStorage(GE_CONSTANTS.httpHeadersKey, true) || {};
+        const extraHeaders = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.httpHeadersKey, true) || {};
         const _this = this;
         postData(this.serverUrl, extraHeaders, queryPayload).then((data) => {
             // check the status and response type and change isConnected

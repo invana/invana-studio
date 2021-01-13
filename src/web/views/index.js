@@ -1,33 +1,26 @@
 import React from "react";
-
-// import RemoteGraphComponent from "../core/graph-component";
-// import GraphSONDeSerializer from "../serializers/graphson-v3";
-// import {managementVertexLabel} from "../config";
 import {
-    managementVertexLabel
-} from "../../config";
-// import {setElementColorOptionsToStorageUsingResponse} from "../core/utils";
+    STUDIO_SETTINGS
+} from "../../settings";
+import RemoteEngine from "../layout/remote";
 
-export default class IndexView extends React.Component {
+export default class IndexView extends RemoteEngine {
 
 
     componentDidMount() {
-        // super.componentDidMount();
-        // let _this = this;
-        // console.log("=_this.connector.requestBuilder.initQuery()", _this.connector.requestBuilder.initQuery())
-        // setTimeout(function () {
-        //     _this.makeQuery(_this.connector.requestBuilder.filterVertices(
-        //         managementVertexLabel, 50
-        //     ), {source: "internal"});
-        // }, 200)
-        window.location.href = "/connect";
+        super.componentDidMount();
+        let _this = this;
+        console.log("=_this.connector.requestBuilder.initQuery()", _this.connector.requestBuilder.initQuery())
+        setTimeout(function () {
+            _this.makeQuery(_this.connector.requestBuilder.filterVertices(
+                STUDIO_SETTINGS.managementVertexLabel, 1
+            ), {source: "internal"});
+        }, 500)
     }
 
     processResponse(response) {
         let _this = this;
-        // let response = this.connector.getLastResponse();
         console.log("processResponse received", response);
-        // const statusCode = response.getStatusCode();
         const transporterStatusCode = response.transporterStatusCode;
         if (transporterStatusCode >= 200 && transporterStatusCode < 300) {
             // setElementColorOptionsToStorageUsingResponse(response);
@@ -44,7 +37,7 @@ export default class IndexView extends React.Component {
     }
 
     render() {
-        return(<div></div>)
+        return (<div></div>)
     }
 
 }
