@@ -5,7 +5,7 @@ import ConnectView from "./web/views/connect";
 import Page404 from "./web/views/page-404";
 import IndexView from "./web/views";
 import SchemaView from "./web/views/schema";
-import GraphView from "./web/views/graph";
+import ExplorerView from "./web/views/explorer";
 import DataView from "./web/views/data";
 import SettingsView from "./web/views/settings";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,7 +17,7 @@ export default class App extends React.Component {
                 <Suspense fallback={<div style={{color: "white"}}>Loading...</div>}>
                     <Switch>
                         <Route exact path="/" component={IndexView}/>
-                        <Route exact path="/graph" component={GraphView}/>
+                        <Route exact path="/explorer" component={ExplorerView}/>
                         <Route exact path="/data" component={DataView}/>
                         <Route exact path="/schema" component={SchemaView}/>
                         <Route exact path="/connect" component={ConnectView}/>

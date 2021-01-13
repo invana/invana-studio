@@ -23,23 +23,24 @@ export default class DefaultLayout extends React.Component {
                 <Navbar bg="transparent" className={"border-bottom"} expand="lg">
                     <Navbar.Brand href="/">Invana Studio</Navbar.Brand>
                     <Nav className="ml-auto">
-                        <Nav.Item>
-                            <Nav.Link href="/connect"
-                                      className={this.props.location.pathname === "/connect" ? "active" : ""}>
-                                Connect
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href={"/graph"}
-                                      className={this.props.location.pathname === "/graph" ? "active" : ""}>
-
-                                Explorer</Nav.Link>
-                        </Nav.Item>
+                        {/*<Nav.Item>*/}
+                        {/*    <Nav.Link href="/connect"*/}
+                        {/*              className={this.props.location.pathname === "/connect" ? "active" : ""}>*/}
+                        {/*        Connect*/}
+                        {/*    </Nav.Link>*/}
+                        {/*</Nav.Item>*/}
                         <Nav.Item>
                             <Nav.Link href="/data"
                                       className={this.props.location.pathname === "/data" ? "active" : ""}>
                                 Data</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href={"/explorer"}
+                                      className={this.props.location.pathname === "/explorer" ? "active" : ""}>
+
+                                Explorer</Nav.Link>
+                        </Nav.Item>
+
                         <Nav.Item>
                             <Nav.Link href="/schema"
                                       className={this.props.location.pathname === "/schema" ? "active" : ""}>

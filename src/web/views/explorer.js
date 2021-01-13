@@ -6,18 +6,29 @@ import CanvasComponent from "../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../ui-components/sidebar";
+import ListGroup from "react-bootstrap/ListGroup";
 
 
-export default class GraphView extends React.Component {
+export default class ExplorerView extends React.Component {
 
     render() {
         console.log("this.props", this.props.location);
         return (<DefaultLayout {...this.props}>
 
             <Row>
-                <Col class={"aside"}>
+                <Col className={"aside"}>
                     <Sidebar>
-                        sidebar
+                        <ListGroup defaultActiveKey="#link1">
+                            <ListGroup.Item action href="#link1">
+                                collection 1
+                            </ListGroup.Item>
+                            <ListGroup.Item action>
+                                  collection 1
+                            </ListGroup.Item>
+                            <ListGroup.Item action>
+                                This one is a button
+                            </ListGroup.Item>
+                        </ListGroup>,
                     </Sidebar>
                 </Col>
                 <Col md={9}>

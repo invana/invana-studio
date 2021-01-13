@@ -9,7 +9,6 @@ export default class Sidebar extends React.Component {
             <div style={{"minHeight": "calc(100vh - 43px)"}} className={"border-right"}>
                 {this.props.children}
             </div>
-
         )
     }
 }

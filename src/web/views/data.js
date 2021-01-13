@@ -14,7 +14,7 @@ export default class DataView extends React.Component {
         return (<DefaultLayout {...this.props}>
 
             <Row>
-                <Col md={3}>
+                <Col className={"aside"}>
                     <Sidebar>
                         sidebar
                     </Sidebar>
