@@ -8,14 +8,17 @@ export default class MenuComponent extends React.Component {
 
     static propTypes = {
         setShowVertexOptions: PropTypes.func,
-        parentElem: PropTypes.object
+        parentElem: PropTypes.object,
+        className: PropTypes.string,
+        size: PropTypes.string,
     };
 
 
     render() {
-        const cls = this.props.className || "md";
+        const size = this.props.size || "md";
+        const className = size + "-menu " + this.props.className;
         return (
-            <Row className={cls + "-menu"}>
+            <Row className={className}>
                 <Col md={12}>
                     <Navbar bg="transparent" className={"border-bottom menu-component"} expand="lg">
                         {this.props.children}

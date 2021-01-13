@@ -4,10 +4,11 @@ import {Row, Nav} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
+import {faCode, faCog, faUserAstronaut, faPlus} from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../../ui-components/sidebar";
 import MainContent from "../../ui-components/main-content";
 import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
 
 export default class ExplorerView extends React.Component {
 
@@ -17,8 +18,18 @@ export default class ExplorerView extends React.Component {
 
             <Row>
                 <Sidebar>
-                    <ListGroup defaultActiveKey="#link1">
-                        <ListGroup.Item action href="#link1">
+                    <Button
+                        // block
+                        variant="outline-primary"
+                        size={"sm"}
+                        className={"ml-3 mt-2 mb-2"}
+                        // disabled={isLoading}
+                        // onClick={!isLoading ? handleClick : null}
+                    >
+                        <FontAwesomeIcon className={"small"} icon={faPlus}/> Create Element
+                    </Button>
+                    <ListGroup defaultActiveKey="#link1" variant="flush">
+                        <ListGroup.Item action>
                             collection 1
                         </ListGroup.Item>
                         <ListGroup.Item action>
@@ -27,7 +38,7 @@ export default class ExplorerView extends React.Component {
                         <ListGroup.Item action>
                             This one is a button
                         </ListGroup.Item>
-                    </ListGroup>,
+                    </ListGroup>
                 </Sidebar>
                 <MainContent className={"main-content"}>
                     <MenuComponent>
@@ -42,6 +53,7 @@ export default class ExplorerView extends React.Component {
                             <Nav.Item>
                                 <button className={"nav-link"}>
                                     <FontAwesomeIcon icon={faUserAstronaut}/>
+
                                 </button>
                             </Nav.Item>
                             <Nav.Item>
