@@ -8,7 +8,7 @@ import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons"
 import Sidebar from "../ui-components/sidebar";
 
 
-export default class TableView extends React.Component {
+export default class DataView extends React.Component {
 
     render() {
         return (<DefaultLayout {...this.props}>

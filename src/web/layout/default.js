@@ -33,17 +33,17 @@ export default class DefaultLayout extends React.Component {
                             <Nav.Link href={"/graph"}
                                       className={this.props.location.pathname === "/graph" ? "active" : ""}>
 
-                                Graph</Nav.Link>
+                                Explorer</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/table"
-                                      className={this.props.location.pathname === "/table" ? "active" : ""}>
-                                Table</Nav.Link>
+                            <Nav.Link href="/data"
+                                      className={this.props.location.pathname === "/data" ? "active" : ""}>
+                                Data</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/schema"
                                       className={this.props.location.pathname === "/schema" ? "active" : ""}>
-                                Schema</Nav.Link>
+                                Functions</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/settings"

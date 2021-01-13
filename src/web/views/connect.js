@@ -51,8 +51,13 @@ export default class ConnectView extends React.Component {
         return headers;
     }
 
+    validateConnectionUrl(connectionUrl){
+
+    }
+
     onFormSubmit(e) {
 
+        console.log("onFormSubmit", e);
         const connectionUrl = e.target.connectionUrl.value;
         const graphEngineName = e.target.graphEngineName.value;
         // const isHttps = new URL(window.location.href).protocol === "https:" || new URL(window.location.href).protocol === "wss:";
@@ -95,9 +100,12 @@ export default class ConnectView extends React.Component {
         });
 
         const errorMessage = this.getErrorFromUrlString();
-        if (errorMessage) {
-            alert(errorMessage);
-        }
+        this.setErrorMessage(errorMessage);
+
+    }
+
+    setErrorMessage(errorMessage) {
+        this.setState({errorMessage});
     }
 
     toggleMoreOptions() {
@@ -216,6 +224,11 @@ export default class ConnectView extends React.Component {
                             <p>
                                 <a href="">Setup Instructions</a> | <a href="">Watch demo</a>
                             </p>
+                            {
+                                this.state.errorMessage ? (
+                                    <p>{this.state.setErrorMessage}</p>
+                                ) :  (<span></span>)
+                            }
                         </Card.Body>
                     </Card>
                 </Col>
