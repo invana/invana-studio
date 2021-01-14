@@ -4,10 +4,14 @@
 }
 
 .menu-component {
+
+  //margin-bottom: 1rem;
   .nav-item button{
     border: none;
-    background: transparent;
-    padding: 5px 10px;
+    //background: transparent;
+
+    //padding: 5px 10px;
+    line-height: 0 !important;
   }
 }
 

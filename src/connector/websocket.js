@@ -76,7 +76,7 @@ export default class DefaultWebSocketConnector extends ConnectorBase {
         }
 
         this.ws.onmessage = event => {
-            // listen to data sent from the websocket server
+            // listen to example-data sent from the websocket server
             _this.onMessageCallback(event);
         }
 

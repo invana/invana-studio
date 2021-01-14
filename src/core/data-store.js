@@ -7,7 +7,7 @@
 
 export default class InMemoryDataStore {
     /*
-    in-memory data storage to save the responses data
+    in-memory example-data storage to save the responses example-data
 
     TODO - tons of performance issues to fix;
      review neighbor and not neighbor calc methods to start with
@@ -17,7 +17,7 @@ export default class InMemoryDataStore {
 
     focusedNodes = [];
 
-    // Data of raw  data from the response objects; for storage and retrieval purpose
+    // Data of raw  example-data from the response objects; for storage and retrieval purpose
     #vertices = new Map()
     #edges = new Map()
 
@@ -96,7 +96,7 @@ export default class InMemoryDataStore {
     //         if (nodeData.meta.labelOptions.labelText === labelTextOrId) {
     //             return nodeData;
     //         }
-    //         // data.push(value);
+    //         // example-data.push(value);
     //     }
     //
     //     return
@@ -120,7 +120,7 @@ export default class InMemoryDataStore {
                 }
                 // .includes(labelTextOrId)
             }
-            // data.push(value);
+            // example-data.push(value);
         }
 
         return results;
@@ -169,7 +169,7 @@ export default class InMemoryDataStore {
 
     addEdgeToSchema(edge) {
         const edgeUniqueStr = this.generateEdgeUniqueString(edge);
-        // inV label data
+        // inV label example-data
         const inVEdges = this.schema.get(edge.inVLabel);
         const outVEdges = this.schema.get(edge.outVLabel);
         if (inVEdges && !this.checkIfEdgeExistInSchema(inVEdges, edgeUniqueStr)) {
@@ -223,7 +223,7 @@ export default class InMemoryDataStore {
     }
 
     addData(newVertices, newEdges, onDataUpdated) {
-        // make sure the newly added edges data has respective nodes data.
+        // make sure the newly added edges example-data has respective nodes example-data.
         let _this = this;
         for (let vertexI in newVertices) {
             let vertex = newVertices[vertexI];

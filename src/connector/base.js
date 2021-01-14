@@ -8,7 +8,7 @@ class ConnectorBase {
 
     /*
 
-        Connector is supposed to take care of requests and responses data.
+        Connector is supposed to take care of requests and responses example-data.
         It is supplied with requestBuilder too, so that developers
         can build and query at convenience.
 
@@ -23,8 +23,8 @@ class ConnectorBase {
 
     constructor(serverUrl, responseEventsCallback, responseCallback, requestBuilder) {
         /*
-        responseEventsCallback is to send the update events during fetching the data.
-        responseCallback is for the final data.
+        responseEventsCallback is to send the update events during fetching the example-data.
+        responseCallback is for the final example-data.
 
 
          */
@@ -65,7 +65,7 @@ class ConnectorBase {
         if (transportStatusCode >= 200 && transportStatusCode < 300) {
             if (transportStatusCode === 206) {
                 this.responseEventsCallback({
-                    statusMessage: "Gathering data from the stream",
+                    statusMessage: "Gathering example-data from the stream",
                     statusCode: transportStatusCode,
                     isStreaming: true
                 })

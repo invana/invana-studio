@@ -25,8 +25,10 @@ export default class DefaultLayout extends RemoteEngine {
     render() {
         return (
             <BlankLayout>
-                <Navbar bg="transparent" className={"border-bottom"} expand="lg">
-                    <Navbar.Brand href="/">Invana Studio</Navbar.Brand>
+                <Navbar
+                    // bg="transparent"
+                        className={"border-bottom"} expand="lg">
+                    <Navbar.Brand href="/" className={"ml-3"}>Invana Studio</Navbar.Brand>
                     <Nav className="ml-auto">
                         {/*<Nav.Item>*/}
                         {/*    <Nav.Link href="/connect"*/}
@@ -36,7 +38,7 @@ export default class DefaultLayout extends RemoteEngine {
                         {/*</Nav.Item>*/}
                         <Nav.Item>
                             <Nav.Link href="/data"
-                                      className={this.props.location.pathname === "/data" ? "active" : ""}>
+                                      className={this.props.location.pathname === "/example-data" ? "active" : ""}>
                                 Data</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>

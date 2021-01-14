@@ -10,7 +10,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
         extraHeaders['Authorization'] = 'Token ' + urlAnalysed.username;
     }
 
-    console.log("=====request data", data);
+    console.log("=====request example-data", data);
     const connectionUrl = urlAnalysed.origin + urlAnalysed.pathname;
     // let response = null
     let transporterStatusCode = null;
@@ -22,7 +22,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             // credentials: 'include', // include, *same-origin, omit
             headers: extraHeaders,
-            body: JSON.stringify(data) // body data type must match "Content-Type" header
+            body: JSON.stringify(data) // body example-data type must match "Content-Type" header
         });
         console.log("response========", response);
 
@@ -30,7 +30,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
         try {
             responseJson = await response.json();
         } catch (e) {
-            console.error("failed to get the json data with error", e);
+            console.error("failed to get the json example-data with error", e);
         }
     } catch (e) {
         console.error("Failed to perform fetch with error ", e);

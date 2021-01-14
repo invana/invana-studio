@@ -7,29 +7,31 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faChevronLeft, faChevronRight,
     faCircle,
-    faCode,
-    faCog,
     faList,
-    faPlus, faSyncAlt,
+    faPlus, faProjectDiagram,
     faTable,
-    faUserAstronaut
 } from "@fortawesome/free-solid-svg-icons";
 import ListGroup from "react-bootstrap/ListGroup";
 import MainContent from "../../ui-components/main-content";
 import MenuComponent from "../../ui-components/menu";
-import CanvasComponent from "../../ui-components/canvas";
 import Col from "react-bootstrap/Col";
-import Table from "react-bootstrap/Table";
-// import {Col, Row, Nav} from "react-bootstrap";
-// import MenuComponent from "../../ui-components/menu";
-// import CanvasComponent from "../../ui-components/canvas";
-// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-// import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
-// import Sidebar from "../../ui-components/sidebar";
-// import MainContent from "../../ui-components/main-content";
-//
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import {VERTICES_EXAMPLE_DATA} from "../../../example-data/data";
+import TableInterface from "../../interface/tables/table";
+
 
 export default class DataView extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            ...this.state,
+            totalCount: 120312,
+            rendererData: VERTICES_EXAMPLE_DATA
+        }
+
+    }
 
     render() {
         console.log("this.props", this.props.location);
@@ -38,18 +40,45 @@ export default class DataView extends React.Component {
 
                 <Row>
                     <Sidebar>
-                        <Form inline className={"mt-3 mb-1"}>
+
+                        <Form className={"mb-1 mt-2"}>
                             <InputGroup>
-                                <FormControl style={{"width": "210px"}}
-                                             className={"mt-0 ml-3 mr-2"} size={"sm"}
-                                             placeholder="Search nodes and edges ..."/>
-                                <InputGroup.Append>
-                                    <Button size={"sm"} variant="outline-secondary rounded">
-                                        <FontAwesomeIcon className={"small"} icon={faPlus}/>
-                                    </Button>
-                                </InputGroup.Append>
+                                <FormControl
+                                    className={"mt-0 ml-3 mr-3"} size={"sm"}
+                                    placeholder="Search nodes and edges ..."/>
+
                             </InputGroup>
                         </Form>
+                        <MenuComponent className={"pb-2 mt-2"}>
+                            <Nav className="mr-auto">
+
+                                <Nav.Item>
+                                    <Button variant="link" className={" ml-2 align-middle"} size={"sm"}>
+                                        <strong>12</strong> Vertices
+                                    </Button>
+
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button variant="link" className={" ml-2 p-0 align-middle"} size={"sm"}>
+                                        <strong>17</strong> Edges
+                                    </Button>
+
+                                </Nav.Item>
+
+                            </Nav>
+                            <Nav className="ml-auto">
+
+
+                                <Nav.Item>
+                                    <Button variant="link" className={"mr-3 p-0 text-primary"} size={"sm"}>
+                                        <FontAwesomeIcon icon={faPlus}/> Add New
+                                    </Button>
+                                </Nav.Item>
+
+                            </Nav>
+                        </MenuComponent>
+
+
                         {/*<Button*/}
                         {/*    // block*/}
                         {/*    variant="outline-primary"*/}
@@ -74,12 +103,40 @@ export default class DataView extends React.Component {
                         </ListGroup>
                     </Sidebar>
                     <MainContent className={"main-content"}>
-                        <Row>
+                        <Row className={"mt-1"}>
                             <Col size={"12"} className={"p-2"}>
-                                <h1 className={"mt-1"}>Collection 1</h1>
 
 
                                 <MenuComponent>
+                                    <Nav className="mr-auto">
+                                        <Nav.Item>
+                                            <h2 style={{"fontSize": "1.3rem"}} className={"mt-1"}>Collection 1</h2>
+                                        </Nav.Item>
+                                    </Nav>
+                                    <Nav className="ml-auto">
+                                        <Nav.Item><strong>{this.state.totalCount}</strong> entries</Nav.Item>
+                                    </Nav>
+                                </MenuComponent>
+
+                                <Nav variant="pills" className={"mb-2"} size={"sm"} defaultActiveKey="entries">
+                                    <Nav.Item>
+                                        <Button variant="link" eventKey={"entries"}
+                                                className={"pt-0 pb-0 align-middle btn-bottom-border"}
+                                        >Entries</Button>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Button variant="link" eventKey={"schema"}
+                                                className={"pt-0 pb-0 align-middle"}
+                                        >Schema</Button>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Button variant="link" eventKey={"indexes"}
+                                                className={"pt-0 pb-0 align-middle"}
+                                        >Indexes</Button>
+                                    </Nav.Item>
+                                </Nav>
+
+                                <MenuComponent className={"p-1 bg-light"}>
                                     <Nav className="mr-auto">
                                         <Nav.Item>
                                             <Button variant="link" className={"mr-3 p-0"} size={"sm"}>
@@ -87,34 +144,57 @@ export default class DataView extends React.Component {
                                             </Button>
                                         </Nav.Item>
                                         <Nav.Item>
-                                            <span className={"vertical-align"}>view </span>
-                                            <Button variant="link" className={"mr-3 p-0"} size={"sm"}><FontAwesomeIcon
-                                                icon={faTable}/></Button>
-                                            <Button variant="link" className={"p-0"} size={"sm"}><FontAwesomeIcon
-                                                icon={faList}/></Button>
+                                            {/*<span className={"vertical-align"}>view </span>*/}
+
+                                            <ButtonGroup>
+                                                {/*<Button variant="secondary">Left</Button>*/}
+                                                <Button variant="link"
+                                                        className={"pt-0 pb-0 align-middle"}><FontAwesomeIcon
+                                                    icon={faTable}/></Button>
+                                                <Button variant="link"
+                                                        className={"pt-0 pb-0 align-middle"}><FontAwesomeIcon
+                                                    icon={faList}/></Button>
+                                                <Button variant="link"
+                                                        className={"pt-0 pb-0 align-middle"}><FontAwesomeIcon
+                                                    icon={faProjectDiagram}/></Button>
+                                            </ButtonGroup>
+
+
+                                            {/*<Button variant="link" className={"mr-3 ml-2 p-0"}*/}
+                                            {/*        size={"sm"}>*/}
+                                            {/*    <Button variant="link" className={"p-0"} size={"sm"}></Button>*/}
                                         </Nav.Item>
 
                                     </Nav>
                                     <Nav className="ml-auto">
                                         <Nav.Item className={"mr-3"}>
                                             Displaying
-                                            entries <strong>1</strong> - <strong>100</strong> of <strong>100,121</strong>
+                                            entries <strong>1</strong> - <strong>100</strong> of <strong>{this.state.totalCount}</strong>
                                         </Nav.Item>
-                                        <Nav.Item className={"mr-4"}>
-                                            <Button variant="link" className={"mr-3 p-0 align-middle"} size={"sm"}>
-                                                <FontAwesomeIcon  icon={faChevronLeft}/>
-                                            </Button>
-                                            <Button variant="link" className={"p-0 align-middle"}
-                                                    size={"sm"}>
-                                                <FontAwesomeIcon icon={faChevronRight}/>
-                                            </Button>
-                                        </Nav.Item>
-                                        <Nav.Item className={""}>
-                                            <Button variant="link" className={" p-0 align-middle"} size={"sm"}>
-                                                <FontAwesomeIcon  icon={faSyncAlt}/> Refresh
-                                            </Button>
+                                        <Nav.Item>
+                                            {/*<Button variant="link" className={"mr-3 p-0 align-middle"} size={"sm"}>*/}
 
+                                            {/*</Button>*/}
+                                            {/*<Button variant="link" className={"p-0 align-middle"}*/}
+                                            {/*        size={"sm"}>*/}
+
+                                            {/*</Button>*/}
+
+                                            <ButtonGroup>
+                                                <Button variant="link"
+                                                        className={"pt-0 pb-0"}><FontAwesomeIcon
+                                                    icon={faChevronLeft}/></Button>
+                                                <Button variant="link"
+                                                        className={"pt-0 pb-0"}><FontAwesomeIcon
+                                                    icon={faChevronRight}/></Button>
+                                            </ButtonGroup>
                                         </Nav.Item>
+                                        {/*<Nav.Item className={""}>*/}
+                                        {/*    <Button variant="link" className={" p-0 align-middle"} size={"sm"}>*/}
+                                        {/*        <FontAwesomeIcon icon={faSyncAlt}/> Refresh*/}
+                                        {/*    </Button>*/}
+
+                                        {/*</Nav.Item>*/}
                                     </Nav>
                                 </MenuComponent>
 
@@ -123,32 +203,8 @@ export default class DataView extends React.Component {
                         </Row>
                         <Row>
                             <Col size={"12"} className={"p-2"}>
-                                <Table striped bordered hover size={"sm"}>
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
 
-                                    </tbody>
-                                </Table>
-
+                                <TableInterface rendererData={this.state.rendererData}/>
                             </Col>
                         </Row>
                     </MainContent>

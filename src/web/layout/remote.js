@@ -10,7 +10,7 @@ import {HISTORY_SETTINGS, STUDIO_SETTINGS} from "../../settings";
 import InvanaEngineDeSerializer from "../../serializers/invana-engine";
 import GraphSONDeSerializer from "../../serializers/graphson-v3";
 import {redirectToConnectIfNeeded} from "../../core/utils";
-// import InMemoryDataStore from "../../core/data-store";
+// import InMemoryDataStore from "../../core/example-data-store";
 
 
 export default class RemoteEngine extends React.Component {

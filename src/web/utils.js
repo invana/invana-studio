@@ -9,7 +9,7 @@ export function getDataFromLocalStorage(itemKey, isJson) {
 }
 
 export function setDataToLocalStorage(itemKey, itemData) {
-    // console.log("settings data", itemKey, itemData)
+    // console.log("settings example-data", itemKey, itemData)
     if (typeof itemData === 'object') {
         itemData = JSON.stringify(itemData);
     }

@@ -19,7 +19,7 @@ button:focus:active {
 }
 
 h1 {
-  font-size: 2.2rem !important;
+  font-size: 1.6rem !important;
 }
 
 .card-header {
@@ -51,8 +51,37 @@ h1 {
   }
 }
 
+.btn-link {
+  color: $darkTextColor !important;
+}
+
+.btn-link.active {
+  color: $primaryColor !important;
+}
+
+.nav-pills .nav-link {
+  color: $defaultTextColor !important;
+}
+
+.nav-pills {
+  .nav-item {
+    .btn-link {
+      font-size: 13px !important;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: $defaultTextColor !important;
+  border-bottom: 2px solid $primaryColor !important;
+  border-radius: 0;
+}
+
+
 //.list-group-flush > .list-group-item:last-child {
-//  border-bottom: 1px solid $borderColor !important;
+//  border-bottom: 1px solid menu$borderColor !important;
 //}
 //button{
 //  border-radius: 1rem !important;

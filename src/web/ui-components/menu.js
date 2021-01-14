@@ -20,7 +20,7 @@ export default class MenuComponent extends React.Component {
         return (
             <Row className={className}>
                 <Col md={12}>
-                    <Navbar bg="transparent" className={"border-bottom menu-component"} expand="lg">
+                    <Navbar bg="transparent" className={" menu-component"} expand="lg">
                         {this.props.children}
                     </Navbar>
                 </Col>

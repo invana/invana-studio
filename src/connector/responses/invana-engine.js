@@ -8,7 +8,7 @@ export default class InvanaEngineResponse extends ResponseBase {
     }
 
     getResponseResult() {
-        // console.log("getResponseResult", this.response, Object.keys(this.response.data)[0],  this.response.data[Object.keys(this.response.data)[0]]);
+        // console.log("getResponseResult", this.response, Object.keys(this.response.example-data)[0],  this.response.example-data[Object.keys(this.response.example-data)[0]]);
         if (this.response.data) {
             return this.response.data[Object.keys(this.response.data)[0]];
         } else {
