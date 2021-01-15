@@ -46,7 +46,7 @@ export default class DataSidebarViewlet extends React.Component {
                 <ListGroup defaultActiveKey="#link1" variant="flush">
                     {
                         exampleVerticesCount.map((item, index) => (
-                            <ListGroup.Item action>
+                            <ListGroup.Item action key={index}>
                                 <FontAwesomeIcon icon={faCircle}/> collection {index}
                             </ListGroup.Item>
                         ))
