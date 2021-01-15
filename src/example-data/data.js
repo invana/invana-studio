@@ -1,9 +1,9 @@
 export const VERTICES_EXAMPLE_DATA = [
     {
         label: "Person",
-        type: "vertex",
+        type: "g:Vertex",
+        id: "ab56171bar1",
         properties: {
-            id: "absh171bar1",
             first_name: "Ravi",
             last_name: "Raja",
             email: "rrmerugu@gmail.com"
@@ -11,9 +11,9 @@ export const VERTICES_EXAMPLE_DATA = [
     },
     {
         label: "Organisation",
-        type: "vertex",
+        type: "g:vertex",
+        id: "12132as7t19",
         properties: {
-            id: "12132as7t19",
             name: "Invana",
             full_name: "Invana Technology Solutions Pvt Ltd",
             website: "https://invana.io"

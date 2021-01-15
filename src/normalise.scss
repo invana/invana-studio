@@ -55,6 +55,10 @@ h1 {
   color: $darkTextColor !important;
 }
 
+.btn {
+  font-size: 14px !important;
+}
+
 .btn-link.active {
   color: $primaryColor !important;
 }
@@ -79,6 +83,11 @@ h1 {
   border-radius: 0;
 }
 
+.navbar-nav {
+  .dropdown-menu {
+    padding: 0 !important;
+  }
+}
 
 //.list-group-flush > .list-group-item:last-child {
 //  border-bottom: 1px solid menu$borderColor !important;
@@ -86,3 +95,13 @@ h1 {
 //button{
 //  border-radius: 1rem !important;
 //}
+.dropdown-item{
+  font-size: 14px !important;
+}
+
+.dropdown-divider{
+  margin: .2rem 0;
+}
+.dropdown.btn-group button{
+  padding: 0 !important;
+}

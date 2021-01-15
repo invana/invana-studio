@@ -6,7 +6,7 @@ import Page404 from "./web/views/page-404";
 import IndexView from "./web/views";
 import SchemaView from "./web/views/schema/schema";
 import ExplorerView from "./web/views/explorer/explorer";
-import DataView from "./web/views/data/data";
+import DataView from "./web/views/data";
 import SettingsView from "./web/views/settings/settings";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

@@ -6,18 +6,20 @@ import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faChevronLeft, faChevronRight,
-    faCircle,
+    faCircle, faEllipsisV,
     faList,
     faPlus, faProjectDiagram,
     faTable,
 } from "@fortawesome/free-solid-svg-icons";
-import ListGroup from "react-bootstrap/ListGroup";
 import MainContent from "../../ui-components/main-content";
 import MenuComponent from "../../ui-components/menu";
 import Col from "react-bootstrap/Col";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import {VERTICES_EXAMPLE_DATA} from "../../../example-data/data";
-import TableInterface from "../../interface/tables/table";
+import TableInterface from "../../interface/tables";
+import DataSidebarViewlet from "../../viewlets/data-sidebar";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 
 export default class DataView extends React.Component {
@@ -28,79 +30,18 @@ export default class DataView extends React.Component {
         this.state = {
             ...this.state,
             totalCount: 120312,
-            rendererData: VERTICES_EXAMPLE_DATA
+            elementsData: VERTICES_EXAMPLE_DATA
         }
 
     }
 
     render() {
         console.log("this.props", this.props.location);
-        const exampleVerticesCount = [...Array(10).keys()];
         return (<DefaultLayout {...this.props}>
 
                 <Row>
                     <Sidebar>
-
-                        <Form className={"mb-1 mt-2"}>
-                            <InputGroup>
-                                <FormControl
-                                    className={"mt-0 ml-3 mr-3"} size={"sm"}
-                                    placeholder="Search nodes and edges ..."/>
-
-                            </InputGroup>
-                        </Form>
-                        <MenuComponent className={"pb-2 mt-2"}>
-                            <Nav className="mr-auto">
-
-                                <Nav.Item>
-                                    <Button variant="link" className={" ml-2 align-middle"} size={"sm"}>
-                                        <strong>12</strong> Vertices
-                                    </Button>
-
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Button variant="link" className={" ml-2 p-0 align-middle"} size={"sm"}>
-                                        <strong>17</strong> Edges
-                                    </Button>
-
-                                </Nav.Item>
-
-                            </Nav>
-                            <Nav className="ml-auto">
-
-
-                                <Nav.Item>
-                                    <Button variant="link" className={"mr-3 p-0 text-primary"} size={"sm"}>
-                                        <FontAwesomeIcon icon={faPlus}/> Add New
-                                    </Button>
-                                </Nav.Item>
-
-                            </Nav>
-                        </MenuComponent>
-
-
-                        {/*<Button*/}
-                        {/*    // block*/}
-                        {/*    variant="outline-primary"*/}
-                        {/*    size={"sm"}*/}
-                        {/*    className={"ml-3 mt-2 mb-2"}*/}
-                        {/*    // disabled={isLoading}*/}
-                        {/*    // onClick={!isLoading ? handleClick : null}*/}
-                        {/*>*/}
-                        {/*    <FontAwesomeIcon className={"small"} icon={faPlus}/> Create Element*/}
-                        {/*</Button>*/}
-                        <ListGroup defaultActiveKey="#link1" variant="flush">
-
-
-                            {
-                                exampleVerticesCount.map((item, index) => (
-                                    <ListGroup.Item action>
-                                        <FontAwesomeIcon icon={faCircle}/> collection {index}
-                                    </ListGroup.Item>
-                                ))
-                            }
-
-                        </ListGroup>
+                        <DataSidebarViewlet/>
                     </Sidebar>
                     <MainContent className={"main-content"}>
                         <Row className={"mt-1"}>
@@ -115,31 +56,44 @@ export default class DataView extends React.Component {
                                     </Nav>
                                     <Nav className="ml-auto">
                                         <Nav.Item><strong>{this.state.totalCount}</strong> entries</Nav.Item>
+
+                                        <Nav.Item className={"ml-3"}>
+                                            <DropdownButton
+                                                as={ButtonGroup}
+                                                menuAlign="right"
+                                                variant="link"
+                                                title={<FontAwesomeIcon icon={faEllipsisV}/>}
+                                                className={"pb-0"}
+                                            >
+                                                <Dropdown.Item eventKey="1">Schema</Dropdown.Item>
+                                                <Dropdown.Item eventKey="2">Indexes</Dropdown.Item>
+                                                <Dropdown.Divider/>
+                                                <Dropdown.Item eventKey="4">Stats</Dropdown.Item>
+                                            </DropdownButton>
+                                        </Nav.Item>
                                     </Nav>
                                 </MenuComponent>
 
-                                <Nav variant="pills" className={"mb-2"} size={"sm"} defaultActiveKey="entries">
-                                    <Nav.Item>
-                                        <Button variant="link" eventKey={"entries"}
-                                                className={"pt-0 pb-0 align-middle btn-bottom-border"}
-                                        >Entries</Button>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Button variant="link" eventKey={"schema"}
-                                                className={"pt-0 pb-0 align-middle"}
-                                        >Schema</Button>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Button variant="link" eventKey={"indexes"}
-                                                className={"pt-0 pb-0 align-middle"}
-                                        >Indexes</Button>
-                                    </Nav.Item>
-                                </Nav>
+                                {/*<Nav variant="pills" className={"mb-2"} size={"sm"} defaultActiveKey="entries">*/}
+                                {/*    <Nav.Item>*/}
+
+                                {/*    </Nav.Item>*/}
+                                {/*    <Nav.Item>*/}
+                                {/*        <Button variant="link" eventKey={"schema"}*/}
+                                {/*                className={"pt-0 pb-0 align-middle"}*/}
+                                {/*        >Schema</Button>*/}
+                                {/*    </Nav.Item>*/}
+                                {/*    <Nav.Item>*/}
+                                {/*        <Button variant="link" eventKey={"indexes"}*/}
+                                {/*                className={"pt-0 pb-0 align-middle"}*/}
+                                {/*        >Indexes</Button>*/}
+                                {/*    </Nav.Item>*/}
+                                {/*</Nav>*/}
 
                                 <MenuComponent className={"p-1 bg-light"}>
                                     <Nav className="mr-auto">
                                         <Nav.Item>
-                                            <Button variant="link" className={"mr-3 p-0"} size={"sm"}>
+                                            <Button variant="outline-primary" className={"mr-1"} size={"sm"}>
                                                 <FontAwesomeIcon icon={faPlus}/> Add New
                                             </Button>
                                         </Nav.Item>
@@ -148,14 +102,11 @@ export default class DataView extends React.Component {
 
                                             <ButtonGroup>
                                                 {/*<Button variant="secondary">Left</Button>*/}
-                                                <Button variant="link"
-                                                        className={"pt-0 pb-0 align-middle"}><FontAwesomeIcon
+                                                <Button variant="link"><FontAwesomeIcon
                                                     icon={faTable}/></Button>
-                                                <Button variant="link"
-                                                        className={"pt-0 pb-0 align-middle"}><FontAwesomeIcon
+                                                <Button variant="link"><FontAwesomeIcon
                                                     icon={faList}/></Button>
-                                                <Button variant="link"
-                                                        className={"pt-0 pb-0 align-middle"}><FontAwesomeIcon
+                                                <Button variant="link"><FontAwesomeIcon
                                                     icon={faProjectDiagram}/></Button>
                                             </ButtonGroup>
 
@@ -203,8 +154,7 @@ export default class DataView extends React.Component {
                         </Row>
                         <Row>
                             <Col size={"12"} className={"p-2"}>
-
-                                <TableInterface rendererData={this.state.rendererData}/>
+                                <TableInterface elementsData={this.state.elementsData} showLabel={false}/>
                             </Col>
                         </Row>
                     </MainContent>
