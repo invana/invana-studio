@@ -1,10 +1,12 @@
 import React from "react";
 import {Nav, Navbar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCog} from "@fortawesome/free-solid-svg-icons";
+import {faCog, faPlus} from "@fortawesome/free-solid-svg-icons";
 import BlankLayout from "./blank";
 import RemoteEngine from "./remote";
 import {STUDIO_SETTINGS} from "../../settings";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from "react-bootstrap/Button";
 
 
 export default class DefaultLayout extends RemoteEngine {
@@ -27,7 +29,7 @@ export default class DefaultLayout extends RemoteEngine {
             <BlankLayout>
                 <Navbar
                     // bg="transparent"
-                        className={"border-bottom"} expand="lg">
+                    className={"border-bottom"} expand="lg">
                     <Navbar.Brand href="/" className={"ml-3"}>Invana Studio</Navbar.Brand>
                     <Nav className="ml-auto">
                         {/*<Nav.Item>*/}
@@ -38,13 +40,25 @@ export default class DefaultLayout extends RemoteEngine {
                         {/*</Nav.Item>*/}
                         <Nav.Item>
 
+
+                            <NavDropdown title={<span> <FontAwesomeIcon icon={faPlus}/> New</span>}>
+                                <NavDropdown.Item href="#action/3.1">Vertex Label</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">Edge Label</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">Function</NavDropdown.Item>
+                                <NavDropdown.Divider/>
+                                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            </NavDropdown>
+
+                        </Nav.Item>
+                        <Nav.Item>
+
                             <Nav.Link href={"/explorer"}
                                       className={this.props.location.pathname === "/explorer" ? "active" : ""}>
                                 Explorer</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/data"
-                                      className={this.props.location.pathname === "/example-data" ? "active" : ""}>
+                                      className={this.props.location.pathname === "/data" ? "active" : ""}>
                                 Data</Nav.Link>
                         </Nav.Item>
 

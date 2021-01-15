@@ -6,9 +6,22 @@ export const VERTICES_EXAMPLE_DATA = [
         properties: {
             first_name: "Ravi",
             last_name: "Raja",
-            email: "rrmerugu@gmail.com"
+            email: "rrmxxxxx@gmail.com"
+        }
+    },    {
+        label: "Person",
+        type: "g:Vertex",
+        id: "ab56171bar2",
+        properties: {
+            first_name: "Shiva",
+            last_name: "Krishna",
+            email: "shixxxx@gmail.com"
         }
     },
+
+]
+
+export const VERTICES_EXAMPLE_DATA2 = [
     {
         label: "Organisation",
         type: "g:vertex",

@@ -25,29 +25,34 @@ export default class DataSidebarViewlet extends React.Component {
                 <MenuComponent className={"pb-2 mt-2"}>
                     <Nav className="mr-auto">
                         <Nav.Item>
-                            <Button variant="link" className={" ml-2 align-middle"} size={"sm"}>
+                            <Button variant="link" className={"ml-2 align-middle"} size={"sm"}>
                                 <strong>12</strong> Vertices
                             </Button>
                         </Nav.Item>
                         <Nav.Item>
-                            <Button variant="link" className={" ml-1 align-middle"} size={"sm"}>
+                            <Button variant="link" className={"ml-1 align-middle"} size={"sm"}>
                                 <strong>17</strong> Edges
                             </Button>
                         </Nav.Item>
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Item>
-                            <Button variant="link" className={"mr-3 p-0 text-primary"} size={"sm"}>
-                                <FontAwesomeIcon icon={faPlus}/> Add New
-                            </Button>
-                        </Nav.Item>
+                        {/*<Nav.Item>*/}
+                        {/*    <Button variant="link" size={"sm"}>*/}
+                        {/*        <strong>4</strong> Functions*/}
+                        {/*    </Button>*/}
+                        {/*</Nav.Item>*/}
+                        {/*<Nav.Item>*/}
+                        {/*    <Button variant="link" className={"mr-2 text-primary"} size={"sm"}>*/}
+                        {/*        <FontAwesomeIcon icon={faPlus}/>*/}
+                        {/*    </Button>*/}
+                        {/*</Nav.Item>*/}
                     </Nav>
                 </MenuComponent>
                 <ListGroup defaultActiveKey="#link1" variant="flush">
                     {
                         exampleVerticesCount.map((item, index) => (
                             <ListGroup.Item action key={index}>
-                                <FontAwesomeIcon icon={faCircle}/> collection {index}
+                                <Nav.Link href={"/label/v-collection-" + index} className={"p-0"}> <FontAwesomeIcon icon={faCircle}/> collection-{index}</Nav.Link>
                             </ListGroup.Item>
                         ))
                     }

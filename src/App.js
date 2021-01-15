@@ -19,6 +19,7 @@ export default class App extends React.Component {
                         <Route exact path="/" component={IndexView}/>
                         <Route exact path="/explorer" component={ExplorerView}/>
                         <Route exact path="/data" component={DataView}/>
+                        <Route exact path="/label/:labelType-:labelName" component={DataView}/>
                         <Route exact path="/schema" component={SchemaView}/>
                         <Route exact path="/connect" component={ConnectView}/>
                         <Route exact path="/settings" component={SettingsView}/>

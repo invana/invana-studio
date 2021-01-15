@@ -14,12 +14,15 @@
     thead {
       tr {
         background: $lightBg;
+        font-weight: bold;
+        color: #6a6f73;
       }
 
       tr:first-child {
         font-size: 10px;
         text-transform: uppercase;
         text-align: center;
+        color: $darkTextColor !important;
       }
 
     }

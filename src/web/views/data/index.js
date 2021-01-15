@@ -30,6 +30,7 @@ export default class DataView extends React.Component {
         this.state = {
             ...this.state,
             totalCount: 120312,
+            // renderType: "table", // ["table", "list", "graph"]
             elementsData: VERTICES_EXAMPLE_DATA
         }
 
@@ -44,19 +45,73 @@ export default class DataView extends React.Component {
                         <DataSidebarViewlet/>
                     </Sidebar>
                     <MainContent className={"main-content"}>
-                        <Row className={"mt-1"}>
-                            <Col size={"12"} className={"p-2"}>
+                        <Row>
+                            <Col size={"12"} className={"p-2 bg-light"}>
 
 
-                                <MenuComponent>
+                                {/*<MenuComponent>*/}
+                                {/*    <Nav className="mr-auto">*/}
+                                {/*        <Nav.Item>*/}
+                                {/*            <h2 style={{"fontSize": "1.3rem"}}*/}
+                                {/*                className={"mt-1"}>{this.props.match.params.labelName}</h2>*/}
+                                {/*        </Nav.Item>*/}
+                                {/*    </Nav>*/}
+                                {/*    <Nav className="ml-auto">*/}
+                                {/*        <Nav.Item><strong>{this.state.totalCount}</strong> entries</Nav.Item>*/}
+
+                                {/*        <Nav.Item className={"ml-3"}>*/}
+                                {/*            <DropdownButton*/}
+                                {/*                as={ButtonGroup}*/}
+                                {/*                menuAlign="right"*/}
+                                {/*                variant="link"*/}
+                                {/*                title={<FontAwesomeIcon icon={faEllipsisV}/>}*/}
+                                {/*                className={"pb-0"}*/}
+                                {/*            >*/}
+                                {/*                <Dropdown.Item eventKey="1">Schema</Dropdown.Item>*/}
+                                {/*                <Dropdown.Item eventKey="2">Indexes</Dropdown.Item>*/}
+                                {/*                <Dropdown.Divider/>*/}
+                                {/*                <Dropdown.Item eventKey="4">Stats</Dropdown.Item>*/}
+                                {/*            </DropdownButton>*/}
+                                {/*        </Nav.Item>*/}
+                                {/*    </Nav>*/}
+                                {/*</MenuComponent>*/}
+
+
+                                <MenuComponent className={"p-1"}>
                                     <Nav className="mr-auto">
                                         <Nav.Item>
-                                            <h2 style={{"fontSize": "1.3rem"}} className={"mt-1"}>Collection 1</h2>
+                                            <h2 style={{"fontSize": "1.3rem"}}
+                                                className={" mb-0 mr-3"}>{this.props.match.params.labelName}</h2>
                                         </Nav.Item>
+                                        <Nav.Item>
+                                            <Button variant="outline-primary" className={"mr-1"} size={"sm"}>
+                                                <FontAwesomeIcon icon={faPlus}/> Add New
+                                            </Button>
+                                        </Nav.Item>
+                                        <Nav.Item>
+                                            <ButtonGroup>
+                                                <Button variant="secondary" size={"sm"}><FontAwesomeIcon
+                                                    icon={faTable}/></Button>
+                                                <Button variant="secondary" size={"sm"}><FontAwesomeIcon
+                                                    icon={faList}/></Button>
+                                                {/*<Button variant="secondary" size={"sm"}><FontAwesomeIcon*/}
+                                                {/*    icon={faProjectDiagram}/></Button>*/}
+                                            </ButtonGroup>
+                                        </Nav.Item>
+
                                     </Nav>
                                     <Nav className="ml-auto">
-                                        <Nav.Item><strong>{this.state.totalCount}</strong> entries</Nav.Item>
-
+                                        <Nav.Item className={"mr-3"}>
+                                            Displaying <strong>1</strong> - <strong>100</strong> of <strong>{this.state.totalCount}</strong>.
+                                        </Nav.Item>
+                                        <Nav.Item>
+                                            <ButtonGroup>
+                                                <Button variant="secondary" size={"sm"}><FontAwesomeIcon
+                                                    icon={faChevronLeft}/></Button>
+                                                <Button variant="secondary" size={"sm"}><FontAwesomeIcon
+                                                    icon={faChevronRight}/></Button>
+                                            </ButtonGroup>
+                                        </Nav.Item>
                                         <Nav.Item className={"ml-3"}>
                                             <DropdownButton
                                                 as={ButtonGroup}
@@ -71,81 +126,6 @@ export default class DataView extends React.Component {
                                                 <Dropdown.Item eventKey="4">Stats</Dropdown.Item>
                                             </DropdownButton>
                                         </Nav.Item>
-                                    </Nav>
-                                </MenuComponent>
-
-                                {/*<Nav variant="pills" className={"mb-2"} size={"sm"} defaultActiveKey="entries">*/}
-                                {/*    <Nav.Item>*/}
-
-                                {/*    </Nav.Item>*/}
-                                {/*    <Nav.Item>*/}
-                                {/*        <Button variant="link" eventKey={"schema"}*/}
-                                {/*                className={"pt-0 pb-0 align-middle"}*/}
-                                {/*        >Schema</Button>*/}
-                                {/*    </Nav.Item>*/}
-                                {/*    <Nav.Item>*/}
-                                {/*        <Button variant="link" eventKey={"indexes"}*/}
-                                {/*                className={"pt-0 pb-0 align-middle"}*/}
-                                {/*        >Indexes</Button>*/}
-                                {/*    </Nav.Item>*/}
-                                {/*</Nav>*/}
-
-                                <MenuComponent className={"p-1 bg-light"}>
-                                    <Nav className="mr-auto">
-                                        <Nav.Item>
-                                            <Button variant="outline-primary" className={"mr-1"} size={"sm"}>
-                                                <FontAwesomeIcon icon={faPlus}/> Add New
-                                            </Button>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            {/*<span className={"vertical-align"}>view </span>*/}
-
-                                            <ButtonGroup>
-                                                {/*<Button variant="secondary">Left</Button>*/}
-                                                <Button variant="link"><FontAwesomeIcon
-                                                    icon={faTable}/></Button>
-                                                <Button variant="link"><FontAwesomeIcon
-                                                    icon={faList}/></Button>
-                                                <Button variant="link"><FontAwesomeIcon
-                                                    icon={faProjectDiagram}/></Button>
-                                            </ButtonGroup>
-
-
-                                            {/*<Button variant="link" className={"mr-3 ml-2 p-0"}*/}
-                                            {/*        size={"sm"}>*/}
-                                            {/*    <Button variant="link" className={"p-0"} size={"sm"}></Button>*/}
-                                        </Nav.Item>
-
-                                    </Nav>
-                                    <Nav className="ml-auto">
-                                        <Nav.Item className={"mr-3"}>
-                                            Displaying
-                                            entries <strong>1</strong> - <strong>100</strong> of <strong>{this.state.totalCount}</strong>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            {/*<Button variant="link" className={"mr-3 p-0 align-middle"} size={"sm"}>*/}
-
-                                            {/*</Button>*/}
-                                            {/*<Button variant="link" className={"p-0 align-middle"}*/}
-                                            {/*        size={"sm"}>*/}
-
-                                            {/*</Button>*/}
-
-                                            <ButtonGroup>
-                                                <Button variant="link"
-                                                        className={"pt-0 pb-0"}><FontAwesomeIcon
-                                                    icon={faChevronLeft}/></Button>
-                                                <Button variant="link"
-                                                        className={"pt-0 pb-0"}><FontAwesomeIcon
-                                                    icon={faChevronRight}/></Button>
-                                            </ButtonGroup>
-                                        </Nav.Item>
-                                        {/*<Nav.Item className={""}>*/}
-                                        {/*    <Button variant="link" className={" p-0 align-middle"} size={"sm"}>*/}
-                                        {/*        <FontAwesomeIcon icon={faSyncAlt}/> Refresh*/}
-                                        {/*    </Button>*/}
-
-                                        {/*</Nav.Item>*/}
                                     </Nav>
                                 </MenuComponent>
 
