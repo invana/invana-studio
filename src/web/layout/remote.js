@@ -16,6 +16,33 @@ import InMemoryDataStore from "../../core/data-store";
 
 export default class RemoteEngine extends React.Component {
 
+/*
+
+
+
+export default class ExampleView extends RemoteEngine {
+
+
+    componentDidMount() {
+        const queryPayload = this.connector.requestBuilder.getVerticesLabelStats();
+        this.makeQuery(queryPayload);
+    }
+
+    processResponse(response) {
+        const lastResponse = response.getResponseResult();
+        if (lastResponse) {
+            this.setState({elementLabels: response.getResponseResult()})
+        }
+    }
+
+
+}
+
+
+
+
+
+ */
 
     static defaultProps = {
         connectionUrl: STUDIO_SETTINGS.CONNECTION_URL,
