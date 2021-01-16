@@ -1,14 +1,26 @@
 import React from "react";
 import {Form, FormControl, InputGroup, Nav} from "react-bootstrap";
-import MenuComponent from "../ui-components/menu";
+import MenuComponent from "../../ui-components/menu";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircle, faPlus} from "@fortawesome/free-solid-svg-icons";
 import ListGroup from "react-bootstrap/ListGroup";
+import PropTypes from "prop-types";
+import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
 
 
 export default class DataSidebarViewlet extends React.Component {
 
+    static propTypes = {
+        dataStore: PropTypes.object,
+    }
+     state = {
+
+        }
+    constructor() {
+        super();
+
+    }
 
     render() {
         const exampleVerticesCount = [...Array(10).keys()];
@@ -36,27 +48,11 @@ export default class DataSidebarViewlet extends React.Component {
                         </Nav.Item>
                     </Nav>
                     <Nav className="ml-auto">
-                        {/*<Nav.Item>*/}
-                        {/*    <Button variant="link" size={"sm"}>*/}
-                        {/*        <strong>4</strong> Functions*/}
-                        {/*    </Button>*/}
-                        {/*</Nav.Item>*/}
-                        {/*<Nav.Item>*/}
-                        {/*    <Button variant="link" className={"mr-2 text-primary"} size={"sm"}>*/}
-                        {/*        <FontAwesomeIcon icon={faPlus}/>*/}
-                        {/*    </Button>*/}
-                        {/*</Nav.Item>*/}
                     </Nav>
                 </MenuComponent>
-                <ListGroup defaultActiveKey="#link1" variant="flush">
-                    {
-                        exampleVerticesCount.map((item, index) => (
-                            <ListGroup.Item action key={index}>
-                                <Nav.Link href={"/label/v-collection-" + index} className={"p-0"}> <FontAwesomeIcon icon={faCircle}/> collection-{index}</Nav.Link>
-                            </ListGroup.Item>
-                        ))
-                    }
-                </ListGroup>
+
+                <DataVertexManagement dataStore={this.props.dataStore}/>
+                <DataEdgeManagement dataStore={this.props.dataStore}/>
             </div>
         )
     }

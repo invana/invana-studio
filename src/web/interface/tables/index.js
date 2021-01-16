@@ -159,7 +159,7 @@ export class VertexTableComponent extends React.Component {
 
             <div className={"VertexTableComponent"}>
                 {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
-                <table className={" mb-10 "}>
+                <table className={"mb-10"} style={{"width": "calc(100vw - 295px);"}}>
                     <thead>
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor,
@@ -235,7 +235,8 @@ export class VertexTableComponent extends React.Component {
                                             : <React.Fragment/>
                                     }
 
-                                    <td><Badge variant="secondary">{node.id}</Badge></td>
+                                    {/*<td><a  href={"/vertex/" + node.id}>{node.id}</a></td>*/}
+                                    <td><strong>{node.id}</strong></td>
                                     {
                                         propertyKeys.map((prop, index) => {
                                             return (
@@ -356,7 +357,7 @@ export class EdgeTableComponent extends React.Component {
         return (
             <div className={"VertexTableComponent"}>
                 {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
-                <table className={" mb-10 "}>
+                <table className={" mb-10 "} style={{"width": "calc(100vw - 295px);"}}>
                     <thead>
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor,

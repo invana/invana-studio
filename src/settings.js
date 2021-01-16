@@ -1,7 +1,7 @@
 export const STUDIO_CONNECT_CONSTANTS = {
-    connectionUrlKey: "INVANA_ENGINE_URL",
+    INVANA_ENGINE_URL: "INVANA_ENGINE_URL",
     httpHeadersKey: "HTTP_HEADERS",
-    graphEngineName: "GRAPH_ENGINE_NAME"
+    GRAPH_ENGINE_NAME: "GRAPH_ENGINE_NAME"
 }
 
 
@@ -13,11 +13,32 @@ export const STUDIO_SETTINGS = {
     DEMO_VIDEO_URL: "https://www.youtube.com/watch?v=17Q02VV_0Tc",
 
 
-    CONNECTION_URL: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.connectionUrlKey) || "http://192.168.0.10:8000/graphql",
-    GRAPH_ENGINE_NAME: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.graphEngineName),
+    CONNECTION_URL: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL),
+    GRAPH_ENGINE_NAME: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME) || "invana-engine",
 
-    managementVertexLabel : "InvanaManagement"
+    managementVertexLabel: "InvanaManagement"
 
+}
+
+export const GRAPH_CANVAS_SETTINGS = {
+    DefaultNodeBorderColor: "#121212",
+    DefaultNodeLabelPropertyKey: "id",
+    DefaultNodeStrokeWidth: 2,
+    DefaultNodeRadius: 15,
+    DefaultNodeInShapeTextColor: "#dddddd", // inside the shape
+    DefaultNodeLabelColor: "#dddddd",
+
+    DefaultLinkLabelPropertyKey: "id",
+    DefaultLinkPathColor: 0xc9c9c9,
+    DefaultLinkLabelColor: "#c9c9c9",
+    DefaultLinkStrokeWidth: 2,
+    DefaultLinkDistance: 180,
+
+    DefaultInShapeHTMLFn: (node) => node.properties.name ? node.properties.name.substring(0, 10) : node.id,
+
+    DefaultLabelVisibility: false,
+    simulationAlpha: 0.8,
+    linkCurvature: .85,
 }
 
 export const HISTORY_SETTINGS = {

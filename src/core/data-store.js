@@ -1,9 +1,10 @@
-// import {convertMapKeysToArray} from "./utils";
-// import {
-//     prepareLinkDataWithOptions,
-//     prepareLinksDataForCurves,
-//     prepareNodesDataWithOptions
-// } from "../canvas/canvas-utils";
+
+import {convertMapKeysToArray} from "./utils";
+import {
+    prepareLinkDataWithOptions,
+    prepareLinksDataForCurves,
+    prepareNodesDataWithOptions
+} from "../web/interface/utils";
 
 export default class InMemoryDataStore {
     /*

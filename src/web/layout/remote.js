@@ -10,6 +10,7 @@ import {HISTORY_SETTINGS, STUDIO_SETTINGS} from "../../settings";
 import InvanaEngineDeSerializer from "../../serializers/invana-engine";
 import GraphSONDeSerializer from "../../serializers/graphson-v3";
 import {redirectToConnectIfNeeded} from "../../core/utils";
+import InMemoryDataStore from "../../core/data-store";
 // import InMemoryDataStore from "../../core/example-data-store";
 
 
@@ -19,7 +20,6 @@ export default class RemoteEngine extends React.Component {
     static defaultProps = {
         connectionUrl: STUDIO_SETTINGS.CONNECTION_URL,
         graphEngineName: STUDIO_SETTINGS.GRAPH_ENGINE_NAME,
-        // reRenderCanvas: () => console.error("reRenderCanvas prop not added for VertexOptions")
     }
     static propTypes = {
         connectionUrl: PropTypes.string,
@@ -53,7 +53,7 @@ export default class RemoteEngine extends React.Component {
             // this.requestBuilder = new GremlinQueryManager();
             this.responseSerializer = new GraphSONDeSerializer();
         }
-        // this.dataStore = new InMemoryDataStore();
+        this.dataStore = new InMemoryDataStore();
 
     }
 
@@ -220,18 +220,7 @@ export default class RemoteEngine extends React.Component {
         if (shallConnect) {
             const protocol = this.getProtocol();
             console.log("We will be using " + protocol + " protocol");
-            // DEPRECATED - not using ws for now.
-            if (protocol === "ws") {
-                try {
-                    this.connector.reconnectWithWS()
-                } catch (e) {
-                    console.error("Failed to connect to websocket", e);
-                    window.location.href = "/connect?error=Failed to connect. " +
-                        "WebSocket connections are not supported at the moment."
-                }
-            } else {
-                console.log("protocol will be " + protocol);
-            }
+
         }
     }
 }
