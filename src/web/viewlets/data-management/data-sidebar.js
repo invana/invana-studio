@@ -2,9 +2,6 @@ import React from "react";
 import {Form, FormControl, InputGroup, Nav} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import Button from "react-bootstrap/Button";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircle, faPlus} from "@fortawesome/free-solid-svg-icons";
-import ListGroup from "react-bootstrap/ListGroup";
 import PropTypes from "prop-types";
 import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
 
@@ -12,18 +9,13 @@ import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
 export default class DataSidebarViewlet extends React.Component {
 
     static propTypes = {
-        dataStore: PropTypes.object,
+        parentRemoteComponent: PropTypes.object,
     }
-     state = {
+    state = {}
 
-        }
-    constructor() {
-        super();
-
-    }
 
     render() {
-        const exampleVerticesCount = [...Array(10).keys()];
+        // const exampleVerticesCount = [...Array(10).keys()];
 
         return (
             <div>
@@ -51,8 +43,8 @@ export default class DataSidebarViewlet extends React.Component {
                     </Nav>
                 </MenuComponent>
 
-                <DataVertexManagement dataStore={this.props.dataStore}/>
-                <DataEdgeManagement dataStore={this.props.dataStore}/>
+                <DataVertexManagement parentRemoteComponent={this.props.parentRemoteComponent}/>
+                <DataEdgeManagement parentRemoteComponent={this.props.parentRemoteComponent}/>
             </div>
         )
     }

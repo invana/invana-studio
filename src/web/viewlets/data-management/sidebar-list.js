@@ -1,6 +1,9 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faWrench, faCircle} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCircle,
+    faVectorSquare
+} from "@fortawesome/free-solid-svg-icons";
 import "./sidebar-list.scss";
 import {getColorForString} from "../../interface/utils";
 import {STUDIO_SETTINGS} from "../../../settings";
@@ -13,7 +16,7 @@ export default class SidebarListBase extends RemoteEngine {
 
 
     static propTypes = {
-        dataStore: PropTypes.object,
+        parentRemoteComponent: PropTypes.object,
     }
 
     state = {
@@ -46,6 +49,11 @@ export default class SidebarListBase extends RemoteEngine {
 
         const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
 
+
+        let listIcon = faCircle;
+        if (this.getUrlPrefix() === "/edge") {
+            listIcon = faVectorSquare;
+        }
         return (
 
             <ListGroup variant="flush">
@@ -70,7 +78,7 @@ export default class SidebarListBase extends RemoteEngine {
                                     <FontAwesomeIcon
                                         className={"mr-1"}
                                         style={{'color': this.getVertexColor(elementLabel.label, nodeLabels)}}
-                                        icon={faCircle}/>{elementLabel.label}
+                                        icon={listIcon}/>{elementLabel.label}
                                     <h7 style={{"color": "#656565"}}>({elementLabel.count} entries)</h7>
 
                                 </Nav.Link>

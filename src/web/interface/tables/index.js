@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import "./index.scss";
 import {getDataFromLocalStorage} from "../../utils";
 import {renderPropertyData} from "../utils";
-import Badge from "react-bootstrap/Badge";
 
 
 export default class TableInterface extends React.Component {
@@ -12,7 +11,7 @@ export default class TableInterface extends React.Component {
         // dataStore: null,
         elementsData: [],
         elementsLabel: "Collection label",
-        elementsType: "g:Vertex",
+        elementsType: "vertex",
         elementsSchema: null,
 
     }
@@ -33,7 +32,7 @@ export default class TableInterface extends React.Component {
                 <div className={"___responseBox "}>
                     {
 
-                        this.props.elementsType === "g:Vertex"
+                        this.props.elementsType === "vertex"
                             ?
                             <VertexTableComponent type={"Vertex"}
                                                   showLabel={this.props.showLabel}
@@ -46,9 +45,10 @@ export default class TableInterface extends React.Component {
 
                     }
                     {
-                        this.props.elementsType === "g:Edge"
+                        this.props.elementsType === "edge"
                             ?
                             <EdgeTableComponent type={"Edge"}
+
                                                 showLabel={this.props.showLabel}
                                                 label={this.props.elementsLabel}
                                                 data={this.props.elementsData}/>
@@ -94,6 +94,7 @@ export class VertexTableComponent extends React.Component {
     }
 
     getElementType(elem) {
+        console.log("====elem", elem)
         return elem.type === "g:Vertex" ? "V" : "E";
     }
 
@@ -138,8 +139,12 @@ export class VertexTableComponent extends React.Component {
     }
 
     render() {
+        console.log("======this.props.data", this.props.data);
         const propertyKeys = this.getPropertyKeys();
-        const elColor = this.getElementColor(this.props.data[0]);
+
+        const elColor = this.props.data.length > 0 ? this.getElementColor(this.props.data[0]) : "";
+
+
         // console.log("VertexTableComponent here", this.props.label)
         // console.log("VertexTableComponent here  this.props.data[0]", this.props.data[0])
         // console.log("VertexTableComponent vertexSchema", this.props.label, this.props.vertexSchema)
@@ -342,7 +347,9 @@ export class EdgeTableComponent extends React.Component {
 
     render() {
         const propertyKeys = this.getPropertyKeys();
-        const elColor = this.getElementColor(this.props.data[0]);
+
+        const elColor = this.props.data.length > 0 ? this.getElementColor(this.props.data[0]) : "";
+
         // console.log("EdgeTableComponent here", this.props.label)
         // console.log("EdgeTableComponent here  this.props.data[0]", this.props.data[0])
         let colorOptions = {};
@@ -357,71 +364,76 @@ export class EdgeTableComponent extends React.Component {
         return (
             <div className={"VertexTableComponent"}>
                 {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
-                <table className={" mb-10 "} style={{"width": "calc(100vw - 295px);"}}>
-                    <thead>
-                    <tr style={{
-                        "backgroundColor": colorOptions.bgColor,
-                    }}>
+
+                {
+                    this.props.data.length > 0
+                        ? <table className={" mb-10 "} style={{"width": "calc(100vw - 295px);"}}>
+                            <thead>
+                            <tr style={{
+                                "backgroundColor": colorOptions.bgColor,
+                            }}>
 
 
-                        <th colSpan={2}>MetaData</th>
-                        {propertyKeys.length
-                            ? <th colSpan={propertyKeys.length}>Properties</th>
-                            : <Fragment/>
-                        }
-                        <th>from</th>
-                        <th>to (outV)</th>
-                    </tr>
-                    <tr style={{
-                        "backgroundColor": colorOptions.bgColor,
-                    }}>
+                                <th colSpan={2}>MetaData</th>
+                                {propertyKeys.length
+                                    ? <th colSpan={propertyKeys.length}>Properties</th>
+                                    : <Fragment/>
+                                }
+                                <th>from</th>
+                                <th>to (outV)</th>
+                            </tr>
+                            <tr style={{
+                                "backgroundColor": colorOptions.bgColor,
+                            }}>
 
-                        {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
-                        {/*<th>Type</th>*/}
-                        <td>Label<span>({this.getElementType(this.props.data[0])})</span></td>
-                        <td>Id</td>
-                        {
-                            propertyKeys.map((propertyKey, index) => {
-                                return (
-                                    <td key={index}>{propertyKey}</td>
-                                )
-                            })
-                        }
-                        <td>from</td>
-                        <td>to (outV)</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        this.props.data.map((node) => {
-                            return (
-                                <tr key={node.id}>
-                                    {/*<td>{node.type}</td>*/}
-                                    <td style={{"color": elColor}}>{node.label}</td>
-                                    <td>{node.id}</td>
-                                    {
+                                {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
+                                {/*<th>Type</th>*/}
+                                <td>Label<span>({this.getElementType(this.props.data[0])})</span></td>
+                                <td>Id</td>
+                                {
+                                    propertyKeys.map((propertyKey, index) => {
+                                        return (
+                                            <td key={index}>{propertyKey}</td>
+                                        )
+                                    })
+                                }
+                                <td>from</td>
+                                <td>to (outV)</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                this.props.data.map((node) => {
+                                    return (
+                                        <tr key={node.id}>
+                                            {/*<td>{node.type}</td>*/}
+                                            <td style={{"color": elColor}}>{node.label}</td>
+                                            <td>{node.id}</td>
+                                            {
 
-                                        propertyKeys.map((prop, index) => {
-                                            return (
-                                                <td key={index}>{renderPropertyData(prop, node.properties[prop])}</td>)
-                                        })
-                                    }
-                                    <td>
-                                        <button className={"btn"} title={node.label}
-                                                style={{"borderColor": node.source.meta.shapeOptions.fillColorHex}}>
-                                            {node.source.meta.labelOptions.labelText}</button>
-                                    </td>
-                                    <td>
-                                        <button className={"btn"} title={node.label}
-                                                style={{"borderColor": node.target.meta.shapeOptions.fillColorHex}}>
-                                            {node.target.meta.labelOptions.labelText}</button>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                    </tbody>
-                </table>
+                                                propertyKeys.map((prop, index) => {
+                                                    return (
+                                                        <td key={index}>{renderPropertyData(prop, node.properties[prop])}</td>)
+                                                })
+                                            }
+                                            <td>
+                                                <button className={"btn"} title={node.label}
+                                                        style={{"borderColor": node.source.meta.shapeOptions.fillColorHex}}>
+                                                    {node.source.meta.labelOptions.labelText}</button>
+                                            </td>
+                                            <td>
+                                                <button className={"btn"} title={node.label}
+                                                        style={{"borderColor": node.target.meta.shapeOptions.fillColorHex}}>
+                                                    {node.target.meta.labelOptions.labelText}</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                            </tbody>
+                        </table>
+                        : <React.Fragment/>
+                }
 
 
             </div>

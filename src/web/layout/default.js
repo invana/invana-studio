@@ -4,9 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCog, faPlus} from "@fortawesome/free-solid-svg-icons";
 import BlankLayout from "./blank";
 import RemoteEngine from "./remote";
-import {STUDIO_SETTINGS} from "../../settings";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Button from "react-bootstrap/Button";
 
 
 export default class DefaultLayout extends RemoteEngine {
