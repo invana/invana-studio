@@ -10,7 +10,6 @@ import {STUDIO_SETTINGS} from "../../../settings";
 import PropTypes from "prop-types";
 import ListGroup from "react-bootstrap/ListGroup";
 import {Nav} from "react-bootstrap";
-import RemoteEngine from "../../layout/remote";
 
 export default class SidebarListBase extends React.Component {
 
@@ -18,7 +17,6 @@ export default class SidebarListBase extends React.Component {
     static propTypes = {
         statsData: PropTypes.array,
     }
-
 
 
     getUrlPrefix() {
@@ -37,10 +35,7 @@ export default class SidebarListBase extends React.Component {
 
 
     render() {
-
         const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-
-
         let listIcon = faCircle;
         if (this.getUrlPrefix() === "/edge") {
             listIcon = faVectorSquare;
@@ -71,10 +66,7 @@ export default class SidebarListBase extends React.Component {
                                         style={{'color': this.getVertexColor(elementLabel.label, nodeLabels)}}
                                         icon={listIcon}/>{elementLabel.label}
                                     <h7 style={{"color": "#656565"}}>({elementLabel.count} entries)</h7>
-
                                 </Nav.Link>
-
-
                             </ListGroup.Item>)
                     })
                 }
@@ -91,7 +83,6 @@ export class DataVertexManagement extends SidebarListBase {
         return "/vertex";
     }
 
-
 }
 
 export class DataEdgeManagement extends SidebarListBase {
@@ -99,10 +90,5 @@ export class DataEdgeManagement extends SidebarListBase {
     getUrlPrefix() {
         return "/edge";
     }
-
-    // componentDidMount() {
-    //     const queryPayload = this.connector.requestBuilder.getEdgesLabelStats();
-    //     this.makeQuery(queryPayload);
-    // }
 
 }

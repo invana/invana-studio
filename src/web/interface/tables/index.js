@@ -167,7 +167,7 @@ export class VertexTableComponent extends React.Component {
 
             <div className={"VertexTableComponent"}>
                 {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
-                <table className={"mb-10"} style={{"width": "calc(100vw - 295px);"}}>
+                <table className={"mb-10"} style={{"width": "calc(100vw - 295px)"}}>
                     <thead>
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor,
@@ -370,24 +370,19 @@ export class EdgeTableComponent extends React.Component {
 
                 {
                     this.props.data.length > 0
-                        ? <table className={" mb-10 "} style={{"width": "calc(100vw - 295px);"}}>
+                        ? <table className={"mb-10"} style={{"width": "calc(100vw - 295px)"}}>
                             <thead>
-                            <tr style={{
-                                "backgroundColor": colorOptions.bgColor,
-                            }}>
-
-
+                            <tr style={{"backgroundColor": colorOptions.bgColor}}>
                                 <th colSpan={1}>ID</th>
-                                {propertyKeys.length
-                                    ? <th colSpan={propertyKeys.length}>Properties</th>
-                                    : <Fragment/>
+                                {
+                                    propertyKeys.length
+                                        ? <th colSpan={propertyKeys.length}>Properties</th>
+                                        : <Fragment/>
                                 }
                                 <th>from(outV)</th>
                                 <th>to (inV)</th>
                             </tr>
-                            <tr style={{
-                                "backgroundColor": colorOptions.bgColor,
-                            }}>
+                            <tr style={{"backgroundColor": colorOptions.bgColor}}>
 
                                 {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
                                 {/*<th>Type</th>*/}
@@ -423,17 +418,17 @@ export class EdgeTableComponent extends React.Component {
                                                 {/*<button className={"btn"} title={node.label}*/}
                                                 {/*    style={{"borderColor": node.source.meta.shapeOptions.fillColorHex}}*/}
                                                 {/*>*/}
-                                                    {/*{node.source.meta.labelOptions.labelText}*/}
-                                                    {node.outV}
+                                                {/*{node.source.meta.labelOptions.labelText}*/}
+                                                {node.outV}({node.outVLabel})
                                                 {/*</button>*/}
                                             </td>
                                             <td>
                                                 {/*<button className={"btn"} title={node.label}*/}
                                                 {/*    style={{"borderColor": node.target.meta.shapeOptions.fillColorHex}}*/}
                                                 {/*>*/}
-                                                    {node.inV}
+                                                {node.inV}({node.inVLabel})
 
-                                                    {/*{node.target.meta.labelOptions.labelText}*/}
+                                                {/*{node.target.meta.labelOptions.labelText}*/}
                                                 {/*</button>*/}
                                             </td>
                                         </tr>
