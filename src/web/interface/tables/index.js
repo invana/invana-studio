@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import "./index.scss";
 import {getDataFromLocalStorage} from "../../utils";
 import {renderPropertyData} from "../utils";
+import {Badge} from "react-bootstrap";
 
 
 export default class TableInterface extends React.Component {
@@ -419,14 +420,14 @@ export class EdgeTableComponent extends React.Component {
                                                 {/*    style={{"borderColor": node.source.meta.shapeOptions.fillColorHex}}*/}
                                                 {/*>*/}
                                                 {/*{node.source.meta.labelOptions.labelText}*/}
-                                                {node.outV}({node.outVLabel})
+                                                {node.outV} <Badge variant={"secondary"}> {node.outVLabel}</Badge>
                                                 {/*</button>*/}
                                             </td>
                                             <td>
                                                 {/*<button className={"btn"} title={node.label}*/}
                                                 {/*    style={{"borderColor": node.target.meta.shapeOptions.fillColorHex}}*/}
                                                 {/*>*/}
-                                                {node.inV}({node.inVLabel})
+                                                {node.inV} <Badge variant={"secondary"}>{node.inVLabel}</Badge>
 
                                                 {/*{node.target.meta.labelOptions.labelText}*/}
                                                 {/*</button>*/}
