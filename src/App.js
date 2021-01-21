@@ -1,6 +1,6 @@
 import React, {Suspense} from "react";
 import SwitchServerView from "./web/views/switch-server";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import ConnectView from "./web/views/connect/connect";
 import Page404View from "./web/views/page-404/page-404";
 import IndexView from "./web/views";
@@ -9,7 +9,7 @@ import ExplorerView from "./web/views/explorer/explorer";
 import DataView from "./web/views/data";
 import SettingsView from "./web/views/settings/settings";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import VertexLabelDetailView from "./web/views/label-detail/vertex";
+import LabelDetailView from "./web/views/label-detail/detail";
 import VertexDetailView from "./web/views/vertex-detail";
 import EdgeLabelDetailView from "./web/views/label-detail/edge";
 
@@ -22,7 +22,15 @@ export default class App extends React.Component {
                         <Route exact path="/" component={IndexView}/>
                         <Route exact path="/explorer" component={ExplorerView}/>
                         <Route exact path="/data" component={DataView}/>
-                        <Route exact path="/vertex/label/:labelName" component={VertexLabelDetailView}/>
+
+                        {/*// Redirect with matched parameters*/}
+                        {/*<Switch>*/}
+                        {/*    <Redirect from="/vertex/label/:labelName" to="/vertex/label/:labelName/entries"/>*/}
+                        {/*</Switch>*/}
+                        {/*<Redirect from="/vertex/label/:labelName" to="/vertex/label/:labelName/entries"/>*/}
+                        <Route exact path="/label/:labelType/:labelName/:viewType" component={LabelDetailView}/>
+
+
                         <Route exact path="/edge/label/:labelName" component={EdgeLabelDetailView}/>
                         <Route exact path="/vertex/:vertexId" component={VertexDetailView}/>
                         <Route exact path="/schema" component={SchemaView}/>
