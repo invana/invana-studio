@@ -24,14 +24,20 @@ export default class ExampleView extends RemoteEngine {
 
 
     componentDidMount() {
-        const queryPayload = this.connector.requestBuilder.getVerticesLabelStats();
+        const verticesStateQuery = this.connector.requestBuilder.getVerticesLabelStats();
+        const edgesStatsQuery = this.connector.requestBuilder.getEdgesLabelStats();
+        const queryPayload = this.connector.requestBuilder.combineQueries(verticesStateQuery, edgesStatsQuery);
         this.makeQuery(queryPayload);
+
     }
 
     processResponse(response) {
         const lastResponse = response.getResponseResult();
         if (lastResponse) {
-            this.setState({elementLabels: response.getResponseResult()})
+            this.setState({
+                verticesStats: response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey),
+                edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey),
+            })
         }
     }
 

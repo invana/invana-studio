@@ -4,15 +4,35 @@ import MenuComponent from "../../ui-components/menu";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
 import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
+import RemoteEngine from "../../layout/remote";
 
 
-export default class DataSidebarViewlet extends React.Component {
+export default class DataSidebarViewlet extends RemoteEngine {
 
     static propTypes = {
         parentRemoteComponent: PropTypes.object,
     }
-    state = {}
+    state = {
+        verticesStats: [],
+        edgeStats: []
+    }
 
+    processResponse(response) {
+        const lastResponse = response.getResponseResult();
+        if (lastResponse) {
+            this.setState({
+                verticesStats: response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey),
+                edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey),
+            })
+        }
+    }
+
+    componentDidMount() {
+        const verticesStateQuery = this.connector.requestBuilder.getVerticesLabelStats();
+        const edgesStatsQuery = this.connector.requestBuilder.getEdgesLabelStats();
+        const queryPayload = this.connector.requestBuilder.combineQueries(verticesStateQuery, edgesStatsQuery);
+        this.makeQuery(queryPayload);
+    }
 
     render() {
         // const exampleVerticesCount = [...Array(10).keys()];
@@ -30,12 +50,12 @@ export default class DataSidebarViewlet extends React.Component {
                     <Nav className="mr-auto">
                         <Nav.Item>
                             <Button variant="link" className={"ml-2 align-middle"} size={"sm"}>
-                                <strong>12</strong> Vertices
+                                <strong>{this.state.verticesStats.length}</strong> Vertices
                             </Button>
                         </Nav.Item>
                         <Nav.Item>
                             <Button variant="link" className={"ml-1 align-middle"} size={"sm"}>
-                                <strong>17</strong> Edges
+                                <strong>{this.state.edgeStats.length}</strong> Edges
                             </Button>
                         </Nav.Item>
                     </Nav>
@@ -43,8 +63,8 @@ export default class DataSidebarViewlet extends React.Component {
                     </Nav>
                 </MenuComponent>
 
-                <DataVertexManagement parentRemoteComponent={this.props.parentRemoteComponent}/>
-                <DataEdgeManagement parentRemoteComponent={this.props.parentRemoteComponent}/>
+                <DataVertexManagement statsData={this.state.verticesStats}/>
+                <DataEdgeManagement statsData={this.state.edgeStats}/>
             </div>
         )
     }

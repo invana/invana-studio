@@ -25,16 +25,13 @@ export default class DataView extends RemoteEngine {
     render() {
         console.log("this.props", this.props.location);
         return (<DefaultLayout {...this.props}>
-
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet dataStore={this.dataStore}/>
                     </Sidebar>
                     <MainContent className={"main-content"}>
-
                     </MainContent>
                 </Row>
-
             </DefaultLayout>
         )
     }

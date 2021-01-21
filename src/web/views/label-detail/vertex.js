@@ -1,6 +1,6 @@
 import React from 'react';
 import DefaultLayout from "../../layout/default";
-import { Nav, Row} from "react-bootstrap";
+import {Nav, Row} from "react-bootstrap";
 import Sidebar from "../../ui-components/sidebar";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -19,14 +19,14 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import RemoteEngine from "../../layout/remote";
 
 
-export default class LabelDetailView extends RemoteEngine {
+export default class VertexLabelDetailView extends RemoteEngine {
 
 
     constructor(props) {
         super(props);
         this.state = {
             ...this.state,
-            totalCount: null,
+            totalCount: "NA",
             labelName: this.props.match.params.labelName,
             pageSize: 30,
             pageNumber: 1,
@@ -50,28 +50,31 @@ export default class LabelDetailView extends RemoteEngine {
     goToNextPage() {
         const nextPageNumber = this.state.pageNumber + 1
         this.setState({pageNumber: nextPageNumber})
-        const queryPayload = this.connector.requestBuilder.filterVertices(
+        const showVerticesQuery = this.connector.requestBuilder.filterVertices(
             this.state.labelName,
             this.state.pageSize,
             this.skipCount(nextPageNumber));
+        const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null)
         this.makeQuery(queryPayload);
     }
 
     goToPrevPage() {
         const prevPageNumber = this.state.pageNumber - 1;
         this.setState({pageNumber: prevPageNumber})
-        const queryPayload = this.connector.requestBuilder.filterVertices(
+        const showVerticesQuery = this.connector.requestBuilder.filterVertices(
             this.state.labelName,
             this.state.pageSize,
             this.skipCount(prevPageNumber));
+        const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null)
         this.makeQuery(queryPayload);
     }
 
 
     componentDidMount() {
         console.log("====== this.connector", this.connector.requestBuilder);
-        const queryPayload = this.connector.requestBuilder.filterVertices(this.state.labelName,
+        const showVerticesQuery = this.connector.requestBuilder.filterVertices(this.state.labelName,
             this.state.pageSize, this.skipCount(this.state.pageNumber));
+        const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null)
         this.makeQuery(queryPayload);
     }
 
@@ -79,7 +82,11 @@ export default class LabelDetailView extends RemoteEngine {
         const lastResponse = response.getResponseResult();
         console.log("lastResponse", lastResponse)
         if (lastResponse) {
-            this.setState({elementsData: response.getResponseResult()})
+            this.setState({
+                elementsData: response.getResponseResult(
+                    this.connector.requestBuilder.filterVertices().queryKey
+                )
+            })
         }
     }
 
@@ -121,8 +128,7 @@ export default class LabelDetailView extends RemoteEngine {
                                             Displaying <strong>{this.paginationFromCount(this.state.pageNumber)}</strong>
                                             - <strong>{this.paginationToCount(this.state.pageNumber)}</strong> of
                                             {/*<strong>{this.state.totalCount}</strong>.*/}
-                                            {this.dataStore.verticesStats.get(this.state.labelName)}
-                                            <strong>{this.state.totalCount}</strong>.
+                                            {this.dataStore.verticesStats.get(this.state.labelName)} <strong>{this.state.totalCount}</strong>.
                                         </Nav.Item>
                                         <Nav.Item>
                                             <ButtonGroup>

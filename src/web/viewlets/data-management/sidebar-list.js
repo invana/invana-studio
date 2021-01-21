@@ -12,28 +12,19 @@ import ListGroup from "react-bootstrap/ListGroup";
 import {Nav} from "react-bootstrap";
 import RemoteEngine from "../../layout/remote";
 
-export default class SidebarListBase extends RemoteEngine {
+export default class SidebarListBase extends React.Component {
 
 
     static propTypes = {
-        parentRemoteComponent: PropTypes.object,
+        statsData: PropTypes.array,
     }
 
-    state = {
-        elementLabels: []
-    }
+
 
     getUrlPrefix() {
         //
     }
 
-
-    processResponse(response) {
-        const lastResponse = response.getResponseResult();
-        if (lastResponse) {
-            this.setState({elementLabels: response.getResponseResult()})
-        }
-    }
 
     getVertexColor(label, nodeLabels) {
         const nodeLabelOption = nodeLabels[label];
@@ -58,12 +49,12 @@ export default class SidebarListBase extends RemoteEngine {
 
             <ListGroup variant="flush">
                 {
-                    this.state.elementLabels.length === 0
+                    this.props.statsData.length === 0
                         ? <ListGroup.Item className={"text-muted"}>No vertices data found</ListGroup.Item>
                         : <React.Fragment/>
                 }
                 {
-                    this.state.elementLabels.filter((label) => {
+                    this.props.statsData.filter((label) => {
                         return label.label !== STUDIO_SETTINGS.managementVertexLabel
                     }).map((elementLabel, index) => {
                         return (
@@ -100,10 +91,6 @@ export class DataVertexManagement extends SidebarListBase {
         return "/vertex";
     }
 
-    componentDidMount() {
-        const queryPayload = this.connector.requestBuilder.getVerticesLabelStats();
-        this.makeQuery(queryPayload);
-    }
 
 }
 
@@ -113,9 +100,9 @@ export class DataEdgeManagement extends SidebarListBase {
         return "/edge";
     }
 
-    componentDidMount() {
-        const queryPayload = this.connector.requestBuilder.getEdgesLabelStats();
-        this.makeQuery(queryPayload);
-    }
+    // componentDidMount() {
+    //     const queryPayload = this.connector.requestBuilder.getEdgesLabelStats();
+    //     this.makeQuery(queryPayload);
+    // }
 
 }

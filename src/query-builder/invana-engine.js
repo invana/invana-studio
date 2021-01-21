@@ -3,6 +3,54 @@ import QueryManagerBase from "./base";
 
 export default class InvanaEngineQueryManager extends QueryManagerBase {
 
+    /*
+
+    1. each query method should return an object with following data
+
+        getVerticesLabelStats() {
+            return {
+                type: this.QUERY_TYPES.QUERY,
+                queryKey: "getVerticesLabelStats",
+                query: "getVerticesLabelStats{label, count}"
+            };
+        }
+
+    2. Use combineQueries(query1, query2) to run two queries at a time.
+
+
+
+     */
+    QUERY_TYPES = {
+        QUERY: "query",
+        MUTATION: "mutation"
+    }
+
+    combineQueries(query1, query2) {
+        // takes two separate queries and combine them into one graphql query
+        // TODO - Need fix [P3]; this doesnt work when combining query and mutation.
+        let combineQuery = {query: "", type: this.QUERY_TYPES.QUERY};
+
+        const query2String = query2 ? query2.query : ""
+        combineQuery.query += "{" + query1.query + query2String + "}";
+        return combineQuery;
+    }
+
+    getVerticesLabelStats() {
+        return {
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "getVerticesLabelStats",
+            query: "getVerticesLabelStats{label, count}"
+        };
+    }
+
+    getEdgesLabelStats() {
+        return {
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "getEdgesLabelStats",
+            query: "getEdgesLabelStats{label, count}"
+        };
+    }
+
     getOrCreateVertices(label, properties) {
         return {
             "query": "{getOrCreateVertex(label:\"" + label + "\", properties: "
@@ -25,13 +73,6 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         return {"query": "{getInEdgesAndVertices(id:" + JSON.stringify(vertexId) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
     }
 
-    getVerticesLabelStats() {
-        return {"query": "{getVerticesLabelStats{label, count}}"};
-    }
-
-    getEdgesLabelStats() {
-        return {"query": "{getEdgesLabelStats{label, count}}"};
-    }
 
     initQuery() {
         return {"query": "{filterVertex(limit: 10){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
@@ -51,7 +92,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         }
 
         queryParams = queryParams.replace(/,\s*$/, "");
-        return {"query": "{filterVertex(" + queryParams + "){id,type,label,properties}}"};
+        return {
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "filterVertex",
+            query: "filterVertex(" + queryParams + "){id,type,label,properties}"
+        };
     }
 
     getNeighborEdgesAndVertices(label, limit, skip) {

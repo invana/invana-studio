@@ -12,11 +12,11 @@ export default class IndexView extends RemoteEngine {
         super.componentDidMount();
         let _this = this;
         console.log("=_this.connector.requestBuilder.initQuery()", _this.connector.requestBuilder.initQuery())
-        setTimeout(function () {
-            _this.makeQuery(_this.connector.requestBuilder.filterVertices(
-                STUDIO_SETTINGS.managementVertexLabel, 1
-            ), {source: "internal"});
-        }, 500)
+        const showVerticesQuery = _this.connector.requestBuilder.filterVertices(
+            STUDIO_SETTINGS.managementVertexLabel, 1
+        );
+        const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null)
+        _this.makeQuery(queryPayload, {source: "internal"});
     }
 
     processResponse(response) {

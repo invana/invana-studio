@@ -7,12 +7,12 @@ export default class InvanaEngineResponse extends ResponseBase {
         return this.getResponseResult();
     }
 
-    getResponseResult() {
+    getResponseResult(queryKey) {
         // console.log("getResponseResult", this.response, Object.keys(this.response.example-data)[0],  this.response.example-data[Object.keys(this.response.example-data)[0]]);
-        if (this.response.data) {
-            return this.response.data[Object.keys(this.response.data)[0]];
+        if (queryKey) {
+            return this.response.data[queryKey];
         } else {
-            return [];
+            return this.response.data;
         }
     }
 
