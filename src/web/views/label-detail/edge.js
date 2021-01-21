@@ -1,20 +1,20 @@
 import LabelDetailViewBase from "./base";
 
 
-export default class VertexLabelDetailView extends LabelDetailViewBase {
+export default class EdgeLabelDetailView extends LabelDetailViewBase {
 
     constructor(props) {
         super(props);
         this.state = {
             ...this.state,
-            labelType: "vertex"
+            labelType: "edge"
         }
     }
 
     goToNextPage() {
         const nextPageNumber = this.state.pageNumber + 1
         this.setState({pageNumber: nextPageNumber})
-        const showVerticesQuery = this.connector.requestBuilder.filterVertices(
+        const showVerticesQuery = this.connector.requestBuilder.filterEdges(
             this.state.labelName,
             this.state.pageSize,
             this.skipCount(nextPageNumber));
@@ -25,7 +25,7 @@ export default class VertexLabelDetailView extends LabelDetailViewBase {
     goToPrevPage() {
         const prevPageNumber = this.state.pageNumber - 1;
         this.setState({pageNumber: prevPageNumber})
-        const showVerticesQuery = this.connector.requestBuilder.filterVertices(
+        const showVerticesQuery = this.connector.requestBuilder.filterEdges(
             this.state.labelName,
             this.state.pageSize,
             this.skipCount(prevPageNumber));
@@ -36,7 +36,7 @@ export default class VertexLabelDetailView extends LabelDetailViewBase {
 
     componentDidMount() {
         console.log("====== this.connector", this.connector.requestBuilder);
-        const showVerticesQuery = this.connector.requestBuilder.filterVertices(this.state.labelName,
+        const showVerticesQuery = this.connector.requestBuilder.filterEdges(this.state.labelName,
             this.state.pageSize, this.skipCount(this.state.pageNumber));
         const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null)
         this.makeQuery(queryPayload);
@@ -48,7 +48,7 @@ export default class VertexLabelDetailView extends LabelDetailViewBase {
         if (lastResponse) {
             this.setState({
                 elementsData: response.getResponseResult(
-                    this.connector.requestBuilder.filterVertices().queryKey
+                    this.connector.requestBuilder.filterEdges().queryKey
                 )
             })
         }

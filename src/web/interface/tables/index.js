@@ -35,6 +35,7 @@ export default class TableInterface extends React.Component {
                         this.props.elementsType === "vertex"
                             ?
                             <VertexTableComponent type={"Vertex"}
+
                                                   showLabel={this.props.showLabel}
                                                   vertexSchema={this.props.elementsSchema}
                                                   dataStore={this.props.dataStore}
@@ -51,7 +52,9 @@ export default class TableInterface extends React.Component {
 
                                                 showLabel={this.props.showLabel}
                                                 label={this.props.elementsLabel}
-                                                data={this.props.elementsData}/>
+                                                data={this.props.elementsData}
+
+                            />
 
                             : <span/>
                     }
@@ -374,13 +377,13 @@ export class EdgeTableComponent extends React.Component {
                             }}>
 
 
-                                <th colSpan={2}>MetaData</th>
+                                <th colSpan={1}>ID</th>
                                 {propertyKeys.length
                                     ? <th colSpan={propertyKeys.length}>Properties</th>
                                     : <Fragment/>
                                 }
-                                <th>from</th>
-                                <th>to (outV)</th>
+                                <th>from(outV)</th>
+                                <th>to (inV)</th>
                             </tr>
                             <tr style={{
                                 "backgroundColor": colorOptions.bgColor,
@@ -388,7 +391,7 @@ export class EdgeTableComponent extends React.Component {
 
                                 {/*style={{"borderColor": colorOptions.borderColor || "inherit"}}*/}
                                 {/*<th>Type</th>*/}
-                                <td>Label<span>({this.getElementType(this.props.data[0])})</span></td>
+                                {/*<td>Label<span>({this.getElementType(this.props.data[0])})</span></td>*/}
                                 <td>Id</td>
                                 {
                                     propertyKeys.map((propertyKey, index) => {
@@ -398,7 +401,7 @@ export class EdgeTableComponent extends React.Component {
                                     })
                                 }
                                 <td>from</td>
-                                <td>to (outV)</td>
+                                <td>to</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -407,7 +410,7 @@ export class EdgeTableComponent extends React.Component {
                                     return (
                                         <tr key={node.id}>
                                             {/*<td>{node.type}</td>*/}
-                                            <td style={{"color": elColor}}>{node.label}</td>
+                                            {/*<td style={{"color": elColor}}>{node.label}</td>*/}
                                             <td>{node.id}</td>
                                             {
 
@@ -417,14 +420,21 @@ export class EdgeTableComponent extends React.Component {
                                                 })
                                             }
                                             <td>
-                                                <button className={"btn"} title={node.label}
-                                                        style={{"borderColor": node.source.meta.shapeOptions.fillColorHex}}>
-                                                    {node.source.meta.labelOptions.labelText}</button>
+                                                {/*<button className={"btn"} title={node.label}*/}
+                                                {/*    style={{"borderColor": node.source.meta.shapeOptions.fillColorHex}}*/}
+                                                {/*>*/}
+                                                    {/*{node.source.meta.labelOptions.labelText}*/}
+                                                    {node.outV}
+                                                {/*</button>*/}
                                             </td>
                                             <td>
-                                                <button className={"btn"} title={node.label}
-                                                        style={{"borderColor": node.target.meta.shapeOptions.fillColorHex}}>
-                                                    {node.target.meta.labelOptions.labelText}</button>
+                                                {/*<button className={"btn"} title={node.label}*/}
+                                                {/*    style={{"borderColor": node.target.meta.shapeOptions.fillColorHex}}*/}
+                                                {/*>*/}
+                                                    {node.inV}
+
+                                                    {/*{node.target.meta.labelOptions.labelText}*/}
+                                                {/*</button>*/}
                                             </td>
                                         </tr>
                                     )

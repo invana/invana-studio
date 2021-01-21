@@ -11,6 +11,7 @@ import SettingsView from "./web/views/settings/settings";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VertexLabelDetailView from "./web/views/label-detail/vertex";
 import VertexDetailView from "./web/views/vertex-detail";
+import EdgeLabelDetailView from "./web/views/label-detail/edge";
 
 export default class App extends React.Component {
     render() {
@@ -21,7 +22,8 @@ export default class App extends React.Component {
                         <Route exact path="/" component={IndexView}/>
                         <Route exact path="/explorer" component={ExplorerView}/>
                         <Route exact path="/data" component={DataView}/>
-                        <Route exact path="/:labelType/label/:labelName" component={VertexLabelDetailView}/>
+                        <Route exact path="/vertex/label/:labelName" component={VertexLabelDetailView}/>
+                        <Route exact path="/edge/label/:labelName" component={EdgeLabelDetailView}/>
                         <Route exact path="/vertex/:vertexId" component={VertexDetailView}/>
                         <Route exact path="/schema" component={SchemaView}/>
                         <Route exact path="/connect" component={ConnectView}/>
