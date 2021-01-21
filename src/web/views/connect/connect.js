@@ -51,7 +51,7 @@ export default class ConnectView extends React.Component {
         return headers;
     }
 
-    validateConnectionUrl(connectionUrl){
+    validateConnectionUrl(connectionUrl) {
 
     }
 
@@ -60,6 +60,7 @@ export default class ConnectView extends React.Component {
         console.log("onFormSubmit", e);
         const connectionUrl = e.target.connectionUrl.value;
         const graphEngineName = e.target.graphEngineName.value;
+        console.log("connectionUrl", connectionUrl)
         // const isHttps = new URL(window.location.href).protocol === "https:" || new URL(window.location.href).protocol === "wss:";
         e.preventDefault();
 
@@ -70,9 +71,9 @@ export default class ConnectView extends React.Component {
                 "when you are using Graph Explorer via https connection.")
         } else if (connectionUrl) {
             const headers = this.getHeaders();
-            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.connectionUrlKey, connectionUrl);
+            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, connectionUrl);
             setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.httpHeadersKey, headers);
-            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.graphEngineName, graphEngineName);
+            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME, graphEngineName);
             window.location.href = "/";
         }
     }
@@ -85,19 +86,19 @@ export default class ConnectView extends React.Component {
         //         console.log(e.target.value)
         // })
 
-        function updateInputPlaceholder(event) {
-            console.log("event", event.target.id);
-            const el = document.querySelector("[name=connectionUrl]");
-            if (event.target.id === "gremlinEngine") {
-                el.placeholder = "http://localhost:8182/gremlin";
-            } else {
-                el.placeholder = "http://localhost:8000/graphql";
-            }
-        }
-
-        document.querySelectorAll("input[name='graphEngineName']").forEach((input) => {
-            input.addEventListener('change', updateInputPlaceholder);
-        });
+        // function updateInputPlaceholder(event) {
+        //     console.log("event", event.target.id);
+        //     const el = document.querySelector("[name=connectionUrl]");
+        //     if (event.target.id === "gremlinEngine") {
+        //         el.placeholder = "http://localhost:8182/gremlin";
+        //     } else {
+        //         el.placeholder = "http://localhost:8000/graphql";
+        //     }
+        // }
+        //
+        // document.querySelectorAll("input[name='graphEngineName']").forEach((input) => {
+        //     input.addEventListener('change', updateInputPlaceholder);
+        // });
 
         const errorMessage = this.getErrorFromUrlString();
         this.setErrorMessage(errorMessage);
@@ -221,7 +222,7 @@ export default class ConnectView extends React.Component {
                             {
                                 this.state.errorMessage ? (
                                     <p>{this.state.setErrorMessage}</p>
-                                ) :  (<span></span>)
+                                ) : (<span></span>)
                             }
                         </Card.Body>
                     </Card>
