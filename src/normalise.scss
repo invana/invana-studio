@@ -95,28 +95,34 @@ h1 {
 //button{
 //  border-radius: 1rem !important;
 //}
-.dropdown-item{
+.dropdown-item {
   font-size: 14px !important;
 }
 
-.dropdown-divider{
+.dropdown-divider {
   margin: .2rem 0;
 }
-.dropdown.btn-group button{
+
+.dropdown.btn-group button {
   padding: 0 !important;
 }
-.btn-group-sm>.btn, .btn-sm {
-    padding: .25rem .5rem;
-    font-size: 12px !important;
-    text-transform: uppercase;
-    font-weight: bold !important;
+
+.btn-group-sm > .btn, .btn-sm {
+  padding: .25rem .5rem;
+  font-size: 12px !important;
+  text-transform: uppercase;
+  font-weight: bold !important;
 }
 
 .btn-secondary {
-    background-color: #8b949c !important;
-    border-color: #838c94 !important;
+  background-color: #8b949c !important;
+  border-color: #838c94 !important;
 }
 
 .list-group-item a {
-    color: $darkTextColor;
+  color: $darkTextColor;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+  padding: .075rem .5rem !important;
 }

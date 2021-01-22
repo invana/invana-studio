@@ -27,8 +27,8 @@ export default class App extends React.Component {
                         {/*<Switch>*/}
                         {/*    <Redirect from="/vertex/label/:labelName" to="/vertex/label/:labelName/entries"/>*/}
                         {/*</Switch>*/}
-                        {/*<Redirect from="/vertex/label/:labelName" to="/vertex/label/:labelName/entries"/>*/}
-                        <Route exact path="/label/:labelType/:labelName/:viewType" component={LabelDetailView}/>
+                        <Redirect exact from="/data/:labelType/:labelName" to="/data/:labelType/:labelName/entries"/>
+                        <Route exact path="/data/:labelType/:labelName/:viewType" component={LabelDetailView}/>
 
 
                         <Route exact path="/edge/label/:labelName" component={EdgeLabelDetailView}/>

@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DefaultLayout from "../../layout/default";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "./page-404.scss";
 import Page404Viewlet from "./page-404-viewlet";
 

@@ -12,6 +12,7 @@ export default class DataSidebarViewlet extends RemoteEngine {
     static propTypes = {
         parentRemoteComponent: PropTypes.object,
     }
+
     state = {
         verticesStats: [],
         edgeStats: []

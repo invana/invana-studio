@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DefaultLayout from "../../layout/default";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import {Row, Col} from "react-bootstrap";
 import "./page-404.scss";
 
 export default class Page404Viewlet extends React.Component {

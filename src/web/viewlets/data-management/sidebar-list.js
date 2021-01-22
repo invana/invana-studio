@@ -59,13 +59,13 @@ export default class SidebarListBase extends React.Component {
                                           style={{
                                               'color': this.getVertexColor(elementLabel.label, nodeLabels)
                                           }}
-                                          href={this.getUrlPrefix() + "/label/" + elementLabel.label}
+                                          href={"/data/" + this.getUrlPrefix() + "/" + elementLabel.label}
                                 >
                                     <FontAwesomeIcon
                                         className={"mr-1"}
                                         style={{'color': this.getVertexColor(elementLabel.label, nodeLabels)}}
                                         icon={listIcon}/>{elementLabel.label}
-                                    <h7 style={{"color": "#656565"}}>({elementLabel.count} entries)</h7>
+                                    <span style={{"color": "#656565", "fontSize": "12px"}}>({elementLabel.count} entries)</span>
                                 </Nav.Link>
                             </ListGroup.Item>)
                     })
@@ -80,7 +80,7 @@ export default class SidebarListBase extends React.Component {
 export class DataVertexManagement extends SidebarListBase {
 
     getUrlPrefix() {
-        return "/vertex";
+        return "vertex";
     }
 
 }
@@ -88,7 +88,7 @@ export class DataVertexManagement extends SidebarListBase {
 export class DataEdgeManagement extends SidebarListBase {
 
     getUrlPrefix() {
-        return "/edge";
+        return "edge";
     }
 
 }
