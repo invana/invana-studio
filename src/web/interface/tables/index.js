@@ -168,7 +168,9 @@ export class VertexTableComponent extends React.Component {
 
             <div className={"VertexTableComponent"}>
                 {/*<h3>{this.props.type} | {this.props.label}</h3>*/}
-                <table className={"mb-10"} style={{"width": "calc(100vw - 295px)"}}>
+                <table className={"mb-10"}
+                       // style={{"width": "calc(100vw - 295px)"}}
+                >
                     <thead>
                     <tr style={{
                         "backgroundColor": colorOptions.bgColor,
@@ -371,7 +373,9 @@ export class EdgeTableComponent extends React.Component {
 
                 {
                     this.props.data.length > 0
-                        ? <table className={"mb-10"} style={{"width": "calc(100vw - 295px)"}}>
+                        ? <table className={"mb-10"}
+                                 // style={{"width": "calc(100vw - 295px)"}}
+                        >
                             <thead>
                             <tr style={{"backgroundColor": colorOptions.bgColor}}>
                                 <th colSpan={1}>ID</th>

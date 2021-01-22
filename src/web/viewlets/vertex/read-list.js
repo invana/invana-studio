@@ -15,6 +15,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
         super(props);
         this.state = {
             elementsData: [],
+            totalCount: "NA",
             pageSize: 20,
             pageNumber: 1
         }
@@ -51,7 +52,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                 this.props.match.params.labelName,
                 this.state.pageSize,
                 skipCount);
-        } else if (this.props.labelType === "edge") {
+        } else if (this.props.match.params.labelType === "edge") {
             return this.connector.requestBuilder.filterEdges(
                 this.props.match.params.labelName,
                 this.state.pageSize,
@@ -60,10 +61,20 @@ export default class ReadListVertexViewlet extends RemoteEngine {
             return null;
         }
     }
+    getQueryKey() {
+        if (this.props.match.params.labelType === "vertex") {
+            return this.connector.requestBuilder.filterVertices().queryKey;
+        } else if (this.props.match.params.labelType === "edge") {
+            return this.connector.requestBuilder.filterEdges().queryKey;
+        } else {
+            return null;
+        }
+    }
 
 
     queryListOfItems(skipCount) {
         const query = this.getPaginationQuery(skipCount);
+        console.log("======query", query);
         const queryPayload = this.connector.requestBuilder.combineQueries(query,
             null)
         this.makeQuery(queryPayload);
@@ -75,11 +86,12 @@ export default class ReadListVertexViewlet extends RemoteEngine {
 
     processResponse(response) {
         const lastResponse = response.getResponseResult();
-        console.log("lastResponse", lastResponse)
+        console.log("lastResponse",this.getQueryKey(),
+            this.props.match.params.labelType , lastResponse);
         if (lastResponse) {
             this.setState({
                 elementsData: response.getResponseResult(
-                    this.connector.requestBuilder.filterVertices().queryKey
+                    this.getQueryKey()
                 )
             })
         }
@@ -99,7 +111,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                                     - <strong>{this.paginationToCount(this.state.pageNumber)}</strong> of
                                     {/*<strong>{this.props.totalCount}</strong>.*/}
                                     {this.dataStore.verticesStats.get(this.props.labelName)}&nbsp;
-                                    <strong>{this.props.totalCount}</strong>.
+                                    <strong>{this.state.totalCount}</strong>.
                                 </Nav.Item>
                                 <Nav.Item className={"mr-3"}>
                                     <ButtonGroup>

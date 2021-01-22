@@ -28,11 +28,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
     combineQueries(query1, query2) {
         // takes two separate queries and combine them into one graphql query
         // TODO - Need fix [P3]; this doesnt work when combining query and mutation.
-        let combineQuery = {query: "", type: this.QUERY_TYPES.QUERY};
+        let combinedQuery = {query: "", type: this.QUERY_TYPES.QUERY};
 
         const query2String = query2 ? query2.query : ""
-        combineQuery.query += "{" + query1.query + query2String + "}";
-        return combineQuery;
+        combinedQuery.query += "{" + query1.query + query2String + "}";
+        return combinedQuery;
     }
 
     getVerticesLabelStats() {
@@ -100,7 +100,6 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
     }
 
     filterEdges(label, limit, skip) {
-
         let queryParams = "";
         if (label) {
             queryParams += "label: \"" + label + "\",";
