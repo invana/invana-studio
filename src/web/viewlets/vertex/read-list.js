@@ -5,8 +5,7 @@ import {Button, ButtonGroup, Form, Nav, Row} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import MenuComponent from "../../ui-components/menu";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown, faChevronLeft, faChevronRight, faPlus} from "@fortawesome/free-solid-svg-icons";
-import Card from "react-bootstrap/Card";
+import {faChevronLeft, faChevronRight, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class ReadListVertexViewlet extends RemoteEngine {
@@ -61,6 +60,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
             return null;
         }
     }
+
     getQueryKey() {
         if (this.props.match.params.labelType === "vertex") {
             return this.connector.requestBuilder.filterVertices().queryKey;
@@ -86,8 +86,8 @@ export default class ReadListVertexViewlet extends RemoteEngine {
 
     processResponse(response) {
         const lastResponse = response.getResponseResult();
-        console.log("lastResponse",this.getQueryKey(),
-            this.props.match.params.labelType , lastResponse);
+        console.log("lastResponse", this.getQueryKey(),
+            this.props.match.params.labelType, lastResponse);
         if (lastResponse) {
             this.setState({
                 elementsData: response.getResponseResult(
@@ -144,7 +144,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                             this.state.elementsData.length > 0
                                 ? <TableInterface
                                     elementsData={this.state.elementsData}
-                                    elementsType={this.state.labelType}
+                                    elementsType={this.props.match.params.labelType}
                                     showLabel={false}/>
                                 : <p className={"text-muted mt-5"}>No data exist for this Label.</p>
                         }

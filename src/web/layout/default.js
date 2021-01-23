@@ -64,11 +64,11 @@ export default class DefaultLayout extends RemoteEngine {
                                       className={this.props.location.pathname === "/functions" ? "active" : ""}>
                                 Functions</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/schema"
-                                      className={this.props.location.pathname === "/schema" ? "active" : ""}>
-                                Schema</Nav.Link>
-                        </Nav.Item>
+                        {/*<Nav.Item>*/}
+                        {/*    <Nav.Link href="/schema"*/}
+                        {/*              className={this.props.location.pathname === "/schema" ? "active" : ""}>*/}
+                        {/*        Schema</Nav.Link>*/}
+                        {/*</Nav.Item>*/}
                         <Nav.Item>
                             <Nav.Link href="/settings"
                                       className={this.props.location.pathname === "/settings" ? "active" : ""}>

@@ -150,7 +150,7 @@ export default class ConnectView extends React.Component {
             </Row>
 
 
-            <Row className={"pl-3"}>
+            <Row className={"pl-3 connect"}>
                 <Col md={"6"}>
                     <Card style={{marginTop: '1rem', width: "450px"}} className="mb-2">
                         <Card.Header>Connect to Invana Engine</Card.Header>

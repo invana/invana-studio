@@ -27,35 +27,37 @@
   }
 }
 
-form {
-  width: 100%;
+.connect {
+  form {
+    width: 100%;
 
-  input {
-    width: calc(100% - 20px);
-    margin: 10px auto;
-    padding: 10px 10px 5px 10px;
-    color: white;
-    border: 0;
-    border-bottom: 1px solid $borderColor;
+    input {
+      width: calc(100% - 20px);
+      margin: 10px auto;
+      padding: 10px 10px 5px 10px;
+      color: white;
+      border: 0;
+      border-bottom: 1px solid $borderColor;
+    }
   }
-}
 
-button {
-  cursor: pointer;
-  outline: none;
-  background: transparent;
-  color: #aaa;
-  text-align: left;
-  display: inline-block;
-  padding: 0;
-  border: transparent;
-  box-shadow: none;
-}
+  button {
+    cursor: pointer;
+    outline: none;
+    background: transparent;
+    color: #aaa;
+    text-align: left;
+    display: inline-block;
+    padding: 0;
+    border: transparent;
+    box-shadow: none;
+  }
 
-h1 {
-  margin-top: .8rem !important;
-}
+  h1 {
+    margin-top: .8rem !important;
+  }
 
-small {
-  font-size: 16px !important;
+  small {
+    font-size: 16px !important;
+  }
 }
