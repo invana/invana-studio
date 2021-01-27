@@ -78,6 +78,34 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         return {"query": "{filterVertex(limit: 10){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
     }
 
+    getLabelSchema(labelName, labelType) {
+        let queryName = ""
+        if (labelType === "vertex") {
+            queryName = "getVertexLabelSchema";
+        } else {
+            queryName = "getEdgeLabelSchema"
+        }
+        return {
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: queryName,
+            query: queryName + "(" + labelName + "){ label,propertyKeys}"
+        };
+    }
+
+    getLabelTotalCount(labelName, labelType) {
+        let queryName = ""
+        if (labelType === "vertex") {
+            queryName = "getVertexLabelStats";
+        } else {
+            queryName = "getEdgeLabelStats"
+        }
+        return {
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: queryName,
+            query: queryName + "(label: \"" + labelName + "\"){ label,count}"
+        };
+    }
+
     filterVertices(label, limit, skip) {
 
         let queryParams = "";

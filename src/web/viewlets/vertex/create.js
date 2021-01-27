@@ -1,49 +1,43 @@
 import RemoteEngine from "../../layout/remote";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 import React from "react";
 import Card from "react-bootstrap/Card";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 
 export default class CreateVertexViewlet extends RemoteEngine {
 
 
+    static propTypes = {
+        vertexLabel: PropTypes.string,
+    }
+
     render() {
         return (
-            <Row>
-                <Col>
-                    <Card className="mb-2">
-                        <Card.Header>Create Vertex</Card.Header>
-                        <Card.Body>
-                            <Form inline onSubmit={this.onFormSubmit.bind(this)}>
+            <React.Fragment>
 
-                                <Form.Control
-                                    className="mb-2 mr-sm-2"
-                                    name="connectionUrl"
-                                    placeholder="http://localhost:8000/graphql"
-                                    style={{width: "320px"}}
-                                />
-                                <Form.Control name="graphEngineName" value={"invana-engine"} type={"hidden"}/>
+                <Form
+                    // onSubmit={this.onFormSubmit.bind(this)}
+                >
+                    <Form.Control name="labelName" value={this.props.vertexLabel} type={"hidden"}/>
+                    <Row>
+                        <Col md={5} className={"p-0"}>
+                            <Form.Group>
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email"/>
+                                <Form.Text className="text-muted">
+                                    We'll never share your email with anyone else.
+                                </Form.Text>
+                                <input type="datetime-local" step="1" />
+                            </Form.Group>
 
-
-                                <Button type="submit" className="">
-                                    Connect
-                                </Button>
-                                <p>
-                                    <button className={"extra-headers-btn small"} type={"button"}
-                                            onClick={this.toggleMoreOptions.bind(this)}>
-                                        http headers <FontAwesomeIcon icon={faAngleDown}/>
-                                    </button>
-                                </p>
-
-                            </Form>
-
-                        </Card.Body>
-                    </Card>
-
-                </Col>
-            </Row>
+                        </Col>
+                    </Row>
+                    <Button variant="outline-primary" size={"md"}>Create</Button>
+                </Form>
+            </React.Fragment>
         )
     }
 

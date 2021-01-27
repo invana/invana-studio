@@ -31,7 +31,8 @@ h1 {
   padding: 1rem !important;
 }
 
-.col, .col-md-12, .col-md-3, .col-md-4, .col-md-8, .col-md-9, .col-md-1, .row {
+.col, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7,
+.col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .row {
   padding-left: 0 !important;
   padding-right: 0 !important;
   margin-left: 0 !important;
@@ -46,7 +47,8 @@ h1 {
   border-radius: 0 !important;
 
   .list-group-item {
-    padding: .25rem 1.25rem !important;
+    //padding: .25rem 1.25rem !important;
+
     border: transparent;
   }
 }
@@ -130,6 +132,26 @@ h1 {
 input {
   border-radius: 1px !important;
 }
-label.form-label{
+
+label.form-label {
   margin-bottom: .1rem !important;
+}
+
+.modal-content {
+  .modal-header, .modal-footer {
+    padding: .5rem 1rem !important;
+
+    .modal-title {
+      font-size: 1.2rem !important;
+    }
+  }
+
+  .modal-footer {
+    justify-content: flex-start;
+    border: none;
+  }
+}
+
+.btn-md {
+  padding: .25rem .75rem !important;
 }

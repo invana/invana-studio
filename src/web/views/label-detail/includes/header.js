@@ -2,9 +2,6 @@ import React from "react";
 import {Nav, Row} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import MenuComponent from "../../../ui-components/menu";
-import Button from "react-bootstrap/Button";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import LabelMenu from "./secondary-menu";
 import PropTypes from "prop-types";
 
@@ -41,7 +38,7 @@ export default class LabelDetailHeader extends React.Component {
                             </Nav>
                             <Nav className="ml-auto">
                                 <Nav.Item>
-                                        {this.props.totalCount} entries
+                                        {/*{this.props.totalCount} entries*/}
                                 </Nav.Item>
 
 

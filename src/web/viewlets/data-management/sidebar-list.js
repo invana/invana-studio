@@ -53,7 +53,7 @@ export default class SidebarListBase extends React.Component {
                         return label.label !== STUDIO_SETTINGS.managementVertexLabel
                     }).map((elementLabel, index) => {
                         return (
-                            <ListGroup.Item action key={index}>
+                            <ListGroup.Item action key={index} className={"pl-3 pt-0 pb-1"}>
                                 <Nav.Link className={"management-icon-btn"}
                                           title={"Show connected edges and vertices"}
                                           style={{

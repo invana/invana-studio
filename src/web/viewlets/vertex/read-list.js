@@ -1,11 +1,11 @@
 import React from "react";
 import TableInterface from "../../interface/tables";
 import RemoteEngine from "../../layout/remote";
-import {Button, ButtonGroup, Form, Nav, Row} from "react-bootstrap";
-import Col from "react-bootstrap/Col";
+import {Button, ButtonGroup, Nav, Row, Col, Modal} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faChevronRight, faPlus} from "@fortawesome/free-solid-svg-icons";
+import CreateVertexViewlet from "./create";
 
 
 export default class ReadListVertexViewlet extends RemoteEngine {
@@ -16,7 +16,9 @@ export default class ReadListVertexViewlet extends RemoteEngine {
             elementsData: [],
             totalCount: "NA",
             pageSize: 20,
-            pageNumber: 1
+            pageNumber: 1,
+
+            showModal: false
         }
     }
 
@@ -30,7 +32,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
     }
 
     paginationToCount(pageNumber) {
-        return pageNumber * this.state.pageSize;
+        return this.skipCount(pageNumber) + this.state.elementsData.length;
     }
 
     goToNextPage() {
@@ -71,12 +73,24 @@ export default class ReadListVertexViewlet extends RemoteEngine {
         }
     }
 
+    getTotalCountKey() {
+        return this.connector.requestBuilder.getLabelTotalCount(
+            this.props.match.params.labelName,
+            this.props.match.params.labelType
+        ).queryKey;
+    }
+
 
     queryListOfItems(skipCount) {
         const query = this.getPaginationQuery(skipCount);
+        const query2 = this.connector.requestBuilder.getLabelTotalCount(
+            this.props.match.params.labelName,
+            this.props.match.params.labelType);
         console.log("======query", query);
-        const queryPayload = this.connector.requestBuilder.combineQueries(query,
-            null)
+        console.log("======query2", query2);
+        const queryPayload = this.connector.requestBuilder.combineQueries(
+            query, query2);
+        console.log("======queryPayload", queryPayload);
         this.makeQuery(queryPayload);
     }
 
@@ -90,11 +104,19 @@ export default class ReadListVertexViewlet extends RemoteEngine {
             this.props.match.params.labelType, lastResponse);
         if (lastResponse) {
             this.setState({
-                elementsData: response.getResponseResult(
-                    this.getQueryKey()
-                )
+                elementsData: response.getResponseResult(this.getQueryKey()),
+                totalCount: response.getResponseResult(this.getTotalCountKey()).count
             })
         }
+    }
+
+
+    handleClose() {
+        this.setState({showModal: false});
+    }
+
+    showModal() {
+        this.setState({showModal: true,})
     }
 
 
@@ -122,15 +144,22 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                                                     icon={faChevronLeft}/></Button>
                                                 : <React.Fragment/>
                                         }
-                                        <Button variant="secondary" size={"sm"}
-                                                onClick={() => this.goToNextPage()}><FontAwesomeIcon
-                                            icon={faChevronRight}/></Button>
+                                        {
+                                            this.paginationToCount(this.state.pageNumber) < this.state.totalCount
+                                                ? <Button variant="secondary" size={"sm"}
+                                                          onClick={() => this.goToNextPage()}><FontAwesomeIcon
+                                                    icon={faChevronRight}/></Button>
+                                                : <React.Fragment/>
+                                        }
+
                                     </ButtonGroup>
                                 </Nav.Item>
                             </Nav>
                             <Nav className="ml-auto">
                                 <Nav.Item>
-                                    <Button variant="outline-primary" className={"mr-1"} size={"sm"}>
+                                    <Button variant="outline-primary" className={"mr-1"} size={"sm"}
+                                            onClick={() => this.showModal()}
+                                    >
                                         <FontAwesomeIcon icon={faPlus}/> New
                                     </Button>
                                 </Nav.Item>
@@ -150,6 +179,17 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                         }
                     </Col>
                 </Row>
+
+                <Modal show={this.state.showModal} onHide={this.handleClose.bind(this)} size="lg" centered>
+                    {/*{<CreateVertexViewlet/>}*/}
+                    <Modal.Header closeButton>
+                        <Modal.Title>Create `{this.props.match.params.labelName}` Entry</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {<CreateVertexViewlet vertexLabel={this.props.match.params.labelName}/>}
+                    </Modal.Body>
+                </Modal>
+
             </React.Fragment>
 
 
