@@ -130,7 +130,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                             <Nav className="mr-auto">
                                 <Nav.Item className={"mr-3"}>
                                     Displaying <strong>{this.paginationFromCount(this.state.pageNumber)}</strong>
-                                    - <strong>{this.paginationToCount(this.state.pageNumber)}</strong> of
+                                    &nbsp;-&nbsp;<strong>{this.paginationToCount(this.state.pageNumber)}</strong> of
                                     {/*<strong>{this.props.totalCount}</strong>.*/}
                                     {this.dataStore.verticesStats.get(this.props.labelName)}&nbsp;
                                     <strong>{this.state.totalCount}</strong>.
