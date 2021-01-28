@@ -40,13 +40,13 @@ export default class DataSidebarViewlet extends RemoteEngine {
 
         return (
             <div>
-                <Form className={"mb-1 mt-2"}>
-                    <InputGroup>
-                        <FormControl
-                            className={"mt-0 ml-3 mr-3"} size={"sm"}
-                            placeholder="Search nodes and edges ..."/>
-                    </InputGroup>
-                </Form>
+                {/*<Form className={"mb-1 mt-2"}>*/}
+                {/*    <InputGroup>*/}
+                {/*        <FormControl*/}
+                {/*            className={"mt-0 ml-3 mr-3"} size={"sm"}*/}
+                {/*            placeholder="Search nodes and edges ..."/>*/}
+                {/*    </InputGroup>*/}
+                {/*</Form>*/}
                 <MenuComponent className={"pb-2 mt-2"}>
                     <Nav className="mr-auto">
                         <Nav.Item>

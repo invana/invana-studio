@@ -19,13 +19,13 @@ export default class LabelMenu extends React.Component {
                 <Nav.Item>
                     <Nav.Link className={this.highlightMenu("schema")} href={urlPrefix + "/schema"}>Schema</Nav.Link>
                 </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link className={this.highlightMenu("relationships")}
-                              href={urlPrefix + "/relationships"}>Relationships</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link className={this.highlightMenu("indexes")} href={urlPrefix + "/indexes"}>Indexes</Nav.Link>
-                </Nav.Item>
+                {/*<Nav.Item>*/}
+                {/*    <Nav.Link className={this.highlightMenu("relationships")}*/}
+                {/*              href={urlPrefix + "/relationships"}>Relationships</Nav.Link>*/}
+                {/*</Nav.Item>*/}
+                {/*<Nav.Item>*/}
+                {/*    <Nav.Link className={this.highlightMenu("indexes")} href={urlPrefix + "/indexes"}>Indexes</Nav.Link>*/}
+                {/*</Nav.Item>*/}
                 {/*<Nav.Item>*/}
                 {/*    <Nav.Link href={urlPrefix + "/stats"}>Stats</Nav.Link>*/}
                 {/*</Nav.Item>*/}

@@ -142,14 +142,19 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                                                 ? <Button variant="secondary" size={"sm"}
                                                           onClick={() => this.goToPrevPage()}><FontAwesomeIcon
                                                     icon={faChevronLeft}/></Button>
-                                                : <React.Fragment/>
+                                                : <Button variant="secondary" size={"sm"} disabled={"disabled"}>
+                                                    <FontAwesomeIcon icon={faChevronLeft}/>
+                                                </Button>
                                         }
                                         {
                                             this.paginationToCount(this.state.pageNumber) < this.state.totalCount
                                                 ? <Button variant="secondary" size={"sm"}
+                                                          // disabled={!this.paginationToCount(this.state.pageNumber) < this.state.totalCount}
                                                           onClick={() => this.goToNextPage()}><FontAwesomeIcon
                                                     icon={faChevronRight}/></Button>
-                                                : <React.Fragment/>
+                                                : <Button variant="secondary" size={"sm"} disabled={"disabled"}>
+                                                    <FontAwesomeIcon icon={faChevronRight}/>
+                                                </Button>
                                         }
 
                                     </ButtonGroup>
@@ -157,11 +162,11 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                             </Nav>
                             <Nav className="ml-auto">
                                 <Nav.Item>
-                                    <Button variant="outline-primary" className={"mr-1"} size={"sm"}
-                                            onClick={() => this.showModal()}
-                                    >
-                                        <FontAwesomeIcon icon={faPlus}/> New
-                                    </Button>
+                                    {/*<Button variant="outline-primary" className={"mr-1"} size={"sm"}*/}
+                                    {/*        onClick={() => this.showModal()}*/}
+                                    {/*>*/}
+                                    {/*    <FontAwesomeIcon icon={faPlus}/> New*/}
+                                    {/*</Button>*/}
                                 </Nav.Item>
                             </Nav>
                         </MenuComponent>
