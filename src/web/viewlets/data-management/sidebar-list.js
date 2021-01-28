@@ -9,35 +9,31 @@ import {getColorForString} from "../../interface/utils";
 import {STUDIO_SETTINGS} from "../../../settings";
 import PropTypes from "prop-types";
 import ListGroup from "react-bootstrap/ListGroup";
-import {Nav} from "react-bootstrap";
+import {Button, Nav} from "react-bootstrap";
+import VisJsGraphCanvasUtils from "../../views/explorer/canvas-utils";
 
 export default class SidebarListBase extends React.Component {
 
 
     static propTypes = {
         statsData: PropTypes.array,
+        onItemClick: PropTypes.func
     }
 
+    constructor(props) {
+        super(props);
+        this.canvasUtils = new VisJsGraphCanvasUtils();
+    }
 
-    getUrlPrefix() {
+    getLabelType() {
         //
     }
 
 
-    getVertexColor(label, nodeLabels) {
-        const nodeLabelOption = nodeLabels[label];
-        if (nodeLabelOption && nodeLabelOption.bgColor) {
-            return nodeLabelOption.bgColor;
-        } else {
-            return getColorForString(label);
-        }
-    }
-
 
     render() {
-        const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         let listIcon = faCircle;
-        if (this.getUrlPrefix() === "/edge") {
+        if (this.getLabelType() === "edge") {
             listIcon = faVectorSquare;
         }
         return (
@@ -53,20 +49,45 @@ export default class SidebarListBase extends React.Component {
                         return label.label !== STUDIO_SETTINGS.managementVertexLabel
                     }).map((elementLabel, index) => {
                         return (
-                            <ListGroup.Item action key={index} className={"pl-3 pt-0 pb-1"}>
-                                <Nav.Link className={"management-icon-btn"}
-                                          title={"Show connected edges and vertices"}
-                                          style={{
-                                              'color': this.getVertexColor(elementLabel.label, nodeLabels)
-                                          }}
-                                          href={"/data/" + this.getUrlPrefix() + "/" + elementLabel.label}
+                            <ListGroup.Item action key={index}
+
+                                            className={"pl-3 pt-0 pb-2"}
+                            // className={"management-icon-btn"}
+                                        title={"Show connected edges and vertices"}
+                                        variant={"link"}
+
+                                        onClick={() => this.props.onItemClick(elementLabel.label, this.getLabelType())}
+                            >
+                                {/*<Nav.Link className={"management-icon-btn"}*/}
+                                {/*          title={"Show connected edges and vertices"}*/}
+                                {/*          style={{*/}
+                                {/*              'color': this.getElementColor(elementLabel.label, nodeLabels)*/}
+                                {/*          }}*/}
+                                {/*          href={"/data/" + this.getLabelType() + "/" + elementLabel.label}*/}
+                                {/*>*/}
+                                {/*    <FontAwesomeIcon*/}
+                                {/*        className={"mr-1"}*/}
+                                {/*        style={{'color': this.getElementColor(elementLabel.label, nodeLabels)}}*/}
+                                {/*        icon={listIcon}/>{elementLabel.label}*/}
+                                {/*    <span style={{"color": "#656565", "fontSize": "12px"}}>({elementLabel.count} entries)</span>*/}
+                                {/*</Nav.Link>*/}
+
+                                <span
+                                    // href={"/data/" + this.getLabelType() + "/" + elementLabel.label}
                                 >
+
                                     <FontAwesomeIcon
                                         className={"mr-1"}
-                                        style={{'color': this.getVertexColor(elementLabel.label, nodeLabels)}}
-                                        icon={listIcon}/>{elementLabel.label}
-                                    <span style={{"color": "#656565", "fontSize": "12px"}}>({elementLabel.count} entries)</span>
-                                </Nav.Link>
+                                        style={{'color': this.canvasUtils.getElementColor(elementLabel.label)}}
+                                        icon={listIcon}/>
+                                        {elementLabel.label}
+                                    <span style={{
+                                        "color": "#656565",
+                                        "fontSize": "12px"
+                                    }}>({elementLabel.count} entries)</span>
+                                </span>
+
+
                             </ListGroup.Item>)
                     })
                 }
@@ -79,7 +100,7 @@ export default class SidebarListBase extends React.Component {
 
 export class DataVertexManagement extends SidebarListBase {
 
-    getUrlPrefix() {
+    getLabelType() {
         return "vertex";
     }
 
@@ -87,7 +108,7 @@ export class DataVertexManagement extends SidebarListBase {
 
 export class DataEdgeManagement extends SidebarListBase {
 
-    getUrlPrefix() {
+    getLabelType() {
         return "edge";
     }
 

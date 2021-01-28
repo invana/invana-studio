@@ -33,7 +33,7 @@ export default class LabelDetailView extends LabelDetailViewBase {
     renderViewTypeMainContent() {
         switch (this.state.viewType) {
             case 'entries':
-                return <ReadListVertexViewlet {...this.props} dataStore={this.dataStore} />;
+                return <ReadListVertexViewlet {...this.props} dataStore={this.dataStore}/>;
             case 'schema':
                 return <SchemaViewlet/>;
             case 'relationships':
@@ -76,11 +76,18 @@ export default class LabelDetailView extends LabelDetailViewBase {
     //
     // }
 
+    onItemClick(labelName, labelType) {
+        window.location.href = "/data/" + labelType + "/" + labelName;
+    }
+
     render() {
         return (<DefaultLayout {...this.props}>
                 <Row>
                     <Sidebar>
-                        <DataSidebarViewlet parentRemoteComponent={this}/>
+                        <DataSidebarViewlet
+                            onItemClick={this.onItemClick.bind(this)}
+
+                            parentRemoteComponent={this}/>
                     </Sidebar>
                     <MainContent className={"main-content"}>
                         <LabelDetailHeader

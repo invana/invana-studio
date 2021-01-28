@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, FormControl, InputGroup, Nav} from "react-bootstrap";
+import {Nav} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
@@ -11,6 +11,7 @@ export default class DataSidebarViewlet extends RemoteEngine {
 
     static propTypes = {
         parentRemoteComponent: PropTypes.object,
+        onItemClick: PropTypes.func
     }
 
     state = {
@@ -35,6 +36,7 @@ export default class DataSidebarViewlet extends RemoteEngine {
         this.makeQuery(queryPayload);
     }
 
+
     render() {
         // const exampleVerticesCount = [...Array(10).keys()];
 
@@ -49,23 +51,23 @@ export default class DataSidebarViewlet extends RemoteEngine {
                 {/*</Form>*/}
                 <MenuComponent className={"pb-2 mt-2"}>
                     <Nav className="mr-auto">
-                        <Nav.Item>
-                            <Button variant="link" className={"ml-2 align-middle"} size={"sm"}>
+                        <Nav.Item className={"ml-3 align-middle"}>
+                            <span>
                                 <strong>{this.state.verticesStats.length}</strong> Vertices
-                            </Button>
+                            </span>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Button variant="link" className={"ml-1 align-middle"} size={"sm"}>
+                        <Nav.Item className={"ml-3 align-middle"}>
+                            <span>
                                 <strong>{this.state.edgeStats.length}</strong> Edges
-                            </Button>
+                            </span>
                         </Nav.Item>
                     </Nav>
                     <Nav className="ml-auto">
                     </Nav>
                 </MenuComponent>
 
-                <DataVertexManagement statsData={this.state.verticesStats}/>
-                <DataEdgeManagement statsData={this.state.edgeStats}/>
+                <DataVertexManagement onItemClick={this.props.onItemClick} statsData={this.state.verticesStats}/>
+                <DataEdgeManagement onItemClick={this.props.onItemClick} statsData={this.state.edgeStats}/>
             </div>
         )
     }

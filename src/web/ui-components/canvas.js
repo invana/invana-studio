@@ -8,7 +8,7 @@ export default class CanvasComponent extends React.Component {
         return (
             <Row className={"canvas border-bottom"}>
                 <Col md={12}>
-
+                    {this.props.children}
                 </Col>
             </Row>
 

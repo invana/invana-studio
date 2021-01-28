@@ -64,6 +64,7 @@ export default class ExampleView extends RemoteEngine {
         this.state = {
             ...this.state,
             query: null,
+            queryObject: null,
 
             isConnected2Gremlin: null,
             isStreaming: null,
@@ -201,6 +202,9 @@ export default class ExampleView extends RemoteEngine {
         setDataToLocalStorage(HISTORY_SETTINGS.historyLocalStorageKey, existingHistory);
     }
 
+    setQueryObject(queryObject){
+        this.setState({queryObject: queryObject});
+    }
 
     makeQuery(queryObj, queryOptions) {
 
@@ -226,6 +230,7 @@ export default class ExampleView extends RemoteEngine {
             statusMessage: "Querying...",
             isLoading: true
         });
+        this.setQueryObject(queryObj);
         console.log("makeQuery :::  query", JSON.stringify(queryObj));
         if (queryObj) {
             // this.startQueryTimer();

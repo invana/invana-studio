@@ -27,11 +27,15 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
     combineQueries(query1, query2) {
         // takes two separate queries and combine them into one graphql query
+        // 1. when query2 is null, queryKey is added from query1.
         // TODO - Need fix [P3]; this doesnt work when combining query and mutation.
         let combinedQuery = {query: "", type: this.QUERY_TYPES.QUERY};
 
         const query2String = query2 ? query2.query : ""
         combinedQuery.query += "{" + query1.query + query2String + "}";
+        if (!query2){
+            combinedQuery.queryKey = query1.queryKey;
+        }
         return combinedQuery;
     }
 
@@ -146,7 +150,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         };
     }
 
-    getNeighborEdgesAndVertices(label, limit, skip) {
+    filterVertexAndNeighborEdgesAndVertices(id, label, limit, skip) {
 
         let queryParams = "";
         if (label) {
@@ -160,7 +164,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         }
 
         queryParams = queryParams.replace(/,\s*$/, "");
-        return {"query": "{getNeighborEdgesAndVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+        return {
+            query: "filterVertexAndNeighborEdgesAndVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "filterVertexAndNeighborEdgesAndVertices",
+        };
     }
 
 
@@ -178,7 +186,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         }
 
         queryParams = queryParams.replace(/,\s*$/, "");
-        return {"query": "{filterEdgeAndGetNeighborVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+        return {
+            query: "filterEdgeAndGetNeighborVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "filterEdgeAndGetNeighborVertices"
+        };
     }
 
     rawQuery(queryString) {

@@ -17,9 +17,13 @@ export default class DataView extends RemoteEngine {
             ...this.state,
             totalCount: 120312,
             // renderType: "table", // ["table", "list", "graph"]
-            elementsData: VERTICES_EXAMPLE_DATA
+            // elementsData: VERTICES_EXAMPLE_DATA
         }
 
+    }
+
+    onItemClick(labelName, labelType) {
+        window.location.href = "/data/" + labelType + "/" + labelName;
     }
 
     render() {
@@ -27,7 +31,9 @@ export default class DataView extends RemoteEngine {
         return (<DefaultLayout {...this.props}>
                 <Row>
                     <Sidebar>
-                        <DataSidebarViewlet dataStore={this.dataStore}/>
+                        <DataSidebarViewlet
+                            onItemClick={this.onItemClick.bind(this)}
+                            dataStore={this.dataStore}/>
                     </Sidebar>
                     <MainContent className={"main-content"}>
                     </MainContent>
