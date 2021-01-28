@@ -125,9 +125,18 @@ export default class ReadListVertexViewlet extends RemoteEngine {
 
             <React.Fragment>
                 <Row>
-                    <Col size={"12"} className={"p-2 "}>
+                    <Col size={"12"} className={"pb-1 "}>
                         <MenuComponent className={"p-0"}>
                             <Nav className="mr-auto">
+                                <Nav.Item>
+                                    {/*<Button variant="outline-primary" className={"mr-1"} size={"sm"}*/}
+                                    {/*        onClick={() => this.showModal()}*/}
+                                    {/*>*/}
+                                    {/*    <FontAwesomeIcon icon={faPlus}/> New*/}
+                                    {/*</Button>*/}
+                                </Nav.Item>
+                            </Nav>
+                            <Nav className="ml-auto">
                                 <Nav.Item className={"mr-3"}>
                                     Displaying <strong>{this.paginationFromCount(this.state.pageNumber)}</strong>
                                     &nbsp;-&nbsp;<strong>{this.paginationToCount(this.state.pageNumber)}</strong> of
@@ -135,7 +144,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                                     {this.dataStore.verticesStats.get(this.props.labelName)}&nbsp;
                                     <strong>{this.state.totalCount}</strong>.
                                 </Nav.Item>
-                                <Nav.Item className={"mr-3"}>
+                                <Nav.Item className={"mr-2"}>
                                     <ButtonGroup>
                                         {
                                             this.state.pageNumber > 1
@@ -149,7 +158,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                                         {
                                             this.paginationToCount(this.state.pageNumber) < this.state.totalCount
                                                 ? <Button variant="secondary" size={"sm"}
-                                                          // disabled={!this.paginationToCount(this.state.pageNumber) < this.state.totalCount}
+                                                    // disabled={!this.paginationToCount(this.state.pageNumber) < this.state.totalCount}
                                                           onClick={() => this.goToNextPage()}><FontAwesomeIcon
                                                     icon={faChevronRight}/></Button>
                                                 : <Button variant="secondary" size={"sm"} disabled={"disabled"}>
@@ -160,15 +169,7 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                                     </ButtonGroup>
                                 </Nav.Item>
                             </Nav>
-                            <Nav className="ml-auto">
-                                <Nav.Item>
-                                    {/*<Button variant="outline-primary" className={"mr-1"} size={"sm"}*/}
-                                    {/*        onClick={() => this.showModal()}*/}
-                                    {/*>*/}
-                                    {/*    <FontAwesomeIcon icon={faPlus}/> New*/}
-                                    {/*</Button>*/}
-                                </Nav.Item>
-                            </Nav>
+
                         </MenuComponent>
                     </Col>
                 </Row>
