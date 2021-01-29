@@ -30,7 +30,6 @@ export default class SidebarListBase extends React.Component {
     }
 
 
-
     render() {
         let listIcon = faCircle;
         if (this.getLabelType() === "edge") {
@@ -49,51 +48,26 @@ export default class SidebarListBase extends React.Component {
                         return label.label !== STUDIO_SETTINGS.managementVertexLabel
                     }).map((elementLabel, index) => {
                         return (
-                            <ListGroup.Item action key={index}
-
-                                            className={"pl-3 pt-0 pb-2"}
-                            // className={"management-icon-btn"}
-                                        title={"Show connected edges and vertices"}
-                                        variant={"link"}
-
-                                        onClick={() => this.props.onItemClick(elementLabel.label, this.getLabelType())}
+                            <ListGroup.Item
+                                action key={index}
+                                className={"pl-3 pt-0 pb-1"}
+                                title={"Show connected edges and vertices"}
+                                variant={"link"}
+                                onClick={() => this.props.onItemClick(elementLabel.label, this.getLabelType())}
                             >
-                                {/*<Nav.Link className={"management-icon-btn"}*/}
-                                {/*          title={"Show connected edges and vertices"}*/}
-                                {/*          style={{*/}
-                                {/*              'color': this.getElementColor(elementLabel.label, nodeLabels)*/}
-                                {/*          }}*/}
-                                {/*          href={"/data/" + this.getLabelType() + "/" + elementLabel.label}*/}
-                                {/*>*/}
-                                {/*    <FontAwesomeIcon*/}
-                                {/*        className={"mr-1"}*/}
-                                {/*        style={{'color': this.getElementColor(elementLabel.label, nodeLabels)}}*/}
-                                {/*        icon={listIcon}/>{elementLabel.label}*/}
-                                {/*    <span style={{"color": "#656565", "fontSize": "12px"}}>({elementLabel.count} entries)</span>*/}
-                                {/*</Nav.Link>*/}
-
-                                <span
-                                    // href={"/data/" + this.getLabelType() + "/" + elementLabel.label}
-                                >
-
-                                    <FontAwesomeIcon
-                                        className={"mr-1"}
-                                        style={{'color': this.canvasUtils.getElementColor(elementLabel.label)}}
-                                        icon={listIcon}/>
-                                        {elementLabel.label}
-                                    <span style={{
-                                        "color": "#656565",
-                                        "fontSize": "12px"
-                                    }}>({elementLabel.count} entries)</span>
-                                </span>
-
-
+                                <FontAwesomeIcon
+                                    className={"mr-1"}
+                                    style={{'color': this.canvasUtils.getElementColor(elementLabel.label)}}
+                                    icon={listIcon}/>
+                                {elementLabel.label}
+                                <span style={{
+                                    "color": "#656565",
+                                    "fontSize": "12px"
+                                }}>({elementLabel.count} entries)</span>
                             </ListGroup.Item>)
                     })
                 }
-
             </ListGroup>
-
         );
     }
 }

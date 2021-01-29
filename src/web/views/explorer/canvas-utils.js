@@ -100,7 +100,7 @@ export default class VisJsGraphCanvasUtils {
         // config.size = 6;
         config.width = 1;
         config.font = {
-            size: 6,
+            size: 3,
             color: "#333333"
             // bold: true
         };

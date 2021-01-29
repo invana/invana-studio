@@ -4,23 +4,34 @@ import {Row, Nav} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCode, faCog, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCamera,
+    faCode,
+    faCog,
+    faFilter,
+    faSearch, faStickyNote,
+    faSync,
+    faTrashAlt,
+    faUserAstronaut
+} from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../../ui-components/sidebar";
 import MainContent from "../../ui-components/main-content";
 import ForceDirectedGraphCanvas from "../../interface/canvas/canvas";
 import RemoteEngine from "../../layout/remote";
 import DataSidebarViewlet from "../../viewlets/data-management/data-sidebar";
 import VisJsGraphCanvasUtils from "./canvas-utils";
+import Button from "react-bootstrap/Button";
 
 export default class ExplorerView extends RemoteEngine {
 
     constructor(props) {
         super(props);
         this.state = {
+            statusCode: null,
             nodes: [],
             edges: [],
             nodeGroups: {},
-            edgeGroups: {}
+            edgeGroups: {},
 
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
@@ -73,6 +84,7 @@ export default class ExplorerView extends RemoteEngine {
         if (lastResponse) {
             const {nodes, edges} = this.separateNodesAndEdges(data);
             this.addNewData(nodes, edges);
+            this.setState({statusCode: response.transporterStatusCode})
         }
 
     }
@@ -91,7 +103,7 @@ export default class ExplorerView extends RemoteEngine {
                 ...this.canvasUtils.edgeGroups
             }
         });
-        console.log(" ...this.canvasUtils.edgeGroups",  this.canvasUtils.edgeGroups);
+        console.log(" ...this.canvasUtils.edgeGroups", this.canvasUtils.edgeGroups);
 
         this.setState({
             nodes: nodes,
@@ -135,13 +147,13 @@ export default class ExplorerView extends RemoteEngine {
                         dataStore={this.dataStore}/>
                 </Sidebar>
                 <MainContent className={"main-content"}>
-                    <MenuComponent>
+                    <MenuComponent className={" bg-light border-bottom"}>
                         <Nav className="mr-auto">
-                            <Nav.Item>
-                                <Nav.Link>
-                                    Graph Canvas
-                                </Nav.Link>
-                            </Nav.Item>
+                            {/*<Nav.Item>*/}
+                            {/*    <Nav.Link>*/}
+                            {/*        Graph Canvas*/}
+                            {/*    </Nav.Link>*/}
+                            {/*</Nav.Item>*/}
                         </Nav>
                         <Nav className="ml-auto">
                             <Nav.Item>
@@ -155,19 +167,42 @@ export default class ExplorerView extends RemoteEngine {
                                 {/*</button>*/}
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="/connect">
-                                    <FontAwesomeIcon icon={faUserAstronaut}/>
-                                </Nav.Link>
+                                <Button size={"sm"} variant={"link"}>
+                                    <FontAwesomeIcon icon={faSearch}/>
+                                </Button>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="/graph">
-                                    <FontAwesomeIcon icon={faCode}/>
-                                </Nav.Link>
+                                <Button size={"sm"} variant={"link"}>
+                                    <FontAwesomeIcon icon={faFilter}/>
+                                </Button>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="/table">
+                                <Button size={"sm"} variant={"link"}>
+                                    <FontAwesomeIcon icon={faSync}/>
+                                </Button>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Button size={"sm"} variant={"link"}>
+                                    <FontAwesomeIcon icon={faCamera}/>
+                                </Button>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Button size={"sm"} variant={"link"}>
+                                    <FontAwesomeIcon icon={faTrashAlt}/>
+                                </Button>
+                            </Nav.Item>
+                            <Nav.Item className={"mr-2"}>
+                                |
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Button size={"sm"} variant={"link"}>
+                                    <FontAwesomeIcon icon={faStickyNote}/>
+                                </Button>
+                            </Nav.Item>
+                            <Nav.Item className={"mr-1"}>
+                                <Button size={"sm"} variant={"link"}>
                                     <FontAwesomeIcon icon={faCog}/>
-                                </Nav.Link>
+                                </Button>
                             </Nav.Item>
                         </Nav>
                     </MenuComponent>
@@ -182,13 +217,18 @@ export default class ExplorerView extends RemoteEngine {
                             // makeQuery={this.makeQuery.bind(this)}
                         />
                     </CanvasComponent>
-                    <MenuComponent className={"sm"}>
+                    <MenuComponent className={"sm footer"}>
                         <Nav className="mr-auto">
                             <Nav.Item className={"mr-3 ml-2"}>
                                 {this.state.statusMessage}
                             </Nav.Item>
                             <Nav.Item>
-                                200 response
+                                {
+                                    this.state.statusCode
+                                        ? <span>{this.state.statusCode} response</span>
+                                        : <span></span>
+                                }
+
                             </Nav.Item>
                         </Nav>
                         <Nav className="ml-auto">
