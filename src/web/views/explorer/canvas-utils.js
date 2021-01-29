@@ -54,10 +54,63 @@ export default class VisJsGraphCanvasUtils {
         }
     }
 
+    generateEdgeConfig(groupName, arrowShape) {
+        let config = {};
+        if (arrowShape === undefined) {
+            /*
+            var arrow_types = [
+        "arrow",
+        "bar",
+        "circle",
+        "box",
+        "crow",
+        "curve",
+        "inv_curve",
+        "diamond",
+        "triangle",
+        "inv_triangle",
+        "vee",
+      ];
+
+             */
+            arrowShape = "triangle"; // dot
+        }
+        const edgeColor = this.getElementColor(groupName);
+        // const borderColor = LightenDarkenColor(nodeColor, -35);
+        const highLightColor = LightenDarkenColor(edgeColor, 20);
+        const highLightBorderColor = LightenDarkenColor(highLightColor, -40);
+        // config.borderWidth = 1;
+        // config.borderWidthSelected = 1;
+        config.arrows = {
+            to: {
+                enabled: true,
+                type: arrowShape,
+            },
+        };
+        config.label = true;
+
+        // config.arrows: "to, from";
+        config.color = {
+            color: edgeColor,
+            highlight: highLightColor,
+            hover: highLightBorderColor,
+        }
+
+        // config.physics = false;
+        // config.size = 6;
+        config.width = 1;
+        config.font = {
+            size: 6,
+            color: "#333333"
+            // bold: true
+        };
+        return config;
+    }
+
     generateEdgeGroups(groupName) {
         if (groupName in this.edgeGroups) {
         } else {
-            this.edgeGroups[groupName] = this.generateNodeConfig(groupName);
+            this.edgeGroups[groupName] = this.generateEdgeConfig(groupName);
         }
     }
 

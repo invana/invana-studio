@@ -36,6 +36,10 @@ export default class ExplorerView extends RemoteEngine {
 
     getNetwork(network) {
         this.network = network;
+        let _this = this;
+        this.network.on("stabilizationIterationsDone", function () {
+            _this.network.setOptions({physics: false});
+        });
     }
 
     getEdges(edges) {
@@ -80,7 +84,14 @@ export default class ExplorerView extends RemoteEngine {
 
         const nodes = this.canvasUtils.prepareNodes(newNodes);
         const edges = this.canvasUtils.prepareEdges(newEdges);
-        this.network.setOptions({groups: {useDefaultGroups: false, ...this.canvasUtils.nodeGroups}});
+        this.network.setOptions({
+            groups: {
+                useDefaultGroups: false
+                , ...this.canvasUtils.nodeGroups,
+                ...this.canvasUtils.edgeGroups
+            }
+        });
+        console.log(" ...this.canvasUtils.edgeGroups",  this.canvasUtils.edgeGroups);
 
         this.setState({
             nodes: nodes,
