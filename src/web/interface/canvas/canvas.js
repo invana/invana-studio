@@ -4,23 +4,6 @@ import VisNetworkReactComponent from "vis-network-react";
 // import {DataSet, Network} from 'vis-network/standalone/esm/vis-network';
 // import RemoteEngine from "../../layout/remote";
 
-let defaultdata = {
-    nodes: [
-        {id: 1, label: "Node 1"},
-        {id: 2, label: "Node 2"},
-        {id: 3, label: "Node 3"},
-        {id: 4, label: "Node 4"},
-        {id: 5, label: "Node 5"}
-    ],
-    edges: [
-        {id: "1-3", from: 1, to: 3},
-        {id: "1-2", from: 1, to: 2},
-        {id: "2-4", from: 2, to: 4},
-        {id: "2-5", from: 2, to: 5},
-        {id: "3-5", from: 3, to: 3}
-    ]
-};
-
 let events = {
     click: function (params) {
         params.event = "[original event]";
@@ -101,7 +84,7 @@ let events = {
 
 let defaultOptions = {
     layout: {
-        // hierarchical: false
+        hierarchical: false
     },
     interaction: {
         hideEdgesOnDrag: true,
@@ -109,30 +92,42 @@ let defaultOptions = {
     },
     physics: {
         forceAtlas2Based: {
-            gravitationalConstant: -26,
-            centralGravity: 0.005,
-            springLength: 230,
-            springConstant: 0.18,
+            // gravitationalConstant: -100,
+            // centralGravity: 0.005,
+            // springLength: 220,
+            // springConstant: 0.18,
         },
-        maxVelocity: 146,
+        // maxVelocity: 146,
         solver: "forceAtlas2Based",
-        timestep: 0.35,
-        stabilization: {iterations: 600},
+        // timestep: 0.55,
+        stabilization: {
+            enabled: true,
+            iterations: 100    // YMMV
+        },
+        // barnesHut: {
+        //     gravitationalConstant: -23000,
+        //     centralGravity: 0,
+        //     springLength: 0,
+        //     springConstant: 0.5,
+        //     damping: 1,
+        //     avoidOverlap: 1
+        // }
     },
     edges: {
         color: "#999999",
-        // physics: false,
-
+        physics: false,
         label: true,
         smooth: {
+            // enabled: false,
             // dynamic, continuous, discrete, diagonalCross, straightCross,
             // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
-            // type: "continuous",
+            type: "continuous",
             // vertical or horizontal
             forceDirection: "vertical",
             roundness: 1
         },
         width: 0.5,
+        size: 4,
         arrows: {
             to: {
                 enabled: true,
@@ -141,9 +136,9 @@ let defaultOptions = {
         }
     },
     nodes: {
-        // shape: "circle",
+        // physics: false,
         shape: "dot",
-        size: 16,
+        size: 6,
         scaling: {
             min: 10,
             max: 30,
@@ -173,6 +168,8 @@ class ForceDirectedGraphCanvas extends React.Component {
                     options={defaultOptions}
                     events={events}
                     getNetwork={this.props.getNetwork}
+                    getNodes={this.props.getNodes}
+                    getEdges={this.props.getEdges}
                     // getNodes={getNodes}
                 />
             </div>

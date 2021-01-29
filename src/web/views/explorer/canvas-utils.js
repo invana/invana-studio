@@ -12,7 +12,7 @@ export default class VisJsGraphCanvasUtils {
     generateNodeConfig(groupName, nodeShape) {
         let config = {};
         if (nodeShape === undefined) {
-            nodeShape = "circle";
+            nodeShape = "circle"; // dot
         }
         const nodeColor = this.getElementColor(groupName);
         const borderColor = LightenDarkenColor(nodeColor, -35);
@@ -33,9 +33,8 @@ export default class VisJsGraphCanvasUtils {
                 background: highLightColor
             }
         };
-        config.physics = false;
-        config.shape = "dot";
-        config.size = 6;
+        // config.physics = false;
+        // config.size = 6;
         config.font = {
             size: 6,
             color: "#333333"

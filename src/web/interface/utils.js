@@ -5,7 +5,7 @@ import {LightenDarkenColor} from "../../core/utils";
 
 const ColorHash = require('color-hash');
 
-let colorHash = new ColorHash({hue: [{min: 120, max: 190}, {min: 120, max: 190}, {min: 120, max: 190}]});
+let colorHash = new ColorHash({hue: [{min: 20, max: 80}, {min: 20, max: 80}, {min:20, max: 80}]});
 
 export function getColorForString(label) {
     return colorHash.hex(label); // '#8796c5'

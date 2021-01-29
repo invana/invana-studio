@@ -38,6 +38,14 @@ export default class ExplorerView extends RemoteEngine {
         this.network = network;
     }
 
+    getEdges(edges) {
+        this.edges = edges;
+    }
+
+    getNodes(nodes) {
+        this.nodes = nodes;
+    }
+
     separateNodesAndEdges(data) {
         let nodes = [];
         let edges = [];
@@ -62,6 +70,7 @@ export default class ExplorerView extends RemoteEngine {
             const {nodes, edges} = this.separateNodesAndEdges(data);
             this.addNewData(nodes, edges);
         }
+
     }
 
     addNewData(newNodes, newEdges) {
@@ -79,6 +88,15 @@ export default class ExplorerView extends RemoteEngine {
             nodeGroups: this.canvasUtils.nodeGroups,
             // edgeGroups: this.canvasUtils.edgeGroups,
         })
+
+        // let _this = this;
+        // setTimeout(() => {
+        //     alert("added");
+        //     _this.network.redraw();
+        //     // _this.network.stabilize();
+        //
+        // }, 2000)
+
         console.log("this.this.network", this.network);
     }
 
