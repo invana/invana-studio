@@ -163,3 +163,9 @@ label.form-label {
   box-shadow: none;
   color: $defaultTextColor !important;
 }
+
+.list-group-flush > .list-group-item {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
