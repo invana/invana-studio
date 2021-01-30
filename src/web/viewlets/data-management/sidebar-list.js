@@ -1,19 +1,13 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faCircle,
-    faVectorSquare
-} from "@fortawesome/free-solid-svg-icons";
+import {faCircle, faVectorSquare} from "@fortawesome/free-solid-svg-icons";
 import "./sidebar-list.scss";
-import {getColorForString} from "../../interface/utils";
 import {STUDIO_SETTINGS} from "../../../settings";
 import PropTypes from "prop-types";
 import ListGroup from "react-bootstrap/ListGroup";
-import {Button, Nav} from "react-bootstrap";
 import VisJsGraphCanvasUtils from "../../views/explorer/canvas-utils";
 
 export default class SidebarListBase extends React.Component {
-
 
     static propTypes = {
         statsData: PropTypes.array,
@@ -36,11 +30,10 @@ export default class SidebarListBase extends React.Component {
             listIcon = faVectorSquare;
         }
         return (
-
             <ListGroup variant="flush">
                 {
                     this.props.statsData.length === 0
-                        ? <ListGroup.Item className={"text-muted"}>No vertices data found</ListGroup.Item>
+                        ? <ListGroup.Item className={"text-muted pt-0 pb-1"}>No vertices data found</ListGroup.Item>
                         : <React.Fragment/>
                 }
                 {

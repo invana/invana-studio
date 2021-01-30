@@ -21,6 +21,10 @@ import RemoteEngine from "../../layout/remote";
 import DataSidebarViewlet from "../../viewlets/data-management/data-sidebar";
 import VisJsGraphCanvasUtils from "./canvas-utils";
 import Button from "react-bootstrap/Button";
+import CanvasController from "../../interface/canvas/canvas-ctrl";
+import VisNetworkReactComponent from "vis-network-react";
+import defaultOptions from "../../interface/canvas/options";
+import events from "../../interface/canvas/events";
 
 export default class ExplorerView extends RemoteEngine {
 
@@ -32,9 +36,11 @@ export default class ExplorerView extends RemoteEngine {
             edges: [],
             nodeGroups: {},
             edgeGroups: {},
+            resetVisualizer: false
 
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
+        this.canvasCtrl = null;
         this.network = null;
     }
 
@@ -45,13 +51,30 @@ export default class ExplorerView extends RemoteEngine {
     //     this.makeQuery(queryPayload);
     // }
 
+    setResetVisualizer(){
+        this.setState({resetVisualizer: true});
+    }
+
+    flushDataState() {
+        this.setState({nodes: [], edges: []});
+        this.network.setData({nodes: [], edges: []});
+    }
+
     getNetwork(network) {
         this.network = network;
         let _this = this;
         this.network.on("stabilizationIterationsDone", function () {
             _this.network.setOptions({physics: false});
         });
+
+        this.canvasCtrl = new CanvasController(
+            this.network,
+            this.setStatusMessage.bind(this),
+            this.flushDataState.bind(this),
+            this.setResetVisualizer.bind(this)
+        );
     }
+
 
     getEdges(edges) {
         this.edges = edges;
@@ -89,38 +112,37 @@ export default class ExplorerView extends RemoteEngine {
 
     }
 
+
     addNewData(newNodes, newEdges) {
         // const id = data.nodes.length + 1;
         console.log("addNewData", newNodes);
 
+        const {newNodesToAdd, newEdgesToAdd} = this.canvasCtrl.getNewDataToAdd(
+            newNodes, newEdges
+        );
 
-        const nodes = this.canvasUtils.prepareNodes(newNodes);
-        const edges = this.canvasUtils.prepareEdges(newEdges);
+        const nodes = this.canvasUtils.prepareNodes(newNodesToAdd);
+        const edges = this.canvasUtils.prepareEdges(newEdgesToAdd);
         this.network.setOptions({
             groups: {
-                useDefaultGroups: false
-                , ...this.canvasUtils.nodeGroups,
+                useDefaultGroups: false,
+                ...this.canvasUtils.nodeGroups,
                 ...this.canvasUtils.edgeGroups
             }
         });
         console.log(" ...this.canvasUtils.edgeGroups", this.canvasUtils.edgeGroups);
-
-        this.setState({
-            nodes: nodes,
-            edges: edges,
-            nodeGroups: this.canvasUtils.nodeGroups,
-            // edgeGroups: this.canvasUtils.edgeGroups,
-        })
-
-        // let _this = this;
-        // setTimeout(() => {
-        //     alert("added");
-        //     _this.network.redraw();
-        //     // _this.network.stabilize();
-        //
-        // }, 2000)
+        // this.network.body.data.nodes.clear();
+        // this.network.body.data.edges.clear();
+        this.network.body.data.nodes.add(nodes);
+        this.network.body.data.edges.add(edges);
 
         console.log("this.this.network", this.network);
+
+        this.setState({
+            nodes: [...nodes, ...this.state.nodes],
+            edges: [...edges, ...this.state.edges]
+        })
+
     }
 
 
@@ -177,17 +199,23 @@ export default class ExplorerView extends RemoteEngine {
                                 </Button>
                             </Nav.Item>
                             <Nav.Item>
-                                <Button size={"sm"} variant={"link"}>
+                                <Button size={"sm"} variant={"link"}
+                                        onClick={() => this.canvasCtrl.confirmRedrawCanvas()}
+                                >
                                     <FontAwesomeIcon icon={faSync}/>
                                 </Button>
                             </Nav.Item>
                             <Nav.Item>
-                                <Button size={"sm"} variant={"link"}>
+                                <Button size={"sm"} variant={"link"}
+                                        onClick={() => this.canvasCtrl.downloadCanvasImage()}
+                                >
                                     <FontAwesomeIcon icon={faCamera}/>
                                 </Button>
                             </Nav.Item>
                             <Nav.Item>
-                                <Button size={"sm"} variant={"link"}>
+                                <Button size={"sm"} variant={"link"}
+                                        onClick={() => this.canvasCtrl.confirmFlushCanvas()}
+                                >
                                     <FontAwesomeIcon icon={faTrashAlt}/>
                                 </Button>
                             </Nav.Item>
@@ -211,11 +239,13 @@ export default class ExplorerView extends RemoteEngine {
                             // queryObject={this.state.queryObject}
                             nodes={this.state.nodes}
                             edges={this.state.edges}
+                            resetVisualizer={this.state.resetVisualizer}
                             // nodeGroups={this.state.nodeGroups}
                             // edgeGroups={this.state.edgeGroups}
                             getNetwork={this.getNetwork.bind(this)}
                             // makeQuery={this.makeQuery.bind(this)}
                         />
+
                     </CanvasComponent>
                     <MenuComponent className={"sm footer"}>
                         <Nav className="mr-auto">

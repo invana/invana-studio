@@ -23,8 +23,8 @@ export default class DataSidebarViewlet extends RemoteEngine {
         const lastResponse = response.getResponseResult();
         if (lastResponse) {
             this.setState({
-                verticesStats: response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey),
-                edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey),
+                verticesStats: response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey) || [],
+                edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey) || [],
             })
         }
     }
