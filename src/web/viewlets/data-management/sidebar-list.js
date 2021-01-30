@@ -43,7 +43,7 @@ export default class SidebarListBase extends React.Component {
                         return (
                             <ListGroup.Item
                                 action key={index}
-                                className={"pl-3 pt-0 pb-1"}
+                                className={"pl-3 pb-1 pt-1"}
                                 title={"Show connected edges and vertices"}
                                 variant={"link"}
                                 onClick={() => this.props.onItemClick(elementLabel.label, this.getLabelType())}

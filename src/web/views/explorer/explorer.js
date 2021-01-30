@@ -25,6 +25,8 @@ import CanvasController from "../../interface/canvas/canvas-ctrl";
 import VisNetworkReactComponent from "vis-network-react";
 import defaultOptions from "../../interface/canvas/options";
 import events from "../../interface/canvas/events";
+import NodeMenu from "../../interface/node-menu";
+import FocusedNodesList from "../../interface/focused-nodes-list";
 
 export default class ExplorerView extends RemoteEngine {
 
@@ -36,7 +38,9 @@ export default class ExplorerView extends RemoteEngine {
             edges: [],
             nodeGroups: {},
             edgeGroups: {},
-            resetVisualizer: false
+            resetVisualizer: false,
+            selectedElementData: null,
+            focusedNodes: []
 
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
@@ -44,14 +48,51 @@ export default class ExplorerView extends RemoteEngine {
         this.network = null;
     }
 
+
+    addNodeToFocusedNodes(node) {
+        console.log("addNodeToFocusedNodes", node);
+
+        let existingFocusedNodes = this.state.focusedNodes;
+
+        if (existingFocusedNodes.length > 0) {
+            existingFocusedNodes.forEach((focusedNode) => {
+                if (focusedNode.id !== node.id) {
+                    existingFocusedNodes.push(node);
+                }
+            });
+            console.log("======existingFocusedNodes", existingFocusedNodes)
+            this.setState({focusedNodes: existingFocusedNodes});
+        } else {
+            this.setState({focusedNodes: [node]});
+        }
+    }
+
+    getFocusedNodes() {
+        console.log("getFocusedNodes", this.state.focusedNodes);
+        return this.state.focusedNodes;
+    }
+
+
     // componentDidMount() {
     //     super.componentDidMount();
     //     const verticesFilterQuery = this.connector.requestBuilder.filterVertices("Drug", 10, 0);
     //     const queryPayload = this.connector.requestBuilder.combineQueries(verticesFilterQuery, null);
     //     this.makeQuery(queryPayload);
     // }
+    setSelectedElementData(selectedDataId, selectedElementType) {
+        console.log("=======-=-=-=this.network", this.network);
+        let selectedElementData = null;
+        if (selectedElementType === "g:Vertex") {
+            selectedElementData = this.network.body.data.nodes.get(selectedDataId)
+        } else if (selectedElementType === "g:Edge") {
+            selectedElementData = this.network.body.data.edges.get(selectedDataId)
+        } else {
 
-    setResetVisualizer(){
+        }
+        this.setState({selectedElementData: selectedElementData});
+    }
+
+    setResetVisualizer() {
         this.setState({resetVisualizer: true});
     }
 
@@ -60,7 +101,7 @@ export default class ExplorerView extends RemoteEngine {
         this.network.setData({nodes: [], edges: []});
     }
 
-    getNetwork(network) {
+    setNetwork(network) {
         this.network = network;
         let _this = this;
         this.network.on("stabilizationIterationsDone", function () {
@@ -75,6 +116,9 @@ export default class ExplorerView extends RemoteEngine {
         );
     }
 
+    getNetwork() {
+        return this.network;
+    }
 
     getEdges(edges) {
         this.edges = edges;
@@ -159,6 +203,25 @@ export default class ExplorerView extends RemoteEngine {
         // this.makeQuery()
     }
 
+
+    removeFocusedNode(nodeId) {
+        //
+
+        let focusedNodes = this.state.focusedNodes
+        let indexId = null
+        focusedNodes.forEach((focusedNode, index) => {
+            if (focusedNode.id === nodeId) {
+                indexId = index
+                return index;
+            }
+        });
+        focusedNodes.splice(indexId, 1);
+        console.log("===indexId", indexId);
+        console.log("focusedNodes removed", focusedNodes);
+        this.setState({focusedNodes: focusedNodes});
+
+    }
+
     render() {
         console.log("this.props", this.props.location);
         return (<DefaultLayout {...this.props}>
@@ -235,6 +298,32 @@ export default class ExplorerView extends RemoteEngine {
                         </Nav>
                     </MenuComponent>
                     <CanvasComponent>
+
+                        {
+                            this.state.focusedNodes.length > 0
+                                ? <FocusedNodesList
+                                    canvasUtils={this.canvasUtils}
+                                    focusedNodes={this.state.focusedNodes}
+                                    removeFocusedNode={this.removeFocusedNode.bind(this)}/>
+                                : <React.Fragment/>
+                        }
+                        {
+                            this.state.selectedElementData
+                                ? <NodeMenu
+                                    selectedElementData={this.state.selectedElementData}
+                                    setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                    getFocusedNodes={this.getFocusedNodes.bind(this)}
+                                    addNodeToFocusedNodes={this.addNodeToFocusedNodes.bind(this)}
+
+                                    connector={this.connector}
+                                    makeQuery={this.makeQuery.bind(this)}
+
+                                    setQueryObject={this.setQueryObject.bind(this)}
+                                    canvasUtils={this.canvasUtils}
+                                />
+                                : <React.Fragment/>
+                        }
+
                         <ForceDirectedGraphCanvas
                             // queryObject={this.state.queryObject}
                             nodes={this.state.nodes}
@@ -242,7 +331,9 @@ export default class ExplorerView extends RemoteEngine {
                             resetVisualizer={this.state.resetVisualizer}
                             // nodeGroups={this.state.nodeGroups}
                             // edgeGroups={this.state.edgeGroups}
-                            getNetwork={this.getNetwork.bind(this)}
+                            setNetwork={this.setNetwork.bind(this)}
+                            // getNetwork={this.getNetwork.bind(this)}
+                            setSelectedElementData={this.setSelectedElementData.bind(this)}
                             // makeQuery={this.makeQuery.bind(this)}
                         />
 

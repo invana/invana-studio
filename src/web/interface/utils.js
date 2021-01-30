@@ -1,11 +1,10 @@
-
 import {array} from "prop-types";
 import {GRAPH_CANVAS_SETTINGS} from "../../settings";
 import {LightenDarkenColor} from "../../core/utils";
 
 const ColorHash = require('color-hash');
 
-let colorHash = new ColorHash({hue: [{min: 20, max: 80}, {min: 20, max: 80}, {min:20, max: 80}]});
+let colorHash = new ColorHash({hue: [{min: 20, max: 80}, {min: 20, max: 80}, {min: 20, max: 80}]});
 
 export function getColorForString(label) {
     return colorHash.hex(label); // '#8796c5'
@@ -15,6 +14,42 @@ export const colorToNumber = (c) => {
     return parseInt(c.slice(1), 16)
 }
 
+function padZero(str, len) {
+    len = len || 2;
+    let zeros = new Array(len).join('0');
+    return (zeros + str).slice(-len);
+}
+
+export function invertColor(hex, bw) {
+    /*
+    https://stackoverflow.com/a/35970186/3448851
+     */
+    if (hex.indexOf('#') === 0) {
+        hex = hex.slice(1);
+    }
+    // convert 3-digit hex to 6-digits.
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    if (hex.length !== 6) {
+        throw new Error('Invalid HEX color.');
+    }
+    var r = parseInt(hex.slice(0, 2), 16),
+        g = parseInt(hex.slice(2, 4), 16),
+        b = parseInt(hex.slice(4, 6), 16);
+    if (bw) {
+        // http://stackoverflow.com/a/3943023/112731
+        return (r * 0.299 + g * 0.587 + b * 0.114) > 186
+            ? '#000000'
+            : '#FFFFFF';
+    }
+    // invert color components
+    r = (255 - r).toString(16);
+    g = (255 - g).toString(16);
+    b = (255 - b).toString(16);
+    // pad each with zeros and return
+    return "#" + padZero(r) + padZero(g) + padZero(b);
+}
 
 export function renderPropertyData(key, value) {
     console.log("renderPropertyData", key, typeof value, typeof value === "object", value instanceof Boolean, value,);
@@ -24,7 +59,7 @@ export function renderPropertyData(key, value) {
         return "None";
     } else if (typeof value === array) {
         return value;
-    } else if (typeof value === "object" && value['@value'] &&  value['@value'].coordinates) {
+    } else if (typeof value === "object" && value['@value'] && value['@value'].coordinates) {
         // geo coordinates
         return "(" + value['@value'].coordinates[0] + "," + value['@value'].coordinates[1] + ")";
     }
