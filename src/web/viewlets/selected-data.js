@@ -1,5 +1,5 @@
 import React from "react";
-// import "./selected-data.scss";
+import "./selected-data.scss";
 import PropTypes from "prop-types";
 import {renderPropertyData} from "../interface/utils";
 // import NodeMenu from "../canvas/graph/node-menu";
@@ -19,27 +19,18 @@ export default class SelectedData extends React.Component {
         getFocusedNodes: PropTypes.func,
         setFocusedNodes: PropTypes.func,
 
+        getNetwork: PropTypes.func,
+        canvasUtils: PropTypes.object
     }
 
     getCleanedData() {
         // removes position attributes etc.
         let data = Object.assign({}, this.props.selectedData);
-
-        if (data.type) {
-            let properties = data.properties;
-            let cleanedData = {};
-            cleanedData.label = data.label;
-            cleanedData.type = data.type.replace("g:", "");
-            cleanedData.id = data.id;
-            cleanedData.properties = properties;
-            cleanedData.target = data.target;
-            cleanedData.source = data.source;
-            return cleanedData;
-        } else {
-            return {"properties": {}};
-        }
+        const network = this.props.getNetwork();
+        data.inVElement = network.body.data.nodes.get(data.inV);
+        data.outVElement = network.body.data.nodes.get(data.outV);
+        return data;
     }
-
 
     render() {
         let cleanedData = this.getCleanedData();
@@ -55,79 +46,42 @@ export default class SelectedData extends React.Component {
         if (!selectedDataColorSchema) {
             selectedDataColorSchema = {bgColor: "#7d8296"};
         }
-
-        console.log("cleanedData", cleanedData)
-
-
         return (
             <div>
 
-
-                {/*<NodeMenu*/}
-                {/*    getFocusedNodes={this.props.getFocusedNodes}*/}
-                {/*    setFocusedNodes={this.props.setFocusedNodes}*/}
-                {/*    connector={this.props.connector}*/}
-                {/*    selectedElementData={this.props.selectedElementData}*/}
-                {/*    makeQuery={this.props.makeQuery}*/}
-                {/*    graphicsEngine={this.graphicsEngine}*/}
-                {/*    setDefaultQuery={this.props.setDefaultQuery}*/}
-                {/*    setRightContentName={this.props.setRightContentName}*/}
-                {/*/>*/}
-                {/*<div className={"SelectedDataHeading"}>*/}
-                {/*    <span className={"itemLabel"} style={{*/}
-                {/*        "backgroundColor":*/}
-                {/*        selectedDataColorSchema.bgColor*/}
-                {/*    }}>*/}
-                {/*        {cleanedData.label}*/}
-                {/*    </span>*/}
-                {/*    {cleanedData.properties.name || cleanedData.id}*/}
-
-                {/*</div>*/}
-                <div className="SelectedDataList mainDetails">
-
-
-                    {/*<div className={'singleProperty dark'} key={cleanedData.id}>*/}
-                    {/*    <div className={"propertyData"}>*/}
-                    {/*        <strong className={"propertyKey"}>id:</strong> {cleanedData.id}*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    {/*<div className={'singleProperty dark'} key={cleanedData.type}>*/}
-                    {/*    <div className={"propertyData"}>*/}
-                    {/*        <strong className={"propertyKey"}>type:</strong> {cleanedData.type}*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    {/*<div className={'singleProperty dark'} key={cleanedData.label}>*/}
-                    {/*    <div className={"propertyData"}>*/}
-                    {/*        <strong className={"propertyKey"}>label:</strong> {cleanedData.label}*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    {
-                        cleanedData.source
-                            ? <div className={'singleProperty dark'} key={cleanedData.source.id}>
-                                <div className={"propertyData"}>
-                                    <strong className={"propertyKey"}>source:</strong>
-                                    <span style={{"color": cleanedData.source.meta.shapeOptions.fillColorHex}}>
-                                          &nbsp;{cleanedData.source.meta.labelOptions.labelText}
+                {
+                    cleanedData.outV && cleanedData.inV
+                        ? <div className="SelectedDataList mainDetails">
+                            {
+                                cleanedData.outV
+                                    ? <div className={'singleProperty dark'} key={cleanedData.outV}>
+                                        <div className={"propertyData"}>
+                                            <strong className={"propertyKey"}>source:</strong>
+                                            <span
+                                                style={{"color": this.props.canvasUtils.getElementColor(cleanedData.outVLabel)}}>
+                                          &nbsp;{cleanedData.outV}
                                     </span>
-                                </div>
-                            </div>
-                            : <span></span>
-                    }
-
-                    {
-                        cleanedData.target
-                            ? <div className={'singleProperty dark'} key={cleanedData.target.id}>
-                                <div className={"propertyData"}>
-                                    <strong className={"propertyKey"}>target:</strong>
-                                    <span style={{"color": cleanedData.target.meta.shapeOptions.fillColorHex}}>
-                                         &nbsp;{cleanedData.target.meta.labelOptions.labelText}
+                                        </div>
+                                    </div>
+                                    : <span></span>
+                            }
+                            {
+                                cleanedData.inV
+                                    ? <div className={'singleProperty dark'} key={cleanedData.inV}>
+                                        <div className={"propertyData"}>
+                                            <strong className={"propertyKey"}>target:</strong>
+                                            <span
+                                                style={{"color": this.props.canvasUtils.getElementColor(cleanedData.inVLabel)}}>
+                                         &nbsp;{cleanedData.inV}
                                     </span>
-                                </div>
-                            </div>
-                            : <span></span>
-                    }
+                                        </div>
+                                    </div>
+                                    : <span></span>
+                            }
+                        </div>
+                        : <React.Fragment/>
+                }
 
-                </div>
                 <div className="SelectedDataList">
                     <div className={'singleProperty darkest'} key={"properties-list"}>
                         <div className={"propertyData"}>
@@ -157,9 +111,7 @@ export default class SelectedData extends React.Component {
                         })
                     }
                 </div>
-
             </div>
         )
     }
-
 }

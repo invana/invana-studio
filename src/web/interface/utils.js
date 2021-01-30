@@ -52,7 +52,7 @@ export function invertColor(hex, bw) {
 }
 
 export function renderPropertyData(key, value) {
-    console.log("renderPropertyData", key, typeof value, typeof value === "object", value instanceof Boolean, value,);
+    // console.log("renderPropertyData", key, typeof value, typeof value === "object", value instanceof Boolean, value,);
     if (typeof value === "boolean") {
         return value.toString();
     } else if (value === null) {

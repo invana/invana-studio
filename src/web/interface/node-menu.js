@@ -33,46 +33,41 @@ export default class NodeMenu extends React.Component {
         graphicsEngine: PropTypes.object,
         setQueryObject: PropTypes.func,
         setRightContentName: PropTypes.func,
-        selectedElementData: PropTypes.object
+        selectedElementData: PropTypes.object,
+
+
+        menuPositionX: PropTypes.number,
+        menuPositionY: PropTypes.number,
+
+        getNetwork: PropTypes.func,
+        canvasUtils: PropTypes.object
+        // setNodeMenuPosition: PropTypes.func
 
     }
 
-    componentDidMount() {
-        if (this.props.graphicsEngine) {
-            this.onClickFocus();
-        }
-    }
+    // componentDidMount() {
+    //     if (this.props.graphicsEngine) {
+    //         this.onClickFocus();
+    //     }
+    // }
 
     getLastSelectedNodeData() {
-        // return this.props.graphicsEngine
-        //     ? this.props.graphicsEngine.eventStore.lastSelectedNodeData
-        //     : null;
-        //
         return this.props.selectedElementData
-        // return this.props.selectedElementData;
     }
 
 
     focusAndCenterNode(nodeData) {
         if (nodeData) {
-            // this.props.graphicsEngine.dataStore.addNode2Focus(nodeData);
-            // this.props.graphicsEngine.zoom2Point(nodeData.x, nodeData.y);
-            // const focusedNodes = this.props.graphicsEngine.dataStore.getUniqueFocusedNodes();
             this.props.addNodeToFocusedNodes(nodeData);
-            // this.props.graphicsEngine.graphicsStore.focusOnElements(focusedNodes);
-            // this.setState({focusedNodes: this.props.graphicsEngine.dataStore.getUniqueFocusedNodes()});
             this.hideMenu();
         }
-
     }
 
     onClickFocus() {
         const lastSelectedNodeData = this.getLastSelectedNodeData();
-        console.log("onClickFocus========", lastSelectedNodeData)
         if (lastSelectedNodeData) {
             this.focusAndCenterNode(lastSelectedNodeData)
         }
-
     }
 
     onClickShowInV() {
@@ -81,7 +76,8 @@ export default class NodeMenu extends React.Component {
         if (lastSelectedNodeData) {
             this.focusAndCenterNode(lastSelectedNodeData)
             const queryString = this.props.connector.requestBuilder.getInEdgeVertices(lastSelectedNodeData.id);
-            this.props.makeQuery(queryString);
+            const queryPayload = this.props.connector.requestBuilder.combineQueries(queryString, null)
+            this.props.makeQuery(queryPayload);
         }
     }
 
@@ -91,7 +87,8 @@ export default class NodeMenu extends React.Component {
         if (lastSelectedNodeData) {
             this.focusAndCenterNode(lastSelectedNodeData)
             const queryString = this.props.connector.requestBuilder.getOutEdgeVertices(lastSelectedNodeData.id);
-            this.props.makeQuery(queryString);
+            const queryPayload = this.props.connector.requestBuilder.combineQueries(queryString, null)
+            this.props.makeQuery(queryPayload);
         }
     }
 
@@ -102,21 +99,19 @@ export default class NodeMenu extends React.Component {
 
     }
 
-    cleanGraph() {
-        console.log("this.forceSimulator", this.forceSimulator);
-        this.forceSimulator.forceSimulator.alphaTarget(0.8).restart();
-    }
-
-    resetFocus() {
-        this.props.graphicsEngine.dataStore.removeAllNodes2Focus();
-        this.props.graphicsEngine.graphicsStore.resetFocus();
-        this.props.graphicsEngine.resetViewport();
-    }
+    // cleanGraph() {
+    //     console.log("this.forceSimulator", this.forceSimulator);
+    //     this.forceSimulator.forceSimulator.alphaTarget(0.8).restart();
+    // }
+    //
+    // resetFocus() {
+    //     this.props.graphicsEngine.dataStore.removeAllNodes2Focus();
+    //     this.props.graphicsEngine.graphicsStore.resetFocus();
+    //     this.props.graphicsEngine.resetViewport();
+    // }
 
     getVerboseIdentifier() {
-        // const elementData = this.props.selectedElementData;
         const lastSelectedNodeData = this.getLastSelectedNodeData();
-        console.log("=====lastSelectedNodeData", lastSelectedNodeData)
         if (lastSelectedNodeData) {
             const color = this.getElementColor();
             const elem = document.querySelector('.nodeMenuContainer h5');
@@ -129,22 +124,9 @@ export default class NodeMenu extends React.Component {
 
     getIdentifier() {
         const lastSelectedNodeData = this.getLastSelectedNodeData();
-        console.log("=====lastSelectedNodeData", lastSelectedNodeData)
         if (lastSelectedNodeData) {
             return lastSelectedNodeData.id;
         }
-    }
-
-    checkIfAlreadyFocused() {
-        const lastSelectedNodeData = this.getLastSelectedNodeData();
-        if (lastSelectedNodeData) {
-            this.props.getFocusedNodes().forEach((focusedNode) => {
-                if (focusedNode.id === lastSelectedNodeData.id) {
-                    return true;
-                }
-            });
-        }
-
     }
 
     startNewQuery() {
@@ -162,49 +144,29 @@ export default class NodeMenu extends React.Component {
     }
 
     getElementColor() {
-
         const elementData = this.getLastSelectedNodeData();
-        console.log("getColor", elementData)
-        // if (elementData.type === "g:Vertex") {
-        //     return elementData.meta.shapeOptions.fillColorHex;
-        // } else {
-        //     return elementData.meta.shapeOptions.strokeColorHex;
-        // }
-
         return this.props.canvasUtils.getElementColor(elementData.group);
     }
 
     render() {
-        console.log("this.getLastSelectedNodeData()", this.getLastSelectedNodeData())
+        // console.log("this.getLastSelectedNodeData()", this.getLastSelectedNodeData())
         const selectedElement = this.getLastSelectedNodeData();
+        // console.log("=====selectedElement",selectedElement);
         return (
-            <div className="nodeMenuContainer">
+            <div className="nodeMenuContainer"
+                 style={{"left": this.props.menuPositionX, "top": this.props.menuPositionY}}>
                 {selectedElement
                     ? <p style={{"color": this.getElementColor()}}>
                         {selectedElement.type.replace("g:", "")} / {selectedElement.label}</p>
                     : <React.Fragment/>
                 }
                 {selectedElement
-                    ? <h5 className={"mb-0 font-weight-bold"} style={{"color": this.getElementColor()}}>{this.getVerboseIdentifier()}</h5>
+                    ? <h5 className={"mb-0 font-weight-bold"}
+                          style={{"color": this.getElementColor()}}>{this.getVerboseIdentifier()}</h5>
                     : <React.Fragment/>
                 }
                 <p className={"mb-0"}>ID: {this.getIdentifier()}</p>
                 <ul className={"nodeMenu"}>
-
-                    {/*{*/}
-                    {/*    this.checkIfAlreadyFocused() ?*/}
-                    {/*        (*/}
-                    {/*            <li onClick={() => this.resetFocus()}>*/}
-                    {/*                <span>Reset focus</span>*/}
-                    {/*            </li>*/}
-                    {/*        ) :*/}
-                    {/*        (*/}
-                    {/*            <li onClick={() => this.onClickFocus()}>*/}
-                    {/*                <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>*/}
-                    {/*            </li>*/}
-                    {/*        )*/}
-                    {/*}*/}
-
                     {selectedElement && selectedElement.type === "g:Vertex"
                         ? <li onClick={() => this.onClickFocus()}>
                             <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>
@@ -221,20 +183,18 @@ export default class NodeMenu extends React.Component {
                             <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>OutV</span>
                         </li> : <span></span>
                     }
-
-
                     <li onClick={() => this.startNewQuery()}>
                         <FontAwesomeIcon icon={faTerminal}/> <span>Query</span>
                     </li>
-                    {/*<li onClick={() => this.cleanGraph()}>*/}
-                    {/*    <FontAwesomeIcon icon={faSync}/> Clean Graph*/}
-                    {/*</li>*/}
                     <li onClick={() => this.hideMenu()}>
                         <FontAwesomeIcon icon={faMinusCircle}/>
                     </li>
                 </ul>
-                <SelectedData selectedData={this.props.selectedElementData}/>
-
+                <SelectedData
+                    selectedData={this.props.selectedElementData}
+                    canvasUtils={this.props.canvasUtils}
+                    getNetwork={this.props.getNetwork}
+                />
             </div>
 
         )

@@ -9,6 +9,7 @@ const defaultOptions = {
     interaction: {
         hideEdgesOnDrag: true,
         tooltipDelay: 200,
+        hover: true
     },
     physics: {
         forceAtlas2Based: {

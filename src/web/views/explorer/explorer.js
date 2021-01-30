@@ -40,7 +40,10 @@ export default class ExplorerView extends RemoteEngine {
             edgeGroups: {},
             resetVisualizer: false,
             selectedElementData: null,
-            focusedNodes: []
+            focusedNodes: [],
+
+            menuPositionX: null,
+            menuPositionY: null
 
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
@@ -60,7 +63,6 @@ export default class ExplorerView extends RemoteEngine {
                     existingFocusedNodes.push(node);
                 }
             });
-            console.log("======existingFocusedNodes", existingFocusedNodes)
             this.setState({focusedNodes: existingFocusedNodes});
         } else {
             this.setState({focusedNodes: [node]});
@@ -68,19 +70,13 @@ export default class ExplorerView extends RemoteEngine {
     }
 
     getFocusedNodes() {
-        console.log("getFocusedNodes", this.state.focusedNodes);
+        // console.log("getFocusedNodes", this.state.focusedNodes);
         return this.state.focusedNodes;
     }
 
 
-    // componentDidMount() {
-    //     super.componentDidMount();
-    //     const verticesFilterQuery = this.connector.requestBuilder.filterVertices("Drug", 10, 0);
-    //     const queryPayload = this.connector.requestBuilder.combineQueries(verticesFilterQuery, null);
-    //     this.makeQuery(queryPayload);
-    // }
     setSelectedElementData(selectedDataId, selectedElementType) {
-        console.log("=======-=-=-=this.network", this.network);
+        // console.log("=======-=-=-=this.network", this.network, selectedElementType);
         let selectedElementData = null;
         if (selectedElementType === "g:Vertex") {
             selectedElementData = this.network.body.data.nodes.get(selectedDataId)
@@ -222,8 +218,14 @@ export default class ExplorerView extends RemoteEngine {
 
     }
 
+    setNodeMenuPosition(x, y) {
+        this.setState({
+            menuPositionX: x,
+            menuPositionY: y
+        })
+    }
+
     render() {
-        console.log("this.props", this.props.location);
         return (<DefaultLayout {...this.props}>
             <Row>
                 <Sidebar>
@@ -310,6 +312,10 @@ export default class ExplorerView extends RemoteEngine {
                         {
                             this.state.selectedElementData
                                 ? <NodeMenu
+                                    menuPositionX={this.state.menuPositionX}
+                                    menuPositionY={this.state.menuPositionY}
+                                    // setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
+
                                     selectedElementData={this.state.selectedElementData}
                                     setSelectedElementData={this.setSelectedElementData.bind(this)}
                                     getFocusedNodes={this.getFocusedNodes.bind(this)}
@@ -317,6 +323,8 @@ export default class ExplorerView extends RemoteEngine {
 
                                     connector={this.connector}
                                     makeQuery={this.makeQuery.bind(this)}
+
+                                    getNetwork={this.getNetwork.bind(this)}
 
                                     setQueryObject={this.setQueryObject.bind(this)}
                                     canvasUtils={this.canvasUtils}
@@ -329,12 +337,9 @@ export default class ExplorerView extends RemoteEngine {
                             nodes={this.state.nodes}
                             edges={this.state.edges}
                             resetVisualizer={this.state.resetVisualizer}
-                            // nodeGroups={this.state.nodeGroups}
-                            // edgeGroups={this.state.edgeGroups}
                             setNetwork={this.setNetwork.bind(this)}
-                            // getNetwork={this.getNetwork.bind(this)}
                             setSelectedElementData={this.setSelectedElementData.bind(this)}
-                            // makeQuery={this.makeQuery.bind(this)}
+                            setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
                         />
 
                     </CanvasComponent>

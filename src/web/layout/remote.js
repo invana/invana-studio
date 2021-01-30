@@ -159,8 +159,7 @@ export default class ExampleView extends RemoteEngine {
     }
 
     eventTranslator(eventName, eventValue) {
-        console.log("===eventName", eventName, eventValue);
-
+        // console.log("===eventName", eventName, eventValue);
         if (eventName === "statusMessage") {
             this.setStatusMessage(eventValue);
         } else if (eventName === "statusCode") {

@@ -24,12 +24,18 @@ class ForceDirectedGraphCanvas extends React.Component {
             click: function (params) {
                 params.event = "[original event]";
                 console.log(
-                    "click event, getNodeAt returns: " + this.getNodeAt(params.pointer.DOM)
+                    "click event, getNodeAt returns: ", params, this.getNodeAt(params.pointer.DOM)
                 );
+                if (params.edges.length === 0 && params.nodes.length === 0) {
+                    _this.props.setSelectedElementData(null);
+                }
             },
             doubleClick: function (params) {
                 console.log("doubleClick Event:", params);
                 params.event = "[original event]";
+                if (params.edges.length === 0 && params.nodes.length === 0) {
+                    _this.props.setSelectedElementData(null);
+                }
             },
             oncontext: function (params) {
                 console.log("oncontext Event:", params);
@@ -44,6 +50,9 @@ class ForceDirectedGraphCanvas extends React.Component {
                     "dragStart event, getNodeAt returns: " +
                     this.getNodeAt(params.pointer.DOM)
                 );
+                _this.props.setNodeMenuPosition(null, null);
+                _this.props.setSelectedElementData(null);
+
             },
             dragging: function (params) {
                 params.event = "[original event]";
@@ -76,10 +85,10 @@ class ForceDirectedGraphCanvas extends React.Component {
                 console.log("selectNode Event:", params);
                 // const selectedNode = this.props.getNetwork().get(params.nodes[0])
                 // console.log("selectedNode", selectedNode)
-                _this.props.setSelectedElementData(params.nodes[0], "g:Vertex");
             },
             selectEdge: function (params) {
                 console.log("selectEdge Event:", params);
+
             },
             deselectNode: function (params) {
                 console.log("deselectNode Event:", params);
@@ -89,9 +98,17 @@ class ForceDirectedGraphCanvas extends React.Component {
             },
             hoverNode: function (params) {
                 console.log("hoverNode Event:", params);
+                if (params.event) {
+                    _this.props.setSelectedElementData(params.node, "g:Vertex");
+                    _this.props.setNodeMenuPosition(params.event.pageX, params.event.pageY);
+                }
             },
             hoverEdge: function (params) {
                 console.log("hoverEdge Event:", params);
+                if (params.event) {
+                    _this.props.setSelectedElementData(params.edge, "g:Edge");
+                    _this.props.setNodeMenuPosition(params.event.pageX, params.event.pageY);
+                }
             },
             blurNode: function (params) {
                 console.log("blurNode Event:", params);
