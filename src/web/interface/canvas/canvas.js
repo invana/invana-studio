@@ -23,15 +23,15 @@ class ForceDirectedGraphCanvas extends React.Component {
         return {
             click: function (params) {
                 params.event = "[original event]";
-                console.log(
-                    "click event, getNodeAt returns: ", params, this.getNodeAt(params.pointer.DOM)
-                );
+                // console.log(
+                //     "click event, getNodeAt returns: ", params, this.getNodeAt(params.pointer.DOM)
+                // );
                 if (params.edges.length === 0 && params.nodes.length === 0) {
                     _this.props.setSelectedElementData(null);
                 }
             },
             doubleClick: function (params) {
-                console.log("doubleClick Event:", params);
+                // console.log("doubleClick Event:", params);
                 params.event = "[original event]";
                 if (params.edges.length === 0 && params.nodes.length === 0) {
                     _this.props.setSelectedElementData(null);
@@ -76,45 +76,45 @@ class ForceDirectedGraphCanvas extends React.Component {
             showPopup: function (params) {
             },
             hidePopup: function () {
-                console.log("hidePopup Event");
+                // console.log("hidePopup Event");
             },
             select: function (params) {
-                console.log("select Event:", params);
+                // console.log("select Event:", params);
             },
             selectNode: function (params) {
-                console.log("selectNode Event:", params);
+                // console.log("selectNode Event:", params);
                 // const selectedNode = this.props.getNetwork().get(params.nodes[0])
                 // console.log("selectedNode", selectedNode)
             },
             selectEdge: function (params) {
-                console.log("selectEdge Event:", params);
+                // console.log("selectEdge Event:", params);
 
             },
             deselectNode: function (params) {
-                console.log("deselectNode Event:", params);
+                // console.log("deselectNode Event:", params);
             },
             deselectEdge: function (params) {
-                console.log("deselectEdge Event:", params);
+                // console.log("deselectEdge Event:", params);
             },
             hoverNode: function (params) {
-                console.log("hoverNode Event:", params);
+                // console.log("hoverNode Event:", params);
                 if (params.event) {
                     _this.props.setSelectedElementData(params.node, "g:Vertex");
                     _this.props.setNodeMenuPosition(params.event.pageX, params.event.pageY);
                 }
             },
             hoverEdge: function (params) {
-                console.log("hoverEdge Event:", params);
+                // console.log("hoverEdge Event:", params);
                 if (params.event) {
                     _this.props.setSelectedElementData(params.edge, "g:Edge");
                     _this.props.setNodeMenuPosition(params.event.pageX, params.event.pageY);
                 }
             },
             blurNode: function (params) {
-                console.log("blurNode Event:", params);
+                // console.log("blurNode Event:", params);
             },
             blurEdge: function (params) {
-                console.log("blurEdge Event:", params);
+                // console.log("blurEdge Event:", params);
             }
         }
     }

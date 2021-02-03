@@ -9,12 +9,12 @@ export default class CanvasController {
         network,
         setStatusMessage,
         flushDataState,
-        setResetVisualizer
+        reRenderVisualizer
     ) {
         this.network = network;
         this.setStatusMessage = setStatusMessage;
         this.flushDataState = flushDataState;
-        this.setResetVisualizer = setResetVisualizer;
+        this.reRenderVisualizer = reRenderVisualizer;
     }
 
 
@@ -29,7 +29,7 @@ export default class CanvasController {
     confirmRedrawCanvas() {
         let r = window.confirm("Are you sure you want to re-draw the canvas");
         if (r === true) {
-            this.setResetVisualizer();
+            this.reRenderVisualizer();
             this.setStatusMessage("Re-Drawing canvas successful.");
         }
     }

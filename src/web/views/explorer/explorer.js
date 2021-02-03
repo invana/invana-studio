@@ -22,19 +22,18 @@ import DataSidebarViewlet from "../../viewlets/data-management/data-sidebar";
 import VisJsGraphCanvasUtils from "./canvas-utils";
 import Button from "react-bootstrap/Button";
 import CanvasController from "../../interface/canvas/canvas-ctrl";
-import VisNetworkReactComponent from "vis-network-react";
-import defaultOptions from "../../interface/canvas/options";
-import events from "../../interface/canvas/events";
 import NodeMenu from "../../interface/node-menu";
 import FocusedNodesList from "../../interface/focused-nodes-list";
 import LeftContainer from "../../viewlets/left-container";
 import QueryConsole from "../../viewlets/query-console";
+import ElementOptions from "../../viewlets/element-options";
 
 export default class ExplorerView extends RemoteEngine {
 
     constructor(props) {
         super(props);
         this.state = {
+            ...this.state,
             statusCode: null,
             nodes: [],
             edges: [],
@@ -47,7 +46,7 @@ export default class ExplorerView extends RemoteEngine {
             menuPositionX: null,
             menuPositionY: null,
 
-            leftContentName: "query-console",
+            leftContentName: null,
 
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
@@ -98,12 +97,25 @@ export default class ExplorerView extends RemoteEngine {
         this.setState({selectedElementData: selectedElementData});
     }
 
-    setResetVisualizer() {
-        this.setState({resetVisualizer: true});
+
+    reRenderVisualizer() {
+
+        const nodes = this.state.nodes;
+        const edges = this.state.edges;
+
+        const nodesPrepared = this.canvasUtils.prepareNodes(nodes);
+        const edgesPrepared = this.canvasUtils.prepareEdges(edges);
+        console.log("reRenderVisualizer")
+        this.network.body.data.nodes.clear();
+        this.network.body.data.edges.clear();
+        this.network.body.data.nodes.add(nodes);
+        this.network.body.data.edges.add(edges);
+
+        this.setState({resetVisualizer: true, nodes: nodesPrepared, edges: edgesPrepared});
     }
 
     flushDataState() {
-        this.setState({nodes: [], edges: []});
+        this.setState({nodes: [], edges: [], selectedElementData: null});
         this.network.setData({nodes: [], edges: []});
     }
 
@@ -118,7 +130,7 @@ export default class ExplorerView extends RemoteEngine {
             this.network,
             this.setStatusMessage.bind(this),
             this.flushDataState.bind(this),
-            this.setResetVisualizer.bind(this)
+            this.reRenderVisualizer.bind(this)
         );
     }
 
@@ -191,7 +203,7 @@ export default class ExplorerView extends RemoteEngine {
         this.setState({
             nodes: [...nodes, ...this.state.nodes],
             edges: [...edges, ...this.state.edges]
-        })
+        });
 
     }
 
@@ -326,6 +338,8 @@ export default class ExplorerView extends RemoteEngine {
                                 ? <NodeMenu
                                     menuPositionX={this.state.menuPositionX}
                                     menuPositionY={this.state.menuPositionY}
+
+                                    setLeftContentName={this.setLeftContentName.bind(this)}
                                     // setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
 
                                     selectedElementData={this.state.selectedElementData}
@@ -391,6 +405,28 @@ export default class ExplorerView extends RemoteEngine {
                         }}
                     />
                     : <React.Fragment/>
+            }
+
+            {
+                this.state.leftContentName === "element-options" && this.state.selectedElementData
+                    ? <LeftContainer>
+                        <ElementOptions
+                            selectedElementData={this.state.selectedElementData}
+                            setLeftContentName={this.setLeftContentName.bind(this)}
+                            // selectedLabelType={this.state.selectedLabelType}
+                            setStatusMessage={this.setStatusMessage.bind(this)}
+                            setErrorMessage={this.setErrorMessage.bind(this)}
+                            // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                            onClose={() => {
+                                _this.setLeftContentName(null)
+                            }}
+                            reRenderVisualizer={this.reRenderVisualizer.bind(this)}
+                            // reRenderCanvas={this.reRenderCanvas.bind(this)}
+                            // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
+                        />
+                    </LeftContainer>
+
+                    : <React.Fragment></React.Fragment>
             }
         </DefaultLayout>)
     }

@@ -22,7 +22,10 @@ export default class NodeMenu extends React.Component {
         graphicsEngine: null,
         setQueryObject: (query) => console.log("setQueryObject", query),
         setRightContentName: (name) => console.log("setRightContentName not set", name),
-        setSelectedElementData: (elementId) => console.log("setSelectedElementData not set", elementId)
+        setSelectedElementData: (elementId) => console.log("setSelectedElementData not set", elementId),
+
+
+
 
     }
     static propTypes = {
@@ -43,7 +46,8 @@ export default class NodeMenu extends React.Component {
         canvasUtils: PropTypes.object,
 
         startNewQueryInConsole: PropTypes.func,
-        // setNodeMenuPosition: PropTypes.func
+        // setNodeMenuPosition: PropTypes.func,
+        setLeftContentName: PropTypes.func
 
     }
 
@@ -98,6 +102,13 @@ export default class NodeMenu extends React.Component {
         // this.props.graphicsEngine.eventStore.hideMenu();
         // document.querySelector(".nodeMenuContainer").style.display = "none";
         this.props.setSelectedElementData(null);
+
+    }
+
+    openElementSettings() {
+        // this.props.graphicsEngine.eventStore.hideMenu();
+        // document.querySelector(".nodeMenuContainer").style.display = "none";
+        this.props.setLeftContentName("element-options");
 
     }
 
@@ -163,17 +174,19 @@ export default class NodeMenu extends React.Component {
 
                 {/*<Button size={"sm"}><FontAwesomeIcon icon={faCog}/></Button>*/}
                 {/*<Button size={"sm"}><FontAwesomeIcon icon={faWindowClose}/></Button>*/}
+                {/*{selectedElement*/}
+                {/*    ? <p style={{"color": this.getElementColor()}}>*/}
+                {/*        {selectedElement.type.replace("g:", "")} id: {selectedElement.label}</p>*/}
+                {/*    : <React.Fragment/>*/}
+                {/*}*/}
                 {selectedElement
-                    ? <p style={{"color": this.getElementColor()}}>
-                        {selectedElement.type.replace("g:", "")} / {selectedElement.label}</p>
-                    : <React.Fragment/>
-                }
-                {selectedElement
-                    ? <h5 className={"mb-0 font-weight-bold"}
+                    ? <h5 className={"mb-0 pt-2 font-weight-bold"}
                           style={{"color": this.getElementColor()}}>{this.getVerboseIdentifier()}</h5>
                     : <React.Fragment/>
                 }
-                <p className={"mb-0"}>ID: {this.getIdentifier()}</p>
+                <p className={"mb-0 pb-0"} style={{"color": this.getElementColor()}}>Label: {selectedElement.group}</p>
+                <p className={"mb-1 border-bottom "}>{selectedElement.type.replace("g:", "")} id: {this.getIdentifier()}</p>
+
                 <ul className={"nodeMenu"}>
                     {selectedElement && selectedElement.type === "g:Vertex"
                         ? <li onClick={() => this.onClickFocus()}>
@@ -194,8 +207,11 @@ export default class NodeMenu extends React.Component {
                     <li onClick={() => this.startNewQuery()}>
                         <FontAwesomeIcon icon={faTerminal}/> <span>Query</span>
                     </li>
-                    <li onClick={() => this.hideMenu()}>
-                        <FontAwesomeIcon icon={faMinusCircle}/>
+                    {/*<li onClick={() => this.hideMenu()}>*/}
+                    {/*    <FontAwesomeIcon icon={faMinusCircle}/>*/}
+                    {/*</li>*/}
+                    <li onClick={() => this.openElementSettings()}>
+                        <FontAwesomeIcon icon={faCog}/>
                     </li>
                 </ul>
                 <SelectedData

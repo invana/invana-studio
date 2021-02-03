@@ -19,3 +19,27 @@ export function setDataToLocalStorage(itemKey, itemData) {
 export function removeItemFromLocalStorage(itemKey) {
     localStorage.removeItem(itemKey);
 }
+
+
+
+export function setElementColorOptionsToStorage(vertexOption) {
+    /*
+    If sent response from gremlin, it will automatically update those new
+    vertex/edge key data only.
+     */
+    console.log("setElementColorOptionsToStorage", vertexOption)
+
+    // if (vertexOption.type === "g:Vertex") {
+    let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
+    _nodes[vertexOption.properties.name] = vertexOption.properties;
+    setDataToLocalStorage('nodeLabels', _nodes);
+
+    // } else {
+    //     let _links = getDataFromLocalStorage("linkLabels", true) || {};
+    //     _links[vertexOption.properties.name] = vertexOption.properties;
+    //     setDataToLocalStorage('linkLabels', _links);
+    //
+    //
+    // }
+
+}

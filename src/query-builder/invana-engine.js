@@ -28,11 +28,12 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
     combineQueries(query1, query2) {
         // takes two separate queries and combine them into one graphql query
         // 1. when query2 is null, queryKey is added from query1.
+        //
         // TODO - Need fix [P3]; this doesnt work when combining query and mutation.
-        let combinedQuery = {query: "", type: this.QUERY_TYPES.QUERY};
+        let combinedQuery = {query: "", type: query1.type};
 
         const query2String = query2 ? query2.query : ""
-        combinedQuery.query += "{" + query1.query + query2String + "}";
+        combinedQuery.query += query1.type + "{" + query1.query + query2String + "}";
         if (!query2) {
             combinedQuery.queryKey = query1.queryKey;
         }
@@ -57,15 +58,21 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
     getOrCreateVertices(label, properties) {
         return {
-            "query": "{getOrCreateVertex(label:\"" + label + "\", properties: "
-                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"
+            query: "getOrCreateVertex(label:\"" + label + "\", properties: "
+                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}",
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "getOrCreateVertex",
         };
     }
 
     updateVertexById(vertexId, properties) {
         return {
-            "query": "mutation{updateVertexById(id: " + vertexId + ", properties: "
-                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}"
+            query: "mutation{updateVertexById(id: " + vertexId + ", properties: "
+                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}}",
+            type: this.QUERY_TYPES.MUTATION,
+            queryKey: "updateVertexById",
+
+
         };
     }
 
@@ -92,7 +99,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         return {
             type: this.QUERY_TYPES.QUERY,
             queryKey: queryName,
-            query: queryName + "(" + labelName + "){ label,propertyKeys}"
+            query: queryName + "(label: \"" + labelName + "\"){ label,propertyKeys}"
         };
     }
 

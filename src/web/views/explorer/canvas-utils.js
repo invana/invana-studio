@@ -12,9 +12,12 @@ export default class VisJsGraphCanvasUtils {
     generateNodeConfig(groupName, nodeShape) {
         let config = {};
         if (nodeShape === undefined) {
-            nodeShape = "circle"; // dot
+            nodeShape = "dot"; // dot
         }
+
         const nodeColor = this.getElementColor(groupName);
+
+
         const borderColor = LightenDarkenColor(nodeColor, -35);
         const highLightColor = LightenDarkenColor(nodeColor, 20);
         const highLightBorderColor = LightenDarkenColor(highLightColor, -40);
@@ -34,9 +37,9 @@ export default class VisJsGraphCanvasUtils {
             }
         };
         // config.physics = false;
-        // config.size = 6;
+        config.size = 16;
         config.font = {
-            size: 6,
+            size: 12,
             color: "#333333"
             // bold: true
         };
@@ -97,10 +100,10 @@ export default class VisJsGraphCanvasUtils {
         }
 
         // config.physics = false;
-        // config.size = 6;
+        config.size = 16;
         config.width = 1;
         config.font = {
-            size: 3,
+            size: 12,
             color: "#333333"
             // bold: true
         };
@@ -115,21 +118,71 @@ export default class VisJsGraphCanvasUtils {
     }
 
     _prepareNode(vertexData, labelPropertyKey) {
-        const groupName = vertexData.label;
-        vertexData.label = labelPropertyKey
-            ? this.stringify(vertexData[labelPropertyKey])
-            : this.stringify(vertexData.id);
+
+        if (!vertexData._label) {
+            vertexData._label = vertexData.label;
+        }
+        const groupName = vertexData._label;
+        const groupConfig = this.getElementConfig(groupName);
+
+
+        let label = vertexData.id;
+        if (!labelPropertyKey && groupConfig) {
+            labelPropertyKey = groupConfig.labelPropertyKey
+            if (vertexData.properties[labelPropertyKey]) {
+                label = vertexData.properties[labelPropertyKey];
+            }
+        }
+
+        vertexData.label = this.stringify(label);
         vertexData.group = groupName;
+
+
+        delete vertexData.shape;
+        delete vertexData.image;
+
+        if (groupConfig && groupConfig.bgImagePropertyKey) {
+            const image = vertexData.properties[groupConfig.bgImagePropertyKey];
+            if (image) {
+                vertexData.shape = "circularImage";
+                vertexData.image = image;
+            }
+        }
+
+        // if (groupConfig && groupConfig.labelPropertyKey) {
+        //     // vertexData.shape = "circularImage";
+        //     vertexData.label = vertexData.properties[groupConfig.labelPropertyKey];
+        // }
+
+
         this.generateNodeGroups(groupName);
         return vertexData;
     }
 
     _prepareEdge(edgeData, labelPropertyKey) {
-        const groupName = edgeData.label;
-        edgeData.label = labelPropertyKey
-            ? this.stringify(edgeData[labelPropertyKey])
-            : this.stringify(edgeData.id);
+        if (!edgeData._label) {
+            edgeData._label = edgeData.label;
+        }
+        const groupName = edgeData._label;
+        const groupConfig = this.getElementConfig(groupName);
+
+
+        let label = edgeData.id;
+        if (!labelPropertyKey && groupConfig) {
+            labelPropertyKey = groupConfig.labelPropertyKey
+            if (edgeData.properties[labelPropertyKey]) {
+                label = edgeData.properties[labelPropertyKey];
+            }
+        }
+
+        edgeData.label = this.stringify(label);
         edgeData.group = groupName;
+
+
+        // edgeData.label = labelPropertyKey
+        //     ? this.stringify(edgeData[labelPropertyKey])
+        //     : this.stringify(edgeData.id);
+        // edgeData.group = groupName;
         this.generateEdgeGroups(groupName);
 
         edgeData.from = edgeData.outV;
@@ -155,9 +208,13 @@ export default class VisJsGraphCanvasUtils {
     }
 
 
-    getElementColor(label) {
+    getElementConfig(nodeLabel) {
         const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        const nodeLabelOption = nodeLabels[label];
+        return nodeLabels[nodeLabel];
+    }
+
+    getElementColor(label) {
+        const nodeLabelOption = this.getElementConfig(label);
         if (nodeLabelOption && nodeLabelOption.bgColor) {
             return nodeLabelOption.bgColor;
         } else {

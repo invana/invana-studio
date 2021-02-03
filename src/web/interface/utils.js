@@ -71,7 +71,6 @@ export function getDefaultNodeOptions(label) {
     return {
         bgColor: getColorForString(label),
         borderColor: GRAPH_CANVAS_SETTINGS.DefaultNodeBorderColor,
-        bgImageUrl: null,
         bgImagePropertyKey: null,
         labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultNodeLabelPropertyKey,
         tagHtml: null
@@ -377,3 +376,4 @@ export function prepareNodesDataWithOptions(nodes, options) {
 
     return nodesCleaned;
 }
+
