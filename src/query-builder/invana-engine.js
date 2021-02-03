@@ -77,11 +77,19 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
     }
 
     getOutEdgeVertices(vertexId) {
-        return {"query": "{getOutEdgesAndVertices(id:" + JSON.stringify(vertexId) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+        return {
+            query: "getOutEdgesAndVertices(id:" + JSON.stringify(vertexId) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "getOutEdgesAndVertices"
+        };
     }
 
     getInEdgeVertices(vertexId) {
-        return {"query": "{getInEdgesAndVertices(id:" + JSON.stringify(vertexId) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+        return {
+            query: "getInEdgesAndVertices(id:" + JSON.stringify(vertexId) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "getInEdgesAndVertices",
+        };
     }
 
 

@@ -56,7 +56,6 @@ export default class ExplorerView extends RemoteEngine {
 
     }
 
-
     setLeftContentName(contentName) {
         this.setState({leftContentName: contentName});
     }
@@ -79,10 +78,13 @@ export default class ExplorerView extends RemoteEngine {
     }
 
     getFocusedNodes() {
-        // console.log("getFocusedNodes", this.state.focusedNodes);
         return this.state.focusedNodes;
     }
 
+    makeQuery(queryObj, queryOptions) {
+        this.setState({selectedElementData: null});
+        return super.makeQuery(queryObj, queryOptions)
+    }
 
     setSelectedElementData(selectedDataId, selectedElementType) {
         // console.log("=======-=-=-=this.network", this.network, selectedElementType);
@@ -96,7 +98,6 @@ export default class ExplorerView extends RemoteEngine {
         }
         this.setState({selectedElementData: selectedElementData});
     }
-
 
     reRenderVisualizer() {
 
@@ -114,7 +115,8 @@ export default class ExplorerView extends RemoteEngine {
         this.setState({
             // resetVisualizer: true,
 
-            nodes: nodesPrepared, edges: edgesPrepared});
+            nodes: nodesPrepared, edges: edgesPrepared
+        });
     }
 
     flushDataState() {
