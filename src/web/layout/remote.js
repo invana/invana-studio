@@ -16,39 +16,46 @@ import InMemoryDataStore from "../../core/data-store";
 
 export default class RemoteEngine extends React.Component {
 
-/*
+    /*
 
 
 
-export default class ExampleView extends RemoteEngine {
+    export default class ExampleView extends RemoteEngine {
 
 
-    componentDidMount() {
-        const verticesStateQuery = this.connector.requestBuilder.getVerticesLabelStats();
-        const edgesStatsQuery = this.connector.requestBuilder.getEdgesLabelStats();
-        const queryPayload = this.connector.requestBuilder.combineQueries(verticesStateQuery, edgesStatsQuery);
-        this.makeQuery(queryPayload);
+        componentDidMount() {
+            const verticesStateQuery = this.connector.requestBuilder.getVerticesLabelStats();
+            const edgesStatsQuery = this.connector.requestBuilder.getEdgesLabelStats();
+            const queryPayload = this.connector.requestBuilder.combineQueries(verticesStateQuery, edgesStatsQuery);
+            this.makeQuery(queryPayload);
 
-    }
-
-    processResponse(response) {
-        const lastResponse = response.getResponseResult();
-        if (lastResponse) {
-            this.setState({
-                verticesStats: response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey),
-                edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey),
-            })
         }
+
+        processResponse(response) {
+            const lastResponse = response.getResponseResult();
+            if (lastResponse) {
+                this.setState({
+                    verticesStats: response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey),
+                    edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey),
+                })
+            }
+        }
+
+
+
+        setShowQueryConsole() // to show the console
+        setQueryStringFromQueryObject()
+
+
+
+
     }
 
 
-}
 
 
 
-
-
- */
+     */
 
     static defaultProps = {
         connectionUrl: STUDIO_SETTINGS.CONNECTION_URL,
@@ -70,7 +77,9 @@ export default class ExampleView extends RemoteEngine {
             isStreaming: null,
             isLoading: null,
             statusCode: null,
-            statusMessage: null
+            statusMessage: null,
+
+            showQueryConsole: false
 
             // responses: [],
             // vertices: [],
@@ -89,6 +98,17 @@ export default class ExampleView extends RemoteEngine {
         }
         this.dataStore = new InMemoryDataStore();
 
+    }
+
+
+    setShowQueryConsole(status) {
+        this.setState({showQueryConsole: status});
+    }
+
+    startNewQueryInConsole(queryString) {
+        console.log("====startNewQueryInConsole", queryString);
+        this.setShowQueryConsole(true);
+        this.setQueryString(queryString);
     }
 
     checkIfGremlinUrlIsValid() {
@@ -201,8 +221,26 @@ export default class ExampleView extends RemoteEngine {
         setDataToLocalStorage(HISTORY_SETTINGS.historyLocalStorageKey, existingHistory);
     }
 
-    setQueryObject(queryObject){
+    setQueryObject(queryObject) {
         this.setState({queryObject: queryObject});
+    }
+
+    /*
+    {rawQuery(gremlin:"g.V().limit(5).toList()"){id,type,label,properties, inV, inVLabel, outV, outVLabel}}
+
+     */
+
+    setQueryStringFromQueryObject(queryPayload) {
+        console.log("===queryPayload", queryPayload);
+        if (queryPayload.includes("rawQuery")) {
+            const queryString = queryPayload.split('rawQuery(gremlin:"')[1].split('"){id')[0];
+            this.setQueryString(queryString);
+        }
+    }
+
+    setQueryString(queryString) {
+        this.setState({query: queryString});
+
     }
 
     makeQuery(queryObj, queryOptions) {
@@ -211,8 +249,12 @@ export default class ExampleView extends RemoteEngine {
             queryOptions.source = "internal|console|canvas"
          */
 
+        // console.log("=====queryObj", queryObj);
         // TODO - add logic to wait till server connects.
 
+        if (!queryObj.queryKey) {
+            queryObj.queryKey = "rawQuery";
+        }
         if (typeof queryOptions === "undefined") {
             queryOptions = {}
         }
@@ -225,19 +267,18 @@ export default class ExampleView extends RemoteEngine {
             this.addQueryToHistory(queryObj, queryOptions.source)
         } // remove this part from here soon.
 
+        if (queryObj.queryKey) {
+            this.setQueryStringFromQueryObject(queryObj.query);
+        }
         this.setState({
             statusMessage: "Querying...",
             isLoading: true
         });
         this.setQueryObject(queryObj);
+
         console.log("makeQuery :::  query", JSON.stringify(queryObj));
         if (queryObj) {
-            // this.startQueryTimer();
-            // this.startLoader("Connecting..");
-            this.queryStartedAt = new Date();
-            this.queryEndedAt = new Date();
             this.connector.query(queryObj);
-
         }
     }
 
@@ -249,7 +290,6 @@ export default class ExampleView extends RemoteEngine {
             return null;
         }
     }
-
 
     componentDidMount() {
         console.log("gremlin-component componentDidMount")

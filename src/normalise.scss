@@ -170,6 +170,14 @@ label.form-label {
   box-shadow: none;
 }
 
-.footer .nav-item{
+.footer .nav-item {
   font-size: 12px;
+}
+
+.modal-dialog {
+  margin: 0 !important;
+
+  .modal-content {
+    border-radius: 0;
+  }
 }

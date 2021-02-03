@@ -50,6 +50,12 @@ export default class DefaultLayout extends RemoteEngine {
                         </Nav.Item>
                         <Nav.Item>
 
+                            <input type="text" placeholder={"Search (Ctrl + / )"}
+                                   onFocus={()=> {this.props.setShowQueryConsole(true)}}
+                                   className={"form-control form-control-sm mt-1"}/>
+                        </Nav.Item>
+                        <Nav.Item>
+
                             <Nav.Link href={"/explorer"}
                                       className={this.props.location.pathname === "/explorer" ? "active" : ""}>
                                 Explorer</Nav.Link>

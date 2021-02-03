@@ -2,13 +2,14 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faArrowAltCircleLeft,
-    faArrowAltCircleRight,
+    faArrowAltCircleRight, faCog,
     faDotCircle,
-    faMinusCircle, faTerminal
+    faMinusCircle, faTerminal, faWindowClose
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import SelectedData from "../viewlets/selected-data";
 import "./node-menu.scss";
+import {Button} from "react-bootstrap";
 
 export default class NodeMenu extends React.Component {
 
@@ -31,7 +32,6 @@ export default class NodeMenu extends React.Component {
         // selectedElementData: PropTypes.object,
         makeQuery: PropTypes.func,
         graphicsEngine: PropTypes.object,
-        setQueryObject: PropTypes.func,
         setRightContentName: PropTypes.func,
         selectedElementData: PropTypes.object,
 
@@ -40,7 +40,9 @@ export default class NodeMenu extends React.Component {
         menuPositionY: PropTypes.number,
 
         getNetwork: PropTypes.func,
-        canvasUtils: PropTypes.object
+        canvasUtils: PropTypes.object,
+
+        startNewQueryInConsole: PropTypes.func,
         // setNodeMenuPosition: PropTypes.func
 
     }
@@ -133,14 +135,17 @@ export default class NodeMenu extends React.Component {
         const lastSelectedNodeData = this.getLastSelectedNodeData();
 
         const elementId = lastSelectedNodeData.id;
-        let query = "";
+        let queryString = "";
         if (Number.isInteger(elementId)) {
-            query = "g.V(" + lastSelectedNodeData.id + ")";
+            queryString = "g.V(" + lastSelectedNodeData.id + ")";
         } else {
-            query = "g.V(\"" + lastSelectedNodeData.id + "\")";
+            queryString = "g.V(\"" + lastSelectedNodeData.id + "\")";
         }
-        this.props.setRightContentName("query-console");
-        this.props.setQueryObject(query);
+
+
+        console.log("startNewQuery", queryString);
+        // this.props.setRightContentName("query-console");
+        this.props.startNewQueryInConsole(queryString);
     }
 
     getElementColor() {
@@ -155,6 +160,9 @@ export default class NodeMenu extends React.Component {
         return (
             <div className="nodeMenuContainer"
                  style={{"left": this.props.menuPositionX, "top": this.props.menuPositionY}}>
+
+                {/*<Button size={"sm"}><FontAwesomeIcon icon={faCog}/></Button>*/}
+                {/*<Button size={"sm"}><FontAwesomeIcon icon={faWindowClose}/></Button>*/}
                 {selectedElement
                     ? <p style={{"color": this.getElementColor()}}>
                         {selectedElement.type.replace("g:", "")} / {selectedElement.label}</p>

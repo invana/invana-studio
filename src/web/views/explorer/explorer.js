@@ -27,6 +27,8 @@ import defaultOptions from "../../interface/canvas/options";
 import events from "../../interface/canvas/events";
 import NodeMenu from "../../interface/node-menu";
 import FocusedNodesList from "../../interface/focused-nodes-list";
+import LeftContainer from "../../viewlets/left-container";
+import QueryConsole from "../../viewlets/query-console";
 
 export default class ExplorerView extends RemoteEngine {
 
@@ -43,14 +45,22 @@ export default class ExplorerView extends RemoteEngine {
             focusedNodes: [],
 
             menuPositionX: null,
-            menuPositionY: null
+            menuPositionY: null,
+
+            leftContentName: "query-console",
 
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
         this.canvasCtrl = null;
         this.network = null;
+
+
     }
 
+
+    setLeftContentName(contentName) {
+        this.setState({leftContentName: contentName});
+    }
 
     addNodeToFocusedNodes(node) {
         console.log("addNodeToFocusedNodes", node);
@@ -116,13 +126,13 @@ export default class ExplorerView extends RemoteEngine {
         return this.network;
     }
 
-    getEdges(edges) {
-        this.edges = edges;
-    }
-
-    getNodes(nodes) {
-        this.nodes = nodes;
-    }
+    // getEdges(edges) {
+    //     this.edges = edges;
+    // }
+    //
+    // getNodes(nodes) {
+    //     this.nodes = nodes;
+    // }
 
     separateNodesAndEdges(data) {
         let nodes = [];
@@ -226,12 +236,14 @@ export default class ExplorerView extends RemoteEngine {
     }
 
     render() {
-        return (<DefaultLayout {...this.props}>
+        let _this = this;
+        return (<DefaultLayout {...this.props} setShowQueryConsole={this.setShowQueryConsole.bind(this)}>
             <Row>
                 <Sidebar>
                     <DataSidebarViewlet
                         onItemClick={this.onItemClick.bind(this)}
-                        dataStore={this.dataStore}/>
+                        dataStore={this.dataStore}
+                    />
                 </Sidebar>
                 <MainContent className={"main-content"}>
                     <MenuComponent className={" bg-light border-bottom"}>
@@ -255,7 +267,7 @@ export default class ExplorerView extends RemoteEngine {
                             </Nav.Item>
                             <Nav.Item>
                                 <Button size={"sm"} variant={"link"}>
-                                    <FontAwesomeIcon icon={faSearch}/>
+                                    <FontAwesomeIcon icon={faSearch}/> Query
                                 </Button>
                             </Nav.Item>
                             <Nav.Item>
@@ -326,7 +338,7 @@ export default class ExplorerView extends RemoteEngine {
 
                                     getNetwork={this.getNetwork.bind(this)}
 
-                                    setQueryObject={this.setQueryObject.bind(this)}
+                                    startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                                     canvasUtils={this.canvasUtils}
                                 />
                                 : <React.Fragment/>
@@ -365,6 +377,21 @@ export default class ExplorerView extends RemoteEngine {
                     </MenuComponent>
                 </MainContent>
             </Row>
+
+            {
+                this.state.showQueryConsole === true
+                    ? <QueryConsole
+                        makeQuery={this.makeQuery.bind(this)}
+                        connector={this.connector}
+                        query={this.state.query}
+                        // value={this.state.defaultQuery}
+                        onClose={() => {
+                            console.log("hide query console");
+                            _this.setShowQueryConsole(false);
+                        }}
+                    />
+                    : <React.Fragment/>
+            }
         </DefaultLayout>)
     }
 
