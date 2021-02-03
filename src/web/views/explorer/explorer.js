@@ -111,7 +111,10 @@ export default class ExplorerView extends RemoteEngine {
         this.network.body.data.nodes.add(nodes);
         this.network.body.data.edges.add(edges);
 
-        this.setState({resetVisualizer: true, nodes: nodesPrepared, edges: edgesPrepared});
+        this.setState({
+            // resetVisualizer: true,
+
+            nodes: nodesPrepared, edges: edgesPrepared});
     }
 
     flushDataState() {
