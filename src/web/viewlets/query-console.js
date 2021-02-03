@@ -77,7 +77,9 @@ export default class QueryConsole extends React.Component {
         console.log("=====_this", _this);
         if (e.target.query.value) {
             const query = _this.props.connector.requestBuilder.rawQuery(e.target.query.value)
-            _this.props.makeQuery(query, {source: "console"});
+            const queryPayloadCleaned = this.props.connector.requestBuilder.combineQueries(query, null);
+
+            _this.props.makeQuery(queryPayloadCleaned, {source: "console"});
         } else {
             alert("Query cannot be null")
         }

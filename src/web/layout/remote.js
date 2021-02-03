@@ -233,7 +233,7 @@ export default class RemoteEngine extends React.Component {
     setQueryStringFromQueryObject(queryPayload) {
         console.log("===queryPayload", queryPayload);
         if (queryPayload.includes("rawQuery")) {
-            const queryString = queryPayload.split('rawQuery(gremlin:"')[1].split('"){id')[0];
+            const queryString = queryPayload.split('rawQuery(gremlin:"')[1].split('"){id')[0].replaceAll('\\"', '"');
             this.setQueryString(queryString);
         }
     }

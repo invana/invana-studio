@@ -33,7 +33,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
         const query2String = query2 ? query2.query : ""
         combinedQuery.query += "{" + query1.query + query2String + "}";
-        if (!query2){
+        if (!query2) {
             combinedQuery.queryKey = query1.queryKey;
         }
         return combinedQuery;
@@ -194,7 +194,12 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
     }
 
     rawQuery(queryString) {
-        return {"query": "{rawQuery(gremlin:" + JSON.stringify(queryString) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+        return {
+            query: "rawQuery(gremlin:" + JSON.stringify(queryString) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: "rawQuery"
+
+        };
     }
 
 }
