@@ -27,6 +27,7 @@ import FocusedNodesList from "../../interface/focused-nodes-list";
 import LeftContainer from "../../viewlets/left-container";
 import QueryConsole from "../../viewlets/query-console";
 import ElementOptions from "../../viewlets/element-options";
+import LoadingDiv from "../../viewlets/loading";
 
 export default class ExplorerView extends RemoteEngine {
 
@@ -47,6 +48,8 @@ export default class ExplorerView extends RemoteEngine {
             menuPositionY: null,
 
             leftContentName: null,
+
+            isRenderingCanvas: null
 
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
@@ -210,6 +213,8 @@ export default class ExplorerView extends RemoteEngine {
             edges: [...edges, ...this.state.edges]
         });
 
+        this.startRenderingStatus();
+
     }
 
 
@@ -245,11 +250,28 @@ export default class ExplorerView extends RemoteEngine {
 
     }
 
+    startRenderingStatus() {
+        this.setState({isRenderingCanvas: true});
+        this.setStatusMessage("Rendering the Graph.")
+    }
+
+    onRenderingStatusEnded() {
+        this.setState({isRenderingCanvas: false});
+        this.setStatusMessage("Rendered the Graph.")
+
+    }
+
     setNodeMenuPosition(x, y) {
         this.setState({
             menuPositionX: x,
             menuPositionY: y
         })
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        this.setStatusMessage("Hello World!");
+
     }
 
     render() {
@@ -371,6 +393,7 @@ export default class ExplorerView extends RemoteEngine {
                             setNetwork={this.setNetwork.bind(this)}
                             setSelectedElementData={this.setSelectedElementData.bind(this)}
                             setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
+                            onRenderingStatusEnded={this.onRenderingStatusEnded.bind(this)}
                         />
 
                     </CanvasComponent>
@@ -433,6 +456,12 @@ export default class ExplorerView extends RemoteEngine {
 
                     : <React.Fragment></React.Fragment>
             }
+            {
+                this.state.isQuerying === true || this.state.isRenderingCanvas === true
+                    ? <LoadingDiv statusMessage={this.state.statusMessage}/>
+                    : <React.Fragment/>
+            }
+            {/*<LoadingDiv/>*/}
         </DefaultLayout>)
     }
 

@@ -1,0 +1,13 @@
+.loadingDiv {
+  width: calc(100vw - 280px);
+  position: absolute;
+  top: 66px;
+  background: white;
+  left: 280px;
+  height: calc(100vh - 21px - 40px - 25px);
+
+  p {
+    margin-top: 25%;
+    text-align: center;
+  }
+}

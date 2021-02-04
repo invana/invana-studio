@@ -75,11 +75,12 @@ export default class RemoteEngine extends React.Component {
 
             isConnected2Gremlin: null,
             isStreaming: null,
-            isLoading: null,
+            isQuerying: null,
             statusCode: null,
             statusMessage: null,
 
-            showQueryConsole: false
+            showQueryConsole: false,
+
 
             // responses: [],
             // vertices: [],
@@ -205,6 +206,8 @@ export default class RemoteEngine extends React.Component {
 
     onResponseCallback(response) {
         // this.resetLoader(); // updates the status of the ui
+
+        this.setState({isQuerying: false});
         this.processResponse(response);
     }
 
@@ -271,8 +274,8 @@ export default class RemoteEngine extends React.Component {
             this.setQueryStringFromQueryObject(queryObj.query);
         }
         this.setState({
-            statusMessage: "Querying...",
-            isLoading: true
+            statusMessage: "Fetching data...",
+            isQuerying: true
         });
         this.setQueryObject(queryObj);
 

@@ -9,7 +9,6 @@ class ForceDirectedGraphCanvas extends React.Component {
 
     constructor(props) {
         super(props);
-
     }
 
     shouldComponentUpdate(nextProps) {
@@ -115,6 +114,10 @@ class ForceDirectedGraphCanvas extends React.Component {
             },
             blurEdge: function (params) {
                 // console.log("blurEdge Event:", params);
+            },
+            stabilized: function (params) {
+                console.log("stabilized Event:", params);
+                _this.props.onRenderingStatusEnded();
             }
         }
     }
