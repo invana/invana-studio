@@ -29,6 +29,7 @@ export default class CanvasController {
     confirmRedrawCanvas() {
         let r = window.confirm("Are you sure you want to re-draw the canvas");
         if (r === true) {
+
             this.reRenderVisualizer();
             this.setStatusMessage("Re-Drawing canvas successful.");
         }

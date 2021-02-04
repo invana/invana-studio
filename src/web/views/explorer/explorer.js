@@ -28,6 +28,7 @@ import LeftContainer from "../../viewlets/left-container";
 import QueryConsole from "../../viewlets/query-console";
 import ElementOptions from "../../viewlets/element-options";
 import LoadingDiv from "../../viewlets/loading";
+import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 
 export default class ExplorerView extends RemoteEngine {
 
@@ -63,29 +64,112 @@ export default class ExplorerView extends RemoteEngine {
         this.setState({leftContentName: contentName});
     }
 
+
+    selectNodesInNetwork(selectedNodes) {
+
+        console.log("===selectedNodes", selectedNodes);
+        const allNodes = this.state.nodes;
+        const allEdges = this.state.edges;
+
+        if (selectedNodes.length === 0) {
+            const allNodesOptions = allNodes.map(node => ({
+                id: node.id, opacity: 1,
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+            }));
+            const allEdgesOptions = allEdges.map(edge => ({
+                id: edge.id, opacity: 1,
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+            }));
+
+            this.network.body.data.nodes.update(allNodesOptions)
+            this.network.body.data.edges.update(allEdgesOptions)
+
+        } else {
+            let _this = this;
+
+            // set all the nodes and edges opacity to 0.2
+            // set selected nodes and edges opacity to 1.0
+            const allNodesOptions = allNodes.map(node => ({
+                id: node.id, opacity: 0.1,
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementUnHighlightColor}
+            }));
+
+            let selectedNodeIds = [];
+            selectedNodes.forEach((node) => {
+                selectedNodeIds.push(..._this.network.getConnectedNodes(node.id));
+                selectedNodeIds.push(node.id);
+            })
+
+
+            selectedNodeIds = [...new Set(selectedNodeIds)];
+            const selectedNodesOptions = selectedNodeIds.map(nodeId => ({
+                id: nodeId, opacity: 1,
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+            }));
+
+            console.log("allNodesOptions", allNodesOptions);
+            this.network.body.data.nodes.update(allNodesOptions)
+            this.network.body.data.nodes.update(selectedNodesOptions)
+
+
+            // set all the nodes and edges opacity to 0.2
+            // set selected nodes and edges opacity to 1.0
+            const allEdgesOptions = allEdges.map(edge => ({
+                id: edge.id, opacity: 0.1,
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementUnHighlightColor}
+            }));
+            console.log("===allEdgesOptions", allEdgesOptions);
+            let selectedEdgeIds = [];
+            selectedNodes.forEach((node) => {
+                console.log("_this.network.getConnectedEdges(node.id)", _this.network.getConnectedEdges(node.id))
+                selectedEdgeIds.push(..._this.network.getConnectedEdges(node.id));
+            })
+            console.log("==selectedEdgeIds", selectedEdgeIds);
+            selectedEdgeIds = [...new Set(selectedEdgeIds)];
+            const selectedEdgesOptions = selectedEdgeIds.map(edgeId => ({
+                id: edgeId, opacity: 1,
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+            }));
+
+            console.log("selectedEdgesOptions", selectedEdgesOptions)
+
+            this.network.body.data.edges.update(allEdgesOptions)
+            this.network.body.data.edges.update(selectedEdgesOptions)
+
+
+            // nodes.update([{id: 1, color: {background: newColor}}]);
+
+            // const selectedNodeIds = [...new Set(selectedNodes.map(node => node.id))];
+            this.network.selectNodes(selectedNodeIds);
+        }
+
+    }
+
     addNodeToFocusedNodes(node) {
         console.log("addNodeToFocusedNodes", node);
 
         let existingFocusedNodes = this.state.focusedNodes;
 
         if (existingFocusedNodes.length > 0) {
-            existingFocusedNodes.forEach((focusedNode) => {
-                if (focusedNode.id !== node.id) {
-                    existingFocusedNodes.push(node);
-                }
-            });
-            this.setState({focusedNodes: existingFocusedNodes});
-            const selectedNodeIds = [...new Set(existingFocusedNodes.map(node => node.id))]
-            this.network.selectNodes(selectedNodeIds);
+            // TODO - redo this block ; may need performance improvements !
+            existingFocusedNodes.push(node);
 
+            const focusedNodes = [];
+            const map = new Map();
+            for (const item of existingFocusedNodes) {
+                if (!map.has(item.id)) {
+                    map.set(item.id, true);    // set any value to Map
+                    focusedNodes.push(item);
+                }
+            }
+
+
+            this.setState({focusedNodes: focusedNodes});
+            this.selectNodesInNetwork(focusedNodes);
         } else {
             this.setState({focusedNodes: [node]});
-            const selectedNodeIds = [node.id];
-            this.network.selectNodes(selectedNodeIds);
-
+            this.selectNodesInNetwork([node]);
         }
-
-
     }
 
     getFocusedNodes() {
@@ -131,7 +215,7 @@ export default class ExplorerView extends RemoteEngine {
     }
 
     flushDataState() {
-        this.setState({nodes: [], edges: [], selectedElementData: null});
+        this.setState({nodes: [], edges: [], selectedElementData: null, focusedNodes: []});
         this.network.setData({nodes: [], edges: []});
     }
 
@@ -258,6 +342,7 @@ export default class ExplorerView extends RemoteEngine {
         focusedNodes.splice(indexId, 1);
         console.log("===indexId", indexId);
         console.log("focusedNodes removed", focusedNodes);
+        this.selectNodesInNetwork(focusedNodes);
         this.setState({focusedNodes: focusedNodes});
 
     }

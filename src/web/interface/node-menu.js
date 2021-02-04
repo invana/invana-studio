@@ -146,7 +146,7 @@ export default class NodeMenu extends React.Component {
         // console.log("=====selectedElement",selectedElement);
         return (
             <div className="nodeMenuContainer"
-                 style={{"left": this.props.menuPositionX, "top": this.props.menuPositionY}}>
+                 style={{"left": this.props.menuPositionX + 5, "top": this.props.menuPositionY + 5}}>
 
                 {/*<Button size={"sm"}><FontAwesomeIcon icon={faCog}/></Button>*/}
                 {/*<Button size={"sm"}><FontAwesomeIcon icon={faWindowClose}/></Button>*/}

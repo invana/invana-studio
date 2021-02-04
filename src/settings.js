@@ -39,6 +39,10 @@ export const GRAPH_CANVAS_SETTINGS = {
     DefaultLabelVisibility: false,
     simulationAlpha: 0.8,
     linkCurvature: .85,
+
+
+    DefaultElementTextColor: "#343434",
+    DefaultElementUnHighlightColor: "#9e9e9e",
 }
 
 export const HISTORY_SETTINGS = {
