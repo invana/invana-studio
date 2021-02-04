@@ -75,9 +75,17 @@ export default class ExplorerView extends RemoteEngine {
                 }
             });
             this.setState({focusedNodes: existingFocusedNodes});
+            const selectedNodeIds = [...new Set(existingFocusedNodes.map(node => node.id))]
+            this.network.selectNodes(selectedNodeIds);
+
         } else {
             this.setState({focusedNodes: [node]});
+            const selectedNodeIds = [node.id];
+            this.network.selectNodes(selectedNodeIds);
+
         }
+
+
     }
 
     getFocusedNodes() {
@@ -231,6 +239,10 @@ export default class ExplorerView extends RemoteEngine {
         // this.makeQuery()
     }
 
+
+    focusOnNode(nodeId) {
+
+    }
 
     removeFocusedNode(nodeId) {
         //

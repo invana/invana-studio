@@ -25,8 +25,6 @@ export default class NodeMenu extends React.Component {
         setSelectedElementData: (elementId) => console.log("setSelectedElementData not set", elementId),
 
 
-
-
     }
     static propTypes = {
         getFocusedNodes: PropTypes.func,
@@ -51,19 +49,14 @@ export default class NodeMenu extends React.Component {
 
     }
 
-    // componentDidMount() {
-    //     if (this.props.graphicsEngine) {
-    //         this.onClickFocus();
-    //     }
-    // }
-
     getLastSelectedNodeData() {
         return this.props.selectedElementData
     }
 
-
     focusAndCenterNode(nodeData) {
         if (nodeData) {
+            const network = this.props.getNetwork();
+            network.focus(nodeData.id);
             this.props.addNodeToFocusedNodes(nodeData);
             this.hideMenu();
         }
@@ -99,29 +92,12 @@ export default class NodeMenu extends React.Component {
     }
 
     hideMenu() {
-        // this.props.graphicsEngine.eventStore.hideMenu();
-        // document.querySelector(".nodeMenuContainer").style.display = "none";
         this.props.setSelectedElementData(null);
-
     }
 
     openElementSettings() {
-        // this.props.graphicsEngine.eventStore.hideMenu();
-        // document.querySelector(".nodeMenuContainer").style.display = "none";
         this.props.setLeftContentName("element-options");
-
     }
-
-    // cleanGraph() {
-    //     console.log("this.forceSimulator", this.forceSimulator);
-    //     this.forceSimulator.forceSimulator.alphaTarget(0.8).restart();
-    // }
-    //
-    // resetFocus() {
-    //     this.props.graphicsEngine.dataStore.removeAllNodes2Focus();
-    //     this.props.graphicsEngine.graphicsStore.resetFocus();
-    //     this.props.graphicsEngine.resetViewport();
-    // }
 
     getVerboseIdentifier() {
         const lastSelectedNodeData = this.getLastSelectedNodeData();
