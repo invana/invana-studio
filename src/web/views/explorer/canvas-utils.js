@@ -1,5 +1,6 @@
 import {getColorForString} from "../../interface/utils";
 import {LightenDarkenColor} from "../../../core/utils";
+import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 
 export default class VisJsGraphCanvasUtils {
     nodeGroups = {};
@@ -7,6 +8,37 @@ export default class VisJsGraphCanvasUtils {
 
     getColorBasedOnText(groupName) {
         return;
+    }
+
+
+    getEdgeColorObject(groupName) {
+        const edgeColor = this.getElementColor(groupName);
+        const highLightColor = LightenDarkenColor(edgeColor, 20);
+        const highLightBorderColor = LightenDarkenColor(highLightColor, -40);
+
+        return {
+            color: edgeColor,
+            highlight: highLightColor,
+            hover: highLightBorderColor,
+        }
+    }
+
+    getEdgeColorUnHighlightObject(groupName) {
+        /// when hovered - make the colors light
+        const edgeColor = this.getElementColor(groupName);
+        const highLightColor = LightenDarkenColor(edgeColor, -95);
+        const highLightBorderColor = LightenDarkenColor(highLightColor, -95);
+
+        return {
+            color: edgeColor,
+            highlight: highLightColor,
+            hover: highLightBorderColor,
+        }
+    }
+
+    unHighlightElementColor(groupName) {
+        const nodeColor = this.getElementColor(groupName);
+        return LightenDarkenColor(nodeColor, -10);
     }
 
     generateNodeConfig(groupName, nodeShape) {
@@ -78,10 +110,6 @@ export default class VisJsGraphCanvasUtils {
              */
             arrowShape = "triangle"; // dot
         }
-        const edgeColor = this.getElementColor(groupName);
-        // const borderColor = LightenDarkenColor(nodeColor, -35);
-        const highLightColor = LightenDarkenColor(edgeColor, 20);
-        const highLightBorderColor = LightenDarkenColor(highLightColor, -40);
         // config.borderWidth = 1;
         // config.borderWidthSelected = 1;
         config.arrows = {
@@ -93,18 +121,14 @@ export default class VisJsGraphCanvasUtils {
         config.label = true;
 
         // config.arrows: "to, from";
-        config.color = {
-            color: edgeColor,
-            highlight: highLightColor,
-            hover: highLightBorderColor,
-        }
+        config.color = this.getEdgeColorObject(groupName)
 
         // config.physics = false;
         config.size = 16;
         config.width = 1;
         config.font = {
             size: 12,
-            color: "#333333"
+            color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor
             // bold: true
         };
         return config;

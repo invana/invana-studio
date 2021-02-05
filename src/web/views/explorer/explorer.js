@@ -100,7 +100,6 @@ export default class ExplorerView extends RemoteEngine {
                 selectedNodeIds.push(node.id);
             })
 
-
             selectedNodeIds = [...new Set(selectedNodeIds)];
             const selectedNodesOptions = selectedNodeIds.map(nodeId => ({
                 id: nodeId, opacity: 1,
@@ -111,38 +110,40 @@ export default class ExplorerView extends RemoteEngine {
             this.network.body.data.nodes.update(allNodesOptions)
             this.network.body.data.nodes.update(selectedNodesOptions)
 
-
             // set all the nodes and edges opacity to 0.2
             // set selected nodes and edges opacity to 1.0
+            // Note: opacity doesnt work on edges.
             const allEdgesOptions = allEdges.map(edge => ({
-                id: edge.id, opacity: 0.1,
-                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementUnHighlightColor}
+                id: edge.id,
+                // opacity: 0.1,
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementUnHighlightColor},
+                color: _this.canvasUtils.getEdgeColorUnHighlightObject(edge.group)
             }));
             console.log("===allEdgesOptions", allEdgesOptions);
             let selectedEdgeIds = [];
             selectedNodes.forEach((node) => {
-                console.log("_this.network.getConnectedEdges(node.id)", _this.network.getConnectedEdges(node.id))
                 selectedEdgeIds.push(..._this.network.getConnectedEdges(node.id));
             })
             console.log("==selectedEdgeIds", selectedEdgeIds);
             selectedEdgeIds = [...new Set(selectedEdgeIds)];
-            const selectedEdgesOptions = selectedEdgeIds.map(edgeId => ({
-                id: edgeId, opacity: 1,
-                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
-            }));
 
+            let selectedEdgesOptions = [];
+            selectedEdgeIds.forEach((edgeId) => {
+                    const edge = this.network.body.data.edges.get(edgeId);
+                    selectedEdgesOptions.push({
+                        id: edgeId,
+                        // opacity: 1,
+                        font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor},
+                        color: _this.canvasUtils.getEdgeColorObject(edge.group)
+                    })
+                }
+            );
+            this.network.setOptions({opacity: 0.1});
             console.log("selectedEdgesOptions", selectedEdgesOptions)
-
             this.network.body.data.edges.update(allEdgesOptions)
             this.network.body.data.edges.update(selectedEdgesOptions)
-
-
-            // nodes.update([{id: 1, color: {background: newColor}}]);
-
-            // const selectedNodeIds = [...new Set(selectedNodes.map(node => node.id))];
             this.network.selectNodes(selectedNodeIds);
         }
-
     }
 
     addNodeToFocusedNodes(node) {
