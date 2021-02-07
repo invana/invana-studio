@@ -148,20 +148,20 @@ export default class ReadListVertexViewlet extends RemoteEngine {
                                     <ButtonGroup>
                                         {
                                             this.state.pageNumber > 1
-                                                ? <Button variant="secondary" size={"sm"}
+                                                ? <Button variant="outline-secondary" size={"sm"}
                                                           onClick={() => this.goToPrevPage()}><FontAwesomeIcon
                                                     icon={faChevronLeft}/></Button>
-                                                : <Button variant="secondary" size={"sm"} disabled={"disabled"}>
+                                                : <Button variant="outline-secondary" size={"sm"} disabled={"disabled"}>
                                                     <FontAwesomeIcon icon={faChevronLeft}/>
                                                 </Button>
                                         }
                                         {
                                             this.paginationToCount(this.state.pageNumber) < this.state.totalCount
-                                                ? <Button variant="secondary" size={"sm"}
+                                                ? <Button variant="outline-secondary" size={"sm"}
                                                     // disabled={!this.paginationToCount(this.state.pageNumber) < this.state.totalCount}
                                                           onClick={() => this.goToNextPage()}><FontAwesomeIcon
                                                     icon={faChevronRight}/></Button>
-                                                : <Button variant="secondary" size={"sm"} disabled={"disabled"}>
+                                                : <Button variant="outline-secondary" size={"sm"} disabled={"disabled"}>
                                                     <FontAwesomeIcon icon={faChevronRight}/>
                                                 </Button>
                                         }
