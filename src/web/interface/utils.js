@@ -124,12 +124,20 @@ function getLabelOptionsOfElement(element, isNode) {
     if (!element.meta.labelOptions) {
         element.meta.labelOptions = {}
     }
+    // console.log("===element******",element);
+
     if (typeof element.meta.labelOptions.showLabel === "undefined") {
         element.meta.labelOptions.showLabel = GRAPH_CANVAS_SETTINGS.DefaultLabelVisibility
     }
     let labelString = null;
     if (element.meta.shapeOptions && element.meta.shapeOptions.labelPropertyKey) {
-        labelString = element.properties[element.meta.shapeOptions.labelPropertyKey];
+        if (element.meta.shapeOptions.labelPropertyKey === "_id") {
+            labelString = element.id;
+        } else if (element.meta.shapeOptions.labelPropertyKey === "_label") {
+            labelString = element.label;
+        } else {
+            labelString = element.properties[element.meta.shapeOptions.labelPropertyKey];
+        }
     }
     if (!labelString && isNode === true) { // fallback to id as default label for nodes
         labelString = element.id;

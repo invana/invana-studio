@@ -153,7 +153,12 @@ export default class VisJsGraphCanvasUtils {
         let label = vertexData.id;
         if (!labelPropertyKey && groupConfig) {
             labelPropertyKey = groupConfig.labelPropertyKey
-            if (vertexData.properties[labelPropertyKey]) {
+
+            if (labelPropertyKey === "_id") {
+                label = vertexData.id;
+            } else if (labelPropertyKey === "_label") {
+                label = vertexData._label;
+            } else if (vertexData.properties[labelPropertyKey]) {
                 label = vertexData.properties[labelPropertyKey];
             }
         }
@@ -194,7 +199,12 @@ export default class VisJsGraphCanvasUtils {
         let label = edgeData.id;
         if (!labelPropertyKey && groupConfig) {
             labelPropertyKey = groupConfig.labelPropertyKey
-            if (edgeData.properties[labelPropertyKey]) {
+
+            if (labelPropertyKey === "_id") {
+                label = edgeData.id;
+            } else if (labelPropertyKey === "_label") {
+                label = edgeData._label;
+            } else if (edgeData.properties[labelPropertyKey]) {
                 label = edgeData.properties[labelPropertyKey];
             }
         }

@@ -22,7 +22,7 @@ export const STUDIO_SETTINGS = {
 
 export const GRAPH_CANVAS_SETTINGS = {
     DefaultNodeBorderColor: "#121212",
-    DefaultNodeLabelPropertyKey: "id",
+    DefaultNodeLabelPropertyKey: "_id",
     DefaultNodeStrokeWidth: 2,
     DefaultNodeRadius: 15,
     DefaultNodeInShapeTextColor: "#dddddd", // inside the shape

@@ -14,7 +14,7 @@ export default class ElementOptions extends RemoteEngine {
         this.state = {
             ...this.state,
             nodeOptions: null,
-            propertyFieldKeys: ["<select>"]
+            propertyFieldKeys: ["_id"]
         }
     }
 
@@ -112,13 +112,13 @@ export default class ElementOptions extends RemoteEngine {
             this.getElementLabel(), this.getElementType()
         ).queryKey];
         const schemaPropertyKeys = schemaData ? schemaData.propertyKeys : [];
-        let schemaPropertyKeys__ = ["<select>"].concat(schemaPropertyKeys);
+        // let schemaPropertyKeys__ = this.state.prop.concat(schemaPropertyKeys);
         if (response.response.data && response.response.data.getOrCreateVertex) {
             // get the init data of the vertex options.
             setElementColorOptionsToStorage(response.response.data.getOrCreateVertex);
             this.setState({
                 nodeOptions: response.response.data.getOrCreateVertex,
-                propertyFieldKeys: schemaPropertyKeys__
+                propertyFieldKeys: schemaPropertyKeys
             })
             this.forceUpdate();
         } else if (response.response.data && response.response.data.updateVertexById) {
@@ -160,6 +160,9 @@ export default class ElementOptions extends RemoteEngine {
         } else if (labelType === "edge") {
             defaultNodeOptions = getDefaultNodeOptions(label);
         }
+        // if (propertyKey === "_id"){
+        //     return this.state.
+        // }
         return this.state.nodeOptions.properties[propertyKey] || defaultNodeOptions[propertyKey];
     }
 
@@ -208,6 +211,8 @@ export default class ElementOptions extends RemoteEngine {
                                         name={"bgImagePropertyKey"} size={"sm"} as={"select"}
                                         onChange={this.handleValueChange.bind(this)}
                                         defaultValue={this.getValueFromDataOrGetDefault("bgImagePropertyKey")}>
+                                        <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
+
                                         {
                                             this.state.propertyFieldKeys.map((fieldKey) =>
                                                 <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
@@ -225,11 +230,14 @@ export default class ElementOptions extends RemoteEngine {
                             <Form.Control name={"labelPropertyKey"} size={"sm"} as={"select"}
                                           onChange={this.handleValueChange.bind(this)}
                                           defaultValue={this.getValueFromDataOrGetDefault("labelPropertyKey")}>
+                                <option key={"_id"} value={"_id"}>{"_id"}</option>
+                                <option key={"_label"} value={"_label"}>{"_label"}</option>
                                 {
                                     this.state.propertyFieldKeys.map((fieldKey) =>
                                         <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
                                     )
                                 }
+
                             </Form.Control>
                         </Form.Group>
 
