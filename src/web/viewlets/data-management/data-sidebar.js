@@ -30,12 +30,17 @@ export default class DataSidebarViewlet extends RemoteEngine {
     }
 
     componentDidMount() {
+        super.componentDidMount();
+        // if (this.connector) {
         const verticesStateQuery = this.connector.requestBuilder.getVerticesLabelStats();
         const edgesStatsQuery = this.connector.requestBuilder.getEdgesLabelStats();
         const queryPayload = this.connector.requestBuilder.combineQueries(verticesStateQuery, edgesStatsQuery);
-
         console.log("queryPayload", queryPayload);
         this.makeQuery(queryPayload);
+        // }else{
+        //
+        // }
+
     }
 
 

@@ -95,7 +95,10 @@ export default class ReadListVertexViewlet extends RemoteEngine {
     }
 
     componentDidMount() {
-        this.queryListOfItems(0);
+        super.componentDidMount();
+        if (this.connector) {
+            this.queryListOfItems(0);
+        }
     }
 
     processResponse(response) {

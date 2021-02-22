@@ -10,11 +10,12 @@ function createWindow() {
         height: 600,
         show: false,
         // frame:false,
-        // webPreferences: {nodeIntegration: true}
+        webPreferences: {contextIsolation: true}
     });
     console.log("IsDev", isDev);
-    const startURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`;
-
+    const startURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html#/add')}`;
+    // const startURL = isDev ? 'http://localhost:3000' : 'index.html';
+    console.log("startURL", startURL)
     mainWindow.loadURL(startURL);
 
     mainWindow.once('ready-to-show', () => mainWindow.show());

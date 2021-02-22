@@ -9,8 +9,9 @@ import {getDataFromLocalStorage, setDataToLocalStorage} from "../utils";
 import {HISTORY_SETTINGS, STUDIO_SETTINGS} from "../../settings";
 import InvanaEngineDeSerializer from "../../serializers/invana-engine";
 import GraphSONDeSerializer from "../../serializers/graphson-v3";
-import {redirectToConnectIfNeeded} from "../../core/utils";
+// import {redirectToConnectIfNeeded} from "../../core/utils";
 import InMemoryDataStore from "../../core/data-store";
+import {Redirect} from "react-router-dom";
 // import InMemoryDataStore from "../../core/example-data-store";
 
 
@@ -87,16 +88,6 @@ export default class RemoteEngine extends React.Component {
             // edges: []
         }
 
-        if (this.checkIfGremlinUrlIsValid()) {
-            this.connector = this.connect();
-        }
-        if (this.checkIfGraphEngineIsValid() && this.props.graphEngineName === "invana-engine") {
-            // this.requestBuilder = new InvanaEngineQueryManager();
-            this.responseSerializer = new InvanaEngineDeSerializer();
-        } else {
-            // this.requestBuilder = new GremlinQueryManager();
-            this.responseSerializer = new GraphSONDeSerializer();
-        }
         this.dataStore = new InMemoryDataStore();
 
     }
@@ -112,7 +103,7 @@ export default class RemoteEngine extends React.Component {
         this.setQueryString(queryString);
     }
 
-    checkIfGremlinUrlIsValid() {
+    checkIfConnectionUrlIsValid() {
         return !!this.props.connectionUrl;
     }
 
@@ -121,6 +112,7 @@ export default class RemoteEngine extends React.Component {
     }
 
     connect() {
+        console.log("Connect triggered");
         const protocol = this.getProtocol();
         let connectorCls = null;
 
@@ -294,13 +286,34 @@ export default class RemoteEngine extends React.Component {
         }
     }
 
+    // componentWillUnmount() {
+    //     if (this.checkIfConnectionUrlIsValid()) {
+    //         this.connector = this.connect();
+    //     }
+    //     if (this.checkIfGraphEngineIsValid() && this.props.graphEngineName === "invana-engine") {
+    //         // this.requestBuilder = new InvanaEngineQueryManager();
+    //         this.responseSerializer = new InvanaEngineDeSerializer();
+    //     } else {
+    //         // this.requestBuilder = new GremlinQueryManager();
+    //         this.responseSerializer = new GraphSONDeSerializer();
+    //     }
+    //     this.dataStore = new InMemoryDataStore();
+    // }
+
     componentDidMount() {
         console.log("gremlin-component componentDidMount")
-        let shallConnect = redirectToConnectIfNeeded(this.props.connectionUrl);
-        if (shallConnect) {
-            const protocol = this.getProtocol();
-            console.log("We will be using " + protocol + " protocol");
-
+        if (this.checkIfConnectionUrlIsValid()) {
+            this.connector = this.connect();
         }
+        if (this.checkIfGraphEngineIsValid() && this.props.graphEngineName === "invana-engine") {
+            // this.requestBuilder = new InvanaEngineQueryManager();
+            this.responseSerializer = new InvanaEngineDeSerializer();
+        } else {
+            // this.requestBuilder = new GremlinQueryManager();
+            this.responseSerializer = new GraphSONDeSerializer();
+        }
+
     }
+
+
 }

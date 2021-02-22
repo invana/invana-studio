@@ -6,9 +6,10 @@ import MainContent from "../../ui-components/main-content";
 import {VERTICES_EXAMPLE_DATA} from "../../../example-data/data";
 import DataSidebarViewlet from "../../viewlets/data-management/data-sidebar";
 import RemoteEngine from "../../layout/remote";
+import RoutableRemoteEngine from "../../layout/routable-remote";
 
 
-export default class DataView extends RemoteEngine {
+export default class DataView extends RoutableRemoteEngine {
 
 
     constructor(props) {
@@ -20,15 +21,18 @@ export default class DataView extends RemoteEngine {
             // elementsData: VERTICES_EXAMPLE_DATA
         }
 
+        this.child = React.createRef();
+
     }
 
     onItemClick(labelName, labelType) {
-        window.location.href = "/data/" + labelType + "/" + labelName;
+        this.child.current.setRedirectToRoute("/data/" + labelType + "/" + labelName);
+        // window.location.href= "/data/" + labelType + "/" + labelName;
     }
 
     render() {
         console.log("this.props", this.props.location);
-        return (<DefaultLayout {...this.props}>
+        return (<DefaultLayout {...this.props}  ref={this.child}>
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet

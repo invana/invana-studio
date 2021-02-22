@@ -1,11 +1,12 @@
 import React from "react";
 import {Nav} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default class LabelMenu extends React.Component {
 
 
     highlightMenu(viewType) {
-        return this.props.match.params.viewType === viewType ? "active heading" : "heading";
+        return this.props.match.params.viewType === viewType ? "active nav-link" : "nav-link";
     }
 
     render() {
@@ -14,10 +15,10 @@ export default class LabelMenu extends React.Component {
         return (
             <React.Fragment>
                 <Nav.Item>
-                    <Nav.Link className={this.highlightMenu("entries")} href={urlPrefix + "/entries"}>Entries</Nav.Link>
+                    <Link className={this.highlightMenu("entries")} to={urlPrefix + "/entries"}>Entries</Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link className={this.highlightMenu("schema")} href={urlPrefix + "/schema"}>Schema</Nav.Link>
+                    <Link className={this.highlightMenu("schema")} to={urlPrefix + "/schema"}>Schema</Link>
                 </Nav.Item>
                 {/*<Nav.Item>*/}
                 {/*    <Nav.Link className={this.highlightMenu("relationships")}*/}
@@ -30,8 +31,8 @@ export default class LabelMenu extends React.Component {
                 {/*    <Nav.Link href={urlPrefix + "/stats"}>Stats</Nav.Link>*/}
                 {/*</Nav.Item>*/}
                 <Nav.Item>
-                    <Nav.Link className={this.highlightMenu("settings")}
-                              href={urlPrefix + "/settings"}>Settings</Nav.Link>
+                    <Link className={this.highlightMenu("settings")}
+                              to={urlPrefix + "/settings"}>Settings</Link>
                 </Nav.Item>
             </React.Fragment>
         )

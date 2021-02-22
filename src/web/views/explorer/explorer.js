@@ -29,11 +29,14 @@ import QueryConsole from "../../viewlets/query-console";
 import ElementOptions from "../../viewlets/element-options";
 import LoadingDiv from "../../viewlets/loading";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
+import RoutableRemoteEngine from "../../layout/routable-remote";
 
-export default class ExplorerView extends RemoteEngine {
+export default class ExplorerView extends RoutableRemoteEngine {
 
     constructor(props) {
+        // super(props);
         super(props);
+        // super.constructor(props);
         this.state = {
             ...this.state,
             statusCode: null,
@@ -56,8 +59,7 @@ export default class ExplorerView extends RemoteEngine {
         this.canvasUtils = new VisJsGraphCanvasUtils();
         this.canvasCtrl = null;
         this.network = null;
-
-
+        this.child = React.createRef();
     }
 
     setLeftContentName(contentName) {
@@ -374,193 +376,194 @@ export default class ExplorerView extends RemoteEngine {
 
     render() {
         let _this = this;
-        return (<DefaultLayout {...this.props} setShowQueryConsole={this.setShowQueryConsole.bind(this)}>
-            <Row>
-                <Sidebar>
-                    <DataSidebarViewlet
-                        onItemClick={this.onItemClick.bind(this)}
-                        dataStore={this.dataStore}
-                    />
-                </Sidebar>
-                <MainContent className={"main-content"}>
-                    <MenuComponent className={" bg-light border-bottom"}>
-                        <Nav className="mr-auto">
-                            {/*<Nav.Item>*/}
-                            {/*    <Nav.Link>*/}
-                            {/*        Graph Canvas*/}
-                            {/*    </Nav.Link>*/}
-                            {/*</Nav.Item>*/}
-                        </Nav>
-                        <Nav className="ml-auto">
-                            <Nav.Item>
-                                {/*<button className={"nav-link"}*/}
-                                {/*        onClick={() => {*/}
-                                {/*            const verticesFilterQuery = this.connector.requestBuilder.filterVertices("Drug", 10, 0);*/}
-                                {/*            const queryPayload = this.connector.requestBuilder.combineQueries(verticesFilterQuery, null);*/}
-                                {/*            this.setState({queryObject: queryPayload});*/}
-                                {/*        }}>*/}
-                                {/*    <FontAwesomeIcon icon={faUserAstronaut}/>*/}
-                                {/*</button>*/}
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Button size={"sm"} variant={"link"}>
-                                    <FontAwesomeIcon icon={faSearch}/> Query
-                                </Button>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Button size={"sm"} variant={"link"}>
-                                    <FontAwesomeIcon icon={faFilter}/>
-                                </Button>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Button size={"sm"} variant={"link"}
-                                        onClick={() => this.canvasCtrl.confirmRedrawCanvas()}
-                                >
-                                    <FontAwesomeIcon icon={faSync}/>
-                                </Button>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Button size={"sm"} variant={"link"}
-                                        onClick={() => this.canvasCtrl.downloadCanvasImage()}
-                                >
-                                    <FontAwesomeIcon icon={faCamera}/>
-                                </Button>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Button size={"sm"} variant={"link"}
-                                        onClick={() => this.canvasCtrl.confirmFlushCanvas()}
-                                >
-                                    <FontAwesomeIcon icon={faTrashAlt}/>
-                                </Button>
-                            </Nav.Item>
-                            <Nav.Item className={"mr-2"}>
-                                |
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Button size={"sm"} variant={"link"}>
-                                    <FontAwesomeIcon icon={faStickyNote}/>
-                                </Button>
-                            </Nav.Item>
-                            <Nav.Item className={"mr-1"}>
-                                <Button size={"sm"} variant={"link"}>
-                                    <FontAwesomeIcon icon={faCog}/>
-                                </Button>
-                            </Nav.Item>
-                        </Nav>
-                    </MenuComponent>
-                    <CanvasComponent>
-
-                        {
-                            this.state.focusedNodes.length > 0
-                                ? <FocusedNodesList
-                                    canvasUtils={this.canvasUtils}
-                                    focusedNodes={this.state.focusedNodes}
-                                    removeFocusedNode={this.removeFocusedNode.bind(this)}/>
-                                : <React.Fragment/>
-                        }
-                        {
-                            this.state.selectedElementData
-                                ? <NodeMenu
-                                    menuPositionX={this.state.menuPositionX}
-                                    menuPositionY={this.state.menuPositionY}
-
-                                    setLeftContentName={this.setLeftContentName.bind(this)}
-                                    // setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
-
-                                    selectedElementData={this.state.selectedElementData}
-                                    setSelectedElementData={this.setSelectedElementData.bind(this)}
-                                    getFocusedNodes={this.getFocusedNodes.bind(this)}
-                                    addNodeToFocusedNodes={this.addNodeToFocusedNodes.bind(this)}
-
-                                    connector={this.connector}
-                                    makeQuery={this.makeQuery.bind(this)}
-
-                                    getNetwork={this.getNetwork.bind(this)}
-
-                                    startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
-                                    canvasUtils={this.canvasUtils}
-                                />
-                                : <React.Fragment/>
-                        }
-
-                        <ForceDirectedGraphCanvas
-                            // queryObject={this.state.queryObject}
-                            nodes={this.state.nodes}
-                            edges={this.state.edges}
-                            resetVisualizer={this.state.resetVisualizer}
-                            setNetwork={this.setNetwork.bind(this)}
-                            setSelectedElementData={this.setSelectedElementData.bind(this)}
-                            setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
-                            onRenderingStatusEnded={this.onRenderingStatusEnded.bind(this)}
+        return (
+            <DefaultLayout {...this.props} ref={this.child} setShowQueryConsole={this.setShowQueryConsole.bind(this)}>
+                <Row>
+                    <Sidebar>
+                        <DataSidebarViewlet
+                            onItemClick={this.onItemClick.bind(this)}
+                            dataStore={this.dataStore}
                         />
+                    </Sidebar>
+                    <MainContent className={"main-content"}>
+                        <MenuComponent className={" bg-light border-bottom"}>
+                            <Nav className="mr-auto">
+                                {/*<Nav.Item>*/}
+                                {/*    <Nav.Link>*/}
+                                {/*        Graph Canvas*/}
+                                {/*    </Nav.Link>*/}
+                                {/*</Nav.Item>*/}
+                            </Nav>
+                            <Nav className="ml-auto">
+                                <Nav.Item>
+                                    {/*<button className={"nav-link"}*/}
+                                    {/*        onClick={() => {*/}
+                                    {/*            const verticesFilterQuery = this.connector.requestBuilder.filterVertices("Drug", 10, 0);*/}
+                                    {/*            const queryPayload = this.connector.requestBuilder.combineQueries(verticesFilterQuery, null);*/}
+                                    {/*            this.setState({queryObject: queryPayload});*/}
+                                    {/*        }}>*/}
+                                    {/*    <FontAwesomeIcon icon={faUserAstronaut}/>*/}
+                                    {/*</button>*/}
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}>
+                                        <FontAwesomeIcon icon={faSearch}/> Query
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}>
+                                        <FontAwesomeIcon icon={faFilter}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}
+                                            onClick={() => this.canvasCtrl.confirmRedrawCanvas()}
+                                    >
+                                        <FontAwesomeIcon icon={faSync}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}
+                                            onClick={() => this.canvasCtrl.downloadCanvasImage()}
+                                    >
+                                        <FontAwesomeIcon icon={faCamera}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}
+                                            onClick={() => this.canvasCtrl.confirmFlushCanvas()}
+                                    >
+                                        <FontAwesomeIcon icon={faTrashAlt}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item className={"mr-2"}>
+                                    |
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}>
+                                        <FontAwesomeIcon icon={faStickyNote}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item className={"mr-1"}>
+                                    <Button size={"sm"} variant={"link"}>
+                                        <FontAwesomeIcon icon={faCog}/>
+                                    </Button>
+                                </Nav.Item>
+                            </Nav>
+                        </MenuComponent>
+                        <CanvasComponent>
 
-                    </CanvasComponent>
-                    <MenuComponent className={"sm footer"}>
-                        <Nav className="mr-auto">
-                            <Nav.Item className={"mr-3 ml-2"}>
-                                {this.state.statusMessage}
-                            </Nav.Item>
-                            <Nav.Item>
-                                {
-                                    this.state.statusCode
-                                        ? <span>{this.state.statusCode} response</span>
-                                        : <span></span>
-                                }
+                            {
+                                this.state.focusedNodes.length > 0
+                                    ? <FocusedNodesList
+                                        canvasUtils={this.canvasUtils}
+                                        focusedNodes={this.state.focusedNodes}
+                                        removeFocusedNode={this.removeFocusedNode.bind(this)}/>
+                                    : <React.Fragment/>
+                            }
+                            {
+                                this.state.selectedElementData
+                                    ? <NodeMenu
+                                        menuPositionX={this.state.menuPositionX}
+                                        menuPositionY={this.state.menuPositionY}
 
-                            </Nav.Item>
-                        </Nav>
-                        <Nav className="ml-auto">
-                            <Nav.Item className={"mr-2"}>
-                                {this.state.nodes.length} nodes, {this.state.edges.length} edges
-                            </Nav.Item>
-                        </Nav>
-                    </MenuComponent>
-                </MainContent>
-            </Row>
+                                        setLeftContentName={this.setLeftContentName.bind(this)}
+                                        // setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
 
-            {
-                this.state.showQueryConsole === true
-                    ? <QueryConsole
-                        makeQuery={this.makeQuery.bind(this)}
-                        connector={this.connector}
-                        query={this.state.query}
-                        // value={this.state.defaultQuery}
-                        onClose={() => {
-                            console.log("hide query console");
-                            _this.setShowQueryConsole(false);
-                        }}
-                    />
-                    : <React.Fragment/>
-            }
+                                        selectedElementData={this.state.selectedElementData}
+                                        setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                        getFocusedNodes={this.getFocusedNodes.bind(this)}
+                                        addNodeToFocusedNodes={this.addNodeToFocusedNodes.bind(this)}
 
-            {
-                this.state.leftContentName === "element-options" && this.state.selectedElementData
-                    ? <LeftContainer>
-                        <ElementOptions
-                            selectedElementData={this.state.selectedElementData}
-                            setLeftContentName={this.setLeftContentName.bind(this)}
-                            // selectedLabelType={this.state.selectedLabelType}
-                            setStatusMessage={this.setStatusMessage.bind(this)}
-                            setErrorMessage={this.setErrorMessage.bind(this)}
-                            // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                        connector={this.connector}
+                                        makeQuery={this.makeQuery.bind(this)}
+
+                                        getNetwork={this.getNetwork.bind(this)}
+
+                                        startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                                        canvasUtils={this.canvasUtils}
+                                    />
+                                    : <React.Fragment/>
+                            }
+
+                            <ForceDirectedGraphCanvas
+                                // queryObject={this.state.queryObject}
+                                nodes={this.state.nodes}
+                                edges={this.state.edges}
+                                resetVisualizer={this.state.resetVisualizer}
+                                setNetwork={this.setNetwork.bind(this)}
+                                setSelectedElementData={this.setSelectedElementData.bind(this)}
+                                setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
+                                onRenderingStatusEnded={this.onRenderingStatusEnded.bind(this)}
+                            />
+
+                        </CanvasComponent>
+                        <MenuComponent className={"sm footer"}>
+                            <Nav className="mr-auto">
+                                <Nav.Item className={"mr-3 ml-2"}>
+                                    {this.state.statusMessage}
+                                </Nav.Item>
+                                <Nav.Item>
+                                    {
+                                        this.state.statusCode
+                                            ? <span>{this.state.statusCode} response</span>
+                                            : <span></span>
+                                    }
+
+                                </Nav.Item>
+                            </Nav>
+                            <Nav className="ml-auto">
+                                <Nav.Item className={"mr-2"}>
+                                    {this.state.nodes.length} nodes, {this.state.edges.length} edges
+                                </Nav.Item>
+                            </Nav>
+                        </MenuComponent>
+                    </MainContent>
+                </Row>
+
+                {
+                    this.state.showQueryConsole === true
+                        ? <QueryConsole
+                            makeQuery={this.makeQuery.bind(this)}
+                            connector={this.connector}
+                            query={this.state.query}
+                            // value={this.state.defaultQuery}
                             onClose={() => {
-                                _this.setLeftContentName(null)
+                                console.log("hide query console");
+                                _this.setShowQueryConsole(false);
                             }}
-                            reRenderVisualizer={this.reRenderVisualizer.bind(this)}
-                            // reRenderCanvas={this.reRenderCanvas.bind(this)}
-                            // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
                         />
-                    </LeftContainer>
+                        : <React.Fragment/>
+                }
 
-                    : <React.Fragment></React.Fragment>
-            }
-            {
-                this.state.isQuerying === true || this.state.isRenderingCanvas === true
-                    ? <LoadingDiv statusMessage={this.state.statusMessage}/>
-                    : <React.Fragment/>
-            }
-            {/*<LoadingDiv/>*/}
-        </DefaultLayout>)
+                {
+                    this.state.leftContentName === "element-options" && this.state.selectedElementData
+                        ? <LeftContainer>
+                            <ElementOptions
+                                selectedElementData={this.state.selectedElementData}
+                                setLeftContentName={this.setLeftContentName.bind(this)}
+                                // selectedLabelType={this.state.selectedLabelType}
+                                setStatusMessage={this.setStatusMessage.bind(this)}
+                                setErrorMessage={this.setErrorMessage.bind(this)}
+                                // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                onClose={() => {
+                                    _this.setLeftContentName(null)
+                                }}
+                                reRenderVisualizer={this.reRenderVisualizer.bind(this)}
+                                // reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
+                            />
+                        </LeftContainer>
+
+                        : <React.Fragment></React.Fragment>
+                }
+                {
+                    this.state.isQuerying === true || this.state.isRenderingCanvas === true
+                        ? <LoadingDiv statusMessage={this.state.statusMessage}/>
+                        : <React.Fragment/>
+                }
+                {/*<LoadingDiv/>*/}
+            </DefaultLayout>)
     }
 
 }

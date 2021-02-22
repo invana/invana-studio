@@ -1,10 +1,15 @@
 {
-  "name": "invana-studo",
+  "name": "invana-studio",
   "version": "0.0.0",
+  "desrciption": "Knowledge Graph Visualiser and Editor.",
   "private": true,
   "homepage": "./",
   "main": "public/electron.js",
-  "author": "Ravi Raja Merugu",
+  "author": {
+    "name": "Ravi Raja Merugu",
+    "email": "rrmerugu@gmail.com",
+    "url": "http://github.com/rrmerugu"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
@@ -14,6 +19,7 @@
     "@testing-library/user-event": "^12.6.0",
     "bootstrap": "^4.5.3",
     "color-hash": "^1.0.3",
+    "electron-is-dev": "^1.2.0",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -25,14 +31,15 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-build": "npm run build && ./node_modules/.bin/electron-builder --scripts-prepend-node-path",
-    "electron-pack": "build --em.main=build/electron.js"
-
+    "electron-build": "export BUILD_FOLDER=\"./build\" && if [ -e \"$BUILD_FOLDER\" ];then rm -rf \"$BUILD_FOLDER\" ; fi && npm run build",
+    "electron-build:linux": "./node_modules/.bin/electron-builder  --linux deb zip rpm snap",
+    "electron-build:mac": "./node_modules/.bin/electron-builder  --mac dmg pkg zip",
+    "postinstall": "./node_modules/.bin/electron-builder install-app-deps"
   },
   "eslintConfig": {
     "extends": [
@@ -56,17 +63,30 @@
     "concurrently": "^6.0.0",
     "electron": "^11.3.0",
     "electron-builder": "^22.9.1",
-    "electron-is-dev": "^1.2.0",
+    "electron-packager": "^15.2.0",
     "style-loader": "^2.0.0",
     "wait-on": "^5.2.1"
   },
   "build": {
-    "appId": "com.example.electron-cra",
+    "appId": "com.electron.${name}",
+    "productName": "Invana Studio",
+    "extends": null,
     "files": [
       "build/**/*",
       "node_modules/**/*"
     ],
+    "win": {
+      "icon": "build/logo512.ico"
+    },
+    "linux": {
+      "icon": "build/logo512.ico",
+      "category": "Science"
+    },
+    "mac": {
+      "icon": "build/logo512.ico"
+    },
     "directories": {
+      "output": "dist",
       "buildResources": "assets"
     }
   }

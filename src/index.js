@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './web/index.scss';
+import './web/index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 // import ForceDirectedGraphCanvas from "./web/interface/canvas/canvas";

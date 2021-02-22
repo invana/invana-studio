@@ -6,10 +6,19 @@ Apache TinkerPop's Gremlin Query language.
 **NOTE: Under active development**
 
 ## How to use 
+```shell
+npm install
+
+```
+
 ### HTML build 
+```shell
+npm start
+```
 
 ### Generate electron build
 ```shell
+
 npm run-script electron-dev --scripts-prepend-node-path
 
 ```
