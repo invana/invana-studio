@@ -29,6 +29,7 @@ export default class ElementOptions extends RemoteEngine {
     // }
 
     componentDidMount() {
+        super.componentDidMount();
         console.log("VO componentDidMount")
         console.log("======", this.props, this.requestBuilder);
         this.getElementInitialConfig();
