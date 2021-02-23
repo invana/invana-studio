@@ -7,10 +7,6 @@ import defaultOptions from "./options";
 class ForceDirectedGraphCanvas extends React.Component {
 
 
-    constructor(props) {
-        super(props);
-    }
-
     shouldComponentUpdate(nextProps) {
         return this.props.resetVisualizer;
         // return nextProps.value !== this.props.value;

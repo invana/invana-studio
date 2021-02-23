@@ -3,7 +3,6 @@ import {Nav, Navbar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCog, faPlus} from "@fortawesome/free-solid-svg-icons";
 import BlankLayout from "./blank";
-import RemoteEngine from "./remote";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import {NavLink, Redirect} from "react-router-dom";
 

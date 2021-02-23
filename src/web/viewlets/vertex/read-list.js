@@ -4,7 +4,7 @@ import RemoteEngine from "../../layout/remote";
 import {Button, ButtonGroup, Nav, Row, Col, Modal} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronLeft, faChevronRight, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import CreateVertexViewlet from "./create";
 
 

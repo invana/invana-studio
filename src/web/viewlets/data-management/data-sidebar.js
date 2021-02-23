@@ -1,7 +1,6 @@
 import React from "react";
 import {Nav} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
-import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
 import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
 import RemoteEngine from "../../layout/remote";

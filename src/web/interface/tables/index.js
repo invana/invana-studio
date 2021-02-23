@@ -113,20 +113,20 @@ export class VertexTableComponent extends React.Component {
 
     getInELabels() {
         let inELabelsConfig = []
-        this.props.vertexSchema.inE.map((inELabel) => {
+        this.props.vertexSchema.inE.map((inELabel) => (
             inELabelsConfig.push({
                 edgeFillColorHex: this.props.dataStore.getEdgeOptions(inELabel)
                     ? this.props.dataStore.getEdgeOptions(inELabel).shapeOptions.strokeColorHex
                     : "#efefef",
                 edgeLabel: inELabel
             })
-        });
+        ));
         return inELabelsConfig;
     }
 
     getOutELabels() {
         let outELabelsConfig = []
-        this.props.vertexSchema.outE.map((outELabel) => {
+        this.props.vertexSchema.outE.map((outELabel) => (
             // console.log("====this.props.getEdgeOptions(outELabel)", this.props.dataStore.getEdgeOptions(outELabel))
             outELabelsConfig.push({
                 edgeFillColorHex: this.props.dataStore.getEdgeOptions(outELabel)
@@ -134,7 +134,7 @@ export class VertexTableComponent extends React.Component {
                     : "#efefef",
                 edgeLabel: outELabel
             })
-        });
+        ));
         return outELabelsConfig;
     }
 
@@ -354,7 +354,7 @@ export class EdgeTableComponent extends React.Component {
     render() {
         const propertyKeys = this.getPropertyKeys();
 
-        const elColor = this.props.data.length > 0 ? this.getElementColor(this.props.data[0]) : "";
+        // const elColor = this.props.data.length > 0 ? this.getElementColor(this.props.data[0]) : "";
 
         // console.log("EdgeTableComponent here", this.props.label)
         // console.log("EdgeTableComponent here  this.props.data[0]", this.props.data[0])

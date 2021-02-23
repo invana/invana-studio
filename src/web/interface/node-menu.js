@@ -4,12 +4,11 @@ import {
     faArrowAltCircleLeft,
     faArrowAltCircleRight, faCog,
     faDotCircle,
-    faMinusCircle, faTerminal, faWindowClose
+    faTerminal,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import SelectedData from "../viewlets/selected-data";
 import "./node-menu.scss";
-import {Button} from "react-bootstrap";
 
 export default class NodeMenu extends React.Component {
 

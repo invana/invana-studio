@@ -1,9 +1,6 @@
 import RemoteEngine from "../../layout/remote";
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import React from "react";
-import Card from "react-bootstrap/Card";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 

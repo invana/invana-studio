@@ -3,9 +3,7 @@ import DefaultLayout from "../../layout/default";
 import {Row} from "react-bootstrap";
 import Sidebar from "../../ui-components/sidebar";
 import MainContent from "../../ui-components/main-content";
-import {VERTICES_EXAMPLE_DATA} from "../../../example-data/data";
 import DataSidebarViewlet from "../../viewlets/data-management/data-sidebar";
-import RemoteEngine from "../../layout/remote";
 import RoutableRemoteEngine from "../../layout/routable-remote";
 
 
@@ -16,7 +14,7 @@ export default class DataView extends RoutableRemoteEngine {
         super(props);
         this.state = {
             ...this.state,
-            totalCount: 120312,
+            totalCount: "NA",
             // renderType: "table", // ["table", "list", "graph"]
             // elementsData: VERTICES_EXAMPLE_DATA
         }

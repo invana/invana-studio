@@ -11,8 +11,6 @@ export default class Page404View extends React.Component {
     }
 
     render() {
-        const {location} = this.props;
-
         return (
             <DefaultLayout {...this.props}>
                 <Page404Viewlet {...this.props}/>

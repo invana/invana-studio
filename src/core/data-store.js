@@ -188,6 +188,7 @@ export default class InMemoryDataStore {
         let inE = [];
         let outE = [];
 
+        // eslint-disable-next-line array-callback-return
         vertexEdges.map((vertexEdge) => {
             const [sourceLabel, targetLabel, edgeLabel] = vertexEdge.split(this.edgeUniqueStringDelimiter);
             if (sourceLabel === vertexLabel) {
@@ -343,6 +344,7 @@ export default class InMemoryDataStore {
         const _this = this;
 
 
+        // eslint-disable-next-line array-callback-return
         verticesData.map((vertex) => {
             // TODO - fix performance ASAP.
             const neighborData = this.getNeighborNodesAndLinks([vertex])

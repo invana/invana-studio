@@ -6,18 +6,15 @@ import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera,
-    faCode,
     faCog,
     faFilter,
     faSearch, faStickyNote,
     faSync,
     faTrashAlt,
-    faUserAstronaut
 } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../../ui-components/sidebar";
 import MainContent from "../../ui-components/main-content";
 import ForceDirectedGraphCanvas from "../../interface/canvas/canvas";
-import RemoteEngine from "../../layout/remote";
 import DataSidebarViewlet from "../../viewlets/data-management/data-sidebar";
 import VisJsGraphCanvasUtils from "./canvas-utils";
 import Button from "react-bootstrap/Button";

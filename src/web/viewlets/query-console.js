@@ -1,6 +1,6 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlayCircle, faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import {faPlayCircle} from "@fortawesome/free-solid-svg-icons";
 import "./query-console.scss";
 import PropTypes from "prop-types";
 import {Button} from "react-bootstrap";
