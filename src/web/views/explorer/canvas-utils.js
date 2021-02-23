@@ -48,14 +48,14 @@ export default class VisJsGraphCanvasUtils {
         }
 
         const nodeColor = this.getElementColor(groupName);
-
-
         const borderColor = LightenDarkenColor(nodeColor, -35);
         const highLightColor = LightenDarkenColor(nodeColor, 20);
         const highLightBorderColor = LightenDarkenColor(highLightColor, -40);
-        config.borderWidth = 1;
-        config.borderWidthSelected = 1;
+
+        config.borderWidth = 2;
+        config.borderWidthSelected = 2;
         config.shape = nodeShape;
+        config.chosen = false;
         config.color = {
             border: borderColor,
             background: nodeColor,
@@ -71,7 +71,7 @@ export default class VisJsGraphCanvasUtils {
         // config.physics = false;
         config.size = 16;
         config.font = {
-            size: 12,
+            size: 16,
             color: "#333333"
             // bold: true
         };
@@ -116,16 +116,23 @@ export default class VisJsGraphCanvasUtils {
             to: {
                 enabled: true,
                 type: arrowShape,
+                scaleFactor: 1
             },
+            color: this.getEdgeColorObject(groupName)
+
         };
-        config.label = true;
+        config.chosen = false;
+        config.arrowStrikethrough = false;
+        // config.label = true;
+        config.group = undefined;
+
 
         // config.arrows: "to, from";
         config.color = this.getEdgeColorObject(groupName)
 
         // config.physics = false;
         config.size = 16;
-        config.width = 1;
+        config.width = 2;
         config.font = {
             size: 12,
             color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor
@@ -164,7 +171,7 @@ export default class VisJsGraphCanvasUtils {
         }
 
         vertexData.label = this.stringify(label);
-        vertexData.group = groupName;
+        vertexData.group = undefined;// groupName
 
 
         delete vertexData.shape;
@@ -177,15 +184,15 @@ export default class VisJsGraphCanvasUtils {
                 vertexData.image = image;
             }
         }
+        this.generateNodeGroups(groupName);
 
         // if (groupConfig && groupConfig.labelPropertyKey) {
         //     // vertexData.shape = "circularImage";
         //     vertexData.label = vertexData.properties[groupConfig.labelPropertyKey];
         // }
 
-
-        this.generateNodeGroups(groupName);
-        return vertexData;
+        console.log("====this.nodeGroups[groupName]", this.nodeGroups[groupName]);
+        return Object.assign({}, vertexData, this.nodeGroups[groupName]);
     }
 
     _prepareEdge(edgeData, labelPropertyKey) {
@@ -210,7 +217,7 @@ export default class VisJsGraphCanvasUtils {
         }
 
         edgeData.label = this.stringify(label);
-        edgeData.group = groupName;
+        edgeData.group = undefined; // groupName
 
 
         // edgeData.label = labelPropertyKey
@@ -221,8 +228,8 @@ export default class VisJsGraphCanvasUtils {
 
         edgeData.from = edgeData.outV;
         edgeData.to = edgeData.inV;
+        return Object.assign({}, edgeData, this.edgeGroups[groupName]);
 
-        return edgeData;
     }
 
     prepareNodes(verticesData) {

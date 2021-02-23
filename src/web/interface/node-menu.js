@@ -136,7 +136,7 @@ export default class NodeMenu extends React.Component {
 
     getElementColor() {
         const elementData = this.getLastSelectedNodeData();
-        return this.props.canvasUtils.getElementColor(elementData.group);
+        return this.props.canvasUtils.getElementColor(elementData._label);
     }
 
     render() {

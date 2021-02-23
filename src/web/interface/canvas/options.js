@@ -38,8 +38,8 @@ const defaultOptions = {
         // }
     },
     edges: {
-        // color: "#999999",
-        physics: true,
+        // // color: "#999999",
+        physics: false,
         smooth: {
             enabled: false,
             // dynamic, continuous, discrete, diagonalCross, straightCross,
@@ -49,19 +49,22 @@ const defaultOptions = {
             forceDirection: "vertical",
             roundness: 1
         },
-        // width: 0.5,
-        // size: 4,
-        arrows: {
-            to: {
-                enabled: true,
-                scaleFactor: 0.5
-            }
-        }
+        // // width: 0.5,
+        // // size: 4,
+        // arrows: {
+        //     to: {
+        //         enabled: true,
+        //         scaleFactor: 0
+        //     }
+        // },
+        // selectionWidth: function (width) {
+        //     return width * 1.2;
+        // }
     },
     nodes: {
         // physics: false,
         shape: "dot",
-        size: 6,
+        // size: 10,
         scaling: {
             min: 10,
             max: 30,

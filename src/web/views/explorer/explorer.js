@@ -27,6 +27,7 @@ import ElementOptions from "../../viewlets/element-options";
 import LoadingDiv from "../../viewlets/loading";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 import RoutableRemoteEngine from "../../layout/routable-remote";
+import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
 
@@ -185,7 +186,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
     }
 
     setSelectedElementData(selectedDataId, selectedElementType) {
-        // console.log("=======-=-=-=this.network", this.network, selectedElementType);
+        console.log("setSelectedElementData", selectedDataId, selectedElementType);
         let selectedElementData = null;
         if (selectedElementType === "g:Vertex") {
             selectedElementData = this.network.body.data.nodes.get(selectedDataId)
@@ -277,6 +278,12 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
     }
 
+    //
+    // saveGroupsConfigToStorage(groups) {
+    //     for (let group in groups) {
+    //         setElementColorOptionsToStorage(groups[group]);
+    //     }
+    // }
 
     addNewData(newNodes, newEdges) {
         // const id = data.nodes.length + 1;
@@ -288,13 +295,23 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
         const nodes = this.canvasUtils.prepareNodes(newNodesToAdd);
         const edges = this.canvasUtils.prepareEdges(newEdgesToAdd);
+
+        // const nodeGroups = this.canvasUtils.nodeGroups;
+        // const edgeGroups = this.canvasUtils.edgeGroups;
+
+        // add the groups to localStorage
+        // this.saveGroupsConfigToStorage(this.canvasUtils.nodeGroups);
+        // this.saveGroupsConfigToStorage(this.canvasUtils.edgeGroups);
+
         this.network.setOptions({
             groups: {
                 useDefaultGroups: false,
-                ...this.canvasUtils.nodeGroups,
-                ...this.canvasUtils.edgeGroups
+                // ...nodeGroups,
+                // ...edgeGroups
             }
         });
+        console.log("======, nodes", nodes);
+        console.log("======, edges", edges);
         console.log(" ...this.canvasUtils.edgeGroups", this.canvasUtils.edgeGroups);
         // this.network.body.data.nodes.clear();
         // this.network.body.data.edges.clear();
@@ -352,12 +369,13 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
     startRenderingStatus() {
         this.setState({isRenderingCanvas: true});
-        this.setStatusMessage("Rendering the Graph.")
+        this.setStatusMessage("Rendering the Graph.");
     }
 
     onRenderingStatusEnded() {
         this.setState({isRenderingCanvas: false});
-        this.setStatusMessage("Rendered the Graph.")
+        this.setStatusMessage("Rendered the Graph.");
+        this.network.redraw();
 
     }
 

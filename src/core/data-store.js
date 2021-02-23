@@ -2,7 +2,7 @@
 import {convertMapKeysToArray} from "./utils";
 import {
     prepareLinkDataWithOptions,
-    prepareLinksDataForCurves,
+    // prepareLinksDataForCurves,
     prepareNodesDataWithOptions
 } from "../web/interface/utils";
 
@@ -390,20 +390,25 @@ export default class InMemoryDataStore {
         this.linkLabelGraphicsArray = [];
     }
 
-    prepareNodes(vertices) {
-        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
-        return prepareNodesDataWithOptions(vertices, nodeOptions);
-
-    }
+    // prepareNodes(vertices) {
+    //     const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+    //     // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
+    //     return prepareNodesDataWithOptions(vertices, nodeOptions);
+    //
+    // }
 
     getAllRawVerticesList() {
-        return this.prepareNodes(convertMapKeysToArray(this.#vertices))
+        // return this.prepareNodes(convertMapKeysToArray(this.#vertices))
+        return convertMapKeysToArray(this.#vertices);
     }
 
     getAllRawEdgesList() {
         const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        return prepareLinkDataWithOptions(prepareLinksDataForCurves(convertMapKeysToArray(this.#edges)), nodeOptions);
+        // return prepareLinkDataWithOptions(
+            // prepareLinksDataForCurves(
+             return   convertMapKeysToArray(this.#edges);
+            // ),
+            // nodeOptions);
     }
 
     getAlreadyRenderedData() {

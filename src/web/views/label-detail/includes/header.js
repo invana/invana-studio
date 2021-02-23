@@ -21,9 +21,8 @@ export default class LabelDetailHeader extends React.Component {
                             <Nav className="mr-auto">
                                 <Nav.Item>
                                     <h2 style={{"fontSize": "1.3rem"}}
-                                        className={" mb-0 mr-3"}><strong>{this.props.labelName}</strong></h2>
+                                        className={" mb-0 mr-3"}><strong>{this.props.match.params.labelName}</strong></h2>
                                 </Nav.Item>
-
                                 {/*<Nav.Item>*/}
                                 {/*    <ButtonGroup>*/}
                                 {/*        <Button variant="secondary" size={"sm"}><FontAwesomeIcon*/}
@@ -34,14 +33,11 @@ export default class LabelDetailHeader extends React.Component {
                                 {/*        /!*    icon={faProjectDiagram}/></Button>*!/*/}
                                 {/*    </ButtonGroup>*/}
                                 {/*</Nav.Item>*/}
-
                             </Nav>
                             <Nav className="ml-auto">
                                 <Nav.Item>
                                         {/*{this.props.totalCount} entries*/}
                                 </Nav.Item>
-
-
                             </Nav>
                         </MenuComponent>
                     </Col>

@@ -113,6 +113,7 @@ class ForceDirectedGraphCanvas extends React.Component {
             },
             stabilized: function (params) {
                 console.log("stabilized Event:", params);
+
                 _this.props.onRenderingStatusEnded();
             }
         }

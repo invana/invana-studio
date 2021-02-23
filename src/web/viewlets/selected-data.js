@@ -46,6 +46,10 @@ export default class SelectedData extends React.Component {
         if (!selectedDataColorSchema) {
             selectedDataColorSchema = {bgColor: "#7d8296"};
         }
+
+            console.log("selectedDataColorSchema", selectedDataColorSchema);
+            // console.log("selectedDataColorSchema", selectedDataColorSchema);
+
         return (
             <div>
 
