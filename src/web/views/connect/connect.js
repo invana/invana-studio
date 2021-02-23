@@ -137,14 +137,14 @@ export default class ConnectView extends React.Component {
 
 
             <Row className={"pl-3"} style={{paddingTop: "26%"}}>
-                <Col md={"1"} className={"mt-2 pl-3"} style={{"width": "4.5rem", "flex": "none"}}>
+                <Col md={"1"} className={""} style={{"width": "4.5rem", "flex": "none"}}>
                     <FontAwesomeIcon icon={faUserAstronaut}
                                      className={"mt-2"}
                                      style={{"fontSize": "4rem"}}/>
                 </Col>
                 <Col md={"5"}>
                     {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
-                    <h1 className={"pb-0 mb-0"}>Invana Studio <small>({STUDIO_SETTINGS.VERSION})</small></h1>
+                    <h1 className={"pb-0 mb-0 mt-3"}>Invana Studio <small>({STUDIO_SETTINGS.VERSION})</small></h1>
                     <p>{STUDIO_SETTINGS.ABOUT_TEXT}</p>
                 </Col>
             </Row>

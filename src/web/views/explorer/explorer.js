@@ -75,11 +75,13 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
         if (selectedNodes.length === 0) {
             const allNodesOptions = allNodes.map(node => ({
-                id: node.id, opacity: 1,
+                id: node.id,
+                opacity: 1,
                 font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
             }));
             const allEdgesOptions = allEdges.map(edge => ({
-                id: edge.id, opacity: 1,
+                id: edge.id,
+                opacity: 1,
                 font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
             }));
 
@@ -92,7 +94,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
             // set all the nodes and edges opacity to 0.2
             // set selected nodes and edges opacity to 1.0
             const allNodesOptions = allNodes.map(node => ({
-                id: node.id, opacity: 0.1,
+                id: node.id,
+                opacity: 0.1,
                 font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementUnHighlightColor}
             }));
 
@@ -140,7 +143,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     })
                 }
             );
-            this.network.setOptions({opacity: 0.1});
+            // this.network.setOptions({nodes: {opacity: 0.1}});
             console.log("selectedEdgesOptions", selectedEdgesOptions)
             this.network.body.data.edges.update(allEdgesOptions)
             this.network.body.data.edges.update(selectedEdgesOptions)
