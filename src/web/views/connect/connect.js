@@ -158,7 +158,7 @@ export default class ConnectView extends React.Component {
                             <Form inline onSubmit={this.onFormSubmit.bind(this)}>
 
                                 <Form.Control
-                                    className="mb-2 mr-sm-2"
+                                    className="mb-2 mr-2 mr-sm-2"
                                     name="connectionUrl"
                                     placeholder="http://localhost:8000/graphql"
                                     style={{width: "320px"}}
@@ -166,7 +166,7 @@ export default class ConnectView extends React.Component {
                                 <Form.Control name="graphEngineName" value={"invana-engine"} type={"hidden"}/>
 
 
-                                <Button type="submit" className="">
+                                <Button type="submit" variant={"outline-primary"} className={""}>
                                     Connect
                                 </Button>
                                 <p>
@@ -195,21 +195,20 @@ export default class ConnectView extends React.Component {
                                                                placeholder={"header value"}
                                                                name={"headerValue"}
                                                         />
-                                                        <button type={"button"}
+                                                        <Button type={"button"} variant={"bg-link"}
                                                                 onClick={this.removeHeader.bind(this)}>
                                                             <FontAwesomeIcon icon={faTimesCircle}/>
-                                                        </button>
+                                                        </Button>
 
                                                     </div>
 
                                                 })
                                             }
                                             <p>
-                                                <button type={"button"} className={""}
-                                                        onClick={this.addNewHeader.bind(this)}> +
-                                                    add
-                                                    new header
-                                                </button>
+                                                <Button type={"button"} variant={"outline-secondary"} size={"sm"}
+                                                        className={"mt-2"}
+                                                        onClick={this.addNewHeader.bind(this)}> + add new header
+                                                </Button>
                                             </p>
                                         </div>
                                         : <span></span>

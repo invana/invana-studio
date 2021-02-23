@@ -12,6 +12,9 @@ button:focus:active {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+button{
+  border-radius: 2px !important;
+}
 
 .navbar {
   //padding: 0 1rem !important;

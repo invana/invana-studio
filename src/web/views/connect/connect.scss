@@ -33,15 +33,34 @@
 
     input {
       width: calc(100% - 20px);
-      margin: 10px auto;
-      padding: 10px 10px 5px 10px;
-      color: white;
-      border: 0;
-      border-bottom: 1px solid $borderColor;
+      //margin: 10px auto;
+      //padding: 10px 10px 5px 10px;
+      //color: white;
+      //border: 0;
+      //border-bottom: 1px solid $borderColor;
+    }
+
+    .btn-outline-primary {
+      margin-top: -7px;
+    }
+
+    .headersList {
+      input {
+        //width: calc(100% - 20px) !important;
+        //margin: 10px auto;
+        padding: 10px 10px 5px 10px;
+        color: white;
+        border: 0;
+        border-bottom: 1px solid $borderColor;
+      }
+      button{
+        font-size: 14px !important;
+        padding: 5px;
+      }
     }
   }
 
-  button {
+  .extra-headers-btn {
     cursor: pointer;
     outline: none;
     background: transparent;
@@ -51,6 +70,11 @@
     padding: 0;
     border: transparent;
     box-shadow: none;
+  }
+
+  button {
+
+    font-size: 16px !important;
   }
 
   h1 {
