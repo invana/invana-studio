@@ -24,3 +24,4 @@ yarn-error.log*
 .eslintcache
 build/
 dist/
+invana-studio-*

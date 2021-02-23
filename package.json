@@ -39,6 +39,7 @@
     "electron-build": "export BUILD_FOLDER=\"./build\" && if [ -e \"$BUILD_FOLDER\" ];then rm -rf \"$BUILD_FOLDER\" ; fi && npm run build",
     "electron-build:linux": "./node_modules/.bin/electron-builder  --linux deb zip rpm snap",
     "electron-build:mac": "./node_modules/.bin/electron-builder  --mac dmg pkg zip",
+    "electron-build:win": "./node_modules/.bin/electron-builder  --win msi zip --x64 ",
     "postinstall": "./node_modules/.bin/electron-builder install-app-deps"
   },
   "eslintConfig": {
@@ -70,7 +71,6 @@
   "build": {
     "appId": "com.electron.${name}",
     "productName": "Invana Studio",
-    "extends": null,
     "files": [
       "build/**/*",
       "node_modules/**/*"
