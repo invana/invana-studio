@@ -33,7 +33,7 @@ export default class FocusedNodesList extends React.Component {
                     {
                         this.props.focusedNodes.map((focusedNode, index) => {
                             console.log("=====focusedNode", focusedNode);
-                            const color = this.props.canvasUtils.getElementColor(focusedNode.group);
+                            const color = this.props.canvasUtils.getElementColor(focusedNode._label);
                             const colorInverted = invertColor(color, true);
                             return (
                                 <li key={index} className={"focused-node"}

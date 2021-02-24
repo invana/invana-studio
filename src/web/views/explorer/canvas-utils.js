@@ -13,26 +13,73 @@ export default class VisJsGraphCanvasUtils {
 
     getEdgeColorObject(groupName) {
         const edgeColor = this.getElementColor(groupName);
-        const highLightColor = LightenDarkenColor(edgeColor, 20);
-        const highLightBorderColor = LightenDarkenColor(highLightColor, -40);
+
 
         return {
             color: edgeColor,
-            highlight: highLightColor,
-            hover: highLightBorderColor,
+            highlight: LightenDarkenColor(edgeColor, 10),
+            hover: LightenDarkenColor(edgeColor, 20),
+            inherit: false,
+            opacity: 1
         }
     }
 
     getEdgeColorUnHighlightObject(groupName) {
+        console.log("===groupName", groupName)
         /// when hovered - make the colors light
         const edgeColor = this.getElementColor(groupName);
-        const highLightColor = LightenDarkenColor(edgeColor, -95);
-        const highLightBorderColor = LightenDarkenColor(highLightColor, -95);
 
         return {
             color: edgeColor,
-            highlight: highLightColor,
-            hover: highLightBorderColor,
+            highlight: LightenDarkenColor(edgeColor, 10),
+            hover: LightenDarkenColor(edgeColor, 20),
+            inherit: false,
+            opacity: .2
+        }
+        // return {
+        //     color: LightenDarkenColor(originalEdgeColor, 90),
+        //     highlight: LightenDarkenColor(originalEdgeColor, 20),
+        //     hover: LightenDarkenColor(originalEdgeColor, 20),
+        //     inherit: false
+        //     // opacity: .4
+        // }
+    }
+
+    getNodeColorObject(groupName) {
+
+        const nodeColor = this.getElementColor(groupName);
+
+
+        return {
+            border: LightenDarkenColor(nodeColor, -20),
+            background: nodeColor,
+            highlight: {
+                border: LightenDarkenColor(nodeColor, 10),
+                background: LightenDarkenColor(nodeColor, -10)
+            },
+            hover: {
+                border: LightenDarkenColor(nodeColor, 10),
+                background: LightenDarkenColor(nodeColor, -20)
+            }
+        }
+    }
+
+    getNodeColorUnHighlightObject(groupName) {
+        /// when hovered - make the colors light
+        // return this.getNodeColorObject(groupName);
+        const nodeColor = this.getElementColor(groupName);
+
+        return {
+            border: LightenDarkenColor(nodeColor, 70),
+            background: LightenDarkenColor(nodeColor, 90),
+            highlight: {
+                border: LightenDarkenColor(nodeColor, 50),
+                background: LightenDarkenColor(nodeColor, 70)
+            },
+            hover: {
+                border: LightenDarkenColor(nodeColor, 55),
+                background: LightenDarkenColor(nodeColor, 75)
+            }
         }
     }
 
@@ -47,27 +94,12 @@ export default class VisJsGraphCanvasUtils {
             nodeShape = "dot"; // dot
         }
 
-        const nodeColor = this.getElementColor(groupName);
-        const borderColor = LightenDarkenColor(nodeColor, -35);
-        const highLightColor = LightenDarkenColor(nodeColor, 20);
-        const highLightBorderColor = LightenDarkenColor(highLightColor, -40);
 
         config.borderWidth = 2;
-        config.borderWidthSelected = 2;
+        config.borderWidthSelected = 3;
         config.shape = nodeShape;
-        config.chosen = false;
-        config.color = {
-            border: borderColor,
-            background: nodeColor,
-            highlight: {
-                border: highLightBorderColor,
-                background: highLightColor
-            },
-            hover: {
-                border: highLightBorderColor,
-                background: highLightColor
-            }
-        };
+        // config.chosen = false;
+        config.color = this.getNodeColorObject(groupName);
         // config.physics = false;
         config.size = 16;
         config.font = {
@@ -116,12 +148,11 @@ export default class VisJsGraphCanvasUtils {
             to: {
                 enabled: true,
                 type: arrowShape,
-                scaleFactor: 1
+                scaleFactor: .5
             },
-            color: this.getEdgeColorObject(groupName)
-
+            // color: this.getEdgeColorObject(groupName)
         };
-        config.chosen = false;
+        // config.chosen = false;
         config.arrowStrikethrough = false;
         // config.label = true;
         config.group = undefined;

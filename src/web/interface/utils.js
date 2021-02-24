@@ -84,73 +84,73 @@ export function getDefaultNodeOptions(label) {
 //     }
 // }
 
-export function removeVertexMeta(data) {
-    let newData = [];
-    data.forEach((datum) => {
-        delete datum.meta;
-        delete datum.x;
-        delete datum.y;
-        delete datum.vx;
-        delete datum.vy;
-        delete datum.index;
-        newData.push(datum)
-    });
-    return newData
-}
-
-export function removeEdgeMeta(data) {
-    console.log("removeEdgeMeta")
-    let newData = [];
-    data.forEach((datum) => {
-        // delete datum.meta;
-        // delete datum.x;
-        // delete datum.y;
-        // delete datum.vx;
-        // delete datum.vy;
-        // delete datum.index;
-        if (typeof datum.source === "object") {
-            datum.source = datum.source.id;
-        }
-        if (typeof datum.target === "object") {
-            datum.target = datum.target.id;
-        }
-        newData.push(datum)
-    });
-    return newData
-}
-
-function getLabelOptionsOfElement(element, isNode) {
-    // nodeLabelOptions
-    if (!element.meta.labelOptions) {
-        element.meta.labelOptions = {}
-    }
-    // console.log("===element******",element);
-
-    if (typeof element.meta.labelOptions.showLabel === "undefined") {
-        element.meta.labelOptions.showLabel = GRAPH_CANVAS_SETTINGS.DefaultLabelVisibility
-    }
-    let labelString = null;
-    if (element.meta.shapeOptions && element.meta.shapeOptions.labelPropertyKey) {
-        if (element.meta.shapeOptions.labelPropertyKey === "_id") {
-            labelString = element.id;
-        } else if (element.meta.shapeOptions.labelPropertyKey === "_label") {
-            labelString = element.label;
-        } else {
-            labelString = element.properties[element.meta.shapeOptions.labelPropertyKey];
-        }
-    }
-    if (!labelString && isNode === true) { // fallback to id as default label for nodes
-        labelString = element.id;
-    }
-
-    element.meta.labelOptions.labelText = labelString
-    if (!element.meta.labelOptions.labelColor) {
-        element.meta.labelOptions.labelColor = isNode ? colorToNumber(GRAPH_CANVAS_SETTINGS.DefaultNodeLabelColor) :
-            colorToNumber(GRAPH_CANVAS_SETTINGS.DefaultLinkLabelColor);
-    }
-    return element;
-
-}
+// export function removeVertexMeta(data) {
+//     let newData = [];
+//     data.forEach((datum) => {
+//         delete datum.meta;
+//         delete datum.x;
+//         delete datum.y;
+//         delete datum.vx;
+//         delete datum.vy;
+//         delete datum.index;
+//         newData.push(datum)
+//     });
+//     return newData
+// }
+//
+// export function removeEdgeMeta(data) {
+//     console.log("removeEdgeMeta")
+//     let newData = [];
+//     data.forEach((datum) => {
+//         // delete datum.meta;
+//         // delete datum.x;
+//         // delete datum.y;
+//         // delete datum.vx;
+//         // delete datum.vy;
+//         // delete datum.index;
+//         if (typeof datum.source === "object") {
+//             datum.source = datum.source.id;
+//         }
+//         if (typeof datum.target === "object") {
+//             datum.target = datum.target.id;
+//         }
+//         newData.push(datum)
+//     });
+//     return newData
+// }
+//
+// function getLabelOptionsOfElement(element, isNode) {
+//     // nodeLabelOptions
+//     if (!element.meta.labelOptions) {
+//         element.meta.labelOptions = {}
+//     }
+//     // console.log("===element******",element);
+//
+//     if (typeof element.meta.labelOptions.showLabel === "undefined") {
+//         element.meta.labelOptions.showLabel = GRAPH_CANVAS_SETTINGS.DefaultLabelVisibility
+//     }
+//     let labelString = null;
+//     if (element.meta.shapeOptions && element.meta.shapeOptions.labelPropertyKey) {
+//         if (element.meta.shapeOptions.labelPropertyKey === "_id") {
+//             labelString = element.id;
+//         } else if (element.meta.shapeOptions.labelPropertyKey === "_label") {
+//             labelString = element.label;
+//         } else {
+//             labelString = element.properties[element.meta.shapeOptions.labelPropertyKey];
+//         }
+//     }
+//     if (!labelString && isNode === true) { // fallback to id as default label for nodes
+//         labelString = element.id;
+//     }
+//
+//     element.meta.labelOptions.labelText = labelString
+//     if (!element.meta.labelOptions.labelColor) {
+//         element.meta.labelOptions.labelColor = isNode ? colorToNumber(GRAPH_CANVAS_SETTINGS.DefaultNodeLabelColor) :
+//             colorToNumber(GRAPH_CANVAS_SETTINGS.DefaultLinkLabelColor);
+//     }
+//     return element;
+//
+// }
 
 // export function prepareLinksDataForCurves(links) {
 //     /*
@@ -214,174 +214,174 @@ function getLabelOptionsOfElement(element, isNode) {
 //     })
 // }
 
-export function prepareLinkDataWithOptions(links, options) {
+// export function prepareLinkDataWithOptions(links, options) {
+//
+//     if (typeof options === "undefined") {
+//         options = {};
+//     } else if (typeof options === "string") {
+//         options = JSON.parse(options);
+//     }
+//
+//     links.forEach((link) => {
+//         const metaFromStorage = getDefaultMeta(link.label, options);
+//
+//         link.meta = {};
+//
+//         if (!link.meta.shapeOptions) {
+//             link.meta.shapeOptions = {}
+//         }
+//
+//         link = getLabelOptionsOfElement(link, false);
+//
+//         if (!link.meta.shapeOptions.strokeWidth) {
+//             link.meta.shapeOptions.strokeWidth = GRAPH_CANVAS_SETTINGS.DefaultLinkStrokeWidth
+//         }
+//         if (!link.meta.shapeOptions.strokeColor) {
+//             // link.meta.shapeOptions.strokeColor = metaFromStorage.borderColor ?
+//             //     metaFromStorage.borderColor : getColorForString(link.label);
+//             link.meta.shapeOptions.strokeColor = colorToNumber(getColorForString(link.label));
+//         }
+//         if (!link.meta.shapeOptions.strokeColorHex) {
+//             // link.meta.shapeOptions.strokeColor = metaFromStorage.borderColor ?
+//             //     metaFromStorage.borderColor : getColorForString(link.label);
+//             link.meta.shapeOptions.strokeColorHex = getColorForString(link.label);
+//         }
+//         // if (!node.meta.shapeOptions.fillColor) {
+//         //     node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || getColorForString(node.label)
+//         // }
+//         if (!link.meta.shapeOptions.labelColor) {
+//             link.meta.shapeOptions.labelColor = GRAPH_CANVAS_SETTINGS.DefaultNodeInShapeTextColor
+//         }
+//         if (!link.meta.shapeOptions.labelPropertyKey) {
+//             link.meta.shapeOptions.labelPropertyKey = metaFromStorage.labelPropertyKey || GRAPH_CANVAS_SETTINGS.DefaultLinkLabelPropertyKey;
+//         }
+//     });
+//
+//     return links;
+// }
+//
+//
+// function getDefaultMeta(label, options) {
+//     let metaFromStorage = {}
+//     try {
+//         metaFromStorage = options[label];
+//     } catch (e) {
+//         metaFromStorage = {}
+//     }
+//     if (!metaFromStorage) {
+//         metaFromStorage = {}
+//     }
+//     return metaFromStorage
+// }
 
-    if (typeof options === "undefined") {
-        options = {};
-    } else if (typeof options === "string") {
-        options = JSON.parse(options);
-    }
-
-    links.forEach((link) => {
-        const metaFromStorage = getDefaultMeta(link.label, options);
-
-        link.meta = {};
-
-        if (!link.meta.shapeOptions) {
-            link.meta.shapeOptions = {}
-        }
-
-        link = getLabelOptionsOfElement(link, false);
-
-        if (!link.meta.shapeOptions.strokeWidth) {
-            link.meta.shapeOptions.strokeWidth = GRAPH_CANVAS_SETTINGS.DefaultLinkStrokeWidth
-        }
-        if (!link.meta.shapeOptions.strokeColor) {
-            // link.meta.shapeOptions.strokeColor = metaFromStorage.borderColor ?
-            //     metaFromStorage.borderColor : getColorForString(link.label);
-            link.meta.shapeOptions.strokeColor = colorToNumber(getColorForString(link.label));
-        }
-        if (!link.meta.shapeOptions.strokeColorHex) {
-            // link.meta.shapeOptions.strokeColor = metaFromStorage.borderColor ?
-            //     metaFromStorage.borderColor : getColorForString(link.label);
-            link.meta.shapeOptions.strokeColorHex = getColorForString(link.label);
-        }
-        // if (!node.meta.shapeOptions.fillColor) {
-        //     node.meta.shapeOptions.fillColor = metaFromStorage.bgColor || getColorForString(node.label)
-        // }
-        if (!link.meta.shapeOptions.labelColor) {
-            link.meta.shapeOptions.labelColor = GRAPH_CANVAS_SETTINGS.DefaultNodeInShapeTextColor
-        }
-        if (!link.meta.shapeOptions.labelPropertyKey) {
-            link.meta.shapeOptions.labelPropertyKey = metaFromStorage.labelPropertyKey || GRAPH_CANVAS_SETTINGS.DefaultLinkLabelPropertyKey;
-        }
-    });
-
-    return links;
-}
-
-
-function getDefaultMeta(label, options) {
-    let metaFromStorage = {}
-    try {
-        metaFromStorage = options[label];
-    } catch (e) {
-        metaFromStorage = {}
-    }
-    if (!metaFromStorage) {
-        metaFromStorage = {}
-    }
-    return metaFromStorage
-}
-
-export function prepareNodesDataWithOptions(nodes, options) {
-    /*
-        options = {
-            "Planet": {
-                "bgImagePropertyKey": "image",
-                "nodeShape": "circle",
-                "shapeOptions": {
-                    "radius": "20",
-                    "strokeWidth": "2px",
-                    "strokeColor": "#333333",
-                    "fillColor": "#999999"
-                }
-            },
-             "Satellite": {
-                "bgImageUrl": "https://pngimg.com/uploads/moon/moon_PNG19.png",
-                "nodeShape": "circle",
-                "shapeOptions": {
-                    "radius": "20",
-                    "strokeWidth": "2px",
-                    "strokeColor": "#333333",
-                    "fillColor": "#999999"
-                }
-            }
-        }
-
-     */
-    if (typeof options === "undefined") {
-        options = {};
-    } else if (typeof options === "string") {
-        options = JSON.parse(options);
-    }
-
-    let nodesCleaned = [];
-    nodes.forEach(function (nodeData) {
-        // let node = Object.assign({}, nodeData)
-        let node = nodeData;
-        // check if options data has node.label meta data or set defaults.
-
-        const metaFromStorage = getDefaultMeta(node.label, options);
-        node.meta = {"bgImageUrl": null, "nodeShape": "circle"};
-        node.meta.bgImagePropertyKey = metaFromStorage.bgImagePropertyKey;
-        if (!node.meta.shapeOptions) {
-            node.meta.shapeOptions = {}
-        }
-        // shapeOptions
-        if (!node.meta.shapeOptions.radius) {
-            node.meta.shapeOptions.radius = GRAPH_CANVAS_SETTINGS.DefaultNodeRadius;
-        }
-        if (!node.meta.shapeOptions.radiusBuffered) {
-            node.meta.shapeOptions.radiusBuffered = GRAPH_CANVAS_SETTINGS.DefaultNodeRadius + 5;
-        }
-        if (!node.meta.shapeOptions.strokeWidth) {
-            node.meta.shapeOptions.strokeWidth = GRAPH_CANVAS_SETTINGS.DefaultNodeStrokeWidth;
-        }
-        if (!node.meta.shapeOptions.strokeColor) {
-            node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor
-                ? colorToNumber(metaFromStorage.borderColor)
-                : colorToNumber(LightenDarkenColor(getColorForString(node.label), -40))
-        }
-        if (!node.meta.shapeOptions.fillColor) {
-            node.meta.shapeOptions.fillColor = metaFromStorage.bgColor
-                ? colorToNumber(metaFromStorage.bgColor)
-                : colorToNumber(getColorForString(node.label))
-        }
-        if (!node.meta.shapeOptions.fillColorHex) {
-            node.meta.shapeOptions.fillColorHex = metaFromStorage.bgColor
-                ? metaFromStorage.bgColor
-                : getColorForString(node.label)
-        }
-        if (!node.meta.shapeOptions.labelColor) {
-            node.meta.shapeOptions.labelColor = GRAPH_CANVAS_SETTINGS.DefaultNodeInShapeTextColor
-        }
-        if (!node.meta.shapeOptions.labelPropertyKey) {
-            node.meta.shapeOptions.labelPropertyKey = metaFromStorage.labelPropertyKey || GRAPH_CANVAS_SETTINGS.DefaultNodeLabelPropertyKey;
-        }
-        // if (node.meta.shapeOptions.inShapeHTMLFn) {
-        //     node.meta.shapeOptions.textPropertyKey = node.meta.shapeOptions.inShapeHTMLFn(node)
-        // } else {
-        //     node.meta.shapeOptions.inShapeHTML = DefaultInShapeHTMLFn(node);
-        // }
-
-
-        node = getLabelOptionsOfElement(node, true);
-
-        // tagOptions
-        if (!node.meta.tagOptions) {
-            node.meta.tagOptions = {}
-        }
-        if (metaFromStorage.tagHtml) {
-            node.meta.tagOptions.tagHtml = metaFromStorage.tagHtml
-        }
-        // nodeImageOptions
-        if (node.meta.bgImagePropertyKey) {
-            node.meta.bgImageUrl = node.properties[node.meta.bgImagePropertyKey];
-        }
-        if (!node.meta.bgImageUrl) {
-            node.meta.bgImageUrl = metaFromStorage.bgImageUrl;
-        }
-        // nodesCleaned.push(JSON.parse(JSON.stringify(node)))
-        if (node.target) {
-            delete node.target
-        }
-        if (node.source) {
-            delete node.source
-        }
-        nodesCleaned.push(node)
-    });
-
-    return nodesCleaned;
-}
-
+// export function prepareNodesDataWithOptions(nodes, options) {
+//     /*
+//         options = {
+//             "Planet": {
+//                 "bgImagePropertyKey": "image",
+//                 "nodeShape": "circle",
+//                 "shapeOptions": {
+//                     "radius": "20",
+//                     "strokeWidth": "2px",
+//                     "strokeColor": "#333333",
+//                     "fillColor": "#999999"
+//                 }
+//             },
+//              "Satellite": {
+//                 "bgImageUrl": "https://pngimg.com/uploads/moon/moon_PNG19.png",
+//                 "nodeShape": "circle",
+//                 "shapeOptions": {
+//                     "radius": "20",
+//                     "strokeWidth": "2px",
+//                     "strokeColor": "#333333",
+//                     "fillColor": "#999999"
+//                 }
+//             }
+//         }
+//
+//      */
+//     if (typeof options === "undefined") {
+//         options = {};
+//     } else if (typeof options === "string") {
+//         options = JSON.parse(options);
+//     }
+//
+//     let nodesCleaned = [];
+//     nodes.forEach(function (nodeData) {
+//         // let node = Object.assign({}, nodeData)
+//         let node = nodeData;
+//         // check if options data has node.label meta data or set defaults.
+//
+//         const metaFromStorage = getDefaultMeta(node.label, options);
+//         node.meta = {"bgImageUrl": null, "nodeShape": "circle"};
+//         node.meta.bgImagePropertyKey = metaFromStorage.bgImagePropertyKey;
+//         if (!node.meta.shapeOptions) {
+//             node.meta.shapeOptions = {}
+//         }
+//         // shapeOptions
+//         if (!node.meta.shapeOptions.radius) {
+//             node.meta.shapeOptions.radius = GRAPH_CANVAS_SETTINGS.DefaultNodeRadius;
+//         }
+//         if (!node.meta.shapeOptions.radiusBuffered) {
+//             node.meta.shapeOptions.radiusBuffered = GRAPH_CANVAS_SETTINGS.DefaultNodeRadius + 5;
+//         }
+//         if (!node.meta.shapeOptions.strokeWidth) {
+//             node.meta.shapeOptions.strokeWidth = GRAPH_CANVAS_SETTINGS.DefaultNodeStrokeWidth;
+//         }
+//         if (!node.meta.shapeOptions.strokeColor) {
+//             node.meta.shapeOptions.strokeColor = metaFromStorage.borderColor
+//                 ? colorToNumber(metaFromStorage.borderColor)
+//                 : colorToNumber(LightenDarkenColor(getColorForString(node.label), -40))
+//         }
+//         if (!node.meta.shapeOptions.fillColor) {
+//             node.meta.shapeOptions.fillColor = metaFromStorage.bgColor
+//                 ? colorToNumber(metaFromStorage.bgColor)
+//                 : colorToNumber(getColorForString(node.label))
+//         }
+//         if (!node.meta.shapeOptions.fillColorHex) {
+//             node.meta.shapeOptions.fillColorHex = metaFromStorage.bgColor
+//                 ? metaFromStorage.bgColor
+//                 : getColorForString(node.label)
+//         }
+//         if (!node.meta.shapeOptions.labelColor) {
+//             node.meta.shapeOptions.labelColor = GRAPH_CANVAS_SETTINGS.DefaultNodeInShapeTextColor
+//         }
+//         if (!node.meta.shapeOptions.labelPropertyKey) {
+//             node.meta.shapeOptions.labelPropertyKey = metaFromStorage.labelPropertyKey || GRAPH_CANVAS_SETTINGS.DefaultNodeLabelPropertyKey;
+//         }
+//         // if (node.meta.shapeOptions.inShapeHTMLFn) {
+//         //     node.meta.shapeOptions.textPropertyKey = node.meta.shapeOptions.inShapeHTMLFn(node)
+//         // } else {
+//         //     node.meta.shapeOptions.inShapeHTML = DefaultInShapeHTMLFn(node);
+//         // }
+//
+//
+//         node = getLabelOptionsOfElement(node, true);
+//
+//         // tagOptions
+//         if (!node.meta.tagOptions) {
+//             node.meta.tagOptions = {}
+//         }
+//         if (metaFromStorage.tagHtml) {
+//             node.meta.tagOptions.tagHtml = metaFromStorage.tagHtml
+//         }
+//         // nodeImageOptions
+//         if (node.meta.bgImagePropertyKey) {
+//             node.meta.bgImageUrl = node.properties[node.meta.bgImagePropertyKey];
+//         }
+//         if (!node.meta.bgImageUrl) {
+//             node.meta.bgImageUrl = metaFromStorage.bgImageUrl;
+//         }
+//         // nodesCleaned.push(JSON.parse(JSON.stringify(node)))
+//         if (node.target) {
+//             delete node.target
+//         }
+//         if (node.source) {
+//             delete node.source
+//         }
+//         nodesCleaned.push(node)
+//     });
+//
+//     return nodesCleaned;
+// }
+//

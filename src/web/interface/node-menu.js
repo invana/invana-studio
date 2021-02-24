@@ -136,13 +136,14 @@ export default class NodeMenu extends React.Component {
 
     getElementColor() {
         const elementData = this.getLastSelectedNodeData();
+        console.log("elementData", elementData);
         return this.props.canvasUtils.getElementColor(elementData._label);
     }
 
     render() {
         // console.log("this.getLastSelectedNodeData()", this.getLastSelectedNodeData())
         const selectedElement = this.getLastSelectedNodeData();
-        // console.log("=====selectedElement",selectedElement);
+        console.log("=====selectedElement",selectedElement);
         return (
             <div className="nodeMenuContainer"
                  style={{"left": this.props.menuPositionX + 5, "top": this.props.menuPositionY + 5}}>
@@ -159,7 +160,7 @@ export default class NodeMenu extends React.Component {
                           style={{"color": this.getElementColor()}}>{this.getVerboseIdentifier()}</h5>
                     : <React.Fragment/>
                 }
-                <p className={"mb-0 pb-0"} style={{"color": this.getElementColor()}}>Label: {selectedElement.group}</p>
+                <p className={"mb-0 pb-0"} style={{"color": this.getElementColor()}}>Label: {selectedElement.label}</p>
                 <p className={"mb-1 border-bottom "}>{selectedElement.type.replace("g:", "")} id: {this.getIdentifier()}</p>
 
                 <ul className={"nodeMenu"}>

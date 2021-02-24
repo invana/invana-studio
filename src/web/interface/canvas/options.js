@@ -39,16 +39,16 @@ const defaultOptions = {
     },
     edges: {
         // // color: "#999999",
-        physics: false,
-        smooth: {
-            enabled: false,
-            // dynamic, continuous, discrete, diagonalCross, straightCross,
-            // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
-            type: "continuous",
-            // vertical or horizontal
-            forceDirection: "vertical",
-            roundness: 1
-        },
+        physics: true,
+        // smooth: {
+        //     enabled: false,
+        //     // dynamic, continuous, discrete, diagonalCross, straightCross,
+        //     // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
+        //     type: "continuous",
+        //     // vertical or horizontal
+        //     forceDirection: "vertical",
+        //     roundness: 1
+        // },
         // // width: 0.5,
         // // size: 4,
         // arrows: {
@@ -57,17 +57,20 @@ const defaultOptions = {
         //         scaleFactor: 0
         //     }
         // },
-        // selectionWidth: function (width) {
-        //     return width * 1.2;
-        // }
+        chosen: function (values, id, selected, hovering) {
+            values.width = 1;
+        },
+        selectionWidth: function (width) {
+            return width * 1.2;
+        }
     },
     nodes: {
         // physics: false,
         shape: "dot",
         // size: 10,
         scaling: {
-            min: 10,
-            max: 30,
+            min: 15,
+            max: 16,
         },
     }
 }
