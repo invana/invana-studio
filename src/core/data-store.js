@@ -1,10 +1,10 @@
 
 import {convertMapKeysToArray} from "./utils";
-import {
-    prepareLinkDataWithOptions,
-    // prepareLinksDataForCurves,
-    prepareNodesDataWithOptions
-} from "../web/interface/utils";
+// import {
+//     prepareLinkDataWithOptions,
+//     // prepareLinksDataForCurves,
+//     prepareNodesDataWithOptions
+// } from "../web/interface/utils";
 
 export default class InMemoryDataStore {
     /*
@@ -403,7 +403,7 @@ export default class InMemoryDataStore {
     }
 
     getAllRawEdgesList() {
-        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        // const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
         // return prepareLinkDataWithOptions(
             // prepareLinksDataForCurves(
              return   convertMapKeysToArray(this.#edges);

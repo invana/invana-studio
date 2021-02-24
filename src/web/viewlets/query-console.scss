@@ -5,11 +5,11 @@
   top: 40px;
   //height: 240px;
   //width: 600px;
-  width: calc(100% - 279px);
+  width: calc(100% - 288px);
   border: 1px solid $borderColor;
   padding: 10px;
-  left: 279px;
-  background: white;
+  left: 288px;
+  background: $lightBg;
   opacity: 0.95;
   z-index: 10000;
   //position: fixed;
@@ -45,6 +45,15 @@
   }
 
   textarea {
+
+    //border: 1px solid $borderColor;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
     //width: calc(100% - 12px);
     width: 100%;
     //height: calc(100vh - 46px - 24px - 350px);

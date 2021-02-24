@@ -6,6 +6,23 @@
   border-radius: 0 !important;
 }
 
-.footer{
+.footer {
   font-size: 13px;
+}
+
+.nav-search {
+  button {
+    border-radius: 0 !important;
+    border-color: #ced4da;
+    border-left: none;
+
+  }
+  button:first-child:hover{
+    background: transparent;
+    color: #69747b;
+    border-color: $borderColor;
+  }
+  input{
+    border-right:  none !important;
+  }
 }

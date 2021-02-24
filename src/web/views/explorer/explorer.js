@@ -27,7 +27,7 @@ import ElementOptions from "../../viewlets/element-options";
 import LoadingDiv from "../../viewlets/loading";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 import RoutableRemoteEngine from "../../layout/routable-remote";
-import {setElementColorOptionsToStorage} from "../../utils";
+// import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
 
@@ -388,7 +388,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
     onRenderingStatusEnded() {
         this.setState({isRenderingCanvas: false});
         this.setStatusMessage("Rendered the Graph.");
-        this.network.redraw();
+        // this.network.redraw();
 
     }
 
