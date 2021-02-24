@@ -58,7 +58,7 @@ const defaultOptions = {
         //     }
         // },
         chosen: function (values, id, selected, hovering) {
-            values.width = 1;
+            values.width = 3;
         },
         selectionWidth: function (width) {
             return width * 1.2;
@@ -69,8 +69,8 @@ const defaultOptions = {
         shape: "dot",
         // size: 10,
         scaling: {
-            min: 15,
-            max: 16,
+            min: 10,
+            max: 10,
         },
     }
 }
