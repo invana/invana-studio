@@ -141,6 +141,18 @@ h1 {
 
 input {
   border-radius: 1px !important;
+
+
+}
+
+input:focus, input:hover {
+  //overflow: auto;
+  //outline: none;
+  outline: 0 none !important;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 label.form-label {

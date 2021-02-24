@@ -1,7 +1,7 @@
 .loadingDiv {
   width: calc(100vw - 280px);
   position: absolute;
-  top: 66px;
+  top: calc(1rem + 14px + 2px + 14px + 2px + 1rem);
   background: white;
   left: 280px;
   height: calc(100vh - 21px - 40px - 25px);

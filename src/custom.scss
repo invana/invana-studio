@@ -17,12 +17,20 @@
     border-left: none;
 
   }
-  button:first-child:hover{
+
+  button:first-child:hover {
     background: transparent;
     color: #69747b;
     border-color: $borderColor;
   }
-  input{
-    border-right:  none !important;
+
+  input {
+    border-right: none !important;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
   }
 }

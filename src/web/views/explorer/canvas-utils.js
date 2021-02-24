@@ -223,7 +223,7 @@ export default class VisJsGraphCanvasUtils {
         //     vertexData.label = vertexData.properties[groupConfig.labelPropertyKey];
         // }
 
-        console.log("====this.nodeGroups[groupName]", this.nodeGroups[groupName]);
+        // console.log("====this.nodeGroups[groupName]", this.nodeGroups[groupName]);
         return Object.assign({}, vertexData, this.nodeGroups[groupName]);
     }
 

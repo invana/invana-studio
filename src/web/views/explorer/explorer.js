@@ -243,6 +243,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
         this.network = network;
         let _this = this;
         this.network.on("stabilizationIterationsDone", function () {
+            console.log("stabilizationIterationsDone");
             _this.network.setOptions({physics: false});
         });
 
@@ -291,7 +292,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
             this.addNewData(nodes, edges);
             this.setState({statusCode: response.transporterStatusCode})
         }
-
     }
 
     //
@@ -392,6 +392,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
         this.setState({isRenderingCanvas: false});
         this.setStatusMessage("Rendered the Graph.");
         // this.network.redraw();
+        //     this.network.setOptions({physics: false});
 
     }
 
@@ -596,6 +597,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                         ? <LoadingDiv statusMessage={this.state.statusMessage}/>
                         : <React.Fragment/>
                 }
+                 {/*<LoadingDiv statusMessage={this.state.statusMessage}/>*/}
                 {/*<LoadingDiv/>*/}
             </DefaultLayout>)
     }
