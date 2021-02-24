@@ -40,15 +40,15 @@ const defaultOptions = {
     edges: {
         // // color: "#999999",
         physics: true,
-        // smooth: {
-        //     enabled: false,
-        //     // dynamic, continuous, discrete, diagonalCross, straightCross,
-        //     // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
-        //     type: "continuous",
-        //     // vertical or horizontal
-        //     forceDirection: "vertical",
-        //     roundness: 1
-        // },
+        smooth: {
+            enabled: false,
+            // dynamic, continuous, discrete, diagonalCross, straightCross,
+            // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
+            type: "continuous",
+            // vertical or horizontal
+            forceDirection: "vertical",
+            roundness: .5
+        },
         // // width: 0.5,
         // // size: 4,
         // arrows: {
