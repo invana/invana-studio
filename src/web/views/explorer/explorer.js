@@ -79,6 +79,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 color: _this.canvasUtils.getNodeColorObject(
                     node._label
                 ),
+                borderWidth: 2,
                 font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
             }));
             const allEdgesOptions = allEdges.map(edge => ({
@@ -99,6 +100,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
             const allNodesOptions = allNodes.map(node => ({
                 id: node.id,
                 // opacity: 0.3,
+                borderWidth: 2,
                 color: _this.canvasUtils.getNodeColorUnHighlightObject(
                     node._label
                 ),
@@ -115,6 +117,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
             const selectedNodesOptions = selectedNodeIds.map(nodeId => ({
                 id: nodeId,
                 // opacity: 1,
+                borderWidth: 4,
                 color: _this.canvasUtils.getNodeColorObject(
                     _this.network.body.data.nodes.get(nodeId)._label
                 ),

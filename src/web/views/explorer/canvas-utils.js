@@ -64,6 +64,7 @@ export default class VisJsGraphCanvasUtils {
         }
     }
 
+
     getNodeColorUnHighlightObject(groupName) {
         /// when hovered - make the colors light
         // return this.getNodeColorObject(groupName);
