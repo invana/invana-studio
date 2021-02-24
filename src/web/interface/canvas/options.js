@@ -2,14 +2,16 @@ const defaultOptions = {
     // layout: {
     //     hierarchical: false
     // },
-    layout: {
-        // randomSeed: 100,
-        hierarchical: false
-    },
+
     interaction: {
         hideEdgesOnDrag: true,
         tooltipDelay: 200,
         hover: true
+    },
+
+       layout: {
+        // randomSeed: 100,
+        hierarchical: false
     },
     physics: {
         forceAtlas2Based: {
@@ -37,6 +39,19 @@ const defaultOptions = {
         //     avoidOverlap: 1
         // }
     },
+
+    // layout: {
+    //     hierarchical: {
+    //         enabled: true,
+    //         // levelSeparation: 300,
+    //     },
+    // },
+    // manipulation: false,
+    // physics: {
+    //     hierarchicalRepulsion: {
+    //         nodeDistance: 300,
+    //     },
+    // },
     edges: {
         // // color: "#999999",
         physics: true,
@@ -49,20 +64,23 @@ const defaultOptions = {
             forceDirection: "vertical",
             roundness: .5
         },
-        // // width: 0.5,
-        // // size: 4,
-        // arrows: {
-        //     to: {
-        //         enabled: true,
-        //         scaleFactor: 0
-        //     }
-        // },
-        chosen: function (values, id, selected, hovering) {
-            values.width = 3;
+
+        chosen: {
+            edge: function (values, id, selected, hovering) {
+                values.width = 1.5 * 1.4;
+            }
         },
         selectionWidth: function (width) {
             return width * 1.2;
+        },
+        // hoverWidth: function (width) {
+        //     return width * 1.4;
+        // }
+        hoverWidth: function (width) {
+            return width + 1;
         }
+
+
     },
     nodes: {
         // physics: false,

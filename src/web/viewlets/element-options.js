@@ -37,7 +37,7 @@ export default class ElementOptions extends RemoteEngine {
     }
 
     getElementLabel() {
-        return this.props.selectedElementData.group;
+        return this.props.selectedElementData._label;
     }
 
     getElementType() {

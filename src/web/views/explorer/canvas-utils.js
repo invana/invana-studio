@@ -54,12 +54,12 @@ export default class VisJsGraphCanvasUtils {
             border: LightenDarkenColor(nodeColor, -20),
             background: nodeColor,
             highlight: {
-                border: LightenDarkenColor(nodeColor, 10),
-                background: LightenDarkenColor(nodeColor, -10)
+                border: LightenDarkenColor(nodeColor, -30),
+                background: nodeColor
             },
             hover: {
-                border: LightenDarkenColor(nodeColor, 10),
-                background: LightenDarkenColor(nodeColor, -20)
+                border: LightenDarkenColor(nodeColor, -40),
+                background: nodeColor
             }
         }
     }
@@ -70,15 +70,15 @@ export default class VisJsGraphCanvasUtils {
         const nodeColor = this.getElementColor(groupName);
 
         return {
-            border: LightenDarkenColor(nodeColor, 70),
-            background: LightenDarkenColor(nodeColor, 90),
+            border: LightenDarkenColor(nodeColor, 50),
+            background: LightenDarkenColor(nodeColor, 70),
             highlight: {
-                border: LightenDarkenColor(nodeColor, 50),
+                border: LightenDarkenColor(nodeColor, 40),
                 background: LightenDarkenColor(nodeColor, 70)
             },
             hover: {
-                border: LightenDarkenColor(nodeColor, 55),
-                background: LightenDarkenColor(nodeColor, 75)
+                border: LightenDarkenColor(nodeColor, 40),
+                background: LightenDarkenColor(nodeColor, 70)
             }
         }
     }
@@ -98,7 +98,7 @@ export default class VisJsGraphCanvasUtils {
         config.borderWidth = 2;
         config.borderWidthSelected = 3;
         config.shape = nodeShape;
-        // config.chosen = false;
+        config.chosen = false;
         config.color = this.getNodeColorObject(groupName);
         // config.physics = false;
         config.size = 16;
@@ -148,7 +148,7 @@ export default class VisJsGraphCanvasUtils {
             to: {
                 enabled: true,
                 type: arrowShape,
-                scaleFactor: .5
+                scaleFactor: 0.4
             },
             // color: this.getEdgeColorObject(groupName)
         };
@@ -163,7 +163,7 @@ export default class VisJsGraphCanvasUtils {
 
         // config.physics = false;
         config.size = 16;
-        config.width = 2;
+        config.width = 1.5;
         config.font = {
             size: 12,
             color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor

@@ -1,10 +1,12 @@
 import {array} from "prop-types";
 import {GRAPH_CANVAS_SETTINGS} from "../../settings";
-import {LightenDarkenColor} from "../../core/utils";
+// import {LightenDarkenColor} from "../../core/utils";
 
 const ColorHash = require('color-hash');
 
-let colorHash = new ColorHash({hue: [{min: 20, max: 120}, {min: 20, max: 120}, {min: 20, max: 80}]});
+// let colorHash = new ColorHash({hue: [{min: 20, max: 120}, {min: 20, max: 120}, {min: 20, max: 80}]});
+// var colorHash = new ColorHash({saturation: 0.6});
+var colorHash = new ColorHash({saturation: [0.35, 0.5, 0.65]});
 
 export function getColorForString(label) {
     return colorHash.hex(label); // '#8796c5'

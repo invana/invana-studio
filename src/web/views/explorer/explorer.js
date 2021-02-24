@@ -70,24 +70,29 @@ export default class ExplorerView extends RoutableRemoteEngine {
         console.log("===selectedNodes", selectedNodes);
         const allNodes = this.state.nodes;
         const allEdges = this.state.edges;
+        let _this = this;
 
         if (selectedNodes.length === 0) {
             const allNodesOptions = allNodes.map(node => ({
                 id: node.id,
                 opacity: 1,
+                color: _this.canvasUtils.getNodeColorObject(
+                    node._label
+                ),
                 font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
             }));
             const allEdgesOptions = allEdges.map(edge => ({
                 id: edge.id,
                 opacity: 1,
-                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor},
+                color: _this.canvasUtils.getEdgeColorObject(edge._label)
+
             }));
 
             this.network.body.data.nodes.update(allNodesOptions)
             this.network.body.data.edges.update(allEdgesOptions)
 
         } else {
-            let _this = this;
 
             // set all the nodes and edges opacity to 0.2
             // set selected nodes and edges opacity to 1.0
