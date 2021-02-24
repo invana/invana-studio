@@ -12,7 +12,8 @@ button:focus:active {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-button{
+
+button {
   border-radius: 2px !important;
 }
 
@@ -28,6 +29,12 @@ h1 {
 .card-header {
   padding: 0.55rem 1rem !important;
 
+}
+
+.navbar-brand {
+  width: 280px;
+  border-right: 1px solid $borderColor;
+  margin: 0 !important;
 }
 
 .card-body {

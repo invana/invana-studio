@@ -74,7 +74,19 @@ export default class DefaultLayout extends React.Component {
                 <Navbar
                     // bg="transparent"
                     className={"border-bottom"} expand="lg">
-                    <NavLink to="/" className={"ml-3 navbar-brand"}>Invana Studio</NavLink>
+                    <NavLink to="/" className={"pl-3 navbar-brand"}>Invana Studio</NavLink>
+                    <Nav classname="mr-auto">
+                        {
+                            this.props.setShowQueryConsole ? <Nav.Item className={"pl-2"}>
+                                <input type="text" placeholder={"Search (Ctrl + / )"}
+                                       onFocus={() => {
+                                           this.props.setShowQueryConsole(true)
+                                       }}
+                                       style={{"width": "600px"}}
+                                       className={"form-control form-control-sm mt-1"}/>
+                            </Nav.Item> : <React.Fragment/>
+                        }
+                    </Nav>
                     <Nav className="ml-auto">
                         {/*<Nav.Item>*/}
                         {/*    <Nav.Link href="/connect"*/}
@@ -92,13 +104,7 @@ export default class DefaultLayout extends React.Component {
                             </NavDropdown>
 
                         </Nav.Item>
-                        {this.props.setShowQueryConsole ? <Nav.Item>
-                            <input type="text" placeholder={"Search (Ctrl + / )"}
-                                   onFocus={() => {
-                                       this.props.setShowQueryConsole(true)
-                                   }}
-                                   className={"form-control form-control-sm mt-1"}/>
-                        </Nav.Item> : <React.Fragment/>}
+
                         <Nav.Item>
                             <NavLink to="/explorer" className={"nav-link"} activeClassName="active">Explorer</NavLink>
                         </Nav.Item>
