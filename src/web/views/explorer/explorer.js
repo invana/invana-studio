@@ -26,10 +26,11 @@ import ElementOptions from "../../viewlets/element-options";
 import LoadingDiv from "../../viewlets/loading";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 import RoutableRemoteEngine from "../../layout/routable-remote";
-import ModalContainer from "../../viewlets/modal-container";
+import ModalContainer from "../../ui-components/modal-container";
 import SettingsComponent from "../../viewlets/settings";
 import {NavLink} from "react-router-dom";
 import Learn from "../../viewlets/support/Learn";
+import RightContainer from "../../ui-components/right-container";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -481,7 +482,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                     |
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}>
+                                    <Button size={"sm"} variant={"link"} onClick={
+                                        () => this.setRightContentName("learn")
+                                    }>
                                         <FontAwesomeIcon icon={faQuestionCircle}/>
                                     </Button>
                                 </Nav.Item>
@@ -602,15 +605,15 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 }
 
                 {
-                    this.state.modalContentName === "Learn"
-                        ? <ModalContainer>
+                    this.state.rightContentName === "learn"
+                        ? <RightContainer>
                             <Learn
-                                // setModalContentName={this.setModalContentName.bind(this)}
                                 onClose={() => {
-                                    _this.setModalContentName(null)
+                                    _this.setRightContentName(null)
                                 }}
+                                startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                             />
-                        </ModalContainer>
+                        </RightContainer>
 
                         : <React.Fragment></React.Fragment>
                 }

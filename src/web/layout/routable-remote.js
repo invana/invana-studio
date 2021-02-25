@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import RemoteEngine from "./remote";
 import {Container} from "react-bootstrap";
-import ModalContainer from "../viewlets/modal-container";
+import ModalContainer from "../ui-components/modal-container";
 import SettingsComponent from "../viewlets/settings";
 import DefaultLayout from "./default";
 
@@ -17,6 +17,7 @@ export default class RoutableRemoteEngine extends RemoteEngine {
         this.state = {
             ...this.state,
             leftContentName: null,
+            rightContentName: null,
             modalContentName: null,
         };
         this.child = React.createRef();
@@ -37,6 +38,10 @@ export default class RoutableRemoteEngine extends RemoteEngine {
 
     setLeftContentName(contentName) {
         this.setState({leftContentName: contentName});
+    }
+
+    setRightContentName(contentName) {
+        this.setState({rightContentName: contentName});
     }
 
     setModalContentName(contentName) {

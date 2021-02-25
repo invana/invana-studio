@@ -11,6 +11,7 @@ export const STUDIO_SETTINGS = {
     REPO_URL: "https://github.com/invanalabs/graph-studio",
     SETUP_README_URL: "https://invana.io/help.html",
     DEMO_VIDEO_URL: "https://www.youtube.com/watch?v=17Q02VV_0Tc",
+    SUPPORT_URL: "https://invana.io/support",
 
 
     CONNECTION_URL: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL),
