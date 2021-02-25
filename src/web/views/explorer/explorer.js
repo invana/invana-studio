@@ -417,7 +417,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
     render() {
         let _this = this;
         return (
-            <DefaultLayout {...this.props} ref={this.child} setShowQueryConsole={this.setShowQueryConsole.bind(this)}>
+            <DefaultLayout {...this.props} ref={this.child}
+                           set
+                           setShowQueryConsole={this.setShowQueryConsole.bind(this)}>
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet
