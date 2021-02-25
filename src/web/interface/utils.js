@@ -1,5 +1,6 @@
 import {array} from "prop-types";
-import {GRAPH_CANVAS_SETTINGS} from "../../settings";
+import {GRAPH_CANVAS_SETTINGS, STUDIO_CONNECT_CONSTANTS} from "../../settings";
+import {removeItemFromLocalStorage} from "../utils";
 // import {LightenDarkenColor} from "../../core/utils";
 
 const ColorHash = require('color-hash');
@@ -76,6 +77,15 @@ export function getDefaultNodeOptions(label) {
         bgImagePropertyKey: null,
         labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultNodeLabelPropertyKey,
         tagHtml: null
+    }
+}
+
+export function askToSwitchGremlinServer() {
+    var r = window.confirm("You are about to sign out of the workspace. " +
+        "Your query history will be preserved. Do you want to continue?");
+    if (r === true) {
+        removeItemFromLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL);
+        window.location.href = "/";
     }
 }
 

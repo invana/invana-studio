@@ -185,7 +185,7 @@ export default class ElementOptions extends RemoteEngine {
 
                     <Form className={"p-2"} onSubmit={this.onFormSubmit.bind(this)}>
                         <h6 className={"pb-2 mb-3 border-bottom"}
-                            >
+                        >
                             Rendering options of
                             `<span style={{"color": this.getValueFromDataOrGetDefault("bgColor")}}>
                                 {this.getElementLabel()}</span>` ({this.getElementType()})
@@ -194,58 +194,66 @@ export default class ElementOptions extends RemoteEngine {
                         {/*<label>Vertex Label</label>*/}
                         <input type="hidden" name={"name"} readOnly={true} spellCheck="false"
                                defaultValue={this.getElementLabel()}/>
-                        <input type="hidden" name={"label"}
-                               defaultValue={this.getElementLabel()}/>
+                        <input type="hidden" name={"label"} defaultValue={this.getElementLabel()}/>
                         {/*<input type="hidden" name={"uid"} defaultValue={selectedElementData.id}/>*/}
 
 
-                        <Form.Group controlId="bgColor">
-                            <Form.Label>Element Color</Form.Label>
-                            <Form.Control type="text" name={"bgColor"} size={"sm"} maxLength={7} minLength={7}
-                                          placeholder={"bgColor"} spellCheck="false"
-                                          onChange={this.handleValueChange.bind(this)}
-                                          defaultValue={this.getValueFromDataOrGetDefault("bgColor")}/>
-                        </Form.Group>
+                        <div className="row">
+                            <div className="col-md-6 pr-2">
+                                <Form.Group controlId="bgColor">
+                                    <Form.Label>Shape Color</Form.Label>
+                                    <Form.Control type="text" name={"bgColor"} size={"sm"} maxLength={7} minLength={7}
+                                                  placeholder={"bgColor"} spellCheck="false"
+                                                  onChange={this.handleValueChange.bind(this)}
+                                                  defaultValue={this.getValueFromDataOrGetDefault("bgColor")}/>
+                                </Form.Group>
 
 
-                        {
-                            this.getElementType() === "vertex"
-                                ? <Form.Group controlId="bgImagePropertyKey">
-                                    <Form.Label>Image Field</Form.Label>
-                                    <Form.Control
-                                        name={"bgImagePropertyKey"} size={"sm"} as={"select"}
-                                        onChange={this.handleValueChange.bind(this)}
-                                        defaultValue={this.getValueFromDataOrGetDefault("bgImagePropertyKey")}>
-                                        <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
+                                {
+                                    this.getElementType() === "vertex"
+                                        ? <Form.Group controlId="bgImagePropertyKey">
+                                            <Form.Label>Shape Image Field</Form.Label>
+                                            <Form.Control
+                                                name={"bgImagePropertyKey"} size={"sm"} as={"select"}
+                                                onChange={this.handleValueChange.bind(this)}
+                                                defaultValue={this.getValueFromDataOrGetDefault("bgImagePropertyKey")}>
+                                                <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
 
+                                                {
+                                                    this.state.propertyFieldKeys.map((fieldKey) =>
+                                                        <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
+                                                    )
+                                                }
+                                            </Form.Control>
+                                        </Form.Group>
+
+                                        : <React.Fragment/>
+                                }
+
+
+                            </div>
+                            <div className="col-md-6 pl-2">
+
+
+                                <Form.Group controlId="labelPropertyKey">
+                                    <Form.Label>Label Field</Form.Label>
+                                    <Form.Control name={"labelPropertyKey"} size={"sm"} as={"select"}
+                                                  onChange={this.handleValueChange.bind(this)}
+                                                  defaultValue={this.getValueFromDataOrGetDefault("labelPropertyKey")}>
+                                        <option key={"_id"} value={"_id"}>{"_id"}</option>
+                                        <option key={"_label"} value={"_label"}>{"_label"}</option>
                                         {
                                             this.state.propertyFieldKeys.map((fieldKey) =>
                                                 <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
                                             )
                                         }
+
                                     </Form.Control>
                                 </Form.Group>
 
-                                : <React.Fragment/>
-                        }
 
-
-                        <Form.Group controlId="labelPropertyKey">
-                            <Form.Label>Label Field</Form.Label>
-                            <Form.Control name={"labelPropertyKey"} size={"sm"} as={"select"}
-                                          onChange={this.handleValueChange.bind(this)}
-                                          defaultValue={this.getValueFromDataOrGetDefault("labelPropertyKey")}>
-                                <option key={"_id"} value={"_id"}>{"_id"}</option>
-                                <option key={"_label"} value={"_label"}>{"_label"}</option>
-                                {
-                                    this.state.propertyFieldKeys.map((fieldKey) =>
-                                        <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
-                                    )
-                                }
-
-                            </Form.Control>
-                        </Form.Group>
-
+                            </div>
+                        </div>
 
                         {/*<br/>*/}
                         <Button variant={"outline-primary"} size={"sm"} className={"mr-1 mt-3 "}
