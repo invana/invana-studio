@@ -428,28 +428,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 {/*        Graph Canvas*/}
                                 {/*    </Nav.Link>*/}
                                 {/*</Nav.Item>*/}
-                            </Nav>
-                            <Nav className="ml-auto">
-                                <Nav.Item>
-                                    {/*<button className={"nav-link"}*/}
-                                    {/*        onClick={() => {*/}
-                                    {/*            const verticesFilterQuery = this.connector.requestBuilder.filterVertices("Drug", 10, 0);*/}
-                                    {/*            const queryPayload = this.connector.requestBuilder.combineQueries(verticesFilterQuery, null);*/}
-                                    {/*            this.setState({queryObject: queryPayload});*/}
-                                    {/*        }}>*/}
-                                    {/*    <FontAwesomeIcon icon={faUserAstronaut}/>*/}
-                                    {/*</button>*/}
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}>
-                                        <FontAwesomeIcon icon={faSearch}/> Query
-                                    </Button>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}>
-                                        <FontAwesomeIcon icon={faFilter}/>
-                                    </Button>
-                                </Nav.Item>
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.canvasCtrl.confirmRedrawCanvas()}
@@ -464,6 +442,33 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                         <FontAwesomeIcon icon={faCamera}/>
                                     </Button>
                                 </Nav.Item>
+
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}>
+                                        <FontAwesomeIcon icon={faSearch}/> Query
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}>
+                                        <FontAwesomeIcon icon={faFilter}/>
+                                    </Button>
+                                </Nav.Item>
+
+
+                            </Nav>
+                            <Nav className="ml-auto">
+                                <Nav.Item>
+                                    {/*<button className={"nav-link"}*/}
+                                    {/*        onClick={() => {*/}
+                                    {/*            const verticesFilterQuery = this.connector.requestBuilder.filterVertices("Drug", 10, 0);*/}
+                                    {/*            const queryPayload = this.connector.requestBuilder.combineQueries(verticesFilterQuery, null);*/}
+                                    {/*            this.setState({queryObject: queryPayload});*/}
+                                    {/*        }}>*/}
+                                    {/*    <FontAwesomeIcon icon={faUserAstronaut}/>*/}
+                                    {/*</button>*/}
+                                </Nav.Item>
+
+
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.canvasCtrl.confirmFlushCanvas()}
@@ -471,14 +476,16 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                         <FontAwesomeIcon icon={faTrashAlt}/>
                                     </Button>
                                 </Nav.Item>
-                                <Nav.Item className={"mr-2"}>
+                                <Nav.Item className={"ml-3 mr-3"}>
                                     |
                                 </Nav.Item>
-                                <Nav.Item>
+                                <Nav.Item className={"mr-1"}>
                                     <Button size={"sm"} variant={"link"}>
                                         <FontAwesomeIcon icon={faStickyNote}/>
                                     </Button>
                                 </Nav.Item>
+
+
                                 <Nav.Item className={"mr-1"}>
                                     <Button size={"sm"} variant={"link"}>
                                         <FontAwesomeIcon icon={faCog}/>
@@ -597,7 +604,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                         ? <LoadingDiv statusMessage={this.state.statusMessage}/>
                         : <React.Fragment/>
                 }
-                 {/*<LoadingDiv statusMessage={this.state.statusMessage}/>*/}
+                {/*<LoadingDiv statusMessage={this.state.statusMessage}/>*/}
                 {/*<LoadingDiv/>*/}
             </DefaultLayout>)
     }
