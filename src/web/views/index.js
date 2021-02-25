@@ -4,6 +4,7 @@ import {
 } from "../../settings";
 import DefaultLayout from "../layout/default";
 import RoutableRemoteEngine from "../layout/routable-remote";
+import {setElementColorOptionsToStorageUsingResponse} from "../utils";
 
 
 export default class IndexView extends RoutableRemoteEngine {
@@ -27,7 +28,7 @@ export default class IndexView extends RoutableRemoteEngine {
         console.log("processResponse received", response);
         const transporterStatusCode = response.transporterStatusCode;
         if (transporterStatusCode >= 200 && transporterStatusCode < 300) {
-            // setElementColorOptionsToStorageUsingResponse(response);
+            setElementColorOptionsToStorageUsingResponse(response);
             this.routeToExplorer();
         } else {
             console.log("response.status", response.status, response.status !== undefined);

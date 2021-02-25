@@ -83,7 +83,7 @@ export default class ElementOptions extends RemoteEngine {
         console.log("formdata", e.target);
 
         let properties = this.state.nodeOptions.properties;
-        properties['label_type'] = this.getElementLabel();
+        properties['label_type'] = this.getElementType();
         const query_string = this.connector.requestBuilder.updateVertexById(
             this.state.nodeOptions.id, properties
         );

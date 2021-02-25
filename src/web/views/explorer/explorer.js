@@ -7,8 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera,
     faCog,
-    faFilter,
-    faSearch, faStickyNote,
+    faStickyNote,
     faSync,
     faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +20,7 @@ import Button from "react-bootstrap/Button";
 import CanvasController from "../../interface/canvas/canvas-ctrl";
 import NodeMenu from "../../interface/node-menu";
 import FocusedNodesList from "../../interface/focused-nodes-list";
-import LeftContainer from "../../viewlets/left-container";
+// import LeftContainer from "../../viewlets/left-container";
 import QueryConsole from "../../viewlets/query-console";
 import ElementOptions from "../../viewlets/element-options";
 import LoadingDiv from "../../viewlets/loading";

@@ -1,9 +1,8 @@
 import React from "react";
 import {Button, FormControl, InputGroup, Nav, Navbar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown, faCog, faPlay, faPlus, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
+import {faAngleDown, faCog, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
 import BlankLayout from "./blank";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import {NavLink, Redirect} from "react-router-dom";
 
 

@@ -21,7 +21,6 @@ export function removeItemFromLocalStorage(itemKey) {
 }
 
 
-
 export function setElementColorOptionsToStorage(vertexOption) {
     /*
     If sent response from gremlin, it will automatically update those new
@@ -42,4 +41,17 @@ export function setElementColorOptionsToStorage(vertexOption) {
     //
     // }
 
+}
+
+export function setElementColorOptionsToStorageUsingResponse(response) {
+    /*
+    If sent response from gremlin, it will automatically update those new
+    vertex/edge key data only.
+     */
+    console.log("setElementColorOptionsToStorageUsingResponse", response.response.data.filterVertex);
+    let nodeLabelsConfig = {};
+    response.response.data.filterVertex.forEach((vertexConfig) => {
+        nodeLabelsConfig[vertexConfig.properties.name] = vertexConfig.properties;
+    });
+    setDataToLocalStorage('nodeLabels', nodeLabelsConfig);
 }
