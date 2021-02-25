@@ -12,9 +12,10 @@ import MenuComponent from "../../ui-components/menu";
 import Col from "react-bootstrap/Col";
 import {VERTICES_EXAMPLE_DATA} from "../../../example-data/data";
 import DataSidebarViewlet from "../../viewlets/data-management/data-sidebar";
+import RoutableRemoteEngine from "../../layout/routable-remote";
 
 
-export default class VertexDetailView extends React.Component {
+export default class VertexDetailView extends RoutableRemoteEngine {
 
 
     constructor(props) {
@@ -32,7 +33,7 @@ export default class VertexDetailView extends React.Component {
         console.log("this.props", this.props.location);
         return (<DefaultLayout {...this.props}
                                setModalContentName={this.setModalContentName.bind(this)}>
-
+                {super.render()}
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet/>

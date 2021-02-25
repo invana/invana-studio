@@ -15,6 +15,7 @@ export default class Page404View extends RoutableRemoteEngine {
         return (
             <DefaultLayout {...this.props}
                    setModalContentName={this.setModalContentName.bind(this)}>
+                {super.render()}
                 <Page404Viewlet {...this.props}/>
             </DefaultLayout>
         );

@@ -62,8 +62,7 @@ export default class SettingsComponent extends React.Component {
                         switch gremlin server <FontAwesomeIcon icon={faSignInAlt}/>
                     </Button>
                     <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
-                        this.props.setModalContentName(null)}>
-                        cancel
+                        this.props.onClose()}>cancel
                     </Button>
 
 

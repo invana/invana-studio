@@ -29,6 +29,7 @@ import RoutableRemoteEngine from "../../layout/routable-remote";
 import ModalContainer from "../../viewlets/modal-container";
 import SettingsComponent from "../../viewlets/settings";
 import {NavLink} from "react-router-dom";
+import Learn from "../../viewlets/support/Learn";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -412,6 +413,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
             <DefaultLayout {...this.props} ref={this.child}
                            setModalContentName={this.setModalContentName.bind(this)}
                            setShowQueryConsole={this.setShowQueryConsole.bind(this)}>
+                {super.render()}
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet
@@ -598,11 +600,12 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
                         : <React.Fragment></React.Fragment>
                 }
+
                 {
-                    this.state.modalContentName === "settings"
+                    this.state.modalContentName === "Learn"
                         ? <ModalContainer>
-                            <SettingsComponent
-                                setModalContentName={this.setModalContentName.bind(this)}
+                            <Learn
+                                // setModalContentName={this.setModalContentName.bind(this)}
                                 onClose={() => {
                                     _this.setModalContentName(null)
                                 }}

@@ -84,6 +84,7 @@ export default class LabelDetailView extends LabelDetailViewBase {
                                setModalContentName={this.setModalContentName.bind(this)}
 
             >
+                {super.render()}
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet

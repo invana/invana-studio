@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import RemoteEngine from "./remote";
 import {Container} from "react-bootstrap";
+import ModalContainer from "../viewlets/modal-container";
+import SettingsComponent from "../viewlets/settings";
+import DefaultLayout from "./default";
 
 export default class RoutableRemoteEngine extends RemoteEngine {
 
@@ -42,8 +45,24 @@ export default class RoutableRemoteEngine extends RemoteEngine {
 
 
     render() {
+        const _this = this;
         return (
-            <Container fluid>{this.props.children}</Container>
+            <Container fluid>
+                {this.props.children}
+                {
+                    this.state.modalContentName === "settings"
+                        ? <ModalContainer>
+                            <SettingsComponent
+                                setModalContentName={this.setModalContentName.bind(this)}
+                                onClose={() => {
+                                    _this.setModalContentName(null)
+                                }}
+                            />
+                        </ModalContainer>
+
+                        : <React.Fragment></React.Fragment>
+                }
+            </Container>
         )
     }
 }
