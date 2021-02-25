@@ -16,7 +16,7 @@ export default class IndexView extends RoutableRemoteEngine {
         if (this.connector) {
             console.log("=_this.connector.requestBuilder.initQuery()", this.connector.requestBuilder.initQuery());
             const showVerticesQuery = this.connector.requestBuilder.filterVertices(
-                STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, 1
+                STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, 100
             );
             const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null);
             this.makeQuery(queryPayload, {source: "internal"});
