@@ -1,5 +1,5 @@
 import React from "react";
-import {faExternalLinkAlt, faExternalLinkSquareAlt, faSync} from "@fortawesome/free-solid-svg-icons";
+import {faExternalLinkAlt, faExternalLinkSquareAlt, faSync, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {q1CreateData, q3, q4} from "./learn-queries";
 import PropTypes from "prop-types";
@@ -56,10 +56,15 @@ export default class Learn extends React.Component {
                         your graph data.
                     </p>
 
-                    <a className={"btn btn-outline-secondary btn-sm"} target={"_new"} href={STUDIO_SETTINGS.SUPPORT_URL}>
+                    <a className={"btn btn-outline-success btn-sm mr-2"} target={"_new"}
+                       href={STUDIO_SETTINGS.SUPPORT_URL}>
                         Find more support <FontAwesomeIcon icon={faExternalLinkAlt}/>
 
                     </a>
+                    <Button variant={"outline-secondary"} size={"sm"}
+                            onClick={() => this.props.onClose()}>close
+                        {/*<FontAwesomeIcon icon={faWindowClose}/>*/}
+                    </Button>
                     {/*<h3 style={{"marginTop": "30px"}}>More Resources</h3>*/}
                     {/*<ListGroup>*/}
                     {/*    <ListGroup.Item className={"p-0"}>*/}
