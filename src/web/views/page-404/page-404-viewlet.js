@@ -19,10 +19,11 @@ export default class Page404Viewlet extends React.Component {
                         No match found for <code>{location.pathname}</code>
                     </h3>
                     <p>
-                        <a href={document.referrer} title={document.referrer}>
-                            &larr; go back{" "}
-                        </a>{" "}
-                        or <a href={"/"}> go home</a>
+                        {/*<a href={document.referrer} title={document.referrer}>*/}
+                        {/*    &larr; go back{" "}*/}
+                        {/*</a>{" "}*/}
+                        {/*or*/}
+                        <a href={"/"}> &larr; go to home</a>
                     </p>
                 </Col>
             </Row>
