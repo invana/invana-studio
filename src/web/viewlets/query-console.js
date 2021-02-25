@@ -62,7 +62,10 @@ export default class QueryConsole extends React.Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.query !== prevProps.query) {
-            this.setState({query: this.props.query});
+
+            console.log("this.props.query", this.props.query)
+            const query = this.props.query.replace(/\\n/g, String.fromCharCode(13, 10) )
+            this.setState({query: query});
         }
     }
 
