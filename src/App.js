@@ -1,12 +1,10 @@
 import React, {Suspense} from "react";
-import SwitchServerView from "./web/views/switch-server";
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import ConnectView from "./web/views/connect/connect";
 import Page404View from "./web/views/page-404/page-404";
 import IndexView from "./web/views";
 import ExplorerView from "./web/views/explorer/explorer";
 import DataView from "./web/views/data";
-import SettingsView from "./web/views/settings/settings";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LabelDetailView from "./web/views/label-detail/detail";
 import VertexDetailView from "./web/views/vertex-detail";
@@ -33,8 +31,6 @@ export default class App extends React.Component {
                         <Route exact path="/vertex/:vertexId" component={VertexDetailView}/>
                         {/*<Route exact path="/schema" component={SchemaView}/>*/}
                         <Route exact path="/connect" component={ConnectView}/>
-                        <Route exact path="/settings" component={SettingsView}/>
-                        <Route exact path="/switch-server" component={SwitchServerView}/>
                         <Route component={Page404View}/>
                     </Switch>
                 </Suspense>

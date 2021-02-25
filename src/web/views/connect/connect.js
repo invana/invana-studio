@@ -72,7 +72,7 @@ export default class ConnectView extends React.Component {
         } else if (connectionUrl) {
             const headers = this.getHeaders();
             setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, connectionUrl);
-            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.httpHeadersKey, headers);
+            setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.HTTP_HEADERS, headers);
             setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME, graphEngineName);
             window.location.href = "/";
         }
@@ -133,18 +133,21 @@ export default class ConnectView extends React.Component {
         const headersArrayTemp = Array.from({length: this.state.extraHeadersCount}, (_, index) => index + 1);
 
         // console.log("this.props.location", this.props.location)
-        return (<DefaultLayout {...this.props}>
+        return (<DefaultLayout {...this.props}
+                               setModalContentName={() => alert("You need to connect to a graph engine")}
+
+        >
 
 
-            <Row className={"pl-3"} style={{paddingTop: "26%"}}>
+            <Row className={"pl-3"} style={{paddingTop: "22.5%"}}>
                 <Col md={"1"} className={""} style={{"width": "4.5rem", "flex": "none"}}>
                     <FontAwesomeIcon icon={faUserAstronaut}
                                      className={"mt-2"}
                                      style={{"fontSize": "4rem"}}/>
                 </Col>
-                <Col md={"5"}>
+                <Col md={"3"}>
                     {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
-                    <h1 className={"pb-0 mb-0 mt-3"}>Invana Studio <small>({STUDIO_SETTINGS.VERSION})</small></h1>
+                    <h1 className={"pb-0 mb-0 mt-1"}>Invana Studio <small>({STUDIO_SETTINGS.VERSION})</small></h1>
                     <p>{STUDIO_SETTINGS.ABOUT_TEXT}</p>
                 </Col>
             </Row>

@@ -30,7 +30,8 @@ export default class VertexDetailView extends React.Component {
 
     render() {
         console.log("this.props", this.props.location);
-        return (<DefaultLayout {...this.props}>
+        return (<DefaultLayout {...this.props}
+                               setModalContentName={this.setModalContentName.bind(this)}>
 
                 <Row>
                     <Sidebar>

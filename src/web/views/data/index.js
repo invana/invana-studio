@@ -30,7 +30,8 @@ export default class DataView extends RoutableRemoteEngine {
 
     render() {
         console.log("this.props", this.props.location);
-        return (<DefaultLayout {...this.props}  ref={this.child}>
+        return (<DefaultLayout {...this.props}  ref={this.child}
+                                       setModalContentName={this.setModalContentName.bind(this)}>
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet

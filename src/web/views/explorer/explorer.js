@@ -27,6 +27,7 @@ import LoadingDiv from "../../viewlets/loading";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 import RoutableRemoteEngine from "../../layout/routable-remote";
 import ModalContainer from "../../viewlets/modal-container";
+import SettingsComponent from "../../viewlets/settings";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -49,8 +50,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
             menuPositionX: null,
             menuPositionY: null,
 
-            leftContentName: null,
-            modalContentName: null,
 
             isRenderingCanvas: null
 
@@ -61,13 +60,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
         this.child = React.createRef();
     }
 
-    setLeftContentName(contentName) {
-        this.setState({leftContentName: contentName});
-    }
-
-    setModalContentName(contentName) {
-        this.setState({modalContentName: contentName});
-    }
 
 
     selectNodesInNetwork(selectedNodes) {
@@ -418,7 +410,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
         let _this = this;
         return (
             <DefaultLayout {...this.props} ref={this.child}
-                           set
+                           setModalContentName={this.setModalContentName.bind(this)}
                            setShowQueryConsole={this.setShowQueryConsole.bind(this)}>
                 <Row>
                     <Sidebar>
@@ -601,6 +593,19 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 reRenderVisualizer={this.reRenderVisualizer.bind(this)}
                                 // reRenderCanvas={this.reRenderCanvas.bind(this)}
                                 // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
+                            />
+                        </ModalContainer>
+
+                        : <React.Fragment></React.Fragment>
+                }
+                {
+                    this.state.modalContentName === "settings"
+                        ? <ModalContainer>
+                            <SettingsComponent
+                                setModalContentName={this.setModalContentName.bind(this)}
+                                onClose={() => {
+                                    _this.setModalContentName(null)
+                                }}
                             />
                         </ModalContainer>
 

@@ -10,7 +10,7 @@ export default class DefaultHTTPConnector extends ConnectorBase {
 
     query(query_string) {
         const payload = {"gremlin": query_string};
-        const extraHeaders = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.httpHeadersKey, true) || {};
+        const extraHeaders = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.HTTP_HEADERS, true) || {};
         const _this = this;
         postData(this.serverUrl, extraHeaders, payload).then((data) => {
             // check the status and response type and change isConnected

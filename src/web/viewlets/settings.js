@@ -1,26 +1,24 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
-import { STUDIO_CONNECT_CONSTANTS} from "../../settings";
+import {STUDIO_CONNECT_CONSTANTS, STUDIO_SETTINGS} from "../../settings";
 import PropTypes from "prop-types";
 import {askToSwitchGremlinServer} from "../interface/utils";
+import {Button, Card, Form} from "react-bootstrap";
 
 export default class SettingsComponent extends React.Component {
 
     static defaultProps = {
-        setLeftFlyOut: () => console.error("setCenterModal prop not set for SettingsFlyOut"),
-        setCanvasBgColor: (bgColor) => console.log("setCanvasBgColor not set", bgColor)
+        setModalContentName: () => console.error("setCenterModal prop not set for SettingsFlyOut"),
     }
 
     static propTypes = {
-        setCanvasBgColor: PropTypes.func,
-        setLeftFlyOut: PropTypes.func,
-        canvasBgColor: PropTypes.string
+        setModalContentName: PropTypes.func,
     }
 
 
     connectionStringWithoutCreds() {
-        const __url = new URL(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL);
+        const __url = new URL(STUDIO_SETTINGS.CONNECTION_URL);
         return __url.protocol + "//" + __url.host + __url.pathname;
     }
 
@@ -37,53 +35,36 @@ export default class SettingsComponent extends React.Component {
     }
 
 
-    onFormSubmit(e) {
-        e.preventDefault();
-        console.log("formdata", e.target);
-
-        this.props.setCanvasBgColor(document.querySelector("input[name=canvasBgColor]").value);
-
-    }
-
     render() {
         return (
-            <div className={"p-10"}>
+            <Card style={{"min-height": "300px"}}>
+                <Card.Body>
+                    <h6 className={"pb-2 mb-3 border-bottom"}>
+                        Invana Studio Connection Info.
+                    </h6>
 
-                <h4>Graph Engine Name:</h4>
+                    <h6 className={"mb-0"}>Graph Engine Name:</h6>
+                    <p>{STUDIO_SETTINGS.GRAPH_ENGINE_NAME}</p>
 
-                <p><span>{STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME}</span></p>
-
-                <br/><br/>
-                <h4>Canvas Background Color</h4>
-
-                <form className={"mt-10"} onSubmit={this.onFormSubmit.bind(this)}>
-                    <input type="text" name={"canvasBgColor"}
-                           minLength={7} maxLength={7} defaultValue={this.props.canvasBgColor}/>
-
-
-                    <button className={"button  mt-10"} type={"submit"}>
-                        update
-                    </button>
-                </form>
-                <br/><br/>
-                <h4>Connection String:</h4>
-
-                <p className={"mb-0"}>
-                    <span>{this.connectionStringWithoutCreds()}</span></p>
-                <p>
-                    <button id={"connectionStringBtn"} onClick={this.showCredentials.bind(this)} className={"selected"}>
-                        <small>show full connection string(toggle)</small>
-                    </button>
-                </p>
-                <p id={"connection-string"} style={{"display": "none"}}>{STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL}</p>
-
-                <p></p>
-                <button className={"button"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
-                    switch gremlin server <FontAwesomeIcon icon={faSignInAlt}/>
-                </button>
+                    <h6 className={"mb-0"}>Connection String:</h6>
+                    <p className={"mb-0"}>
+                        <span>{this.connectionStringWithoutCreds()}</span></p>
+                    <p>
+                        <Button size={"sm"}  variant={"outline-secondary"}
+                                id={"connectionStringBtn"} onClick={this.showCredentials.bind(this)}
+                                className={"selected"}>
+                            <small>show full connection string(toggle)</small>
+                        </Button>
+                    </p>
+                    <p id={"connection-string"} style={{"display": "none"}}>{STUDIO_SETTINGS.CONNECTION_URL}</p>
+                    <br/>
+                    <Button variant={"secondary"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
+                        switch gremlin server <FontAwesomeIcon icon={faSignInAlt}/>
+                    </Button>
 
 
-            </div>
+                </Card.Body>
+            </Card>
         )
     }
 

@@ -80,7 +80,10 @@ export default class LabelDetailView extends LabelDetailViewBase {
     }
 
     render() {
-        return (<DefaultLayout {...this.props} ref={this.child}>
+        return (<DefaultLayout {...this.props} ref={this.child}
+                               setModalContentName={this.setModalContentName.bind(this)}
+
+            >
                 <Row>
                     <Sidebar>
                         <DataSidebarViewlet

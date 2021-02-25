@@ -11,7 +11,11 @@ export default class RoutableRemoteEngine extends RemoteEngine {
 
     constructor(props) {
         super(props);
-        this.state = {...this.state};
+        this.state = {
+            ...this.state,
+            leftContentName: null,
+            modalContentName: null,
+        };
         this.child = React.createRef();
     }
 
@@ -25,6 +29,15 @@ export default class RoutableRemoteEngine extends RemoteEngine {
 
     setRedirectToRoute(url) {
         this.child.current.setRedirectToRoute(url);
+    }
+
+
+    setLeftContentName(contentName) {
+        this.setState({leftContentName: contentName});
+    }
+
+    setModalContentName(contentName) {
+        this.setState({modalContentName: contentName});
     }
 
 

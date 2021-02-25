@@ -1,5 +1,5 @@
 import {array} from "prop-types";
-import {GRAPH_CANVAS_SETTINGS, STUDIO_CONNECT_CONSTANTS} from "../../settings";
+import {GRAPH_CANVAS_SETTINGS, RENDERING_CONFIG, STUDIO_CONNECT_CONSTANTS} from "../../settings";
 import {removeItemFromLocalStorage} from "../utils";
 // import {LightenDarkenColor} from "../../core/utils";
 
@@ -81,10 +81,13 @@ export function getDefaultNodeOptions(label) {
 }
 
 export function askToSwitchGremlinServer() {
-    var r = window.confirm("You are about to sign out of the workspace. " +
-        "Your query history will be preserved. Do you want to continue?");
+    let r = window.confirm("You are about to sign out of the workspace. " +
+        "Gladly, your query history will be preserved. Do you want to continue?");
     if (r === true) {
         removeItemFromLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL);
+        removeItemFromLocalStorage(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME);
+        removeItemFromLocalStorage(STUDIO_CONNECT_CONSTANTS.HTTP_HEADERS);
+        removeItemFromLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY);
         window.location.href = "/";
     }
 }

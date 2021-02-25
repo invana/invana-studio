@@ -139,7 +139,7 @@ export default class DefaultLayout extends React.Component {
                                 <FontAwesomeIcon icon={faQuestionCircle}/>
                             </NavLink>
                         </Nav.Item>
-                        <Nav.Item onClick={() => alert("opening settings")}>
+                        <Nav.Item onClick={() => this.props.setModalContentName("settings")}>
                             {/*<NavLink href={"#"} activeClassName="active">*/}
                             <span className={"nav-link"}>
                                 <FontAwesomeIcon icon={faCog}/>

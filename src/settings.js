@@ -1,13 +1,13 @@
 export const STUDIO_CONNECT_CONSTANTS = {
     INVANA_ENGINE_URL: "INVANA_ENGINE_URL",
-    httpHeadersKey: "HTTP_HEADERS",
+    HTTP_HEADERS: "HTTP_HEADERS",
     GRAPH_ENGINE_NAME: "GRAPH_ENGINE_NAME"
 }
 
 
 export const STUDIO_SETTINGS = {
     VERSION: "alpha",
-    ABOUT_TEXT: "Open source knowledge graphs visualiser and editor.",
+    ABOUT_TEXT: "Open source knowledge graphs visualiser, editor and insights engine.",
     REPO_URL: "https://github.com/invanalabs/graph-studio",
     SETUP_README_URL: "https://invana.io/help.html",
     DEMO_VIDEO_URL: "https://www.youtube.com/watch?v=17Q02VV_0Tc",
