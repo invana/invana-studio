@@ -2,6 +2,7 @@ import React from "react";
 import "./selected-data.scss";
 import PropTypes from "prop-types";
 import {renderPropertyData} from "../interface/utils";
+import {RENDERING_CONFIG} from "../../settings";
 // import NodeMenu from "../canvas/graph/node-menu";
 
 export default class SelectedData extends React.Component {
@@ -34,7 +35,7 @@ export default class SelectedData extends React.Component {
 
     render() {
         let cleanedData = this.getCleanedData();
-        let nodeLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        let nodeLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
         let linkLabelsColoring = Object.assign({}, JSON.parse(localStorage.getItem('linkLabels')));
         let selectedDataColorSchema = {};
 

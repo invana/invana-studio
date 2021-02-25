@@ -1,3 +1,5 @@
+import {RENDERING_CONFIG} from "../settings";
+
 export function getDataFromLocalStorage(itemKey, isJson) {
 
     if (isJson) {
@@ -29,9 +31,9 @@ export function setElementColorOptionsToStorage(vertexOption) {
     console.log("setElementColorOptionsToStorage", vertexOption)
 
     // if (vertexOption.type === "g:Vertex") {
-    let _nodes = getDataFromLocalStorage("nodeLabels", true) || {};
+    let _nodes = getDataFromLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY, true) || {};
     _nodes[vertexOption.properties.name] = vertexOption.properties;
-    setDataToLocalStorage('nodeLabels', _nodes);
+    setDataToLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY, _nodes);
 
     // } else {
     //     let _links = getDataFromLocalStorage("linkLabels", true) || {};
@@ -53,5 +55,5 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     response.response.data.filterVertex.forEach((vertexConfig) => {
         nodeLabelsConfig[vertexConfig.properties.name] = vertexConfig.properties;
     });
-    setDataToLocalStorage('nodeLabels', nodeLabelsConfig);
+    setDataToLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY, nodeLabelsConfig);
 }

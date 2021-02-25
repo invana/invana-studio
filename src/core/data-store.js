@@ -391,7 +391,7 @@ export default class InMemoryDataStore {
     }
 
     // prepareNodes(vertices) {
-    //     const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+    //     const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
     //     // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
     //     return prepareNodesDataWithOptions(vertices, nodeOptions);
     //
@@ -403,7 +403,7 @@ export default class InMemoryDataStore {
     }
 
     getAllRawEdgesList() {
-        // const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        // const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
         // return prepareLinkDataWithOptions(
             // prepareLinksDataForCurves(
              return   convertMapKeysToArray(this.#edges);

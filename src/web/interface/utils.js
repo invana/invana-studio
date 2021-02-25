@@ -160,7 +160,7 @@ export function getDefaultNodeOptions(label) {
 //     help us controls the curves of the links.
 //      */
 //
-//     // const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+//     // const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
 //
 //     links.forEach(function (link) {
 //

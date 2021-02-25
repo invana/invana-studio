@@ -44,7 +44,7 @@ export default class NodeMenu extends React.Component {
 
         startNewQueryInConsole: PropTypes.func,
         // setNodeMenuPosition: PropTypes.func,
-        setLeftContentName: PropTypes.func
+        setModalContentName: PropTypes.func
 
     }
 
@@ -95,7 +95,7 @@ export default class NodeMenu extends React.Component {
     }
 
     openElementSettings() {
-        this.props.setLeftContentName("element-options");
+        this.props.setModalContentName("element-options");
     }
 
     getVerboseIdentifier() {

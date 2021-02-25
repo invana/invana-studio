@@ -46,7 +46,7 @@ export default class ElementOptions extends RemoteEngine {
 
     getElementInitialConfig() {
         // const queryPayload = this.connector.requestBuilder.getOrCreateVertices(
-        //     STUDIO_SETTINGS.managementVertexLabel, {name: this.getElementLabel()}
+        //     STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, {name: this.getElementLabel()}
         // );
         // const queryObject = this.connector.requestBuilder.combineQueries(queryPayload, null)
         // this.makeQuery(queryObject);
@@ -54,7 +54,7 @@ export default class ElementOptions extends RemoteEngine {
         //
 
         const getOrCreateElementPayload = this.connector.requestBuilder.getOrCreateVertices(
-            STUDIO_SETTINGS.managementVertexLabel, {name: this.getElementLabel()}
+            STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, {name: this.getElementLabel()}
         );
         const getLabelSchemaPayload = this.connector.requestBuilder.getLabelSchema(
             this.getElementLabel(), this.getElementType()

@@ -38,7 +38,7 @@ export default class SidebarListBase extends React.Component {
                 }
                 {
                     this.props.statsData.filter((label) => {
-                        return label.label !== STUDIO_SETTINGS.managementVertexLabel
+                        return label.label !== STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL
                     }).map((elementLabel, index) => {
                         return (
                             <ListGroup.Item

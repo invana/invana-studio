@@ -16,8 +16,7 @@ export const STUDIO_SETTINGS = {
     CONNECTION_URL: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL),
     GRAPH_ENGINE_NAME: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME) || "invana-engine",
 
-    managementVertexLabel: "InvanaManagement"
-
+    MANAGEMENT_VERTEX_LABEL: "InvanaManagement"
 }
 
 export const GRAPH_CANVAS_SETTINGS = {
@@ -48,6 +47,10 @@ export const GRAPH_CANVAS_SETTINGS = {
 export const HISTORY_SETTINGS = {
     historyLocalStorageKey: "GRAPH_EXPLORER_HISTORY",
     MAX_HISTORY_COUNT_TO_REMEMBER: 100
+}
+
+export const RENDERING_CONFIG = {
+    LOCAL_STORAGE_KEY: "RENDERING_CONFIG"
 }
 
 

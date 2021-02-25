@@ -1,6 +1,6 @@
 import {getColorForString} from "../../interface/utils";
 import {LightenDarkenColor} from "../../../core/utils";
-import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
+import {GRAPH_CANVAS_SETTINGS, RENDERING_CONFIG} from "../../../settings";
 
 export default class VisJsGraphCanvasUtils {
     nodeGroups = {};
@@ -282,7 +282,7 @@ export default class VisJsGraphCanvasUtils {
 
 
     getElementConfig(nodeLabel) {
-        const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
+        const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
         return nodeLabels[nodeLabel];
     }
 

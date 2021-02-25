@@ -50,6 +50,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
             menuPositionY: null,
 
             leftContentName: null,
+            modalContentName: null,
 
             isRenderingCanvas: null
 
@@ -62,6 +63,10 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
     setLeftContentName(contentName) {
         this.setState({leftContentName: contentName});
+    }
+
+    setModalContentName(contentName) {
+        this.setState({modalContentName: contentName});
     }
 
 
@@ -509,7 +514,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                         menuPositionX={this.state.menuPositionX}
                                         menuPositionY={this.state.menuPositionY}
 
-                                        setLeftContentName={this.setLeftContentName.bind(this)}
+                                        setModalContentName={this.setModalContentName.bind(this)}
                                         // setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
 
                                         selectedElementData={this.state.selectedElementData}
@@ -579,17 +584,17 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 }
 
                 {
-                    this.state.leftContentName === "element-options" && this.state.selectedElementData
+                    this.state.modalContentName === "element-options" && this.state.selectedElementData
                         ? <ModalContainer>
                             <ElementOptions
                                 selectedElementData={this.state.selectedElementData}
-                                setLeftContentName={this.setLeftContentName.bind(this)}
+                                setModalContentName={this.setModalContentName.bind(this)}
                                 // selectedLabelType={this.state.selectedLabelType}
                                 setStatusMessage={this.setStatusMessage.bind(this)}
                                 setErrorMessage={this.setErrorMessage.bind(this)}
                                 // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                 onClose={() => {
-                                    _this.setLeftContentName(null)
+                                    _this.setModalContentName(null)
                                 }}
                                 reRenderVisualizer={this.reRenderVisualizer.bind(this)}
                                 // reRenderCanvas={this.reRenderCanvas.bind(this)}

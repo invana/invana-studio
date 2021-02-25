@@ -4,6 +4,7 @@ import "./index.scss";
 import {getDataFromLocalStorage} from "../../utils";
 import {renderPropertyData} from "../utils";
 import {Badge} from "react-bootstrap";
+import {RENDERING_CONFIG} from "../../../settings";
 
 
 export default class TableInterface extends React.Component {
@@ -154,7 +155,7 @@ export class VertexTableComponent extends React.Component {
         // console.log("VertexTableComponent vertexSchema", this.props.label, this.props.vertexSchema)
         let colorOptions = {};
         if (this.props.type === "Vertex") {
-            const _ = getDataFromLocalStorage("nodeLabels", true) || {}
+            const _ = getDataFromLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY, true) || {}
             colorOptions = _[this.props.label] || {};
         } else {
             const _ = getDataFromLocalStorage("linkLabels", true) || {}
@@ -360,7 +361,7 @@ export class EdgeTableComponent extends React.Component {
         // console.log("EdgeTableComponent here  this.props.data[0]", this.props.data[0])
         let colorOptions = {};
         if (this.props.type === "Vertex") {
-            const _ = getDataFromLocalStorage("nodeLabels", true) || {}
+            const _ = getDataFromLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY, true) || {}
             colorOptions = _[this.props.label] || {};
         } else {
             const _ = getDataFromLocalStorage("linkLabels", true) || {}

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, FormControl, InputGroup, Nav, Navbar} from "react-bootstrap";
+import {Button, FormControl, InputGroup, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown, faCog, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
 import BlankLayout from "./blank";
@@ -126,16 +126,7 @@ export default class DefaultLayout extends React.Component {
 
                     </Nav>
                     <Nav className="ml-auto">
-                        {/*<Nav.Item>*/}
-                        {/*    <NavDropdown title={<span> <FontAwesomeIcon icon={faPlus}/> New</span>}>*/}
-                        {/*        <NavDropdown.Item href="#action/3.1">Vertex Label</NavDropdown.Item>*/}
-                        {/*        <NavDropdown.Item href="#action/3.2">Edge Label</NavDropdown.Item>*/}
-                        {/*        <NavDropdown.Item href="#action/3a.3">Function</NavDropdown.Item>*/}
-                        {/*        <NavDropdown.Divider/>*/}
-                        {/*        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>*/}
-                        {/*    </NavDropdown>*/}
 
-                        {/*</Nav.Item>*/}
                         <Nav.Item>
                             <NavLink to="/explorer" className={"nav-link"} activeClassName="active">Explorer</NavLink>
                         </Nav.Item>
@@ -153,6 +144,17 @@ export default class DefaultLayout extends React.Component {
                                 <FontAwesomeIcon icon={faCog}/>
                             </NavLink>
                         </Nav.Item>
+
+                        {/*<Nav.Item>*/}
+                        {/*    <NavDropdown title={<span> <FontAwesomeIcon icon={faCog}/> New</span>}>*/}
+                        {/*        <NavDropdown.Item href="#action/3.1">Vertex Label</NavDropdown.Item>*/}
+                        {/*        <NavDropdown.Item href="#action/3.2">Edge Label</NavDropdown.Item>*/}
+                        {/*        <NavDropdown.Item href="#action/3a.3">Function</NavDropdown.Item>*/}
+                        {/*        <NavDropdown.Divider/>*/}
+                        {/*        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>*/}
+                        {/*    </NavDropdown>*/}
+
+                        {/*</Nav.Item>*/}
                     </Nav>
                 </Navbar>
                 {this.props.children}
