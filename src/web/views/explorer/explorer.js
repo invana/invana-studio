@@ -27,6 +27,7 @@ import ElementOptions from "../../viewlets/element-options";
 import LoadingDiv from "../../viewlets/loading";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 import RoutableRemoteEngine from "../../layout/routable-remote";
+import ModalContainer from "../../viewlets/modal-container";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -443,16 +444,16 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                     </Button>
                                 </Nav.Item>
 
-                                <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}>
-                                        <FontAwesomeIcon icon={faSearch}/> Query
-                                    </Button>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}>
-                                        <FontAwesomeIcon icon={faFilter}/>
-                                    </Button>
-                                </Nav.Item>
+                                {/*<Nav.Item>*/}
+                                {/*    <Button size={"sm"} variant={"link"}>*/}
+                                {/*        <FontAwesomeIcon icon={faSearch}/> Query*/}
+                                {/*    </Button>*/}
+                                {/*</Nav.Item>*/}
+                                {/*<Nav.Item>*/}
+                                {/*    <Button size={"sm"} variant={"link"}>*/}
+                                {/*        <FontAwesomeIcon icon={faFilter}/>*/}
+                                {/*    </Button>*/}
+                                {/*</Nav.Item>*/}
 
 
                             </Nav>
@@ -580,7 +581,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
                 {
                     this.state.leftContentName === "element-options" && this.state.selectedElementData
-                        ? <LeftContainer>
+                        ? <ModalContainer>
                             <ElementOptions
                                 selectedElementData={this.state.selectedElementData}
                                 setLeftContentName={this.setLeftContentName.bind(this)}
@@ -595,7 +596,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 // reRenderCanvas={this.reRenderCanvas.bind(this)}
                                 // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
                             />
-                        </LeftContainer>
+                        </ModalContainer>
 
                         : <React.Fragment></React.Fragment>
                 }
@@ -604,6 +605,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                         ? <LoadingDiv statusMessage={this.state.statusMessage}/>
                         : <React.Fragment/>
                 }
+                {/*<ModalContainer />*/}
                 {/*<LoadingDiv statusMessage={this.state.statusMessage}/>*/}
                 {/*<LoadingDiv/>*/}
             </DefaultLayout>)

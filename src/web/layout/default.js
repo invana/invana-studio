@@ -96,11 +96,11 @@ export default class DefaultLayout extends React.Component {
 
                                     <Nav.Item className={"pt-1 pl-2"}>
                                         <InputGroup className={"nav-search"}>
-                                            <FormControl placeholder="Start a Query (Ctrl + /) " size={"sm"}
+                                            <FormControl placeholder="Start a Gremlin Query here  " size={"sm"}
                                                          onFocus={() => {
                                                              this.props.setShowQueryConsole(true)
                                                          }}
-                                                         style={{"width": "600px",}}
+                                                         style={{"width": "400px",}}
 
                                             />
                                             <InputGroup.Append>
@@ -111,9 +111,9 @@ export default class DefaultLayout extends React.Component {
                                                 >
                                                     <FontAwesomeIcon icon={faAngleDown}/>
                                                 </Button>
-                                                <Button variant="outline-secondary" size={"md"}>
-                                                    <FontAwesomeIcon icon={faPlay}/>
-                                                </Button>
+                                                {/*<Button variant="outline-secondary" size={"md"}>*/}
+                                                {/*    <FontAwesomeIcon icon={faPlay}/>*/}
+                                                {/*</Button>*/}
                                             </InputGroup.Append>
                                         </InputGroup>
                                     </Nav.Item>
@@ -127,16 +127,16 @@ export default class DefaultLayout extends React.Component {
 
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Item>
-                            <NavDropdown title={<span> <FontAwesomeIcon icon={faPlus}/> New</span>}>
-                                <NavDropdown.Item href="#action/3.1">Vertex Label</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">Edge Label</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3a.3">Function</NavDropdown.Item>
-                                <NavDropdown.Divider/>
-                                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                            </NavDropdown>
+                        {/*<Nav.Item>*/}
+                        {/*    <NavDropdown title={<span> <FontAwesomeIcon icon={faPlus}/> New</span>}>*/}
+                        {/*        <NavDropdown.Item href="#action/3.1">Vertex Label</NavDropdown.Item>*/}
+                        {/*        <NavDropdown.Item href="#action/3.2">Edge Label</NavDropdown.Item>*/}
+                        {/*        <NavDropdown.Item href="#action/3a.3">Function</NavDropdown.Item>*/}
+                        {/*        <NavDropdown.Divider/>*/}
+                        {/*        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>*/}
+                        {/*    </NavDropdown>*/}
 
-                        </Nav.Item>
+                        {/*</Nav.Item>*/}
                         <Nav.Item>
                             <NavLink to="/explorer" className={"nav-link"} activeClassName="active">Explorer</NavLink>
                         </Nav.Item>

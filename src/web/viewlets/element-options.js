@@ -185,7 +185,11 @@ export default class ElementOptions extends RemoteEngine {
 
                     <Form className={"p-2"} onSubmit={this.onFormSubmit.bind(this)}>
                         <h6 className={"pb-2 mb-3 border-bottom"}
-                            style={{"color": this.getValueFromDataOrGetDefault("bgColor")}}>{this.getElementLabel()}</h6>
+                            >
+                            Rendering options of
+                            `<span style={{"color": this.getValueFromDataOrGetDefault("bgColor")}}>
+                                {this.getElementLabel()}</span>` ({this.getElementType()})
+                        </h6>
 
                         {/*<label>Vertex Label</label>*/}
                         <input type="hidden" name={"name"} readOnly={true} spellCheck="false"
