@@ -134,11 +134,7 @@ export default class DefaultLayout extends React.Component {
                             <NavLink to="/data" className={"nav-link"} activeClassName="active">Data</NavLink>
                         </Nav.Item>
 
-                        <Nav.Item>
-                            <NavLink to="/settings" className={"nav-link"} activeClassName="active">
-                                <FontAwesomeIcon icon={faQuestionCircle}/>
-                            </NavLink>
-                        </Nav.Item>
+
                         <Nav.Item onClick={() => this.props.setModalContentName("settings")}>
                             {/*<NavLink href={"#"} activeClassName="active">*/}
                             <span className={"nav-link"}>

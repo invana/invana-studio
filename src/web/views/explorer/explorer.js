@@ -6,7 +6,7 @@ import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera,
-    faCog,
+    faCog, faQuestionCircle,
     faStickyNote,
     faSync,
     faTrashAlt,
@@ -28,6 +28,7 @@ import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 import RoutableRemoteEngine from "../../layout/routable-remote";
 import ModalContainer from "../../viewlets/modal-container";
 import SettingsComponent from "../../viewlets/settings";
+import {NavLink} from "react-router-dom";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -59,7 +60,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
         this.network = null;
         this.child = React.createRef();
     }
-
 
 
     selectNodesInNetwork(selectedNodes) {
@@ -478,9 +478,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 <Nav.Item className={"ml-3 mr-3"}>
                                     |
                                 </Nav.Item>
-                                <Nav.Item className={"mr-1"}>
+                                <Nav.Item>
                                     <Button size={"sm"} variant={"link"}>
-                                        <FontAwesomeIcon icon={faStickyNote}/>
+                                        <FontAwesomeIcon icon={faQuestionCircle}/>
                                     </Button>
                                 </Nav.Item>
 

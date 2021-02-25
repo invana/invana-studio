@@ -40,13 +40,13 @@ export default class SettingsComponent extends React.Component {
             <Card style={{"min-height": "300px"}}>
                 <Card.Body>
                     <h6 className={"pb-2 mb-3 border-bottom"}>
-                        Invana Studio Connection Info.
+                        Invana Studio settings.
                     </h6>
 
-                    <h6 className={"mb-0"}>Graph Engine Name:</h6>
+                    <h6 className={"mb-0"}>Graph engine name:</h6>
                     <p>{STUDIO_SETTINGS.GRAPH_ENGINE_NAME}</p>
 
-                    <h6 className={"mb-0"}>Connection String:</h6>
+                    <h6 className={"mb-0"}>Connection string:</h6>
                     <p className={"mb-0"}>
                         <span>{this.connectionStringWithoutCreds()}</span></p>
                     <p>
@@ -60,6 +60,10 @@ export default class SettingsComponent extends React.Component {
                     <br/>
                     <Button variant={"secondary"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
                         switch gremlin server <FontAwesomeIcon icon={faSignInAlt}/>
+                    </Button>
+                    <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
+                        this.props.setModalContentName(null)}>
+                        cancel
                     </Button>
 
 
