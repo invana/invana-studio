@@ -6,7 +6,7 @@ import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera,
-    faCog, faQuestionCircle,
+    faQuestionCircle,
     faSync,
     faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
