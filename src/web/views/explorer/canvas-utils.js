@@ -250,10 +250,10 @@ export default class VisJsGraphCanvasUtils {
 
         // if shape with in text
         if (allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
-            // vertexDataaUpdated.widthConstraint = {
-            //     minimum: vertexDataaUpdated.size * 5,
-            //     maximum: vertexDataaUpdated.size * 8
-            // }
+            vertexDataaUpdated.widthConstraint = {
+                minimum: vertexDataaUpdated.size * 10,
+                maximum: vertexDataaUpdated.size * 10
+            }
 
 
             if (vertexDataaUpdated.color && allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
