@@ -1,4 +1,4 @@
-import {getColorForString, getDefaultNodeOptions} from "../../interface/utils";
+import {getAllNodeShapes, getColorForString, getDefaultNodeOptions} from "../../interface/utils";
 import {LightenDarkenColor} from "../../../core/utils";
 import {GRAPH_CANVAS_SETTINGS, RENDERING_CONFIG} from "../../../settings";
 
@@ -205,6 +205,9 @@ export default class VisJsGraphCanvasUtils {
                 label = vertexData.properties[labelPropertyKey];
             }
         }
+        if (renderingConfigFromStorage.size) {
+            vertexData.size = renderingConfigFromStorage.size;
+        }
 
         vertexData.label = this.stringify(label);
         vertexData.group = undefined;// groupName
@@ -242,11 +245,16 @@ export default class VisJsGraphCanvasUtils {
 
         let vertexDataaUpdated = Object.assign({}, this.nodeGroups[groupName], vertexData)
         // if the shape is text, make it to some other
-        if(vertexDataaUpdated.shape === "text"){
-            vertexDataaUpdated.widthConstraint = {
-                minimum: vertexDataaUpdated.size * 10,
-                maximum: vertexDataaUpdated.size * 15
-            }
+
+        const allNodeShapes = getAllNodeShapes();
+        if (allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
+            // vertexDataaUpdated.widthConstraint = {
+            //     minimum: vertexDataaUpdated.size * 2,
+            //     maximum: vertexDataaUpdated.size * 3
+            // }
+            // vertexDataaUpdated.heightContstraint = {
+            //     minimum: vertexDataaUpdated.size * 1
+            // }
         }
 
         console.log("=====renderingConfigFromStorage", vertexData)

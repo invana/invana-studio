@@ -248,6 +248,15 @@ export default class ElementOptions extends RemoteEngine {
                                         : <React.Fragment/>
                                 }
 
+                                <Form.Group controlId="size">
+                                    <Form.Label>Shape Color</Form.Label>
+                                    <Form.Control type="text" name={"size"} size={"sm"} min={2} max={100}
+                                                  placeholder={"size"} spellCheck="false"
+                                                  onChange={this.handleValueChange.bind(this)}
+                                                  defaultValue={this.getValueFromDataOrGetDefault("size")}/>
+                                </Form.Group>
+
+
                                 <Form.Group controlId="bgColor">
                                     <Form.Label>Shape Color</Form.Label>
                                     <Form.Control type="text" name={"bgColor"} size={"sm"} maxLength={7} minLength={7}

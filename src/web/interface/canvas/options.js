@@ -19,7 +19,7 @@ const defaultOptions = {
             centralGravity: 0.005,
             springLength: 220,
             springConstant: 0.18,
-            // avoidOverlap: 1
+            avoidOverlap: 1
 
         },
         // maxVelocity: 146,
