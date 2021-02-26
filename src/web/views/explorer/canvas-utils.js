@@ -1,4 +1,4 @@
-import {getAllNodeShapes, getColorForString, getDefaultNodeOptions} from "../../interface/utils";
+import {getAllNodeShapes, getColorForString, getDefaultNodeOptions, invertColor} from "../../interface/utils";
 import {LightenDarkenColor} from "../../../core/utils";
 import {GRAPH_CANVAS_SETTINGS, RENDERING_CONFIG} from "../../../settings";
 
@@ -209,7 +209,7 @@ export default class VisJsGraphCanvasUtils {
             vertexData.size = renderingConfigFromStorage.size;
         }
 
-        vertexData.label = this.stringify(label);
+        vertexData.label = this.stringify(label).substring(0, GRAPH_CANVAS_SETTINGS.MAX_LABEL_LENGTH);
         vertexData.group = undefined;// groupName
 
 
@@ -222,6 +222,8 @@ export default class VisJsGraphCanvasUtils {
         // } else if (renderingConfigFromStorage.elementShape) {
         //     vertexData.shape = renderingConfigFromStorage.elementShape;
         // }
+
+
         this.generateNodeGroups(groupName);
 
 
@@ -232,26 +234,30 @@ export default class VisJsGraphCanvasUtils {
         if (renderingConfigFromStorage && renderingConfigFromStorage.elementShape) {
             vertexData.shape = renderingConfigFromStorage.elementShape;
         }
+        const allNodeShapes = getAllNodeShapes();
 
         // override the options with image
-        if (renderingConfigFromStorage && renderingConfigFromStorage.bgImagePropertyKey) {
+
+        if (allNodeShapes['bgImageShapes'].includes(vertexData.shape) && renderingConfigFromStorage && renderingConfigFromStorage.bgImagePropertyKey) {
             const image = vertexData.properties[renderingConfigFromStorage.bgImagePropertyKey];
-            if (image) {
-                vertexData.image = image;
-                vertexData.shape = "circularImage";
-            }
+            vertexData.image = image || GRAPH_CANVAS_SETTINGS.DEFAULT_NODE_IMAGE;
         }
 
 
         let vertexDataaUpdated = Object.assign({}, this.nodeGroups[groupName], vertexData)
         // if the shape is text, make it to some other
 
-        const allNodeShapes = getAllNodeShapes();
+        // if shape with in text
         if (allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
             // vertexDataaUpdated.widthConstraint = {
-            //     minimum: vertexDataaUpdated.size * 2,
-            //     maximum: vertexDataaUpdated.size * 3
+            //     minimum: vertexDataaUpdated.size * 5,
+            //     maximum: vertexDataaUpdated.size * 8
             // }
+
+
+            if (vertexDataaUpdated.color) {
+                vertexDataaUpdated.font.color = invertColor(vertexDataaUpdated.color.background, true);
+            }
             // vertexDataaUpdated.heightContstraint = {
             //     minimum: vertexDataaUpdated.size * 1
             // }

@@ -87,7 +87,8 @@ export function getAllNodeShapes() {
     const inLabelShapes = ["ellipse", "circle", "database", "box", "text"];
     const outLabelShapes = ["image", "circularImage", "diamond", "dot",
         "star", "triangle", "triangleDown", "hexagon", "square", "icon"];
-    return {inLabelShapes, outLabelShapes};
+    const bgImageShapes = ["image", "circularImage" ]
+    return {inLabelShapes, outLabelShapes, bgImageShapes};
 }
 
 export function getAllNodeShapesList() {

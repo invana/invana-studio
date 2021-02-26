@@ -43,6 +43,9 @@ export const GRAPH_CANVAS_SETTINGS = {
 
     DefaultElementTextColor: "#343434",
     DefaultElementUnHighlightColor: "#9e9e9e",
+
+    MAX_LABEL_LENGTH : 45,
+    DEFAULT_NODE_IMAGE : "https://via.placeholder.com/50"
 }
 
 export const HISTORY_SETTINGS = {
