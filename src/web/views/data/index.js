@@ -15,8 +15,9 @@ export default class DataView extends RoutableRemoteEngine {
         this.state = {
             ...this.state,
             totalCount: "NA",
+            noVerticesExist: null
             // renderType: "table", // ["table", "list", "graph"]
-            // elementsData: VERTICES_EXAMPLE_DATA
+            // elementsData: VERTICES_EXAMPLE_DATA,
         }
 
         this.child = React.createRef();
@@ -28,6 +29,16 @@ export default class DataView extends RoutableRemoteEngine {
         // window.location.href= "/data/" + labelType + "/" + labelName;
     }
 
+    onSideBarLoadedCallBack(verticesStats) {
+        console.log("verticesStats", verticesStats)
+        if (verticesStats.length > 0) {
+            this.setRedirectToRoute("/data/vertex/" + verticesStats[0].label);
+
+        } else {
+            this.setState({noVerticesExist: true});
+        }
+    }
+
     render() {
         return (<DefaultLayout {...this.props}
                                ref={this.child}
@@ -37,9 +48,16 @@ export default class DataView extends RoutableRemoteEngine {
                     <Sidebar>
                         <DataSidebarViewlet
                             onItemClick={this.onItemClick.bind(this)}
-                            dataStore={this.dataStore}/>
+                            dataStore={this.dataStore}
+                            onSideBarLoadedCallBack={this.onSideBarLoadedCallBack.bind(this)}
+                        />
                     </Sidebar>
                     <MainContent className={"main-content"}>
+                        {
+                            this.state.noVerticesExist === true
+                                ? <p className={"text-muted mt-5"}>No Data Exist</p>
+                                : <React.Fragment/>
+                        }
                     </MainContent>
                 </Row>
             </DefaultLayout>

@@ -10,7 +10,8 @@ export default class DataSidebarViewlet extends RemoteEngine {
 
     static propTypes = {
         parentRemoteComponent: PropTypes.object,
-        onItemClick: PropTypes.func
+        onItemClick: PropTypes.func,
+        onSideBarLoadedCallBack: PropTypes.func
     }
 
     state = {
@@ -20,12 +21,17 @@ export default class DataSidebarViewlet extends RemoteEngine {
 
     processResponse(response) {
         const lastResponse = response.getResponseResult();
+        const verticesStats = response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey) || [];
+        if (this.props.onSideBarLoadedCallBack) {
+            this.props.onSideBarLoadedCallBack(verticesStats)
+        }
         if (lastResponse) {
             this.setState({
-                verticesStats: response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey) || [],
+                verticesStats: verticesStats,
                 edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey) || [],
             })
         }
+
     }
 
     componentDidMount() {
