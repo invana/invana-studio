@@ -236,12 +236,12 @@ export default class ExplorerView extends RoutableRemoteEngine {
     }
 
     setNetwork(network) {
-        this.network = network;
-        let _this = this;
-        this.network.on("stabilizationIterationsDone", function () {
+        network.on("stabilizationIterationsDone", function () {
             console.log("stabilizationIterationsDone");
-            _this.network.setOptions({physics: false});
+            network.setOptions({physics: false});
         });
+
+        this.network = network;
 
         this.canvasCtrl = new CanvasController(
             this.network,
@@ -254,14 +254,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
     getNetwork() {
         return this.network;
     }
-
-    // getEdges(edges) {
-    //     this.edges = edges;
-    // }
-    //
-    // getNodes(nodes) {
-    //     this.nodes = nodes;
-    // }
 
     separateNodesAndEdges(data) {
         let nodes = [];
@@ -388,7 +380,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
         this.setState({isRenderingCanvas: false});
         this.setStatusMessage("Rendered the Graph.");
         // this.network.redraw();
-        //     this.network.setOptions({physics: false});
+        // this.network.setOptions({physics: {enabled:false}});
 
     }
 

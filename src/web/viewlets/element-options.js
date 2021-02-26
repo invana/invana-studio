@@ -147,7 +147,12 @@ export default class ElementOptions extends RemoteEngine {
         } else {
             nodeOptions.properties[e.target.name] = e.target.value;
         }
-        console.log("<<<>>>nodeOptions", nodeOptions)
+        const allNodeShapes = getAllNodeShapes();
+
+        if (allNodeShapes['inLabelShapes'].includes(this.state.nodeOptions.properties.elementShape)){
+            delete nodeOptions.properties['shapeSize']; // delete shapeSize for in label shapes.. it doesnt need it
+        }
+            console.log("<<<>>>nodeOptions", nodeOptions)
         this.setState({nodeOptions: nodeOptions});
     }
 
@@ -276,14 +281,6 @@ export default class ElementOptions extends RemoteEngine {
                                                     }
                                                 </Form.Control>
                                             </Form.Group>
-                                            <Form.Group controlId="shapeSize">
-                                                <Form.Label>Shape size</Form.Label>
-                                                <Form.Control type="number" name={"shapeSize"} size={"sm"} min={2} max={100}
-                                                              placeholder={"shapeSize"} spellCheck="false"
-                                                              onChange={this.handleValueChange.bind(this)}
-                                                              defaultValue={this.getValueFromDataOrGetDefault("shapeSize")}/>
-                                            </Form.Group>
-
 
                                             <Form.Group controlId="bgColor">
                                                 <Form.Label>Shape Color</Form.Label>
@@ -301,25 +298,39 @@ export default class ElementOptions extends RemoteEngine {
 
                                 {
                                     this.getElementType() === "vertex"
-                                    && allNodeShapes['bgImageShapes'].includes(this.state.nodeOptions.properties.elementShape)
-                                        ? <Form.Group controlId="bgImagePropertyKey">
-                                            <Form.Label>Shape Image Field</Form.Label>
-                                            <Form.Control
-                                                name={"bgImagePropertyKey"} size={"sm"} as={"select"}
-                                                onChange={this.handleValueChange.bind(this)}
-                                                defaultValue={this.getValueFromDataOrGetDefault("bgImagePropertyKey")}>
-                                                <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
+                                    && !allNodeShapes['inLabelShapes'].includes(this.state.nodeOptions.properties.elementShape)
 
-                                                {
-                                                    this.state.propertyFieldKeys.map((fieldKey) =>
-                                                        <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
-                                                    )
-                                                }
-                                            </Form.Control>
+                                        ? <Form.Group controlId="shapeSize">
+                                            <Form.Label>Shape size</Form.Label>
+                                            <Form.Control type="number" name={"shapeSize"} size={"sm"} min={2} max={100}
+                                                          placeholder={"shapeSize"} spellCheck="false"
+                                                          onChange={this.handleValueChange.bind(this)}
+                                                          defaultValue={this.getValueFromDataOrGetDefault("shapeSize")}/>
                                         </Form.Group>
 
+
                                         : <React.Fragment/>
-                                }
+                                } {
+                                this.getElementType() === "vertex"
+                                && allNodeShapes['bgImageShapes'].includes(this.state.nodeOptions.properties.elementShape)
+                                    ? <Form.Group controlId="bgImagePropertyKey">
+                                        <Form.Label>Shape Image Field</Form.Label>
+                                        <Form.Control
+                                            name={"bgImagePropertyKey"} size={"sm"} as={"select"}
+                                            onChange={this.handleValueChange.bind(this)}
+                                            defaultValue={this.getValueFromDataOrGetDefault("bgImagePropertyKey")}>
+                                            <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
+
+                                            {
+                                                this.state.propertyFieldKeys.map((fieldKey) =>
+                                                    <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
+                                                )
+                                            }
+                                        </Form.Control>
+                                    </Form.Group>
+
+                                    : <React.Fragment/>
+                            }
 
 
                             </div>
