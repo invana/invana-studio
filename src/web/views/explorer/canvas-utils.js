@@ -49,6 +49,16 @@ export default class VisJsGraphCanvasUtils {
         // }
     }
 
+    // getNodeLabelColor(groupName) {
+    //     const defaultNodeConfig = getDefaultNodeOptions(groupName);
+    //     const renderingConfig = this.getRenderingConfigFromStorage(groupName);
+    //
+    //
+    //
+    // }
+
+
+
     getNodeColorObject(groupName) {
 
         const nodeColor = this.getElementColor(groupName);
@@ -229,7 +239,7 @@ export default class VisJsGraphCanvasUtils {
                 minimum: vertexDataaUpdated.size * 3,
                 maximum: vertexDataaUpdated.size * 6
             }
-            if (vertexDataaUpdated.color && allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
+            if (vertexDataaUpdated.color) {
                 vertexDataaUpdated.font.color = invertColor(vertexDataaUpdated.color.background, true);
             }
 

@@ -28,6 +28,7 @@ import RoutableRemoteEngine from "../../layout/routable-remote";
 import ModalContainer from "../../ui-components/modal-container";
 import Learn from "../../viewlets/support/Learn";
 import RightContainer from "../../ui-components/right-container";
+import {getAllNodeShapes, getDefaultNodeOptions, invertColor} from "../../interface/utils";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -61,13 +62,24 @@ export default class ExplorerView extends RoutableRemoteEngine {
     }
 
 
+    getNodeColor(node) {
+        const allNodeShapes = getAllNodeShapes();
+
+        if (allNodeShapes['inLabelShapes'].includes(node.shape)) {
+            console.log("finding ", node._label, this.canvasUtils.getNodeColorObject(node._label));
+            return invertColor(this.canvasUtils.getNodeColorObject(node._label).background,
+                true);
+        }
+        return GRAPH_CANVAS_SETTINGS.DefaultElementTextColor
+
+    }
+
     selectNodesInNetwork(selectedNodes) {
 
         console.log("===selectedNodes", selectedNodes);
-        const allNodes = this.state.nodes;
-        const allEdges = this.state.edges;
+        const allNodes = this.network.body.data.nodes;
+        const allEdges = this.network.body.data.edges;
         let _this = this;
-
         if (selectedNodes.length === 0) {
             const allNodesOptions = allNodes.map(node => ({
                 id: node.id,
@@ -76,7 +88,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     node._label
                 ),
                 borderWidth: 2,
-                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+                font: {
+                    color: _this.getNodeColor(node)
+                }
             }));
             const allEdgesOptions = allEdges.map(edge => ({
                 id: edge.id,
@@ -100,7 +114,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 color: _this.canvasUtils.getNodeColorUnHighlightObject(
                     node._label
                 ),
-                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementUnHighlightColor}
+                font: {
+                    color:  _this.getNodeColor(node)
+                }
             }));
 
             let selectedNodeIds = [];
@@ -117,7 +133,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 color: _this.canvasUtils.getNodeColorObject(
                     _this.network.body.data.nodes.get(nodeId)._label
                 ),
-                font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+                font: {
+                    color:  _this.getNodeColor(_this.network.body.data.nodes.get(nodeId))
+                }
             }));
 
             console.log("allNodesOptions", allNodesOptions);
