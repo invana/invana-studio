@@ -115,7 +115,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     node._label
                 ),
                 font: {
-                    color: _this.getNodeColor(node)
+                    color: invertColor(_this.canvasUtils.getNodeColorUnHighlightObject(node._label).background, true)
                 }
             }));
 
