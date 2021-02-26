@@ -1,0 +1,28 @@
+@import "../../../config";
+
+
+.management-icon-btn {
+  color: #454545 !important;
+  padding: 0 !important;
+  //font-size: 0.8rem;
+  margin-right: 10px !important;
+  border: 1px solid transparent !important;
+
+  span {
+    color: $defaultTextColor;
+    padding-left: 5px !important;
+  }
+}
+
+.management-icon-btn-right {
+  float: right;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 2px;
+  font-size: 0.9rem;
+}
+
+.management-icon-btn:hover {
+  //border: 1px solid #252525 !important;
+  color: inherit;
+}

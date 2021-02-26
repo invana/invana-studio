@@ -1,0 +1,35 @@
+.menu-component .nav-link {
+  padding: 2px .65rem !important
+
+}
+
+.menu-component {
+
+  //margin-bottom: 1rem;
+  .nav-item button {
+    //border: none;
+    //background: transparent;
+
+    //padding: 5px 10px;
+    //line-height: 0 !important;
+  }
+
+  .heading {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px !important;
+    //color: $ !important;
+  }
+}
+
+.md-menu {
+
+}
+
+.sm-menu {
+  .menu-component .nav-link {
+    //padding: .1rem .75rem !important
+  }
+
+
+}

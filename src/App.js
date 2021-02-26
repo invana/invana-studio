@@ -1,25 +1,43 @@
-import React, { Suspense } from "react";
-import HomeView from "./views/home";
-import ExplorerView from "./views/explorer";
-import Page404 from "./ui-components/error-views/404";
-import SetupGremlinServerConnection from "./views/connect";
-import SwitchServerView from "./views/switch-server";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import React, {Suspense} from "react";
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+import ConnectView from "./web/views/connect/connect";
+import Page404View from "./web/views/page-404/page-404";
+import IndexView from "./web/views";
+import ExplorerView from "./web/views/explorer/explorer";
+import DataView from "./web/views/data";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import LabelDetailView from "./web/views/label-detail/detail";
+import VertexDetailView from "./web/views/vertex-detail";
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <Router>
-        <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
-          <Switch>
-            <Route exact path="/" component={HomeView} />
-            <Route exact path="/explorer" component={ExplorerView} />
-            <Route exact path="/connect" component={SetupGremlinServerConnection} />
-            <Route exact path="/switch-server" component={SwitchServerView} />
-            <Route component={Page404} />
-          </Switch>
-        </Suspense>
-      </Router>
-    );
-  }
+    render() {
+        return (
+            <Router>
+                <Suspense fallback={<div style={{color: "white"}}>Loading...</div>}>
+                    <Switch>
+                        <Route exact path="/" component={IndexView}/>
+                        <Route exact path="/explorer" component={ExplorerView}/>
+                        <Route exact path="/data" component={DataView}/>
+
+                        {/*// Redirect with matched parameters*/}
+                        {/*<Switch>*/}
+                        {/*    <Redirect from="/vertex/label/:labelName" to="/vertex/label/:labelName/entries"/>*/}
+                        {/*</Switch>*/}
+                        <Route exact path="/data/:labelType/:labelName/:viewType" component={LabelDetailView}/>
+
+                        <Redirect exact from="/data/:labelType/:labelName" to="/data/:labelType/:labelName/entries"/>
+
+
+                        <Route exact path="/vertex/:vertexId" component={VertexDetailView}/>
+                        {/*<Route exact path="/schema" component={SchemaView}/>*/}
+                        <Route exact path="/connect" component={ConnectView}/>
+                        <Route component={Page404View}/>
+                    </Switch>
+                </Suspense>
+            </Router>
+        );
+    }
 }
+
+

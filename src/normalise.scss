@@ -1,0 +1,212 @@
+@import "config.scss";
+
+body {
+  font-size: 14px !important;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+button:active,
+button:focus,
+button:focus:active {
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+button {
+  border-radius: 2px !important;
+}
+
+.navbar {
+  //padding: 0 1rem !important;
+  padding: 0 !important;
+}
+
+h1 {
+  font-size: 1.6rem !important;
+}
+h6{
+  font-size: 1rem;
+}
+
+.card-header {
+  padding: 0.55rem 1rem !important;
+
+}
+
+.navbar-brand {
+  width: 280px;
+  border-right: 1px solid $borderColor;
+  margin: 0 !important;
+}
+
+.card-body {
+  padding: 1rem !important;
+}
+
+.col, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7,
+.col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .row {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.container-fluid {
+  padding: 0 !important;
+}
+
+.list-group {
+  border-radius: 0 !important;
+
+  .list-group-item {
+    //padding: .25rem 1.25rem !important;
+
+    border: transparent;
+  }
+}
+
+.btn-link {
+  color: $darkTextColor !important;
+}
+
+.btn {
+  font-size: 14px !important;
+}
+
+.btn-link.active {
+  color: $primaryColor !important;
+}
+
+.nav-pills .nav-link {
+  color: $defaultTextColor !important;
+}
+
+.nav-pills {
+  .nav-item {
+    .btn-link {
+      font-size: 13px !important;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: $defaultTextColor !important;
+  border-bottom: 2px solid $primaryColor !important;
+  border-radius: 0;
+}
+
+.navbar-nav {
+  .dropdown-menu {
+    padding: 0 !important;
+  }
+}
+
+//.list-group-flush > .list-group-item:last-child {
+//  border-bottom: 1px solid menu$borderColor !important;
+//}
+//button{
+//  border-radius: 1rem !important;
+//}
+.dropdown-item {
+  font-size: 14px !important;
+}
+
+.dropdown-divider {
+  margin: .2rem 0;
+}
+
+.dropdown.btn-group button {
+  padding: 0 !important;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+  padding: .25rem .5rem;
+  font-size: 12px !important;
+  text-transform: uppercase;
+  font-weight: bold !important;
+}
+
+.btn-secondary {
+  background-color: #8b949c !important;
+  border-color: #838c94 !important;
+}
+
+.list-group-item a {
+  color: $darkTextColor;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+  padding: .075rem .5rem !important;
+}
+
+input {
+  border-radius: 1px !important;
+
+
+}
+
+input:focus, input:hover {
+  //overflow: auto;
+  //outline: none;
+  outline: 0 none !important;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+label.form-label {
+  margin-bottom: .1rem !important;
+}
+
+.modal-content {
+  .modal-header, .modal-footer {
+    padding: .5rem 1rem !important;
+
+    .modal-title {
+      font-size: 1.2rem !important;
+    }
+  }
+
+  .modal-footer {
+    justify-content: flex-start;
+    border: none;
+  }
+}
+
+.btn-md {
+  padding: .25rem .75rem !important;
+}
+
+.navbar-nav .nav-item button {
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  //color: $defaultTextColor !important;
+}
+
+.list-group-flush > .list-group-item {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.footer .nav-item {
+  font-size: 12px;
+}
+
+.modal-dialog {
+  margin: 0 !important;
+
+  .modal-content {
+    border-radius: 0;
+  }
+}

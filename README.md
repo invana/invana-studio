@@ -1,6 +1,8 @@
-# Graph Explorer
 
-Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases.
+# Invana Studio 
+Open source knowledge graphs visualiser and editor.
+
+
 
 [![Apache license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/invanalabs/graph-explorer/blob/master/LICENSE) 
 [![Build Status](https://travis-ci.org/invanalabs/graph-explorer.svg?branch=master)](https://travis-ci.org/invanalabs/graph-explorer)
@@ -9,17 +11,21 @@ Open source Graph Data Visualiser for Apache TinkerPop supported Graph Databases
 [![Docker pulls](https://img.shields.io/docker/pulls/invanalabs/graph-explorer)](https://hub.docker.com/r/invanalabs/graph-explorer)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/invanalabs/graph-explorer)](https://github.com/invanalabs/graph-explorer/commits)
 
-**This project is under active development.** 
+
+
+![](./screenshot.png)
+
 
 ## Setup Graph Explorer
 
 ```shell script.
-docker run -p 8888:8888 -d --name graph-explorer invanalabs/graph-explorer
+docker run -p 8888:8888 -d --name graph-explorer invanalabs/invana-studio
 # This will start a graph-explorer service at 8888 port. ex: http://localhost:8888
 ```
 
-If you want to install graph-explorer on Heroku 
-[click here](https://heroku.com/deploy?template=https://github.com/invanalabs/graph-explorer/tree/master).
+If you want to install invana-studio on Heroku 
+[click here](https://heroku.com/deploy?template=https://github.com/invanalabs/invana-studio/tree/master).
+ 
 
 > Graph Explorer uses [invana-engine](https://github.com/invanalabs/invana-engine) as the backend to 
 connect to graph databases. Invana Engine is a GraphQL API for Apache TinkerPop supported graph databases.
@@ -33,8 +39,6 @@ and JanusGraph for Graph Explorer.
 - stable version - [graph-explorer.herokuapp.com](http://graph-explorer.herokuapp.com/)
 - latest version - [graph-explorer-edge.herokuapp.com](http://graph-explorer-edge.herokuapp.com/)
 
-## Screenshot
-![1](./docs/screenshots/1.png)
 
  
 
