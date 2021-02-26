@@ -58,7 +58,6 @@ export default class VisJsGraphCanvasUtils {
     // }
 
 
-
     getNodeColorObject(groupName) {
 
         const nodeColor = this.getElementColor(groupName);
@@ -257,6 +256,7 @@ export default class VisJsGraphCanvasUtils {
             edgeData._label = edgeData.label;
         }
         const groupName = edgeData._label;
+        const defaultLinkOptions = getDefaultEdgeOptions();
 
         // this.generateEdgeGroups(groupName);
         const edgeDefaultConfig = this.generateEdgeConfig(groupName);
@@ -265,16 +265,15 @@ export default class VisJsGraphCanvasUtils {
 
 
         let label = edgeDataUpdated.id;
-        if (!labelPropertyKey && renderingConfigFromStorage) {
-            labelPropertyKey = renderingConfigFromStorage.labelPropertyKey
 
-            if (labelPropertyKey === "_id") {
-                label = edgeDataUpdated.id;
-            } else if (labelPropertyKey === "_label") {
-                label = edgeDataUpdated._label;
-            } else if (edgeDataUpdated.properties[labelPropertyKey]) {
-                label = edgeDataUpdated.properties[labelPropertyKey];
-            }
+        labelPropertyKey = renderingConfigFromStorage && renderingConfigFromStorage.labelPropertyKey
+            ? renderingConfigFromStorage.labelPropertyKey : defaultLinkOptions.labelPropertyKey;
+        if (labelPropertyKey === "_id") {
+            label = edgeDataUpdated.id;
+        } else if (labelPropertyKey === "_label") {
+            label = edgeDataUpdated._label;
+        } else if (edgeDataUpdated.properties[labelPropertyKey]) {
+            label = edgeDataUpdated.properties[labelPropertyKey];
         }
 
         edgeDataUpdated.label = this.stringify(label).substring(0, GRAPH_CANVAS_SETTINGS.MAX_LABEL_LENGTH);

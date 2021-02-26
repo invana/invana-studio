@@ -28,7 +28,7 @@ export const GRAPH_CANVAS_SETTINGS = {
     DefaultNodeInShapeTextColor: "#dddddd", // inside the shape
     DefaultNodeLabelColor: "#dddddd",
 
-    DefaultLinkLabelPropertyKey: "id",
+    DefaultLinkLabelPropertyKey: "_label",
     DefaultLinkPathColor: 0xc9c9c9,
     DefaultLinkLabelColor: "#9c9c9c",
     DefaultLinkStrokeWidth: 2,
