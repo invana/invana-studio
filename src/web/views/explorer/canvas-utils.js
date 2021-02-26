@@ -169,7 +169,7 @@ export default class VisJsGraphCanvasUtils {
 
         config.font = {
             size: defaultLinkOptions.labelFontSize,
-            color: defaultLinkOptions.linkColor
+            color: defaultLinkOptions.labelColor
             // bold: true
         };
         return config;
