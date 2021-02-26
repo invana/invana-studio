@@ -21,7 +21,7 @@ export default class LabelDetailHeader extends React.Component {
                             <Nav className="mr-auto">
                                 <Nav.Item>
                                     <h2 style={{"fontSize": "1.3rem"}}
-                                        className={" mb-0 mr-3"}><strong>{this.props.match.params.labelName}</strong></h2>
+                                        className={" mb-0 mr-3 mt-4"}><strong>{this.props.match.params.labelName}</strong></h2>
                                 </Nav.Item>
                                 {/*<Nav.Item>*/}
                                 {/*    <ButtonGroup>*/}
@@ -46,7 +46,7 @@ export default class LabelDetailHeader extends React.Component {
                     <Col size={"12"} className={"pr-2 bg-light"}>
                         <MenuComponent className={"p-1"}>
                             <Nav className="mr-auto">
-                                <LabelMenu {...this.props}  />
+                                {/*<LabelMenu {...this.props}  />*/}
                             </Nav>
                             <Nav className="ml-auto">
                                 {
