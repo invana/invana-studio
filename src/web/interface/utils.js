@@ -78,7 +78,19 @@ export function getDefaultNodeOptions(label) {
         labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultNodeLabelPropertyKey,
         tagHtml: null,
         elementShape: "dot",
-        size: 16
+        size: GRAPH_CANVAS_SETTINGS.DEFAULT_NODE_SHAPE_SIZE,
+        labelFontSize: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LABEL_FONT_SIZE
+
+    }
+}
+
+export function getDefaultEdgeOptions(label) {
+
+    return {
+        linkColor: GRAPH_CANVAS_SETTINGS.DefaultLinkLabelColor,
+        linkLength: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LENGTH,
+        labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultLinkLabelPropertyKey,
+        labelFontSize: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LABEL_FONT_SIZE
 
     }
 }
@@ -87,7 +99,7 @@ export function getAllNodeShapes() {
     const inLabelShapes = ["ellipse", "circle", "database", "box", "text"];
     const outLabelShapes = ["image", "circularImage", "diamond", "dot",
         "star", "triangle", "triangleDown", "hexagon", "square", "icon"];
-    const bgImageShapes = ["image", "circularImage" ]
+    const bgImageShapes = ["image", "circularImage"]
     return {inLabelShapes, outLabelShapes, bgImageShapes};
 }
 

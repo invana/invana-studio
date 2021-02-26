@@ -1,6 +1,6 @@
 import React from "react";
 import {STUDIO_SETTINGS} from "../../settings";
-import {getAllNodeShapes, getAllNodeShapesList, getDefaultNodeOptions} from "../interface/utils";
+import {getAllNodeShapes, getAllNodeShapesList, getDefaultEdgeOptions, getDefaultNodeOptions} from "../interface/utils";
 import RemoteEngine from "../layout/remote";
 import {setElementColorOptionsToStorage} from "../utils";
 import {Button, Form} from "react-bootstrap";
@@ -159,7 +159,7 @@ export default class ElementOptions extends RemoteEngine {
         if (labelType === "vertex") {
             defaultNodeOptions = getDefaultNodeOptions(label);
         } else if (labelType === "edge") {
-            defaultNodeOptions = getDefaultNodeOptions(label);
+            defaultNodeOptions = getDefaultEdgeOptions(label);
         }
         // if (propertyKey === "_id"){
         //     return this.state.
@@ -218,49 +218,88 @@ export default class ElementOptions extends RemoteEngine {
 
                                     </Form.Control>
                                 </Form.Group>
+                                <Form.Group controlId="labelFontSize">
+                                    <Form.Label>Label Font Size</Form.Label>
+                                    <Form.Control type="number" name={"labelFontSize"} size={"sm"} min={2}
+                                                  max={100}
+                                                  placeholder={"labelFontSize"} spellCheck="false"
+                                                  onChange={this.handleValueChange.bind(this)}
+                                                  defaultValue={this.getValueFromDataOrGetDefault("labelFontSize")}/>
+                                </Form.Group>
 
 
                             </div>
                             <div className="col-md-6 pl-2">
 
+                                {
+                                    this.getElementType() === "edge"
+                                        ?
+                                        <React.Fragment>
+                                            <Form.Group controlId="linkLength">
+                                                <Form.Label>Link Length</Form.Label>
+                                                <Form.Control type="text" name={"linkLength"} size={"sm"} min={2}
+                                                              max={100}
+                                                              placeholder={"size"} spellCheck="false"
+                                                              onChange={this.handleValueChange.bind(this)}
+                                                              defaultValue={this.getValueFromDataOrGetDefault("linkLength")}/>
+                                            </Form.Group>
+                                            <Form.Group controlId="linkColor">
+                                                <Form.Label>Link Color</Form.Label>
+                                                <Form.Control type="text" name={"linkColor"} size={"sm"} min={2}
+                                                              max={100}
+                                                              placeholder={"linkColor"} spellCheck="false"
+                                                              onChange={this.handleValueChange.bind(this)}
+                                                              defaultValue={this.getValueFromDataOrGetDefault("linkColor")}/>
+                                            </Form.Group>
+
+
+                                        </React.Fragment>
+                                        : <React.Fragment/>
+                                }
+
 
                                 {
                                     this.getElementType() === "vertex"
-                                        ? <Form.Group controlId="elementShape">
-                                            <Form.Label>Shape</Form.Label>
-                                            <Form.Control
-                                                name={"elementShape"} size={"sm"} as={"select"}
-                                                onChange={this.handleValueChange.bind(this)}
-                                                defaultValue={this.getValueFromDataOrGetDefault("elementShape")}>
-                                                <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
+                                        ?
+                                        <React.Fragment>
 
-                                                {
-                                                    getAllNodeShapesList().map((fieldKey) =>
-                                                        <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
-                                                    )
-                                                }
-                                            </Form.Control>
-                                        </Form.Group>
+                                            <Form.Group controlId="elementShape">
+                                                <Form.Label>Shape</Form.Label>
+                                                <Form.Control
+                                                    name={"elementShape"} size={"sm"} as={"select"}
+                                                    onChange={this.handleValueChange.bind(this)}
+                                                    defaultValue={this.getValueFromDataOrGetDefault("elementShape")}>
+                                                    <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
+
+                                                    {
+                                                        getAllNodeShapesList().map((fieldKey) =>
+                                                            <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
+                                                        )
+                                                    }
+                                                </Form.Control>
+                                            </Form.Group>
+                                            <Form.Group controlId="size">
+                                                <Form.Label>Shape Color</Form.Label>
+                                                <Form.Control type="text" name={"size"} size={"sm"} min={2} max={100}
+                                                              placeholder={"size"} spellCheck="false"
+                                                              onChange={this.handleValueChange.bind(this)}
+                                                              defaultValue={this.getValueFromDataOrGetDefault("size")}/>
+                                            </Form.Group>
+
+
+                                            <Form.Group controlId="bgColor">
+                                                <Form.Label>Shape Color</Form.Label>
+                                                <Form.Control type="text" name={"bgColor"} size={"sm"} maxLength={7}
+                                                              minLength={7}
+                                                              placeholder={"bgColor"} spellCheck="false"
+                                                              onChange={this.handleValueChange.bind(this)}
+                                                              defaultValue={this.getValueFromDataOrGetDefault("bgColor")}/>
+                                            </Form.Group>
+                                        </React.Fragment>
 
                                         : <React.Fragment/>
                                 }
 
-                                <Form.Group controlId="size">
-                                    <Form.Label>Shape Color</Form.Label>
-                                    <Form.Control type="text" name={"size"} size={"sm"} min={2} max={100}
-                                                  placeholder={"size"} spellCheck="false"
-                                                  onChange={this.handleValueChange.bind(this)}
-                                                  defaultValue={this.getValueFromDataOrGetDefault("size")}/>
-                                </Form.Group>
-
-
-                                <Form.Group controlId="bgColor">
-                                    <Form.Label>Shape Color</Form.Label>
-                                    <Form.Control type="text" name={"bgColor"} size={"sm"} maxLength={7} minLength={7}
-                                                  placeholder={"bgColor"} spellCheck="false"
-                                                  onChange={this.handleValueChange.bind(this)}
-                                                  defaultValue={this.getValueFromDataOrGetDefault("bgColor")}/>
-                                </Form.Group>
 
                                 {
                                     this.getElementType() === "vertex"

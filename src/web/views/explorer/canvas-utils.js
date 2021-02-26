@@ -1,4 +1,10 @@
-import {getAllNodeShapes, getColorForString, getDefaultNodeOptions, invertColor} from "../../interface/utils";
+import {
+    getAllNodeShapes,
+    getColorForString,
+    getDefaultEdgeOptions,
+    getDefaultNodeOptions,
+    invertColor
+} from "../../interface/utils";
 import {LightenDarkenColor} from "../../../core/utils";
 import {GRAPH_CANVAS_SETTINGS, RENDERING_CONFIG} from "../../../settings";
 
@@ -13,8 +19,6 @@ export default class VisJsGraphCanvasUtils {
 
     getEdgeColorObject(groupName) {
         const edgeColor = this.getElementColor(groupName);
-
-
         return {
             color: edgeColor,
             highlight: LightenDarkenColor(edgeColor, 10),
@@ -127,6 +131,11 @@ export default class VisJsGraphCanvasUtils {
 
     generateEdgeConfig(groupName, arrowShape) {
         let config = {};
+
+        const defaultLinkOptions = getDefaultEdgeOptions();
+
+        config.length = defaultLinkOptions.linkLength;
+
         if (arrowShape === undefined) {
             /*
             var arrow_types = [
@@ -144,10 +153,8 @@ export default class VisJsGraphCanvasUtils {
       ];
 
              */
-            arrowShape = "triangle"; // dot
+            arrowShape = "arrow"; // dot
         }
-        // config.borderWidth = 1;
-        // config.borderWidthSelected = 1;
         config.arrows = {
             to: {
                 enabled: true,
@@ -160,17 +167,12 @@ export default class VisJsGraphCanvasUtils {
         config.arrowStrikethrough = false;
         // config.label = true;
         config.group = undefined;
-
-
         // config.arrows: "to, from";
         config.color = this.getEdgeColorObject(groupName)
 
-        // config.physics = false;
-        config.size = 16;
-        config.width = 1.5;
         config.font = {
-            size: 12,
-            color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor
+            size: defaultLinkOptions.labelFontSize,
+            color: defaultLinkOptions.linkColor
             // bold: true
         };
         return config;
@@ -285,35 +287,44 @@ export default class VisJsGraphCanvasUtils {
             edgeData._label = edgeData.label;
         }
         const groupName = edgeData._label;
+
+        this.generateEdgeGroups(groupName);
+        const edgeDefaultConfig = this.edgeGroups[groupName];
+        let edgeDataUpdated = {...edgeData, ...edgeDefaultConfig};
         const renderingConfigFromStorage = this.getRenderingConfigFromStorage(groupName);
 
 
-        let label = edgeData.id;
+        let label = edgeDataUpdated.id;
         if (!labelPropertyKey && renderingConfigFromStorage) {
             labelPropertyKey = renderingConfigFromStorage.labelPropertyKey
 
             if (labelPropertyKey === "_id") {
-                label = edgeData.id;
+                label = edgeDataUpdated.id;
             } else if (labelPropertyKey === "_label") {
-                label = edgeData._label;
-            } else if (edgeData.properties[labelPropertyKey]) {
-                label = edgeData.properties[labelPropertyKey];
+                label = edgeDataUpdated._label;
+            } else if (edgeDataUpdated.properties[labelPropertyKey]) {
+                label = edgeDataUpdated.properties[labelPropertyKey];
             }
         }
 
-        edgeData.label = this.stringify(label);
-        edgeData.group = undefined; // groupName
+        edgeDataUpdated.label = this.stringify(label).substring(0, GRAPH_CANVAS_SETTINGS.MAX_LABEL_LENGTH);
+        edgeDataUpdated.group = undefined; // groupName
+
+        edgeDataUpdated.from = edgeDataUpdated.outV;
+        edgeDataUpdated.to = edgeDataUpdated.inV;
+
+        if (renderingConfigFromStorage && renderingConfigFromStorage.linkLength) {
+            edgeDataUpdated.length = renderingConfigFromStorage.linkLength;
+        }
+        if (renderingConfigFromStorage && renderingConfigFromStorage.linkColor) {
+            edgeDataUpdated.color = renderingConfigFromStorage.linkColor;
+        }
+        if (renderingConfigFromStorage && renderingConfigFromStorage.labelFontSize) {
+            edgeDataUpdated.font.size = renderingConfigFromStorage.labelFontSize;
+        }
 
 
-        // edgeData.label = labelPropertyKey
-        //     ? this.stringify(edgeData[labelPropertyKey])
-        //     : this.stringify(edgeData.id);
-        // edgeData.group = groupName;
-        this.generateEdgeGroups(groupName);
-
-        edgeData.from = edgeData.outV;
-        edgeData.to = edgeData.inV;
-        return Object.assign({}, edgeData, this.edgeGroups[groupName]);
+        return edgeDataUpdated;
 
     }
 

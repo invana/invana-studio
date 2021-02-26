@@ -30,9 +30,8 @@ export const GRAPH_CANVAS_SETTINGS = {
 
     DefaultLinkLabelPropertyKey: "id",
     DefaultLinkPathColor: 0xc9c9c9,
-    DefaultLinkLabelColor: "#c9c9c9",
+    DefaultLinkLabelColor: "#9c9c9c",
     DefaultLinkStrokeWidth: 2,
-    DefaultLinkDistance: 180,
 
     DefaultInShapeHTMLFn: (node) => node.properties.name ? node.properties.name.substring(0, 10) : node.id,
 
@@ -44,8 +43,14 @@ export const GRAPH_CANVAS_SETTINGS = {
     DefaultElementTextColor: "#343434",
     DefaultElementUnHighlightColor: "#9e9e9e",
 
-    MAX_LABEL_LENGTH : 45,
-    DEFAULT_NODE_IMAGE : "https://via.placeholder.com/50"
+
+    DEFAULT_LINK_LABEL_FONT_SIZE : 12,
+    DEFAULT_LINK_LENGTH: 180,
+
+    MAX_LABEL_LENGTH: 45,
+    DEFAULT_NODE_IMAGE: "https://via.placeholder.com/50",
+    DEFAULT_NODE_LABEL_FONT_SIZE: 16,
+    DEFAULT_NODE_SHAPE_SIZE: 16
 }
 
 export const HISTORY_SETTINGS = {
