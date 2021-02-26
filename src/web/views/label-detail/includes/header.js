@@ -2,7 +2,7 @@ import React from "react";
 import {Nav, Row} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import MenuComponent from "../../../ui-components/menu";
-import LabelMenu from "./secondary-menu";
+// import LabelMenu from "./secondary-menu";
 import PropTypes from "prop-types";
 
 export default class LabelDetailHeader extends React.Component {

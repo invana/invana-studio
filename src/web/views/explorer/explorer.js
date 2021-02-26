@@ -28,7 +28,7 @@ import RoutableRemoteEngine from "../../layout/routable-remote";
 import ModalContainer from "../../ui-components/modal-container";
 import Learn from "../../viewlets/support/Learn";
 import RightContainer from "../../ui-components/right-container";
-import {getAllNodeShapes, getDefaultNodeOptions, invertColor} from "../../interface/utils";
+import {getAllNodeShapes, invertColor} from "../../interface/utils";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
