@@ -40,7 +40,7 @@ jobs:
 stages:
   - name: deploy to heroku edge version
     if: branch = develop AND type != pull_request
-  - name: test edge deployemnt
+  - name: test edge depl
     if: branch = develop AND type != pull_request
   - name: deploy to heroku
     if: tag IS present AND type != pull_request
