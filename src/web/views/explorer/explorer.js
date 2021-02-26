@@ -212,11 +212,34 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
     reRenderVisualizer() {
 
+        const _this = this;
         const nodes = this.state.nodes;
         const edges = this.state.edges;
 
         const nodesPrepared = this.canvasUtils.prepareNodes(nodes);
         const edgesPrepared = this.canvasUtils.prepareEdges(edges);
+
+        // const allNodesOptions = allNodes.map(node => ({
+        //     id: node.id,
+        //     opacity: 1,
+        //     color: _this.canvasUtils.getNodeColorObject(
+        //         node._label
+        //     ),
+        //     borderWidth: 2,
+        //     font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor}
+        // }));
+        // const allEdgesOptions = allEdges.map(edge => ({
+        //     id: edge.id,
+        //     opacity: 1,
+        //     font: {color: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor},
+        //     color: _this.canvasUtils.getEdgeColorObject(edge._label)
+        //
+        // }));
+        //
+        // this.network.body.data.nodes.update(allNodesOptions)
+        // this.network.body.data.edges.update(allEdgesOptions)
+
+
         console.log("reRenderVisualizer")
         this.network.body.data.nodes.clear();
         this.network.body.data.edges.clear();
