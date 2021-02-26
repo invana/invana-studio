@@ -7,7 +7,6 @@ Open source knowledge graphs visualiser and editor.
 [![Apache license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/invanalabs/invana-studio/blob/master/LICENSE) 
 [![Build Status](https://travis-ci.org/invanalabs/invana-studio.svg?branch=master)](https://travis-ci.org/invanalabs/invana-studio)
 [![Latest Demo](https://img.shields.io/badge/try%20demo-latest%20version-blue)](https://invana-studio-edge.herokuapp.com)
-[![Stable Demo](https://img.shields.io/badge/try%20demo-stable%20version-blue)](https://invana-studio.herokuapp.com)
 [![Docker pulls](https://img.shields.io/docker/pulls/invanalabs/invana-studio)](https://hub.docker.com/r/invanalabs/invana-studio)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/invanalabs/invana-studio)](https://github.com/invanalabs/invana-studio/commits)
 
@@ -36,7 +35,6 @@ and JanusGraph for Graph Explorer.
 
 ## Demos
 
-- stable version - [invana-studio.herokuapp.com](http://invana-studio.herokuapp.com/)
 - latest version - [invana-studio-edge.herokuapp.com](http://invana-studio-edge.herokuapp.com/)
 
 
