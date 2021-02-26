@@ -205,7 +205,7 @@ export default class VisJsGraphCanvasUtils {
                 label = vertexData.properties[labelPropertyKey];
             }
         }
-        if (renderingConfigFromStorage.size) {
+        if (renderingConfigFromStorage && renderingConfigFromStorage.size) {
             vertexData.size = renderingConfigFromStorage.size;
         }
 
@@ -238,7 +238,8 @@ export default class VisJsGraphCanvasUtils {
 
         // override the options with image
 
-        if (allNodeShapes['bgImageShapes'].includes(vertexData.shape) && renderingConfigFromStorage && renderingConfigFromStorage.bgImagePropertyKey) {
+        if (allNodeShapes['bgImageShapes'].includes(vertexData.shape) &&
+            renderingConfigFromStorage && renderingConfigFromStorage.bgImagePropertyKey) {
             const image = vertexData.properties[renderingConfigFromStorage.bgImagePropertyKey];
             vertexData.image = image || GRAPH_CANVAS_SETTINGS.DEFAULT_NODE_IMAGE;
         }
@@ -255,7 +256,7 @@ export default class VisJsGraphCanvasUtils {
             // }
 
 
-            if (vertexDataaUpdated.color) {
+            if (vertexDataaUpdated.color && allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
                 vertexDataaUpdated.font.color = invertColor(vertexDataaUpdated.color.background, true);
             }
             // vertexDataaUpdated.heightContstraint = {

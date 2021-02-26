@@ -1,6 +1,6 @@
 import React from "react";
 import {STUDIO_SETTINGS} from "../../settings";
-import {getAllNodeShapesList, getDefaultNodeOptions} from "../interface/utils";
+import {getAllNodeShapes, getAllNodeShapesList, getDefaultNodeOptions} from "../interface/utils";
 import RemoteEngine from "../layout/remote";
 import {setElementColorOptionsToStorage} from "../utils";
 import {Button, Form} from "react-bootstrap";
@@ -168,9 +168,6 @@ export default class ElementOptions extends RemoteEngine {
     }
 
 
-
-
-
     render() {
         // const selectedLabel = this.props.selectedLabel;
         // let thisNodeOptions = this.state.nodeOptions;
@@ -181,7 +178,7 @@ export default class ElementOptions extends RemoteEngine {
         // console.log("========defaultNodeOptions", defaultNodeOptions)
         console.log("***");
         this.shallReload = false;
-
+        const allNodeShapes = getAllNodeShapes();
         return (
             <div className={"p-2"}>
                 {this.state.nodeOptions && this.props.selectedElementData
@@ -265,9 +262,9 @@ export default class ElementOptions extends RemoteEngine {
                                                   defaultValue={this.getValueFromDataOrGetDefault("bgColor")}/>
                                 </Form.Group>
 
-
                                 {
                                     this.getElementType() === "vertex"
+                                    && allNodeShapes['bgImageShapes'].includes(this.state.nodeOptions.properties.elementShape)
                                         ? <Form.Group controlId="bgImagePropertyKey">
                                             <Form.Label>Shape Image Field</Form.Label>
                                             <Form.Control
