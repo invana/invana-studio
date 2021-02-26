@@ -175,28 +175,14 @@ export default class VisJsGraphCanvasUtils {
         return config;
     }
 
-    // generateEdgeGroups(groupName) {
-    //     if (groupName in this.edgeGroups) {
-    //     } else {
-    //         this.edgeGroups[groupName] = this.generateEdgeConfig(groupName);
-    //     }
-    // }
-
     _prepareNode(vertexData, labelPropertyKey) {
-
         if (!vertexData._label) {
             vertexData._label = vertexData.label;
         }
         const groupName = vertexData._label;
-
-        // this.generateNodeGroups(groupName);
         let vertexDataaUpdated = Object.assign({}, vertexData, this.generateNodeConfig(groupName))
-
-
         const renderingConfigFromStorage = this.getRenderingConfigFromStorage(groupName);
         // const defaultNodeRenderingConfig = this.getEdgeColorObject()
-
-
         let label = vertexDataaUpdated.id;
         if (!labelPropertyKey && renderingConfigFromStorage) {
             labelPropertyKey = renderingConfigFromStorage.labelPropertyKey
@@ -224,7 +210,6 @@ export default class VisJsGraphCanvasUtils {
         vertexDataaUpdated.label = this.stringify(label).substring(0, GRAPH_CANVAS_SETTINGS.MAX_LABEL_LENGTH);
         vertexDataaUpdated.group = undefined;// groupName
 
-
         // delete vertexData.shape;
         delete vertexDataaUpdated.image;
 
@@ -234,19 +219,16 @@ export default class VisJsGraphCanvasUtils {
             const image = vertexDataaUpdated.properties[renderingConfigFromStorage.bgImagePropertyKey];
             vertexDataaUpdated.image = image || GRAPH_CANVAS_SETTINGS.DEFAULT_NODE_IMAGE;
         }
-
-
         // if the shape is text, make it to some other
-
         // if shape with in text
         if (
             allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)
             // && vertexDataaUpdated.shape !== "circle"
         ) {
-            // vertexDataaUpdated.widthConstraint = {
-            //     minimum: vertexDataaUpdated.size * 10,
-            //     maximum: vertexDataaUpdated.size * 10
-            // }
+            vertexDataaUpdated.widthConstraint = {
+                minimum: vertexDataaUpdated.size * 3,
+                maximum: vertexDataaUpdated.size * 6
+            }
             if (vertexDataaUpdated.color && allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
                 vertexDataaUpdated.font.color = invertColor(vertexDataaUpdated.color.background, true);
             }

@@ -235,8 +235,8 @@ export default class ElementOptions extends RemoteEngine {
                                         <React.Fragment>
                                             <Form.Group controlId="linkLength">
                                                 <Form.Label>Link Length</Form.Label>
-                                                <Form.Control type="text" name={"linkLength"} size={"sm"} min={2}
-                                                              max={100}
+                                                <Form.Control type="number" name={"linkLength"} size={"sm"} min={2}
+                                                              max={500}
                                                               placeholder={"size"} spellCheck="false"
                                                               onChange={this.handleValueChange.bind(this)}
                                                               defaultValue={this.getValueFromDataOrGetDefault("linkLength")}/>
