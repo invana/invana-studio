@@ -7,8 +7,13 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import {STUDIO_SETTINGS, STUDIO_CONNECT_CONSTANTS} from "../../../settings";
 import {setDataToLocalStorage} from "../../utils";
 import "./connect.scss";
+import PropTypes from "prop-types";
 
 export default class ConnectView extends React.Component {
+
+    static propTypes = {
+        connectionUrl: PropTypes.string,
+    }
 
     constructor(props) {
         super(props);
@@ -51,12 +56,8 @@ export default class ConnectView extends React.Component {
         return headers;
     }
 
-    validateConnectionUrl(connectionUrl) {
-
-    }
 
     onFormSubmit(e) {
-
         console.log("onFormSubmit", e);
         const connectionUrl = e.target.connectionUrl.value;
         const graphEngineName = e.target.graphEngineName.value;

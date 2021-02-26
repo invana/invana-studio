@@ -4,18 +4,23 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown, faCog} from "@fortawesome/free-solid-svg-icons";
 import BlankLayout from "./blank";
 import {NavLink, Redirect} from "react-router-dom";
+import PropTypes from 'prop-types';
 
 
 export default class DefaultLayout extends React.Component {
 
 
-    // static propTypes = {
-    //     children: PropTypes.any,
-    //     leftSideNav: PropTypes.any,
-    //
-    //     primaryNav: PropTypes.any,
-    //     secondaryNav: PropTypes.any,
-    // };
+    static propTypes = {
+        leftSideNav: PropTypes.any,
+
+        primaryNav: PropTypes.any,
+        secondaryNav: PropTypes.any,
+        connectionUrl: PropTypes.string,
+        history: PropTypes.object,
+        setShowQueryConsole: PropTypes.func,
+        setModalContentName: PropTypes.func,
+        children : PropTypes.any
+    };
 
     // static defaultProp = {
     //     connectionUrl: STUDIO_SETTINGS.CONNECTION_URL

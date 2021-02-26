@@ -25,7 +25,7 @@ export default class CreateVertexViewlet extends RemoteEngine {
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="email" placeholder="Enter email"/>
                                 <Form.Text className="text-muted">
-                                    We'll never share your email with anyone else.
+                                    We&apos;ll never share your email with anyone else.
                                 </Form.Text>
                                 <input type="datetime-local" step="1" />
                             </Form.Group>

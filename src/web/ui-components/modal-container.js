@@ -1,8 +1,12 @@
 import React from "react";
 import "./modal-container.scss";
+import PropTypes from "prop-types";
 
-export default class ModalContainer extends React.Component{
+export default class ModalContainer extends React.Component {
 
+    static propTypes = {
+        children: PropTypes.any
+    }
 
     render() {
         return (

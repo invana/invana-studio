@@ -2,12 +2,23 @@ import React from "react";
 import "./canvas.scss";
 import VisNetworkReactComponent from "vis-network-react";
 import defaultOptions from "./options";
+import PropTypes from "prop-types";
 
 
 class ForceDirectedGraphCanvas extends React.Component {
 
+    static propTypes = {
+        resetVisualizer: PropTypes.func,
+        setSelectedElementData: PropTypes.func,
+        setNodeMenuPosition: PropTypes.func,
+        setNetwork: PropTypes.func,
+        nodes: PropTypes.array,
+        edges: PropTypes.array
 
-    shouldComponentUpdate(nextProps) {
+
+    }
+
+    shouldComponentUpdate() {
         return this.props.resetVisualizer;
         // return nextProps.value !== this.props.value;
     }
@@ -67,29 +78,32 @@ class ForceDirectedGraphCanvas extends React.Component {
                 console.log("controlNodeDragEnd Event:", params);
             },
             zoom: function (params) {
+                                console.log("params", params);
+
             },
             showPopup: function (params) {
+                console.log("params", params);
             },
             hidePopup: function () {
-                // console.log("hidePopup Event");
+                console.log("hidePopup Event");
             },
             select: function (params) {
-                // console.log("select Event:", params);
+                console.log("select Event:", params);
             },
             selectNode: function (params) {
-                // console.log("selectNode Event:", params);
+                console.log("selectNode Event:", params);
                 // const selectedNode = this.props.getNetwork().get(params.nodes[0])
                 // console.log("selectedNode", selectedNode)
             },
             selectEdge: function (params) {
-                // console.log("selectEdge Event:", params);
+                console.log("selectEdge Event:", params);
 
             },
             deselectNode: function (params) {
-                // console.log("deselectNode Event:", params);
+                console.log("deselectNode Event:", params);
             },
             deselectEdge: function (params) {
-                // console.log("deselectEdge Event:", params);
+                console.log("deselectEdge Event:", params);
             },
             hoverNode: function (params) {
                 // console.log("hoverNode Event:", params);
@@ -106,10 +120,10 @@ class ForceDirectedGraphCanvas extends React.Component {
                 }
             },
             blurNode: function (params) {
-                // console.log("blurNode Event:", params);
+                console.log("blurNode Event:", params);
             },
             blurEdge: function (params) {
-                // console.log("blurEdge Event:", params);
+                console.log("blurEdge Event:", params);
             },
             stabilized: function (params) {
                 console.log("stabilized Event:", params);

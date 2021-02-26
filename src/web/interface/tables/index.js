@@ -24,7 +24,8 @@ export default class TableInterface extends React.Component {
         elementsLabel: PropTypes.string,
         elementsType: PropTypes.string,
         elementsSchema: PropTypes.object,
-        showLabel: PropTypes.bool
+        showLabel: PropTypes.bool,
+        dataStore: PropTypes.object
     }
 
     render() {

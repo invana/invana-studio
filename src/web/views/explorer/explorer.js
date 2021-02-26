@@ -115,7 +115,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     node._label
                 ),
                 font: {
-                    color:  _this.getNodeColor(node)
+                    color: _this.getNodeColor(node)
                 }
             }));
 
@@ -134,7 +134,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     _this.network.body.data.nodes.get(nodeId)._label
                 ),
                 font: {
-                    color:  _this.getNodeColor(_this.network.body.data.nodes.get(nodeId))
+                    color: _this.getNodeColor(_this.network.body.data.nodes.get(nodeId))
                 }
             }));
 
@@ -222,8 +222,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
             selectedElementData = this.network.body.data.nodes.get(selectedDataId)
         } else if (selectedElementType === "g:Edge") {
             selectedElementData = this.network.body.data.edges.get(selectedDataId)
-        } else {
-
         }
         this.setState({selectedElementData: selectedElementData});
     }
@@ -358,10 +356,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
         // this.makeQuery()
     }
 
-
-    focusOnNode(nodeId) {
-
-    }
 
     removeFocusedNode(nodeId) {
         //

@@ -10,6 +10,7 @@ export default class LabelDetailHeader extends React.Component {
     static propTypes = {
         dataStore: PropTypes.object,
         dynamicComponent: PropTypes.any,
+        match: PropTypes.any
     }
 
     render() {

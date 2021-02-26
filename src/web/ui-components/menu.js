@@ -7,12 +7,10 @@ import "./menu.scss";
 export default class MenuComponent extends React.Component {
 
     static propTypes = {
-        setShowVertexOptions: PropTypes.func,
-        parentElem: PropTypes.object,
         className: PropTypes.string,
-        size: PropTypes.string,
-    };
-
+        children: PropTypes.any,
+        size: PropTypes.string
+    }
 
     render() {
         const size = this.props.size || "md";

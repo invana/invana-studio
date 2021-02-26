@@ -67,6 +67,7 @@ const defaultOptions = {
 
         chosen: {
             edge: function (values, id, selected, hovering) {
+                console.log("=====",  id, selected, hovering);
                 values.width = 1.5 * 1.4;
             }
         },

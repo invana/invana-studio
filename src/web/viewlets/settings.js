@@ -14,6 +14,7 @@ export default class SettingsComponent extends React.Component {
 
     static propTypes = {
         setModalContentName: PropTypes.func,
+        onClose: PropTypes.func,
     }
 
 

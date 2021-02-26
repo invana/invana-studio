@@ -12,9 +12,9 @@ export default class VisJsGraphCanvasUtils {
     nodeGroups = {};
     edgeGroups = {};
 
-    getColorBasedOnText(groupName) {
-        return;
-    }
+    // getColorBasedOnText(groupName) {
+    //     return;
+    // }
 
 
     getEdgeColorObject(groupName) {

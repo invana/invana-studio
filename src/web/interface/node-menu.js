@@ -34,6 +34,7 @@ export default class NodeMenu extends React.Component {
         graphicsEngine: PropTypes.object,
         setRightContentName: PropTypes.func,
         selectedElementData: PropTypes.object,
+        setSelectedElementData: PropTypes.func,
 
 
         menuPositionX: PropTypes.number,
