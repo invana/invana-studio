@@ -76,10 +76,11 @@ export function getDefaultNodeOptions(label) {
         borderColor: GRAPH_CANVAS_SETTINGS.DefaultNodeBorderColor,
         bgImagePropertyKey: null,
         labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultNodeLabelPropertyKey,
-        tagHtml: null,
+        // tagHtml: null,
         elementShape: "dot",
-        size: GRAPH_CANVAS_SETTINGS.DEFAULT_NODE_SHAPE_SIZE,
-        labelFontSize: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LABEL_FONT_SIZE
+        shapeSize: GRAPH_CANVAS_SETTINGS.DEFAULT_NODE_SHAPE_SIZE,
+        labelFontSize: GRAPH_CANVAS_SETTINGS.DEFAULT_NODE_LABEL_FONT_SIZE,
+        labelColor: GRAPH_CANVAS_SETTINGS.DefaultElementTextColor
 
     }
 }
@@ -87,10 +88,11 @@ export function getDefaultNodeOptions(label) {
 export function getDefaultEdgeOptions(label) {
 
     return {
-        linkColor: GRAPH_CANVAS_SETTINGS.DefaultLinkLabelColor,
+        linkColor: getColorForString(label),
         linkLength: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LENGTH,
         labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultLinkLabelPropertyKey,
-        labelFontSize: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LABEL_FONT_SIZE
+        labelFontSize: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LABEL_FONT_SIZE,
+        labelColor: GRAPH_CANVAS_SETTINGS.DefaultLinkLabelColor
 
     }
 }

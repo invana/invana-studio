@@ -155,16 +155,14 @@ export default class ElementOptions extends RemoteEngine {
 
         const labelType = this.getElementType();
         const label = this.getElementLabel();
-        let defaultNodeOptions = {};
+        let elementOptions = {};
         if (labelType === "vertex") {
-            defaultNodeOptions = getDefaultNodeOptions(label);
+            elementOptions = getDefaultNodeOptions(label);
         } else if (labelType === "edge") {
-            defaultNodeOptions = getDefaultEdgeOptions(label);
+            elementOptions = getDefaultEdgeOptions(label);
         }
-        // if (propertyKey === "_id"){
-        //     return this.state.
-        // }
-        return this.state.nodeOptions.properties[propertyKey] || defaultNodeOptions[propertyKey];
+
+        return this.state.nodeOptions.properties[propertyKey] || elementOptions[propertyKey];
     }
 
 
@@ -278,12 +276,12 @@ export default class ElementOptions extends RemoteEngine {
                                                     }
                                                 </Form.Control>
                                             </Form.Group>
-                                            <Form.Group controlId="size">
-                                                <Form.Label>Shape Color</Form.Label>
-                                                <Form.Control type="text" name={"size"} size={"sm"} min={2} max={100}
-                                                              placeholder={"size"} spellCheck="false"
+                                            <Form.Group controlId="shapeSize">
+                                                <Form.Label>Shape size</Form.Label>
+                                                <Form.Control type="number" name={"shapeSize"} size={"sm"} min={2} max={100}
+                                                              placeholder={"shapeSize"} spellCheck="false"
                                                               onChange={this.handleValueChange.bind(this)}
-                                                              defaultValue={this.getValueFromDataOrGetDefault("size")}/>
+                                                              defaultValue={this.getValueFromDataOrGetDefault("shapeSize")}/>
                                             </Form.Group>
 
 
