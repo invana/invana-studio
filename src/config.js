@@ -15,7 +15,7 @@ export const DefaultMaxTimeElapsedWarningInSeconds = 180;
 export const VERSION = "alpha";
 export const ABOUT_TEXT = "Open source visualiser for exploring the graph data.";
 export const CONNECT_URL = "/connect";
-export const REPO_URL = "https://github.com/invanalabs/graph-explorer";
+export const REPO_URL = "https://github.com/invanalabs/invana-studio";
 export const UUIDGenerator = () =>
     ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)

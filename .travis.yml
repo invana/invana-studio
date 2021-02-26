@@ -5,21 +5,21 @@ jobs:
       script:
         - if  [ -z "$TRAVIS_TAG" ]; then DOCKER_TAG=sha-`echo "$TRAVIS_COMMIT" | cut -c1-7`;  else DOCKER_TAG=$TRAVIS_TAG; fi
         - echo "Docker tag would be $DOCKER_TAG"
-        - docker build -t invanalabs/graph-explorer .
+        - docker build -t invanalabs/invana-studio .
     - stage: build and push docker image
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t invanalabs/graph-explorer .
+        - docker build -t invanalabs/invana-studio .
         - if  [ -z "$TRAVIS_TAG" ]; then DOCKER_TAG=sha-`echo "$TRAVIS_COMMIT" | cut -c1-7`;  else DOCKER_TAG=$TRAVIS_TAG; fi
-        - docker tag invanalabs/graph-explorer invanalabs/graph-explorer:"$DOCKER_TAG"
-        - docker tag invanalabs/graph-explorer invanalabs/graph-explorer:latest
-        - docker push invanalabs/graph-explorer:"$DOCKER_TAG"
-        - docker push invanalabs/graph-explorer:latest
+        - docker tag invanalabs/invana-studio invanalabs/invana-studio:"$DOCKER_TAG"
+        - docker tag invanalabs/invana-studio invanalabs/invana-studio:latest
+        - docker push invanalabs/invana-studio:"$DOCKER_TAG"
+        - docker push invanalabs/invana-studio:latest
     - stage: deploy to heroku edge version
       script: skip
       deploy: &heroku
         provider: heroku
-        app: graph-explorer-edge
+        app: invana-studio-edge
         api_key: $HEROKU_AUTH_TOKEN
         on:
           all_branches: true
@@ -27,15 +27,15 @@ jobs:
       script: skip
       deploy: &heroku
         provider: heroku
-        app: graph-explorer
+        app: invana-studio
         api_key: $HEROKU_AUTH_TOKEN
         on:
           tags: true
           all_branches: true
     - stage: test edge deployemnt
-      script: 'curl http://graph-explorer-edge.herokuapp.com'
+      script: 'curl http://invana-studio-edge.herokuapp.com'
     - stage: test prod deployemnt
-      script: 'curl http://graph-explorer.herokuapp.com'
+      script: 'curl http://invana-studio.herokuapp.com'
 
 stages:
   - name: deploy to heroku edge version
