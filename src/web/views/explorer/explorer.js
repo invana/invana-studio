@@ -479,11 +479,11 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 </Nav.Item>
 
 
-                                <Nav.Item className={"mr-1"}>
-                                    <Button size={"sm"} variant={"link"}>
-                                        <FontAwesomeIcon icon={faCog}/>
-                                    </Button>
-                                </Nav.Item>
+                                {/*<Nav.Item className={"mr-1"}>*/}
+                                {/*    <Button size={"sm"} variant={"link"}>*/}
+                                {/*        <FontAwesomeIcon icon={faCog}/>*/}
+                                {/*    </Button>*/}
+                                {/*</Nav.Item>*/}
                             </Nav>
                         </MenuComponent>
                         <CanvasComponent>
