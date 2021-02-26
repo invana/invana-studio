@@ -1,6 +1,6 @@
 import React from "react";
 import {STUDIO_SETTINGS} from "../../settings";
-import {getDefaultNodeOptions} from "../interface/utils";
+import {getAllNodeShapesList, getDefaultNodeOptions} from "../interface/utils";
 import RemoteEngine from "../layout/remote";
 import {setElementColorOptionsToStorage} from "../utils";
 import {Button, Form} from "react-bootstrap";
@@ -167,6 +167,10 @@ export default class ElementOptions extends RemoteEngine {
         return this.state.nodeOptions.properties[propertyKey] || defaultNodeOptions[propertyKey];
     }
 
+
+
+
+
     render() {
         // const selectedLabel = this.props.selectedLabel;
         // let thisNodeOptions = this.state.nodeOptions;
@@ -234,7 +238,7 @@ export default class ElementOptions extends RemoteEngine {
                                                 <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
 
                                                 {
-                                                    this.state.propertyFieldKeys.map((fieldKey) =>
+                                                    getAllNodeShapesList().map((fieldKey) =>
                                                         <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
                                                     )
                                                 }

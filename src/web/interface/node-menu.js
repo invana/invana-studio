@@ -160,7 +160,7 @@ export default class NodeMenu extends React.Component {
                           style={{"color": this.getElementColor()}}>{this.getVerboseIdentifier()}</h5>
                     : <React.Fragment/>
                 }
-                <p className={"mb-0 pb-0"} style={{"color": this.getElementColor()}}>Label: {selectedElement.label}</p>
+                <p className={"mb-0 pb-0"} style={{"color": this.getElementColor()}}>Label: {selectedElement._label}</p>
                 <p className={"mb-1 border-bottom "}>{selectedElement.type.replace("g:", "")} id: {this.getIdentifier()}</p>
 
                 <ul className={"nodeMenu"}>

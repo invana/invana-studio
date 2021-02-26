@@ -1,4 +1,4 @@
-import {getColorForString} from "../../interface/utils";
+import {getColorForString, getDefaultNodeOptions} from "../../interface/utils";
 import {LightenDarkenColor} from "../../../core/utils";
 import {GRAPH_CANVAS_SETTINGS, RENDERING_CONFIG} from "../../../settings";
 
@@ -89,20 +89,23 @@ export default class VisJsGraphCanvasUtils {
         return LightenDarkenColor(nodeColor, -10);
     }
 
-    generateNodeConfig(groupName, nodeShape) {
+    generateNodeConfig(groupName) {
         let config = {};
-        if (nodeShape === undefined) {
-            nodeShape = "dot"; // dot
-        }
-
-
+        const defaultNodeConfig = getDefaultNodeOptions(groupName);
+        // if (nodeShape === undefined) {
+        //     nodeShape = "dot"; // dot
+        // }
         config.borderWidth = 2;
         config.borderWidthSelected = 3;
-        config.shape = nodeShape;
+        config.shape = defaultNodeConfig.elementShape;
         config.chosen = false;
         config.color = this.getNodeColorObject(groupName);
         // config.physics = false;
-        config.size = 16;
+        config.size = defaultNodeConfig.size;
+        // config.widthConstraint = {
+        //     minimum: defaultNodeConfig.size,
+        //     maximum: defaultNodeConfig.size + 20
+        // }
         config.font = {
             size: 16,
             color: "#333333"
@@ -186,12 +189,13 @@ export default class VisJsGraphCanvasUtils {
             vertexData._label = vertexData.label;
         }
         const groupName = vertexData._label;
-        const groupConfig = this.getElementConfig(groupName);
+        const renderingConfigFromStorage = this.getRenderingConfigFromStorage(groupName);
+        // const defaultNodeRenderingConfig = this.getEdgeColorObject()
 
 
         let label = vertexData.id;
-        if (!labelPropertyKey && groupConfig) {
-            labelPropertyKey = groupConfig.labelPropertyKey
+        if (!labelPropertyKey && renderingConfigFromStorage) {
+            labelPropertyKey = renderingConfigFromStorage.labelPropertyKey
 
             if (labelPropertyKey === "_id") {
                 label = vertexData.id;
@@ -209,22 +213,56 @@ export default class VisJsGraphCanvasUtils {
         delete vertexData.shape;
         delete vertexData.image;
 
-        if (groupConfig && groupConfig.bgImagePropertyKey) {
-            const image = vertexData.properties[groupConfig.bgImagePropertyKey];
-            if (image) {
-                vertexData.shape = "circularImage";
-                vertexData.image = image;
-            }
-        }
+
+        // else if (renderingConfigFromStorage && renderingConfigFromStorage.bgImagePropertyKey) {
+        //
+        // } else if (renderingConfigFromStorage.elementShape) {
+        //     vertexData.shape = renderingConfigFromStorage.elementShape;
+        // }
         this.generateNodeGroups(groupName);
 
-        // if (groupConfig && groupConfig.labelPropertyKey) {
+
+        // vertexData = Object.assign({}, vertexData, this.nodeGroups[groupName])
+
+
+        console.log("=====renderingConfigFromStorage", vertexData._label, renderingConfigFromStorage)
+        if (renderingConfigFromStorage && renderingConfigFromStorage.elementShape) {
+            vertexData.shape = renderingConfigFromStorage.elementShape;
+        }
+
+        // override the options with image
+        if (renderingConfigFromStorage && renderingConfigFromStorage.bgImagePropertyKey) {
+            const image = vertexData.properties[renderingConfigFromStorage.bgImagePropertyKey];
+            if (image) {
+                vertexData.image = image;
+                vertexData.shape = "circularImage";
+            }
+        }
+
+
+        let vertexDataaUpdated = Object.assign({}, this.nodeGroups[groupName], vertexData)
+        // if the shape is text, make it to some other
+        if(vertexDataaUpdated.shape === "text"){
+            vertexDataaUpdated.widthConstraint = {
+                minimum: vertexDataaUpdated.size * 10,
+                maximum: vertexDataaUpdated.size * 15
+            }
+        }
+
+        console.log("=====renderingConfigFromStorage", vertexData)
+
+
+        // if (!vertexData.shape) {
+        //     vertexData.shape = renderingConfigFromStorage.elementShape;
+        // }
+
+        // if (renderingConfigFromStorage && renderingConfigFromStorage.labelPropertyKey) {
         //     // vertexData.shape = "circularImage";
-        //     vertexData.label = vertexData.properties[groupConfig.labelPropertyKey];
+        //     vertexData.label = vertexData.properties[renderingConfigFromStorage.labelPropertyKey];
         // }
 
         // console.log("====this.nodeGroups[groupName]", this.nodeGroups[groupName]);
-        return Object.assign({}, vertexData, this.nodeGroups[groupName]);
+        return vertexDataaUpdated;
     }
 
     _prepareEdge(edgeData, labelPropertyKey) {
@@ -232,12 +270,12 @@ export default class VisJsGraphCanvasUtils {
             edgeData._label = edgeData.label;
         }
         const groupName = edgeData._label;
-        const groupConfig = this.getElementConfig(groupName);
+        const renderingConfigFromStorage = this.getRenderingConfigFromStorage(groupName);
 
 
         let label = edgeData.id;
-        if (!labelPropertyKey && groupConfig) {
-            labelPropertyKey = groupConfig.labelPropertyKey
+        if (!labelPropertyKey && renderingConfigFromStorage) {
+            labelPropertyKey = renderingConfigFromStorage.labelPropertyKey
 
             if (labelPropertyKey === "_id") {
                 label = edgeData.id;
@@ -281,15 +319,15 @@ export default class VisJsGraphCanvasUtils {
     }
 
 
-    getElementConfig(nodeLabel) {
+    getRenderingConfigFromStorage(nodeLabel) {
         const nodeLabels = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
         return nodeLabels[nodeLabel];
     }
 
     getElementColor(label) {
-        const nodeLabelOption = this.getElementConfig(label);
-        if (nodeLabelOption && nodeLabelOption.bgColor) {
-            return nodeLabelOption.bgColor;
+        const nodeRenderingOption = this.getRenderingConfigFromStorage(label);
+        if (nodeRenderingOption && nodeRenderingOption.bgColor) {
+            return nodeRenderingOption.bgColor;
         } else {
             return getColorForString(label);
         }

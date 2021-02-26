@@ -76,12 +76,24 @@ export function getDefaultNodeOptions(label) {
         borderColor: GRAPH_CANVAS_SETTINGS.DefaultNodeBorderColor,
         bgImagePropertyKey: null,
         labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultNodeLabelPropertyKey,
-        tagHtml: null
+        tagHtml: null,
+        elementShape: "dot",
+        size: 16
+
     }
 }
 
-export function getShapeOptions(shapeName) {
-    return null
+export function getAllNodeShapes() {
+    const inLabelShapes = ["ellipse", "circle", "database", "box", "text"];
+    const outLabelShapes = ["image", "circularImage", "diamond", "dot",
+        "star", "triangle", "triangleDown", "hexagon", "square", "icon"];
+    return {inLabelShapes, outLabelShapes};
+}
+
+export function getAllNodeShapesList() {
+    const _ = getAllNodeShapes();
+    console.log("[..._['inLabelShapes'], ..._['outLabelShapes']]", ..._['inLabelShapes'], ..._['outLabelShapes']);
+    return [..._['inLabelShapes'], ..._['outLabelShapes']];
 }
 
 export function askToSwitchGremlinServer() {

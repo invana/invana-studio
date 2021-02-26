@@ -52,7 +52,7 @@ export default class SidebarListBase extends React.Component {
                                     className={"mr-1"}
                                     style={{
                                         'color': this.canvasUtils.getElementColor(elementLabel.label),
-                                        'font-size': '.6rem',
+                                        'fontSize': '.6rem',
                                         'position': 'relative',
                                         'top': '-2px'
 

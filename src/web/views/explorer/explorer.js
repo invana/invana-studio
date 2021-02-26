@@ -220,8 +220,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
         console.log("reRenderVisualizer")
         this.network.body.data.nodes.clear();
         this.network.body.data.edges.clear();
-        this.network.body.data.nodes.add(nodes);
-        this.network.body.data.edges.add(edges);
+        this.network.body.data.nodes.add(nodesPrepared);
+        this.network.body.data.edges.add(edgesPrepared);
 
         this.setState({
             // resetVisualizer: true,
