@@ -1,13 +1,16 @@
+
+
 import {convertMapKeysToArray} from "./utils";
-import {
-    prepareLinkDataWithOptions,
-    prepareLinksDataForCurves,
-    prepareNodesDataWithOptions
-} from "../canvas/canvas-utils";
+// import {
+//     prepareLinkDataWithOptions,
+//     // prepareLinksDataForCurves,
+//     prepareNodesDataWithOptions
+// } from "../web/interface/utils";
 
 export default class InMemoryDataStore {
     /*
-    in-memory data storage to save the responses data
+    in-memory example-data storage to save the responses example-data
+
 
     TODO - tons of performance issues to fix;
      review neighbor and not neighbor calc methods to start with
@@ -17,7 +20,8 @@ export default class InMemoryDataStore {
 
     focusedNodes = [];
 
-    // Data of raw  data from the response objects; for storage and retrieval purpose
+    // Data of raw  example-data from the response objects; for storage and retrieval purpose
+
     #vertices = new Map()
     #edges = new Map()
 
@@ -96,7 +100,9 @@ export default class InMemoryDataStore {
     //         if (nodeData.meta.labelOptions.labelText === labelTextOrId) {
     //             return nodeData;
     //         }
-    //         // data.push(value);
+
+    //         // example-data.push(value);
+
     //     }
     //
     //     return
@@ -120,7 +126,9 @@ export default class InMemoryDataStore {
                 }
                 // .includes(labelTextOrId)
             }
-            // data.push(value);
+
+            // example-data.push(value);
+
         }
 
         return results;
@@ -169,7 +177,9 @@ export default class InMemoryDataStore {
 
     addEdgeToSchema(edge) {
         const edgeUniqueStr = this.generateEdgeUniqueString(edge);
-        // inV label data
+
+        // inV label example-data
+
         const inVEdges = this.schema.get(edge.inVLabel);
         const outVEdges = this.schema.get(edge.outVLabel);
         if (inVEdges && !this.checkIfEdgeExistInSchema(inVEdges, edgeUniqueStr)) {
@@ -186,6 +196,9 @@ export default class InMemoryDataStore {
         const vertexEdges = this.schema.get(vertexLabel);
         let inE = [];
         let outE = [];
+
+
+        // eslint-disable-next-line array-callback-return
 
         vertexEdges.map((vertexEdge) => {
             const [sourceLabel, targetLabel, edgeLabel] = vertexEdge.split(this.edgeUniqueStringDelimiter);
@@ -223,7 +236,9 @@ export default class InMemoryDataStore {
     }
 
     addData(newVertices, newEdges, onDataUpdated) {
-        // make sure the newly added edges data has respective nodes data.
+
+        // make sure the newly added edges example-data has respective nodes example-data.
+
         let _this = this;
         for (let vertexI in newVertices) {
             let vertex = newVertices[vertexI];
@@ -342,6 +357,9 @@ export default class InMemoryDataStore {
         const _this = this;
 
 
+
+        // eslint-disable-next-line array-callback-return
+
         verticesData.map((vertex) => {
             // TODO - fix performance ASAP.
             const neighborData = this.getNeighborNodesAndLinks([vertex])
@@ -387,20 +405,27 @@ export default class InMemoryDataStore {
         this.linkLabelGraphicsArray = [];
     }
 
-    prepareNodes(vertices) {
-        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
-        return prepareNodesDataWithOptions(vertices, nodeOptions);
 
-    }
+    // prepareNodes(vertices) {
+    //     const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
+    //     // const cleanedVertices = removeVertexMeta(convertMapKeysToArray(this.#vertices));
+    //     return prepareNodesDataWithOptions(vertices, nodeOptions);
+    //
+    // }
 
     getAllRawVerticesList() {
-        return this.prepareNodes(convertMapKeysToArray(this.#vertices))
+        // return this.prepareNodes(convertMapKeysToArray(this.#vertices))
+        return convertMapKeysToArray(this.#vertices);
     }
 
     getAllRawEdgesList() {
-        const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem('nodeLabels')));
-        return prepareLinkDataWithOptions(prepareLinksDataForCurves(convertMapKeysToArray(this.#edges)), nodeOptions);
+        // const nodeOptions = Object.assign({}, JSON.parse(localStorage.getItem(RENDERING_CONFIG.LOCAL_STORAGE_KEY)));
+        // return prepareLinkDataWithOptions(
+            // prepareLinksDataForCurves(
+             return   convertMapKeysToArray(this.#edges);
+            // ),
+            // nodeOptions);
+
     }
 
     getAlreadyRenderedData() {

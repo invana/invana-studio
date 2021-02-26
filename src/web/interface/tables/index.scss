@@ -1,0 +1,52 @@
+@import "../../../config";
+
+
+.tableCanvas {
+  //overflow-y: scroll;
+  //height: calc(100% - 20px);
+  position: relative;
+
+
+  table {
+    border: 1px solid;
+    border-collapse: collapse;
+    width: calc(100vw - 310px) !important;
+
+    thead {
+      tr {
+        background: $lightBg;
+        font-weight: bold;
+        color: #6a6f73;
+      }
+
+      tr:first-child {
+        font-size: 10px;
+        text-transform: uppercase;
+        text-align: center;
+        color: $darkTextColor !important;
+      }
+
+    }
+
+
+    th, td {
+      border: 1px solid $borderColor;
+      padding: 5px 8px;
+      text-align: left;
+    }
+  }
+
+  .tableComponent {
+    display: block;
+
+    h3 {
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+  }
+
+  .responseBox {
+    border-bottom: 2px solid $borderColor;
+    padding-bottom: 10px;
+  }
+}
