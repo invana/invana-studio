@@ -50,7 +50,13 @@ export default class SidebarListBase extends React.Component {
                             >
                                 <FontAwesomeIcon
                                     className={"mr-1"}
-                                    style={{'color': this.canvasUtils.getElementColor(elementLabel.label)}}
+                                    style={{
+                                        'color': this.canvasUtils.getElementColor(elementLabel.label),
+                                        'font-size': '.6rem',
+                                        'position': 'relative',
+                                        'top': '-2px'
+
+                                    }}
                                     icon={listIcon}/>
                                 {elementLabel.label}
                                 <span style={{
@@ -59,11 +65,11 @@ export default class SidebarListBase extends React.Component {
                                 }}>({elementLabel.count} entries)</span>
                             </ListGroup.Item>)
                     })
+                    }
+                    </ListGroup>
+                    );
                 }
-            </ListGroup>
-        );
-    }
-}
+                }
 
 export class DataVertexManagement extends SidebarListBase {
 
@@ -73,9 +79,11 @@ export class DataVertexManagement extends SidebarListBase {
 
 }
 
-export class DataEdgeManagement extends SidebarListBase {
+export class DataEdgeManagement extends SidebarListBase
+{
 
-    getLabelType() {
+    getLabelType()
+    {
         return "edge";
     }
 
