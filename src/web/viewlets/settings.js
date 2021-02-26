@@ -1,10 +1,10 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
-import {STUDIO_CONNECT_CONSTANTS, STUDIO_SETTINGS} from "../../settings";
+import { STUDIO_SETTINGS} from "../../settings";
 import PropTypes from "prop-types";
 import {askToSwitchGremlinServer} from "../interface/utils";
-import {Button, Card, Form} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 
 export default class SettingsComponent extends React.Component {
 

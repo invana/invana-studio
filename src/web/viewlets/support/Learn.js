@@ -1,5 +1,5 @@
 import React from "react";
-import {faExternalLinkAlt, faExternalLinkSquareAlt, faSync, faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import {faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {q1CreateData, q3, q4} from "./learn-queries";
 import PropTypes from "prop-types";

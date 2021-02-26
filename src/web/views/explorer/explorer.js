@@ -7,7 +7,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera,
     faCog, faQuestionCircle,
-    faStickyNote,
     faSync,
     faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -27,8 +26,6 @@ import LoadingDiv from "../../viewlets/loading";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings";
 import RoutableRemoteEngine from "../../layout/routable-remote";
 import ModalContainer from "../../ui-components/modal-container";
-import SettingsComponent from "../../viewlets/settings";
-import {NavLink} from "react-router-dom";
 import Learn from "../../viewlets/support/Learn";
 import RightContainer from "../../ui-components/right-container";
 // import {setElementColorOptionsToStorage} from "../../utils";

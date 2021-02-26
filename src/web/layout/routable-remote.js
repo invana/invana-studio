@@ -4,7 +4,6 @@ import RemoteEngine from "./remote";
 import {Container} from "react-bootstrap";
 import ModalContainer from "../ui-components/modal-container";
 import SettingsComponent from "../viewlets/settings";
-import DefaultLayout from "./default";
 
 export default class RoutableRemoteEngine extends RemoteEngine {
 
