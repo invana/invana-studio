@@ -200,6 +200,50 @@ export default class ElementOptions extends RemoteEngine {
 
                         <div className="row">
                             <div className="col-md-6 pr-2">
+
+
+                                <Form.Group controlId="labelPropertyKey">
+                                    <Form.Label>Label Field</Form.Label>
+                                    <Form.Control name={"labelPropertyKey"} size={"sm"} as={"select"}
+                                                  onChange={this.handleValueChange.bind(this)}
+                                                  defaultValue={this.getValueFromDataOrGetDefault("labelPropertyKey")}>
+                                        <option key={"_id"} value={"_id"}>{"_id"}</option>
+                                        <option key={"_label"} value={"_label"}>{"_label"}</option>
+                                        {
+                                            this.state.propertyFieldKeys.map((fieldKey) =>
+                                                <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
+                                            )
+                                        }
+
+                                    </Form.Control>
+                                </Form.Group>
+
+
+                            </div>
+                            <div className="col-md-6 pl-2">
+
+
+                                {
+                                    this.getElementType() === "vertex"
+                                        ? <Form.Group controlId="elementShape">
+                                            <Form.Label>Shape</Form.Label>
+                                            <Form.Control
+                                                name={"elementShape"} size={"sm"} as={"select"}
+                                                onChange={this.handleValueChange.bind(this)}
+                                                defaultValue={this.getValueFromDataOrGetDefault("elementShape")}>
+                                                <option key={"<select>"} value={"<select>"}>{"<select>"}</option>
+
+                                                {
+                                                    this.state.propertyFieldKeys.map((fieldKey) =>
+                                                        <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
+                                                    )
+                                                }
+                                            </Form.Control>
+                                        </Form.Group>
+
+                                        : <React.Fragment/>
+                                }
+
                                 <Form.Group controlId="bgColor">
                                     <Form.Label>Shape Color</Form.Label>
                                     <Form.Control type="text" name={"bgColor"} size={"sm"} maxLength={7} minLength={7}
@@ -232,27 +276,7 @@ export default class ElementOptions extends RemoteEngine {
 
 
                             </div>
-                            <div className="col-md-6 pl-2">
 
-
-                                <Form.Group controlId="labelPropertyKey">
-                                    <Form.Label>Label Field</Form.Label>
-                                    <Form.Control name={"labelPropertyKey"} size={"sm"} as={"select"}
-                                                  onChange={this.handleValueChange.bind(this)}
-                                                  defaultValue={this.getValueFromDataOrGetDefault("labelPropertyKey")}>
-                                        <option key={"_id"} value={"_id"}>{"_id"}</option>
-                                        <option key={"_label"} value={"_label"}>{"_label"}</option>
-                                        {
-                                            this.state.propertyFieldKeys.map((fieldKey) =>
-                                                <option key={fieldKey} value={fieldKey}>{fieldKey}</option>
-                                            )
-                                        }
-
-                                    </Form.Control>
-                                </Form.Group>
-
-
-                            </div>
                         </div>
 
                         {/*<br/>*/}

@@ -80,6 +80,10 @@ export function getDefaultNodeOptions(label) {
     }
 }
 
+export function getShapeOptions(shapeName) {
+    return null
+}
+
 export function askToSwitchGremlinServer() {
     let r = window.confirm("You are about to sign out of the workspace. " +
         "Gladly, your query history will be preserved. Do you want to continue?");
