@@ -149,10 +149,11 @@ export default class ElementOptions extends RemoteEngine {
         }
         const allNodeShapes = getAllNodeShapes();
 
-        if (allNodeShapes['inLabelShapes'].includes(this.state.nodeOptions.properties.elementShape)){
+        if (allNodeShapes['inLabelShapes'].includes(this.state.nodeOptions.properties.elementShape)) {
             delete nodeOptions.properties['shapeSize']; // delete shapeSize for in label shapes.. it doesnt need it
+            nodeOptions.properties['labelFontSize'] = undefined; // delete shapeSize for in label shapes.. it doesnt need it
         }
-            console.log("<<<>>>nodeOptions", nodeOptions)
+        console.log("<<<>>>nodeOptions", nodeOptions)
         this.setState({nodeOptions: nodeOptions});
     }
 
@@ -221,15 +222,24 @@ export default class ElementOptions extends RemoteEngine {
 
                                     </Form.Control>
                                 </Form.Group>
-                                <Form.Group controlId="labelFontSize">
-                                    <Form.Label>Label Font Size</Form.Label>
-                                    <Form.Control type="number" name={"labelFontSize"} size={"sm"} min={2}
-                                                  max={100}
-                                                  placeholder={"labelFontSize"} spellCheck="false"
-                                                  onChange={this.handleValueChange.bind(this)}
-                                                  defaultValue={this.getValueFromDataOrGetDefault("labelFontSize")}/>
-                                </Form.Group>
 
+                                {
+                                    this.getElementType() === "vertex" &&
+                                        !allNodeShapes['inLabelShapes'].includes(this.state.nodeOptions.properties.elementShape)
+                                        ?
+                                        <React.Fragment>
+                                            <Form.Group controlId="labelFontSize">
+                                                <Form.Label>Label Font Size</Form.Label>
+                                                <Form.Control type="number" name={"labelFontSize"} size={"sm"} min={2}
+                                                              max={100}
+                                                              placeholder={"labelFontSize"} spellCheck="false"
+                                                              onChange={this.handleValueChange.bind(this)}
+                                                              defaultValue={this.getValueFromDataOrGetDefault("labelFontSize")}/>
+                                            </Form.Group>
+
+                                        </React.Fragment>
+                                        : <React.Fragment/>
+                                }
 
                             </div>
                             <div className="col-md-6 pl-2">
