@@ -69,7 +69,7 @@ export default class ConnectView extends React.Component {
             alert("Invalid connection string");
         } else if (this.checkIfSecureProtocol(window.location.href) && !this.checkIfSecureProtocol(connectionUrl)) {
             alert("Your connection string is not secure. You can only use https or wss connection string " +
-                "when you are using Graph Explorer via https connection.")
+                "when you are using Invana Studio via https connection.")
         } else if (connectionUrl) {
             const headers = this.getHeaders();
             setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, connectionUrl);
@@ -140,23 +140,26 @@ export default class ConnectView extends React.Component {
         >
 
 
-            <Row className={"pl-3"} style={{paddingTop: "22.5%"}}>
-                <Col md={"1"} className={""} style={{"width": "4.5rem", "flex": "none"}}>
-                    <FontAwesomeIcon icon={faUserAstronaut}
-                                     className={"mt-2"}
-                                     style={{"fontSize": "4rem"}}/>
-                </Col>
-                <Col md={"3"}>
-                    {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
-                    <h1 className={"pb-0 mb-0 mt-1"}>Invana Studio <small>({STUDIO_SETTINGS.VERSION})</small></h1>
-                    <p>{STUDIO_SETTINGS.ABOUT_TEXT}</p>
-                </Col>
-            </Row>
-
+            <div className={"connect"} style={{
+                paddingTop: "18.5%",
+                marginLeft: "1rem"}}>
+                <Row className={"pl-3"}>
+                    <Col md={"1"} className={""} style={{"width": "4.5rem", "flex": "none"}}>
+                        <FontAwesomeIcon icon={faUserAstronaut}
+                                         className={"mt-2"}
+                                         style={{"fontSize": "4rem"}}/>
+                    </Col>
+                    <Col md={"3"}>
+                        {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
+                        <h1 className={"pb-0 mb-0 mt-1"}>Invana Studio <small>({STUDIO_SETTINGS.VERSION})</small></h1>
+                        <p>{STUDIO_SETTINGS.ABOUT_TEXT}</p>
+                    </Col>
+                </Row>
+            </div>
 
             <Row className={"pl-3 connect"}>
-                <Col md={"6"} >
-                    <Card style={{marginTop: '1rem', width: "450px"}} className="mb-2">
+                <Col md={"6"}>
+                    <Card style={{marginTop: '1rem', width: "450px"}} className=" m-3">
                         <Card.Header>Connect to Invana Engine</Card.Header>
                         <Card.Body>
                             <Form inline onSubmit={this.onFormSubmit.bind(this)}>

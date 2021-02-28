@@ -16,7 +16,7 @@ Open source knowledge graphs visualiser and editor.
 ![](./screenshot.png)
 
 
-## Setup Graph Explorer
+## Setup Invana Studio
 
 ```shell script.
 docker run -p 8888:8888 -d --name invana-studio invanalabs/invana-studio
@@ -27,12 +27,12 @@ If you want to install invana-studio on Heroku
 [click here](https://heroku.com/deploy?template=https://github.com/invanalabs/invana-studio/tree/master).
  
 
-> Graph Explorer uses [invana-engine](https://github.com/invanalabs/invana-engine) as the backend to 
+> Invana Studio uses [invana-engine](https://github.com/invanalabs/invana-engine) as the backend to 
 connect to graph databases. Invana Engine is a GraphQL API for Apache TinkerPop supported graph databases.
 Check here for information on how to setup invana-engine 
 
 Refer [here](https://invana.io/get-started.html) for more information on how to setup invana-engine 
-and JanusGraph for Graph Explorer.
+and JanusGraph for Invana Studio.
 
 ## Demos
 

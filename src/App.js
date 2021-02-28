@@ -1,4 +1,3 @@
-
 import React, {Suspense} from "react";
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import ConnectView from "./web/views/connect/connect";
@@ -6,9 +5,10 @@ import Page404View from "./web/views/page-404/page-404";
 import IndexView from "./web/views";
 import ExplorerView from "./web/views/explorer/explorer";
 import DataView from "./web/views/data";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import LabelDetailView from "./web/views/label-detail/detail";
 import VertexDetailView from "./web/views/vertex-detail";
+import './web/index.scss';
 
 export default class App extends React.Component {
     render() {
