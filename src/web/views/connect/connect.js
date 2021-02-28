@@ -69,7 +69,7 @@ export default class ConnectView extends React.Component {
             alert("Invalid connection string");
         } else if (this.checkIfSecureProtocol(window.location.href) && !this.checkIfSecureProtocol(connectionUrl)) {
             alert("Your connection string is not secure. You can only use https or wss connection string " +
-                "when you are using Graph Explorer via https connection.")
+                "when you are using Invana Studio via https connection.")
         } else if (connectionUrl) {
             const headers = this.getHeaders();
             setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, connectionUrl);

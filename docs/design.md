@@ -1,4 +1,4 @@
-# Graph Explorer Design
+# Invana Studio Design
 
 
 ## Code Structure

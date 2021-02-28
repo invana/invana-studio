@@ -4,7 +4,7 @@ export const q1CreateData = "// Adding data of type `Person`\n\n" +
     ".iterate();\n\n" +
     "// Adding data of type `GitHubProject`\n\n" +
     "project = g.addV('GitHubProject')\n" +
-    ".property('name', 'Graph Explorer')\n" +
+    ".property('name', 'Invana Studio')\n" +
     ".iterate();\n" +
     "\n" +
     "// show the results back\n" +
@@ -34,7 +34,7 @@ export const q4 = "// this will add a relation ship between Person and GitHubPro
     "\n" +
     ".V()\n" +
     ".hasLabel('GitHubProject')\n" +
-    ".has('name','Graph Explorer')\n" +
+    ".has('name','Invana Studio')\n" +
     "\n" +
     ".addE('authored')\n" +
     ".from('person')\n" +
