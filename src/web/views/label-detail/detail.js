@@ -99,11 +99,15 @@ export default class LabelDetailView extends LabelDetailViewBase {
                             //     this.renderViewTypeMenuContent()
                             // }
                         />
-                        <Row>
-                            <Col size={"12"} className={"p-2"}>
-                                {this.renderViewTypeMainContent()}
-                            </Col>
-                        </Row>
+
+                        <div className={"p-2"}>
+                            <Row>
+                                <Col size={"12"} className={"p-2"}>
+                                    {this.renderViewTypeMainContent()}
+                                </Col>
+                            </Row>
+                        </div>
+
                     </MainContent>
                 </Row>
 
