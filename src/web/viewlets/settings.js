@@ -60,7 +60,7 @@ export default class SettingsComponent extends React.Component {
                     <p id={"connection-string"} style={{"display": "none"}}>{STUDIO_SETTINGS.CONNECTION_URL}</p>
                     <br/>
                     <Button variant={"secondary"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
-                        switch gremlin server <FontAwesomeIcon icon={faSignInAlt}/>
+                        switch invana engine<FontAwesomeIcon icon={faSignInAlt}/>
                     </Button>
                     <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
                         this.props.onClose()}>cancel
