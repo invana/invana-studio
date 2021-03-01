@@ -16,13 +16,17 @@ export default class MenuComponent extends React.Component {
         const size = this.props.size || "md";
         const className = size + "-menu " + this.props.className;
         return (
-            <Row className={className}>
-                <Col md={12}>
-                    <Navbar bg="transparent" className={" menu-component"} expand="lg">
-                        {this.props.children}
-                    </Navbar>
-                </Col>
-            </Row>
+            <div className={className}>
+
+                <Row>
+                    <Col md={12}>
+                        <Navbar bg="transparent" className={" menu-component"} expand="lg">
+                            {this.props.children}
+                        </Navbar>
+                    </Col>
+                </Row>
+            </div>
+
 
         )
     }

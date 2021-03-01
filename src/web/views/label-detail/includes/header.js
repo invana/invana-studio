@@ -17,8 +17,8 @@ export default class LabelDetailHeader extends React.Component {
         return (
             <React.Fragment>
                 <Row>
-                    <Col size={"12"} className={"p-2 bg-light"}>
-                        <MenuComponent className={"p-1"}>
+                    <Col size={"12"} className={"bg-light"}>
+                        <MenuComponent className={"pl-2"}>
                             <Nav className="mr-auto">
                                 <Nav.Item>
                                     <h2 style={{"fontSize": "1.3rem"}}
@@ -45,7 +45,7 @@ export default class LabelDetailHeader extends React.Component {
                 </Row>
                 <Row>
                     <Col size={"12"} className={"pr-2 bg-light"}>
-                        <MenuComponent className={"p-1"}>
+                        <MenuComponent className={"pl-2"}>
                             <Nav className="mr-auto">
                                 {/*<LabelMenu {...this.props}  />*/}
                             </Nav>

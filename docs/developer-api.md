@@ -1,4 +1,4 @@
-# Invana Graph Explorer Developer API
+# Invana Invana Studio Developer API
 
 
 
