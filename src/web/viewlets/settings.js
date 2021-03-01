@@ -38,7 +38,7 @@ export default class SettingsComponent extends React.Component {
 
     render() {
         return (
-            <Card style={{"min-height": "300px"}}>
+            <Card style={{"minHeight": "300px"}}>
                 <Card.Body>
                     <h6 className={"pb-2 mb-3 border-bottom"}>
                         Invana Studio settings.

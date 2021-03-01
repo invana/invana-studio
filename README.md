@@ -34,6 +34,12 @@ Check here for information on how to setup invana-engine
 Refer [here](https://invana.io/get-started.html) for more information on how to setup invana-engine 
 and JanusGraph for Graph Explorer.
 
+## Todo
+
+- [x] Visualiser
+- [ ] Editor
+- [ ] Insights
+
 ## Demos
 
 - stable version - [invana-studio.herokuapp.com](http://invana-studio.herokuapp.com/)
