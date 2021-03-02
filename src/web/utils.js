@@ -1,5 +1,7 @@
 import {RENDERING_CONFIG} from "../settings";
 
+
+
 export function getDataFromLocalStorage(itemKey, isJson) {
 
     if (isJson) {

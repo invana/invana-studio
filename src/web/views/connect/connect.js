@@ -142,7 +142,8 @@ export default class ConnectView extends React.Component {
 
             <div className={"connect"} style={{
                 paddingTop: "18.5%",
-                marginLeft: "1rem"}}>
+                marginLeft: "1rem"
+            }}>
                 <Row className={"pl-3"}>
                     <Col md={"1"} className={""} style={{"width": "4.5rem", "flex": "none"}}>
                         <FontAwesomeIcon icon={faUserAstronaut}
@@ -222,8 +223,8 @@ export default class ConnectView extends React.Component {
                                 }
                             </Form>
                             <p>
-                                <a href={STUDIO_SETTINGS.SETUP_README_URL}>Setup Instructions</a> | <a
-                                href={STUDIO_SETTINGS.DEMO_VIDEO_URL}>Watch demo</a>
+                                <a target={"_new"} href={STUDIO_SETTINGS.SETUP_README_URL}>Setup Instructions</a> |
+                                <a target={"_new"} href={STUDIO_SETTINGS.DEMO_VIDEO_URL}>Watch demo</a>
                             </p>
                             {
                                 this.state.errorMessage ? (

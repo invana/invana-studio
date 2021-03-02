@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Row, Col} from "react-bootstrap";
 import "./page-404.scss";
+import {Link} from "react-router-dom";
 
 export default class Page404Viewlet extends React.Component {
 
@@ -23,7 +24,7 @@ export default class Page404Viewlet extends React.Component {
                         {/*    &larr; go back{" "}*/}
                         {/*</a>{" "}*/}
                         {/*or*/}
-                        <a href={"/"}> &larr; go to home</a>
+                        <Link  to={"/"}>&larr; go to home</Link>
                     </p>
                 </Col>
             </Row>

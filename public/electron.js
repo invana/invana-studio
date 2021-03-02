@@ -1,15 +1,25 @@
 const {app, BrowserWindow} = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
+const electron = require('electron');
 
 let mainWindow;
+var shell = require('electron').shell;
+
+function openLinkInNewBrowser(linkString) {
+    shell.openExternal(linkString);
+
+}
 
 function createWindow() {
+    let mainScreen = electron.screen.getPrimaryDisplay();
+
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: mainScreen.size.width,
+        height: mainScreen.size.height,
         show: false,
-        // frame:false,
+        // resizable: false,
+        frame: true,
         webPreferences: {contextIsolation: true}
     });
 
@@ -19,12 +29,19 @@ function createWindow() {
     console.log("startURL", startURL)
     mainWindow.loadURL(startURL);
 
-    mainWindow.once('ready-to-show', () => mainWindow.show());
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show();
+        mainWindow.maximize();
+
+    });
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
-    mainWindow.maximize();
-    mainWindow.show();
+    mainWindow.on('new-window', function (event, url) {
+        event.preventDefault();
+        openLinkInNewBrowser(url);
+    });
+
 }
 
 app.on('ready', createWindow);
