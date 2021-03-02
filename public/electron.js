@@ -12,6 +12,7 @@ function createWindow() {
         // frame:false,
         webPreferences: {contextIsolation: true}
     });
+
     console.log("IsDev", isDev);
     const startURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html#/add')}`;
     // const startURL = isDev ? 'http://localhost:3000' : 'index.html';
@@ -22,6 +23,8 @@ function createWindow() {
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
+    mainWindow.maximize();
+    mainWindow.show();
 }
 
 app.on('ready', createWindow);
