@@ -42,7 +42,6 @@
     "electron-build:win": "./node_modules/.bin/electron-builder  --win msi zip --x64 ",
     "postinstall": "./node_modules/.bin/electron-builder install-app-deps",
     "release": "electron-builder --mac --windows --linux --publish always"
-
   },
   "eslintConfig": {
     "extends": [
