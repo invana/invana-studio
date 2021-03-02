@@ -1,6 +1,6 @@
 {
   "name": "invana-studio",
-  "version": "v0.0.1",
+  "version": "0.0.0",
   "desrciption": "Knowledge Graph Visualiser and Editor.",
   "private": true,
   "homepage": "./",
@@ -41,7 +41,7 @@
     "electron-build:mac": "./node_modules/.bin/electron-builder  --mac dmg zip",
     "electron-build:win": "./node_modules/.bin/electron-builder  --win msi zip --x64 ",
     "postinstall": "./node_modules/.bin/electron-builder install-app-deps",
-    "release": "electron-builder --mac --windows --linux --publish always"
+    "release": "electron-builder --mac --windows --linux --publish onTagOrDraft"
   },
   "eslintConfig": {
     "extends": [
