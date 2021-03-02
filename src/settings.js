@@ -9,7 +9,7 @@ export const STUDIO_SETTINGS = {
     VERSION: "alpha",
     ABOUT_TEXT: "Open source knowledge graphs visualiser, editor and insights engine.",
     REPO_URL: "https://github.com/invanalabs/graph-studio",
-    SETUP_README_URL: "https://invana.io/help.html",
+    SETUP_INSTRUCTIONS_URL: "https://invana.io/get-started.html",
     DEMO_VIDEO_URL: "https://www.youtube.com/watch?v=17Q02VV_0Tc",
     SUPPORT_URL: "https://invana.io/support",
 

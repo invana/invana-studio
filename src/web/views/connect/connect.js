@@ -223,8 +223,9 @@ export default class ConnectView extends React.Component {
                                 }
                             </Form>
                             <p>
-                                <a target={"_new"} href={STUDIO_SETTINGS.SETUP_README_URL}>Setup Instructions</a> |
-                                <a target={"_new"} href={STUDIO_SETTINGS.DEMO_VIDEO_URL}>Watch demo</a>
+                                <a target={"_new"} className={"mr-2"} href={STUDIO_SETTINGS.SETUP_INSTRUCTIONS_URL}>setup instructions</a> |
+                                <a target={"_new"} className={"mr-2"} href={STUDIO_SETTINGS.SUPPORT_URL}>support</a> |
+                                <a target={"_new"} className={"mr-2"} href={STUDIO_SETTINGS.DEMO_VIDEO_URL}>watch demo</a>
                             </p>
                             {
                                 this.state.errorMessage ? (

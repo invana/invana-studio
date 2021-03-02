@@ -81,7 +81,7 @@
       "node_modules/**/*"
     ],
     "win": {
-      "icon": "build/logo512.png",
+      "icon": "build/logo512.ico",
       "target": [
         "msi",
         "zip"
