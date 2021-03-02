@@ -6,9 +6,9 @@
   "homepage": "./",
   "main": "public/electron.js",
   "author": {
-    "name": "Ravi Raja Merugu",
-    "email": "rrmerugu@gmail.com",
-    "url": "http://github.com/rrmerugu"
+    "name": "Invana",
+    "email": "ravi@invana.io",
+    "url": "http://invana.io"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -75,7 +75,7 @@
   "build": {
     "appId": "com.electron.${name}",
     "productName": "Invana Studio",
-    "copyright": "Copyright &copy; 2021 Invana",
+    "copyright": "Copyright &copy; 2021 ${name}",
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -83,7 +83,7 @@
     "win": {
       "icon": "build/logo512.png",
       "target": [
-        "exe",
+        "msi",
         "zip"
       ]
     },
