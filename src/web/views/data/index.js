@@ -55,7 +55,7 @@ export default class DataView extends RoutableRemoteEngine {
                     <MainContent className={"main-content"}>
                         {
                             this.state.noVerticesExist === true
-                                ? <p className={"text-muted mt-5"}>No Data Exist</p>
+                                ? <p className={"text-muted mt-2 ml-2"}>No Data Exist</p>
                                 : <React.Fragment/>
                         }
                     </MainContent>

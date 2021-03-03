@@ -33,7 +33,7 @@ export default class SidebarListBase extends React.Component {
             <ListGroup variant="flush">
                 {
                     this.props.statsData.length === 0
-                        ? <ListGroup.Item className={"text-muted pt-0 pb-1"}>No vertices data found</ListGroup.Item>
+                        ? <ListGroup.Item className={"text-muted pt-0 pb-1"}>No {this.getLabelType()}s labels data found</ListGroup.Item>
                         : <React.Fragment/>
                 }
                 {
