@@ -93,7 +93,7 @@ export default class ConnectView extends React.Component {
         //     if (event.target.id === "gremlinEngine") {
         //         el.placeholder = "http://localhost:8182/gremlin";
         //     } else {
-        //         el.placeholder = "http://localhost:8000/graphql";
+        //         el.placeholder = "http://localhost:8200/graphql";
         //     }
         // }
         //
@@ -168,7 +168,7 @@ export default class ConnectView extends React.Component {
                                 <Form.Control
                                     className="mb-2 mr-2 mr-sm-2"
                                     name="connectionUrl"
-                                    placeholder="http://localhost:8000/graphql"
+                                    placeholder="http://localhost:8200/graphql"
                                     style={{width: "320px"}}
                                 />
                                 <Form.Control name="graphEngineName" value={"invana-engine"} type={"hidden"}/>
