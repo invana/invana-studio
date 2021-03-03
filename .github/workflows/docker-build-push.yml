@@ -2,8 +2,8 @@ name: Docker Build Push
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*'
 
 jobs:
   publish_docker_image:
