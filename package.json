@@ -81,14 +81,12 @@
       "node_modules/**/*"
     ],
     "win": {
-      "icon": "build/logo512.ico",
       "target": [
         "msi",
         "zip"
       ]
     },
     "linux": {
-      "icon": "build/logo512.png",
       "category": "Science",
       "target": [
         "deb",
@@ -97,7 +95,6 @@
       ]
     },
     "mac": {
-      "icon": "build/logo512.png",
       "category": "public.app-category.productivity",
       "target": [
         "dmg",
