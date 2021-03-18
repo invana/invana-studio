@@ -6,7 +6,7 @@ import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera,
-    faQuestionCircle,
+    faQuestionCircle, faStopCircle,
     faSync,
     faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -256,7 +256,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
             this.network,
             this.setStatusMessage.bind(this),
             this.flushDataState.bind(this),
-            this.reRenderVisualizer.bind(this)
+            this.reRenderVisualizer.bind(this),
+            this.setRenderingStatusEnded.bind(this),
+            this.startRenderingStatus.bind(this)
         );
     }
 
@@ -276,7 +278,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
         })
         return {nodes, edges};
     }
-
 
     processResponse(response) {
         console.log("processResponse", response, this.state.queryObject);
@@ -323,6 +324,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 // ...edgeGroups
             }
         });
+        this.canvasCtrl.startRenderingGraph();
         console.log("======, nodes", nodes);
         console.log("======, edges", edges);
         console.log(" ...this.canvasUtils.edgeGroups", this.canvasUtils.edgeGroups);
@@ -381,13 +383,15 @@ export default class ExplorerView extends RoutableRemoteEngine {
         this.setStatusMessage("Rendering the Graph.");
     }
 
-    onRenderingStatusEnded() {
+    setRenderingStatusEnded() {
         this.setState({isRenderingCanvas: false});
         this.setStatusMessage("Rendered the Graph.");
         // this.network.redraw();
+        // this.canvasCtrl.stopRenderingGraph();
         // this.network.setOptions({physics: {enabled:false}});
 
     }
+
 
     setNodeMenuPosition(x, y) {
         this.setState({
@@ -424,13 +428,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 {/*        Graph Canvas*/}
                                 {/*    </Nav.Link>*/}
                                 {/*</Nav.Item>*/}
-                                <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}
-                                            onClick={() => this.canvasCtrl.confirmRedrawCanvas()}
-                                    >
-                                        <FontAwesomeIcon icon={faSync}/>
-                                    </Button>
-                                </Nav.Item>
+
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.canvasCtrl.downloadCanvasImage()}
@@ -465,6 +463,27 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 </Nav.Item>
 
 
+                                <Nav.Item>
+
+                                    {this.state.isQuerying === true || this.state.isRenderingCanvas === true
+                                        ?
+                                        <Button size={"sm"} variant={"link"}
+                                                onClick={() => this.canvasCtrl.stopRenderingGraph()}>
+                                            <FontAwesomeIcon icon={faStopCircle}/>
+                                        </Button>
+                                        : <Button size={"sm"} variant={"link"}
+                                                  onClick={() => this.canvasCtrl.confirmRedrawCanvas()}>
+                                            <FontAwesomeIcon icon={faSync}/>
+                                        </Button>
+                                    }
+
+                                </Nav.Item>
+                                {/*<Nav.Item>*/}
+                                {/*   */}
+                                {/*</Nav.Item>*/}
+                                <Nav.Item className={"ml-3 mr-3"}>
+                                    |
+                                </Nav.Item>
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.canvasCtrl.confirmFlushCanvas()}
@@ -534,7 +553,11 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 setNetwork={this.setNetwork.bind(this)}
                                 setSelectedElementData={this.setSelectedElementData.bind(this)}
                                 setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
-                                onRenderingStatusEnded={this.onRenderingStatusEnded.bind(this)}
+                                stopRenderingGraph={() => {
+                                    if (this.canvasCtrl) {
+                                        this.canvasCtrl.stopRenderingGraph();
+                                    }
+                                }}
                             />
 
                         </CanvasComponent>
@@ -613,7 +636,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 }
                 {
                     this.state.isQuerying === true || this.state.isRenderingCanvas === true
-                        ? <LoadingDiv statusMessage={this.state.statusMessage}/>
+                        ? <LoadingDiv statusMessage={this.state.statusMessage}
+                                      stopRenderingGraph={this.canvasCtrl.stopRenderingGraph.bind(this)}
+                        />
                         : <React.Fragment/>
                 }
                 {/*<ModalContainer />*/}

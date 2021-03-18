@@ -1,14 +1,10 @@
 
-
-.aside{
+.aside {
   max-height: calc(100vh - 43px);
   width: 280px !important;
-
-
-      overflow-y: scroll;
-
-
+  overflow-y: scroll;
 }
+
 .aside::-webkit-scrollbar {
-    display: none;
+  display: none;
 }

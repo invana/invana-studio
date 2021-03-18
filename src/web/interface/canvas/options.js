@@ -20,7 +20,6 @@ const defaultOptions = {
             springLength: 220,
             springConstant: 0.18,
             avoidOverlap: 1
-
         },
         // maxVelocity: 146,
         solver: "forceAtlas2Based", // forceAtlas2Based
@@ -28,7 +27,7 @@ const defaultOptions = {
         stabilization: {
             enabled: true,
             // updateInterval: 25,
-            // iterations: 1000    // YMMV
+            iterations: 60    // YMMV
         },
         // barnesHut: {
         //     gravitationalConstant: -23000,

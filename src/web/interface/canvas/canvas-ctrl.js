@@ -9,12 +9,16 @@ export default class CanvasController {
         network,
         setStatusMessage,
         flushDataState,
-        reRenderVisualizer
+        reRenderVisualizer,
+        setRenderingStatusEnded,
+        startRenderingStatus
     ) {
         this.network = network;
         this.setStatusMessage = setStatusMessage;
         this.flushDataState = flushDataState;
         this.reRenderVisualizer = reRenderVisualizer;
+        this.setRenderingStatusEnded = setRenderingStatusEnded;
+        this.startRenderingStatus = startRenderingStatus;
     }
 
 
@@ -29,10 +33,26 @@ export default class CanvasController {
     confirmRedrawCanvas() {
         let r = window.confirm("Are you sure you want to re-draw the canvas");
         if (r === true) {
-
-            this.reRenderVisualizer();
-            this.setStatusMessage("Re-Drawing canvas successful.");
+            this.startRenderingGraph();
+            // this.setStatusMessage("Re-Drawing canvas successful.");
         }
+    }
+
+    stopRenderingGraph() {
+        console.log("stopRenderingGraph");
+        this.network.setOptions({physics: false});
+        this.setRenderingStatusEnded();
+    }
+
+    startRenderingGraph() {
+        console.log("startRenderingGraph");
+        this.network.setOptions({physics: true});
+        this.network.startSimulation();
+        this.startRenderingStatus();
+        // this.setStatusMessage("Re-Drawing canvas...");
+
+        // this.network.stabilize()
+        // this.setRenderingStatusEnded();
     }
 
 

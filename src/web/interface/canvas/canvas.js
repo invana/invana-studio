@@ -13,7 +13,8 @@ class ForceDirectedGraphCanvas extends React.Component {
         setNodeMenuPosition: PropTypes.func,
         setNetwork: PropTypes.func,
         nodes: PropTypes.array,
-        edges: PropTypes.array
+        edges: PropTypes.array,
+        stopRenderingGraph: PropTypes.func
 
 
     }
@@ -78,7 +79,7 @@ class ForceDirectedGraphCanvas extends React.Component {
                 console.log("controlNodeDragEnd Event:", params);
             },
             zoom: function (params) {
-                                console.log("params", params);
+                console.log("params", params);
 
             },
             showPopup: function (params) {
@@ -128,7 +129,13 @@ class ForceDirectedGraphCanvas extends React.Component {
             stabilized: function (params) {
                 console.log("stabilized Event:", params);
 
-                _this.props.onRenderingStatusEnded();
+                // _this.props.setRenderingStatusEnded();
+                _this.props.stopRenderingGraph();
+            },
+            stabilizationProgress: function (params) {
+                console.log("stabilizationProgress Event:", params);
+
+                // _this.props.setRenderingStatusEnded();
             }
         }
     }
