@@ -5,7 +5,7 @@ import MenuComponent from "../../ui-components/menu";
 import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCamera,
+    faCamera, faDesktop,
     faQuestionCircle, faStopCircle,
     faSync,
     faTrashAlt,
@@ -29,6 +29,7 @@ import ModalContainer from "../../ui-components/modal-container";
 import Learn from "../../viewlets/support/Learn";
 import RightContainer from "../../ui-components/right-container";
 import {getAllNodeShapes, invertColor} from "../../interface/utils";
+import CanvasDisplay from "../../viewlets/canvas-display";
 // import {setElementColorOptionsToStorage} from "../../utils";
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -486,6 +487,13 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
+                                            onClick={() => this.setRightContentName("graph-display-settings")}
+                                    >
+                                        <FontAwesomeIcon icon={faDesktop}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}
                                             onClick={() => this.canvasCtrl.confirmFlushCanvas()}
                                     >
                                         <FontAwesomeIcon icon={faTrashAlt}/>
@@ -629,6 +637,19 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                     _this.setRightContentName(null)
                                 }}
                                 startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                            />
+                        </RightContainer>
+
+                        : <React.Fragment></React.Fragment>
+                }
+                {
+                    this.state.rightContentName === "graph-display-settings"
+                        ? <RightContainer>
+                            <CanvasDisplay
+                                onClose={() => {
+                                    _this.setRightContentName(null)
+                                }}
+                                // startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                             />
                         </RightContainer>
 

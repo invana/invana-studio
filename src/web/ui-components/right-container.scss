@@ -1,11 +1,11 @@
 @import "../../config";
 
 .rightContainer {
-  width: 280px;
+  width: 320px;
   position: absolute;
   top: 65px;
   right: 0;
-  height: calc(100vh - 65px - 20px);
+  height: calc(100vh - 65px - 20px - 1px);
   //background: $lightBg;
   background: white;
   z-index: 10000000;
