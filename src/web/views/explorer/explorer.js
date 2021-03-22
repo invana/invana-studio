@@ -30,7 +30,7 @@ import Learn from "../../viewlets/support/Learn";
 import RightContainer from "../../ui-components/right-container";
 import {getAllNodeShapes, invertColor} from "../../interface/utils";
 import CanvasDisplay from "../../viewlets/canvas-display";
-// import {setElementColorOptionsToStorage} from "../../utils";
+
 
 export default class ExplorerView extends RoutableRemoteEngine {
 
@@ -53,8 +53,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
             menuPositionY: null,
 
 
-            isRenderingCanvas: null
-
+            isRenderingCanvas: null,
+            hiddenNodeLabels: [],
+            hiddenEdgeLabels: []
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
         this.canvasCtrl = null;
@@ -62,6 +63,40 @@ export default class ExplorerView extends RoutableRemoteEngine {
         this.child = React.createRef();
     }
 
+    removeItemArray(arr, value) {
+        let i = 0;
+        while (i < arr.length) {
+            if (arr[i] === value) {
+                arr.splice(i, 1);
+            } else {
+                ++i;
+            }
+        }
+        return arr;
+    }
+
+    addToHiddenLabels(labelName, labelType) {
+        if (labelType === "vertex") {
+            let hiddenNodeLabels = this.state.hiddenNodeLabels;
+            hiddenNodeLabels.push(labelName)
+            this.setState({hiddenNodeLabels})
+        } else if (labelType === "edge") {
+            let hiddenEdgeLabels = this.state.hiddenEdgeLabels;
+            hiddenEdgeLabels.push(labelName);
+            this.setState({hiddenEdgeLabels})
+        }
+    }
+
+
+    removeFromHiddenLabels(labelName, labelType) {
+        if (labelType === "vertex") {
+            let hiddenNodeLabels = this.removeItemArray(this.state.hiddenNodeLabels, labelName);
+            this.setState({hiddenNodeLabels})
+        } else if (labelType === "edge") {
+            let hiddenEdgeLabels = this.removeItemArray(this.state.hiddenEdgeLabels, labelName);
+            this.setState({hiddenEdgeLabels})
+        }
+    }
 
     getNodeColor(node) {
         const allNodeShapes = getAllNodeShapes();
@@ -417,9 +452,16 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 {super.render()}
                 <Row>
                     <Sidebar>
-                        <DataSidebarViewlet
-                            onItemClick={this.onItemClick.bind(this)}
-                            dataStore={this.dataStore}
+                        <DataSidebarViewlet  {...this.props}
+                                             onItemClick={this.onItemClick.bind(this)}
+                                             showLabelMenu={true}
+                                             dataStore={this.dataStore}
+                                             addToHiddenLabels={this.addToHiddenLabels.bind(this)}
+                                             removeFromHiddenLabels={this.removeFromHiddenLabels.bind(this)}
+                                             startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                                             hiddenNodeLabels={this.state.hiddenNodeLabels}
+                                             hiddenEdgeLabels={this.state.hiddenEdgeLabels}
+
                         />
                     </Sidebar>
                     <MainContent className={"main-content"}>
@@ -439,7 +481,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                         <FontAwesomeIcon icon={faExpand}/>
                                     </Button>
                                 </Nav.Item>
-                                                      <Nav.Item>
+                                <Nav.Item>
 
                                     {this.state.isQuerying === true || this.state.isRenderingCanvas === true
                                         ?
@@ -455,7 +497,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 </Nav.Item>
                             </Nav>
                             <Nav className="ml-auto">
-                                   <Nav.Item>
+                                <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.setRightContentName("graph-display-settings")}
                                     >
@@ -637,6 +679,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                 {/*<ModalContainer />*/}
                 {/*<LoadingDiv statusMessage={this.state.statusMessage}/>*/}
                 {/*<LoadingDiv/>*/}
+
             </DefaultLayout>)
     }
 

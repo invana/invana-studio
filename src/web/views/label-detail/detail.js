@@ -87,7 +87,7 @@ export default class LabelDetailView extends LabelDetailViewBase {
                 {super.render()}
                 <Row>
                     <Sidebar>
-                        <DataSidebarViewlet
+                        <DataSidebarViewlet t {...this.props}
                             onItemClick={this.onItemClick.bind(this)}
                             parentRemoteComponent={this}/>
                     </Sidebar>

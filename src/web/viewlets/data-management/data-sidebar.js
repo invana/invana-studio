@@ -11,13 +11,18 @@ export default class DataSidebarViewlet extends RemoteEngine {
     static propTypes = {
         parentRemoteComponent: PropTypes.object,
         onItemClick: PropTypes.func,
-        onSideBarLoadedCallBack: PropTypes.func
+        onSideBarLoadedCallBack: PropTypes.func,
+        startNewQueryInConsole: PropTypes.func,
+        addToHiddenLabels: PropTypes.func,
+        removeFromHiddenLabels: PropTypes.func,
+        showLabelMenu: PropTypes.bool
     }
 
     state = {
         verticesStats: [],
         edgeStats: [],
         queryFailure: false,
+        hoveredLabelName: null
     }
 
     processResponse(response) {
@@ -104,12 +109,14 @@ export default class DataSidebarViewlet extends RemoteEngine {
                                 </Nav>
                             </MenuComponent>
 
-                            <DataVertexManagement onItemClick={this.props.onItemClick}
+                            <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props} showLabelMenu={this.props.showLabelMenu}
                                                   statsData={this.state.verticesStats}/>
-                            <DataEdgeManagement onItemClick={this.props.onItemClick} statsData={this.state.edgeStats}/>
+                            <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props} showLabelMenu={this.props.showLabelMenu}
+                                                statsData={this.state.edgeStats}/>
 
                         </React.Fragment>
                 }
+
             </div>
         )
     }
