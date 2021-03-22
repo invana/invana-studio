@@ -425,12 +425,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     <MainContent className={"main-content"}>
                         <MenuComponent className={" bg-light border-bottom"}>
                             <Nav className="mr-auto">
-                                {/*<Nav.Item>*/}
-                                {/*    <Nav.Link>*/}
-                                {/*        Graph Canvas*/}
-                                {/*    </Nav.Link>*/}
-                                {/*</Nav.Item>*/}
-
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.canvasCtrl.downloadCanvasImage()}
@@ -458,43 +452,10 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                             <FontAwesomeIcon icon={faSync}/>
                                         </Button>
                                     }
-
                                 </Nav.Item>
-
-                                {/*<Nav.Item>*/}
-                                {/*    <Button size={"sm"} variant={"link"}>*/}
-                                {/*        <FontAwesomeIcon icon={faSearch}/> Query*/}
-                                {/*    </Button>*/}
-                                {/*</Nav.Item>*/}
-                                {/*<Nav.Item>*/}
-                                {/*    <Button size={"sm"} variant={"link"}>*/}
-                                {/*        <FontAwesomeIcon icon={faFilter}/>*/}
-                                {/*    </Button>*/}
-                                {/*</Nav.Item>*/}
-
-
                             </Nav>
                             <Nav className="ml-auto">
-                                <Nav.Item>
-                                    {/*<button className={"nav-link"}*/}
-                                    {/*        onClick={() => {*/}
-                                    {/*            const verticesFilterQuery = this.connector.requestBuilder.filterVertices("Drug", 10, 0);*/}
-                                    {/*            const queryPayload = this.connector.requestBuilder.combineQueries(verticesFilterQuery, null);*/}
-                                    {/*            this.setState({queryObject: queryPayload});*/}
-                                    {/*        }}>*/}
-                                    {/*    <FontAwesomeIcon icon={faUserAstronaut}/>*/}
-                                    {/*</button>*/}
-                                </Nav.Item>
-
-
-
-                                {/*<Nav.Item>*/}
-                                {/*   */}
-                                {/*</Nav.Item>*/}
-                                {/*<Nav.Item className={"ml-3 mr-3"}>*/}
-                                {/*    |*/}
-                                {/*</Nav.Item>*/}
-                                <Nav.Item>
+                                   <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.setRightContentName("graph-display-settings")}
                                     >
