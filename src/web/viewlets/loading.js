@@ -20,17 +20,17 @@ export default class LoadingDiv extends React.Component {
     }
 
     updateCounter() {
-        // this.setState({elapsedTime: this.state.elapsedTime + 1});
+        this.setState({elapsedTime: this.state.elapsedTime + 1});
     }
 
     componentDidMount() {
         // this.setState({elapsedTime: 0})
-        // this.timer = setInterval(this.updateCounter.bind(this), 1000)
+        this.timer = setInterval(this.updateCounter.bind(this), 1000)
     }
 
 
     componentWillUnmount() {
-        // clearInterval(this.timer);
+        clearInterval(this.timer);
     }
 
 
@@ -40,20 +40,11 @@ export default class LoadingDiv extends React.Component {
                 <h4>
                     <FontAwesomeIcon className={"fa-spin mr-2"} icon={faCircleNotch}/>
                     {this.props.statusMessage}</h4>
-                {
-                    this.state.elapsedTime > 0
-                        ? <p className={"text-muted"}>{this.state.elapsedTime}s elapsed...</p>
-                        : <span></span>
-                }
-
-
-                        <button className={"btn btn-outline-secondary btn-sm"}
-                                  onClick={() => this.props.stopRenderingGraph()}>
-
-                            <FontAwesomeIcon className={"mr-2"} icon={faStop}/> stop rendering graph
-                        </button>
-
-
+                <button className={"btn btn-outline-secondary btn-sm"}
+                        onClick={() => this.props.stopRenderingGraph()}>
+                    <FontAwesomeIcon className={"mr-2"} icon={faStop}/> stop rendering graph
+                </button>
+                <p className={"text-muted"}>{this.state.elapsedTime}s elapsed...</p>
             </div>
         )
     }
