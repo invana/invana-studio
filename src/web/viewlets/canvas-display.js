@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {faDesktop} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import defaultOptions from "../interface/canvas/options";
+import defaultOptions from "../../settings/options";
 import {setDataToLocalStorage} from "../utils";
 import {STUDIO_CONNECT_CONSTANTS} from "../../settings";
 import PropTypes from "prop-types";
@@ -32,15 +32,16 @@ export default class CanvasDisplay extends React.Component {
         setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.RENDERING_EDGES_SETTINGS, {
                 physics: this.state.studioSettings.edges.physics,
                 smooth: this.state.studioSettings.edges.smooth,
+                length: this.state.studioSettings.edges.length
             }
         );
         // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph();
+        this.props.startRenderingGraph(defaultOptions);
 
     }
 
     handleValueChange(e) {
-        console.log("handleValueChange=====", e.target.name, e.target.value);
+        console.log("handleValueChange=====", e.target.name, e.target.value, parseInt(e.target.value) === 100);
         let studioSettings = this.state.studioSettings;
         if (e.target.name === "smooth") {
             console.log("====e.target.value === \"on\"", e.target.checked === "on")
@@ -56,10 +57,15 @@ export default class CanvasDisplay extends React.Component {
         } else if (e.target.name === "roundness") {
             studioSettings.edges.smooth.roundness = parseFloat(e.target.value);
             this.updateEdgeOptionsInStorage(studioSettings)
+        } else if (e.target.name === "length") {
+
+            studioSettings.edges.length = (parseInt(e.target.value) === 100) ? "undefined" : parseInt(e.target.value);
+            this.updateEdgeOptionsInStorage(studioSettings)
         }
     }
 
     render() {
+        console.log("this.state.studioSettings.edges", this.state.studioSettings.edges);
         return (
             <Card className={"p-10 border-0"}>
                 <Card.Header><FontAwesomeIcon icon={faDesktop}/> Graph Display Settings
@@ -125,12 +131,20 @@ export default class CanvasDisplay extends React.Component {
                             </Col>
 
                         </Row>
-                        <Form.Group controlId="roundness">
-                            <Form.Label>roundness</Form.Label>
+                        <Form.Group controlId="roundness" className={"mb-1"}>
+                            <Form.Label>roundness <small>({this.state.studioSettings.edges.smooth.roundness})</small></Form.Label>
                             <Form.Control type="range" name={"roundness"}
                                           onChange={this.handleValueChange.bind(this)}
                                           min={0} max={1} step={0.05}
                                           defaultValue={this.state.studioSettings.edges.smooth.roundness}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="length">
+                            <Form.Label>length <small>({this.state.studioSettings.edges.length})</small></Form.Label>
+                            <Form.Control type="range" name={"length"}
+                                          onChange={this.handleValueChange.bind(this)}
+                                          min={100} max={1000} step={1}
+                                          defaultValue={this.state.studioSettings.edges.length}
                             />
                         </Form.Group>
                         {/*<Form.Group>*/}

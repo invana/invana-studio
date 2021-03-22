@@ -44,15 +44,16 @@ export default class CanvasController {
         this.setRenderingStatusEnded();
     }
 
-    startRenderingGraph() {
+    startRenderingGraph(newOptions) {
         console.log("startRenderingGraph");
-        this.network.setOptions({physics: true});
+        if (newOptions) {
+            this.network.setOptions(newOptions);
+        } else {
+            this.network.setOptions({physics: true});
+        }
         this.network.startSimulation();
         this.startRenderingStatus();
-        // this.setStatusMessage("Re-Drawing canvas...");
 
-        // this.network.stabilize()
-        // this.setRenderingStatusEnded();
     }
 
 

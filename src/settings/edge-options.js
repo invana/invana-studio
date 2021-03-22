@@ -1,5 +1,7 @@
 export const defaultEdgesOptions = {
     physics: true,
+    // length: undefined,
+    length: 320,
     smooth: {
         enabled: true,
         // dynamic, continuous, discrete, diagonalCross, straightCross,

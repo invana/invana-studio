@@ -140,7 +140,7 @@ export default class VisJsGraphCanvasUtils {
 
         const defaultLinkOptions = getDefaultEdgeOptions();
 
-        config.length = defaultLinkOptions.linkLength;
+        // config.length = defaultLinkOptions.linkLength;
 
         if (arrowShape === undefined) {
             /*

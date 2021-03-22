@@ -1,5 +1,5 @@
-import {getDataFromLocalStorage} from "./web/utils";
-import {defaultEdgesOptions} from "./web/interface/canvas/edge-options";
+import {getDataFromLocalStorage} from "../web/utils";
+import {defaultEdgesOptions} from "./edge-options";
 
 export const STUDIO_CONNECT_CONSTANTS = {
     INVANA_ENGINE_URL: "INVANA_ENGINE_URL",
@@ -52,7 +52,7 @@ export const GRAPH_CANVAS_SETTINGS = {
 
 
     DEFAULT_LINK_LABEL_FONT_SIZE : 12,
-    DEFAULT_LINK_LENGTH: 180,
+    // DEFAULT_LINK_LENGTH: 180,
 
     MAX_LABEL_LENGTH: 45,
     DEFAULT_NODE_IMAGE: "https://via.placeholder.com/50",

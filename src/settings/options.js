@@ -1,4 +1,4 @@
-import {STUDIO_SETTINGS} from "../../../settings";
+import {STUDIO_SETTINGS} from "./index";
 
 
 const defaultOptions = {

@@ -3,21 +3,19 @@ import "./canvas.scss";
 import VisNetworkReactComponent from "vis-network-react";
 import PropTypes from "prop-types";
 // import {STUDIO_SETTINGS} from "../../../settings";
-import defaultOptions from "./options";
+import defaultOptions from "../../../settings/options";
 
 
 class ForceDirectedGraphCanvas extends React.Component {
 
     static propTypes = {
-        resetVisualizer: PropTypes.func,
+        resetVisualizer: PropTypes.bool,
         setSelectedElementData: PropTypes.func,
         setNodeMenuPosition: PropTypes.func,
         setNetwork: PropTypes.func,
         nodes: PropTypes.array,
         edges: PropTypes.array,
         stopRenderingGraph: PropTypes.func
-
-
     }
 
     shouldComponentUpdate() {
@@ -148,6 +146,7 @@ class ForceDirectedGraphCanvas extends React.Component {
 
     render() {
         const events = this.getEvents();
+        console.log("=====defaultOptions", defaultOptions);
         return (
             <div className={"canvasContainer"}>
 

@@ -137,14 +137,14 @@ export default class NodeMenu extends React.Component {
 
     getElementColor() {
         const elementData = this.getLastSelectedNodeData();
-        console.log("elementData", elementData);
+        // console.log("elementData", elementData);
         return this.props.canvasUtils.getElementColor(elementData._label);
     }
 
     render() {
         // console.log("this.getLastSelectedNodeData()", this.getLastSelectedNodeData())
         const selectedElement = this.getLastSelectedNodeData();
-        console.log("=====selectedElement",selectedElement);
+        // console.log("=====selectedElement",selectedElement);
         return (
             <div className="nodeMenuContainer"
                  style={{"left": this.props.menuPositionX + 5, "top": this.props.menuPositionY + 5}}>

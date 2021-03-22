@@ -89,7 +89,7 @@ export function getDefaultEdgeOptions(label) {
 
     return {
         linkColor: getColorForString(label),
-        linkLength: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LENGTH,
+        // linkLength: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LENGTH,
         labelPropertyKey: GRAPH_CANVAS_SETTINGS.DefaultLinkLabelPropertyKey,
         labelFontSize: GRAPH_CANVAS_SETTINGS.DEFAULT_LINK_LABEL_FONT_SIZE,
         labelColor: GRAPH_CANVAS_SETTINGS.DefaultLinkLabelColor
