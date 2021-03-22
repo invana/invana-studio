@@ -5,7 +5,7 @@ import MenuComponent from "../../ui-components/menu";
 import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCamera, faDesktop,
+    faCamera, faDesktop, faExpand,
     faQuestionCircle, faStopCircle,
     faSync,
     faTrashAlt,
@@ -387,6 +387,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
     setRenderingStatusEnded() {
         this.setState({isRenderingCanvas: false});
         this.setStatusMessage("Rendered the Graph.");
+        this.canvasCtrl.centerGraph();
         // this.network.redraw();
         // this.canvasCtrl.stopRenderingGraph();
         // this.network.setOptions({physics: {enabled:false}});
@@ -435,6 +436,13 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                             onClick={() => this.canvasCtrl.downloadCanvasImage()}
                                     >
                                         <FontAwesomeIcon icon={faCamera}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}
+                                            onClick={() => this.canvasCtrl.centerGraph()}
+                                    >
+                                        <FontAwesomeIcon icon={faExpand}/>
                                     </Button>
                                 </Nav.Item>
 

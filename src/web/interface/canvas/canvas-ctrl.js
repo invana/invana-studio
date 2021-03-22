@@ -56,6 +56,9 @@ export default class CanvasController {
 
     }
 
+    centerGraph(){
+        this.network.fit();
+    }
 
     downloadCanvasImage() {
         // Source from:  http://stackoverflow.com/questions/18480474/how-to-save-an-image-from-canvas
