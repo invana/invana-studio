@@ -15,7 +15,9 @@ export default class DataSidebarViewlet extends RemoteEngine {
         startNewQueryInConsole: PropTypes.func,
         addToHiddenLabels: PropTypes.func,
         removeFromHiddenLabels: PropTypes.func,
-        showLabelMenu: PropTypes.bool
+        showLabelMenu: PropTypes.bool,
+        canvasCtrl: PropTypes.object,
+        reRenderVisualizer: PropTypes.object
     }
 
     state = {
@@ -109,9 +111,15 @@ export default class DataSidebarViewlet extends RemoteEngine {
                                 </Nav>
                             </MenuComponent>
 
-                            <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props} showLabelMenu={this.props.showLabelMenu}
+                            <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                  canvasCtrl={this.props.canvasCtrl}
+                                                  showLabelMenu={this.props.showLabelMenu}
+                                                  reRenderVisualizer={this.props.reRenderVisualizer}
                                                   statsData={this.state.verticesStats}/>
-                            <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props} showLabelMenu={this.props.showLabelMenu}
+                            <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                canvasCtrl={this.props.canvasCtrl}
+                                                showLabelMenu={this.props.showLabelMenu}
+                                                reRenderVisualizer={this.props.reRenderVisualizer}
                                                 statsData={this.state.edgeStats}/>
 
                         </React.Fragment>

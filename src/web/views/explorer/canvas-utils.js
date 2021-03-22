@@ -222,7 +222,7 @@ export default class VisJsGraphCanvasUtils {
         // delete vertexData.shape;
         delete vertexDataaUpdated.image;
 
-        console.log("=====renderingConfigFromStorage", vertexDataaUpdated._label, renderingConfigFromStorage)
+        // console.log("=====renderingConfigFromStorage", vertexDataaUpdated._label, renderingConfigFromStorage)
         if (allNodeShapes['bgImageShapes'].includes(vertexDataaUpdated.shape) &&
             renderingConfigFromStorage && renderingConfigFromStorage.bgImagePropertyKey) {
             const image = vertexDataaUpdated.properties[renderingConfigFromStorage.bgImagePropertyKey];
@@ -246,7 +246,7 @@ export default class VisJsGraphCanvasUtils {
         if (renderingConfigFromStorage && renderingConfigFromStorage.labelFontSize) {
             vertexDataaUpdated.font.size = renderingConfigFromStorage.labelFontSize;
         }
-        console.log("=====renderingConfigFromStorage", vertexDataaUpdated)
+        // console.log("=====renderingConfigFromStorage", vertexDataaUpdated)
 
         return vertexDataaUpdated;
     }

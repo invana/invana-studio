@@ -23,6 +23,8 @@ export default class LabelHoverOptions extends React.Component {
         removeFromHiddenLabels: PropTypes.func,
         hiddenNodeLabels: PropTypes.array,
         hiddenEdgeLabels: PropTypes.array,
+        canvasCtrl: PropTypes.object,
+        reRenderVisualizer: PropTypes.func,
 
     }
     child = React.createRef();
@@ -63,11 +65,18 @@ export default class LabelHoverOptions extends React.Component {
                             {
                                 this.checkIfLabelAlreadyHidden(this.props.hoveredLabelName, this.props.hoveredLabelType)
                                     ? <Button size={"sm"} variant={"link"}
-                                              onClick={() => this.props.removeFromHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType)}
+                                              onClick={() => {
+
+                                                  this.props.removeFromHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType)
+                                                  this.props.reRenderVisualizer();
+                                              }}
                                     > <FontAwesomeIcon icon={faEyeSlash}/>
                                     </Button>
                                     : <Button size={"sm"} variant={"link"}
-                                              onClick={() => this.props.addToHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType)}
+                                              onClick={() => {
+                                                  this.props.addToHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType);
+                                                  this.props.reRenderVisualizer();
+                                              }}
                                     > <FontAwesomeIcon icon={faEye}/>
                                     </Button>
                             }

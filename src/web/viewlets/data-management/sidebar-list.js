@@ -19,6 +19,8 @@ export default class SidebarListBase extends React.Component {
         showLabelMenu: PropTypes.bool,
         hiddenEdgeLabels: PropTypes.array,
         hiddenNodeLabels: PropTypes.array,
+        canvasCtrl: PropTypes.object,
+        reRenderVisualizer: PropTypes.object
     }
 
     constructor(props) {
@@ -135,7 +137,7 @@ export default class SidebarListBase extends React.Component {
                                     <span className={"float-right"}>
                                          {
                                              this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType())
-                                                 ? <FontAwesomeIcon icon={faEyeSlash}/>
+                                                 ? <FontAwesomeIcon className={"text-muted small"} icon={faEyeSlash}/>
                                                  : <React.Fragment/>
                                          }
 
@@ -143,17 +145,19 @@ export default class SidebarListBase extends React.Component {
 
                                     {
                                         this.state.hoveredLabelName === elementLabel.label
-                                            ? <LabelHoverOptions {...this.props}
-                                                                 hoveredLabelName={this.state.hoveredLabelName}
-                                                                 hoveredLabelType={this.getLabelType()}
-                                                                 startNewQueryInConsole={this.props.startNewQueryInConsole}
-                                                                 onClose={() => {
-                                                                     this.setState({
-                                                                         hoveredLabelName: null,
-                                                                         hoveredLabelType: null
-                                                                     })
-                                                                 }
-                                                                 }
+                                            ? <LabelHoverOptions
+                                                {...this.props}
+                                                hoveredLabelName={this.state.hoveredLabelName}
+                                                hoveredLabelType={this.getLabelType()}
+                                                startNewQueryInConsole={this.props.startNewQueryInConsole}
+                                                reRenderVisualizer={this.props.reRenderVisualizer}
+                                                onClose={() => {
+                                                    this.setState({
+                                                        hoveredLabelName: null,
+                                                        hoveredLabelType: null
+                                                    })
+                                                }}
+                                                canvasCtrl={this.props.canvasCtrl}
                                             />
                                             : <React.Fragment/>
                                     }

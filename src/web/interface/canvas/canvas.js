@@ -15,7 +15,9 @@ class ForceDirectedGraphCanvas extends React.Component {
         setNetwork: PropTypes.func,
         nodes: PropTypes.array,
         edges: PropTypes.array,
-        stopRenderingGraph: PropTypes.func
+        stopRenderingGraph: PropTypes.func,
+        hiddenNodeLabels: PropTypes.array,
+        hiddenEdgeLabels: PropTypes.array
     }
 
     shouldComponentUpdate() {

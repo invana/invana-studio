@@ -270,6 +270,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
         this.network.body.data.nodes.update(nodesPrepared)
         this.network.body.data.edges.update(edgesPrepared)
+
+
         this.setState({
             nodes: nodesPrepared, edges: edgesPrepared
         });
@@ -426,7 +428,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
         // this.network.redraw();
         // this.canvasCtrl.stopRenderingGraph();
         // this.network.setOptions({physics: {enabled:false}});
-
     }
 
 
@@ -440,6 +441,39 @@ export default class ExplorerView extends RoutableRemoteEngine {
     componentDidMount() {
         super.componentDidMount();
         this.setStatusMessage("Hello World!");
+
+    }
+
+    // allDeepEqual(things) {
+    //     // works with nested arrays
+    //     if (things.every(isArray)) {
+    //         return allCompareEqual(things.map(getLength))     // all arrays of same length
+    //             && allTrue(zip(things).map(allDeepEqual)); // elements recursively equal
+    //
+    //         //else if( this.every(isObject) )
+    //         //  return {all have exactly same keys, and for
+    //         //          each key k, allDeepEqual([o1[k],o2[k],...])}
+    //         //  e.g. ... && allTrue(objectZip(objects).map(allDeepEqual))
+    //
+    //         //else if( ... )
+    //         //  extend some more
+    //
+    //
+    //     } else {
+    //         return allCompareEqual(things);
+    //     }
+    // }
+
+    componentDidUpdate(prevProps, prevState,) {
+        if (this.state.hiddenNodeLabels.length > 0 || this.state.hiddenEdgeLabels.length > 0) {
+            if (
+                (JSON.stringify(this.state.hiddenEdgeLabels) !== JSON.stringify(prevState.hiddenEdgeLabels)
+                    || JSON.stringify(this.state.hiddenNodeLabels) !== JSON.stringify(prevState.hiddenNodeLabels))
+            ) {
+                this.canvasCtrl.hideData(this.state.hiddenNodeLabels, this.state.hiddenEdgeLabels);
+            }
+
+        }
 
     }
 
@@ -461,6 +495,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                              startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                                              hiddenNodeLabels={this.state.hiddenNodeLabels}
                                              hiddenEdgeLabels={this.state.hiddenEdgeLabels}
+                                             reRenderVisualizer={this.reRenderVisualizer.bind(this)}
+                                             canvasCtrl={this.canvasCtrl}
 
                         />
                     </Sidebar>
@@ -578,6 +614,10 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                         this.canvasCtrl.stopRenderingGraph();
                                     }
                                 }}
+
+                                hiddenNodeLabels={this.state.hiddenNodeLabels}
+                                hiddenEdgeLabels={this.state.hiddenEdgeLabels}
+
                             />
 
                         </CanvasComponent>

@@ -56,8 +56,30 @@ export default class CanvasController {
 
     }
 
-    centerGraph(){
+    centerGraph() {
         this.network.fit();
+    }
+
+    hideData(hiddenNodeLabels, hiddenEdgeLabels) {
+
+        console.log("hiddenNodeLabels", hiddenNodeLabels);
+        const allNodes = this.network.body.data.nodes;
+        const allEdges = this.network.body.data.edges;
+
+
+        allNodes.forEach((newNode) => {
+            newNode.hidden = !hiddenNodeLabels.includes(newNode.label);
+        });
+        allEdges.forEach((newEdge) => {
+            newEdge.hidden = !hiddenEdgeLabels.includes(newEdge.label);
+        });
+
+        this.startRenderingGraph();
+
+        console.log("new nodes after hiding data", allNodes.length)
+        this.network.body.data.nodes.update(allNodes);
+        this.network.body.data.edges.update(allEdges);
+
     }
 
     downloadCanvasImage() {
