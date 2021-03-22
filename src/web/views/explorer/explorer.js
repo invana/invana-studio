@@ -445,6 +445,21 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                         <FontAwesomeIcon icon={faExpand}/>
                                     </Button>
                                 </Nav.Item>
+                                                      <Nav.Item>
+
+                                    {this.state.isQuerying === true || this.state.isRenderingCanvas === true
+                                        ?
+                                        <Button size={"sm"} variant={"link"}
+                                                onClick={() => this.canvasCtrl.stopRenderingGraph()}>
+                                            <FontAwesomeIcon icon={faStopCircle}/>
+                                        </Button>
+                                        : <Button size={"sm"} variant={"link"}
+                                                  onClick={() => this.canvasCtrl.confirmRedrawCanvas()}>
+                                            <FontAwesomeIcon icon={faSync}/>
+                                        </Button>
+                                    }
+
+                                </Nav.Item>
 
                                 {/*<Nav.Item>*/}
                                 {/*    <Button size={"sm"} variant={"link"}>*/}
@@ -472,27 +487,13 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 </Nav.Item>
 
 
-                                <Nav.Item>
 
-                                    {this.state.isQuerying === true || this.state.isRenderingCanvas === true
-                                        ?
-                                        <Button size={"sm"} variant={"link"}
-                                                onClick={() => this.canvasCtrl.stopRenderingGraph()}>
-                                            <FontAwesomeIcon icon={faStopCircle}/>
-                                        </Button>
-                                        : <Button size={"sm"} variant={"link"}
-                                                  onClick={() => this.canvasCtrl.confirmRedrawCanvas()}>
-                                            <FontAwesomeIcon icon={faSync}/>
-                                        </Button>
-                                    }
-
-                                </Nav.Item>
                                 {/*<Nav.Item>*/}
                                 {/*   */}
                                 {/*</Nav.Item>*/}
-                                <Nav.Item className={"ml-3 mr-3"}>
-                                    |
-                                </Nav.Item>
+                                {/*<Nav.Item className={"ml-3 mr-3"}>*/}
+                                {/*    |*/}
+                                {/*</Nav.Item>*/}
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.setRightContentName("graph-display-settings")}
