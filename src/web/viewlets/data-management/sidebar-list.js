@@ -1,6 +1,6 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircle,  faEyeSlash, faVectorSquare} from "@fortawesome/free-solid-svg-icons";
+import {faCircle, faEyeSlash, faVectorSquare} from "@fortawesome/free-solid-svg-icons";
 import "./sidebar-list.scss";
 import {STUDIO_SETTINGS} from "../../../settings";
 import PropTypes from "prop-types";
@@ -116,9 +116,13 @@ export default class SidebarListBase extends React.Component {
 
                                         }}
                                         icon={listIcon}/>
+                                    <span style={{"color":  this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9": "inherit" }}>
                                     {elementLabel.label}
+
+                                        </span>
                                     <span style={{
-                                        "color": "#656565",
+
+                                        "color":  this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9": "#656565",
                                         "fontSize": "12px"
                                     }}>({elementLabel.count} entries)
 
@@ -126,10 +130,10 @@ export default class SidebarListBase extends React.Component {
                                     </span>
                                     <span className={"float-right"}>
                                          {
-                                            this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType())
-                                                ? <FontAwesomeIcon icon={faEyeSlash}/>
-                                                : <React.Fragment />
-                                        }
+                                             this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType())
+                                                 ? <FontAwesomeIcon icon={faEyeSlash}/>
+                                                 : <React.Fragment/>
+                                         }
 
                                     </span>
 
