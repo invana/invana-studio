@@ -49,11 +49,14 @@ export default class SidebarListBase extends React.Component {
     }
 
     checkIfLabelAlreadyHidden(hoveredLabelName, hoveredLabelType) {
-        if (hoveredLabelType === "edge") {
-            return this.props.hiddenEdgeLabels.includes(hoveredLabelName);
-        } else if (hoveredLabelType === "vertex") {
-            return this.props.hiddenNodeLabels.includes(hoveredLabelName);
+        if (this.props.hiddenEdgeLabels) {
+            if (hoveredLabelType === "edge") {
+                return this.props.hiddenEdgeLabels.includes(hoveredLabelName);
+            } else if (hoveredLabelType === "vertex") {
+                return this.props.hiddenNodeLabels.includes(hoveredLabelName);
+            }
         }
+        return false
     }
 
     render() {
@@ -116,13 +119,14 @@ export default class SidebarListBase extends React.Component {
 
                                         }}
                                         icon={listIcon}/>
-                                    <span style={{"color":  this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9": "inherit" }}>
+                                    <span
+                                        style={{"color": this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9" : "inherit"}}>
                                     {elementLabel.label}
 
                                         </span>
                                     <span style={{
 
-                                        "color":  this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9": "#656565",
+                                        "color": this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9" : "#656565",
                                         "fontSize": "12px"
                                     }}>({elementLabel.count} entries)
 
