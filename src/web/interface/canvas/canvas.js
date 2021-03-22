@@ -1,8 +1,9 @@
 import React from "react";
 import "./canvas.scss";
 import VisNetworkReactComponent from "vis-network-react";
-import defaultOptions from "./options";
 import PropTypes from "prop-types";
+// import {STUDIO_SETTINGS} from "../../../settings";
+import defaultOptions from "./options";
 
 
 class ForceDirectedGraphCanvas extends React.Component {

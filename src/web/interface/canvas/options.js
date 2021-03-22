@@ -1,3 +1,6 @@
+import {STUDIO_SETTINGS} from "../../../settings";
+
+
 const defaultOptions = {
     // layout: {
     //     hierarchical: false
@@ -9,7 +12,7 @@ const defaultOptions = {
         hover: true
     },
 
-       layout: {
+    layout: {
         // randomSeed: 100,
         hierarchical: false
     },
@@ -53,20 +56,11 @@ const defaultOptions = {
     // },
     edges: {
         // // color: "#999999",
-        physics: true,
-        smooth: {
-            enabled: false,
-            // dynamic, continuous, discrete, diagonalCross, straightCross,
-            // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
-            type: "continuous",
-            // vertical or horizontal
-            forceDirection: "vertical",
-            roundness: .5
-        },
 
+        ...STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS,
         chosen: {
             edge: function (values, id, selected, hovering) {
-                console.log("=====",  id, selected, hovering);
+                console.log("=====", id, selected, hovering);
                 values.width = 1.5 * 1.4;
             }
         },
@@ -78,7 +72,7 @@ const defaultOptions = {
         // }
         hoverWidth: function (width) {
             return width + 1;
-        }
+        },
 
 
     },

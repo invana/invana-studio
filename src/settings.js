@@ -1,7 +1,11 @@
+import {getDataFromLocalStorage} from "./web/utils";
+import {defaultEdgesOptions} from "./web/interface/canvas/edge-options";
+
 export const STUDIO_CONNECT_CONSTANTS = {
     INVANA_ENGINE_URL: "INVANA_ENGINE_URL",
     HTTP_HEADERS: "HTTP_HEADERS",
-    GRAPH_ENGINE_NAME: "GRAPH_ENGINE_NAME"
+    GRAPH_ENGINE_NAME: "GRAPH_ENGINE_NAME",
+    RENDERING_EDGES_SETTINGS: "RENDERING_EDGES_SETTINGS"
 }
 
 
@@ -16,6 +20,9 @@ export const STUDIO_SETTINGS = {
 
     CONNECTION_URL: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL),
     GRAPH_ENGINE_NAME: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME) || "invana-engine",
+
+
+    RENDERING_EDGES_SETTINGS : getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.RENDERING_EDGES_SETTINGS, true ) || defaultEdgesOptions,
 
     MANAGEMENT_VERTEX_LABEL: "InvanaManagement"
 }

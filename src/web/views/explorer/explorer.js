@@ -649,6 +649,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 onClose={() => {
                                     _this.setRightContentName(null)
                                 }}
+                                startRenderingGraph={this.canvasCtrl.startRenderingGraph.bind(this)}
+
                                 // startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                             />
                         </RightContainer>
