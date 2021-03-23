@@ -464,17 +464,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
     //     }
     // }
 
-    componentDidUpdate(prevProps, prevState,) {
-        if (this.state.hiddenNodeLabels.length > 0 || this.state.hiddenEdgeLabels.length > 0) {
-            if (
-                (JSON.stringify(this.state.hiddenEdgeLabels) !== JSON.stringify(prevState.hiddenEdgeLabels)
-                    || JSON.stringify(this.state.hiddenNodeLabels) !== JSON.stringify(prevState.hiddenNodeLabels))
-            ) {
-                this.canvasCtrl.hideData(this.state.hiddenNodeLabels, this.state.hiddenEdgeLabels);
-            }
-
-        }
-
+    componentDidUpdate() {
+        this.canvasCtrl.hideData(this.state.hiddenNodeLabels, this.state.hiddenEdgeLabels);
     }
 
     render() {
@@ -495,7 +486,6 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                              startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                                              hiddenNodeLabels={this.state.hiddenNodeLabels}
                                              hiddenEdgeLabels={this.state.hiddenEdgeLabels}
-                                             reRenderVisualizer={this.reRenderVisualizer.bind(this)}
                                              canvasCtrl={this.canvasCtrl}
 
                         />

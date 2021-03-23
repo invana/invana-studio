@@ -24,7 +24,6 @@ export default class LabelHoverOptions extends React.Component {
         hiddenNodeLabels: PropTypes.array,
         hiddenEdgeLabels: PropTypes.array,
         canvasCtrl: PropTypes.object,
-        reRenderVisualizer: PropTypes.func,
 
     }
     child = React.createRef();
@@ -68,14 +67,12 @@ export default class LabelHoverOptions extends React.Component {
                                               onClick={() => {
 
                                                   this.props.removeFromHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType)
-                                                  this.props.reRenderVisualizer();
                                               }}
                                     > <FontAwesomeIcon icon={faEyeSlash}/>
                                     </Button>
                                     : <Button size={"sm"} variant={"link"}
                                               onClick={() => {
                                                   this.props.addToHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType);
-                                                  this.props.reRenderVisualizer();
                                               }}
                                     > <FontAwesomeIcon icon={faEye}/>
                                     </Button>
@@ -96,7 +93,14 @@ export default class LabelHoverOptions extends React.Component {
                             this.props.startNewQueryInConsole
                                 ? <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
-                                            onClick={() => this.props.startNewQueryInConsole('g.V().hasLabel("' + this.props.hoveredLabelName + '")')}
+                                            onClick={() => {
+                                                if (this.props.hoveredLabelType === "edge") {
+                                                    this.props.startNewQueryInConsole('g.E().hasLabel("' + this.props.hoveredLabelName + '")')
+                                                } else if (this.props.hoveredLabelType === "vertex") {
+                                                    this.props.startNewQueryInConsole('g.V().hasLabel("' + this.props.hoveredLabelName + '")')
+                                                }
+                                            }
+                                            }
                                     >
                                         <FontAwesomeIcon icon={faTerminal}/>
                                     </Button>

@@ -3,6 +3,7 @@
  */
 
 
+
 export default class CanvasController {
 
     constructor(
@@ -65,20 +66,38 @@ export default class CanvasController {
         console.log("hiddenNodeLabels", hiddenNodeLabels);
         const allNodes = this.network.body.data.nodes;
         const allEdges = this.network.body.data.edges;
+        //
+        //
+        // let newNodes = [];
+        // let newEdges = [];
+        // allNodes.forEach((newNode) => {
+        //     newNode.hidden = hiddenNodeLabels.includes(newNode.label);
+        //     newNodes.push(newNode);
+        // });
+        // allEdges.forEach((newEdge) => {
+        //     newEdge.hidden = hiddenEdgeLabels.includes(newEdge.label);
+        //     newEdges.push(newEdge);
+        // });
 
+        const allEdgesOptions = allEdges.map(edge => ({
+            id: edge.id,
+            hidden: hiddenEdgeLabels.includes(edge._label),
+            _label: edge._label
+        }));
 
-        allNodes.forEach((newNode) => {
-            newNode.hidden = !hiddenNodeLabels.includes(newNode.label);
-        });
-        allEdges.forEach((newEdge) => {
-            newEdge.hidden = !hiddenEdgeLabels.includes(newEdge.label);
-        });
+        const allNodesOptions = allNodes.map(node => ({
+            id: node.id,
+            hidden: hiddenNodeLabels.includes(node._label),
+            _label: node._label
+        }));
+        console.log("allNodesOptions", allNodesOptions)
 
-        this.startRenderingGraph();
+        // this.startRenderingGraph();
 
-        console.log("new nodes after hiding data", allNodes.length)
-        this.network.body.data.nodes.update(allNodes);
-        this.network.body.data.edges.update(allEdges);
+        console.log("new nodes after hiding data", allNodesOptions.length)
+        this.network.body.data.nodes.update(allNodesOptions);
+        this.network.body.data.edges.update(allEdgesOptions);
+        this.network.redraw();
 
     }
 

@@ -20,8 +20,7 @@ export default class SidebarListBase extends React.Component {
         hiddenEdgeLabels: PropTypes.array,
         hiddenNodeLabels: PropTypes.array,
         canvasCtrl: PropTypes.object,
-        reRenderVisualizer: PropTypes.object
-    }
+     }
 
     constructor(props) {
         super(props);
@@ -150,7 +149,6 @@ export default class SidebarListBase extends React.Component {
                                                 hoveredLabelName={this.state.hoveredLabelName}
                                                 hoveredLabelType={this.getLabelType()}
                                                 startNewQueryInConsole={this.props.startNewQueryInConsole}
-                                                reRenderVisualizer={this.props.reRenderVisualizer}
                                                 onClose={() => {
                                                     this.setState({
                                                         hoveredLabelName: null,
