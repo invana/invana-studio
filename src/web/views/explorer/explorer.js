@@ -55,7 +55,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
             isRenderingCanvas: null,
             hiddenNodeLabels: [],
-            hiddenEdgeLabels: []
+            hiddenEdgeLabels: [],
+            nodeLabelsInCanvas: [], // unique labels of all the currently loaded data in canvas (may be hidden too)
+            edgeLabelsInCanvas: [],
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
         this.canvasCtrl = null;
@@ -373,9 +375,25 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
         console.log("this.this.network", this.network);
 
+        const updatedNodes = [...nodes, ...this.state.nodes];
+        const updatedEdges = [...edges, ...this.state.edges];
+
+        function getUniqueValues(elements) {
+            let unique = {};
+            for (let i = 0; i < elements.length; i++) {
+                if (!unique[elements[i]._label]) {
+                    unique[elements[i]._label] = 1;
+                }
+            }
+            return Object.keys(unique);
+        }
+
+        console.log("getUniqueValues(updatedNodes)", getUniqueValues(updatedNodes))
         this.setState({
-            nodes: [...nodes, ...this.state.nodes],
-            edges: [...edges, ...this.state.edges]
+            nodes: updatedNodes,
+            edges: updatedEdges,
+            nodeLabelsInCanvas: getUniqueValues(updatedNodes),
+            edgeLabelsInCanvas: getUniqueValues(updatedEdges),
         });
 
         this.startRenderingStatus();
@@ -487,7 +505,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                              hiddenNodeLabels={this.state.hiddenNodeLabels}
                                              hiddenEdgeLabels={this.state.hiddenEdgeLabels}
                                              canvasCtrl={this.canvasCtrl}
-
+                                             nodeLabelsInCanvas={this.state.nodeLabelsInCanvas}
+                                             edgeLabelsInCanvas={this.state.edgeLabelsInCanvas}
                         />
                     </Sidebar>
                     <MainContent className={"main-content"}>

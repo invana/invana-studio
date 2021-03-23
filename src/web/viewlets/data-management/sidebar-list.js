@@ -1,6 +1,6 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircle, faEyeSlash, faVectorSquare} from "@fortawesome/free-solid-svg-icons";
+import {faCircle, faEye, faEyeSlash, faVectorSquare} from "@fortawesome/free-solid-svg-icons";
 import "./sidebar-list.scss";
 import {STUDIO_SETTINGS} from "../../../settings";
 import PropTypes from "prop-types";
@@ -20,7 +20,9 @@ export default class SidebarListBase extends React.Component {
         hiddenEdgeLabels: PropTypes.array,
         hiddenNodeLabels: PropTypes.array,
         canvasCtrl: PropTypes.object,
-     }
+        edgeLabelsInCanvas: PropTypes.array,
+        nodeLabelsInCanvas: PropTypes.array,
+    }
 
     constructor(props) {
         super(props);
@@ -49,12 +51,27 @@ export default class SidebarListBase extends React.Component {
 
     }
 
-    checkIfLabelAlreadyHidden(hoveredLabelName, hoveredLabelType) {
+    checkLabelDisplaySettings(hoveredLabelName, hoveredLabelType) {
+        // "data-exist", "hidden", "data-doesnt-exist" about the label
+
+
         if (this.props.hiddenEdgeLabels) {
             if (hoveredLabelType === "edge") {
-                return this.props.hiddenEdgeLabels.includes(hoveredLabelName);
+                if (this.props.hiddenEdgeLabels.includes(hoveredLabelName)) {
+                    return "hidden";
+                } else if (this.props.edgeLabelsInCanvas.includes(hoveredLabelName)) {
+                    return "data-exist";
+                } else {
+                    return "data-doesnt-exist";
+                }
             } else if (hoveredLabelType === "vertex") {
-                return this.props.hiddenNodeLabels.includes(hoveredLabelName);
+                if (this.props.hiddenNodeLabels.includes(hoveredLabelName)) {
+                    return "hidden";
+                } else if (this.props.nodeLabelsInCanvas.includes(hoveredLabelName)) {
+                    return "data-exist";
+                } else {
+                    return "data-doesnt-exist";
+                }
             }
         }
         return false
@@ -121,25 +138,29 @@ export default class SidebarListBase extends React.Component {
                                         }}
                                         icon={listIcon}/>
                                     <span
-                                        style={{"color": this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9" : "inherit"}}>
+                                        style={{"color": this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType() === "hidden") ? "#c9c9c9" : "inherit"}}>
                                     {elementLabel.label}
 
                                         </span>
                                     <span style={{
 
-                                        "color": this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType()) ? "#c9c9c9" : "#656565",
+                                        "color": this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType() === "hidden") ? "#c9c9c9" : "#656565",
                                         "fontSize": "12px"
                                     }}>({elementLabel.count} entries)
 
 
                                     </span>
                                     <span className={"float-right"}>
-                                         {
-                                             this.checkIfLabelAlreadyHidden(elementLabel.label, this.getLabelType())
-                                                 ? <FontAwesomeIcon className={"text-muted small"} icon={faEyeSlash}/>
-                                                 : <React.Fragment/>
-                                         }
-
+                                        {
+                                            this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "hidden"
+                                                ? <FontAwesomeIcon className={"text-muted small"} icon={faEyeSlash}/>
+                                                : <React.Fragment/>
+                                        }
+                                        {
+                                            this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "data-exist"
+                                                ? <FontAwesomeIcon className={"text-muted small"} icon={faEye}/>
+                                                : <React.Fragment/>
+                                        }
                                     </span>
 
                                     {

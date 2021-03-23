@@ -17,7 +17,10 @@ export default class DataSidebarViewlet extends RemoteEngine {
         removeFromHiddenLabels: PropTypes.func,
         showLabelMenu: PropTypes.bool,
         canvasCtrl: PropTypes.object,
-     }
+        edgeLabelsInCanvas: PropTypes.array,
+        nodeLabelsInCanvas: PropTypes.array,
+
+    }
 
     state = {
         verticesStats: [],
@@ -113,11 +116,17 @@ export default class DataSidebarViewlet extends RemoteEngine {
                             <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
                                                   canvasCtrl={this.props.canvasCtrl}
                                                   showLabelMenu={this.props.showLabelMenu}
-                                                   statsData={this.state.verticesStats}/>
+                                                  statsData={this.state.verticesStats}
+                                                  nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                  edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                            />
                             <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
                                                 canvasCtrl={this.props.canvasCtrl}
                                                 showLabelMenu={this.props.showLabelMenu}
-                                                 statsData={this.state.edgeStats}/>
+                                                statsData={this.state.edgeStats}
+                                                nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                            />
 
                         </React.Fragment>
                 }
