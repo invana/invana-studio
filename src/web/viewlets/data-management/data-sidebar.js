@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Nav} from "react-bootstrap";
+import {Alert, Form, FormControl, InputGroup, Nav} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import PropTypes from "prop-types";
 import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
@@ -26,7 +26,10 @@ export default class DataSidebarViewlet extends RemoteEngine {
         verticesStats: [],
         edgeStats: [],
         queryFailure: false,
-        hoveredLabelName: null
+        hoveredLabelName: null,
+        filteredNodeStats: [],
+        filteredEdgeStats: [],
+
     }
 
     processResponse(response) {
@@ -62,17 +65,50 @@ export default class DataSidebarViewlet extends RemoteEngine {
         }
     }
 
+    searchLabels(event) {
+        const label = event.target.value;
+        let reg = new RegExp(label.split('').join('\\w*').replace(/\W/, ""), 'i');
+        const _this = this;
+
+        const vertexLabels = this.state.verticesStats.map(a => a.label);
+        const filteredNodeLabels = vertexLabels.filter(function (labelData) {
+            if (labelData.match(reg)) {
+                return labelData
+            }
+        });
+        const edgeLabels = this.state.edgeStats.map(a => a.label);
+
+        const filteredEdgeLabels = edgeLabels.filter(function (labelData) {
+            if (labelData.match(reg)) {
+                return labelData;
+            }
+        });
+
+        const filteredNodeStats = _this.state.verticesStats.filter(function (a) {
+            return filteredNodeLabels.includes(a.label)
+        });
+        const filteredEdgeStats = _this.state.edgeStats.filter(function (a) {
+            return filteredEdgeLabels.includes(a.label)
+        });
+        console.log("searchLabels", filteredNodeStats, this.state.verticesStats, vertexLabels)
+        this.setState({
+            filteredNodeStats,
+            filteredEdgeStats
+        })
+    }
 
     render() {
         return (
             <div>
-                {/*<Form className={"mb-1 mt-2"}>*/}
-                {/*    <InputGroup>*/}
-                {/*        <FormControl*/}
-                {/*            className={"mt-0 ml-3 mr-3"} size={"sm"}*/}
-                {/*            placeholder="Search nodes and edges ..."/>*/}
-                {/*    </InputGroup>*/}
-                {/*</Form>*/}
+                <Form className={"mb-1 mt-2"}>
+                    <InputGroup>
+                        <FormControl onChange={this.searchLabels.bind(this)}
+                                     className={"mt-0 ml-3 mr-3"} size={"sm"}
+                                     name={"labelsFilterKey"}
+                                     autoComplete={"off"}
+                                     placeholder={"Search nodes and edges labels ..."}/>
+                    </InputGroup>
+                </Form>
                 {
                     this.state.queryFailure === true ?
                         <Alert variant={"danger"} className={"m-3 p-2"}>
@@ -113,6 +149,31 @@ export default class DataSidebarViewlet extends RemoteEngine {
                                 </Nav>
                             </MenuComponent>
 
+
+                            {
+
+                                this.state.filteredNodeStats.length > 0 || this.state.filteredEdgeStats.length > 0
+                                    ? <div className={"border-bottom mb-3 pb-3"}>
+                                        <h6 className={"ml-3 mb-0  text-uppercase font-weight-bold small bg-light p-1"}>Filtered Labels</h6>
+                                        <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                              canvasCtrl={this.props.canvasCtrl}
+                                                              showLabelMenu={this.props.showLabelMenu}
+                                                              statsData={this.state.filteredNodeStats}
+                                                              nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                              edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                        />
+                                        <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                            canvasCtrl={this.props.canvasCtrl}
+                                                            showLabelMenu={this.props.showLabelMenu}
+                                                            statsData={this.state.filteredEdgeStats}
+                                                            nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                            edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                        />
+                                    </div>
+                                    : <React.Fragment/>
+                            }
+
+
                             <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
                                                   canvasCtrl={this.props.canvasCtrl}
                                                   showLabelMenu={this.props.showLabelMenu}
@@ -136,3 +197,4 @@ export default class DataSidebarViewlet extends RemoteEngine {
     }
 
 }
+

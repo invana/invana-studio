@@ -94,7 +94,7 @@ export default class SidebarListBase extends React.Component {
                 {/*        </HoverMenuContainer>*/}
                 {/*        : <React.Fragment/>*/}
                 {/*}*/}
-                <ListGroup variant="flush">
+                <ListGroup variant="flush" as={"ul"}>
                     {
                         this.props.statsData.length === 0
                             ? <ListGroup.Item className={"text-muted pt-0 pb-1"}>No {this.getLabelType()}s labels data
@@ -118,12 +118,19 @@ export default class SidebarListBase extends React.Component {
                                     onClick: () => this.props.onItemClick(elementLabel.label, this.getLabelType())
                                 }
                             }
+                            let listProps = {};
+                            if (this.props.hiddenEdgeLabels) {
+                                listProps = {as: "li"}
+                            }
+
                             return (
                                 <ListGroup.Item
+
+                                    {...listProps}
                                     action key={index}
                                     className={"pl-3 pb-1 pt-1"}
                                     title={"Show connected edges and vertices"}
-                                    variant={"link"}
+                                    // variant={"link"}
                                     {...itemProps}
 
                                 >
@@ -134,7 +141,6 @@ export default class SidebarListBase extends React.Component {
                                             'fontSize': '.6rem',
                                             'position': 'relative',
                                             'top': '-2px'
-
                                         }}
                                         icon={listIcon}/>
                                     <span
@@ -146,14 +152,12 @@ export default class SidebarListBase extends React.Component {
 
                                         "color": this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType() === "hidden") ? "#c9c9c9" : "#656565",
                                         "fontSize": "12px"
-                                    }}>({elementLabel.count} entries)
-
-
-                                    </span>
+                                    }}>({elementLabel.count} entries)                                    </span>
                                     <span className={"float-right"}>
                                         {
                                             this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "hidden"
-                                                ? <FontAwesomeIcon className={"text-light text- small"} icon={faEyeSlash}/>
+                                                ? <FontAwesomeIcon className={"text-light text- small"}
+                                                                   icon={faEyeSlash}/>
                                                 : <React.Fragment/>
                                         }
                                         {
