@@ -1,6 +1,6 @@
 import React from 'react';
 import DefaultLayout from "../../layout/default";
-import {Row, Nav} from "react-bootstrap";
+import {Row, Nav, Dropdown} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -512,13 +512,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     <MainContent className={"main-content"}>
                         <MenuComponent className={" bg-light border-bottom"}>
                             <Nav className="mr-auto">
-                                <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}
-                                            onClick={() => this.canvasCtrl.downloadCanvasImage()}
-                                    >
-                                        <FontAwesomeIcon icon={faCamera}/>
-                                    </Button>
-                                </Nav.Item>
+
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
                                             onClick={() => this.canvasCtrl.centerGraph()}
@@ -539,6 +533,23 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                             <FontAwesomeIcon icon={faSync}/>
                                         </Button>
                                     }
+                                </Nav.Item>
+                                                            <Nav.Item>
+                                    {/*<Button size={"sm"} variant={"link"}*/}
+                                    {/*        onClick={() => this.canvasCtrl.downloadCanvasImage()}*/}
+                                    {/*>*/}
+                                    {/*    <FontAwesomeIcon icon={faCamera}/>*/}
+                                    {/*</Button>*/}
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="link" size={"sm"}>
+                                            <FontAwesomeIcon icon={faCamera}/>
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item onClick={() => this.canvasCtrl.downloadCanvasImageAsPNG()} size={"sm"}>Save as PNG</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => this.canvasCtrl.downloadCanvasImageAsJPEG()}  size={"sm"}>Save as JPEG</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => this.canvasCtrl.downloadCanvasImageAsSVG()}  size={"sm"}>Save as SVG</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </Nav.Item>
                             </Nav>
                             <Nav className="ml-auto">

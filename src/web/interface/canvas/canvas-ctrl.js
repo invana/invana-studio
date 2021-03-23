@@ -3,7 +3,6 @@
  */
 
 
-
 export default class CanvasController {
 
     constructor(
@@ -101,7 +100,7 @@ export default class CanvasController {
 
     }
 
-    downloadCanvasImage() {
+    downloadCanvasImageAsPNG() {
         // Source from:  http://stackoverflow.com/questions/18480474/how-to-save-an-image-from-canvas
         const canvas = document.querySelector('canvas');
         const filename = "image.png";
@@ -114,7 +113,7 @@ export default class CanvasController {
         /// convert canvas content to data-uri for link. When download
         /// attribute is set the content pointed to by link will be
         /// pushed as "download" in HTML5 capable browsers
-        lnk.href = canvas.toDataURL("image/png;base64");
+        lnk.href = canvas.toDataURL("image/png;base64", 1);
 
         /// create a "fake" click-event to trigger the download
         if (document.createEvent) {
@@ -127,6 +126,111 @@ export default class CanvasController {
         } else if (lnk.fireEvent) {
             lnk.fireEvent("onclick");
         }
+    }
+
+    downloadCanvasImageAsJPEG() {
+        // Source from:  http://stackoverflow.com/questions/18480474/how-to-save-an-image-from-canvas
+        const canvas = document.querySelector('canvas');
+
+        // change non-opaque pixels to white
+        const context = canvas.getContext('2d');
+        var imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+        var data = imgData.data;
+        for (var i = 0; i < data.length; i += 4) {
+            if (data[i + 3] < 255) {
+                data[i] = 255 - data[i];
+                data[i + 1] = 255 - data[i + 1];
+                data[i + 2] = 255 - data[i + 2];
+                data[i + 3] = 255 - data[i + 3];
+            }
+        }
+        context.putImageData(imgData, 0, 0);
+
+        const filename = "image.jpg";
+        /// create an "off-screen" anchor tag
+        var lnk = document.createElement('a'), e;
+
+        /// the key here is to set the download attribute of the a tag
+        lnk.download = filename;
+
+        /// convert canvas content to data-uri for link. When download
+        /// attribute is set the content pointed to by link will be
+        /// pushed as "download" in HTML5 capable browsers
+        lnk.href = canvas.toDataURL("image/jpeg", 1);
+
+        /// create a "fake" click-event to trigger the download
+        if (document.createEvent) {
+            e = document.createEvent("MouseEvents");
+            e.initMouseEvent("click", true, true, window,
+                0, 0, 0, 0, 0, false, false, false,
+                false, 0, null);
+
+            lnk.dispatchEvent(e);
+        } else if (lnk.fireEvent) {
+            lnk.fireEvent("onclick");
+        }
+    }
+
+    downloadCanvasImageAsSVG() {
+
+
+        var svgData = document.querySelector('canvas').outerHTML;
+        var svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+        var svgUrl = URL.createObjectURL(svgBlob);
+        var downloadLink = document.createElement("a");
+        downloadLink.href = svgUrl;
+        downloadLink.download = "newesttree.svg";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+
+        // Source from:  http://stackoverflow.com/questions/18480474/how-to-save-an-image-from-canvas
+//         //get svg element.
+//         const canvas = document.querySelector('canvas');
+//
+// //get svg source.
+//         const serializer = new XMLSerializer();
+//         let source = serializer.serializeToString(canvas);
+//
+// //add name spaces.
+//         if (!source.match(/^<svg[^>]+xmlns="http\\:\/\/www\.w3\.org\/2000\/svg"/)) {
+//             source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+//         }
+//         if (!source.match(/^<svg[^>]+"http\\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+//             source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+//         }
+//
+// //add xml declaration
+//         source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+//
+// //convert svg source to URI data scheme.
+//         const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+//
+//
+//         const filename = "image.svg";
+//         /// create an "off-screen" anchor tag
+//         let lnk = document.createElement('a'), e;
+//
+//         /// the key here is to set the download attribute of the a tag
+//         lnk.download = filename;
+//
+//         /// convert canvas content to data-uri for link. When download
+//         /// attribute is set the content pointed to by link will be
+//         /// pushed as "download" in HTML5 capable browsers
+//         lnk.href = url;
+//
+//         /// create a "fake" click-event to trigger the download
+//         if (document.createEvent) {
+//             e = document.createEvent("MouseEvents");
+//             e.initMouseEvent("click", true, true, window,
+//                 0, 0, 0, 0, 0, false, false, false,
+//                 false, 0, null);
+//
+//             lnk.dispatchEvent(e);
+//         } else if (lnk.fireEvent) {
+//             lnk.fireEvent("onclick");
+//         }
     }
 
     getNewDataToAdd(newNodes, newEdges) {
