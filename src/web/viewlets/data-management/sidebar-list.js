@@ -153,12 +153,12 @@ export default class SidebarListBase extends React.Component {
                                     <span className={"float-right"}>
                                         {
                                             this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "hidden"
-                                                ? <FontAwesomeIcon className={"text-muted small"} icon={faEyeSlash}/>
+                                                ? <FontAwesomeIcon className={"text-light text- small"} icon={faEyeSlash}/>
                                                 : <React.Fragment/>
                                         }
                                         {
                                             this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "data-exist"
-                                                ? <FontAwesomeIcon className={"text-muted small"} icon={faEye}/>
+                                                ? <FontAwesomeIcon className={"text-light small"} icon={faEye}/>
                                                 : <React.Fragment/>
                                         }
                                     </span>

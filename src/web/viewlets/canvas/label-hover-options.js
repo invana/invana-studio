@@ -5,7 +5,7 @@ import {Nav} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faEye, faEyeSlash, faSnowflake, faTable, faTerminal, faTimesCircle,
+    faEye, faEyeSlash, faSnowflake,  faTerminal, faTimesCircle,
 
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -29,13 +29,13 @@ export default class LabelHoverOptions extends React.Component {
     child = React.createRef();
 
 
-    navigateToLabelDetail(hoveredLabelName, hoveredLabelType) {
-        let r = window.confirm("This will reload the view and switch the view to tables. Continue?");
-        if (r === true) {
-            const routeString = "/data/" + hoveredLabelType + "/" + hoveredLabelName;
-            this.props.history.push(routeString);
-        }
-    }
+    // navigateToLabelDetail(hoveredLabelName, hoveredLabelType) {
+    //     let r = window.confirm("This will reload the view and switch the view to tables. Continue?");
+    //     if (r === true) {
+    //         const routeString = "/data/" + hoveredLabelType + "/" + hoveredLabelName;
+    //         this.props.history.push(routeString);
+    //     }
+    // }
 
     checkIfLabelAlreadyHidden(hoveredLabelName, hoveredLabelType) {
         if (hoveredLabelType === "edge") {
@@ -79,14 +79,14 @@ export default class LabelHoverOptions extends React.Component {
                             }
 
                         </Nav.Item>
-                        <Nav.Item>
-                            <Button size={"sm"} variant={"link"}
-                                    onClick={() => this.navigateToLabelDetail(this.props.hoveredLabelName, this.props.hoveredLabelType)}
-                            >
-                                <FontAwesomeIcon icon={faTable}/>
-                                {/*<FontAwesomeIcon icon={faExternalLinkSquareAlt}/>*/}
-                            </Button>
-                        </Nav.Item>
+                        {/*<Nav.Item style={{"display": "hidden"}}>*/}
+                        {/*    <Button size={"sm"} variant={"link"}*/}
+                        {/*            onClick={() => this.navigateToLabelDetail(this.props.hoveredLabelName, this.props.hoveredLabelType)}*/}
+                        {/*    >*/}
+                        {/*        <FontAwesomeIcon icon={faTable}/>*/}
+                        {/*        /!*<FontAwesomeIcon icon={faExternalLinkSquareAlt}/>*!/*/}
+                        {/*    </Button>*/}
+                        {/*</Nav.Item>*/}
 
 
                         {
