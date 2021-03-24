@@ -1,6 +1,7 @@
 import {STUDIO_SETTINGS} from "./index";
 
 
+
 const defaultOptions = {
     // layout: {
     //     hierarchical: false
@@ -20,7 +21,7 @@ const defaultOptions = {
         forceAtlas2Based: {
             gravitationalConstant: -70,
             centralGravity: 0.005,
-            springLength: 220,
+            springLength: STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS.length,
             springConstant: 0.18,
             avoidOverlap: 1
         },
@@ -30,7 +31,7 @@ const defaultOptions = {
         stabilization: {
             enabled: true,
             // updateInterval: 25,
-            iterations: 60    // YMMV
+            iterations: 1000    // YMMV
         },
         // barnesHut: {
         //     gravitationalConstant: -23000,
