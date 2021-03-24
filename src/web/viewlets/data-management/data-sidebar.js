@@ -11,6 +11,7 @@ export default class DataSidebarViewlet extends RemoteEngine {
     static propTypes = {
         parentRemoteComponent: PropTypes.object,
         onItemClick: PropTypes.func,
+        loadElementData: PropTypes.func,
         onSideBarLoadedCallBack: PropTypes.func,
         startNewQueryInConsole: PropTypes.func,
         addToHiddenLabels: PropTypes.func,
@@ -154,16 +155,21 @@ export default class DataSidebarViewlet extends RemoteEngine {
 
                                 this.state.filteredNodeStats.length > 0 || this.state.filteredEdgeStats.length > 0
                                     ? <div className={"border-bottom mb-3 pb-3"}>
-                                        <h6 className={"ml-3 mb-0  text-uppercase font-weight-bold small bg-light p-1"}>Filtered Labels</h6>
-                                        <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
-                                                              canvasCtrl={this.props.canvasCtrl}
-                                                              showLabelMenu={this.props.showLabelMenu}
-                                                              statsData={this.state.filteredNodeStats}
-                                                              nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
-                                                              edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                        <h6 className={"ml-3 mb-0  text-uppercase font-weight-bold small bg-light p-1"}>Filtered
+                                            Labels</h6>
+                                        <DataVertexManagement
+                                            onItemClick={this.props.onItemClick} {...this.props}
+                                            loadElementData={this.props.loadElementData}
+                                            canvasCtrl={this.props.canvasCtrl}
+                                            showLabelMenu={this.props.showLabelMenu}
+                                            statsData={this.state.filteredNodeStats}
+                                            nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                            edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+
                                         />
                                         <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
                                                             canvasCtrl={this.props.canvasCtrl}
+                                                            loadElementData={this.props.loadElementData}
                                                             showLabelMenu={this.props.showLabelMenu}
                                                             statsData={this.state.filteredEdgeStats}
                                                             nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
@@ -175,6 +181,7 @@ export default class DataSidebarViewlet extends RemoteEngine {
 
 
                             <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                  loadElementData={this.props.loadElementData}
                                                   canvasCtrl={this.props.canvasCtrl}
                                                   showLabelMenu={this.props.showLabelMenu}
                                                   statsData={this.state.verticesStats}
@@ -182,6 +189,7 @@ export default class DataSidebarViewlet extends RemoteEngine {
                                                   edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
                             />
                             <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                loadElementData={this.props.loadElementData}
                                                 canvasCtrl={this.props.canvasCtrl}
                                                 showLabelMenu={this.props.showLabelMenu}
                                                 statsData={this.state.edgeStats}

@@ -415,6 +415,21 @@ export default class ExplorerView extends RoutableRemoteEngine {
     }
 
 
+
+    loadElementData(labelName, labelType) {
+        let queryPayload = {};
+        if (labelType === "vertex") {
+            queryPayload = this.connector.requestBuilder.filterVertices( labelName, 10, 0);
+        } else {
+            queryPayload = this.connector.requestBuilder.filterEdgeAndGetNeighborVertices(labelName, 10, 0);
+        }
+
+        const queryPayloadCleaned = this.connector.requestBuilder.combineQueries(queryPayload, null);
+        this.makeQuery(queryPayloadCleaned);
+        // this.makeQuery()
+    }
+
+
     removeFocusedNode(nodeId) {
         //
 
@@ -497,6 +512,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                     <Sidebar>
                         <DataSidebarViewlet  {...this.props}
                                              onItemClick={this.onItemClick.bind(this)}
+                                             loadElementData={this.loadElementData.bind(this)}
                                              showLabelMenu={true}
                                              dataStore={this.dataStore}
                                              addToHiddenLabels={this.addToHiddenLabels.bind(this)}

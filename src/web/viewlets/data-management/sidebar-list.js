@@ -15,6 +15,7 @@ export default class SidebarListBase extends React.Component {
     static propTypes = {
         statsData: PropTypes.array,
         onItemClick: PropTypes.func,
+        loadElementData: PropTypes.func,
         startNewQueryInConsole: PropTypes.func,
         showLabelMenu: PropTypes.bool,
         hiddenEdgeLabels: PropTypes.array,
@@ -173,6 +174,7 @@ export default class SidebarListBase extends React.Component {
                                                 {...this.props}
                                                 hoveredLabelName={this.state.hoveredLabelName}
                                                 hoveredLabelType={this.getLabelType()}
+                                                loadElementData={this.props.loadElementData}
                                                 startNewQueryInConsole={this.props.startNewQueryInConsole}
                                                 onClose={() => {
                                                     this.setState({

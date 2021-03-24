@@ -5,7 +5,8 @@ import {Nav} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faEye, faEyeSlash, faSnowflake,  faTerminal, faTimesCircle,
+    faCircle,
+    faEye, faEyeSlash, faSnowflake, faTerminal, faTimesCircle,
 
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -14,6 +15,7 @@ export default class LabelHoverOptions extends React.Component {
 
     static propTypes = {
         onItemClick: PropTypes.func,
+        loadElementData: PropTypes.func,
         hoveredLabelName: PropTypes.string,
         hoveredLabelType: PropTypes.string,
         history: PropTypes.object,
@@ -51,6 +53,15 @@ export default class LabelHoverOptions extends React.Component {
                 <MenuComponent className={"bg-light"}>
                     <Nav className=" ">
                         <Nav.Item>
+                            <Button size={"sm"} variant={"link"}
+                                    onClick={() => this.props.loadElementData(this.props.hoveredLabelName, this.props.hoveredLabelType)}
+
+                            >
+                                <FontAwesomeIcon icon={faCircle}/>
+                            </Button>
+                        </Nav.Item>
+
+                  <Nav.Item>
                             <Button size={"sm"} variant={"link"}
                                     onClick={() => this.props.onItemClick(this.props.hoveredLabelName, this.props.hoveredLabelType)}
 
