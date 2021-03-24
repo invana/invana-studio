@@ -33,7 +33,7 @@ const defaultOptions = {
             updateInterval: 100,
             iterations: 1000    // YMMV
         },
-        minVelocity: 0
+        minVelocity: undefined
         // barnesHut: {
         //     gravitationalConstant: -23000,
         //     centralGravity: 0,
