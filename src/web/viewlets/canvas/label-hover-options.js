@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCircle,
-    faEye, faEyeSlash, faSnowflake, faTerminal, faTimesCircle,
+    faEye, faEyeSlash, faSnowflake, faTerminal,
 
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -49,24 +49,40 @@ export default class LabelHoverOptions extends React.Component {
 
     render() {
         return (
-            <div className={"labelHoverOptions"} style={{'position': 'absolute', 'top': '0px', 'right': "0px"}}>
+            <div className={"labelHoverOptions"} style={{'position': 'absolute', 'top': '4px', 'right': "0px"}}>
                 <MenuComponent className={"bg-light"}>
                     <Nav className=" ">
-                        <Nav.Item>
-                            <Button size={"sm"} variant={"link"}
-                                    onClick={() => this.props.loadElementData(this.props.hoveredLabelName, this.props.hoveredLabelType)}
 
-                            >
-                                <FontAwesomeIcon icon={faCircle}/>
+                        {
+                            this.props.startNewQueryInConsole
+                                ? <Nav.Item>
+                                    <Button size={"sm"} variant={"link"} title={"start query with this label"}
+                                            onClick={() => {
+                                                if (this.props.hoveredLabelType === "edge") {
+                                                    this.props.startNewQueryInConsole('g.E().hasLabel("' + this.props.hoveredLabelName + '")')
+                                                } else if (this.props.hoveredLabelType === "vertex") {
+                                                    this.props.startNewQueryInConsole('g.V().hasLabel("' + this.props.hoveredLabelName + '")')
+                                                }
+                                            }
+                                            }
+                                    >
+                                        <FontAwesomeIcon icon={faTerminal}/>
+                                    </Button>
+                                </Nav.Item>
+                                : <React.Fragment/>
+                        }
+
+                        <Nav.Item>
+                            <Button size={"sm"} variant={"link"} title={"load vertices data with neighbouring edges and vertices"}
+                                    onClick={() => this.props.onItemClick(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
+                                <FontAwesomeIcon icon={faSnowflake}/>
                             </Button>
                         </Nav.Item>
 
-                  <Nav.Item>
-                            <Button size={"sm"} variant={"link"}
-                                    onClick={() => this.props.onItemClick(this.props.hoveredLabelName, this.props.hoveredLabelType)}
-
-                            >
-                                <FontAwesomeIcon icon={faSnowflake}/>
+                        <Nav.Item>
+                            <Button size={"sm"} variant={"link"} title={"load vertices data"}
+                                    onClick={() => this.props.loadElementData(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
+                                <FontAwesomeIcon icon={faCircle}/>
                             </Button>
                         </Nav.Item>
 
@@ -74,14 +90,14 @@ export default class LabelHoverOptions extends React.Component {
                         <Nav.Item>
                             {
                                 this.checkIfLabelAlreadyHidden(this.props.hoveredLabelName, this.props.hoveredLabelType)
-                                    ? <Button size={"sm"} variant={"link"}
+                                    ? <Button size={"sm"} variant={"link"} title={"show this label data"}
                                               onClick={() => {
 
                                                   this.props.removeFromHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType)
                                               }}
                                     > <FontAwesomeIcon icon={faEyeSlash}/>
                                     </Button>
-                                    : <Button size={"sm"} variant={"link"}
+                                    : <Button size={"sm"} variant={"link"} title={"hide this label data"}
                                               onClick={() => {
                                                   this.props.addToHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType);
                                               }}
@@ -100,34 +116,14 @@ export default class LabelHoverOptions extends React.Component {
                         {/*</Nav.Item>*/}
 
 
-                        {
-                            this.props.startNewQueryInConsole
-                                ? <Nav.Item>
-                                    <Button size={"sm"} variant={"link"}
-                                            onClick={() => {
-                                                if (this.props.hoveredLabelType === "edge") {
-                                                    this.props.startNewQueryInConsole('g.E().hasLabel("' + this.props.hoveredLabelName + '")')
-                                                } else if (this.props.hoveredLabelType === "vertex") {
-                                                    this.props.startNewQueryInConsole('g.V().hasLabel("' + this.props.hoveredLabelName + '")')
-                                                }
-                                            }
-                                            }
-                                    >
-                                        <FontAwesomeIcon icon={faTerminal}/>
-                                    </Button>
-                                </Nav.Item>
-                                : <React.Fragment/>
-                        }
-
-
-                        <Nav.Item className={"ml-1 mr-1"}> |</Nav.Item>
-                        <Nav.Item>
-                            <Button size={"sm"} variant={"link"}
-                                    onClick={() => this.props.onClose()}
-                            >
-                                <FontAwesomeIcon icon={faTimesCircle}/>
-                            </Button>
-                        </Nav.Item>
+                        {/*<Nav.Item className={"ml-1 mr-1"}> |</Nav.Item>*/}
+                        {/*<Nav.Item>*/}
+                        {/*    <Button size={"sm"} variant={"link"}*/}
+                        {/*            onClick={() => this.props.onClose()}*/}
+                        {/*    >*/}
+                        {/*        <FontAwesomeIcon icon={faTimesCircle}/>*/}
+                        {/*    </Button>*/}
+                        {/*</Nav.Item>*/}
                     </Nav>
                 </MenuComponent>
             </div>
