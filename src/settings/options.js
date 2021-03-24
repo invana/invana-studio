@@ -30,9 +30,10 @@ const defaultOptions = {
         // timestep: 0.55,
         stabilization: {
             enabled: true,
-            // updateInterval: 25,
+            updateInterval: 100,
             iterations: 1000    // YMMV
         },
+        minVelocity: 0
         // barnesHut: {
         //     gravitationalConstant: -23000,
         //     centralGravity: 0,
