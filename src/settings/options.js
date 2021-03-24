@@ -1,7 +1,6 @@
 import {STUDIO_SETTINGS} from "./index";
 
 
-
 const defaultOptions = {
     // layout: {
     //     hierarchical: false
@@ -86,6 +85,9 @@ const defaultOptions = {
             min: 10,
             max: 10,
         },
+        // shapeProperties: {
+        //     interpolation: false    // 'true' for intensive zooming
+        // }
     }
 }
 
