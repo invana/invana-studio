@@ -118,7 +118,9 @@ export default class VisJsGraphCanvasUtils {
 
         config.font = {
             size: defaultNodeConfig.labelFontSize,
-            color: defaultNodeConfig.labelColor
+            color: defaultNodeConfig.labelColor,
+            strokeColor: undefined,
+            strokeWidth: 0
             // bold: true
         };
         return config;
@@ -178,7 +180,9 @@ export default class VisJsGraphCanvasUtils {
 
         config.font = {
             size: defaultLinkOptions.labelFontSize,
-            color: defaultLinkOptions.labelColor
+            color: defaultLinkOptions.labelColor,
+            strokeColor: undefined,
+            strokeWidth: 0
             // bold: true
         };
         return config;

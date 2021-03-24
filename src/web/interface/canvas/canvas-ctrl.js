@@ -105,7 +105,7 @@ export default class CanvasController {
         const canvas = document.querySelector('canvas');
         const filename = "image.png";
         /// create an "off-screen" anchor tag
-        var lnk = document.createElement('a'), e;
+        let lnk = document.createElement('a'), e;
 
         /// the key here is to set the download attribute of the a tag
         lnk.download = filename;
@@ -134,9 +134,9 @@ export default class CanvasController {
 
         // change non-opaque pixels to white
         const context = canvas.getContext('2d');
-        var imgData = context.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imgData.data;
-        for (var i = 0; i < data.length; i += 4) {
+        let imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+        let data = imgData.data;
+        for (let i = 0; i < data.length; i += 4) {
             if (data[i + 3] < 255) {
                 data[i] = 255 - data[i];
                 data[i + 1] = 255 - data[i + 1];
@@ -148,7 +148,7 @@ export default class CanvasController {
 
         const filename = "image.jpg";
         /// create an "off-screen" anchor tag
-        var lnk = document.createElement('a'), e;
+        let lnk = document.createElement('a'), e;
 
         /// the key here is to set the download attribute of the a tag
         lnk.download = filename;
