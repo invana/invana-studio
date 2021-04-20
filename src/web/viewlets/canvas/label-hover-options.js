@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCircle,
-    faEye, faEyeSlash, faSnowflake, faTerminal, faTimesCircle,
+    faEye, faEyeSlash, faPlayCircle, faTerminal, faTimesCircle,
 
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -61,12 +61,12 @@ export default class LabelHoverOptions extends React.Component {
                             </Button>
                         </Nav.Item>
 
-                  <Nav.Item>
+                        <Nav.Item>
                             <Button size={"sm"} variant={"link"}
                                     onClick={() => this.props.onItemClick(this.props.hoveredLabelName, this.props.hoveredLabelType)}
 
                             >
-                                <FontAwesomeIcon icon={faSnowflake}/>
+                                <FontAwesomeIcon icon={faPlayCircle}/>
                             </Button>
                         </Nav.Item>
 
