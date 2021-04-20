@@ -154,7 +154,7 @@ export default class SidebarListBase extends React.Component {
                                         "color": this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType() === "hidden") ? "#c9c9c9" : "#656565",
                                         "fontSize": "12px"
                                     }}>({elementLabel.count} entries)                                    </span>
-                                    <span className={"float-right"}>
+                                    <span className={"float-right"} style={{"position": "relative", "right": "-12px"}}>
                                         {
                                             this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "hidden"
                                                 ? <FontAwesomeIcon className={"text-light text- small"}
@@ -170,7 +170,9 @@ export default class SidebarListBase extends React.Component {
 
                                     {
                                         this.state.hoveredLabelName === elementLabel.label
-                                            ? <LabelHoverOptions
+                                            // this.state.hoveredLabelName === null
+                                            ?
+                                            <LabelHoverOptions
                                                 {...this.props}
                                                 hoveredLabelName={this.state.hoveredLabelName}
                                                 hoveredLabelType={this.getLabelType()}
