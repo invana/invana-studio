@@ -5,9 +5,7 @@ import {Nav} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCircle,
-    faEye, faEyeSlash, faSnowflake, faTerminal,
-
+    faCircle, faEye, faEyeSlash, faPlayCircle, faTerminal,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
@@ -73,16 +71,19 @@ export default class LabelHoverOptions extends React.Component {
                         }
 
                         <Nav.Item>
-                            <Button size={"sm"} variant={"link"} title={"load vertices data with neighbouring edges and vertices"}
+                            <Button size={"sm"} variant={"link"}
+                                    title={"load vertices data with neighbouring edges and vertices"}
                                     onClick={() => this.props.onItemClick(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
-                                <FontAwesomeIcon icon={faSnowflake}/>
+                                <FontAwesomeIcon icon={faPlayCircle}/>
                             </Button>
                         </Nav.Item>
 
                         <Nav.Item>
+
                             <Button size={"sm"} variant={"link"} title={"load vertices data"}
                                     onClick={() => this.props.loadElementData(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
                                 <FontAwesomeIcon icon={faCircle}/>
+
                             </Button>
                         </Nav.Item>
 
