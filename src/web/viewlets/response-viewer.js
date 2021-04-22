@@ -22,7 +22,7 @@ export default class ResponseViewer extends React.Component {
 
                     </Card.Header>
                     <Card.Body>
-                        <pre>{JSON.stringify(this.props.responseData, null, 4)}
+                        <pre style={{"max-height": "100vh"}}>{JSON.stringify(this.props.responseData, null, 4)}
                         </pre>
 
                     </Card.Body>
