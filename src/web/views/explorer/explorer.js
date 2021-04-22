@@ -5,7 +5,7 @@ import MenuComponent from "../../ui-components/menu";
 import CanvasComponent from "../../ui-components/canvas";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCamera, faDesktop, faExpand,
+    faCamera, faDesktop, faExpand, faHistory,
     faQuestionCircle, faStopCircle,
     faSync,
     faTrashAlt,
@@ -31,6 +31,7 @@ import RightContainer from "../../ui-components/right-container";
 import {getAllNodeShapes, invertColor} from "../../interface/utils";
 import CanvasDisplay from "../../viewlets/canvas-display";
 import ResponseViewer from "../../viewlets/response-viewer";
+import RequestHistoryView from "../../viewlets/history";
 
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -334,7 +335,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
             const {nodes, edges} = this.separateNodesAndEdges(data);
             this.addNewData(nodes, edges);
             this.setState({statusCode: response.transporterStatusCode});
-            if(response.transporterStatusCode !== 200){
+            if (response.transporterStatusCode !== 200) {
                 this.setState({rightContentName: "response-viewer"})
             }
             this.setState({lastResponse: response.response});
@@ -351,7 +352,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
     addNewData(newNodes, newEdges) {
         // const id = data.nodes.length + 1;
         console.log("addNewData", newNodes);
-        if (newNodes.length === 0 && newEdges.length === 0 ){
+        if (newNodes.length === 0 && newEdges.length === 0) {
             return
         }
 
@@ -582,6 +583,13 @@ export default class ExplorerView extends RoutableRemoteEngine {
                             <Nav className="ml-auto">
                                 <Nav.Item>
                                     <Button size={"sm"} variant={"link"}
+                                            onClick={() => this.setRightContentName("request-history")}
+                                    >
+                                        <FontAwesomeIcon icon={faHistory}/>
+                                    </Button>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Button size={"sm"} variant={"link"}
                                             onClick={() => this.setRightContentName("graph-display-settings")}
                                     >
                                         <FontAwesomeIcon icon={faDesktop}/>
@@ -594,6 +602,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                         <FontAwesomeIcon icon={faTrashAlt}/>
                                     </Button>
                                 </Nav.Item>
+
                                 <Nav.Item className={"ml-3 mr-3"}>
                                     |
                                 </Nav.Item>
@@ -682,7 +691,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
                             </Nav>
                             <Nav className="ml-auto">
-                                <Nav.Item className={"mr-3"}  role="button" onClick={()=> this.setRightContentName("response-viewer")}>
+                                <Nav.Item className={"mr-3"} role="button"
+                                          onClick={() => this.setRightContentName("response-viewer")}>
                                     {
                                         this.state.statusCode
                                             ? <span>
@@ -777,6 +787,20 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                 responseData={this.state.lastResponse}
 
                                 // startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                            />
+                        </RightContainer>
+
+                        : <React.Fragment></React.Fragment>
+                }
+                {
+                    this.state.rightContentName === "request-history"
+                        ? <RightContainer>
+                            <RequestHistoryView
+                                onClose={() => {
+                                    _this.setRightContentName(null)
+                                }}
+                                makeQuery={this.makeQuery.bind(this)}
+                                startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                             />
                         </RightContainer>
 
