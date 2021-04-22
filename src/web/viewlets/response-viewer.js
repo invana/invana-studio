@@ -13,7 +13,7 @@ export default class ResponseViewer extends React.Component {
 
     render() {
         return (
-            <div>
+            <div  style={{"maxHeight": "calc(100vh - 65px - 20px - 80px)"}}>
                 <Card className={"p-10 border-0"}>
                     <Card.Header><FontAwesomeIcon icon={faDesktop}/> Response Viewer
                         <button type="button" onClick={() => this.props.onClose()}
@@ -22,7 +22,7 @@ export default class ResponseViewer extends React.Component {
 
                     </Card.Header>
                     <Card.Body>
-                        <pre style={{"max-height": "100vh"}}>{JSON.stringify(this.props.responseData, null, 4)}
+                        <pre>{JSON.stringify(this.props.responseData, null, 4)}
                         </pre>
 
                     </Card.Body>
