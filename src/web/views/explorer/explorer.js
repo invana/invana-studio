@@ -30,6 +30,7 @@ import Learn from "../../viewlets/support/Learn";
 import RightContainer from "../../ui-components/right-container";
 import {getAllNodeShapes, invertColor} from "../../interface/utils";
 import CanvasDisplay from "../../viewlets/canvas-display";
+import ResponseViewer from "../../viewlets/response-viewer";
 
 
 export default class ExplorerView extends RoutableRemoteEngine {
@@ -58,6 +59,8 @@ export default class ExplorerView extends RoutableRemoteEngine {
             hiddenEdgeLabels: [],
             nodeLabelsInCanvas: [], // unique labels of all the currently loaded data in canvas (may be hidden too)
             edgeLabelsInCanvas: [],
+
+            lastResponse: null
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
         this.canvasCtrl = null;
@@ -309,13 +312,15 @@ export default class ExplorerView extends RoutableRemoteEngine {
     separateNodesAndEdges(data) {
         let nodes = [];
         let edges = [];
-        data.forEach((datum) => {
-            if (datum.type === "g:Edge") {
-                edges.push(datum);
-            } else if (datum.type === "g:Vertex") {
-                nodes.push(datum);
-            }
-        })
+        if (data) {
+            data.forEach((datum) => {
+                if (datum.type === "g:Edge") {
+                    edges.push(datum);
+                } else if (datum.type === "g:Vertex") {
+                    nodes.push(datum);
+                }
+            })
+        }
         return {nodes, edges};
     }
 
@@ -328,7 +333,11 @@ export default class ExplorerView extends RoutableRemoteEngine {
         if (lastResponse) {
             const {nodes, edges} = this.separateNodesAndEdges(data);
             this.addNewData(nodes, edges);
-            this.setState({statusCode: response.transporterStatusCode})
+            this.setState({statusCode: response.transporterStatusCode});
+            if(response.transporterStatusCode !== 200){
+                this.setState({rightContentName: "response-viewer"})
+            }
+            this.setState({lastResponse: response.response});
         }
     }
 
@@ -342,6 +351,9 @@ export default class ExplorerView extends RoutableRemoteEngine {
     addNewData(newNodes, newEdges) {
         // const id = data.nodes.length + 1;
         console.log("addNewData", newNodes);
+        if (newNodes.length === 0 && newEdges.length === 0 ){
+            return
+        }
 
         const {newNodesToAdd, newEdgesToAdd} = this.canvasCtrl.getNewDataToAdd(
             newNodes, newEdges
@@ -415,11 +427,10 @@ export default class ExplorerView extends RoutableRemoteEngine {
     }
 
 
-
     loadElementData(labelName, labelType) {
         let queryPayload = {};
         if (labelType === "vertex") {
-            queryPayload = this.connector.requestBuilder.filterVertices( labelName, 10, 0);
+            queryPayload = this.connector.requestBuilder.filterVertices(labelName, 10, 0);
         } else {
             queryPayload = this.connector.requestBuilder.filterEdgeAndGetNeighborVertices(labelName, 10, 0);
         }
@@ -659,21 +670,32 @@ export default class ExplorerView extends RoutableRemoteEngine {
                         </CanvasComponent>
                         <MenuComponent className={"sm footer"}>
                             <Nav className="mr-auto">
-                                <Nav.Item className={"mr-3 ml-2"}>
+                                <Nav.Item className={"mr-2 ml-2"}>
+                                    {this.state.nodes.length} nodes, {this.state.edges.length} edges
+                                </Nav.Item>
+                                <Nav.Item className={"mr-2 text-muted"}>
+                                    |
+                                </Nav.Item>
+                                <Nav.Item className={"mr-3"}>
                                     {this.state.statusMessage}
                                 </Nav.Item>
-                                <Nav.Item>
+
+                            </Nav>
+                            <Nav className="ml-auto">
+                                <Nav.Item className={"mr-3"}>
                                     {
                                         this.state.statusCode
-                                            ? <span>{this.state.statusCode} response</span>
+                                            ? <span>
+                                                <span style={{
+                                                    'background': ` ${this.state.statusCode === 200 ? 'green' : 'red'}`,
+                                                    "color": "white",
+                                                    "paddingLeft": "3px",
+                                                    "paddingRight": "3px"
+                                                }}>
+                                                {this.state.statusCode}</span> response</span>
                                             : <span></span>
                                     }
 
-                                </Nav.Item>
-                            </Nav>
-                            <Nav className="ml-auto">
-                                <Nav.Item className={"mr-2"}>
-                                    {this.state.nodes.length} nodes, {this.state.edges.length} edges
                                 </Nav.Item>
                             </Nav>
                         </MenuComponent>
@@ -738,6 +760,21 @@ export default class ExplorerView extends RoutableRemoteEngine {
                                     _this.setRightContentName(null)
                                 }}
                                 startRenderingGraph={this.canvasCtrl.startRenderingGraph.bind(this)}
+
+                                // startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                            />
+                        </RightContainer>
+
+                        : <React.Fragment></React.Fragment>
+                }
+                {
+                    this.state.rightContentName === "response-viewer"
+                        ? <RightContainer>
+                            <ResponseViewer
+                                onClose={() => {
+                                    _this.setRightContentName(null)
+                                }}
+                                responseData={this.state.lastResponse}
 
                                 // startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                             />
