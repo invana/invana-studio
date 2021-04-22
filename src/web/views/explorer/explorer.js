@@ -682,7 +682,7 @@ export default class ExplorerView extends RoutableRemoteEngine {
 
                             </Nav>
                             <Nav className="ml-auto">
-                                <Nav.Item className={"mr-3"}>
+                                <Nav.Item className={"mr-3"} onClick={()=> this.setRightContentName("response-viewer")}>
                                     {
                                         this.state.statusCode
                                             ? <span>
