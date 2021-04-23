@@ -4,10 +4,11 @@ import React from "react";
 // import "./history.scss";
 import PropTypes from "prop-types";
 import {getDataFromLocalStorage} from "../utils";
-import {historyLocalStorageKey} from "../../config";
+
 import {Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDesktop, faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import {HISTORY_SETTINGS} from "../../settings";
 
 export default class RequestHistoryView extends React.Component {
 
@@ -34,7 +35,7 @@ export default class RequestHistoryView extends React.Component {
 
 
     render() {
-        const existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
+        const existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.historyLocalStorageKey, true) || [];
         const historyToShow = existingHistory.filter(item => item.source !== "internal");
         return (
 

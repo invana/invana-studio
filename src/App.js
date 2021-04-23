@@ -9,6 +9,7 @@ import DataView from "./web/views/data";
 import LabelDetailView from "./web/views/label-detail/detail";
 import VertexDetailView from "./web/views/vertex-detail";
 import './web/index.scss';
+import ConsoleView from "./web/views/console/console";
 
 export default class App extends React.Component {
     render() {
@@ -19,6 +20,7 @@ export default class App extends React.Component {
                         <Route exact path="/" component={IndexView}/>
                         <Route exact path="/explorer" component={ExplorerView}/>
                         <Route exact path="/data" component={DataView}/>
+                        <Route exact path="/console" component={ConsoleView}/>
 
                         {/*// Redirect with matched parameters*/}
                         {/*<Switch>*/}
