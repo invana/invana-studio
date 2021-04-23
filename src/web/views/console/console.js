@@ -1,12 +1,12 @@
 import React from "react";
-
 import "./console.scss";
 import RawResponsesCanvas from "../../viewlets/raw-response/raw-response";
 import {STUDIO_SETTINGS} from "../../../settings";
 import {Form} from "react-bootstrap";
 import DefaultLayout from "../../layout/default";
+import RoutableRemoteEngine from "../../layout/routable-remote";
 
-export default class ConsoleView extends React.Component {
+export default class ConsoleView extends RoutableRemoteEngine{
 
     constructor(props) {
         super(props);
