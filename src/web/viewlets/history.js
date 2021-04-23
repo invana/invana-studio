@@ -54,7 +54,7 @@ export default class RequestHistoryView extends React.Component {
                                 {
                                     historyToShow.filter(item => item.query.queryKey === "rawQuery").map((existingHistoryItem, i) => {
                                         return (
-                                            <li className={"list-group-item border-bottom pl-0 pr-0"} key={i}>
+                                            <li className={"list-group-item border-bottom pl-0 pr-0 pt-0"} key={i}>
                                                 <pre className={"mb-0 p-2"} style={{
                                                     "backgroundColor": "#efefef",
                                                 }}>{this.extractRawQuery(existingHistoryItem.query)}</pre>
