@@ -22,7 +22,7 @@ export default class RawResponsesCanvas extends React.Component {
         console.log("====raw responses", this.props.response);
         let data = {}
 
-        data = this.props.response.result;
+        data = this.props.response;
 
         if (data !== null) {
 
