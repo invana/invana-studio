@@ -18,11 +18,11 @@ export default class LabelDetailHeader extends React.Component {
             <React.Fragment>
                 <Row>
                     <Col size={"12"} className={"bg-light"}>
-                        <MenuComponent className={"pl-2"}>
+                        <MenuComponent className={"pl-2  border-bottom"}>
                             <Nav className="mr-auto">
                                 <Nav.Item>
                                     <h2 style={{"fontSize": "1.3rem"}}
-                                        className={" mb-0 mr-3 mt-4"}><strong>{this.props.match.params.labelName}</strong></h2>
+                                        className={" mb-2 mr-3 mt-4"}><strong>{this.props.match.params.labelName}</strong></h2>
                                 </Nav.Item>
                                 {/*<Nav.Item>*/}
                                 {/*    <ButtonGroup>*/}
