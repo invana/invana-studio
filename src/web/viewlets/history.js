@@ -33,7 +33,6 @@ export default class RequestHistoryView extends React.Component {
     }
 
 
-
     render() {
         const existingHistory = getDataFromLocalStorage(historyLocalStorageKey, true) || [];
         const historyToShow = existingHistory.filter(item => item.source !== "internal");
