@@ -1,9 +1,11 @@
 import React from "react";
-import {Alert, Form, FormControl, InputGroup, Nav} from "react-bootstrap";
+import {Alert,  Form, FormControl, InputGroup, Nav} from "react-bootstrap";
 import MenuComponent from "../../ui-components/menu";
 import PropTypes from "prop-types";
 import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
 import RemoteEngine from "../../layout/remote";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faSync} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class DataSidebarViewlet extends RemoteEngine {
@@ -54,9 +56,7 @@ export default class DataSidebarViewlet extends RemoteEngine {
         }
     }
 
-
-    componentDidMount() {
-        super.componentDidMount();
+    refreshData(){
         if (this.connector) {
             const verticesStateQuery = this.connector.requestBuilder.getVerticesLabelStats();
             const edgesStatsQuery = this.connector.requestBuilder.getEdgesLabelStats();
@@ -64,6 +64,12 @@ export default class DataSidebarViewlet extends RemoteEngine {
             console.log("queryPayload", queryPayload);
             this.makeQuery(queryPayload);
         }
+
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        this.refreshData();
     }
 
     searchLabels(event) {
@@ -145,8 +151,10 @@ export default class DataSidebarViewlet extends RemoteEngine {
                                 <strong>{this.state.edgeStats.length}</strong> Edges
                             </span>
                                     </Nav.Item>
+
                                 </Nav>
                                 <Nav className="ml-auto">
+                                    <button className={"btn btn-link p-0 mr-3 small"} onClick={()=> this.refreshData()}><FontAwesomeIcon icon={faSync}/> </button>
                                 </Nav>
                             </MenuComponent>
 
