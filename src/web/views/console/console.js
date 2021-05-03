@@ -93,6 +93,7 @@ export default class ConsoleView extends RoutableRemoteEngine{
                                         response={response}/>
                                 })
                             }
+                            <div className="clearfix"/>
                         </div>
                     </div>
                 </div>

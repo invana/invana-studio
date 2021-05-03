@@ -30,7 +30,7 @@ export default class RequestHistoryView extends React.Component {
     };
 
     extractRawQuery(graphQLQuery) {
-        return graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0].replace(/(^"|"$)/g, '');
+        return graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0].replace(/(^"|"$)/g, '').replace(/\\"/g, "\"");
     }
 
 
