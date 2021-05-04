@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faAddressBook,
     faCog,
-    faDatabase,
+    faDatabase, faProjectDiagram,
     faQuestionCircle,
     faSearch
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,10 +21,10 @@ export default class MainNav extends React.Component {
                 <ul className="nav nav-pills flex-column mb-auto align-items-start   text-center">
                     <li className="nav-item ">
                         <a href="/explorer"
-                           className="nav-link   d-flex align-items-start pt-3 pb-3 justify-content-center flex-column active  border-bottom"
+                           className="nav-link d-flex align-items-start pt-3 pb-3 justify-content-center flex-column border-top  border-bottom"
                            title="" data-bs-toggle="tooltip"
                            data-bs-placement="right" data-bs-original-title="Explore">
-                            <FontAwesomeIcon icon={faSearch}/>
+                            <FontAwesomeIcon icon={faProjectDiagram}/>
                             {/*<small>Explore</small>*/}
 
                         </a>
@@ -63,15 +63,20 @@ export default class MainNav extends React.Component {
                     {/*    </a>*/}
                     {/*</li>*/}
                 </ul>
-                <div className="dropdown border-top">
-                    <a href="/"
-                       className="d-flex align-items-center justify-content-center pt-3 pb-3 link-dark text-decoration-none  "
-                    >
+                <div className="">
+                    <a href="https://docs.invana.io" target={"_new"}
+                       className="d-flex align-items-center justify-content-center
+                        pt-3 pb-3 link-dark text-decoration-none  ">
                         <FontAwesomeIcon icon={faQuestionCircle}/>
-
                     </a>
-
                 </div>
+                {/*<div className="border-top">*/}
+                {/*    <a href="/" style={{"height": "23px"}}*/}
+                {/*       className="d-flex align-items-center justify-content-center*/}
+                {/*          link-dark text-decoration-none  ">*/}
+                {/*        <FontAwesomeIcon icon={faQuestionCircle}/>*/}
+                {/*    </a>*/}
+                {/*</div>*/}
             </div>
 
         )

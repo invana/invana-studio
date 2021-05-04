@@ -2,7 +2,7 @@ import './App.scss';
 import React, {Suspense} from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Page404View from "./views/page-404";
-import Explorer from "./views/explorer";
+import Explorer from "./views/explorer/explorer";
 import IndexView from "./views";
 import LabelView from "./views/data";
 import DataManagementView from "./views/data";
