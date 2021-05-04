@@ -1,45 +1,14 @@
-import React, {Suspense} from "react";
-import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
-import ConnectView from "./web/views/connect/connect";
-import Page404View from "./web/views/page-404/page-404";
-import IndexView from "./web/views";
-import ExplorerView from "./web/views/explorer/explorer";
-import DataView from "./web/views/data";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import LabelDetailView from "./web/views/label-detail/detail";
-import VertexDetailView from "./web/views/vertex-detail";
-import './web/index.scss';
-import ConsoleView from "./web/views/console/console";
+import './App.scss';
+import DefaultLayout from "./ui-components/layout/default-layout";
+import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default class App extends React.Component {
-    render() {
-        return (
-            <Router>
-                <Suspense fallback={<div style={{color: "white"}}>Loading...</div>}>
-                    <Switch>
-                        <Route exact path="/" component={IndexView}/>
-                        <Route exact path="/explorer" component={ExplorerView}/>
-                        <Route exact path="/data" component={DataView}/>
-                        <Route exact path="/console" component={ConsoleView}/>
-
-                        {/*// Redirect with matched parameters*/}
-                        {/*<Switch>*/}
-                        {/*    <Redirect from="/vertex/label/:labelName" to="/vertex/label/:labelName/entries"/>*/}
-                        {/*</Switch>*/}
-                        <Route exact path="/data/:labelType/:labelName/:viewType" component={LabelDetailView}/>
-
-                        <Redirect exact from="/data/:labelType/:labelName" to="/data/:labelType/:labelName/entries"/>
-
-
-                        <Route exact path="/vertex/:vertexId" component={VertexDetailView}/>
-                        {/*<Route exact path="/schema" component={SchemaView}/>*/}
-                        <Route exact path="/connect" component={ConnectView}/>
-                        <Route component={Page404View}/>
-                    </Switch>
-                </Suspense>
-            </Router>
-        );
-    }
+function App() {
+    return (
+        <div className="App">
+            <DefaultLayout/>
+        </div>
+    );
 }
 
-
+export default App;
