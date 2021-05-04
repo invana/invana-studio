@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Row, Col} from "react-bootstrap";
+import {Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import DefaultLayout from "../ui-components/layout/default-layout";
 

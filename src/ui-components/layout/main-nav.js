@@ -3,9 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faAddressBook,
     faCog,
-    faCogs,
     faDatabase,
-    faHome,
     faQuestionCircle,
     faSearch
 } from "@fortawesome/free-solid-svg-icons";

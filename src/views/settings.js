@@ -1,5 +1,5 @@
 import React from "react";
-import {Row, Col} from "react-bootstrap";
+import {Col} from "react-bootstrap";
 import DefaultLayout from "../ui-components/layout/default-layout";
 
 export default class SettingsView extends React.Component {
