@@ -1,0 +1,15 @@
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  font-size: 14px;
+}
+
+// normalise code
+.nav-pills .nav-link {
+  border-radius: 0 !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #007bff;
+}
