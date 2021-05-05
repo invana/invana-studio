@@ -13,15 +13,16 @@ export default class MainNav extends React.Component {
     render() {
         return (
             <div className="d-flex flex-column bg-light border-right" style={{"width": "50px", "height": "100vh"}}>
-                <a href="/" className="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip"
+                <a href="/" className="d-block p-3 px-auto text-dark text-decoration-none border-bottom" title=""
+                   data-bs-toggle="tooltip"
                    data-bs-placement="right" data-bs-original-title="Icon-only">
                     <FontAwesomeIcon icon={faAddressBook}/>
 
                 </a>
-                <ul className="nav nav-pills flex-column mb-auto align-items-start   text-center">
+                <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
                     <li className="nav-item ">
                         <a href="/explorer"
-                           className="nav-link d-flex align-items-start pt-3 pb-3 justify-content-center flex-column border-top  border-bottom"
+                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
                            title="" data-bs-toggle="tooltip"
                            data-bs-placement="right" data-bs-original-title="Explore">
                             <FontAwesomeIcon icon={faProjectDiagram}/>
@@ -31,7 +32,7 @@ export default class MainNav extends React.Component {
                     </li>
                     <li className="nav-item ">
                         <a href="/data"
-                           className="nav-link d-flex align-items-start  pt-3 pb-3  justify-content-center flex-column  border-bottom"
+                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
                            title="" data-bs-toggle="tooltip"
                            data-bs-placement="right" data-bs-original-title="Data">
                             <FontAwesomeIcon icon={faDatabase}/>
@@ -41,7 +42,7 @@ export default class MainNav extends React.Component {
                     </li>
                     <li className="nav-item ">
                         <a href="/settings"
-                           className="nav-link d-flex align-items-start pt-3 pb-3 justify-content-center flex-column  border-bottom"
+                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
                            title="" data-bs-toggle="tooltip"
                            data-bs-placement="right" data-bs-original-title="Orders">
                             <FontAwesomeIcon icon={faCog}/>
@@ -66,7 +67,7 @@ export default class MainNav extends React.Component {
                 <div className="">
                     <a href="https://docs.invana.io" target={"_new"}
                        className="d-flex align-items-center justify-content-center
-                        pt-3 pb-3 link-dark text-decoration-none  ">
+                        pt-3 pb-1  px-auto  text-dark text-decoration-none  ">
                         <FontAwesomeIcon icon={faQuestionCircle}/>
                     </a>
                 </div>
