@@ -1,7 +1,15 @@
 import React from "react";
 import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCog, faDatabase, faHistory, faList, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCog,
+    faDatabase,
+    faDownload, faExpand,
+    faHistory,
+    faList,
+    faSearch,
+    faWindowMaximize
+} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class Canvas extends React.Component {
@@ -26,30 +34,32 @@ export default class Canvas extends React.Component {
                             {/*</span>*/}
                             <Form inline>
 
-                            <Form.Control
-                                autocomplete={"off"}
-                                className=" mt-1 ml-2 flex-fill rounded-0"
-                                id="inlineFormInputName2"
-                                type={"text"}
-                                placeholder="Ctrl + / to start gremlin query"
-                            />
-                            <Button type="submit" variant={"primary"}
-                                    className="mt-1 pl-3 pr-3 rounded-0 ">
-                                <FontAwesomeIcon icon={faSearch}/>
-                            </Button>
+                                <Form.Control
+                                    autoComplete={"off"}
+                                    className=" mt-1 ml-2 flex-fill rounded-0 border-top-0
+                                    border-left-0 border-right-0"
+                                    id="inlineFormInputName2"
+                                    style={{"maxWidth": "320px"}}
+                                    type={"text"}
+                                    placeholder="Ctrl + / to start gremlin query"
+                                />
+                                {/*<Button type="submit" variant={"primary"}*/}
+                                {/*        className="mt-1 pl-3 pr-3 rounded-0 ">*/}
+                                {/*    <FontAwesomeIcon icon={faSearch}/>*/}
+                                {/*</Button>*/}
 
-                            {/*<InputGroup>*/}
-                            {/*    <InputGroup.Prepend>*/}
-                            {/*        <Button variant="outline-secondary" className={" ml-2"}><FontAwesomeIcon icon={faList}/></Button>*/}
-                            {/*    </InputGroup.Prepend>*/}
-                            {/*    <FormControl className={" flex-fill"}*/}
-                            {/*                 placeholder="Ctrl + / to start gremlin query"*/}
-                            {/*    />*/}
-                            {/*    <InputGroup.Append>*/}
-                            {/*        <Button variant="outline-secondary"><FontAwesomeIcon icon={faHistory}/></Button>*/}
-                            {/*        <Button variant="outline-secondary"><FontAwesomeIcon icon={faSearch}/></Button>*/}
-                            {/*    </InputGroup.Append>*/}
-                            {/*</InputGroup>*/}
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <Button variant="outline-secondary" className={" ml-2"}><FontAwesomeIcon icon={faList}/></Button>
+                                    </InputGroup.Prepend>
+                                    <FormControl className={" flex-fill"}
+                                                 placeholder="Ctrl + / to start gremlin query"
+                                    />
+                                    <InputGroup.Append>
+                                        <Button variant="outline-secondary"><FontAwesomeIcon icon={faHistory}/></Button>
+                                        <Button variant="outline-secondary"><FontAwesomeIcon icon={faSearch}/></Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
 
 
                             </Form>
@@ -60,55 +70,26 @@ export default class Canvas extends React.Component {
                             <ul className="nav nav-pills nav-canvas d-flex justify-content-end   text-center">
                                 <li className="nav-item ">
                                     <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column  border-right">
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
                                         <FontAwesomeIcon icon={faHistory}/>
                                     </Button>
                                 </li>
                                 <li className="nav-item ">
                                     <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column  border-right">
-                                        <FontAwesomeIcon icon={faDatabase}/>
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1 pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faDownload}/>
+                                    </Button>
+                                </li>
+
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faExpand}/>
                                     </Button>
                                 </li>
                                 <li className="nav-item ">
                                     <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column  border-right">
-                                        <FontAwesomeIcon icon={faCog}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column  border-right">
-                                        <FontAwesomeIcon icon={faSearch}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column  border-right">
-                                        <FontAwesomeIcon icon={faDatabase}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column border-right">
-                                        <FontAwesomeIcon icon={faCog}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column  border-right">
-                                        <FontAwesomeIcon icon={faSearch}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column  border-right">
-                                        <FontAwesomeIcon icon={faDatabase}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-1 pb-1 justify-content-center flex-column ">
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1 pr-2 pl-2 justify-content-center flex-column ">
                                         <FontAwesomeIcon icon={faCog}/>
                                     </Button>
                                 </li>
