@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
+    faBars,
     faCamera,
     faCog,
     faDatabase, faDesktop,
@@ -21,6 +22,7 @@ export default class Canvas extends React.Component {
 
             <div className="d-flex  flex-column" style={{"height": "100%"}}>
                 <div className="" style={{"height": "calc(100% - 24px)"}}>
+
                     {/* top section starts here */}
                     <div className={"d-flex position-absolute"}
                          style={{"width": "420px", "top": "26px"}}>
@@ -34,6 +36,12 @@ export default class Canvas extends React.Component {
 
                             {/*</span>*/}
                             <ul className="nav nav-pills nav-canvas d-flex justify-content-start text-center pt-2 pb-1 ml-2 border border-bottom-0">
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faBars}/>
+                                    </Button>
+                                </li>
                                 <li className="nav-item ">
                                     <Button type="button" variant={"link"}
                                             className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
@@ -120,6 +128,7 @@ export default class Canvas extends React.Component {
 
                     </div>
                     {/* top section ends here */}
+
                 </div>
                 <div style={{"height": "24px"}} className={"pl-2 pr-2 border-top"}>Footer comes here</div>
                 {/*<div className="p-2 bd-highlight">Flex item</div>*/}
