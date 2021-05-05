@@ -23,7 +23,7 @@ export default class Canvas extends React.Component {
                 <div className="" style={{"height": "calc(100% - 24px)"}}>
                     {/* top section starts here */}
                     <div className={"d-flex position-absolute"}
-                         style={{"width": "420px", "top": "20px"}}>
+                         style={{"width": "420px", "top": "26px"}}>
                         <div className={" flex-fill ml-3"}>
                             {/*<FontAwesomeIcon icon={faSearch} className={"mr-2 ml-2 mt-2"}/>*/}
 

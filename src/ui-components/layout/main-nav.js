@@ -7,16 +7,20 @@ import {
     faQuestionCircle,
     faSearch
 } from "@fortawesome/free-solid-svg-icons";
+import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
 
 export default class MainNav extends React.Component {
 
     render() {
         return (
             <div className="d-flex flex-column bg-light border-right" style={{"width": "50px", "height": "100vh"}}>
-                <a href="/" className="d-block p-3 px-auto text-dark text-decoration-none border-bottom" title=""
+                <a href="/" className="d-block px-auto pt-2 pb-2 text-dark text-decoration-none border-bottom" title=""
                    data-bs-toggle="tooltip"
                    data-bs-placement="right" data-bs-original-title="Icon-only">
-                    <FontAwesomeIcon icon={faAddressBook}/>
+
+                    <div className={"text-center"}><FontAwesomeIcon size={'3x'} icon={faPiedPiper}/></div>
+
+                    {/*<div className={"font-weight-bold pl-1"}>Invana Studio</div>*/}
 
                 </a>
                 <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
