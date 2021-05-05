@@ -1,6 +1,6 @@
 import React from "react";
 import DefaultLayout from "../../ui-components/layout/default-layout";
-import Canvas from "./canvas";
+import Canvas from "../../viewlets/canvas/canvas";
 
 
 export default class Explorer extends React.Component {

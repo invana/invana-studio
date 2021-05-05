@@ -1,15 +1,14 @@
 import React from "react";
-import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCamera,
     faCog,
-    faDatabase, faDesktop,
+    faDesktop,
     faDownload, faExpand,
     faHistory,
-    faList,
-    faSearch, faSync, faTrash,
-    faWindowMaximize
+    faSync, faTrash,
+
 } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -88,13 +87,20 @@ export default class Canvas extends React.Component {
 
                                 <Form.Control
                                     autoComplete={"off"}
-                                    className=" ml-2 flex-fill rounded-0 border-top-0
-                                    "
+                                    className=" ml-2 flex-fill rounded-0 border-top-0                                    "
                                     id="inlineFormInputName2"
                                     style={{"maxWidth": "400px"}}
                                     type={"text"}
                                     placeholder="Ctrl + / to start gremlin query"
                                 />
+                                <Form.Control as={"textarea"}
+                                              autoComplete={"off"}
+                                              className=" ml-2 flex-fill rounded-0 border-top-0                                    "
+                                              style={{"maxWidth": "400px"}}
+                                              type={"text"}
+                                              placeholder="Ctrl + / to start gremlin query"
+                                />
+
                                 {/*<Button type="submit" variant={"primary"}*/}
                                 {/*        className="mt-1 pl-3 pr-3 rounded-0 ">*/}
                                 {/*    <FontAwesomeIcon icon={faSearch}/>*/}
