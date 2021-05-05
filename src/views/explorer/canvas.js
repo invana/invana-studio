@@ -23,8 +23,8 @@ export default class Canvas extends React.Component {
                 <div className="" style={{"height": "calc(100% - 24px)"}}>
                     {/* top section starts here */}
                     <div className={"d-flex position-absolute"}
-                         style={{"width": "calc(100% - 46px)", "top": "5px"}}>
-                        <div className={" flex-fill"}>
+                         style={{"width": "420px", "top": "20px"}}>
+                        <div className={" flex-fill ml-3"}>
                             {/*<FontAwesomeIcon icon={faSearch} className={"mr-2 ml-2 mt-2"}/>*/}
 
                             {/*<span className={"text-muted"}>*/}
@@ -33,15 +33,65 @@ export default class Canvas extends React.Component {
                             {/*        Ctrl + / to start gremlin query </Button>*/}
 
                             {/*</span>*/}
+                            <ul className="nav nav-pills nav-canvas d-flex justify-content-start text-center pt-2 pb-1 ml-2 border border-bottom-0">
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faCamera}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faSync}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1 pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faDownload}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faDesktop}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faHistory}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faExpand}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faTrash}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1 pr-2 pl-2 justify-content-center flex-column ">
+                                        <FontAwesomeIcon icon={faCog}/>
+                                    </Button>
+                                </li>
+                            </ul>
+
                             <Form inline>
 
                                 <Form.Control
                                     autoComplete={"off"}
-                                    className=" mt-1 ml-2 flex-fill rounded-0 border-top-0
-                                    form-control-sm
-                                    border-left-0 border-right-0"
+                                    className=" ml-2 flex-fill rounded-0 border-top-0
+                                    "
                                     id="inlineFormInputName2"
-                                    style={{"maxWidth": "320px"}}
+                                    style={{"maxWidth": "400px"}}
                                     type={"text"}
                                     placeholder="Ctrl + / to start gremlin query"
                                 />
@@ -65,63 +115,9 @@ export default class Canvas extends React.Component {
 
 
                             </Form>
-                        </div>
-                        <div className={" flex-fill p-2"}>
-                            {/*<h5>Hello Explorer Here</h5>*/}
-
-                            <ul className="nav nav-pills nav-canvas d-flex justify-content-end   text-center">
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
-                                        <FontAwesomeIcon icon={faHistory}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1 pr-2 pl-2 justify-content-center flex-column  ">
-                                        <FontAwesomeIcon icon={faDownload}/>
-                                    </Button>
-                                </li>
-
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
-                                        <FontAwesomeIcon icon={faExpand}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
-                                        <FontAwesomeIcon icon={faDesktop}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
-                                        <FontAwesomeIcon icon={faCamera}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
-                                        <FontAwesomeIcon icon={faSync}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
-                                        <FontAwesomeIcon icon={faTrash}/>
-                                    </Button>
-                                </li>
-                                <li className="nav-item ">
-                                    <Button type="button" variant={"link"}
-                                            className="nav-link small  d-flex align-items-start pt-0 pb-1 pr-2 pl-2 justify-content-center flex-column ">
-                                        <FontAwesomeIcon icon={faCog}/>
-                                    </Button>
-                                </li>
-                            </ul>
 
                         </div>
+
                     </div>
                     {/* top section ends here */}
                 </div>

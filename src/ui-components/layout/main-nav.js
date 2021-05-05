@@ -12,7 +12,7 @@ export default class MainNav extends React.Component {
 
     render() {
         return (
-            <div className="d-flex flex-column bg-light border-right" style={{"width": "45px", "height": "100vh"}}>
+            <div className="d-flex flex-column bg-light border-right" style={{"width": "50px", "height": "100vh"}}>
                 <a href="/" className="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip"
                    data-bs-placement="right" data-bs-original-title="Icon-only">
                     <FontAwesomeIcon icon={faAddressBook}/>
