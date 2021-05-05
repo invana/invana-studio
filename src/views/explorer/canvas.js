@@ -2,12 +2,13 @@ import React from "react";
 import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
+    faCamera,
     faCog,
-    faDatabase,
+    faDatabase, faDesktop,
     faDownload, faExpand,
     faHistory,
     faList,
-    faSearch,
+    faSearch, faSync, faTrash,
     faWindowMaximize
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -37,6 +38,7 @@ export default class Canvas extends React.Component {
                                 <Form.Control
                                     autoComplete={"off"}
                                     className=" mt-1 ml-2 flex-fill rounded-0 border-top-0
+                                    form-control-sm
                                     border-left-0 border-right-0"
                                     id="inlineFormInputName2"
                                     style={{"maxWidth": "320px"}}
@@ -48,18 +50,18 @@ export default class Canvas extends React.Component {
                                 {/*    <FontAwesomeIcon icon={faSearch}/>*/}
                                 {/*</Button>*/}
 
-                                <InputGroup>
-                                    <InputGroup.Prepend>
-                                        <Button variant="outline-secondary" className={" ml-2"}><FontAwesomeIcon icon={faList}/></Button>
-                                    </InputGroup.Prepend>
-                                    <FormControl className={" flex-fill"}
-                                                 placeholder="Ctrl + / to start gremlin query"
-                                    />
-                                    <InputGroup.Append>
-                                        <Button variant="outline-secondary"><FontAwesomeIcon icon={faHistory}/></Button>
-                                        <Button variant="outline-secondary"><FontAwesomeIcon icon={faSearch}/></Button>
-                                    </InputGroup.Append>
-                                </InputGroup>
+                                {/*<InputGroup>*/}
+                                {/*    <InputGroup.Prepend>*/}
+                                {/*        <Button variant="outline-secondary" className={" ml-2"}><FontAwesomeIcon icon={faList}/></Button>*/}
+                                {/*    </InputGroup.Prepend>*/}
+                                {/*    <FormControl className={" flex-fill"}*/}
+                                {/*                 placeholder="Ctrl + / to start gremlin query"*/}
+                                {/*    />*/}
+                                {/*    <InputGroup.Append>*/}
+                                {/*        <Button variant="outline-secondary"><FontAwesomeIcon icon={faHistory}/></Button>*/}
+                                {/*        <Button variant="outline-secondary"><FontAwesomeIcon icon={faSearch}/></Button>*/}
+                                {/*    </InputGroup.Append>*/}
+                                {/*</InputGroup>*/}
 
 
                             </Form>
@@ -85,6 +87,30 @@ export default class Canvas extends React.Component {
                                     <Button type="button" variant={"link"}
                                             className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
                                         <FontAwesomeIcon icon={faExpand}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faDesktop}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faCamera}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faSync}/>
+                                    </Button>
+                                </li>
+                                <li className="nav-item ">
+                                    <Button type="button" variant={"link"}
+                                            className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  ">
+                                        <FontAwesomeIcon icon={faTrash}/>
                                     </Button>
                                 </li>
                                 <li className="nav-item ">
