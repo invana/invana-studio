@@ -6,12 +6,26 @@ import Welcome from "../../viewlets/welcome/welcome";
 
 export default class Explorer extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showWelcome: true
+        }
+    }
+
+    setWelcome(welcomeStatus){
+        this.setState({showWelcome: welcomeStatus});
+    }
 
     render() {
         return (
             <DefaultLayout>
-                <Welcome/>
-                <Canvas />
+                {
+                    this.state.showWelcome
+                    ? <Welcome setWelcome={this.setWelcome.bind(this)}/>
+                    : <React.Fragment />
+                }
+                <Canvas showCommandConsole={!this.state.showWelcome} />
             </DefaultLayout>
         );
     }

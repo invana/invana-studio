@@ -1,11 +1,9 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faAddressBook,
-    faCog,
-    faDatabase, faProjectDiagram,
-    faQuestionCircle,
-    faSearch
+    faCog, faCube,
+    faDatabase,
+    faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
 
@@ -29,7 +27,7 @@ export default class MainNav extends React.Component {
                            className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
                            title="" data-bs-toggle="tooltip"
                            data-bs-placement="right" data-bs-original-title="Explore">
-                            <FontAwesomeIcon icon={faProjectDiagram}/>
+                            <FontAwesomeIcon icon={faCube}/>
                             {/*<small>Explore</small>*/}
 
                         </a>
