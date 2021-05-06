@@ -22,7 +22,8 @@ export default class Welcome extends React.Component {
                     {/*    Some quick example text to build on the card title and make up the bulk of*/}
                     {/*    the card's content.*/}
                     {/*</Card.Text>*/}
-                    <Button variant={"outline-primary"} size={"sm"} onClick={()=> this.props.setWelcome(false)}>Start Query</Button>
+                    <Button variant={"outline-primary"} size={"sm"} onClick={()=> this.props.setWelcome(false)}>
+                        Start Exploring</Button>
                     <a className={"btn btn-outline-secondary btn-sm ml-2"}
                        href={"https://docs.invana.io"} target={"_new"}>
                         Documentation <FontAwesomeIcon icon={faExternalLinkSquareAlt}/>
