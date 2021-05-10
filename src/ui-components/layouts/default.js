@@ -1,6 +1,6 @@
 import React from "react";
-import MainNav from "./main-nav";
-import MainContent from "./main-content";
+import MainNav from "../viewlets/main-nav";
+import MainContent from "../viewlets/main-content";
 
 export default class DefaultLayout extends React.Component {
 

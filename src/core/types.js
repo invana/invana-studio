@@ -3,19 +3,23 @@
 
 export class Request {
     queryString = null
+    payload = null
+
     timestamp = null
 }
 
 export class Response {
     status = null
-    data = null
+    result = null
     timestamp = null
-    elapsed_time = null
 }
 
-export class QueryHistory{
-    queryString = null
-    queryPayload = null
+export class QueryEvent{
+
+    request = Request
+    response = Response
+
     queryType = null // console, internal
-    timestamp = null
+    elapsedTime = null
+
 }

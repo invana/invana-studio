@@ -1,0 +1,5 @@
+
+export const HISTORY_SETTINGS = {
+    historyLocalStorageKey: "GRAPH_EXPLORER_HISTORY",
+    MAX_HISTORY_COUNT_TO_REMEMBER: 100
+}

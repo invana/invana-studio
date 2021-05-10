@@ -1,6 +1,6 @@
 import React from "react";
 import {Col} from "react-bootstrap";
-import DefaultLayout from "../ui-components/layout/default-layout";
+import DefaultLayout from "../layouts/default";
 
 export default class DataManagementView extends React.Component {
 

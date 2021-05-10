@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card} from "react-bootstrap";
-import packageJson from '../../../package.json';
+import packageJson from '../../../../package.json';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExternalLinkSquareAlt} from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";

@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCog, faCube,
     faDatabase,
-    faQuestionCircle
+    faQuestionCircle, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
 
@@ -11,7 +11,7 @@ export default class MainNav extends React.Component {
 
     render() {
         return (
-            <div className="d-flex flex-column bg-light border-right" style={{"width": "50px", "height": "100vh"}}>
+            <div className="d-flex flex-column bg-white border-right" style={{"width": "50px", "height": "100vh"}}>
                 <a href="/" className="d-block px-auto pt-2 pb-2 text-dark text-decoration-none border-bottom" title=""
                    data-bs-toggle="tooltip"
                    data-bs-placement="right" data-bs-original-title="Icon-only">
@@ -38,6 +38,16 @@ export default class MainNav extends React.Component {
                            title="" data-bs-toggle="tooltip"
                            data-bs-placement="right" data-bs-original-title="Data">
                             <FontAwesomeIcon icon={faDatabase}/>
+                            {/*<small>Data</small>*/}
+
+                        </a>
+                    </li>
+                    <li className="nav-item ">
+                        <a href="/console"
+                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
+                           title="" data-bs-toggle="tooltip"
+                           data-bs-placement="right" data-bs-original-title="Data">
+                            <FontAwesomeIcon icon={faTerminal}/>
                             {/*<small>Data</small>*/}
 
                         </a>
