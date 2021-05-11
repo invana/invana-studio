@@ -1,9 +1,31 @@
 import React from "react";
-import CanvasConsole from "./canvas-console";
+import CanvasConsoleOptions from "./canvas-console-options";
+import PropTypes from "prop-types";
+import CanvasQueryConsole from "./canvas-query-console";
 
 
 export default class Canvas extends React.Component {
 
+
+    static propTypes = {
+        showCommandConsole: PropTypes.bool,
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            showQueryConsole: false,
+            showQueryHistory: false
+        }
+
+    }
+
+    showQueryConsole() {
+        this.setState({
+            showQueryConsole: true,
+            showQueryHistory: true,
+        })
+    }
 
     render() {
         return (
@@ -11,7 +33,12 @@ export default class Canvas extends React.Component {
                 <div className="" style={{"height": "calc(100% - 24px)"}}>
                     {
                         this.props.showCommandConsole
-                            ? <CanvasConsole/>
+                            ? <CanvasConsoleOptions showQueryConsole={this.showQueryConsole.bind(this)}/>
+                            : <React.Fragment/>
+                    }
+                    {
+                        this.props.showCommandConsole && this.state.showQueryConsole
+                            ? <CanvasQueryConsole showHistory={true}/>
                             : <React.Fragment/>
                     }
                 </div>
