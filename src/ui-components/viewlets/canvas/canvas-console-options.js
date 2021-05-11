@@ -32,7 +32,7 @@ export default class CanvasConsoleOptions extends React.Component {
                     {/*        Ctrl + / to start gremlin query </Button>*/}
 
                     {/*</span>*/}
-                    <ul className="nav nav-pills nav-canvas d-flex justify-content-start text-center pt-2 pb-1 ml-2 border border-bottom-0">
+                    <ul className="nav nav-pills nav-canvas d-flex justify-content-start text-center pt-2 pb-1 ml-0 border border-bottom-0">
                         <li className="nav-item ">
                             <Button type="button" variant={"link"}
                                     className="nav-link small  d-flex align-items-start pt-0 pb-1  pr-2 pl-2 justify-content-center flex-column  text-dark ">
@@ -99,9 +99,8 @@ export default class CanvasConsoleOptions extends React.Component {
                     <Form inline>
                         <Form.Control
                             autoComplete={"off"}
-                            className=" ml-2 flex-fill rounded-0 border-top-0                                    "
+                            className=" ml-0 flex-fill rounded-0 border-top-0                                    "
                             id="inlineFormInputName2"
-                            style={{"maxWidth": "400px"}}
                             type={"text"}
                             onFocus={() => this.props.showQueryConsole()}
                             placeholder="Ctrl + / to start gremlin query"

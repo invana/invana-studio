@@ -27,6 +27,13 @@ export default class Canvas extends React.Component {
         })
     }
 
+    hideQueryConsole() {
+        this.setState({
+            showQueryConsole: true,
+            showQueryHistory: true,
+        })
+    }
+
     render() {
         return (
             <div className="d-flex  flex-column" style={{"height": "100%"}}>
