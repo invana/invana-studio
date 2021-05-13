@@ -83,7 +83,6 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
     }
 
 
-
     onEnterPress = (e) => {
         if (e.keyCode === 13 && e.shiftKey === true) {
             e.preventDefault();
@@ -107,47 +106,54 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
 
     render() {
+
+        let responsesToRender = [...this.state.responses].reverse();
         return (
             <DefaultLayout>
 
                 <Row className={"p-0 m-0"}>
                     <Col className={"p-3 m-0"} md={"5"}>
 
-                        <div className={"display-block pt-2 pb-2 pl-3" +
-                        " font-weight-bold pr-3 bg-dark text-white"}>
-                            <FontAwesomeIcon icon={faTerminal}/> Gremlin Query Console
-                        </div>
-                        <form ref={e => this.formRef = e} id={"queryForm"}
-                              onSubmit={(e) => this.onFormSubmit(this, e)}>
-                            <Form.Control as={"textarea"}
-                                          autoComplete={"off"}
-                                          className=" ml-0 pl-3 pr-3 flex-fill rounded-0 border-0"
-                                          type={"text"}
-                                          name={"canvasQueryString"}
-                                          style={{"minHeight": "420px"}}
-                                          placeholder="start your gremlin query here"
-                                          spellCheck={false}
-                                          autoFocus
-                                          onChange={this.onQueryChange.bind(this)}
-                                          onKeyDown={this.onEnterPress.bind(this)}
-                                          value={this.state.canvasQueryString || ''}
-                            />
-                            <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
-                                <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
-                                        type={"submit"}>Submit Query</Button>
+                        <div className={"border"}>
 
-                                === {this.state.isConnected2Gremlin} ===
+                            <div className={"display-block pt-2 pb-2 pl-3" +
+                            " font-weight-bold pr-3 bg-dark text-white"}>
+                                <FontAwesomeIcon icon={faTerminal}/> Gremlin Query Console
                             </div>
-                        </form>
+                            <form ref={e => this.formRef = e} id={"queryForm"}
+                                  onSubmit={(e) => this.onFormSubmit(this, e)}>
+                                <Form.Control as={"textarea"}
+                                              autoComplete={"off"}
+                                              className=" ml-0 pl-3 pr-3 flex-fill rounded-0 border-0"
+                                              type={"text"}
+                                              name={"canvasQueryString"}
+                                              style={{"minHeight": "420px"}}
+                                              placeholder="start your gremlin query here"
+                                              spellCheck={false}
+                                              autoFocus
+                                              onChange={this.onQueryChange.bind(this)}
+                                              onKeyDown={this.onEnterPress.bind(this)}
+                                              value={this.state.canvasQueryString || ''}
+                                />
+                                <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
+                                    <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
+                                            type={"submit"}>Submit Query</Button>
+
+                                    {this.state.isQuerying ? <span>Querying</span> : <React.Fragment/>}
+
+                                    === {this.state.isConnected2Gremlin} {this.state.isQuerying} ===
+                                </div>
+                            </form>
+                        </div>
 
                     </Col>
 
-                    <Col className={"pl-0 pt-3 m-0"} size={"4"}>
+                    <Col className={"pl-0 pt-3 m-0"} size={"4"} style={{"width": 0}}>
                         <div id="consoleResultDiv" className={"pl-3 border-left"}
                              style={{"minHeight": "120px"}}>
                             <h6 className={"pb-2 pt-2 border-bottom"}>Responses</h6>
                             {
-                                this.state.responses.map((response, key) => {
+                                responsesToRender.map((response, key) => {
                                     console.log("++++=====response", response);
                                     return <RawResponsesCanvas
                                         key={key}
