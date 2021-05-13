@@ -143,7 +143,7 @@ export default class DefaultRemoteComponent extends React.Component {
         this.setState({canvasQueryString: queryString});
     }
 
-    makeQuery(queryObj, queryType) {
+    makeQuery(queryObj, queryOptions) {
 
         /*
             queryType = "internal|console|canvas"
@@ -152,15 +152,19 @@ export default class DefaultRemoteComponent extends React.Component {
         // console.log("=====queryObj", queryObj);
         // TODO - add logic to wait till server connects.
 
-        queryObj.queryKey = ((queryObj.queryKey) ? queryObj.queryKey : "rawQuery");
-        let saveHistory = ((queryType === "console"));
 
-
-        if (saveHistory === "console") {
-            // this.setQueryToUrl(queryObj);
-            // this.addQueryToState(queryObj)
-            this.addQueryToHistory(queryObj, queryType)
-        } // remove this part from here soon.
+        if (!queryObj.queryKey) {
+            queryObj.queryKey = "rawQuery";
+        }
+        if (typeof queryOptions === "undefined") {
+            queryOptions = {}
+        }
+        if (typeof queryOptions.source === "undefined") {
+            queryOptions.source = "internal";
+        }
+        if (queryOptions.source) {
+            this.addQueryToHistory(queryObj, queryOptions.source)
+        }
 
         if (queryObj.queryKey) {
             this.setQueryStringFromQueryObject(queryObj.query);

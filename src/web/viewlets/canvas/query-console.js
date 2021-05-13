@@ -73,7 +73,7 @@ export default class QueryConsole extends React.Component {
                                       className=" ml-0 pl-3 pr-3 flex-fill rounded-0 border-0"
                                       type={"text"}
                                       name={"canvasQueryString"}
-                                      style={{"min-height": "420px"}}
+                                      style={{"minHeight": "420px"}}
                                       placeholder="Ctrl + / to start gremlin query"
                                       spellCheck={false}
                                       autoFocus

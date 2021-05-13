@@ -164,7 +164,7 @@ export default class NodeMenu extends React.Component {
                 <p className={"mb-0 pb-0"} style={{"color": this.getElementColor()}}>Label: {selectedElement._label}</p>
                 <p className={"mb-1 border-bottom "}>{selectedElement.type.replace("g:", "")} id: {this.getIdentifier()}</p>
 
-                <ul className={"nodeMenu border"}>
+                <ul className={"nodeMenu border bg-secondary text-white"}>
                     {selectedElement && selectedElement.type === "g:Vertex"
                         ? <li className={"border-right"} onClick={() => this.onClickFocus()}>
                             <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>
