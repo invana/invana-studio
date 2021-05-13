@@ -605,10 +605,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
 
                         <ListGroup className={"border-0"} horizontal>
-                            <ListGroup.Item className={"pt-0 pb-0 border-0"}>{this.state.statusMessage}</ListGroup.Item>
+                            <ListGroup.Item className={"pt-0 pb-0 border-0 pl-3 pr-2"}>{this.state.statusMessage}</ListGroup.Item>
                             {
                                 this.state.statusCode
-                                    ? <ListGroup.Item className={"pt-0 pb-0 border-0"}>
+                                    ? <ListGroup.Item className={"pt-0 pb-0 border-0 pl-2 pr-2"}>
                                                 <span style={{
                                                     'color': ` ${this.state.statusCode === 200 ? 'green' : 'red'}`,
                                                     "fontWeight": "bold"
@@ -619,7 +619,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             }
                             {/*<ListGroup.Item className={"pt-0 pb-0 border-0"}>|</ListGroup.Item>*/}
                             <ListGroup.Item
-                                className={"pt-0 pb-0 border-0"}> {this.state.nodes.length} nodes, {this.state.edges.length} edges!</ListGroup.Item>
+                                className={"pt-0 pb-0 border-0 pl-2 pr-2"}> {this.state.nodes.length} nodes, {this.state.edges.length} edges!</ListGroup.Item>
                         </ListGroup>
 
                     </div>
