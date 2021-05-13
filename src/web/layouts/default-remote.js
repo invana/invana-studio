@@ -22,7 +22,20 @@ export default class DefaultRemoteComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            canvasQueryString: null,
+            queryObject: null,
+
+            isConnected2Gremlin: null,
+            isStreaming: null,
+            isQuerying: null,
+            statusCode: null,
+            statusMessage: null,
+
+            showQueryConsole: false,
+
+
+        };
     }
 
     checkIfConnectionUrlIsValid() {
@@ -127,7 +140,7 @@ export default class DefaultRemoteComponent extends React.Component {
     }
 
     setQueryString(queryString) {
-        this.setState({query: queryString});
+        this.setState({canvasQueryString: queryString});
     }
 
     makeQuery(queryObj, queryType) {

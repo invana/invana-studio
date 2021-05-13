@@ -17,6 +17,7 @@ import "./canvas.scss";
 import DataSidebarViewlet from "../data-management/data-sidebar";
 import ElementOptions from "../../interface/element-options";
 import {Modal} from "react-bootstrap";
+import CanvasDisplaySettings from "./canvas-display-settings";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
@@ -44,8 +45,6 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         this.state = {
             ...this.state,
 
-            showQueryConsole: false,
-            showQueryHistory: false,
 
             canvasQueryString: null,
             showWelcome: true,
@@ -72,7 +71,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
             lastResponse: null,
 
-            modalContentName: null
+            modalContentName: null,
+
+
+            leftContentName: false, // query-console, query-history, canvas-display-settings, graph-management
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
         this.canvasCtrl = null;
@@ -106,18 +108,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         this.setState({canvasQueryString: queryString});
     }
 
-    showQueryConsole() {
-        this.setState({
-            showQueryConsole: true,
-            // showQueryHistory: true,
-        })
-    }
-
-    hideQueryConsole() {
-        this.setState({
-            showQueryConsole: true,
-            // showQueryHistory: true,
-        })
+    setLeftContentName(contentName) {
+        this.setState({leftContentName: contentName})
     }
 
     setWelcome(welcomeStatus) {
@@ -612,22 +604,40 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.showWelcome
                         ? <Welcome setWelcome={this.setWelcome.bind(this)}/>
-                        : <CanvasConsoleOptions showQueryConsole={this.showQueryConsole.bind(this)}/>
+                        : <CanvasConsoleOptions canvasCtrl={this.canvasCtrl} isQuerying={this.state.isQuerying}
+                                                isRenderingCanvas={this.state.isRenderingCanvas}
+                                                leftContentName={this.state.leftContentName}
+                                                setLeftContentName={this.setLeftContentName.bind(this)}/>
                 }
 
                 {
-                    this.state.showQueryConsole
+                    this.state.leftContentName === "query-console"
                         ? <QueryConsole
                             canvasQueryString={this.state.canvasQueryString}
                             makeQuery={this.makeQuery.bind(this)}
                             connector={this.connector}
+                            setLeftContentName={this.setLeftContentName.bind(this)}
                             style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
                         />
                         : <React.Fragment/>
                 }
 
                 {
-                    this.state.showQueryHistory
+                    this.state.leftContentName === "query-history"
+                        ? <RequestHistoryView
+                            style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
+
+                            onClose={() => {
+                                // _this.setRightContentName(null)
+                            }}
+                            makeQuery={this.makeQuery.bind(this)}
+                            startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                        />
+
+                        : <React.Fragment/>
+                }
+                {
+                    this.state.leftContentName === "query-history"
                         ? <RequestHistoryView
                             style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
 
@@ -642,7 +652,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 }
 
                 {
-                    this.state.showQueryHistory
+                    this.state.leftContentName === "graph-management"
                         ? <DataSidebarViewlet
                             style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
 
@@ -660,6 +670,19 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             nodeLabelsInCanvas={this.state.nodeLabelsInCanvas}
                             edgeLabelsInCanvas={this.state.edgeLabelsInCanvas}
                         />
+
+                        : <React.Fragment/>
+                }
+                {
+                    this.state.leftContentName === "canvas-display-settings"
+                        ?
+                        <CanvasDisplaySettings style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
+                                               onClose={() => {
+                                           _this.setLeftContentName(null)
+                                       }}
+                                               startRenderingGraph={this.canvasCtrl.startRenderingGraph.bind(this)}
+                        />
+
 
                         : <React.Fragment/>
                 }

@@ -21,6 +21,7 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
         canvasCtrl: PropTypes.object,
         edgeLabelsInCanvas: PropTypes.array,
         nodeLabelsInCanvas: PropTypes.array,
+        style: PropTypes.object
 
     }
 
@@ -105,7 +106,7 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
 
     render() {
         return (
-            <div>
+            <div style={this.props.style}>
                 <Form className={"mb-1 mt-2"}>
                     <InputGroup>
                         <FormControl onChange={this.searchLabels.bind(this)}

@@ -12,7 +12,8 @@ export default class QueryConsole extends React.Component {
         requestBuilder: PropTypes.object,
         canvasQueryString: PropTypes.string,
         makeQuery: PropTypes.func,
-        connector: PropTypes.object
+        connector: PropTypes.object,
+        setLeftContentName: PropTypes.func
     };
 
     constructor(props) {
@@ -36,8 +37,7 @@ export default class QueryConsole extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
-        if (this.props.query !== prevProps.query) {
-
+        if (this.props.canvasQueryString !== prevProps.canvasQueryString) {
             console.log("this.props.query", this.props.canvasQueryString)
             const canvasQueryString = this.props.canvasQueryString.replace(/\\n/g, String.fromCharCode(13, 10))
             this.setState({canvasQueryString: canvasQueryString});
@@ -84,7 +84,9 @@ export default class QueryConsole extends React.Component {
                         <div className={"p-2 bg-white border-top "}>
                             <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
                                     type={"submit"}>Submit Query</Button>
-                            <Button variant={"outline-secondary position-relative ml-2 pt-0 pb-0"} size="sm">
+                            <Button variant={"outline-secondary position-relative ml-2 pt-0 pb-0"}
+                                    onClick={()=> this.props.setLeftContentName(null)}
+                                    size="sm">
                                 <FontAwesomeIcon icon={faWindowClose}/>
                             </Button>
                         </div>
