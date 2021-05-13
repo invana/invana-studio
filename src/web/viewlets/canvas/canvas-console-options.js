@@ -56,7 +56,7 @@ export default class CanvasConsoleOptions extends React.Component {
                                 <FontAwesomeIcon icon={faDesktop}/>
                             </Button>
                         </li>
-                        <li className="nav-item ">
+                        <li className="nav-item mr-4">
                             <Button type="button" variant={"link"}
                                     onClick={() => this.props.setLeftContentName('query-history')}
                                     className={`nav-link small  d-flex align-items-start pt-1 pb-1 mr-0 pr-2 
@@ -65,10 +65,10 @@ export default class CanvasConsoleOptions extends React.Component {
                                 <FontAwesomeIcon icon={faHistory}/>
                             </Button>
                         </li>
-                        <li className="nav-item ">
+                        <li className="nav-item ml-5 ">
                             <Button type="button" variant={"link"}
                                     onClick={() => this.props.canvasCtrl.downloadCanvasImageAsPNG()}
-                                    className="nav-link small  d-flex align-items-start pt-1 pb-1 ml-4
+                                    className="nav-link small  d-flex align-items-start pt-1 pb-1 ml-5
                                       pr-2 pl-2 justify-content-center flex-column text-white ">
                                 <FontAwesomeIcon icon={faCamera}/>
                             </Button>

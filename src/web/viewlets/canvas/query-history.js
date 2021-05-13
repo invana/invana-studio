@@ -32,7 +32,7 @@ export default class RequestHistoryView extends React.Component {
 
     render() {
         const existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.historyLocalStorageKey, true) || [];
-        const historyToShow = existingHistory.filter(item => item.source !== "internal");
+        const historyToShow = existingHistory.filter(item => item.source !== "internal").slice(0, 5);
         console.log("====historyToShow", historyToShow)
         return (
             <div className={" position-absolute  d-flex"} style={this.props.style}>

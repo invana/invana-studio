@@ -16,9 +16,10 @@ import CanvasArtBoard from "../../interface/canvas/canvas-art-board";
 import "./canvas.scss";
 import DataSidebarViewlet from "../data-management/data-sidebar";
 import ElementOptions from "../../interface/element-options";
-import {Modal} from "react-bootstrap";
+import {Col, ListGroup, Modal} from "react-bootstrap";
 import CanvasDisplaySettings from "./canvas-display-settings";
 import LoadingDiv from "./loading";
+import Row from "react-bootstrap/Row";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
@@ -534,7 +535,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
     componentDidMount() {
         super.componentDidMount();
-        this.setStatusMessage("Hello World!");
+        this.setStatusMessage("Hello World! welcome to Invana Studio");
 
     }
 
@@ -600,7 +601,28 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
                         />
                     </div>
-                    <div style={{"height": "24px"}} className={"pl-2 pr-2 border-top W-100"}>Footer comes here</div>
+                    <div style={{"height": "24px"}} className={"pl-2 pr-2 border-top W-100"}>
+
+
+                        <ListGroup className={"border-0"} horizontal>
+                            <ListGroup.Item className={"pt-0 pb-0 border-0"}>{this.state.statusMessage}</ListGroup.Item>
+                            {
+                                this.state.statusCode
+                                    ? <ListGroup.Item className={"pt-0 pb-0 border-0"}>
+                                                <span style={{
+                                                    'color': ` ${this.state.statusCode === 200 ? 'green' : 'red'}`,
+                                                    "fontWeight": "bold"
+                                                }}>
+                                                {this.state.statusCode}</span> response
+                                    </ListGroup.Item>
+                                    : <span></span>
+                            }
+                            {/*<ListGroup.Item className={"pt-0 pb-0 border-0"}>|</ListGroup.Item>*/}
+                            <ListGroup.Item
+                                className={"pt-0 pb-0 border-0"}> {this.state.nodes.length} nodes, {this.state.edges.length} edges!</ListGroup.Item>
+                        </ListGroup>
+
+                    </div>
                 </div>
                 {
                     this.state.showWelcome
@@ -618,8 +640,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             makeQuery={this.makeQuery.bind(this)}
                             connector={this.connector}
                             setLeftContentName={this.setLeftContentName.bind(this)}
-                            style={{"width": "420px", "top": "58px", "zIndex": 100001,
-                                "maxHeight": "calc(100vh - 250px)"}}
+                            style={{
+                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "maxHeight": "calc(100vh - 250px)"
+                            }}
                         />
                         : <React.Fragment/>
                 }
@@ -627,7 +651,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "query-history"
                         ? <RequestHistoryView
-                            style={{"width": "420px", "top": "58px", "maxHeight": "calc(100vh - 250px)"}}
+                            style={{
+                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "maxHeight": "calc(100vh - 250px)"
+                            }}
 
                             onClose={() => {
                                 // _this.setRightContentName(null)
@@ -642,7 +669,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "graph-management"
                         ? <DataSidebarViewlet
-                            style={{"width": "420px", "top": "58px", "maxHeight": "calc(100vh - 250px)"}}
+                            style={{
+                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "maxHeight": "calc(100vh - 250px)"
+                            }}
 
                             {...this.props}
                             onItemClick={this.onItemClick.bind(this)}
@@ -665,7 +695,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                     this.state.leftContentName === "canvas-display-settings"
                         ?
                         <CanvasDisplaySettings
-                            style={{"width": "420px", "top": "58px", "maxHeight": "calc(100vh - 250px)"}}
+                            style={{
+                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "maxHeight": "calc(100vh - 250px)"
+                            }}
                             onClose={() => {
                                 _this.setLeftContentName(null)
                             }}
