@@ -1,5 +1,5 @@
 import React from "react";
-import InvanaEngineQueryManager from "../../query-builder";
+import InvanaEngineQueryManager from "../../queryBuilder";
 import InvanaEngineHTTPConnector from "../../connector/invana-engine";
 import {STUDIO_SETTINGS} from "../../settings";
 import {getDataFromLocalStorage, setDataToLocalStorage} from "../../utils/localStorage";
@@ -163,7 +163,6 @@ export default class DefaultRemoteComponent extends React.Component {
             this.connector.query(queryObj);
         }
     }
-
 
     componentDidMount() {
         console.log("gremlin-component componentDidMount")

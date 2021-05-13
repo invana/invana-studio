@@ -1,0 +1,73 @@
+//@import "../../config";
+
+.SelectedDataHeading {
+  background: #585858;
+  //color: $defaultTextColor;
+  padding: 3px 0;
+  width: 100%;
+  font-family: Courier;
+  //border: 1px solid $borderColor;
+
+
+  .itemLabel {
+    background: #7d8296;
+    padding: 3px 10px;
+    /* padding-bottom: 6px; */
+    margin-right: 10px;
+    text-shadow: 0px 1px #3c3c3c;
+    /* color: #888888; */
+    font-weight: bold;
+  }
+}
+
+.SelectedDataList {
+  font-family: Courier;
+}
+
+.SelectedDataList.mainDetails {
+  //background: $lightBg;
+  padding: 5px;
+  margin: 0 -5px 5px -5px;
+
+  .singleProperty:nth-child(odd) {
+    background: transparent;
+  }
+}
+
+.propertyData {
+  //padding-left: 5px;
+  strong {
+    //color: $defaultTextColor;
+  }
+
+  //color: darken($defaultTextColor, 20%);
+}
+
+.singleProperty {
+
+  //border-bottom: 1px solid darken($borderColor, 3%);
+  //padding-top: 3px;
+  //padding-bottom: 3px;
+  padding: 5px;
+  margin: 0 -5px 5px -5px;
+
+
+}
+
+.singleProperty:nth-child(odd) {
+  //background: white !important;
+  //background: lighten($lightBg, 1%);
+
+}
+
+.singleProperty.dark {
+  //background: $DarkBackground !important;
+}
+
+.singleProperty.darkest {
+  //background: $DarkBackground !important;
+  margin: 0 -5px 5px -5px;
+  padding: 5px;
+}
+
+

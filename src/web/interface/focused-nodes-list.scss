@@ -1,0 +1,39 @@
+ 
+
+.focused-nodes-list {
+  position: fixed;
+  //top: 45px + 36px + 2px;
+  margin-top: 2px;
+  //left: 45px + 300px + 1px;
+  width: calc(100% - 280px);
+  z-index: 1000;
+
+  ul {
+    padding-left: 0;
+  }
+
+  .focused-node {
+    //border: 1px solid $border-color;
+    padding: 3px 8px 3px 8px;
+    line-height: 1rem;
+    border-radius: 3px;
+    font-size: 12px;
+    display: inline;
+    margin-left: 5px;
+    margin-right: 0;
+    //color: #171717 !important;
+  }
+
+  .close-btn {
+    margin-left: 6px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: baseline;
+    //color: $darkBg;
+  }
+
+  .close-btn:hover {
+    cursor: pointer;
+  }
+}
+

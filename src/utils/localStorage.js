@@ -31,3 +31,7 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     });
     setDataToLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY, nodeLabelsConfig);
 }
+
+export function removeItemFromLocalStorage(itemKey) {
+    localStorage.removeItem(itemKey);
+}

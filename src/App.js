@@ -1,13 +1,13 @@
 import './App.scss';
 import React, {Suspense} from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Page404View from "./ui-components/views/page-404";
-import Explorer from "./ui-components/views/explorer";
-import IndexView from "./ui-components/views";
-import LabelView from "./ui-components/views/data";
-import DataManagementView from "./ui-components/views/data";
-import SettingsView from "./ui-components/views/settings";
-import ConnectView from "./ui-components/views/connect";
+import Page404View from "./web/views/page-404";
+import Explorer from "./web/views/explorer";
+import IndexView from "./web/views";
+import LabelView from "./web/views/data";
+import DataManagementView from "./web/views/data";
+import SettingsView from "./web/views/settings";
+import ConnectView from "./web/views/connect";
 
 
 export default class App extends React.Component {
