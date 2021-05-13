@@ -41,7 +41,6 @@ export default class RequestHistoryView extends React.Component {
                     <Card className={" border-0 rounded-0"}>
                         <Card.Header className={"bg-secondary text-white pt-1 pb-1 rounded-0"}>
                             <FontAwesomeIcon icon={faHistory}/> Query History
-
                         </Card.Header>
                         <Card.Body className={"p-0"}>
                             <div>

@@ -535,7 +535,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
     componentDidMount() {
         super.componentDidMount();
-        this.setStatusMessage("Hello World! welcome to Invana Studio");
+        this.setStatusMessage("Hello world! Welcome to Invana Studio.");
 
     }
 
@@ -619,7 +619,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             }
                             {/*<ListGroup.Item className={"pt-0 pb-0 border-0"}>|</ListGroup.Item>*/}
                             <ListGroup.Item
-                                className={"pt-0 pb-0 border-0 pl-2 pr-2"}> {this.state.nodes.length} nodes, {this.state.edges.length} edges!</ListGroup.Item>
+                                className={"pt-0 pb-0 border-0 pl-2 pr-2"}>
+                                {this.state.nodes.length} nodes, {this.state.edges.length} edges
+                                in the canvas
+                            </ListGroup.Item>
                         </ListGroup>
 
                     </div>
@@ -630,6 +633,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         : <CanvasConsoleOptions canvasCtrl={this.canvasCtrl} isQuerying={this.state.isQuerying}
                                                 isRenderingCanvas={this.state.isRenderingCanvas}
                                                 leftContentName={this.state.leftContentName}
+                                                canvasQueryString={this.state.canvasQueryString}
                                                 setLeftContentName={this.setLeftContentName.bind(this)}/>
                 }
 
@@ -638,10 +642,11 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         ? <QueryConsole
                             canvasQueryString={this.state.canvasQueryString}
                             makeQuery={this.makeQuery.bind(this)}
+                            startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                             connector={this.connector}
                             setLeftContentName={this.setLeftContentName.bind(this)}
                             style={{
-                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 100001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
                         />
@@ -652,7 +657,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                     this.state.leftContentName === "query-history"
                         ? <RequestHistoryView
                             style={{
-                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 100001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
 
@@ -670,7 +675,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                     this.state.leftContentName === "graph-management"
                         ? <DataSidebarViewlet
                             style={{
-                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 100001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
 
@@ -696,7 +701,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         ?
                         <CanvasDisplaySettings
                             style={{
-                                "width": "420px", "top": "58px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 100001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
                             onClose={() => {

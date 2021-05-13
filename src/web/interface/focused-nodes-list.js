@@ -28,7 +28,7 @@ export default class FocusedNodesList extends React.Component {
 
     render() {
         return (
-            <div className={"focused-nodes-list"}>
+            <div className={"focused-nodes-list pl-3"}>
                 <ul>
                     {
                         this.props.focusedNodes.map((focusedNode, index) => {

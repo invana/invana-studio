@@ -170,14 +170,16 @@ export default class CanvasDisplaySettings extends React.Component {
 
                                             {/*    </Col>*/}
                                             {/*</Row>*/}
-                                            <Button variant="outline-success" size={"sm"}
-                                                    onClick={this.updateSettings.bind(this)}>Update</Button>
-                                            <Button className={"ml-2"} variant="outline-secondary" size={"sm"}
-                                                    onClick={() => this.props.onClose()}>close</Button>
                                         </div>
                                         : <React.Fragment/>
                                 }
+                                <div className={"mt-3"}>
+                                    <Button variant="outline-success" size={"sm"}
+                                            onClick={this.updateSettings.bind(this)}>Update</Button>
+                                    <Button className={"ml-2"} variant="outline-secondary" size={"sm"}
+                                            onClick={() => this.props.onClose()}>close</Button>
 
+                                </div>
 
                             </Form>
 

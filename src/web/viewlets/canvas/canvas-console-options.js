@@ -19,13 +19,15 @@ export default class CanvasConsoleOptions extends React.Component {
         canvasCtrl: PropTypes.object,
         isQuerying: PropTypes.bool,
         isRenderingCanvas: PropTypes.bool,
-        leftContentName: PropTypes.string
+        leftContentName: PropTypes.string,
+        canvasQueryString: PropTypes.string
     }
+
 
     render() {
         return (
             <div className={"d-flex position-absolute"}
-                 style={{"width": "420px", "top": "26px", "zIndex": 100001}}>
+                 style={{"width": "420px", "top": "58px", "zIndex": 100001}}>
                 <div className={" flex-fill ml-3 bg-secondary"}>
                     <ul className="nav nav-pills nav-canvas d-flex justify-content-start
                     text-center pt-1 pb-1 pl-3 pr-3 ml-0 border border-bottom-0">
@@ -112,8 +114,9 @@ export default class CanvasConsoleOptions extends React.Component {
                             className=" ml-0 flex-fill rounded-0 border-top-0 pl-3 pr-3"
                             id="inlineFormInputName2"
                             type={"text"}
+                            defaultValue={this.props.canvasQueryString}
                             onFocus={() => this.props.setLeftContentName('query-console')}
-                            placeholder="Ctrl + / to start gremlin query"
+                            placeholder="start your gremlin query here"
                         />
                     </Form>
                 </div>

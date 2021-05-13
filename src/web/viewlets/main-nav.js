@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCog, faCube,
     faDatabase,
-    faQuestionCircle, faTerminal
+    faQuestionCircle, faSearch, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
 
@@ -27,7 +27,7 @@ export default class MainNav extends React.Component {
                            className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
                            title="" data-bs-toggle="tooltip"
                            data-bs-placement="right" data-bs-original-title="Explore">
-                            <FontAwesomeIcon icon={faCube}/>
+                            <FontAwesomeIcon icon={faSearch}/>
                             {/*<small>Explore</small>*/}
 
                         </a>

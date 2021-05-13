@@ -13,7 +13,8 @@ export default class QueryConsole extends React.Component {
         canvasQueryString: PropTypes.string,
         makeQuery: PropTypes.func,
         connector: PropTypes.object,
-        setLeftContentName: PropTypes.func
+        setLeftContentName: PropTypes.func,
+        startNewQueryInConsole: PropTypes.func
     };
 
     constructor(props) {
@@ -45,6 +46,8 @@ export default class QueryConsole extends React.Component {
     }
 
     onQueryChange(e) {
+
+        this.props.startNewQueryInConsole(e.target.value);
         this.setState({canvasQueryString: e.target.value});
     }
 
@@ -74,7 +77,7 @@ export default class QueryConsole extends React.Component {
                                       type={"text"}
                                       name={"canvasQueryString"}
                                       style={{"minHeight": "420px"}}
-                                      placeholder="Ctrl + / to start gremlin query"
+                                      placeholder="start your gremlin query here"
                                       spellCheck={false}
                                       autoFocus
                                       onChange={this.onQueryChange.bind(this)}
