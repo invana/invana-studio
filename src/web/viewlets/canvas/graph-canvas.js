@@ -605,7 +605,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
 
                         <ListGroup className={"border-0"} horizontal>
-                            <ListGroup.Item className={"pt-0 pb-0 border-0 pl-3 pr-2"}>{this.state.statusMessage}</ListGroup.Item>
+                            <ListGroup.Item
+                                className={"pt-0 pb-0 border-0 pl-3 pr-2"}>{this.state.statusMessage}</ListGroup.Item>
                             {
                                 this.state.statusCode
                                     ? <ListGroup.Item className={"pt-0 pb-0 border-0 pl-2 pr-2"}>
@@ -655,18 +656,25 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
                 {
                     this.state.leftContentName === "query-history"
-                        ? <RequestHistoryView
-                            style={{
-                                "width": "420px", "top": "90px", "zIndex": 100001,
-                                "maxHeight": "calc(100vh - 250px)"
-                            }}
+                        ?
+                        <div className={" position-absolute  d-flex"}
+                             style={{
+                                 "width": "420px", "top": "90px", "zIndex": 100001,
+                                 "maxHeight": "calc(100vh - 250px)"
+                             }}>
+                            <div className={" flex-fill ml-3 border border-top-0 bg-white"}>
 
-                            onClose={() => {
-                                // _this.setRightContentName(null)
-                            }}
-                            makeQuery={this.makeQuery.bind(this)}
-                            startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
-                        />
+                                <RequestHistoryView
+
+
+                                    onClose={() => {
+                                        _this.setLeftContentName(null)
+                                    }}
+                                    makeQuery={this.makeQuery.bind(this)}
+                                    startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                                />
+                            </div>
+                        </div>
 
                         : <React.Fragment/>
                 }

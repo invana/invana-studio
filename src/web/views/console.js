@@ -1,11 +1,13 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import DefaultLayout from "../layouts/default";
 import DefaultRemoteRoutableComponent from "../layouts/default-remote-routable";
 import RawResponsesCanvas from "../viewlets/raw-response";
 import {STUDIO_SETTINGS} from "../../settings";
-import {faTerminal} from "@fortawesome/free-solid-svg-icons";
+import {faArrowAltCircleRight, faHistory, faTerminal} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import RequestHistoryView from "../viewlets/canvas/query-history";
+import Modal from 'react-bootstrap/Modal'
 
 export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
@@ -14,7 +16,8 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         super(props);
         this.state = {
             ...this.state,
-            responses: []
+            responses: [],
+            showHistory: false
         }
         const gremlinUrl = this.getGremlinUrl();
 
@@ -25,6 +28,11 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
     componentDidMount() {
         super.componentDidMount();
         this.setupSocket();
+    }
+
+    setShowHistory(status) {
+        console.log("=====setShowHistory", status)
+        this.setState({showHistory: status});
     }
 
     setupSocket() {
@@ -106,75 +114,111 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         this.setState({canvasQueryString: e.target.value});
     }
 
+    startNewQueryInConsole(queryString) {
+        this.setState({canvasQueryString: queryString});
+        this.setShowHistory(false);
+    }
+
 
     render() {
-
+        let _this = this;
         let responsesToRender = [...this.state.responses].reverse();
         return (
             <DefaultLayout>
 
-                <Row className={"p-0 m-0"}>
-                    <Col className={"p-3 m-0"} md={"5"}>
+                <Container className={"d-flex  flex-column"} fluid style={{"height": "100%"}}>
 
-                        <div className={"border"}>
+                    {
+                        this.state.showHistory === true
+                            ? <Modal className={"border-0 "}
+                                     size="lg"
+                                     show={true}
+                                     dialogClassName="modal-90w"
+                                     backdrop={true}
+                                // aria-labelledby="contained-modal-title-vcenter"
+                                     centered
+                            >
+                                <Modal.Body className={"p-2 border-0"}>
+                                    <RequestHistoryView
+                                        onClose={() => _this.setShowHistory(false)}
+                                        makeQuery={this.makeQuery.bind(this)}
+                                        startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                                    />
+                                </Modal.Body>
+                            </Modal>
+                            : <React.Fragment/>
+                    }
 
-                            <div className={"display-block pt-2 pb-2 pl-3" +
-                            " font-weight-bold pr-3 bg-dark text-white"}>
-                                <FontAwesomeIcon icon={faTerminal}/> Gremlin Query Console
-                            </div>
-                            <form ref={e => this.formRef = e} id={"queryForm"}
-                                  onSubmit={(e) => this.onFormSubmit(this, e)}>
-                                <Form.Control as={"textarea"}
-                                              autoComplete={"off"}
-                                              className=" ml-0 pl-3 pr-3 flex-fill rounded-0 border-0"
-                                              type={"text"}
-                                              name={"canvasQueryString"}
-                                              style={{"minHeight": "420px"}}
-                                              placeholder="start your gremlin query here"
-                                              spellCheck={false}
-                                              autoFocus
-                                              onChange={this.onQueryChange.bind(this)}
-                                              onKeyDown={this.onEnterPress.bind(this)}
-                                              value={this.state.canvasQueryString || ''}
-                                />
-                                <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
-                                    <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
-                                            type={"submit"}>Submit Query</Button>
+                    <Row className={"p-0 m-0"}>
+                        <Col className={"p-3 m-0"} md={"5"}>
+
+                            <div className={"border"}>
+
+                                <div className={"display-block pt-2 pb-2 pl-3" +
+                                " font-weight-bold pr-3 bg-dark text-white"}>
+                                    <FontAwesomeIcon icon={faTerminal}/> Gremlin Query Console
                                 </div>
+                                <form ref={e => this.formRef = e} id={"queryForm"}
+                                      onSubmit={(e) => this.onFormSubmit(this, e)}>
+                                    <Form.Control as={"textarea"}
+                                                  autoComplete={"off"}
+                                                  className=" ml-0 pl-3 pr-3 flex-fill rounded-0 border-0"
+                                                  type={"text"}
+                                                  name={"canvasQueryString"}
+                                                  style={{"minHeight": "420px"}}
+                                                  placeholder="start your gremlin query here"
+                                                  spellCheck={false}
+                                                  autoFocus
+                                                  onChange={this.onQueryChange.bind(this)}
+                                                  onKeyDown={this.onEnterPress.bind(this)}
+                                                  value={this.state.canvasQueryString || ''}
+                                    />
+                                    <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
+                                        <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
+                                                type={"submit"}>Submit Query </Button>
+                                        <Button variant={"outline-secondary position-relative pt-0 pb-0 ml-3"}
+                                                onClick={() => this.setShowHistory(true)}
+                                                size="sm"
+                                                type={"button"}>
+                                            <FontAwesomeIcon icon={faHistory}/> history</Button>
 
-                                <div className={" bg-white"}>
+                                    </div>
+
+                                    <div className={" bg-white"}>
                                     <span className={"ml-3 pb-2"}>
                                         {this.state.isConnected2Gremlin ?
                                             <span>connected to server.</span> :
                                             <span>not connected to server.</span>}</span>
-                                    <span className={"ml-5"}>{
-                                        this.state.isQuerying ?
-                                            <span>querying server...</span> :
-                                            <React.Fragment/>}</span>
+                                        <span className={"ml-5"}>{
+                                            this.state.isQuerying ?
+                                                <span>querying server...</span> :
+                                                <React.Fragment/>}</span>
 
-                                </div>
-                            </form>
-                        </div>
+                                    </div>
+                                </form>
+                            </div>
 
-                    </Col>
+                        </Col>
 
-                    <Col className={"pl-0 pt-3 m-0"} size={"4"} style={{"width": 0}}>
-                        <div id="consoleResultDiv" className={"pl-3 border-left"}
-                             style={{"minHeight": "120px"}}>
-                            <h6 className={"pb-2 pt-2 border-bottom"}>Responses</h6>
-                            {
-                                responsesToRender.map((response, key) => {
-                                    console.log("++++=====response", response);
-                                    return <RawResponsesCanvas
-                                        key={key}
-                                        response={response}/>
-                                })
-                            }
-                            <div className="clearfix"/>
-                        </div>
-                    </Col>
-                </Row>
+                        <Col className={"pl-0 pt-3 m-0"} size={"4"} style={{"width": 0}}>
+                            <div id="consoleResultDiv" className={"pl-3 border-left"}
+                                 style={{"minHeight": "120px"}}>
+                                <h6 className={"pb-2 pt-2 border-bottom"}>Responses</h6>
+                                {
+                                    responsesToRender.map((response, key) => {
+                                        console.log("++++=====response", response);
+                                        return <RawResponsesCanvas
+                                            key={key}
+                                            response={response}/>
+                                    })
+                                }
+                                <div className="clearfix"/>
+                            </div>
+                        </Col>
+                    </Row>
 
+
+                </Container>
             </DefaultLayout>
         );
     }

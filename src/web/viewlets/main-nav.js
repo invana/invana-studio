@@ -6,6 +6,7 @@ import {
     faQuestionCircle, faSearch, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
+import {NavLink, NavItem} from "react-bootstrap";
 
 export default class MainNav extends React.Component {
 
@@ -31,17 +32,19 @@ export default class MainNav extends React.Component {
                             {/*<small>Explore</small>*/}
 
                         </a>
-                    </li>
-                    {/*<li className="nav-item ">*/}
-                    {/*    <a href="/data"*/}
-                    {/*       className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"*/}
-                    {/*       title="" data-bs-toggle="tooltip"*/}
-                    {/*       data-bs-placement="right" data-bs-original-title="Data">*/}
-                    {/*        <FontAwesomeIcon icon={faDatabase}/>*/}
-                    {/*        /!*<small>Data</small>*!/*/}
 
-                    {/*    </a>*/}
-                    {/*</li>*/}
+
+                    </li>
+
+                    {/*<NavItem>*/}
+                    {/*    <NavLink to="/explorer"*/}
+                    {/*             className={"pt-3 pb-3 px-auto border-bottom  text-dark"}*/}
+                    {/*             title="" data-bs-toggle="tooltip"*/}
+                    {/*             data-bs-placement="right" data-bs-original-title="Explore"*/}
+                    {/*             activeClassName="active"><FontAwesomeIcon icon={faSearch}/></NavLink>*/}
+
+                    {/*</NavItem>*/}
+
                     <li className="nav-item ">
                         <a href="/console"
                            className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
@@ -52,6 +55,14 @@ export default class MainNav extends React.Component {
 
                         </a>
                     </li>
+
+                    {/*<NavItem>*/}
+                    {/*    <NavLink to="/console"*/}
+                    {/*             className={"pt-3 pb-3 px-auto border-bottom  text-dark"}*/}
+                    {/*             title="" data-bs-toggle="tooltip"*/}
+                    {/*             data-bs-placement="right" data-bs-original-title="Data"*/}
+                    {/*             activeClassName="active"><FontAwesomeIcon icon={faTerminal}/></NavLink>*/}
+                    {/*</NavItem>*/}
                     <li className="nav-item ">
                         <a href="/settings"
                            className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"

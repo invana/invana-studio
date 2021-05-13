@@ -113,7 +113,7 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
                         {/*<Card.Header>*/}
                         {/*    <FontAwesomeIcon icon={faHistory}/> Data Management (*/}
                         {/*</Card.Header>*/}
-                        <Card.Header className={"bg-secondary text-white pt-1 pb-1 rounded-0"}>
+                        <Card.Header className={"bg-secondary text-white pt-2 pb-2 rounded-0"}>
                             <FontAwesomeIcon icon={faDatabase}/> Graph Management
                         </Card.Header>
                         <Card.Body className={"p-0"}>
