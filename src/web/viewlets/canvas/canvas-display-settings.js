@@ -69,116 +69,121 @@ export default class CanvasDisplaySettings extends React.Component {
     render() {
         console.log("this.state.studioSettings.edges", this.state.studioSettings.edges);
         return (
-            <Card className={"p-10 border-0"} style={this.props.style}>
-                <Card.Header><FontAwesomeIcon icon={faDesktop}/> Graph Display Settings
-                </Card.Header>
-                <Card.Body>
+            <div className={" position-absolute  d-flex"} style={this.props.style}>
+                <div className={" flex-fill ml-3 border bg-white"}>
 
-                    <Form
-                        // onSubmit={this.onFormSubmit.bind(this)}
-                    >
-                        {/*<Form.Control name="labelName" value={this.props.vertexLabel} type={"hidden"}/>*/}
-                        {/*<Row>*/}
-                        {/*    <Col md={5} className={"p-0"}>*/}
-                        <h6>edges options</h6>
+                    <Card className={"border-0"}>
+                        <Card.Header><FontAwesomeIcon icon={faDesktop}/> Graph Display Settings
+                        </Card.Header>
+                        <Card.Body>
 
-                        <Form.Group className={"mb-1"}>
-                            <Form.Check
-                                type="switch"
-                                id="custom-switch"
-                                name={"smooth"}
-                                label="smooth"
-                                onChange={this.handleValueChange.bind(this)}
+                            <Form
+                                // onSubmit={this.onFormSubmit.bind(this)}
+                            >
+                                {/*<Form.Control name="labelName" value={this.props.vertexLabel} type={"hidden"}/>*/}
+                                {/*<Row>*/}
+                                {/*    <Col md={5} className={"p-0"}>*/}
+                                <h6>edges options</h6>
 
-                                defaultChecked={this.state.studioSettings.edges.smooth.enabled}
-                            />
-                        </Form.Group>
+                                <Form.Group className={"mb-1"}>
+                                    <Form.Check
+                                        type="switch"
+                                        id="custom-switch"
+                                        name={"smooth"}
+                                        label="smooth"
+                                        onChange={this.handleValueChange.bind(this)}
 
-                        {
+                                        defaultChecked={this.state.studioSettings.edges.smooth.enabled}
+                                    />
+                                </Form.Group>
 
-                            this.state.studioSettings.edges.smooth.enabled
-                                ? <div>
-                                    <Row>
-                                        <Col size={"6"}>
-                                            <Form.Group controlId="type" className={"mb-1 pr-2"}>
-                                                <Form.Label>type</Form.Label>
-                                                <Form.Control
-                                                    name={"type"} size={"sm"} as={"select"}
-                                                    onChange={this.handleValueChange.bind(this)}
-                                                    defaultValue={this.state.studioSettings.edges.smooth.type}
-                                                >
-                                                    <option value="dynamic">dynamic</option>
-                                                    <option value="continuous">continuous</option>
-                                                    <option value="discrete">discrete</option>
-                                                    <option value="diagonalCross">diagonalCross</option>
-                                                    <option value="straightCross">straightCross</option>
-                                                    <option value="horizontal">horizontal</option>
-                                                    <option value="vertical">vertical</option>
-                                                    <option value="curvedCW">curvedCW</option>
-                                                    <option value="curvedCCW">curvedCCW</option>
-                                                    <option value="cubicBezier">cubicBezier</option>
-                                                </Form.Control>
+                                {
+
+                                    this.state.studioSettings.edges.smooth.enabled
+                                        ? <div>
+                                            <Row>
+                                                <Col size={"6"}>
+                                                    <Form.Group controlId="type" className={"mb-1 pr-2"}>
+                                                        <Form.Label>type</Form.Label>
+                                                        <Form.Control
+                                                            name={"type"} size={"sm"} as={"select"}
+                                                            onChange={this.handleValueChange.bind(this)}
+                                                            defaultValue={this.state.studioSettings.edges.smooth.type}
+                                                        >
+                                                            <option value="dynamic">dynamic</option>
+                                                            <option value="continuous">continuous</option>
+                                                            <option value="discrete">discrete</option>
+                                                            <option value="diagonalCross">diagonalCross</option>
+                                                            <option value="straightCross">straightCross</option>
+                                                            <option value="horizontal">horizontal</option>
+                                                            <option value="vertical">vertical</option>
+                                                            <option value="curvedCW">curvedCW</option>
+                                                            <option value="curvedCCW">curvedCCW</option>
+                                                            <option value="cubicBezier">cubicBezier</option>
+                                                        </Form.Control>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col size={"6"}>
+                                                    <Form.Group controlId="forceDirection" className={"mb-1"}>
+                                                        <Form.Label>forceDirection</Form.Label>
+                                                        <Form.Control
+                                                            name={"forceDirection"} size={"sm"} as={"select"}
+                                                            defaultValue={this.state.studioSettings.edges.smooth.forceDirection}
+                                                            onChange={this.handleValueChange.bind(this)}
+                                                            // defaultValue={this.getValueFromDataOrGetDefault("elementShape")}
+                                                        >
+                                                            <option value="horizontal">horizontal</option>
+                                                            <option value="vertical">vertical</option>
+                                                            <option value="none">none</option>
+                                                        </Form.Control>
+                                                    </Form.Group>
+                                                </Col>
+
+                                            </Row>
+                                            <Form.Group controlId="roundness" className={"mb-1"}>
+                                                <Form.Label>roundness <small>({this.state.studioSettings.edges.smooth.roundness})</small></Form.Label>
+                                                <Form.Control type="range" name={"roundness"}
+                                                              onChange={this.handleValueChange.bind(this)}
+                                                              min={0} max={1} step={0.05}
+                                                              defaultValue={this.state.studioSettings.edges.smooth.roundness}
+                                                />
                                             </Form.Group>
-                                        </Col>
-                                        <Col size={"6"}>
-                                            <Form.Group controlId="forceDirection" className={"mb-1"}>
-                                                <Form.Label>forceDirection</Form.Label>
-                                                <Form.Control
-                                                    name={"forceDirection"} size={"sm"} as={"select"}
-                                                    defaultValue={this.state.studioSettings.edges.smooth.forceDirection}
-                                                    onChange={this.handleValueChange.bind(this)}
-                                                    // defaultValue={this.getValueFromDataOrGetDefault("elementShape")}
-                                                >
-                                                    <option value="horizontal">horizontal</option>
-                                                    <option value="vertical">vertical</option>
-                                                    <option value="none">none</option>
-                                                </Form.Control>
+                                            <Form.Group controlId="length">
+                                                <Form.Label>length <small>({this.state.studioSettings.edges.length})</small></Form.Label>
+                                                <Form.Control type="range" name={"length"}
+                                                              onChange={this.handleValueChange.bind(this)}
+                                                              min={100} max={1000} step={1}
+                                                              defaultValue={this.state.studioSettings.edges.length}
+                                                />
                                             </Form.Group>
-                                        </Col>
-
-                                    </Row>
-                                    <Form.Group controlId="roundness" className={"mb-1"}>
-                                        <Form.Label>roundness <small>({this.state.studioSettings.edges.smooth.roundness})</small></Form.Label>
-                                        <Form.Control type="range" name={"roundness"}
-                                                      onChange={this.handleValueChange.bind(this)}
-                                                      min={0} max={1} step={0.05}
-                                                      defaultValue={this.state.studioSettings.edges.smooth.roundness}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group controlId="length">
-                                        <Form.Label>length <small>({this.state.studioSettings.edges.length})</small></Form.Label>
-                                        <Form.Control type="range" name={"length"}
-                                                      onChange={this.handleValueChange.bind(this)}
-                                                      min={100} max={1000} step={1}
-                                                      defaultValue={this.state.studioSettings.edges.length}
-                                        />
-                                    </Form.Group>
-                                    {/*<Form.Group>*/}
-                                    {/*    <Form.Label>roundness</Form.Label>*/}
+                                            {/*<Form.Group>*/}
+                                            {/*    <Form.Label>roundness</Form.Label>*/}
 
 
-                                    {/*    <Form.Control type="number" placeholder="0.5"/>*/}
-                                    {/*    <Form.Text className="text-muted">*/}
-                                    {/*        We&apos;ll never share your email with anyone else.*/}
-                                    {/*    </Form.Text>*/}
-                                    {/*    /!*<input type="roundnessnum" step="1"/>*!/*/}
-                                    {/*</Form.Group>*/}
+                                            {/*    <Form.Control type="number" placeholder="0.5"/>*/}
+                                            {/*    <Form.Text className="text-muted">*/}
+                                            {/*        We&apos;ll never share your email with anyone else.*/}
+                                            {/*    </Form.Text>*/}
+                                            {/*    /!*<input type="roundnessnum" step="1"/>*!/*/}
+                                            {/*</Form.Group>*/}
 
-                                    {/*    </Col>*/}
-                                    {/*</Row>*/}
-                                    <Button variant="outline-success" size={"sm"}
-                                            onClick={this.updateSettings.bind(this)}>Update</Button>
-                                    <Button className={"ml-2"} variant="outline-secondary" size={"sm"}
-                                            onClick={() => this.props.onClose()}>close</Button>
-                                </div>
-                                : <React.Fragment/>
-                        }
+                                            {/*    </Col>*/}
+                                            {/*</Row>*/}
+                                            <Button variant="outline-success" size={"sm"}
+                                                    onClick={this.updateSettings.bind(this)}>Update</Button>
+                                            <Button className={"ml-2"} variant="outline-secondary" size={"sm"}
+                                                    onClick={() => this.props.onClose()}>close</Button>
+                                        </div>
+                                        : <React.Fragment/>
+                                }
 
 
-                    </Form>
+                            </Form>
 
-                </Card.Body>
-            </Card>
+                        </Card.Body>
+                    </Card>
+                </div>
+            </div>
         )
     }
 }

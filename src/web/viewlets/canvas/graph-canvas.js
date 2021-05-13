@@ -617,7 +617,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             makeQuery={this.makeQuery.bind(this)}
                             connector={this.connector}
                             setLeftContentName={this.setLeftContentName.bind(this)}
-                            style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
+                            style={{"width": "420px", "top": "54px", "maxHeight": "calc(100vh - 250px)"}}
                         />
                         : <React.Fragment/>
                 }
@@ -625,21 +625,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "query-history"
                         ? <RequestHistoryView
-                            style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
-
-                            onClose={() => {
-                                // _this.setRightContentName(null)
-                            }}
-                            makeQuery={this.makeQuery.bind(this)}
-                            startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
-                        />
-
-                        : <React.Fragment/>
-                }
-                {
-                    this.state.leftContentName === "query-history"
-                        ? <RequestHistoryView
-                            style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
+                            style={{"width": "420px", "top": "54px", "maxHeight": "calc(100vh - 250px)"}}
 
                             onClose={() => {
                                 // _this.setRightContentName(null)
@@ -654,7 +640,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "graph-management"
                         ? <DataSidebarViewlet
-                            style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
+                            style={{"width": "420px", "top": "54px", "maxHeight": "calc(100vh - 250px)"}}
 
                             {...this.props}
                             onItemClick={this.onItemClick.bind(this)}
@@ -676,7 +662,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "canvas-display-settings"
                         ?
-                        <CanvasDisplaySettings style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
+                        <CanvasDisplaySettings style={{"width": "420px", "top": "54px", "maxHeight": "calc(100vh - 250px)"}}
                                                onClose={() => {
                                            _this.setLeftContentName(null)
                                        }}
