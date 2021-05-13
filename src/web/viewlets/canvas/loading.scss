@@ -1,0 +1,14 @@
+.loadingDiv {
+  width: calc(100% - 50px);
+  position: absolute;
+  top: 0;
+  background: white;
+  left: 50px;
+  height: 100%;
+  opacity: 0.95;
+  z-index: 10000;
+
+  h4 {
+    margin-top: 25%;
+  }
+}

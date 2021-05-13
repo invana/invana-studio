@@ -25,7 +25,7 @@ export default class CanvasConsoleOptions extends React.Component {
     render() {
         return (
             <div className={"d-flex position-absolute"}
-                 style={{"width": "420px", "top": "26px"}}>
+                 style={{"width": "420px", "top": "26px", "zIndex": 100001}}>
                 <div className={" flex-fill ml-3 bg-secondary"}>
                     <ul className="nav nav-pills nav-canvas d-flex justify-content-start
                     text-center pt-1 pb-1 pl-3 pr-3 ml-0 border border-bottom-0">

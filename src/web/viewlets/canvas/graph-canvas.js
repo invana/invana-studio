@@ -18,6 +18,7 @@ import DataSidebarViewlet from "../data-management/data-sidebar";
 import ElementOptions from "../../interface/element-options";
 import {Modal} from "react-bootstrap";
 import CanvasDisplaySettings from "./canvas-display-settings";
+import LoadingDiv from "./loading";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
@@ -617,7 +618,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             makeQuery={this.makeQuery.bind(this)}
                             connector={this.connector}
                             setLeftContentName={this.setLeftContentName.bind(this)}
-                            style={{"width": "420px", "top": "58px", "maxHeight": "calc(100vh - 250px)"}}
+                            style={{"width": "420px", "top": "58px", "zIndex": 100001,
+                                "maxHeight": "calc(100vh - 250px)"}}
                         />
                         : <React.Fragment/>
                 }
@@ -662,11 +664,12 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "canvas-display-settings"
                         ?
-                        <CanvasDisplaySettings style={{"width": "420px", "top": "58px", "maxHeight": "calc(100vh - 250px)"}}
-                                               onClose={() => {
-                                           _this.setLeftContentName(null)
-                                       }}
-                                               startRenderingGraph={this.canvasCtrl.startRenderingGraph.bind(this)}
+                        <CanvasDisplaySettings
+                            style={{"width": "420px", "top": "58px", "maxHeight": "calc(100vh - 250px)"}}
+                            onClose={() => {
+                                _this.setLeftContentName(null)
+                            }}
+                            startRenderingGraph={this.canvasCtrl.startRenderingGraph.bind(this)}
                         />
 
 
@@ -696,9 +699,15 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                 />
                             </Modal.Body>
                         </Modal.Dialog>
-                        : <React.Fragment></React.Fragment>
+                        : <React.Fragment/>
                 }
-
+                {
+                    this.state.isQuerying === true || this.state.isRenderingCanvas === true
+                        ? <LoadingDiv statusMessage={this.state.statusMessage}
+                                      stopRenderingGraph={this.canvasCtrl.stopRenderingGraph.bind(this)}
+                        />
+                        : <React.Fragment/>
+                }
 
                 {/*<div className="p-2 bd-highlight">Flex item</div>*/}
             </div>
