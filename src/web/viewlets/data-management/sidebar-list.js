@@ -131,7 +131,7 @@ export default class SidebarListBase extends React.Component {
 
                                     {...listProps}
                                     action key={index}
-                                    className={"pl-3 pb-1 pt-1"}
+                                    className={"pl-3 pb-1 pt-1 border-bottom-0"}
                                     title={"Show connected edges and vertices"}
                                     // variant={"link"}
                                     {...itemProps}
@@ -159,7 +159,7 @@ export default class SidebarListBase extends React.Component {
                                     <span className={"float-right"} style={{"position": "relative", "right": "-12px"}}>
                                         {
                                             this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "hidden"
-                                                ? <FontAwesomeIcon className={"text-light text- small"}
+                                                ? <FontAwesomeIcon className={"text-light small"}
                                                                    icon={faEyeSlash}/>
                                                 : <React.Fragment/>
                                         }

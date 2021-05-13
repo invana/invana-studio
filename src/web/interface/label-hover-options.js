@@ -44,14 +44,14 @@ export default class LabelHoverOptions extends React.Component {
 
     render() {
         return (
-            <div className={"labelHoverOptions"} style={{'position': 'absolute', 'top': '4px', 'right': "0px"}}>
+            <div className={"labelHoverOptions"} style={{'position': 'absolute', 'top': '-1px', 'right': "-1px"}}>
 
                 <Nav className=" ">
 
                     {
                         this.props.startNewQueryInConsole
                             ? <Nav.Item>
-                                <Button size={"sm"} variant={"link"} title={"start query with this label"}
+                                <Button size={"sm"} className={"text-muted"} variant={"link"} title={"start query with this label"}
                                         onClick={() => {
                                             if (this.props.hoveredLabelType === "edge") {
                                                 this.props.startNewQueryInConsole('g.E().hasLabel("' + this.props.hoveredLabelName + '")')
@@ -68,7 +68,7 @@ export default class LabelHoverOptions extends React.Component {
                     }
 
                     <Nav.Item>
-                        <Button size={"sm"} variant={"link"}
+                        <Button size={"sm"} variant={"link"}  className={"text-muted"}
                                 title={"load vertices data with neighbouring edges and vertices"}
                                 onClick={() => this.props.onItemClick(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
                             <FontAwesomeIcon icon={faPlayCircle}/>
@@ -77,7 +77,7 @@ export default class LabelHoverOptions extends React.Component {
 
                     <Nav.Item>
 
-                        <Button size={"sm"} variant={"link"} title={"load vertices data"}
+                        <Button size={"sm"} variant={"link"} title={"load vertices data"}  className={"text-muted"}
                                 onClick={() => this.props.loadElementData(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
                             <FontAwesomeIcon icon={faCircle}/>
 
@@ -89,6 +89,7 @@ export default class LabelHoverOptions extends React.Component {
                         {
                             this.checkIfLabelAlreadyHidden(this.props.hoveredLabelName, this.props.hoveredLabelType)
                                 ? <Button size={"sm"} variant={"link"} title={"show this label data"}
+                                           className={"text-muted"}
                                           onClick={() => {
 
                                               this.props.removeFromHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType)
@@ -96,6 +97,7 @@ export default class LabelHoverOptions extends React.Component {
                                 > <FontAwesomeIcon icon={faEyeSlash}/>
                                 </Button>
                                 : <Button size={"sm"} variant={"link"} title={"hide this label data"}
+                                           className={"text-muted"}
                                           onClick={() => {
                                               this.props.addToHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType);
                                           }}

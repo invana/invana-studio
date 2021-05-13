@@ -1,9 +1,9 @@
 import React from "react";
-import {Alert, Form, FormControl, InputGroup, Nav} from "react-bootstrap";
+import {Alert, Card, Form, FormControl, InputGroup, Nav} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSync} from "@fortawesome/free-solid-svg-icons";
+import {faHistory, faSync} from "@fortawesome/free-solid-svg-icons";
 import DefaultRemoteComponent from "../../layouts/default-remote";
 
 
@@ -106,109 +106,130 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
 
     render() {
         return (
-            <div style={this.props.style}>
-                <Form className={"mb-1 mt-2"}>
-                    <InputGroup>
-                        <FormControl onChange={this.searchLabels.bind(this)}
-                                     className={"mt-0 ml-3 mr-3"} size={"sm"}
-                                     name={"labelsFilterKey"}
-                                     autoComplete={"off"}
-                                     placeholder={"Search nodes and edges labels ..."}/>
-                    </InputGroup>
-                </Form>
-                {
-                    this.state.queryFailure === true ?
-                        <Alert variant={"danger"} className={"m-3 p-2"}>
-                            Failed to fetch the data. Check
-                            if you are able to query <a href={this.connector.serverUrl}
-                                                        className={"text-dark"}
-                                                        target={"_new"}>Invana Engine
-                            API</a> fine.
-                        </Alert>
-                        : <React.Fragment/>
-                }
-                {
-                    this.state.isQuerying === true
-                        ? <React.Fragment><Alert variant={"info"} className={"m-3 p-2"}>
-                            Connecting to Invana Engine; Querying..
-                        </Alert>
-                            <p className={"text-muted small m-3"}><strong>Note</strong>: If this takes
-                                more than 180 seconds, check <a href={this.connector.serverUrl}
-                                                                className={"text-dark"}
-                                                                target={"_new"}>Invana Engine API</a> if it is functional.
-                            </p>
-                        </React.Fragment>
-                        : <React.Fragment>
+            <div className={" position-absolute  d-flex"} style={this.props.style}>
+                <div className={" flex-fill ml-3 border bg-white"}>
 
-                                <Nav className="mr-auto">
-                                    <Nav.Item className={"ml-3 align-middle"}>
-                                        <span>
-                                            <strong>{this.state.verticesStats.length}</strong> Vertices
-                                        </span>
-                                    </Nav.Item>
-                                    <Nav.Item className={"ml-3 align-middle"}>
-                                        <span>
-                                            <strong>{this.state.edgeStats.length}</strong> Edges
-                                        </span>
-                                    </Nav.Item>
-
-                                </Nav>
-                                <Nav className="ml-auto">
-                                    <button className={"btn btn-link p-0 mr-3 small"} onClick={() => this.refreshData()}>
-                                        <FontAwesomeIcon icon={faSync}/></button>
-                                </Nav>
+                    <Card className={" border-0"}>
+                        {/*<Card.Header>*/}
+                        {/*    <FontAwesomeIcon icon={faHistory}/> Data Management (*/}
+                        {/*</Card.Header>*/}
+                        <Card.Body className={"p-0"}>
 
 
+                                <Form className={"mb-1 mt-2"}>
+                                    <InputGroup>
+                                        <FormControl onChange={this.searchLabels.bind(this)}
+                                                     className={"mt-0 ml-3 mr-3"} size={"sm"}
+                                                     name={"labelsFilterKey"}
+                                                     autoComplete={"off"}
+                                                     placeholder={"Search nodes and edges labels ..."}/>
+                                    </InputGroup>
+                                </Form>
+                                {
+                                    this.state.queryFailure === true ?
+                                        <Alert variant={"danger"} className={"m-3 p-2"}>
+                                            Failed to fetch the data. Check
+                                            if you are able to query <a href={this.connector.serverUrl}
+                                                                        className={"text-dark"}
+                                                                        target={"_new"}>Invana Engine
+                                            API</a> fine.
+                                        </Alert>
+                                        : <React.Fragment/>
+                                }
+                                {
+                                    this.state.isQuerying === true
+                                        ? <React.Fragment><Alert variant={"info"} className={"m-3 p-2"}>
+                                            Connecting to Invana Engine; Querying..
+                                        </Alert>
+                                            <p className={"text-muted small m-3"}><strong>Note</strong>: If this takes
+                                                more than 180 seconds, check <a href={this.connector.serverUrl}
+                                                                                className={"text-dark"}
+                                                                                target={"_new"}>Invana Engine API</a> if it
+                                                is functional.
+                                            </p>
+                                        </React.Fragment>
+                                        : <React.Fragment>
 
-                            {
+                                        <div className="display-block ">
+                                            <Nav className=" mt-2 mb-1">
+                                                <Nav.Item className={"ml-3 "}>
+                                                    <span>
+                                                        <strong>{this.state.verticesStats.length}</strong> Node Labels
+                                                    </span>
+                                                </Nav.Item>
+                                                <Nav.Item className={"ml-3"}>
+                                                    <span>
+                                                        <strong>{this.state.edgeStats.length}</strong> Relationship Labels
+                                                    </span>
+                                                </Nav.Item>
+                                                <Nav.Item className={"ml-3"}>
+                                                    <span>
+                                                          <button className={"btn btn-link text-muted p-0 ml-3 small"}
+                                                        onClick={() => this.refreshData()}>
+                                                    <FontAwesomeIcon icon={faSync}/></button>
+                                                    </span>
+                                                </Nav.Item>
+                                            </Nav>
+                                            {/*<Nav className="ml-auto">*/}
 
-                                this.state.filteredNodeStats.length > 0 || this.state.filteredEdgeStats.length > 0
-                                    ? <div className={"border-bottom mb-3 pb-3"}>
-                                        <h6 className={"ml-3 mb-0  text-uppercase font-weight-bold small bg-light p-1"}>Filtered
-                                            Labels</h6>
-                                        <DataVertexManagement
-                                            onItemClick={this.props.onItemClick} {...this.props}
-                                            loadElementData={this.props.loadElementData}
-                                            canvasCtrl={this.props.canvasCtrl}
-                                            showLabelMenu={this.props.showLabelMenu}
-                                            statsData={this.state.filteredNodeStats}
-                                            nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
-                                            edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                            {/*</Nav>*/}
+                                            <div className={" border-bottom ml-3 mr-3"}/>
+                                        </div>
 
-                                        />
-                                        <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
-                                                            canvasCtrl={this.props.canvasCtrl}
+
+                                            {
+
+                                                this.state.filteredNodeStats.length > 0 || this.state.filteredEdgeStats.length > 0
+                                                    ? <div className={"border-bottom mb-3 pb-3"}>
+                                                        <h6 className={"ml-3 mb-0  text-uppercase font-weight-bold small bg-light p-1"}>Filtered
+                                                            Labels</h6>
+                                                        <DataVertexManagement
+                                                            onItemClick={this.props.onItemClick} {...this.props}
                                                             loadElementData={this.props.loadElementData}
+                                                            canvasCtrl={this.props.canvasCtrl}
                                                             showLabelMenu={this.props.showLabelMenu}
-                                                            statsData={this.state.filteredEdgeStats}
+                                                            statsData={this.state.filteredNodeStats}
                                                             nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
                                                             edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
-                                        />
-                                    </div>
-                                    : <React.Fragment/>
-                            }
+
+                                                        />
+                                                        <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                                            canvasCtrl={this.props.canvasCtrl}
+                                                                            loadElementData={this.props.loadElementData}
+                                                                            showLabelMenu={this.props.showLabelMenu}
+                                                                            statsData={this.state.filteredEdgeStats}
+                                                                            nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                                            edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                                        />
+                                                    </div>
+                                                    : <React.Fragment/>
+                                            }
 
 
-                            <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
-                                                  loadElementData={this.props.loadElementData}
-                                                  canvasCtrl={this.props.canvasCtrl}
-                                                  showLabelMenu={this.props.showLabelMenu}
-                                                  statsData={this.state.verticesStats}
-                                                  nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
-                                                  edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
-                            />
-                            <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
-                                                loadElementData={this.props.loadElementData}
-                                                canvasCtrl={this.props.canvasCtrl}
-                                                showLabelMenu={this.props.showLabelMenu}
-                                                statsData={this.state.edgeStats}
-                                                nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
-                                                edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
-                            />
+                                            <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                                  loadElementData={this.props.loadElementData}
+                                                                  canvasCtrl={this.props.canvasCtrl}
+                                                                  showLabelMenu={this.props.showLabelMenu}
+                                                                  statsData={this.state.verticesStats}
+                                                                  nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                                  edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                            />
+                                            <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                                loadElementData={this.props.loadElementData}
+                                                                canvasCtrl={this.props.canvasCtrl}
+                                                                showLabelMenu={this.props.showLabelMenu}
+                                                                statsData={this.state.edgeStats}
+                                                                nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                                edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                            />
 
-                        </React.Fragment>
-                }
+                                        </React.Fragment>
+                                }
 
+
+                        </Card.Body>
+                    </Card>
+                </div>
             </div>
         )
     }

@@ -88,7 +88,7 @@ export default class SelectedData extends React.Component {
                 }
 
                 <div className="SelectedDataList">
-                    <div className={'singleProperty darkest'} key={"properties-list"}>
+                    <div className={'ml-0 mr-0 text-white singleProperty bg-secondary'} key={"properties-list"}>
                         <div className={"propertyData"}>
                             <strong className={"propertyKey "}>PROPERTIES</strong>
                         </div>
