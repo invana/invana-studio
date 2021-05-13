@@ -1,17 +1,17 @@
 
+//
+//.nodeMenuContainer::-webkit-scrollbar {
+//  width: 8px;
+//}
 
-.nodeMenuContainer::-webkit-scrollbar {
-  width: 8px;
-}
+//.nodeMenuContainer::-webkit-scrollbar-track {
+//  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//}
 
-.nodeMenuContainer::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.nodeMenuContainer::-webkit-scrollbar-thumb {
-  //background-color: $darkBgSecondary;
-  //outline: 1px solid $border-color;
-}
+//.nodeMenuContainer::-webkit-scrollbar-thumb {
+//  //background-color: $darkBgSecondary;
+//  //outline: 1px solid $border-color;
+//}
 
 .nodeMenuContainer {
   //background-color: $lightBg;
@@ -24,9 +24,9 @@
   font-size: 12px;
   padding: 5px;
   z-index: 10000;
-  min-height: 250px;
-  max-height: 550px;
-  overflow: scroll;
+  //min-height: 250px;
+  //max-height: 550px;
+  //overflow: scroll;
   //overflow-x: initial;
   opacity: 0.99;
 

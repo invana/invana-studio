@@ -141,7 +141,7 @@ export default class VisJsGraphCanvasUtils {
     generateEdgeConfig(groupName, arrowShape) {
         let config = {};
 
-        const defaultLinkOptions = getDefaultEdgeOptions();
+        const defaultLinkOptions = getDefaultEdgeOptions(groupName);
 
         // config.length = defaultLinkOptions.linkLength;
 
@@ -213,7 +213,7 @@ export default class VisJsGraphCanvasUtils {
         if (renderingConfigFromStorage && renderingConfigFromStorage.elementShape) {
             vertexDataaUpdated.shape = renderingConfigFromStorage.elementShape;
         }
-        console.log("shape is ", vertexDataaUpdated.id, vertexDataaUpdated.shape)
+        // console.log("shape is ", vertexDataaUpdated.id, vertexDataaUpdated.shape)
         if (allNodeShapes['inLabelShapes'].includes(vertexDataaUpdated.shape)) {
             delete vertexDataaUpdated.size; // = renderingConfigFromStorage.shapeSize/2;
 
@@ -261,7 +261,7 @@ export default class VisJsGraphCanvasUtils {
             edgeData._label = edgeData.label;
         }
         const groupName = edgeData._label;
-        const defaultLinkOptions = getDefaultEdgeOptions();
+        const defaultLinkOptions = getDefaultEdgeOptions(groupName);
 
         // this.generateEdgeGroups(groupName);
         const edgeDefaultConfig = this.generateEdgeConfig(groupName);

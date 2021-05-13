@@ -15,6 +15,8 @@ import NodeMenu from "../../interface/node-menu";
 import CanvasArtBoard from "../../interface/canvas/canvas-art-board";
 import "./canvas.scss";
 import DataSidebarViewlet from "../data-management/data-sidebar";
+import ElementOptions from "../../interface/element-options";
+import {Modal} from "react-bootstrap";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
@@ -548,6 +550,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     }
 
     render() {
+        const _this = this;
         return (
             <div className="d-flex  flex-column" style={{"height": "100%"}}>
                 <div className={"canvasBoard   "}>
@@ -640,22 +643,51 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
                 {
                     this.state.showQueryHistory
-                        ? <DataSidebarViewlet  {...this.props}
-                                               onItemClick={this.onItemClick.bind(this)}
-                                               loadElementData={this.loadElementData.bind(this)}
-                                               showLabelMenu={true}
-                                               dataStore={this.dataStore}
-                                               addToHiddenLabels={this.addToHiddenLabels.bind(this)}
-                                               removeFromHiddenLabels={this.removeFromHiddenLabels.bind(this)}
-                                               startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
-                                               hiddenNodeLabels={this.state.hiddenNodeLabels}
-                                               hiddenEdgeLabels={this.state.hiddenEdgeLabels}
-                                               canvasCtrl={this.canvasCtrl}
-                                               nodeLabelsInCanvas={this.state.nodeLabelsInCanvas}
-                                               edgeLabelsInCanvas={this.state.edgeLabelsInCanvas}
+                        ? <DataSidebarViewlet
+                            style={{"width": "420px", "top": "59px", "height": "calc(100vh - 250px)"}}
+
+                            {...this.props}
+                            onItemClick={this.onItemClick.bind(this)}
+                            loadElementData={this.loadElementData.bind(this)}
+                            showLabelMenu={true}
+                            dataStore={this.dataStore}
+                            addToHiddenLabels={this.addToHiddenLabels.bind(this)}
+                            removeFromHiddenLabels={this.removeFromHiddenLabels.bind(this)}
+                            startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                            hiddenNodeLabels={this.state.hiddenNodeLabels}
+                            hiddenEdgeLabels={this.state.hiddenEdgeLabels}
+                            canvasCtrl={this.canvasCtrl}
+                            nodeLabelsInCanvas={this.state.nodeLabelsInCanvas}
+                            edgeLabelsInCanvas={this.state.edgeLabelsInCanvas}
                         />
 
                         : <React.Fragment/>
+                }
+                {
+                    this.state.modalContentName === "element-options" && this.state.selectedElementData
+                        ? <Modal.Dialog
+                            size="lg"
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered>
+
+                            <Modal.Body style={{"width": "600px"}}>
+                                <ElementOptions
+                                    selectedElementData={this.state.selectedElementData}
+                                    setModalContentName={this.setModalContentName.bind(this)}
+                                    // selectedLabelType={this.state.selectedLabelType}
+                                    setStatusMessage={this.setStatusMessage.bind(this)}
+                                    setErrorMessage={this.setErrorMessage.bind(this)}
+                                    // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
+                                    onClose={() => {
+                                        _this.setModalContentName(null)
+                                    }}
+                                    reRenderVisualizer={this.reRenderVisualizer.bind(this)}
+                                    // reRenderCanvas={this.reRenderCanvas.bind(this)}
+                                    // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
+                                />
+                            </Modal.Body>
+                        </Modal.Dialog>
+                        : <React.Fragment></React.Fragment>
                 }
 
 
@@ -663,4 +695,5 @@ export default class GraphCanvas extends DefaultRemoteComponent {
             </div>
         );
     }
+
 }

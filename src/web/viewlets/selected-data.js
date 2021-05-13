@@ -48,8 +48,8 @@ export default class SelectedData extends React.Component {
             selectedDataColorSchema = {bgColor: "#7d8296"};
         }
 
-            console.log("selectedDataColorSchema", selectedDataColorSchema);
-            // console.log("selectedDataColorSchema", selectedDataColorSchema);
+        console.log("selectedDataColorSchema", selectedDataColorSchema);
+        // console.log("selectedDataColorSchema", selectedDataColorSchema);
 
         return (
             <div>
@@ -109,8 +109,11 @@ export default class SelectedData extends React.Component {
                                     <div className={"propertyData"}>
                                         <strong className={"propertyKey"}>{propKey}:</strong>
                                         <div
-                                            style={{"marginTop": "5px"}}>{renderPropertyData(propKey, cleanedData.properties[propKey])}</div>
+                                            style={{"marginTop": "5px"}}>{renderPropertyData(propKey, cleanedData.properties[propKey]) ?
+                                            renderPropertyData(propKey, cleanedData.properties[propKey])
+                                            : <span>&nbsp;</span>}</div>
                                     </div>
+                                    <div className={"pl-2 pr-2 border-top"}/>
                                 </div>
                             )
                         })

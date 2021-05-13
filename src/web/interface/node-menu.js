@@ -146,7 +146,7 @@ export default class NodeMenu extends React.Component {
         const selectedElement = this.getLastSelectedNodeData();
         // console.log("=====selectedElement",selectedElement);
         return (
-            <div className="nodeMenuContainer"
+            <div className="nodeMenuContainer p-2 border"
                  style={{"left": this.props.menuPositionX + 5, "top": this.props.menuPositionY + 5}}>
 
                 {/*<Button size={"sm"}><FontAwesomeIcon icon={faCog}/></Button>*/}
