@@ -122,7 +122,7 @@ export default class CanvasConsoleOptions extends React.Component {
                     <Form inline>
                         <Form.Control
                             autoComplete={"off"}
-                            className=" ml-0 flex-fill rounded-0 border-top-0                                    "
+                            className=" ml-0 flex-fill rounded-0 border-top-0 pl-3 pr-3"
                             id="inlineFormInputName2"
                             type={"text"}
                             onFocus={() => this.props.setLeftContentName('query-console')}
