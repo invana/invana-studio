@@ -164,24 +164,24 @@ export default class NodeMenu extends React.Component {
                 <p className={"mb-0 pb-0"} style={{"color": this.getElementColor()}}>Label: {selectedElement._label}</p>
                 <p className={"mb-1 border-bottom "}>{selectedElement.type.replace("g:", "")} id: {this.getIdentifier()}</p>
 
-                <ul className={"nodeMenu"}>
+                <ul className={"nodeMenu border"}>
                     {selectedElement && selectedElement.type === "g:Vertex"
-                        ? <li onClick={() => this.onClickFocus()}>
+                        ? <li className={"border-right"} onClick={() => this.onClickFocus()}>
                             <FontAwesomeIcon icon={faDotCircle}/> <span>Focus</span>
                         </li>
                         : <span></span>
                     }
                     {selectedElement && selectedElement.type === "g:Vertex"
-                        ? <li onClick={() => this.onClickShowInV()}>
+                        ? <li className={"border-right"}  onClick={() => this.onClickShowInV()}>
                             <FontAwesomeIcon icon={faArrowAltCircleLeft}/> <span>InV</span>
                         </li> : <span></span>
                     }
                     {selectedElement && selectedElement.type === "g:Vertex"
-                        ? <li onClick={() => this.onClickShowOutV()}>
+                        ? <li className={"border-right"}  onClick={() => this.onClickShowOutV()}>
                             <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>OutV</span>
                         </li> : <span></span>
                     }
-                    <li onClick={() => this.startNewQuery()}>
+                    <li className={"border-right"}  onClick={() => this.startNewQuery()}>
                         <FontAwesomeIcon icon={faTerminal}/> <span>Query</span>
                     </li>
                     {/*<li onClick={() => this.hideMenu()}>*/}

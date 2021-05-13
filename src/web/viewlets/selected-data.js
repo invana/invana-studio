@@ -107,9 +107,8 @@ export default class SelectedData extends React.Component {
                             return (
                                 <div className={'singleProperty'} key={cleanedData.id + "-" + propKey}>
                                     <div className={"propertyData"}>
-                                        <strong className={"propertyKey"}>{propKey}:</strong>
-                                        <div
-                                            style={{"marginTop": "5px"}}>{renderPropertyData(propKey, cleanedData.properties[propKey]) ?
+                                        <strong className={"propertyKey text-muted"}>{propKey}:</strong>
+                                        <div style={{"marginTop": "5px"}} className={"text-muted"}>{renderPropertyData(propKey, cleanedData.properties[propKey]) ?
                                             renderPropertyData(propKey, cleanedData.properties[propKey])
                                             : <span>&nbsp;</span>}</div>
                                     </div>
