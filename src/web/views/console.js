@@ -6,8 +6,6 @@ import RawResponsesCanvas from "../viewlets/raw-response";
 import {STUDIO_SETTINGS} from "../../settings";
 import {faTerminal} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {getDataFromLocalStorage, setDataToLocalStorage} from "../../utils/localStorage";
-import {HISTORY_SETTINGS} from "../../settings/history";
 
 export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
@@ -37,14 +35,16 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
             console.log("[open] Connection established");
             console.log("Sending to server");
             _this.setState({isConnected2Gremlin: true});
-            // _this.socket.send("My name is John");
         };
+
 
         this.socket.onmessage = function (event) {
             // console.log(`[message] Data received from server: ${event.data}`);
             let responses = _this.state.responses;
             responses.push(JSON.parse(event.data))
             _this.setState({responses: responses});
+            _this.setState({isQuerying: false});
+
         };
 
         this.socket.onclose = function (event) {
@@ -79,6 +79,8 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         let queryObj = {
             query: queryString
         }
+        this.setState({isQuerying: true});
+
         this.addQueryToHistory(queryObj, "console")
     }
 
@@ -138,10 +140,18 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
                                 <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
                                     <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
                                             type={"submit"}>Submit Query</Button>
+                                </div>
 
-                                    {this.state.isQuerying ? <span>Querying</span> : <React.Fragment/>}
+                                <div className={" bg-white"}>
+                                    <span className={"ml-3 pb-2"}>
+                                        {this.state.isConnected2Gremlin ?
+                                            <span>connected to server.</span> :
+                                            <span>not connected to server.</span>}</span>
+                                    <span className={"ml-5"}>{
+                                        this.state.isQuerying ?
+                                            <span>querying server...</span> :
+                                            <React.Fragment/>}</span>
 
-                                    === {this.state.isConnected2Gremlin} {this.state.isQuerying} ===
                                 </div>
                             </form>
                         </div>
