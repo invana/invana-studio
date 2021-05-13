@@ -172,16 +172,16 @@ export default class NodeMenu extends React.Component {
                         : <span></span>
                     }
                     {selectedElement && selectedElement.type === "g:Vertex"
-                        ? <li className={"border-right"}  onClick={() => this.onClickShowInV()}>
+                        ? <li className={"border-right"} onClick={() => this.onClickShowInV()}>
                             <FontAwesomeIcon icon={faArrowAltCircleLeft}/> <span>InV</span>
                         </li> : <span></span>
                     }
                     {selectedElement && selectedElement.type === "g:Vertex"
-                        ? <li className={"border-right"}  onClick={() => this.onClickShowOutV()}>
+                        ? <li className={"border-right"} onClick={() => this.onClickShowOutV()}>
                             <FontAwesomeIcon icon={faArrowAltCircleRight}/> <span>OutV</span>
                         </li> : <span></span>
                     }
-                    <li className={"border-right"}  onClick={() => this.startNewQuery()}>
+                    <li className={"border-right"} onClick={() => this.startNewQuery()}>
                         <FontAwesomeIcon icon={faTerminal}/> <span>Query</span>
                     </li>
                     {/*<li onClick={() => this.hideMenu()}>*/}

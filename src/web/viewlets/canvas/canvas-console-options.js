@@ -2,13 +2,10 @@ import React from "react";
 import {Button, Form} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faBars,
-    faCamera,
-    faCog,
-    faDesktop,
-    faDownload, faExpand,
+    faCamera, faDatabase,
+    faDesktop, faExpand,
     faHistory, faSearch,
-    faSync, faTerminal, faTrash,
+    faSync, faTrash,
 
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
@@ -38,7 +35,7 @@ export default class CanvasConsoleOptions extends React.Component {
                                     className={`nav-link small  d-flex align-items-start pt-1 pb-1 mr-0 pr-2 
                                      pl-2 justify-content-center flex-column   ${this.props.leftContentName === "query-console" ? " btn-primary text-white" : " text-dark btn-link"} `}
                             >
-                                <FontAwesomeIcon icon={faTerminal}/>
+                                <FontAwesomeIcon icon={faSearch}/>
                             </Button>
                         </li>
                         <li className="nav-item ">
@@ -46,9 +43,8 @@ export default class CanvasConsoleOptions extends React.Component {
                                     onClick={() => this.props.setLeftContentName('graph-management')}
                                     className={`nav-link small  d-flex align-items-start pt-1 pb-1 mr-0 pr-2 
                                      pl-2 justify-content-center flex-column   ${this.props.leftContentName === "graph-management" ? " btn-primary text-white" : " text-dark btn-link"} `}
-
                             >
-                                <FontAwesomeIcon icon={faBars}/>
+                                <FontAwesomeIcon icon={faDatabase}/>
                             </Button>
                         </li>
                         <li className="nav-item ">
@@ -65,7 +61,7 @@ export default class CanvasConsoleOptions extends React.Component {
                                     onClick={() => this.props.setLeftContentName('query-history')}
                                     className={`nav-link small  d-flex align-items-start pt-1 pb-1 mr-0 pr-2 
                                      pl-2 justify-content-center flex-column   ${this.props.leftContentName === "query-history" ? " btn-primary text-white" : " text-dark btn-link"} `}
->
+                            >
                                 <FontAwesomeIcon icon={faHistory}/>
                             </Button>
                         </li>

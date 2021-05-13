@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDesktop, faHistory, faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import {faHistory} from "@fortawesome/free-solid-svg-icons";
 import {getDataFromLocalStorage} from "../../../utils/localStorage";
 import {HISTORY_SETTINGS} from "../../../settings/history";
 
@@ -39,7 +39,7 @@ export default class RequestHistoryView extends React.Component {
                 <div className={" flex-fill ml-3 border bg-white"}>
 
                     <Card className={" border-0"}>
-                        <Card.Header>
+                        <Card.Header className={"bg-secondary text-white pt-1 pb-1 rounded-0"}>
                             <FontAwesomeIcon icon={faHistory}/> Query History
 
                         </Card.Header>
@@ -51,27 +51,29 @@ export default class RequestHistoryView extends React.Component {
                                         {
                                             historyToShow.filter(item => item.query.queryKey === "rawQuery").map((existingHistoryItem, i) => {
                                                 return (
-                                                    <li className={"list-group-item border-bottom pl-0 pr-0 pt-0"}
+                                                    <li className={"list-group-item border-bottom p-0"}
                                                         key={i}>
-                                                <pre className={"mb-0 p-2"} style={{
-                                                    "backgroundColor": "#efefef",
-                                                }}>{this.extractRawQuery(existingHistoryItem.query)}</pre>
+                                                        <pre className={" ml-2 mr-2 mt-2 p-3 mt-0 mb-0"}
+                                                             style={{"backgroundColor": "#efefef"}}>
+                                                            {this.extractRawQuery(existingHistoryItem.query)}
+                                                        </pre>
                                                         {/*<pre className={"mb-0"}>{JSON.stringify(existingHistoryItem.query, null, 2)}</pre>*/}
 
-                                                        <div>
+                                                        <div className={"pr-2 pl-2 pt-1 pb-1"}>
                                                             {/*<button className={"btn btn-dark btn-sm  small "}*/}
                                                             {/*        onClick={() => this.props.makeQuery(this.extractRawQuery(existingHistoryItem.query), {source: 'console'})}>*/}
                                                             {/*    Run Again*/}
                                                             {/*</button>*/}
-                                                            <button className={"btn btn-dark mt-1 btn-sm small"}
+                                                            <button className={"btn btn-link mt-0 " +
+                                                            "font-weight-bold btn-sm p-0 display-inline"}
                                                                     onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(existingHistoryItem.query))}>
-                                                                Start Query in Console
+                                                                Start Query
                                                             </button>
+                                                            <small className={"ml-3"}>
+                                                                queried at {existingHistoryItem.dt}
+                                                            </small>
                                                         </div>
-                                                        <div className={"small"}>
-                                                            Queried
-                                                            from {existingHistoryItem.source} at {existingHistoryItem.dt}
-                                                        </div>
+
                                                     </li>
                                                 )
                                             })

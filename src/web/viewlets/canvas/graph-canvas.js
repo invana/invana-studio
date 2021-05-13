@@ -105,7 +105,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     // }
 
     startNewQueryInConsole(queryString) {
-        this.setState({canvasQueryString: queryString});
+        this.setState({canvasQueryString: queryString, leftContentName: "query-console"});
     }
 
     setLeftContentName(contentName) {

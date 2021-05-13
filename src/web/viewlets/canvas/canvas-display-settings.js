@@ -73,7 +73,8 @@ export default class CanvasDisplaySettings extends React.Component {
                 <div className={" flex-fill ml-3 border bg-white"}>
 
                     <Card className={"border-0"}>
-                        <Card.Header><FontAwesomeIcon icon={faDesktop}/> Graph Display Settings
+                        <Card.Header className={"bg-secondary text-white pt-1 pb-1 rounded-0"}>
+                            <FontAwesomeIcon icon={faDesktop}/> Display Settings
                         </Card.Header>
                         <Card.Body>
 
