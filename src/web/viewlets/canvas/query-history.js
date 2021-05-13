@@ -36,9 +36,9 @@ export default class RequestHistoryView extends React.Component {
         console.log("====historyToShow", historyToShow)
         return (
             <div className={" position-absolute  d-flex"} style={this.props.style}>
-                <div className={" flex-fill ml-3 border bg-white"}>
+                <div className={" flex-fill ml-3 border border-top-0 bg-white"}>
 
-                    <Card className={" border-0"}>
+                    <Card className={" border-0 rounded-0"}>
                         <Card.Header className={"bg-secondary text-white pt-1 pb-1 rounded-0"}>
                             <FontAwesomeIcon icon={faHistory}/> Query History
 
