@@ -116,15 +116,14 @@ export default class DefaultRemoteComponent extends React.Component {
     }
 
     addQueryToHistory(query, source) {
-        let existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.historyLocalStorageKey, true) || [];
-
-        existingHistory = existingHistory.slice(0, HISTORY_SETTINGS.MAX_HISTORY_COUNT_TO_REMEMBER)
+        let existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true) || [];
         existingHistory.unshift({
             "query": query,
             "source": source,
             "dt": new Date()
         })
-        setDataToLocalStorage(HISTORY_SETTINGS.historyLocalStorageKey, existingHistory);
+        existingHistory = existingHistory.slice(0, HISTORY_SETTINGS.MAX_HISTORY_COUNT_TO_REMEMBER);
+        setDataToLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, existingHistory);
     }
 
     setQueryObject(queryObject) {

@@ -84,10 +84,10 @@ export default class ElementOptions extends DefaultRemoteComponent {
 
         let properties = this.state.nodeOptions.properties;
         properties['label_type'] = this.getElementType();
-        const query_string = this.connector.requestBuilder.updateVertexById(
+        const queryObj = this.connector.requestBuilder.updateVertexById(
             this.state.nodeOptions.id, properties
         );
-        this.makeQuery(query_string, {'source': 'canvas'});
+        this.makeQuery(queryObj, {'source': 'canvas'});
     }
 
     // add this vertex options to

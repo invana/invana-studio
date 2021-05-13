@@ -46,19 +46,24 @@ input[type="color"]:focus {
   background: #eaeaea !important;
 }
 
-button{
+button {
   //border-radius: 0 !important;
 }
 
-.nav-canvas .nav-link{
+.nav-canvas .nav-link {
   font-size: 13px !important;
   //color: #525252 !important;
 }
-.small{
+
+.small {
   font-size: 13px !important;
 }
 
 
-.modal-dialog{
+.modal-dialog {
   z-index: 1000002;
+}
+
+.bg-dark {
+  background: #4e4f55;
 }

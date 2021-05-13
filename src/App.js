@@ -8,6 +8,7 @@ import LabelView from "./web/views/data";
 import DataManagementView from "./web/views/data";
 import SettingsView from "./web/views/settings";
 import ConnectView from "./web/views/connect";
+import ConsoleView from "./web/views/console";
 
 
 export default class App extends React.Component {
@@ -20,6 +21,7 @@ export default class App extends React.Component {
                         <Route exact path="/connect" component={ConnectView}/>
                         <Route exact path="/explorer" component={Explorer}/>
                         <Route exact path="/data" component={DataManagementView}/>
+                        <Route exact path="/console" component={ConsoleView}/>
                         <Route exact path="/settings" component={SettingsView}/>
                         <Route exact path="/label" component={LabelView}/>
                         <Route component={Page404View}/>

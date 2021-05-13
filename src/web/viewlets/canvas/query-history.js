@@ -26,13 +26,17 @@ export default class RequestHistoryView extends React.Component {
     };
 
     extractRawQuery(graphQLQuery) {
-        return graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0].replace(/(^"|"$)/g, '').replace(/\\"/g, "\"").replace(/\n|\r/g, "");
+        try {
+            return graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0].replace(/(^"|"$)/g, '').replace(/\\"/g, "\"").replace(/\n|\r/g, "");
+        } catch (e) {
+            return graphQLQuery.query;
+        }
     }
 
 
     render() {
-        const existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.historyLocalStorageKey, true) || [];
-        const historyToShow = existingHistory.filter(item => item.source !== "internal").slice(0, 5);
+        const existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true) || [];
+        const historyToShow = existingHistory.filter(item => item.source === "console").slice(0, 5);
         console.log("====historyToShow", historyToShow)
         return (
             <div className={" position-absolute  d-flex"} style={this.props.style}>
@@ -48,7 +52,7 @@ export default class RequestHistoryView extends React.Component {
                                     ?
                                     <ul className={"list-group"}>
                                         {
-                                            historyToShow.filter(item => item.query.queryKey === "rawQuery").map((existingHistoryItem, i) => {
+                                            historyToShow.map((existingHistoryItem, i) => {
                                                 return (
                                                     <li className={"list-group-item border-bottom p-0"}
                                                         key={i}>

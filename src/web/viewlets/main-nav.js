@@ -32,16 +32,16 @@ export default class MainNav extends React.Component {
 
                         </a>
                     </li>
-                    <li className="nav-item ">
-                        <a href="/data"
-                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
-                           title="" data-bs-toggle="tooltip"
-                           data-bs-placement="right" data-bs-original-title="Data">
-                            <FontAwesomeIcon icon={faDatabase}/>
-                            {/*<small>Data</small>*/}
+                    {/*<li className="nav-item ">*/}
+                    {/*    <a href="/data"*/}
+                    {/*       className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"*/}
+                    {/*       title="" data-bs-toggle="tooltip"*/}
+                    {/*       data-bs-placement="right" data-bs-original-title="Data">*/}
+                    {/*        <FontAwesomeIcon icon={faDatabase}/>*/}
+                    {/*        /!*<small>Data</small>*!/*/}
 
-                        </a>
-                    </li>
+                    {/*    </a>*/}
+                    {/*</li>*/}
                     <li className="nav-item ">
                         <a href="/console"
                            className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"

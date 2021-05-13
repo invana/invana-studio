@@ -46,7 +46,7 @@ export default class IndexView extends DefaultRemoteRoutableComponent {
             <DefaultLayout {...this.props} ref={this.child}>
 
                 <Col col={2}>
-                    <h1>Index View</h1>
+
                 </Col>
 
             </DefaultLayout>

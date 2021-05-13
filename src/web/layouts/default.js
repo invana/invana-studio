@@ -4,6 +4,10 @@ import MainContent from "../viewlets/main-content";
 
 export default class DefaultLayout extends React.Component {
 
+
+
+
+
     render() {
         return (
             <div className={"d-flex"}>
