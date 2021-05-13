@@ -22,8 +22,8 @@ export default class Explorer extends DefaultRemoteRoutableComponent {
 
     render() {
         return (
-<DefaultLayout {...this.props}>
-                <GraphCanvas  />
+            <DefaultLayout {...this.props}>
+                <GraphCanvas/>
             </DefaultLayout>
         );
     }
