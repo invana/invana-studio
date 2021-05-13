@@ -14,8 +14,7 @@ export default class Page404View extends React.Component {
         const {location} = this.props;
 
         return (
-            <DefaultLayout>
-
+<DefaultLayout {...this.props}>
                     <Col className={"p-3"}>
                         <h3>
                             No match found for <code>{location.pathname}</code>

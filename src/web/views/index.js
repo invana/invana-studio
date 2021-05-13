@@ -8,9 +8,7 @@ import DefaultRemoteRoutableComponent from "../layouts/default-remote-routable";
 export default class IndexView extends DefaultRemoteRoutableComponent {
 
 
-    static defaultProps = {
-        connectionUrl: STUDIO_SETTINGS.CONNECTION_URL,
-    }
+
 
     componentDidMount() {
         super.componentDidMount();
@@ -41,14 +39,8 @@ export default class IndexView extends DefaultRemoteRoutableComponent {
 
     render() {
 
-
         return (
             <DefaultLayout {...this.props} ref={this.child}>
-
-                <Col col={2}>
-
-                </Col>
-
             </DefaultLayout>
         );
     }

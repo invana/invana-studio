@@ -19,15 +19,17 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
             responses: [],
             showHistory: false
         }
-        const gremlinUrl = this.getGremlinUrl();
-
-        this.socket = new WebSocket(gremlinUrl);
 
     }
 
     componentDidMount() {
         super.componentDidMount();
-        this.setupSocket();
+        try{
+                  this.setupSocket();
+
+        }catch (e) {
+
+        }
     }
 
     setShowHistory(status) {
@@ -37,6 +39,8 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
     setupSocket() {
         let _this = this;
+        const gremlinUrl = this.getGremlinUrl();
+        this.socket = new WebSocket(gremlinUrl);
 
         this.socket.onopen = function (e) {
             console.log(e)
@@ -73,8 +77,12 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
 
     getGremlinUrl() {
-        const __url = new URL(STUDIO_SETTINGS.CONNECTION_URL);
-        return ((__url.protocol === "http:") ? 'ws' : 'wss') + "://" + __url.host + "/gremlin";
+        try {
+            const __url = new URL(STUDIO_SETTINGS.CONNECTION_URL);
+            return ((__url.protocol === "http:") ? 'ws' : 'wss') + "://" + __url.host + "/gremlin";
+        } catch (e) {
+            return null
+        }
     }
 
     onFormSubmit(_, e) {
@@ -124,8 +132,7 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         let _this = this;
         let responsesToRender = [...this.state.responses].reverse();
         return (
-            <DefaultLayout>
-
+<DefaultLayout {...this.props}>
                 <Container className={"d-flex  flex-column"} fluid style={{"height": "100%"}}>
 
                     {

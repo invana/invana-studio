@@ -50,6 +50,13 @@ export default class DefaultRemoteRoutableComponent extends DefaultRemoteCompone
         this.setRedirectToRoute(url);
     }
 
+    componentDidMount() {
+        super.componentDidMount();
+        if (!this.checkIfConnectionUrlIsValid()) {
+            this.routeToConnect(0);
+        }
+    }
+
 
     render() {
         return (

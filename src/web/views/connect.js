@@ -135,7 +135,7 @@ export default class ConnectView extends DefaultRemoteRoutableComponent {
         const headersArrayTemp = Array.from({length: this.state.extraHeadersCount}, (_, index) => index + 1);
 
         return (
-            <DefaultLayout props={this.props}>
+            <DefaultLayout {...this.props}>
 
                 <Container fluid>
                     <Row>

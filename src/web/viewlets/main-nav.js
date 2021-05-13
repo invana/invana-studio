@@ -1,14 +1,45 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCog, faCube,
-    faDatabase,
+    faCog,
     faQuestionCircle, faSearch, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
-import {NavLink, NavItem} from "react-bootstrap";
+import {NavLink, NavItem, Button} from "react-bootstrap";
+import {STUDIO_SETTINGS} from "../../settings";
+import PropTypes from "prop-types";
 
 export default class MainNav extends React.Component {
+
+    static defaultProps = {
+        connectionUrl: STUDIO_SETTINGS.CONNECTION_URL,
+    }
+
+    static propTypes = {
+        connectionUrl: PropTypes.string,
+    }
+
+
+    checkIfConnectionUrlIsValid() {
+        return !!this.props.connectionUrl;
+    }
+
+    setRedirectToRoute(routeString) {
+        console.log("setRedirectToRoute", routeString);
+        this.props.history.push(routeString);
+    }
+
+    routeToConnect(transporterStatusCode) {
+        const url = "/connect?error=Failed to connect&transporterStatus=" + transporterStatusCode;
+        this.setRedirectToRoute(url);
+    }
+
+    componentDidMount() {
+        if (!this.checkIfConnectionUrlIsValid()) {
+            this.routeToConnect(0);
+        }
+    }
+
 
     render() {
         return (
@@ -63,15 +94,21 @@ export default class MainNav extends React.Component {
                     {/*             data-bs-placement="right" data-bs-original-title="Data"*/}
                     {/*             activeClassName="active"><FontAwesomeIcon icon={faTerminal}/></NavLink>*/}
                     {/*</NavItem>*/}
-                    <li className="nav-item ">
-                        <a href="/settings"
-                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
-                           title="" data-bs-toggle="tooltip"
-                           data-bs-placement="right" data-bs-original-title="Orders">
-                            <FontAwesomeIcon icon={faCog}/>
 
-                        </a>
-                    </li>
+                    {
+                        this.checkIfConnectionUrlIsValid()
+                            ? <li className="nav-item ">
+                                <Button onClick={() => this.props.setShowSettings(true)} variant={"link"}
+                                        className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
+                                        title="" data-bs-toggle="tooltip"
+                                        data-bs-placement="right" data-bs-original-title="Orders">
+                                    <FontAwesomeIcon icon={faCog}/>
+
+                                </Button>
+                            </li>
+                            : <React.Fragment/>
+                    }
+
                     {/*<li>*/}
                     {/*    <a href="/" className="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip"*/}
                     {/*       data-bs-placement="right" data-bs-original-title="Products">*/}
@@ -90,7 +127,7 @@ export default class MainNav extends React.Component {
                 <div className="">
                     <a href="https://docs.invana.io" target={"_new"}
                        className="d-flex align-items-center justify-content-center
-                        pt-3 pb-1  px-auto  text-dark text-decoration-none  ">
+                        pt-3 pb-3  px-auto  text-dark text-decoration-none  ">
                         <FontAwesomeIcon icon={faQuestionCircle}/>
                     </a>
                 </div>
