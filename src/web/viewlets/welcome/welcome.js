@@ -26,7 +26,7 @@ export default class Welcome extends DefaultRemoteComponent {
 
         return (
             <Card className={"ml-4"} style={{width: '820px', "borderRadius": 0, "top": "58px"}}>
-                <Card.Body style={{"padding": "2rem 3rem 2rem 3rem"}}>
+                <Card.Body style={{"padding": "5rem 3rem 2rem 3rem"}}>
                     <Row>
                         <Col md={"6"}>
                             <FontAwesomeIcon icon={faPiedPiper} size={"5x"}/>
