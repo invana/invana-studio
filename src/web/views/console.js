@@ -8,6 +8,7 @@ import {faArrowAltCircleRight, faHistory, faTerminal} from "@fortawesome/free-so
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RequestHistoryView from "../viewlets/canvas/query-history";
 import Modal from 'react-bootstrap/Modal'
+import QueryTextarea from "../query-textarea/query-textarea";
 
 export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
@@ -24,10 +25,10 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
     componentDidMount() {
         super.componentDidMount();
-        try{
-                  this.setupSocket();
+        try {
+            this.setupSocket();
 
-        }catch (e) {
+        } catch (e) {
 
         }
     }
@@ -132,7 +133,7 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         let _this = this;
         let responsesToRender = [...this.state.responses].reverse();
         return (
-<DefaultLayout {...this.props}>
+            <DefaultLayout {...this.props}>
                 <Container className={"d-flex  flex-column"} fluid style={{"height": "100%"}}>
 
                     {
@@ -167,18 +168,21 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
                                 </div>
                                 <form ref={e => this.formRef = e} id={"queryForm"}
                                       onSubmit={(e) => this.onFormSubmit(this, e)}>
-                                    <Form.Control as={"textarea"}
-                                                  autoComplete={"off"}
-                                                  className=" ml-0 pl-3 pr-3 flex-fill rounded-0 border-0"
-                                                  type={"text"}
-                                                  name={"canvasQueryString"}
-                                                  style={{"minHeight": "420px"}}
-                                                  placeholder="start your gremlin query here"
-                                                  spellCheck={false}
-                                                  autoFocus
-                                                  onChange={this.onQueryChange.bind(this)}
-                                                  onKeyDown={this.onEnterPress.bind(this)}
-                                                  value={this.state.canvasQueryString || ''}
+                                    {/*<Form.Control as={"textarea"}*/}
+                                    {/*              autoComplete={"off"}*/}
+                                    {/*              className=" ml-0 pl-3 pr-3 flex-fill query-textarea rounded-0 border-0"*/}
+                                    {/*              type={"text"}*/}
+                                    {/*              name={"canvasQueryString"}*/}
+                                    {/*              style={{"minHeight": "420px"}}*/}
+                                    {/*              placeholder="start your gremlin query here"*/}
+                                    {/*              spellCheck={false}*/}
+                                    {/*              autoFocus*/}
+
+                                    {/*/>*/}
+                                    <QueryTextarea
+                                        onChange={this.onQueryChange.bind(this)}
+                                        onKeyDown={this.onEnterPress.bind(this)}
+                                        canvasQueryString={this.state.canvasQueryString || ''}
                                     />
                                     <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
                                         <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
