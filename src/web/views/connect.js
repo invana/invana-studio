@@ -143,23 +143,17 @@ export default class ConnectView extends DefaultRemoteRoutableComponent {
                             <Card style={{marginTop: '22rem', width: "480px"}} className="">
                                 {/*<Card.Header>Connect to Invana Engine</Card.Header>*/}
                                 <Card.Body>
-
-
-                                        <div  >
+                                        <div>
                                             <FontAwesomeIcon icon={faUserAstronaut}
                                                              className={"mt-2 d-inline-block"}
                                                              style={{"fontSize": "4rem"}}/>
-
                                             {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
                                             <h1 className={"pb-0 pl-2 mb-2 mt-1 d-inline-block"}>Invana
                                                 Studio <small>({STUDIO_SETTINGS.VERSION})</small>
                                             </h1>
                                             <p>{STUDIO_SETTINGS.ABOUT_TEXT}</p>
                                         </div>
-
-
                                     <Form inline onSubmit={this.onFormSubmit.bind(this)}>
-
                                         <Form.Control
                                             className="mb-2 mr-2 mr-sm-2 mt-2"
                                             name="connectionUrl"
@@ -167,13 +161,11 @@ export default class ConnectView extends DefaultRemoteRoutableComponent {
                                             style={{width: "320px"}}
                                         />
                                         <Form.Control name="graphEngineName" value={"invana-engine"} type={"hidden"}/>
-
-
                                         <Button type="submit" variant={"outline-primary"} className={""}>
                                             Connect
                                         </Button>
                                         <p>
-                                            <button className={"btn btn-sm btn-link pl-0 text-muted"} type={"button"}
+                                            <button className={"btn btn-sm btn-link pl-0 text-muted headersList d-block w-100"} type={"button"}
                                                     onClick={this.toggleMoreOptions.bind(this)}>
                                                 http headers <FontAwesomeIcon icon={faAngleDown}/>
                                             </button>
@@ -181,7 +173,7 @@ export default class ConnectView extends DefaultRemoteRoutableComponent {
                                         {
                                             this.state.showExtraHeaderOptions
                                                 ?
-                                                <div className={"headersList"}>
+                                                <div className={"headersList  d-block w-100"}>
 
                                                     <h6 className={"small font-weight-bold"}>Extra HTTP Headers</h6>
                                                     {
