@@ -630,7 +630,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 </div>
                 {
                     this.state.showWelcome
-                        ? <Welcome setWelcome={this.setWelcome.bind(this)}/>
+                        ? <Welcome setWelcome={this.setWelcome.bind(this)}
+                                   startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}/>
                         : <CanvasConsoleOptions canvasCtrl={this.canvasCtrl} isQuerying={this.state.isQuerying}
                                                 isRenderingCanvas={this.state.isRenderingCanvas}
                                                 leftContentName={this.state.leftContentName}

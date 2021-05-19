@@ -49,7 +49,9 @@ export default class Welcome extends DefaultRemoteComponent {
                                 {historyToShow.length > 0
                                     ?
                                     <div>
-                                        <h7 className={"font-weight-bold pl-2 pb-2 border-bottom text-uppercase"}>Recent queries :</h7>
+                                        <h7 className={"font-weight-bold pl-2 pb-2 border-bottom text-uppercase"}>Recent
+                                            queries :
+                                        </h7>
                                         <ul className={"list-group border-0 rounded-0"}>
                                             {
                                                 historyToShow.map((existingHistoryItem, i) => {
@@ -69,7 +71,11 @@ export default class Welcome extends DefaultRemoteComponent {
                                                                 {/*</button>*/}
                                                                 <button className={"btn btn-link mt-0 " +
                                                                 "font-weight-bold btn-sm p-0 display-inline"}
-                                                                        onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(existingHistoryItem.query))}>
+                                                                        onClick={() => {
+                                                                            this.props.setWelcome(false);
+                                                                            this.props.startNewQueryInConsole(this.extractRawQuery(existingHistoryItem.query));
+                                                                        }
+                                                                        }>
                                                                     Start Query
                                                                 </button>
                                                                 <small className={"ml-3"}>
