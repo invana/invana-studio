@@ -25,6 +25,15 @@ export default class RequestHistoryView extends React.Component {
         onClose: PropTypes.func
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showStartCount: 0,
+            showEndCount: 5,
+            paginationCount: 5
+        }
+    }
+
     extractRawQuery(graphQLQuery) {
         try {
             return graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0].replace(/(^"|"$)/g, '').replace(/\\"/g, "\"").replace(/\n|\r/g, "");
@@ -33,10 +42,24 @@ export default class RequestHistoryView extends React.Component {
         }
     }
 
+    showNext() {
+        this.setState({
+            showStartCount: this.state.showStartCount + this.state.paginationCount,
+            showEndCount: this.state.showEndCount + this.state.paginationCount,
+        })
+    }
+
+    showPrev() {
+        this.setState({
+            showStartCount: this.state.showStartCount - this.state.paginationCount,
+            showEndCount: this.state.showEndCount - this.state.paginationCount,
+        })
+    }
+
 
     render() {
-        const existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true) || [];
-        const historyToShow = existingHistory.filter(item => item.source === "console").slice(0, 5);
+        const existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true).filter(item => item.source === "console") || [];
+        const historyToShow = existingHistory.slice(this.state.showStartCount, this.state.showEndCount);
         console.log("====historyToShow", historyToShow)
         return (
 
@@ -88,6 +111,28 @@ export default class RequestHistoryView extends React.Component {
                                 className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
                                 onClick={() => this.props.onClose()}>close
                         </Button>
+                        {
+                            this.state.showStartCount > 0 ?
+                                <Button variant={"outline-secondary mt-2"} type={"button"}
+                                        className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                        onClick={() => this.showPrev()}>prev
+                                </Button>
+                                : <React.Fragment/>
+                        }
+
+                        {
+                           existingHistory.length > this.state.showEndCount
+                                ? <Button variant={"outline-secondary mt-2"} type={"button"}
+                                          className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                          onClick={() => this.showNext()}>next </Button>
+                                : <React.Fragment/>
+                        }
+
+                        <span className={"float-right text-muted small"}>
+                            showing {this.state.showStartCount} to {this.state.showEndCount} of {existingHistory.length}
+                        </span>
+
+
                     </div>
 
 
