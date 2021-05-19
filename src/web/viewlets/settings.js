@@ -49,19 +49,25 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                     {/*<h6 className={"mb-0"}>Graph engine name:</h6>*/}
                     {/*<p>{STUDIO_SETTINGS.GRAPH_ENGINE_NAME}</p>*/}
 
-                    <h6 className={"mb-0"}>Connection string:</h6>
+                    <h6 className={"mb-0 font-weight-bold"}>connection string:</h6>
                     <p className={"mb-0"}>
-                        <span>{this.connectionStringWithoutCreds()}</span></p>
-                    <p>
+                        <span>{this.connectionStringWithoutCreds()}</span>
+                    </p>
+                    <p className={""}>
                         <Button size={"sm"} variant={"outline-secondary"}
                                 id={"connectionStringBtn"} onClick={this.showCredentials.bind(this)}
-                                className={"selected"}>
+                                className={"selected pt-1 pb-1 "}>
                             <small>show full connection string(toggle)</small>
                         </Button>
                     </p>
-                    <p id={"connection-string"} style={{"display": "none"}}>{STUDIO_SETTINGS.CONNECTION_URL}</p>
+
+                    <div id="connection-string" style={{"display": "none"}}>
+                        <h6 className={"mb-0 font-weight-bold"}>connection string full:</h6>
+                        <p >{STUDIO_SETTINGS.CONNECTION_URL}</p>
+                    </div>
                     <br/>
-                    <Button variant={"outline-danger"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
+                    <Button variant={"outline-danger"} onClick={() => askToSwitchGremlinServer()}
+                            title={"Switch Server"}>
                         Disconnect<FontAwesomeIcon className={"ml-2"} icon={faSignInAlt}/>
                     </Button>
                     <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
