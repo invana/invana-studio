@@ -69,7 +69,7 @@ export default class QueryConsole extends React.Component {
     render() {
         return (
             <div className={" position-absolute  d-flex"} style={this.props.style}>
-                <div className={" flex-fill ml-3 border bg-white"} style={{"height": "465px"}}>
+                <div className={" flex-fill ml-3 border bg-white"} style={{"minHeight": "465px"}}>
                     <form ref={e => this.formRef = e} id={"queryForm"}
                           onSubmit={(e) => this.onFormSubmit(this, e)}>
                         <QueryTextarea
