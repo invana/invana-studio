@@ -5,7 +5,7 @@ import {
     faQuestionCircle, faSearch, faTerminal
 } from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
-import {NavLink, NavItem, Button} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {STUDIO_SETTINGS} from "../../settings";
 import PropTypes from "prop-types";
 
@@ -54,58 +54,42 @@ export default class MainNav extends React.Component {
 
                 </a>
                 <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
-                    <li className="nav-item ">
-                        <a href="/explorer"
-                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
-                           title="" data-bs-toggle="tooltip"
-                           data-bs-placement="right" data-bs-original-title="Explore">
-                            <FontAwesomeIcon icon={faSearch}/>
-                            {/*<small>Explore</small>*/}
 
-                        </a>
-
-
-                    </li>
-
-                    {/*<NavItem>*/}
-                    {/*    <NavLink to="/explorer"*/}
-                    {/*             className={"pt-3 pb-3 px-auto border-bottom  text-dark"}*/}
-                    {/*             title="" data-bs-toggle="tooltip"*/}
-                    {/*             data-bs-placement="right" data-bs-original-title="Explore"*/}
-                    {/*             activeClassName="active"><FontAwesomeIcon icon={faSearch}/></NavLink>*/}
-
-                    {/*</NavItem>*/}
-
-                    <li className="nav-item ">
-                        <a href="/console"
-                           className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
-                           title="" data-bs-toggle="tooltip"
-                           data-bs-placement="right" data-bs-original-title="Data">
-                            <FontAwesomeIcon icon={faTerminal}/>
-                            {/*<small>Data</small>*/}
-
-                        </a>
-                    </li>
-
-                    {/*<NavItem>*/}
-                    {/*    <NavLink to="/console"*/}
-                    {/*             className={"pt-3 pb-3 px-auto border-bottom  text-dark"}*/}
-                    {/*             title="" data-bs-toggle="tooltip"*/}
-                    {/*             data-bs-placement="right" data-bs-original-title="Data"*/}
-                    {/*             activeClassName="active"><FontAwesomeIcon icon={faTerminal}/></NavLink>*/}
-                    {/*</NavItem>*/}
 
                     {
                         this.checkIfConnectionUrlIsValid()
-                            ? <li className="nav-item ">
-                                <Button onClick={() => this.props.setShowSettings(true)} variant={"link"}
-                                        className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
-                                        title="" data-bs-toggle="tooltip"
-                                        data-bs-placement="right" data-bs-original-title="Orders">
-                                    <FontAwesomeIcon icon={faCog}/>
+                            ? <React.Fragment>
+                                <li className="nav-item ">
+                                    <a href="/explorer"
+                                       className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
+                                       title="" data-bs-toggle="tooltip"
+                                       data-bs-placement="right" data-bs-original-title="Explore">
+                                        <FontAwesomeIcon icon={faSearch}/>
+                                        {/*<small>Explore</small>*/}
+                                    </a>
+                                </li>
 
-                                </Button>
-                            </li>
+
+                                <li className="nav-item ">
+                                    <a href="/console"
+                                       className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
+                                       title="" data-bs-toggle="tooltip"
+                                       data-bs-placement="right" data-bs-original-title="Data">
+                                        <FontAwesomeIcon icon={faTerminal}/>
+                                        {/*<small>Data</small>*/}
+                                    </a>
+                                </li>
+
+                                <li className="nav-item ">
+                                    <Button onClick={() => this.props.setShowSettings(true)} variant={"link"}
+                                            className="nav-link  pt-3 pb-3 px-auto border-bottom  text-dark"
+                                            title="" data-bs-toggle="tooltip"
+                                            data-bs-placement="right" data-bs-original-title="Orders">
+                                        <FontAwesomeIcon icon={faCog}/>
+
+                                    </Button>
+                                </li>
+                            </React.Fragment>
                             : <React.Fragment/>
                     }
 

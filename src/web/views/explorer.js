@@ -1,7 +1,6 @@
 import React from "react";
 import DefaultLayout from "../layouts/default";
 import GraphCanvas from "../viewlets/canvas/graph-canvas";
-import Welcome from "../viewlets/welcome/welcome";
 import DefaultRemoteRoutableComponent from "../layouts/default-remote-routable";
 import {STUDIO_SETTINGS} from "../../settings";
 

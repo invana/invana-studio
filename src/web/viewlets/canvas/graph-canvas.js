@@ -16,10 +16,9 @@ import CanvasArtBoard from "../../interface/canvas/canvas-art-board";
 import "./canvas.scss";
 import DataSidebarViewlet from "../data-management/data-sidebar";
 import ElementOptions from "../../interface/element-options";
-import {Col, ListGroup, Modal} from "react-bootstrap";
+import {ListGroup, Modal} from "react-bootstrap";
 import CanvasDisplaySettings from "./canvas-display-settings";
 import LoadingDiv from "./loading";
-import Row from "react-bootstrap/Row";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {

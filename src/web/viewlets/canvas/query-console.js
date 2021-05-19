@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWindowClose} from "@fortawesome/free-solid-svg-icons";

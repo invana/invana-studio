@@ -78,13 +78,16 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
         const _this = this;
 
         const vertexLabels = this.state.verticesStats.map(a => a.label);
+        // TODO
+        // eslint-disable-next-line array-callback-return
         const filteredNodeLabels = vertexLabels.filter(function (labelData) {
             if (labelData.match(reg)) {
                 return labelData
             }
         });
         const edgeLabels = this.state.edgeStats.map(a => a.label);
-
+        // TODO
+        // eslint-disable-next-line array-callback-return
         const filteredEdgeLabels = edgeLabels.filter(function (labelData) {
             if (labelData.match(reg)) {
                 return labelData;

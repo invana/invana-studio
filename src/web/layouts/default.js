@@ -2,8 +2,6 @@ import React from "react";
 import MainNav from "../viewlets/main-nav";
 import MainContent from "../viewlets/main-content";
 import Modal from "react-bootstrap/Modal";
-import RequestHistoryView from "../viewlets/canvas/query-history";
-import {Container} from "react-bootstrap";
 import SettingsComponent from "../viewlets/settings";
 
 export default class DefaultLayout extends React.Component {

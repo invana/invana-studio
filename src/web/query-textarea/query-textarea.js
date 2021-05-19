@@ -1,6 +1,6 @@
 import React from "react";
 import "./query-textarea.scss";
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import PropTypes from "prop-types";
 import TLN from "./tln";
 

@@ -1,10 +1,10 @@
 import React from "react";
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import DefaultLayout from "../layouts/default";
 import DefaultRemoteRoutableComponent from "../layouts/default-remote-routable";
 import RawResponsesCanvas from "../viewlets/raw-response";
 import {STUDIO_SETTINGS} from "../../settings";
-import {faArrowAltCircleRight, faHistory, faTerminal} from "@fortawesome/free-solid-svg-icons";
+import {faHistory, faTerminal} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RequestHistoryView from "../viewlets/canvas/query-history";
 import Modal from 'react-bootstrap/Modal'

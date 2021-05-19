@@ -5,7 +5,6 @@ import {STUDIO_SETTINGS} from "../../settings";
 import {getDataFromLocalStorage, setDataToLocalStorage} from "../../utils/localStorage";
 import PropTypes from "prop-types";
 import {HISTORY_SETTINGS} from "../../settings/history";
-// import InvanaEngineDeSerializer from "../../serializers/invana-engine";
 
 
 export default class DefaultRemoteComponent extends React.Component {

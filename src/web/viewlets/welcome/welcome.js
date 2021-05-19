@@ -49,9 +49,9 @@ export default class Welcome extends DefaultRemoteComponent {
                                 {historyToShow.length > 0
                                     ?
                                     <div>
-                                        <h7 className={"font-weight-bold pl-2 pb-2 border-bottom text-uppercase"}>Recent
+                                        <p className={"font-weight-bold pl-2 pb-2 border-bottom text-uppercase"}>Recent
                                             queries :
-                                        </h7>
+                                        </p>
                                         <ul className={"list-group border-0 rounded-0"}>
                                             {
                                                 historyToShow.map((existingHistoryItem, i) => {

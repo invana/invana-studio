@@ -1,5 +1,4 @@
 import React from "react";
-import {Col} from "react-bootstrap";
 import DefaultLayout from "../layouts/default";
 import {STUDIO_SETTINGS} from "../../settings";
 import {setElementColorOptionsToStorageUsingResponse} from "../../utils/localStorage";

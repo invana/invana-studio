@@ -35,11 +35,11 @@ const TLN = {
     // Get reference to desired <textarea>
     const ta = document.getElementById(id);
     // If getting reference to element fails, warn and leave
-    if(ta == null) {
+    if(ta === null) {
       return console.warn("[tln.js] Couldn't find textarea of id '"+id+"'");
     }
     // If <textarea> already has TLN active, warn and leave
-    if(ta.className.indexOf("tln-active") != -1) {
+    if(ta.className.indexOf("tln-active") !== -1) {
       return console.warn("[tln.js] textarea of id '"+id+"' is already numbered");
     }
     // Otherwise, we're safe to add the class name and clear inline styles
@@ -67,11 +67,11 @@ const TLN = {
         // or if it's Enter/Home, then we set horizontal scroll to 0
         // Check for .keyCode, .which, .code and .key, because the web is a mess
         // [Ref] stackoverflow.com/a/4471635/4824627
-        if((+ta.scrollLeft==10 && (e.keyCode==37||e.which==37
-          ||e.code=="ArrowLeft"||e.key=="ArrowLeft"))
-        || e.keyCode==36||e.which==36||e.code=="Home"||e.key=="Home"
-        || e.keyCode==13||e.which==13||e.code=="Enter"||e.key=="Enter"
-        || e.code=="NumpadEnter")
+        if((+ta.scrollLeft===10 && (e.keyCode===37||e.which===37
+          ||e.code==="ArrowLeft"||e.key==="ArrowLeft"))
+        || e.keyCode===36||e.which===36||e.code==="Home"||e.key==="Home"
+        || e.keyCode===13||e.which===13||e.code==="Enter"||e.key==="Enter"
+        || e.code==="NumpadEnter")
           ta.scrollLeft = 0;
         // Whether we scrolled or not, let's check for any line count updates
         TLN.update_line_numbers(ta, el);
@@ -111,11 +111,11 @@ const TLN = {
     // Get reference to <textarea>
     const ta = document.getElementById(id);
     // If getting reference to element fails, warn and leave
-    if(ta == null) {
+    if(ta === null) {
       return console.warn("[tln.js] Couldn't find textarea of id '"+id+"'");
     }
     // If <textarea> already doesn't have TLN active, warn and leave
-    if(ta.className.indexOf("tln-active") == -1) {
+    if(ta.className.indexOf("tln-active") === -1) {
       return console.warn("[tln.js] textarea of id '"+id+"' isn't numbered");
     }
     // Otherwise, remove class name
@@ -123,7 +123,7 @@ const TLN = {
 
     // Remove previous sibling if it's our wrapper (otherwise, I guess 'woops'?)
     const __wrapper_chck = ta.previousSibling;
-    if(__wrapper_chck.className == "tln-wrapper")
+    if(__wrapper_chck.className === "tln-wrapper")
       __wrapper_chck.remove();
 
     // If somehow there's no event listeners list, we can leave
