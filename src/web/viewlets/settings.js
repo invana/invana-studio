@@ -40,14 +40,14 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
 
     render() {
         return (
-            <Card style={{"minHeight": "300px"}}>
+            <Card style={{"minHeight": "220px"}}>
                 <Card.Body>
                     <h6 className={"pb-2 mb-3 border-bottom"}>
                         Invana Studio settings.
                     </h6>
 
-                    <h6 className={"mb-0"}>Graph engine name:</h6>
-                    <p>{STUDIO_SETTINGS.GRAPH_ENGINE_NAME}</p>
+                    {/*<h6 className={"mb-0"}>Graph engine name:</h6>*/}
+                    {/*<p>{STUDIO_SETTINGS.GRAPH_ENGINE_NAME}</p>*/}
 
                     <h6 className={"mb-0"}>Connection string:</h6>
                     <p className={"mb-0"}>
@@ -61,8 +61,8 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                     </p>
                     <p id={"connection-string"} style={{"display": "none"}}>{STUDIO_SETTINGS.CONNECTION_URL}</p>
                     <br/>
-                    <Button variant={"secondary"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
-                        switch invana engine<FontAwesomeIcon className={"ml-2"} icon={faSignInAlt}/>
+                    <Button variant={"outline-danger"} onClick={() => askToSwitchGremlinServer()} title={"Switch Server"}>
+                        Disconnect<FontAwesomeIcon className={"ml-2"} icon={faSignInAlt}/>
                     </Button>
                     <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
                         this.props.onClose()}>cancel
