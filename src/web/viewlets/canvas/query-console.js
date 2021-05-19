@@ -3,6 +3,7 @@ import {Button, Form} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import QueryTextarea from "../../query-textarea/query-textarea";
 
 
 export default class QueryConsole extends React.Component {
@@ -71,18 +72,12 @@ export default class QueryConsole extends React.Component {
                 <div className={" flex-fill ml-3 border bg-white"} style={{"height": "465px"}}>
                     <form ref={e => this.formRef = e} id={"queryForm"}
                           onSubmit={(e) => this.onFormSubmit(this, e)}>
-                        <Form.Control as={"textarea"}
-                                      autoComplete={"off"}
-                                      className=" ml-0 pl-3 pr-3 flex-fill rounded-0 border-0"
-                                      type={"text"}
-                                      name={"canvasQueryString"}
-                                      style={{"minHeight": "420px"}}
-                                      placeholder="start your gremlin query here"
-                                      spellCheck={false}
-                                      autoFocus
-                                      onChange={this.onQueryChange.bind(this)}
-                                      onKeyDown={this.onEnterPress.bind(this)}
-                                      value={this.state.canvasQueryString || ''}
+                        <QueryTextarea
+                            style={{"minHeight": "420px"}}
+
+                            onChange={this.onQueryChange.bind(this)}
+                            onKeyDown={this.onEnterPress.bind(this)}
+                            canvasQueryString={this.state.canvasQueryString || ''}
                         />
                         <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
                             <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"

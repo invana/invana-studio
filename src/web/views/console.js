@@ -168,17 +168,6 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
                                 </div>
                                 <form ref={e => this.formRef = e} id={"queryForm"}
                                       onSubmit={(e) => this.onFormSubmit(this, e)}>
-                                    {/*<Form.Control as={"textarea"}*/}
-                                    {/*              autoComplete={"off"}*/}
-                                    {/*              className=" ml-0 pl-3 pr-3 flex-fill query-textarea rounded-0 border-0"*/}
-                                    {/*              type={"text"}*/}
-                                    {/*              name={"canvasQueryString"}*/}
-                                    {/*              style={{"minHeight": "420px"}}*/}
-                                    {/*              placeholder="start your gremlin query here"*/}
-                                    {/*              spellCheck={false}*/}
-                                    {/*              autoFocus*/}
-
-                                    {/*/>*/}
                                     <QueryTextarea
                                         onChange={this.onQueryChange.bind(this)}
                                         onKeyDown={this.onEnterPress.bind(this)}

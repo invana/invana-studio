@@ -30,7 +30,7 @@ export default class CanvasConsoleOptions extends React.Component {
                  style={{"width": "420px", "top": "58px", "zIndex": 100001}}>
                 <div className={" flex-fill ml-3 bg-secondary"}>
                     <ul className="nav nav-pills nav-canvas d-flex justify-content-start
-                    text-center pt-1 pb-1 pl-3 pr-3 ml-0 border border-bottom-0">
+                    text-center pt-1 pb-1 pl-2 pr-3 ml-0 border border-bottom-0">
                         <li className="nav-item ">
                             <Button type="button" variant={null}
                                     onClick={() => this.props.setLeftContentName('query-console')}

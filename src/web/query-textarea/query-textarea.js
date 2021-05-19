@@ -11,19 +11,7 @@ export default class QueryTextarea extends React.Component {
         onKeyDown: PropTypes.func,
         canvasQueryString: PropTypes.string,
         style: PropTypes.object
-        // canvasQueryString: PropTypes.string,
     }
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         canvasQueryString: this.props.canvasQueryString
-    //     }
-    // }
-    //
-    // onQueryChange(e) {
-    //     this.setState({canvasQueryString: e.target.value});
-    // }
 
     componentDidMount() {
         TLN.append_line_numbers("queryTextArea")
