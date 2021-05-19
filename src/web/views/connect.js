@@ -149,7 +149,7 @@ export default class ConnectView extends DefaultRemoteRoutableComponent {
                                                              style={{"fontSize": "4rem"}}/>
                                             {/*<p className={"mb-0 font-weight-bold"}>INVANA</p>*/}
                                             <h1 className={"pb-0 pl-2 mb-2 mt-1 d-inline-block"}>Invana
-                                                Studio <small>({STUDIO_SETTINGS.VERSION})</small>
+                                                Studio <small style={{"fontSize": "14px"}}>(v{STUDIO_SETTINGS.VERSION})</small>
                                             </h1>
                                             <p>{STUDIO_SETTINGS.ABOUT_TEXT}</p>
                                         </div>
@@ -214,9 +214,9 @@ export default class ConnectView extends DefaultRemoteRoutableComponent {
                                         <a target={"_new"} className={"mr-2"}
                                            href={STUDIO_SETTINGS.SETUP_INSTRUCTIONS_URL}>setup
                                             instructions</a> |
-                                        <a target={"_new"} className={"mr-2"}
+                                        <a target={"_new"} className={"mr-2 ml-2"}
                                            href={STUDIO_SETTINGS.SUPPORT_URL}>support</a> |
-                                        <a target={"_new"} className={"mr-2"} href={STUDIO_SETTINGS.DEMO_VIDEO_URL}>watch
+                                        <a target={"_new"} className={"mr-2 ml-2"} href={STUDIO_SETTINGS.DEMO_VIDEO_URL}>watch
                                             demo</a>
                                     </p>
                                     {

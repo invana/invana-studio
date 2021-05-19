@@ -2,6 +2,8 @@
   "name": "invana-studio",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://github.com/invanalabs/invana-studio.",
+  "description": "Open source Graph Analytics System.",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",

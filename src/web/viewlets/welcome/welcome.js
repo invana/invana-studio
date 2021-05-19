@@ -7,6 +7,7 @@ import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
 import {getDataFromLocalStorage} from "../../../utils/localStorage";
 import {HISTORY_SETTINGS} from "../../../settings/history";
 import DefaultRemoteComponent from "../../layouts/default-remote";
+import {STUDIO_SETTINGS} from "../../../settings";
 
 export default class Welcome extends DefaultRemoteComponent {
 
@@ -32,9 +33,9 @@ export default class Welcome extends DefaultRemoteComponent {
                             <FontAwesomeIcon icon={faPiedPiper} size={"5x"}/>
                             <Card.Title style={{"fontSize": "1.8rem"}}>Invana Studio
                                 <small style={{"fontSize": "1rem"}}
-                                       className={"ml-2"}>v{packageJson.version}</small></Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Open source Graph Analytics
-                                Platform</Card.Subtitle>
+                                       className={"ml-2"}>v{STUDIO_SETTINGS.VERSION}</small></Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">{STUDIO_SETTINGS.ABOUT_TEXT}</Card.Subtitle>
+
                             <hr/>
                             <Button variant={"outline-primary"} size={"sm"}
                                     onClick={() => this.props.setWelcome(false)}>
@@ -43,6 +44,12 @@ export default class Welcome extends DefaultRemoteComponent {
                                href={"https://docs.invana.io"} target={"_new"}>
                                 Documentation <FontAwesomeIcon icon={faExternalLinkSquareAlt}/>
                             </a>
+
+                            <p className={"mt-3 text-muted"}>For support, visit <a target={"_blank"}
+                                                                                   href={STUDIO_SETTINGS.SUPPORT_URL}>
+                                {STUDIO_SETTINGS.SUPPORT_URL}
+                            </a></p>
+
                         </Col>
                         <Col md={"6"}>
                             <div className="border-left">

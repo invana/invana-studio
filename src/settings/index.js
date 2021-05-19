@@ -1,12 +1,13 @@
 import {STUDIO_CONNECT_CONSTANTS} from "./constants";
 import {getDataFromLocalStorage} from "../utils/localStorage";
+import packageJson from '../../package.json';
 
 
 export const STUDIO_SETTINGS = {
-    VERSION: "alpha",
-    ABOUT_TEXT: "Open source graph data visualiser and insights engine.",
-    REPO_URL: "https://github.com/invanalabs/graph-studio",
-    SETUP_INSTRUCTIONS_URL: "https://invana.io/get-started.html",
+    VERSION: packageJson.version,
+    ABOUT_TEXT: packageJson.description, // "Open source graph data visualiser and insights engine.",
+    REPO_URL: packageJson.homepage,
+    SETUP_INSTRUCTIONS_URL: "https://docs.invana.io/get-started/setup-invana-in-5-min",
     DEMO_VIDEO_URL: "https://www.youtube.com/watch?v=17Q02VV_0Tc",
     SUPPORT_URL: "https://invana.io/support",
 
