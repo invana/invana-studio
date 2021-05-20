@@ -1,6 +1,5 @@
 import React from "react";
 import {Button, Card, Col, Row} from "react-bootstrap";
-import packageJson from '../../../../package.json';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExternalLinkSquareAlt} from "@fortawesome/free-solid-svg-icons";
 import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
@@ -45,7 +44,7 @@ export default class Welcome extends DefaultRemoteComponent {
                                 Documentation <FontAwesomeIcon icon={faExternalLinkSquareAlt}/>
                             </a>
 
-                            <p className={"mt-3 text-muted"}>For support, visit <a target={"_blank"}
+                            <p className={"mt-3 text-muted"}>For support, visit <a target={"_new"}
                                                                                    href={STUDIO_SETTINGS.SUPPORT_URL}>
                                 {STUDIO_SETTINGS.SUPPORT_URL}
                             </a></p>
