@@ -11,6 +11,8 @@ Open source graph visualiser.
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/invanalabs/invana-studio)](https://github.com/invanalabs/invana-studio/commits)
 
 
+![screenshot](screenshot.png)
+
 
 ## Setup Invana Studio
 
