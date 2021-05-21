@@ -1,0 +1,6 @@
+build:
+  docker:
+    release:
+       dockerfile: Dockerfile
+       target: react-build
+    web: Dockerfile

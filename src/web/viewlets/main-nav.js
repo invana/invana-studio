@@ -2,9 +2,8 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCog,
-    faQuestionCircle, faSearch, faTerminal
+    faQuestionCircle, faSearch, faTerminal, faUserAstronaut
 } from "@fortawesome/free-solid-svg-icons";
-import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
 import {Button} from "react-bootstrap";
 import {STUDIO_SETTINGS} from "../../settings";
 import PropTypes from "prop-types";
@@ -48,7 +47,7 @@ export default class MainNav extends React.Component {
                    data-bs-toggle="tooltip"
                    data-bs-placement="right" data-bs-original-title="Icon-only">
 
-                    <div className={"text-center"}><FontAwesomeIcon size={'3x'} icon={faPiedPiper}/></div>
+                    <div className={"text-center"}><FontAwesomeIcon size={'3x'} icon={faUserAstronaut}/></div>
 
                     {/*<div className={"font-weight-bold pl-1"}>Invana Studio</div>*/}
 
