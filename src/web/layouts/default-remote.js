@@ -168,7 +168,7 @@ export default class DefaultRemoteComponent extends React.Component {
             this.setQueryStringFromQueryObject(queryObj.query);
         }
         this.setState({
-            statusMessage: "Fetching data...",
+            statusMessage: "Querying...",
             isQuerying: true
         });
         this.setQueryObject(queryObj);
