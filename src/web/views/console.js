@@ -134,7 +134,7 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         let responsesToRender = [...this.state.responses].reverse();
         return (
             <DefaultLayout {...this.props}>
-                <Container className={"d-flex  flex-column"} fluid style={{"height": "100%"}}>
+                <Container className={"d-flex  flex-column p-0"} fluid style={{"height": "100%"}}>
 
                     {
                         this.state.showHistory === true
