@@ -15,6 +15,7 @@ export default class QueryConsole extends React.Component {
         makeQuery: PropTypes.func,
         connector: PropTypes.object,
         setLeftContentName: PropTypes.func,
+        style: PropTypes.object,
         startNewQueryInConsole: PropTypes.func
     };
 

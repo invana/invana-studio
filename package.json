@@ -6,7 +6,7 @@
   "repository": {
     "url": "https://github.com/invanalabs/invana-studio"
   },
-  "description": "Open source graph visualiser and analytics.",
+  "description": "Open source graph visualiser.",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",

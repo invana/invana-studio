@@ -27,9 +27,8 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         super.componentDidMount();
         try {
             this.setupSocket();
-
         } catch (e) {
-
+            console.log(e);
         }
     }
 

@@ -16,6 +16,8 @@ export default class MainNav extends React.Component {
 
     static propTypes = {
         connectionUrl: PropTypes.string,
+        history: PropTypes.object,
+        setShowSettings: PropTypes.func
     }
 
 

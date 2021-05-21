@@ -3,9 +3,13 @@ import MainNav from "../viewlets/main-nav";
 import MainContent from "../viewlets/main-content";
 import Modal from "react-bootstrap/Modal";
 import SettingsComponent from "../viewlets/settings";
+import PropTypes from "prop-types";
 
 export default class DefaultLayout extends React.Component {
 
+    static propTypes = {
+        children: PropTypes.object
+    }
 
     constructor(props) {
         super(props);
@@ -14,7 +18,7 @@ export default class DefaultLayout extends React.Component {
         }
     }
 
-    setShowSettings(status ){
+    setShowSettings(status) {
         this.setState({showSettings: status});
     }
 
@@ -24,7 +28,7 @@ export default class DefaultLayout extends React.Component {
         return (
             <div className={"d-flex"}>
                 <MainNav setShowSettings={this.setShowSettings.bind(this)} {...this.props}/>
-                <MainContent children={this.props.children}/>
+                <MainContent contentChildren={this.props.children}/>
                 {
                     this.state.showSettings === true
                         ? <Modal className={"border-0 "}

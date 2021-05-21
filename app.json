@@ -1,10 +1,10 @@
 {
   "name": "Invana Studio",
-  "description": "Open source knowledge graphs visualiser and editor.",
+  "description": "Open source graph visualiser.",
   "repository": "https://github.com/invanalabs/invana-studio",
   "website": "https://invana.io",
   "logo": "https://avatars3.githubusercontent.com/u/26816714?s=200&v=4",
   "success_url": "/",
-  "keywords": ["invana studio", "apache tinkerpop", "graph databases", "invana"],
+  "keywords": ["invana studio", "insight engine", "graph databases", "invana"],
   "stack": "container"
 }
