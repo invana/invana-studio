@@ -3,6 +3,21 @@ import {getDataFromLocalStorage} from "../utils/localStorage";
 import packageJson from '../../package.json';
 
 
+export const defaultEdgesOptions = {
+    physics: true,
+    // length: undefined,
+    length: 320,
+    smooth: {
+        enabled: true,
+        // dynamic, continuous, discrete, diagonalCross, straightCross,
+        // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
+        type: "continuous",
+        // vertical or horizontal
+        forceDirection: "none",
+        roundness: .5
+    },
+}
+
 export const STUDIO_SETTINGS = {
     VERSION: packageJson.version,
     ABOUT_TEXT: packageJson.description, // "Open source graph data visualiser and insights engine.",
@@ -16,7 +31,7 @@ export const STUDIO_SETTINGS = {
     GRAPH_ENGINE_NAME: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME) || "invana-engine",
 
 
-    RENDERING_EDGES_SETTINGS : getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.RENDERING_EDGES_SETTINGS, true ) || {},//defaultEdgesOptions,
+    RENDERING_EDGES_SETTINGS: getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.RENDERING_EDGES_SETTINGS, true) || defaultEdgesOptions,
 
     MANAGEMENT_VERTEX_LABEL: "InvanaManagement"
 }
