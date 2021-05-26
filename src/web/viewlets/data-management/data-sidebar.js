@@ -110,9 +110,9 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
     render() {
         return (
             <div className={" position-absolute  d-flex"} style={this.props.style}>
-                <div className={" flex-fill ml-3 border border-top-0 bg-white"}>
+                <div className={" flex-fill ml-3  border-top-0 bg-white"}>
 
-                    <Card className={"border-0 rounded-0"}>
+                    <Card className={"border-top-0 rounded-0"}>
                         {/*<Card.Header>*/}
                         {/*    <FontAwesomeIcon icon={faHistory}/> Data Management (*/}
                         {/*</Card.Header>*/}
