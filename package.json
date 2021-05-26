@@ -1,6 +1,7 @@
 {
   "name": "invana-studio",
   "version": "0.0.9",
+  "description": "Open source graph visualiser.",
   "private": true,
   "homepage": "/",
   "repository": {
@@ -12,7 +13,6 @@
     "email": "ravi@invana.io",
     "url": "https://invana.io"
   },
-  "description": "Open source graph visualiser.",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
