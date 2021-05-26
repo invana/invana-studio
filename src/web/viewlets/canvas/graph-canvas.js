@@ -658,12 +658,12 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "query-history"
                         ?
-                        <div className={" position-absolute  d-flex"}
+                        <div className={" position-absolute "}
                              style={{
                                  "width": "420px", "top": "90px", "zIndex": 100001,
                                  "maxHeight": "calc(100vh - 250px)"
                              }}>
-                            <div className={" flex-fill ml-3 border border-top-0 bg-white"}>
+                            <div className={"ml-3 border border-top-0 bg-white"}>
 
                                 <RequestHistoryView
 

@@ -58,8 +58,8 @@ export default class LambdaSettingsView extends React.Component {
         const lambdaDataToShow = lambdaData.slice(this.state.showStartCount, this.state.showEndCount);
         console.log("====lambdaDataToShow", lambdaDataToShow)
         return (
-            <div className={" position-absolute  d-flex"} style={this.props.style}>
-                <div className={" flex-fill ml-3 border border-top-0 bg-white"}>
+            <div className={" position-absolute  "} style={this.props.style}>
+                <div className={"  ml-3 border border-top-0 bg-white"}>
 
                     <Card className={" border-0 rounded-0"}>
                         <Card.Header className={"bg-secondary text-white pt-2 pb-2 rounded-0"}>
