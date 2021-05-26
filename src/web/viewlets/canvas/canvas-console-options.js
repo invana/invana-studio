@@ -58,7 +58,21 @@ export default class CanvasConsoleOptions extends React.Component {
                                 <FontAwesomeIcon icon={faDesktop}/>
                             </Button>
                         </li>
-                        <li className="nav-item mr-4">
+                        <li className="nav-item ">
+                            <Button type="button" variant={"link"} title={"Lambda settings"}
+                                    onClick={() => this.props.setLeftContentName('lambda-settings')}
+                                    style={{
+                                        "fontWeight": "bold",
+                                        "paddingTop": "0",
+                                        "fontSize": "15px !important"
+                                    }}
+                                    className={`nav-link   d-flex align-items-start pb-1 mr-0 pr-2 
+                                     pl-2 justify-content-center flex-column  text-white  ${this.props.leftContentName === "lambda-settings" ? " btn-primary" : " btn-link"} `}
+                            >
+                                λ
+                            </Button>
+                        </li>
+                        <li className="nav-item mr-2">
                             <Button type="button" variant={"link"}
                                     onClick={() => this.props.setLeftContentName('query-history')}
                                     className={`nav-link small  d-flex align-items-start pt-1 pb-1 mr-0 pr-2 

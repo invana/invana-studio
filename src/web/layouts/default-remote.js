@@ -2,9 +2,8 @@ import React from "react";
 import InvanaEngineQueryManager from "../../queryBuilder";
 import InvanaEngineHTTPConnector from "../../connector/invana-engine";
 import {STUDIO_SETTINGS} from "../../settings";
-import {getDataFromLocalStorage, setDataToLocalStorage} from "../../utils/localStorage";
+import {addQueryToHistory} from "../../utils/localStorage";
 import PropTypes from "prop-types";
-import {HISTORY_SETTINGS} from "../../settings/history";
 
 
 export default class DefaultRemoteComponent extends React.Component {
@@ -114,16 +113,6 @@ export default class DefaultRemoteComponent extends React.Component {
         );
     }
 
-    addQueryToHistory(query, source) {
-        let existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true) || [];
-        existingHistory.unshift({
-            "query": query,
-            "source": source,
-            "dt": new Date()
-        })
-        existingHistory = existingHistory.slice(0, HISTORY_SETTINGS.MAX_HISTORY_COUNT_TO_REMEMBER);
-        setDataToLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, existingHistory);
-    }
 
     setQueryObject(queryObject) {
         this.setState({queryObject: queryObject});
@@ -161,7 +150,7 @@ export default class DefaultRemoteComponent extends React.Component {
             queryOptions.source = "internal";
         }
         if (queryOptions.source) {
-            this.addQueryToHistory(queryObj, queryOptions.source)
+            addQueryToHistory(queryObj, queryOptions.source)
         }
 
         if (queryObj.queryKey) {

@@ -58,7 +58,8 @@ export default class RequestHistoryView extends React.Component {
 
 
     render() {
-        const existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true).filter(item => item.source === "console") || [];
+        let  existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true);
+        existingHistory = existingHistory.filter(item => item.source === "console") || [];
         const historyToShow = existingHistory.slice(this.state.showStartCount, this.state.showEndCount);
         console.log("====historyToShow", historyToShow)
         return (

@@ -19,6 +19,7 @@ import ElementOptions from "../../interface/element-options";
 import {ListGroup, Modal} from "react-bootstrap";
 import CanvasDisplaySettings from "./canvas-display-settings";
 import LoadingDiv from "./loading";
+import LambdaSettingsView from "./lambda-settings";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
@@ -716,6 +717,24 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                 _this.setLeftContentName(null)
                             }}
                             startRenderingGraph={this.canvasCtrl.startRenderingGraph.bind(this)}
+                        />
+
+
+                        : <React.Fragment/>
+                }
+                {
+                    this.state.leftContentName === "lambda-settings"
+                        ?
+                        <LambdaSettingsView
+                            style={{
+                                "width": "420px", "top": "90px", "zIndex": 100001,
+                                "maxHeight": "calc(100vh - 250px)"
+                            }}
+                            onClose={() => {
+                                _this.setLeftContentName(null)
+                            }}
+                            startRenderingGraph={this.canvasCtrl.startRenderingGraph.bind(this)}
+                            startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                         />
 
 

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import QueryTextarea from "../../query-textarea/query-textarea";
+import {addQueryToLambda} from "../../../utils/localStorage";
 
 
 export default class QueryConsole extends React.Component {
@@ -66,6 +67,9 @@ export default class QueryConsole extends React.Component {
             alert("Query cannot be null")
         }
     }
+    saveQueryToLambda(){
+        addQueryToLambda(this.state.canvasQueryString);
+    }
 
     render() {
         return (
@@ -80,9 +84,13 @@ export default class QueryConsole extends React.Component {
                             onKeyDown={this.onEnterPress.bind(this)}
                             canvasQueryString={this.state.canvasQueryString || ''}
                         />
-                        <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
-                            <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
+                        <div className={"pl-2  pt-2 pb-2 pr-3 bg-white border-top"}>
+                            <Button variant={"outline-primary position-relative pt-0 pb-0 mr-2"} size="sm"
                                     type={"submit"}>Submit Query</Button>
+                            <Button variant={"outline-secondary position-relative pt-0 pb-0"} size="sm"
+                                    onClick={()=> this.saveQueryToLambda()}
+                                    type={"button"}>save as lambda</Button>
+
                             <Button variant={"outline-secondary position-relative ml-2 pt-0 pb-0"}
                                     onClick={() => this.props.setLeftContentName(null)}
                                     size="sm">
