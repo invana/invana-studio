@@ -3,6 +3,18 @@ import {HISTORY_SETTINGS} from "../settings/history";
 import {LAMBDA_SETTINGS} from "../settings/lambda";
 
 
+// //
+// class LocalStorageReader{
+//
+//
+//     getValueByKey(key, isJson){
+//         // get the value in localstorage by key
+//
+//     }
+//
+// }
+
+
 export function getDataFromLocalStorage(itemKey, isJson) {
 
     if (isJson) {
@@ -31,6 +43,7 @@ export function addQueryToHistory(query, source) {
     existingHistory.unshift({
         "query": query,
         "source": source,
+        "id": new Date().getTime(),
         "dt": new Date()
     })
     // existingHistory = existingHistory.slice(0, HISTORY_SETTINGS.MAX_HISTORY_COUNT_TO_REMEMBER);
@@ -55,11 +68,11 @@ export function addQueryToLambda(query, name) {
 
 export function getLambdaFromStorageById(lambdaId) {
     let existingLambda = getDataFromLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, true) || [];
-    let lambdaData= null;
+    let lambdaData = null;
     existingLambda.map((lambda) => {
-        console.log("lambda.id === lambdaId", lambda.id , lambdaId, lambda.id === lambdaId)
+        console.log("lambda.id === lambdaId", lambda.id, lambdaId, lambda.id === lambdaId)
         if (lambda.id === lambdaId) {
-            lambdaData =  lambda;
+            lambdaData = lambda;
         }
     })
     return lambdaData;
@@ -69,7 +82,7 @@ export function updateLambdaFromStorageById(lambdaId, updateDict) {
     console.log("====lambdaData.id", lambdaId)
 
     let lambdaData = getLambdaFromStorageById(lambdaId);
-        console.log("====lambdaData", lambdaData)
+    console.log("====lambdaData", lambdaData)
 
     if (lambdaData) {
         if (updateDict && lambdaData) {
@@ -98,6 +111,17 @@ export function removeLambdaFromStorageById(lambdaId) {
         }
     })
     setDataToLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, newLambdaData);
+}
+
+export function removeHistoryFromStorageById(lambdaId) {
+    let existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true) || [];
+    let newHistoryData = []
+    existingHistory.map((historyData) => {
+        if (historyData.id !== lambdaId) {
+            newHistoryData.push(historyData)
+        }
+    })
+    setDataToLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, newHistoryData);
 }
 
 

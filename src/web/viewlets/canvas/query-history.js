@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import {Button, Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHistory} from "@fortawesome/free-solid-svg-icons";
-import {getDataFromLocalStorage} from "../../../utils/localStorage";
+import {
+    getDataFromLocalStorage,
+    removeHistoryFromStorageById,
+} from "../../../utils/localStorage";
 import {HISTORY_SETTINGS} from "../../../settings/history";
 
 export default class RequestHistoryView extends React.Component {
@@ -58,7 +61,8 @@ export default class RequestHistoryView extends React.Component {
 
 
     render() {
-        let  existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true);
+        const _this = this;
+        let existingHistory = getDataFromLocalStorage(HISTORY_SETTINGS.HISTORY_LOCAL_STORAGE_KEY, true);
         existingHistory = existingHistory.filter(item => item.source === "console") || [];
         const historyToShow = existingHistory.slice(this.state.showStartCount, this.state.showEndCount);
         console.log("====historyToShow", historyToShow)
@@ -89,15 +93,25 @@ export default class RequestHistoryView extends React.Component {
                                                     {/*        onClick={() => this.props.makeQuery(this.extractRawQuery(existingHistoryItem.query), {source: 'console'})}>*/}
                                                     {/*    Run Again*/}
                                                     {/*</button>*/}
-                                                    <button className={"btn btn-link mt-0 " +
-                                                    "font-weight-bold btn-sm p-0 display-inline"}
+                                                    <button className={"btn btn-link small mt-0 " +
+                                                                "font-weight-bold btn-sm p-0 display-inline"}
                                                             onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(existingHistoryItem.query))}>
                                                         Start Query
+                                                    </button>
+                                                    <button className={"btn btn-link text-danger small mt-0 ml-2 " +
+                                                                "font-weight-bold btn-sm p-0 display-inline"}
+                                                            onClick={() => {
+                                                                if (confirm("Are you sure you want to remove this query from history ?")) {
+                                                                    removeHistoryFromStorageById(existingHistoryItem.id);
+                                                                    _this.setState(_this.state);
+                                                                }
+                                                            }}>
+                                                        delete
                                                     </button>
                                                     <small className={"ml-3"}>
                                                         queried at {existingHistoryItem.dt}
                                                     </small>
-                                                                                                                <div className="border-bottom"/>
+                                                    <div className="border-bottom"/>
 
                                                 </div>
 
@@ -124,7 +138,7 @@ export default class RequestHistoryView extends React.Component {
                         }
 
                         {
-                           existingHistory.length > this.state.showEndCount
+                            existingHistory.length > this.state.showEndCount
                                 ? <Button variant={"outline-secondary mt-2"} type={"button"}
                                           className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
                                           onClick={() => this.showNext()}>next </Button>
