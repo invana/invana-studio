@@ -11,12 +11,28 @@ export default function downloadTextAsFile(text, filename) {
 }
 
 export function exportDataFromStorage() {
-    return JSON.stringify(localStorage)
+
+    let newStore = {};
+
+    // Object.()localStorage.map((storeKey, storeValue)=>{
+    //     console.log("store======", storeKey, storeValue)
+    // })
+
+    for (var key in localStorage) {
+        let typeofKey = localStorage[key];
+        console.log("store", key, typeofKey);
+        if (key.startsWith("INVANA_")) {
+            newStore[key] = localStorage[key];
+        }
+    }
+    return JSON.stringify(newStore);
 }
 
 export function importDataToStorage(text) {
     const data = JSON.parse(text);
     for (let key in data) {
-        localStorage[key] = data[key];
+        if (key.startsWith("INVANA_")) {
+            localStorage[key] = data[key];
+        }
     }
 }
