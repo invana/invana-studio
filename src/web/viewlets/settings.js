@@ -119,7 +119,7 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                         variant={"link"}
                         onClick={() => this.setImportSettingsVisibility(true)}>import</Button> .
                     </p>
-            {
+                    {
                         this.state.showImportSettings === true
                             ? <Form>
                                 <div className="mb-3">
@@ -147,7 +147,7 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                             : <React.Fragment/>
                     }
 
-                    <br/>
+
                     {/*<hr/>*/}
                     <Button variant={"outline-danger"} onClick={() => askToSwitchGremlinServer()}
                             title={"Switch Server"}>
@@ -158,7 +158,10 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                     </Button>
 
 
-
+                    <p className={" small text-muted mt-3"}><strong>Pro Tip</strong>: Disconnecting will still keep your query
+                        history and lambdas you might have created on this browser. To avoid loosing your
+                        query history and lambda, you can export your settings using the export settings feature above.
+                    </p>
 
 
                 </Card.Body>
