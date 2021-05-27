@@ -10,9 +10,10 @@ export function getDataFromLocalStorage(itemKey, isJson) {
     if (isJson) {
         if (localStorage.getItem(itemKey)) {
             return JSON.parse(localStorage.getItem(itemKey));
-        } else {
-            return [];
         }
+        // else {
+        //     return [];
+        // }
     } else {
         return localStorage.getItem(itemKey) || [];
     }

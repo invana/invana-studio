@@ -18,6 +18,8 @@ export default class CanvasDisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("defaultOptions", JSON.stringify(defaultOptions))
+        console.log("defaultOptions", defaultOptions)
         this.state = {studioSettings: defaultOptions};
     }
 
@@ -66,8 +68,17 @@ export default class CanvasDisplaySettings extends React.Component {
         }
     }
 
+    checkIfEdgesChecked() {
+        // if (this.state.studioSettings.edges) {
+        //     if (this.state.studioSettings.edges.smooth) {
+        //         return this.state.studioSettings.edges.smooth.enabled;
+        //     }
+        // }
+        return false;
+    }
+
     render() {
-        console.log("this.state.studioSettings.edges", this.state.studioSettings.edges);
+        console.log("this.state.studioSettings", this.state.studioSettings);
         return (
             <div className={" position-absolute  d-flex"} style={this.props.style}>
                 <div className={" flex-fill ml-3 border border-top-0 bg-white"}>
@@ -94,13 +105,13 @@ export default class CanvasDisplaySettings extends React.Component {
                                         label="smooth"
                                         onChange={this.handleValueChange.bind(this)}
 
-                                        defaultChecked={this.state.studioSettings.edges.smooth.enabled}
+                                        defaultChecked={this.checkIfEdgesChecked.bind(this)}
                                     />
                                 </Form.Group>
 
                                 {
 
-                                    this.state.studioSettings.edges.smooth.enabled
+                                    this.state.studioSettings.edges.smooth && this.state.studioSettings.edges.smooth.enabled
                                         ? <div>
                                             <Row>
                                                 <Col size={"6"}>
