@@ -127,7 +127,7 @@ export default class RequestHistoryView extends React.Component {
                                     })
                                 }
                             </ul>
-                            : <p className={"p-3 text-muted"}>Hm! No user query history found!.</p>
+                            : <p className={"p-3 text-muted"}>Hm! No query history found!.</p>
                         }
                     </div>
                     <div className={"p-2"}>
