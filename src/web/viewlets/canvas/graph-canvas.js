@@ -634,7 +634,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                    startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}/>
                         : <CanvasConsoleOptions canvasCtrl={this.canvasCtrl} isQuerying={this.state.isQuerying}
                                                 isRenderingCanvas={this.state.isRenderingCanvas}
-                                                leftContentName={this.state.leftContentName}
+                                                leftContentName={this.state.leftContentName || ""}
                                                 canvasQueryString={this.state.canvasQueryString}
                                                 setLeftContentName={this.setLeftContentName.bind(this)}/>
                 }
