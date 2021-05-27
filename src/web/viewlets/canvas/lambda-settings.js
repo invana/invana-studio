@@ -95,8 +95,11 @@ export default class LambdaSettingsView extends React.Component {
                                                             <button className={"btn btn-link text-danger mt-0 ml-3 " +
                                                             "font-weight-bold btn-sm p-0 display-inline"}
                                                                     onClick={() => {
-                                                                        removeLambdaFromStorageById(lambdaDataItem.id);
-                                                                        _this.setState(_this.state);
+                                                                        if (confirm("Are you sure you want to remove this lambda ?")) {
+                                                                            removeLambdaFromStorageById(lambdaDataItem.id);
+                                                                            _this.setState(_this.state);
+
+                                                                        }
 
                                                                     }}>
                                                                 delete
@@ -111,45 +114,45 @@ export default class LambdaSettingsView extends React.Component {
                                                 )
                                             })
                                         }
-                                            </ul>
-                                            : <p className={"p-3 text-muted"}>No Gremlin lambdas were saved!.</p>
-                                        }
-                                    </div>
-                                    <div>
-                                        <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
+                                    </ul>
+                                    : <p className={"p-3 text-muted"}>No Gremlin lambdas were saved!.</p>
+                                }
+                            </div>
+                            <div>
+                                <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
+                                        className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                        onClick={() => this.props.onClose()}>close
+                                </Button>
+                                {
+                                    this.state.showStartCount > 0 ?
+                                        <Button variant={"outline-secondary mt-2"} type={"button"}
                                                 className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                                onClick={() => this.props.onClose()}>close
+                                                onClick={() => this.showPrev()}>prev
                                         </Button>
-                                        {
-                                            this.state.showStartCount > 0 ?
-                                                <Button variant={"outline-secondary mt-2"} type={"button"}
-                                                        className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                                        onClick={() => this.showPrev()}>prev
-                                                </Button>
-                                                : <React.Fragment/>
-                                        }
+                                        : <React.Fragment/>
+                                }
 
-                                        {
-                                            lambdaData.length > this.state.showEndCount
-                                                ? <Button variant={"outline-secondary mt-2"} type={"button"}
-                                                          className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                                          onClick={() => this.showNext()}>next </Button>
-                                                : <React.Fragment/>
-                                        }
+                                {
+                                    lambdaData.length > this.state.showEndCount
+                                        ? <Button variant={"outline-secondary mt-2"} type={"button"}
+                                                  className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                                  onClick={() => this.showNext()}>next </Button>
+                                        : <React.Fragment/>
+                                }
 
-                                        <span className={"float-right text-muted small"}>
+                                <span className={"float-right text-muted small"}>
                             showing {this.state.showStartCount} to {this.state.showEndCount} of {lambdaData.length}
                         </span>
 
 
-                                    </div>
+                            </div>
 
 
-                                    </Card.Body>
-                                    </Card>
+                        </Card.Body>
+                    </Card>
 
-                                    </div>
-                                    </div>
-                                    )
-                                }
+                </div>
+            </div>
+        )
+    }
 }
