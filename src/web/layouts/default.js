@@ -32,7 +32,7 @@ export default class DefaultLayout extends React.Component {
                 {
                     this.state.showSettings === true
                         ? <Modal className={"border-0 "}
-                                 size=""
+                                 size="md"
                                  show={true}
                                  dialogClassName="modal-90w"
                                  backdrop={true}

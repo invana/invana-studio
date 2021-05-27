@@ -1,8 +1,7 @@
 import React from "react";
 import {Button, Card, Col, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faExternalLinkSquareAlt} from "@fortawesome/free-solid-svg-icons";
-import {faPiedPiper} from "@fortawesome/free-brands-svg-icons";
+import {faExternalLinkSquareAlt, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
 import {getDataFromLocalStorage} from "../../../utils/localStorage";
 import {HISTORY_SETTINGS} from "../../../settings/history";
 import DefaultRemoteComponent from "../../layouts/default-remote";
@@ -29,7 +28,7 @@ export default class Welcome extends DefaultRemoteComponent {
                 <Card.Body style={{"padding": "5rem 3rem 3rem 3rem"}}>
                     <Row>
                         <Col md={"6"}>
-                            <FontAwesomeIcon icon={faPiedPiper} size={"5x"}/>
+                            <FontAwesomeIcon icon={faUserAstronaut} size={"5x"}/>
                             <Card.Title style={{"fontSize": "1.8rem"}}>Invana Studio
                                 <small style={{"fontSize": "1rem"}}
                                        className={"ml-2"}>v{STUDIO_SETTINGS.VERSION}</small></Card.Title>

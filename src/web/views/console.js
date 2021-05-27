@@ -9,6 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RequestHistoryView from "../viewlets/canvas/query-history";
 import Modal from 'react-bootstrap/Modal'
 import QueryTextarea from "../query-textarea/query-textarea";
+import {addQueryToHistory} from "../../utils/localStorage";
 
 export default class ConsoleView extends DefaultRemoteRoutableComponent {
 
@@ -97,7 +98,7 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
         }
         this.setState({isQuerying: true});
 
-        this.addQueryToHistory(queryObj, "console")
+        addQueryToHistory(queryObj, "console")
     }
 
 
