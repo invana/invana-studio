@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Button, Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHistory} from "@fortawesome/free-solid-svg-icons";
+import {faHistory, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {
     getDataFromLocalStorage,
     removeHistoryFromStorageById,
@@ -98,7 +98,7 @@ export default class RequestHistoryView extends React.Component {
                                                             onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(existingHistoryItem.query))}>
                                                         Start Query
                                                     </button>
-                                                    <button className={"btn btn-link text-danger small mt-0 ml-2 " +
+                                                    <button className={"btn btn-link text-muted small mt-0 ml-2 " +
                                                     "font-weight-bold btn-sm p-0 display-inline"}
                                                             onClick={() => {
                                                                 if (confirm("Are you sure you want to remove this query from history ?")) {
@@ -106,7 +106,7 @@ export default class RequestHistoryView extends React.Component {
                                                                     _this.setState(_this.state);
                                                                 }
                                                             }}>
-                                                        delete
+                                                          <FontAwesomeIcon icon={faTrashAlt}/>
                                                     </button>
                                                     <small className={"ml-3"}>
                                                         queried at {existingHistoryItem.dt}

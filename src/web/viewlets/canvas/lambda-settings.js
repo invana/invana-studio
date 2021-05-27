@@ -7,6 +7,8 @@ import {
     updateLambdaFromStorageById
 } from "../../../utils/localStorage";
 import {LAMBDA_SETTINGS} from "../../../settings/lambda";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPencilAlt, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 
 export default class LambdaSettingsView extends React.Component {
 
@@ -102,17 +104,17 @@ export default class LambdaSettingsView extends React.Component {
                                                             {/*    Run Again*/}
                                                             {/*</button>*/}
                                                             <button className={"btn btn-link small mt-0 " +
-                                                            "font-weight-bold btn-sm p-0 display-inline mr-2"}
+                                                            "font-weight-bold btn-sm p-0 display-inline mr-3"}
                                                                     onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(lambdaDataItem.query))}>
                                                                 Start Query
                                                             </button>
-                                                            <button className={"btn btn-link small mt-0 " +
+                                                            <button className={"btn btn-link text-muted small mt-0 " +
                                                             "font-weight-bold btn-sm p-0 display-inline"}
                                                                     onClick={() => this.editLambdaName(lambdaDataItem.id, lambdaDataItem.name)}>
-                                                                edit name
+                                                                <FontAwesomeIcon icon={faPencilAlt}/>
                                                             </button>
                                                             <button
-                                                                className={"btn btn-link text-danger small mt-0 ml-2 " +
+                                                                className={"btn btn-link text-muted small mt-0 ml-3 " +
                                                                 "font-weight-bold btn-sm p-0 display-inline"}
                                                                 onClick={() => {
                                                                     if (confirm("Are you sure you want to remove this lambda ?")) {
@@ -122,7 +124,7 @@ export default class LambdaSettingsView extends React.Component {
                                                                     }
 
                                                                 }}>
-                                                                delete
+                                                                <FontAwesomeIcon icon={faTrashAlt}/>
                                                             </button>
                                                             <small className={"ml-3"}>
                                                                 {/*created at */}
