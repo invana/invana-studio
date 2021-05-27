@@ -94,12 +94,12 @@ export default class RequestHistoryView extends React.Component {
                                                     {/*    Run Again*/}
                                                     {/*</button>*/}
                                                     <button className={"btn btn-link small mt-0 " +
-                                                                "font-weight-bold btn-sm p-0 display-inline"}
+                                                    "font-weight-bold btn-sm p-0 display-inline"}
                                                             onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(existingHistoryItem.query))}>
                                                         Start Query
                                                     </button>
                                                     <button className={"btn btn-link text-danger small mt-0 ml-2 " +
-                                                                "font-weight-bold btn-sm p-0 display-inline"}
+                                                    "font-weight-bold btn-sm p-0 display-inline"}
                                                             onClick={() => {
                                                                 if (confirm("Are you sure you want to remove this query from history ?")) {
                                                                     removeHistoryFromStorageById(existingHistoryItem.id);
@@ -128,22 +128,20 @@ export default class RequestHistoryView extends React.Component {
                                 className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
                                 onClick={() => this.props.onClose()}>close
                         </Button>
-                        {
-                            this.state.showStartCount > 0 ?
-                                <Button variant={"outline-secondary mt-2"} type={"button"}
-                                        className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                        onClick={() => this.showPrev()}>prev
-                                </Button>
-                                : <React.Fragment/>
-                        }
 
-                        {
-                            existingHistory.length > this.state.showEndCount
-                                ? <Button variant={"outline-secondary mt-2"} type={"button"}
-                                          className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                          onClick={() => this.showNext()}>next </Button>
-                                : <React.Fragment/>
-                        }
+
+                        <Button variant={"outline-secondary mt-2"} type={"button"}
+                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                disabled={!(this.state.showStartCount > 0)}
+                                onClick={() => this.showPrev()}>prev
+                        </Button>
+
+
+                        <Button variant={"outline-secondary mt-2"} type={"button"}
+                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                disabled={!(existingHistory.length > this.state.showEndCount)}
+
+                                onClick={() => this.showNext()}>next </Button>
 
                         <span className={"float-right text-muted small"}>
                             showing {this.state.showStartCount} to {this.state.showEndCount} of {existingHistory.length}

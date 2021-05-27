@@ -145,22 +145,19 @@ export default class LambdaSettingsView extends React.Component {
                                         className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
                                         onClick={() => this.props.onClose()}>close
                                 </Button>
-                                {
-                                    this.state.showStartCount > 0 ?
-                                        <Button variant={"outline-secondary mt-2"} type={"button"}
-                                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                                onClick={() => this.showPrev()}>prev
-                                        </Button>
-                                        : <React.Fragment/>
-                                }
 
-                                {
-                                    lambdaData.length > this.state.showEndCount
-                                        ? <Button variant={"outline-secondary mt-2"} type={"button"}
-                                                  className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                                  onClick={() => this.showNext()}>next </Button>
-                                        : <React.Fragment/>
-                                }
+                                <Button variant={"outline-secondary mt-2"} type={"button"}
+                                        className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                        disabled={!(this.state.showStartCount > 0)}
+
+                                        onClick={() => this.showPrev()}>prev
+                                </Button>
+
+                                <Button variant={"outline-secondary mt-2"} type={"button"}
+                                        className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                        disabled={!(lambdaData.length > this.state.showEndCount)}
+
+                                        onClick={() => this.showNext()}>next </Button>
 
                                 <span className={"float-right text-muted small"}>
                             showing {this.state.showStartCount} to {this.state.showEndCount} of {lambdaData.length}
