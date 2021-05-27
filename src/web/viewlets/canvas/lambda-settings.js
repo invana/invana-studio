@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Button, Card} from "react-bootstrap";
-import {getDataFromLocalStorage, removeLambdaFromStorageById} from "../../../utils/localStorage";
+import {
+    getDataFromLocalStorage,
+    removeLambdaFromStorageById,
+    updateLambdaFromStorageById
+} from "../../../utils/localStorage";
 import {LAMBDA_SETTINGS} from "../../../settings/lambda";
 
 export default class LambdaSettingsView extends React.Component {
@@ -51,6 +55,16 @@ export default class LambdaSettingsView extends React.Component {
         })
     }
 
+    editLambdaName(lambdaId, existingName) {
+        let newName = prompt("Enter new title for the lambda", existingName);
+        if (newName) {
+            updateLambdaFromStorageById(lambdaId, {name: newName})
+            // this.render();
+            this.setState({paginationCount: this.state.paginationCount})
+
+        }
+    }
+
 
     render() {
         let _this = this;
@@ -87,25 +101,32 @@ export default class LambdaSettingsView extends React.Component {
                                                             {/*        onClick={() => this.props.makeQuery(this.extractRawQuery(lambdaDataItem.query), {source: 'console'})}>*/}
                                                             {/*    Run Again*/}
                                                             {/*</button>*/}
-                                                            <button className={"btn btn-link mt-0 " +
-                                                            "font-weight-bold btn-sm p-0 display-inline"}
+                                                            <button className={"btn btn-link small mt-0 " +
+                                                            "font-weight-bold btn-sm p-0 display-inline mr-2"}
                                                                     onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(lambdaDataItem.query))}>
                                                                 Start Query
                                                             </button>
-                                                            <button className={"btn btn-link text-danger mt-0 ml-3 " +
+                                                            <button className={"btn btn-link small mt-0 " +
                                                             "font-weight-bold btn-sm p-0 display-inline"}
-                                                                    onClick={() => {
-                                                                        if (confirm("Are you sure you want to remove this lambda ?")) {
-                                                                            removeLambdaFromStorageById(lambdaDataItem.id);
-                                                                            _this.setState(_this.state);
+                                                                    onClick={() => this.editLambdaName(lambdaDataItem.id, lambdaDataItem.name)}>
+                                                                edit name
+                                                            </button>
+                                                            <button
+                                                                className={"btn btn-link text-danger small mt-0 ml-2 " +
+                                                                "font-weight-bold btn-sm p-0 display-inline"}
+                                                                onClick={() => {
+                                                                    if (confirm("Are you sure you want to remove this lambda ?")) {
+                                                                        removeLambdaFromStorageById(lambdaDataItem.id);
+                                                                        _this.setState(_this.state);
 
-                                                                        }
+                                                                    }
 
-                                                                    }}>
+                                                                }}>
                                                                 delete
                                                             </button>
                                                             <small className={"ml-3"}>
-                                                                queried at {lambdaDataItem.dt}
+                                                                {/*created at */}
+                                                                {lambdaDataItem.dt}
                                                             </small>
                                                             <div className="border-bottom"/>
 

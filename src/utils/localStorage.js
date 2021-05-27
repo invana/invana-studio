@@ -3,8 +3,6 @@ import {HISTORY_SETTINGS} from "../settings/history";
 import {LAMBDA_SETTINGS} from "../settings/lambda";
 
 
-
-
 export function getDataFromLocalStorage(itemKey, isJson) {
 
     if (isJson) {
@@ -17,7 +15,6 @@ export function getDataFromLocalStorage(itemKey, isJson) {
     } else {
         return localStorage.getItem(itemKey) || [];
     }
-
 }
 
 export function setDataToLocalStorage(itemKey, itemData) {
@@ -56,11 +53,47 @@ export function addQueryToLambda(query, name) {
 }
 
 
+export function getLambdaFromStorageById(lambdaId) {
+    let existingLambda = getDataFromLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, true) || [];
+    let lambdaData= null;
+    existingLambda.map((lambda) => {
+        console.log("lambda.id === lambdaId", lambda.id , lambdaId, lambda.id === lambdaId)
+        if (lambda.id === lambdaId) {
+            lambdaData =  lambda;
+        }
+    })
+    return lambdaData;
+}
+
+export function updateLambdaFromStorageById(lambdaId, updateDict) {
+    console.log("====lambdaData.id", lambdaId)
+
+    let lambdaData = getLambdaFromStorageById(lambdaId);
+        console.log("====lambdaData", lambdaData)
+
+    if (lambdaData) {
+        if (updateDict && lambdaData) {
+            lambdaData.name = updateDict.name;
+        }
+        let existingLambda = getDataFromLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, true) || [];
+        let newLambdaData = []
+        existingLambda.map((lambda) => {
+            if (lambda.id === lambdaId) {
+                newLambdaData.push(lambdaData)
+            } else {
+                newLambdaData.push(lambda)
+            }
+        })
+        setDataToLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, newLambdaData);
+    }
+}
+
+
 export function removeLambdaFromStorageById(lambdaId) {
     let existingLambda = getDataFromLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, true) || [];
     let newLambdaData = []
-    existingLambda.map((lambda)=>{
-        if (lambda.id !== lambdaId){
+    existingLambda.map((lambda) => {
+        if (lambda.id !== lambdaId) {
             newLambdaData.push(lambda)
         }
     })
