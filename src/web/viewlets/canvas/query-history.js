@@ -76,7 +76,7 @@ export default class RequestHistoryView extends React.Component {
                                 {
                                     historyToShow.map((existingHistoryItem, i) => {
                                         return (
-                                            <li className={"list-group-item border-bottom p-0"}
+                                            <li className={"list-group-item border-0 p-0"}
                                                 key={i}>
                                                         <pre className={" ml-2 mr-2 mt-2 p-3 mt-0 mb-0"}
                                                              style={{"backgroundColor": "#efefef"}}>
@@ -97,6 +97,8 @@ export default class RequestHistoryView extends React.Component {
                                                     <small className={"ml-3"}>
                                                         queried at {existingHistoryItem.dt}
                                                     </small>
+                                                                                                                <div className="border-bottom"/>
+
                                                 </div>
 
                                             </li>
@@ -107,7 +109,7 @@ export default class RequestHistoryView extends React.Component {
                             : <p className={"p-3 text-muted"}>Hm! No user query history found!.</p>
                         }
                     </div>
-                    <div>
+                    <div className={"p-2"}>
                         <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
                                 className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
                                 onClick={() => this.props.onClose()}>close

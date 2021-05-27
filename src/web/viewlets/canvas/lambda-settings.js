@@ -54,7 +54,7 @@ export default class LambdaSettingsView extends React.Component {
 
     render() {
         let _this = this;
-        let lambdaData = getDataFromLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, true);
+        let lambdaData = getDataFromLocalStorage(LAMBDA_SETTINGS.LAMBDA_LOCAL_STORAGE_KEY, true) || [];
         const lambdaDataToShow = lambdaData.slice(this.state.showStartCount, this.state.showEndCount);
         console.log("====lambdaDataToShow", lambdaDataToShow)
         return (
@@ -73,7 +73,7 @@ export default class LambdaSettingsView extends React.Component {
                                         {
                                             lambdaDataToShow.map((lambdaDataItem, i) => {
                                                 return (
-                                                    <li className={"list-group-item border-bottom p-0"}
+                                                    <li className={"list-group-item border-0 p-0"}
                                                         key={i}>
                                                         <h6 className={"font-weight-bold ml-2 mr-2 mt-2 mt-0 mb-0"}>{lambdaDataItem.name}</h6>
                                                         <pre className={" ml-2 mr-2 mt-2 p-3 mt-0 mb-0"}
@@ -82,7 +82,7 @@ export default class LambdaSettingsView extends React.Component {
                                                         </pre>
                                                         {/*<pre className={"mb-0"}>{JSON.stringify(lambdaDataItem.query, null, 2)}</pre>*/}
 
-                                                        <div className={"pr-2 pl-2 pt-1 pb-1"}>
+                                                        <div className={"pr-2 pl-2 pt-1 pb-1 "}>
                                                             {/*<button className={"btn btn-dark btn-sm  small "}*/}
                                                             {/*        onClick={() => this.props.makeQuery(this.extractRawQuery(lambdaDataItem.query), {source: 'console'})}>*/}
                                                             {/*    Run Again*/}
@@ -107,6 +107,7 @@ export default class LambdaSettingsView extends React.Component {
                                                             <small className={"ml-3"}>
                                                                 queried at {lambdaDataItem.dt}
                                                             </small>
+                                                            <div className="border-bottom"/>
 
                                                         </div>
 
@@ -118,7 +119,7 @@ export default class LambdaSettingsView extends React.Component {
                                     : <p className={"p-3 text-muted"}>No Gremlin lambdas were saved!.</p>
                                 }
                             </div>
-                            <div>
+                            <div className={"p-2"}>
                                 <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
                                         className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
                                         onClick={() => this.props.onClose()}>close

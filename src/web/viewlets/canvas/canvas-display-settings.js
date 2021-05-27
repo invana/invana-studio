@@ -67,16 +67,7 @@ export default class CanvasDisplaySettings extends React.Component {
             this.updateEdgeOptionsInStorage(studioSettings)
         }
     }
-
-    checkIfEdgesChecked() {
-        // if (this.state.studioSettings.edges) {
-        //     if (this.state.studioSettings.edges.smooth) {
-        //         return this.state.studioSettings.edges.smooth.enabled;
-        //     }
-        // }
-        return false;
-    }
-
+ 
     render() {
         console.log("this.state.studioSettings", this.state.studioSettings);
         return (
@@ -104,8 +95,7 @@ export default class CanvasDisplaySettings extends React.Component {
                                         name={"smooth"}
                                         label="smooth"
                                         onChange={this.handleValueChange.bind(this)}
-
-                                        defaultChecked={this.checkIfEdgesChecked.bind(this)}
+                                        defaultChecked={this.state.studioSettings.edges.smooth.enabled}
                                     />
                                 </Form.Group>
 
