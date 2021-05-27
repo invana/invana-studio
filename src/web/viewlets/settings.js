@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import {askToSwitchGremlinServer} from "../interface/utils";
 import {Button, Card} from "react-bootstrap";
 import DefaultRemoteRoutableComponent from "../layouts/default-remote-routable";
+import downloadTextAsFile, {exportDataFromStorage} from "../../utils/download";
 
 export default class SettingsComponent extends DefaultRemoteRoutableComponent {
 
@@ -41,7 +42,7 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
     render() {
         return (
             <Card style={{"minHeight": "220px"}}>
-                <Card.Body>
+                <Card.Body className={"pb-0"}>
                     <h6 className={"pb-2 mb-3 border-bottom"}>
                         Invana Studio settings.
                     </h6>
@@ -63,7 +64,7 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
 
                     <div id="connection-string" style={{"display": "none"}}>
                         <h6 className={"mb-0 font-weight-bold"}>connection string full:</h6>
-                        <p >{STUDIO_SETTINGS.CONNECTION_URL}</p>
+                        <p>{STUDIO_SETTINGS.CONNECTION_URL}</p>
                     </div>
                     <br/>
                     <Button variant={"outline-danger"} onClick={() => askToSwitchGremlinServer()}
@@ -73,6 +74,15 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                     <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
                         this.props.onClose()}>cancel
                     </Button>
+
+                    <p className={"mt-5"}>
+                        <Button className={"btn btn-link p-0 text-muted"} variant={"link"}
+                                onClick={() => downloadTextAsFile(
+                                    exportDataFromStorage(),
+                                    "invana-settings.txt")}
+                        >export settings</Button>
+                    </p>
+
 
 
                 </Card.Body>

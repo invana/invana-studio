@@ -2,6 +2,9 @@ import {RENDERING_CONFIG} from "../settings";
 import {HISTORY_SETTINGS} from "../settings/history";
 import {LAMBDA_SETTINGS} from "../settings/lambda";
 
+
+
+
 export function getDataFromLocalStorage(itemKey, isJson) {
 
     if (isJson) {
