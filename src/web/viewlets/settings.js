@@ -23,14 +23,15 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
         };
         // this.child = React.createRef();
     }
-/*
-    componentDidMount() {
-        super.componentDidMount();
-        document.getElementById('fileInput').addEventListener('change',
-            this.handleFileSelect.bind(this),
-            false);
 
-    }*/
+    /*
+        componentDidMount() {
+            super.componentDidMount();
+            document.getElementById('fileInput').addEventListener('change',
+                this.handleFileSelect.bind(this),
+                false);
+
+        }*/
 
     handleFileSelect(event) {
         const reader = new FileReader()
@@ -74,7 +75,7 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
     render() {
         return (
             <Card style={{"minHeight": "220px"}}>
-                <Card.Body className={"pb-0"}>
+                <Card.Body className={""}>
                     <h6 className={"pb-2 mb-3 border-bottom"}>
                         Invana Studio settings.
                     </h6>
@@ -82,7 +83,7 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                     {/*<h6 className={"mb-0"}>Graph engine name:</h6>*/}
                     {/*<p>{STUDIO_SETTINGS.GRAPH_ENGINE_NAME}</p>*/}
 
-                    <h6 className={"mb-0 font-weight-bold"}>connection string:</h6>
+                    <h6 className={"font-weight-bold"}>connection string:</h6>
                     <p className={"mb-0"}>
                         <span>{this.connectionStringWithoutCreds()}</span>
                     </p>
@@ -95,33 +96,30 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                     </p>
 
                     <div id="connection-string" style={{"display": "none"}}>
-                        <h6 className={"mb-0 font-weight-bold"}>connection string full:</h6>
+                        <h6 className={"mt-0 font-weight-bold"}>connection string full:</h6>
                         <p>{STUDIO_SETTINGS.CONNECTION_URL}</p>
                     </div>
-                    <br/>
-                    <hr/>
-                    <Button variant={"outline-danger"} onClick={() => askToSwitchGremlinServer()}
-                            title={"Switch Server"}>
-                        Disconnect<FontAwesomeIcon className={"ml-2"} icon={faSignInAlt}/>
-                    </Button>
-                    <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
-                        this.props.onClose()}>cancel
-                    </Button>
 
-                    <p className={"mt-3 small"}>
-                        <Button className={"btn btn-link p-0 mr-3 text-muted small"} variant={"link"}
-                                onClick={() => downloadTextAsFile(
-                                    exportDataFromStorage(),
-                                    "invana-settings.txt")}
-                        >export settings</Button>
-
-                        <Button className={"btn btn-link p-0 ml-3 text-muted small"} variant={"link"}
-                                onClick={() => this.setImportSettingsVisibility(true)}
-                        >import settings</Button>
-
-
+                    <h6 className={" font-weight-bold"}>Export Settings:</h6>
+                    <p className={"text-muted"}>
+                        Exports localstorage data from this browser like Query History,
+                        Rendering settings and Lambdas data into a file. click here to <Button
+                        className={"btn btn-link p-0  text-underline"} variant={"link"}
+                        onClick={() => downloadTextAsFile(
+                            exportDataFromStorage(),
+                            "invana-settings.txt")}
+                    >export</Button>.
                     </p>
-                    {
+
+                    <h6 className={" font-weight-bold"}>Import Settings:</h6>
+                    <p className={"text-muted"}>
+                        Imports data like Query History, Rendering settings and Lambdas data into
+                        a localStorage of this web browser. click here to <Button
+                        className={"btn btn-link p-0  text-underline"}
+                        variant={"link"}
+                        onClick={() => this.setImportSettingsVisibility(true)}>import</Button> .
+                    </p>
+            {
                         this.state.showImportSettings === true
                             ? <Form>
                                 <div className="mb-3">
@@ -129,14 +127,16 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                                         <Card.Body className={"p-2"}>
                                             {/*<h3>Import invana settings</h3>*/}
                                             <Form.File id="formcheck-api-regular">
-                                                <h6 className={"border-bottom text-muted pb-2 font-weight-bold"}>Import invana settings
+                                                <h6 className={"border-bottom text-muted pb-2 font-weight-bold"}>Import
+                                                    invana settings
                                                     file:</h6>
-                                                <Form.File.Input id="fileInput" onChange={(event) => this.handleFileSelect(event)}/>
-                                                <p className="small mb-2 mt-2 text-muted">Browse and selected the settings
+                                                <Form.File.Input id="fileInput"
+                                                                 onChange={(event) => this.handleFileSelect(event)}/>
+                                                <p className="small mb-2 mt-2 text-muted">Browse and selecte the settings
                                                     file.
                                                     ex: <strong>invana-settings.txt</strong></p>
                                                 <Button variant={"outline-secondary"}
-                                                        onClick={()=> this.setImportSettingsVisibility(false)}
+                                                        onClick={() => this.setImportSettingsVisibility(false)}
                                                         className={"pl-1 pr-1 pt-0 pb-0 small  "}>close
                                                     import</Button>
                                             </Form.File>
@@ -146,6 +146,19 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
                             </Form>
                             : <React.Fragment/>
                     }
+
+                    <br/>
+                    {/*<hr/>*/}
+                    <Button variant={"outline-danger"} onClick={() => askToSwitchGremlinServer()}
+                            title={"Switch Server"}>
+                        Disconnect<FontAwesomeIcon className={"ml-2"} icon={faSignInAlt}/>
+                    </Button>
+                    <Button variant={"outline-secondary"} className={"ml-3"} onClick={() =>
+                        this.props.onClose()}>cancel
+                    </Button>
+
+
+
 
 
                 </Card.Body>
