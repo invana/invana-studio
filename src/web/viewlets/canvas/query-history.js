@@ -39,8 +39,15 @@ export default class RequestHistoryView extends React.Component {
 
     extractRawQuery(graphQLQuery) {
         try {
-            return graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0].replace(/(^"|"$)/g, '').replace(/\\"/g, "\"").replace(/\n|\r/g, "");
+            const _ = graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0]
+                .replace(/(^"|"$)/g, '')
+                .replace(/\\"/g, "\"")
+                .replace(/\n|\r/g, "")
+                .trim();
+            console.log("extractRawQuery History", typeof _, _);
+            return _;
         } catch (e) {
+            console.log("===extractHistory e", e)
             return graphQLQuery.query;
         }
     }
@@ -106,7 +113,7 @@ export default class RequestHistoryView extends React.Component {
                                                                     _this.setState(_this.state);
                                                                 }
                                                             }}>
-                                                          <FontAwesomeIcon icon={faTrashAlt}/>
+                                                        <FontAwesomeIcon icon={faTrashAlt}/>
                                                     </button>
                                                     <small className={"ml-3"}>
                                                         queried at {existingHistoryItem.dt}

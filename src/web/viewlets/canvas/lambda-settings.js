@@ -40,6 +40,7 @@ export default class LambdaSettingsView extends React.Component {
     }
 
     extractRawQuery(graphQLQuery) {
+        console.log("extractRawQuery", graphQLQuery)
         return graphQLQuery;
     }
 
