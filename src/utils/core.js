@@ -8,6 +8,15 @@
 //     }
 // }
 
+export function cleanQuery(queryString) {
+    return queryString
+        .replace(/(^"|"$)/g, '')
+        // .replace(/\\"/g, "\"")
+        .replace(/\\n/g, "\n")
+        .replace(/\\r/g, "\r")
+        // .replace(/\n|\r/g, "")
+        .trim().trim();
+}
 
 export function convertMapKeysToArray(mapData) {
     let data = [];

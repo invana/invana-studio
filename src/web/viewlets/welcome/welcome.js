@@ -6,13 +6,14 @@ import {getDataFromLocalStorage} from "../../../utils/localStorage";
 import {HISTORY_SETTINGS} from "../../../settings/history";
 import DefaultRemoteComponent from "../../layouts/default-remote";
 import {STUDIO_SETTINGS} from "../../../settings";
+import {cleanQuery} from "../../../utils/core";
 
 export default class Welcome extends DefaultRemoteComponent {
 
 
     extractRawQuery(graphQLQuery) {
         try {
-            return graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0].replace(/(^"|"$)/g, '').replace(/\\"/g, "\"").replace(/\n|\r/g, "");
+            return cleanQuery(graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0]);
         } catch (e) {
             return graphQLQuery.query;
         }

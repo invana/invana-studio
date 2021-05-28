@@ -8,6 +8,7 @@ import {
     removeHistoryFromStorageById,
 } from "../../../utils/localStorage";
 import {HISTORY_SETTINGS} from "../../../settings/history";
+import {cleanQuery} from "../../../utils/core";
 
 export default class RequestHistoryView extends React.Component {
 
@@ -39,11 +40,7 @@ export default class RequestHistoryView extends React.Component {
 
     extractRawQuery(graphQLQuery) {
         try {
-            const _ = graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0]
-                .replace(/(^"|"$)/g, '')
-                .replace(/\\"/g, "\"")
-                .replace(/\n|\r/g, "")
-                .trim();
+            const _ = cleanQuery(graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0]);
             console.log("extractRawQuery History", typeof _, _);
             return _;
         } catch (e) {
@@ -90,8 +87,7 @@ export default class RequestHistoryView extends React.Component {
                                             <li className={"list-group-item border-0 p-0"}
                                                 key={i}>
                                                         <pre className={" ml-2 mr-2 mt-2 p-3 mt-0 mb-0"}
-                                                             style={{"backgroundColor": "#efefef"}}>
-                                                            {this.extractRawQuery(existingHistoryItem.query)}
+                                                             style={{"backgroundColor": "#efefef"}}>{this.extractRawQuery(existingHistoryItem.query)}
                                                         </pre>
                                                 {/*<pre className={"mb-0"}>{JSON.stringify(existingHistoryItem.query, null, 2)}</pre>*/}
 
