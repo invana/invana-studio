@@ -16,10 +16,12 @@ import CanvasArtBoard from "../../interface/canvas/canvas-art-board";
 import "./canvas.scss";
 import DataSidebarViewlet from "../data-management/data-sidebar";
 import ElementOptions from "../../interface/element-options";
-import {ListGroup, Modal} from "react-bootstrap";
+import {Button, ListGroup, Modal, Nav} from "react-bootstrap";
 import CanvasDisplaySettings from "./canvas-display-settings";
 import LoadingDiv from "./loading";
 import LambdaSettingsView from "./lambda-settings";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
@@ -73,8 +75,6 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
             lastResponse: null,
 
-            modalContentName: null,
-
 
             leftContentName: false, // query-console, query-history, canvas-display-settings, graph-management
         }
@@ -87,6 +87,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     setModalContentName(contentName) {
         this.setState({modalContentName: contentName});
     }
+
 
     //
     // processResponse(response) {
@@ -610,11 +611,18 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             {
                                 this.state.statusCode
                                     ? <ListGroup.Item className={"pt-0 pb-0 border-0 pl-2 pr-2"}>
+
+                                        <Button variant={"link"} className={"p-0"}
+                                                onClick={() => this.setModalContentName("last-response")}
+                                                style={{"font-size": "inherit", "marginTop": "-4px"}}>
                                                 <span style={{
                                                     'color': ` ${this.state.statusCode === 200 ? 'green' : 'red'}`,
                                                     "fontWeight": "bold"
                                                 }}>
-                                                {this.state.statusCode}</span> response
+
+                                                {this.state.statusCode}</span> <React.Fragment
+                                            className={"text-muted"}>response</React.Fragment>
+                                        </Button>
                                     </ListGroup.Item>
                                     : <span></span>
                             }
@@ -757,6 +765,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         ? <Modal.Dialog
                             size="lg"
                             aria-labelledby="contained-modal-title-vcenter"
+
                             centered>
 
                             <Modal.Body style={{"width": "600px"}}>
@@ -774,6 +783,60 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                     // reRenderCanvas={this.reRenderCanvas.bind(this)}
                                     // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
                                 />
+                            </Modal.Body>
+                        </Modal.Dialog>
+                        : <React.Fragment/>
+                }
+                {
+                    this.state.modalContentName === "last-response"
+                        ? <Modal.Dialog
+                            size="lg"
+                            aria-labelledby="contained-modal-title-vcenter"
+                            dialogClassName="modal-90w"
+
+                            show={() => this.state.modalContentName === "last-response"}
+                            onHide={() => this.setModalContentName(null)}
+                            centered>
+                            <Modal.Header className={"pt-1 pb-1 small"}>
+                                <Modal.Title className={"h5"} id="contained-modal-title-vcenter">
+                                    Response Viewer
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body className={"overflow-auto "}>
+                                <code>
+                                    <pre className={"p-3 bg-light border mb-0"}
+                                         style={{
+                                             "maxHeight": "calc(100vh - 200px)",
+                                             "maxWidth": "calc(100vw - 100px)",
+                                             "minWidth": "720px"
+                                         }}
+                                    >{JSON.stringify(this.state.lastResponse, null, 2)}</pre>
+                                </code>
+                                <div className="row mt-2">
+                                    <div className="col col-4">
+
+                                        <Nav className=" mt-2 mb-1 ">
+
+                                            <Nav.Item className={"mr-3 "}>
+                                                   <span style={{
+                                                       'color': ` ${this.state.statusCode === 200 ? 'green' : 'red'}`,
+                                                       "fontWeight": "bold"
+                                                   }}>
+
+                                                {this.state.statusCode} response</span>
+                                            </Nav.Item>
+                                            <Nav.Item className={"mr-3 "}>
+                                                <Button variant={"link"}
+                                                        className={"p-0"}
+                                                        onClick={() => this.setModalContentName(null)}>
+                                                    <FontAwesomeIcon icon={faWindowClose}/>
+                                                </Button>
+                                            </Nav.Item>
+
+                                        </Nav>
+
+                                    </div>
+                                </div>
                             </Modal.Body>
                         </Modal.Dialog>
                         : <React.Fragment/>
