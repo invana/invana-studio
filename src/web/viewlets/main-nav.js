@@ -90,32 +90,24 @@ export default class MainNav extends React.Component {
 
                                     </Button>
                                 </li>
+                                <li className="nav-item ">
+                                    <a href="https://docs.invana.io" target={"_new"}
+                                       className="d-flex align-items-center  border-bottom justify-content-center
+                        pt-3 pb-3  px-auto  text-dark text-decoration-none  ">
+                                        <FontAwesomeIcon icon={faQuestionCircle}/>
+                                    </a>
+                                </li>
                             </React.Fragment>
                             : <React.Fragment/>
                     }
-
-                    {/*<li>*/}
-                    {/*    <a href="/" className="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip"*/}
-                    {/*       data-bs-placement="right" data-bs-original-title="Products">*/}
-                    {/*        <FontAwesomeIcon icon={faHome}/>*/}
-
-                    {/*    </a>*/}
-                    {/*</li>*/}
-                    {/*<li>*/}
-                    {/*    <a href="/" className="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip"*/}
-                    {/*       data-bs-placement="right" data-bs-original-title="Customers">*/}
-                    {/*        <FontAwesomeIcon icon={faHome}/>*/}
-
-                    {/*    </a>*/}
-                    {/*</li>*/}
                 </ul>
-                <div className="">
-                    <a href="https://docs.invana.io" target={"_new"}
-                       className="d-flex align-items-center justify-content-center
-                        pt-3 pb-3  px-auto  text-dark text-decoration-none  ">
-                        <FontAwesomeIcon icon={faQuestionCircle}/>
-                    </a>
-                </div>
+                {/*<div className="">*/}
+                {/*    <a href="https://docs.invana.io" target={"_new"}*/}
+                {/*       className="d-flex align-items-center justify-content-center*/}
+                {/*        pt-3 pb-3  px-auto  text-dark text-decoration-none  ">*/}
+                {/*        <FontAwesomeIcon icon={faQuestionCircle}/>*/}
+                {/*    </a>*/}
+                {/*</div>*/}
                 {/*<div className="border-top">*/}
                 {/*    <a href="/" style={{"height": "23px"}}*/}
                 {/*       className="d-flex align-items-center justify-content-center*/}
