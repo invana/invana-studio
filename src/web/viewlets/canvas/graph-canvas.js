@@ -16,12 +16,11 @@ import CanvasArtBoard from "../../interface/canvas/canvas-art-board";
 import "./canvas.scss";
 import DataSidebarViewlet from "../data-management/data-sidebar";
 import ElementOptions from "../../interface/element-options";
-import {Button, ListGroup, Modal, Nav} from "react-bootstrap";
+import {Button, ListGroup, Modal} from "react-bootstrap";
 import CanvasDisplaySettings from "./canvas-display-settings";
 import LoadingDiv from "./loading";
 import LambdaSettingsView from "./lambda-settings";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import ResponseViewer from "./response-viewer";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
@@ -804,49 +803,12 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body className={"overflow-auto "}>
-                                <code>
-                                    <pre className={"p-3 bg-light border mb-0"}
-                                         style={{
-                                             "maxHeight": "calc(100vh - 200px)",
-                                             "maxWidth": "calc(100vw - 100px)",
-                                             "minWidth": "720px"
-                                         }}
-                                    >{JSON.stringify(this.state.lastResponse, null, 2)}</pre>
-                                </code>
-                                <div className="row mt-2">
-                                    <div className="col col-9">
-
-                                        <Nav className="">
-
-                                            <Nav.Item className={"mr-3 "}>
-                                                Took {
-                                                this.state.lastResponseElapsedTime > 0
-                                                    ?
-                                                    <React.Fragment>{this.state.lastResponseElapsedTime} seconds</React.Fragment>
-                                                    : <React.Fragment>less than a second</React.Fragment>
-                                            }
-
-                                            </Nav.Item>
-                                            <Nav.Item className={"mr-3 "}>
-                                                   <span style={{
-                                                       'color': ` ${this.state.lastResponseStatusCode === 200 ? 'green' : 'red'}`,
-                                                       "fontWeight": "bold"
-                                                   }}>
-
-                                                {this.state.lastResponseStatusCode} response</span>
-                                            </Nav.Item>
-                                            <Nav.Item className={"mr-3 "}>
-                                                <Button variant={"link"}
-                                                        className={"p-0"}
-                                                        onClick={() => this.setModalContentName(null)}>
-                                                    <FontAwesomeIcon icon={faWindowClose}/>
-                                                </Button>
-                                            </Nav.Item>
-
-                                        </Nav>
-
-                                    </div>
-                                </div>
+                                <ResponseViewer
+                                    lastResponse={this.state.lastResponse}
+                                    lastResponseElapsedTime={this.state.lastResponseElapsedTime}
+                                    lastResponseStatusCode={this.state.lastResponseStatusCode}
+                                    onClose={()=> this.setModalContentName(null)}
+                                />
                             </Modal.Body>
                         </Modal.Dialog>
                         : <React.Fragment/>
