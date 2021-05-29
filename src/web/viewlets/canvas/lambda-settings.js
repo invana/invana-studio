@@ -102,14 +102,14 @@ export default class LambdaSettingsView extends React.Component {
                                             {lambdaDataToShow.length > 0
                                                 ?
                                                 <React.Fragment>
-                                                    <Button variant={"outline-secondary"} type={"button"}
+                                                    <Button variant={"link"} type={"button"}
                                                             className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
                                                             disabled={!(this.state.showStartCount > 0)}
                                                             onClick={() => this.showPrev()}>
                                                         <FontAwesomeIcon icon={faChevronLeft}/>
                                                     </Button>
 
-                                                    <Button variant={"outline-secondary"} type={"button"}
+                                                    <Button variant={"link"} type={"button"}
                                                             className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
                                                             disabled={!(lambdaData.length > this.state.showEndCount)}
                                                             onClick={() => this.showNext()}>
@@ -119,7 +119,7 @@ export default class LambdaSettingsView extends React.Component {
                                                 : <React.Fragment/>
                                             }
 
-                                            <Button variant={"outline-secondary"} type={"button"}
+                                            <Button variant={"link"} type={"button"}
                                                     className={"pr-2 pl-2 button-hover-bg-disable rounded-0 border-0"}
                                                     onClick={() => this.props.onClose()}>
                                                 <FontAwesomeIcon icon={faWindowClose}/>

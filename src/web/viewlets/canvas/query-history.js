@@ -88,7 +88,7 @@ export default class RequestHistoryView extends React.Component {
                             <div className="col col-5">
 
                                 <div className="float-right">
-                                    <Button variant={"outline-secondary"} type={"button"}
+                                    <Button variant={"link"} type={"button"}
                                             className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
                                             disabled={!(this.state.showStartCount > 0)}
                                             onClick={() => this.showPrev()}>
@@ -96,14 +96,14 @@ export default class RequestHistoryView extends React.Component {
                                     </Button>
 
 
-                                    <Button variant={"outline-secondary"} type={"button"}
+                                    <Button variant={"link"} type={"button"}
                                             className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
                                             disabled={!(existingHistory.length > this.state.showEndCount)}
 
                                             onClick={() => this.showNext()}>
                                         <FontAwesomeIcon icon={faChevronRight}/>
                                     </Button>
-                                    <Button variant={"outline-secondary "} type={"button"}
+                                    <Button variant={"link "} type={"button"}
                                             className={"pr-2 pl-2 button-hover-bg-disable rounded-0 border-0"}
                                             onClick={() => this.props.onClose()}>
                                         <FontAwesomeIcon icon={faWindowClose}/>

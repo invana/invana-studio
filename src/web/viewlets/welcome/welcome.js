@@ -25,7 +25,10 @@ export default class Welcome extends DefaultRemoteComponent {
         const historyToShow = existingHistory.filter(item => item.source === "console").slice(0, 2);
 
         return (
-            <Card className={"ml-4"} style={{width: '820px', "borderRadius": 0, "top": "58px", }}>
+            <Card className={"ml-4 mr-4"} style={{
+                "maxWidth": '820px',
+                "minWidth": "420px",
+                "borderRadius": 0, "top": "58px", }}>
                 <Card.Body style={{"padding": "5rem 3rem 3rem 3rem"}}>
                     <Row>
                         <Col md={"6"}>
