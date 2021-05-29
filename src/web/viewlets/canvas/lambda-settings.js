@@ -89,7 +89,8 @@ export default class LambdaSettingsView extends React.Component {
                                 <div className="row">
                                     <div className="col col-7">
                                         <p className={" text-muted small mt-2 mb-0"}>
-                                            showing {this.state.showStartCount} to {this.state.showEndCount} of {lambdaData.length}
+                                            showing {this.state.showStartCount} to {this.state.showEndCount} entries
+                                            of {lambdaData.length}
                                         </p>
 
                                     </div>

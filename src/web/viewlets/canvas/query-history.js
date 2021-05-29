@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Button, Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHistory, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {faChevronLeft, faChevronRight, faHistory, faTrashAlt, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import {
     getDataFromLocalStorage,
     removeHistoryFromStorageById,
@@ -78,33 +78,45 @@ export default class RequestHistoryView extends React.Component {
                     <FontAwesomeIcon icon={faHistory}/> Query History
                 </Card.Header>
                 <Card.Body className={"p-0 "}>
-                    <div className={"p-2"}>
-                        <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
-                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                onClick={() => this.props.onClose()}>close
-                        </Button>
+                    <div className={"pl-3 pr-3"}>
+                        <div className="row">
+                            <div className="col col-7">
+                                <p className={" text-muted small mt-2 mb-0"}>
+                                    showing {this.state.showStartCount} to {this.state.showEndCount} entries of {existingHistory.length}
+                                </p>
+                            </div>
+                            <div className="col col-5">
+
+                                <div className="float-right">
+                                    <Button variant={"outline-secondary"} type={"button"}
+                                            className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
+                                            disabled={!(this.state.showStartCount > 0)}
+                                            onClick={() => this.showPrev()}>
+                                        <FontAwesomeIcon icon={faChevronLeft}/>
+                                    </Button>
 
 
-                        <Button variant={"outline-secondary mt-2"} type={"button"}
-                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                disabled={!(this.state.showStartCount > 0)}
-                                onClick={() => this.showPrev()}>prev
-                        </Button>
+                                    <Button variant={"outline-secondary"} type={"button"}
+                                            className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
+                                            disabled={!(existingHistory.length > this.state.showEndCount)}
+
+                                            onClick={() => this.showNext()}>
+                                        <FontAwesomeIcon icon={faChevronRight}/>
+                                    </Button>
+                                    <Button variant={"outline-secondary "} type={"button"}
+                                            className={"pr-2 pl-2 button-hover-bg-disable rounded-0 border-0"}
+                                            onClick={() => this.props.onClose()}>
+                                        <FontAwesomeIcon icon={faWindowClose}/>
+                                    </Button>
+                                </div>
 
 
-                        <Button variant={"outline-secondary mt-2"} type={"button"}
-                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                disabled={!(existingHistory.length > this.state.showEndCount)}
-
-                                onClick={() => this.showNext()}>next </Button>
-
-                        <span className={"float-right text-muted small"}>
-                            showing {this.state.showStartCount} to {this.state.showEndCount} of {existingHistory.length}
-                        </span>
+                            </div>
+                        </div>
 
 
                     </div>
-                    <div  style={this.props.cardBodyStyle}>
+                    <div style={this.props.cardBodyStyle} className={"pl-3 pr-3"}>
                         {historyToShow.length > 0
                             ?
                             <ul className={"list-group  rounded-0"}>
@@ -113,12 +125,12 @@ export default class RequestHistoryView extends React.Component {
                                         return (
                                             <li className={"list-group-item border-0 p-0"}
                                                 key={i}>
-                                                        <pre className={" ml-2 mr-2 mt-2 p-3 mt-0 mb-0"}
+                                                        <pre className={" mt-2 p-3 mt-0 mb-0"}
                                                              style={{"backgroundColor": "#efefef"}}>{this.extractRawQuery(existingHistoryItem.query)}
                                                         </pre>
                                                 {/*<pre className={"mb-0"}>{JSON.stringify(existingHistoryItem.query, null, 2)}</pre>*/}
 
-                                                <div className={"pr-2 pl-2 pt-1 pb-1"}>
+                                                <div className={" pt-1 pb-1"}>
                                                     {/*<button className={"btn btn-dark btn-sm  small "}*/}
                                                     {/*        onClick={() => this.props.makeQuery(this.extractRawQuery(existingHistoryItem.query), {source: 'console'})}>*/}
                                                     {/*    Run Again*/}
@@ -141,7 +153,7 @@ export default class RequestHistoryView extends React.Component {
                                                     <small className={"ml-3"}>
                                                         queried at {existingHistoryItem.dt}
                                                     </small>
-                                                    <div className="border-bottom"/>
+                                                    <div className="border-bottom mt-3"/>
 
                                                 </div>
 
