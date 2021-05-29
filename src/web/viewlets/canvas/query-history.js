@@ -116,7 +116,7 @@ export default class RequestHistoryView extends React.Component {
 
 
                     </div>
-                    <div style={this.props.cardBodyStyle} className={"pl-3 pr-3"}>
+                    <div style={this.props.cardBodyStyle} className={"pl-3 pr-3 mb-3"}>
                         {historyToShow.length > 0
                             ?
                             <ul className={"list-group  rounded-0"}>

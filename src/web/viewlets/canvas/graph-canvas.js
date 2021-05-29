@@ -690,9 +690,11 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         ? <DataSidebarViewlet
                             style={{
                                 "width": "420px", "top": "90px", "zIndex": 100001,
-                                "maxHeight": "calc(100vh - 250px)"
                             }}
-                            onClose={()=>this.setLeftContentName(null)}
+                            cardBodyStyle={{
+                                "maxHeight": "calc(100vh - 265px)"
+                            }}
+                            onClose={() => this.setLeftContentName(null)}
 
                             {...this.props}
                             onItemClick={this.onItemClick.bind(this)}

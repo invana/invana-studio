@@ -22,7 +22,8 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
         edgeLabelsInCanvas: PropTypes.array,
         nodeLabelsInCanvas: PropTypes.array,
         style: PropTypes.object,
-        onClose: PropTypes.func
+        onClose: PropTypes.func,
+        cardBodyStyle: PropTypes.object
 
     }
 
@@ -209,53 +210,53 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
                                             <div className={" border-bottom ml-3 mr-3"}/>
                                         </div>
 
+                                        <div className="mb-3" style={this.props.cardBodyStyle}>
+                                            {
 
-                                        {
-
-                                            this.state.filteredNodeStats.length > 0 || this.state.filteredEdgeStats.length > 0
-                                                ? <div className={"border-bottom mb-3 pb-3"}>
-                                                    <h6 className={"ml-3 mb-0  text-uppercase font-weight-bold small bg-light p-1"}>Filtered
-                                                        Labels</h6>
-                                                    <DataVertexManagement
-                                                        onItemClick={this.props.onItemClick} {...this.props}
-                                                        loadElementData={this.props.loadElementData}
-                                                        canvasCtrl={this.props.canvasCtrl}
-                                                        showLabelMenu={this.props.showLabelMenu}
-                                                        statsData={this.state.filteredNodeStats}
-                                                        nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
-                                                        edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
-
-                                                    />
-                                                    <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
-                                                                        canvasCtrl={this.props.canvasCtrl}
-                                                                        loadElementData={this.props.loadElementData}
-                                                                        showLabelMenu={this.props.showLabelMenu}
-                                                                        statsData={this.state.filteredEdgeStats}
-                                                                        nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
-                                                                        edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
-                                                    />
-                                                </div>
-                                                : <React.Fragment/>
-                                        }
-
-
-                                        <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
-                                                              loadElementData={this.props.loadElementData}
-                                                              canvasCtrl={this.props.canvasCtrl}
-                                                              showLabelMenu={this.props.showLabelMenu}
-                                                              statsData={this.state.verticesStats}
-                                                              nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
-                                                              edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
-                                        />
-                                        <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                this.state.filteredNodeStats.length > 0 || this.state.filteredEdgeStats.length > 0
+                                                    ? <div className={"border-bottom mb-3 pb-3"}>
+                                                        <h6 className={"ml-3 mb-0  text-uppercase font-weight-bold small bg-light p-1"}>Filtered
+                                                            Labels</h6>
+                                                        <DataVertexManagement
+                                                            onItemClick={this.props.onItemClick} {...this.props}
                                                             loadElementData={this.props.loadElementData}
                                                             canvasCtrl={this.props.canvasCtrl}
                                                             showLabelMenu={this.props.showLabelMenu}
-                                                            statsData={this.state.edgeStats}
+                                                            statsData={this.state.filteredNodeStats}
                                                             nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
                                                             edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
-                                        />
 
+                                                        />
+                                                        <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                                            canvasCtrl={this.props.canvasCtrl}
+                                                                            loadElementData={this.props.loadElementData}
+                                                                            showLabelMenu={this.props.showLabelMenu}
+                                                                            statsData={this.state.filteredEdgeStats}
+                                                                            nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                                            edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                                        />
+                                                    </div>
+                                                    : <React.Fragment/>
+                                            }
+
+
+                                            <DataVertexManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                                  loadElementData={this.props.loadElementData}
+                                                                  canvasCtrl={this.props.canvasCtrl}
+                                                                  showLabelMenu={this.props.showLabelMenu}
+                                                                  statsData={this.state.verticesStats}
+                                                                  nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                                  edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                            />
+                                            <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
+                                                                loadElementData={this.props.loadElementData}
+                                                                canvasCtrl={this.props.canvasCtrl}
+                                                                showLabelMenu={this.props.showLabelMenu}
+                                                                statsData={this.state.edgeStats}
+                                                                nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
+                                                                edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                            />
+                                        </div>
                                     </React.Fragment>
                             }
 

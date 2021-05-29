@@ -132,7 +132,7 @@ export default class LambdaSettingsView extends React.Component {
 
 
                             </div>
-                            <div style={this.props.cardBodyStyle}>
+                            <div style={this.props.cardBodyStyle} className={"mb-3"}>
                                 {lambdaDataToShow.length > 0
                                     ?
                                     <ul className={"list-group  rounded-0"}>
