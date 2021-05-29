@@ -150,6 +150,10 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
                                     <RequestHistoryView
                                         onClose={() => _this.setShowHistory(false)}
                                         makeQuery={this.makeQuery.bind(this)}
+                                        cardBodyStyle={{
+                                            "overflow": "scroll",
+                                            "maxHeight": "calc(100vh - 170px)"
+                                        }}
                                         startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
                                     />
                                 </Modal.Body>

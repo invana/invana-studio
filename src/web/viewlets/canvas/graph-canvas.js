@@ -661,7 +661,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         <div className={" position-absolute "}
                              style={{
                                  "width": "420px", "top": "90px", "zIndex": 100001,
-                                 "maxHeight": "calc(100vh - 140px)"
+                                 // "maxHeight": "calc(100vh - 140px)",
+                                 // "overflow": "scroll"
                              }}>
                             <div className={"ml-3 border border-top-0 bg-white"}>
 
@@ -673,6 +674,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                     }}
                                     makeQuery={this.makeQuery.bind(this)}
                                     startNewQueryInConsole={this.startNewQueryInConsole.bind(this)}
+                                    cardBodyStyle={{
+                                        "overflow": "scroll",
+                                        "maxHeight": "calc(100vh - 215px)"
+                                    }}
                                 />
                             </div>
                         </div>

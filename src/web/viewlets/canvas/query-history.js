@@ -26,7 +26,8 @@ export default class RequestHistoryView extends React.Component {
         // connector: PropTypes.func,
         startNewQueryInConsole: PropTypes.func,
         query: PropTypes.string,
-        onClose: PropTypes.func
+        onClose: PropTypes.func,
+        cardBodyStyle: PropTypes.object
     };
 
     constructor(props) {
@@ -77,7 +78,33 @@ export default class RequestHistoryView extends React.Component {
                     <FontAwesomeIcon icon={faHistory}/> Query History
                 </Card.Header>
                 <Card.Body className={"p-0 "}>
-                    <div>
+                    <div className={"pl-2 pr-2 pb-2 pt-1"}>
+                        <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
+                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                onClick={() => this.props.onClose()}>close
+                        </Button>
+
+
+                        <Button variant={"outline-secondary mt-2"} type={"button"}
+                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                disabled={!(this.state.showStartCount > 0)}
+                                onClick={() => this.showPrev()}>prev
+                        </Button>
+
+
+                        <Button variant={"outline-secondary mt-2"} type={"button"}
+                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
+                                disabled={!(existingHistory.length > this.state.showEndCount)}
+
+                                onClick={() => this.showNext()}>next </Button>
+
+                        <span className={"float-right text-muted small"}>
+                            showing {this.state.showStartCount} to {this.state.showEndCount} of {existingHistory.length}
+                        </span>
+
+
+                    </div>
+                    <div  style={this.props.cardBodyStyle}>
                         {historyToShow.length > 0
                             ?
                             <ul className={"list-group  rounded-0"}>
@@ -126,34 +153,6 @@ export default class RequestHistoryView extends React.Component {
                             : <p className={"p-3 text-muted"}>Hm! No query history found!.</p>
                         }
                     </div>
-                    <div className={"p-2"}>
-                        <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
-                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                onClick={() => this.props.onClose()}>close
-                        </Button>
-
-
-                        <Button variant={"outline-secondary mt-2"} type={"button"}
-                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                disabled={!(this.state.showStartCount > 0)}
-                                onClick={() => this.showPrev()}>prev
-                        </Button>
-
-
-                        <Button variant={"outline-secondary mt-2"} type={"button"}
-                                className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
-                                disabled={!(existingHistory.length > this.state.showEndCount)}
-
-                                onClick={() => this.showNext()}>next </Button>
-
-                        <span className={"float-right text-muted small"}>
-                            showing {this.state.showStartCount} to {this.state.showEndCount} of {existingHistory.length}
-                        </span>
-
-
-                    </div>
-
-
                 </Card.Body>
             </Card>
 
