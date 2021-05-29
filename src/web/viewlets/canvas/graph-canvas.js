@@ -735,6 +735,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                 "width": "420px", "top": "90px", "zIndex": 100001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
+                            cardBodyStyle={{
+                                "overflow": "scroll",
+                                "maxHeight": "calc(100vh - 215px)"
+                            }}
                             onClose={() => {
                                 _this.setLeftContentName(null)
                             }}

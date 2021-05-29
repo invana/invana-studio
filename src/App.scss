@@ -67,3 +67,7 @@ button {
 .bg-dark {
   background: #4e4f55;
 }
+.button-hover-bg-disable:hover{
+  background: transparent !important;
+  color: inherit !important;
+}

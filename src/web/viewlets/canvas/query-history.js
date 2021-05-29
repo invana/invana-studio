@@ -78,7 +78,7 @@ export default class RequestHistoryView extends React.Component {
                     <FontAwesomeIcon icon={faHistory}/> Query History
                 </Card.Header>
                 <Card.Body className={"p-0 "}>
-                    <div className={"pl-2 pr-2 pb-2 pt-1"}>
+                    <div className={"p-2"}>
                         <Button variant={"outline-secondary mt-2 mr-2"} type={"button"}
                                 className={"pt-0 pb-0 pl-2 pr-2 rounded-0"}
                                 onClick={() => this.props.onClose()}>close
