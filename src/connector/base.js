@@ -36,7 +36,7 @@ class ConnectorBase {
     }
 
 
-    flushResponses(){
+    flushResponses() {
         this.responsesList = [];
     }
 
@@ -59,21 +59,25 @@ class ConnectorBase {
         this.responsesList = [];
     }
 
-    gatherDataFromStream(response, transportStatusCode) {
+    gatherDataFromStream(response, transportStatusCode, transportTime) {
         console.log("onmessage received", response);
-        const responseObject = new this.responseCls(response, transportStatusCode);
+        const responseObject = new this.responseCls(response, transportStatusCode, transportTime);
         if (transportStatusCode >= 200 && transportStatusCode < 300) {
             if (transportStatusCode === 206) {
                 this.responseEventsCallback({
                     statusMessage: "Gathering example-data from the stream",
-                    statusCode: transportStatusCode,
+                    lastResponseStatusCode: transportStatusCode,
+                    lastResponseElapsedTime: responseObject.transportTime,
+
                     isStreaming: true
                 })
                 this.addResponse2List(responseObject);
             } else {
                 this.responseEventsCallback({
                     statusMessage: "Responded to the Query Successfully",
-                    statusCode: transportStatusCode,
+                    lastResponseStatusCode: transportStatusCode,
+                    lastResponseElapsedTime: responseObject.transportTime,
+
                     isStreaming: false
                 })
                 this.addResponse2List(responseObject);
@@ -87,7 +91,9 @@ class ConnectorBase {
             // const responses = Object.assign(this.responsesList);
             this.responseEventsCallback({
                 statusMessage: "Query Failed with " + transportStatusCode + " error.",
-                statusCode: transportStatusCode,
+                lastResponseStatusCode: transportStatusCode,
+                lastResponseElapsedTime: responseObject.transportTime,
+
                 isStreaming: false
             })
             this.responseCallback(responseObject);

@@ -5,9 +5,10 @@
 
 export default class ResponseBase {
 
-    constructor(response, transporterStatusCode) {
+    constructor(response, transporterStatusCode, transportTime) {
         this.response = response;
         this.transporterStatusCode = transporterStatusCode;
+        this.transportTime = transportTime
     }
 
     getResponseData() {

@@ -13,9 +13,12 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
     const connectionUrl = urlAnalysed.origin + urlAnalysed.pathname;
     // let response = null
     let transporterStatusCode = null;
+    let transportTime = 0;
     let responseJson = {};
 
     try {
+        const startTime = Date.now();
+
         const response = await fetch(connectionUrl, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -24,7 +27,7 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
             body: JSON.stringify(data) // body example-data type must match "Content-Type" header
         });
         console.log("response========", response);
-
+        transportTime= Date.now() - startTime;
         transporterStatusCode = response.status
         try {
             responseJson = await response.json();
@@ -36,7 +39,11 @@ export async function postData(url = '', extraHeaders = {}, data = {}) {
         transporterStatusCode = 999;
     }
 
-    // let statusCode = response.status; // response from the server.
+    // let lastResponseStatusCode = response.status; // response from the server.
 
-    return {"response": responseJson, transporterStatusCode: transporterStatusCode}
+    return {
+        response: responseJson,
+        transporterStatusCode: transporterStatusCode,
+        transportTime: transportTime
+    }
 }

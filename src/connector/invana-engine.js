@@ -35,7 +35,11 @@ export default class InvanaEngineHTTPConnector extends ConnectorBase {
         postData(this.serverUrl, extraHeaders, queryPayload).then((data) => {
             // check the status and response type and change isConnected
             console.log("InvanaEngineHTTPConnector", data);
-            _this.gatherDataFromStream(data.response, data.transporterStatusCode);
+            _this.gatherDataFromStream(
+                data.response,
+                data.transporterStatusCode,
+                data.transportTime
+            );
         });
     }
 }

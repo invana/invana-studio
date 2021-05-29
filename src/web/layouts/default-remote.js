@@ -27,7 +27,10 @@ export default class DefaultRemoteComponent extends React.Component {
             isConnected2Gremlin: null,
             isStreaming: null,
             isQuerying: null,
-            statusCode: null,
+
+            lastResponseStatusCode: null,
+            lastResponseElapsedTime: 0,
+
             statusMessage: null,
 
             showQueryConsole: false,
@@ -44,7 +47,7 @@ export default class DefaultRemoteComponent extends React.Component {
         // console.log("===eventName", eventName, eventValue);
         if (eventName === "statusMessage") {
             this.setStatusMessage(eventValue);
-        } else if (eventName === "statusCode") {
+        } else if (eventName === "lastResponseStatusCode") {
             this.setstatusCode(eventValue);
         } else if (eventName === "isStreaming") {
             this.setIsStreaming(eventValue);
@@ -61,8 +64,8 @@ export default class DefaultRemoteComponent extends React.Component {
         this.setState({isStreaming: status});
     }
 
-    setstatusCode(statusCode) {
-        this.setState({statusCode: statusCode});
+    setstatusCode(lastResponseStatusCode) {
+        this.setState({lastResponseStatusCode: lastResponseStatusCode});
     }
 
     setErrorMessage(message) {

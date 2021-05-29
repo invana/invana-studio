@@ -54,7 +54,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
             showWelcome: true,
 
 
-            statusCode: null,
+            lastResponseStatusCode: null,
+
             nodes: [],
             edges: [],
             nodeGroups: {},
@@ -99,7 +100,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     //     if (lastResponse) {
     //         const {nodes, edges} = this.separateNodesAndEdges(data);
     //         this.addNewData(nodes, edges);
-    //         this.setState({statusCode: response.transporterStatusCode});
+    //         this.setState({lastResponseStatusCode: response.transporterStatusCode});
     //         if (response.transporterStatusCode !== 200) {
     //             this.setState({rightContentName: "response-viewer"})
     //         }
@@ -385,7 +386,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         if (lastResponse) {
             const {nodes, edges} = this.separateNodesAndEdges(data);
             this.addNewData(nodes, edges);
-            this.setState({statusCode: response.transporterStatusCode});
+            this.setState({lastResponseStatusCode: response.transporterStatusCode});
             if (response.transporterStatusCode !== 200) {
                 this.setState({rightContentName: "response-viewer"})
             }
@@ -609,18 +610,18 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             <ListGroup.Item
                                 className={"pt-0 pb-0 border-0 pl-3 pr-2"}>{this.state.statusMessage}</ListGroup.Item>
                             {
-                                this.state.statusCode
+                                this.state.lastResponseStatusCode
                                     ? <ListGroup.Item className={"pt-0 pb-0 border-0 pl-2 pr-2"}>
 
                                         <Button variant={"link"} className={"p-0"}
                                                 onClick={() => this.setModalContentName("last-response")}
-                                                style={{"font-size": "inherit", "marginTop": "-4px"}}>
+                                                style={{"fontSize": "inherit", "marginTop": "-4px"}}>
                                                 <span style={{
-                                                    'color': ` ${this.state.statusCode === 200 ? 'green' : 'red'}`,
+                                                    'color': ` ${this.state.lastResponseStatusCode === 200 ? 'green' : 'red'}`,
                                                     "fontWeight": "bold"
                                                 }}>
 
-                                                {this.state.statusCode}</span> <span
+                                                {this.state.lastResponseStatusCode}</span> <span
                                             className={"text-muted"}>response</span>
                                         </Button>
                                     </ListGroup.Item>
@@ -813,17 +814,26 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                     >{JSON.stringify(this.state.lastResponse, null, 2)}</pre>
                                 </code>
                                 <div className="row mt-2">
-                                    <div className="col col-4">
+                                    <div className="col col-9">
 
                                         <Nav className="">
 
                                             <Nav.Item className={"mr-3 "}>
+                                                Took {
+                                                this.state.lastResponseElapsedTime > 0
+                                                    ?
+                                                    <React.Fragment>{this.state.lastResponseElapsedTime} seconds</React.Fragment>
+                                                    : <React.Fragment>less than a second</React.Fragment>
+                                            }
+
+                                            </Nav.Item>
+                                            <Nav.Item className={"mr-3 "}>
                                                    <span style={{
-                                                       'color': ` ${this.state.statusCode === 200 ? 'green' : 'red'}`,
+                                                       'color': ` ${this.state.lastResponseStatusCode === 200 ? 'green' : 'red'}`,
                                                        "fontWeight": "bold"
                                                    }}>
 
-                                                {this.state.statusCode} response</span>
+                                                {this.state.lastResponseStatusCode} response</span>
                                             </Nav.Item>
                                             <Nav.Item className={"mr-3 "}>
                                                 <Button variant={"link"}
