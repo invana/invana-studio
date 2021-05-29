@@ -3,7 +3,7 @@ import {Alert, Card, Form, FormControl, InputGroup, Nav} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {DataEdgeManagement, DataVertexManagement} from "./sidebar-list";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDatabase, faSync} from "@fortawesome/free-solid-svg-icons";
+import {faDatabase, faSync, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import DefaultRemoteComponent from "../../layouts/default-remote";
 
 
@@ -21,7 +21,8 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
         canvasCtrl: PropTypes.object,
         edgeLabelsInCanvas: PropTypes.array,
         nodeLabelsInCanvas: PropTypes.array,
-        style: PropTypes.object
+        style: PropTypes.object,
+        onClose: PropTypes.func
 
     }
 
@@ -144,38 +145,64 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
                             }
                             {
                                 this.state.isQuerying === true
-                                    ? <React.Fragment><Alert variant={"info"} className={"m-3 p-2"}>
-                                        Connecting to Invana Engine; Querying..
-                                    </Alert>
-                                        <p className={"text-muted small m-3"}><strong>Note</strong>: If this takes
-                                            more than 180 seconds, check <a href={this.connector.serverUrl}
-                                                                            className={"text-dark"}
-                                                                            target={"_new"}>Invana Engine API</a> if it
-                                            is functional.
-                                        </p>
+                                    ? <React.Fragment>
+
+                                        <div className="row">
+                                            <div className="col col-12">
+                                                <Alert variant={"info"} className={"m-3 p-2"}>
+                                                    Connecting to Invana Engine; Querying..
+                                                </Alert>
+                                                <p className={"text-muted small m-3"}><strong>Note</strong>: If this takes
+                                                    more than 180 seconds, check
+                                                    <a href={this.connector.serverUrl}
+                                                       className={"text-dark"}
+                                                       target={"_new"}>Invana Engine API</a> if it is functional.
+                                                </p>
+                                            </div>
+                                        </div>
+
                                     </React.Fragment>
                                     : <React.Fragment>
 
                                         <div className="display-block ">
-                                            <Nav className=" mt-2 mb-1">
-                                                <Nav.Item className={"ml-3 "}>
+                                            <div className="row">
+                                                <div className="col col-9">
+                                                    <Nav className=" mt-2 mb-1">
+                                                        <Nav.Item className={"ml-3 "}>
                                                     <span>
                                                         <strong>{this.state.verticesStats.length}</strong> Node Labels
                                                     </span>
-                                                </Nav.Item>
-                                                <Nav.Item className={"ml-3"}>
+                                                        </Nav.Item>
+                                                        <Nav.Item className={"ml-3"}>
                                                     <span>
                                                         <strong>{this.state.edgeStats.length}</strong> Relationship Labels
                                                     </span>
-                                                </Nav.Item>
-                                                <Nav.Item className={"ml-3"}>
+                                                        </Nav.Item>
+
+                                                    </Nav>
+                                                </div>
+                                                <div className="col col-3">
+                                                    <Nav className=" mt-2 mb-1 ">
+
+                                                        <Nav.Item className={"mr-0 "}>
                                                     <span>
                                                           <button className={"btn btn-link text-muted p-0 ml-3 small"}
                                                                   onClick={() => this.refreshData()}>
                                                     <FontAwesomeIcon icon={faSync}/></button>
                                                     </span>
-                                                </Nav.Item>
-                                            </Nav>
+                                                        </Nav.Item>
+                                                        <Nav.Item className={"mr-3 "}>
+                                                    <span>
+                                                          <button className={"btn btn-link text-muted p-0 ml-3 small"}
+                                                                  onClick={() => this.props.onClose()}>
+                                                    <FontAwesomeIcon icon={faWindowClose}/></button>
+                                                    </span>
+                                                        </Nav.Item>
+
+                                                    </Nav>
+                                                </div>
+                                            </div>
+
                                             {/*<Nav className="ml-auto">*/}
 
                                             {/*</Nav>*/}

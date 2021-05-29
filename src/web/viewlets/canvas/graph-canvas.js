@@ -692,6 +692,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                 "width": "420px", "top": "90px", "zIndex": 100001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
+                            onClose={()=>this.setLeftContentName(null)}
 
                             {...this.props}
                             onItemClick={this.onItemClick.bind(this)}
