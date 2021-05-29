@@ -620,8 +620,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                                     "fontWeight": "bold"
                                                 }}>
 
-                                                {this.state.statusCode}</span> <React.Fragment
-                                            className={"text-muted"}>response</React.Fragment>
+                                                {this.state.statusCode}</span> <span
+                                            className={"text-muted"}>response</span>
                                         </Button>
                                     </ListGroup.Item>
                                     : <span></span>
@@ -794,8 +794,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             aria-labelledby="contained-modal-title-vcenter"
                             dialogClassName="modal-90w"
 
-                            show={() => this.state.modalContentName === "last-response"}
-                            onHide={() => this.setModalContentName(null)}
+                            // show={() => this.state.modalContentName === "last-response"}
+                            // onHide={() => this.setModalContentName(null)}
                             centered>
                             <Modal.Header className={"pt-1 pb-1 small"}>
                                 <Modal.Title className={"h5"} id="contained-modal-title-vcenter">
@@ -815,7 +815,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                 <div className="row mt-2">
                                     <div className="col col-4">
 
-                                        <Nav className=" mt-2 mb-1 ">
+                                        <Nav className="">
 
                                             <Nav.Item className={"mr-3 "}>
                                                    <span style={{
