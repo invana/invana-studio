@@ -656,7 +656,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             connector={this.connector}
                             setLeftContentName={this.setLeftContentName.bind(this)}
                             style={{
-                                "width": "420px", "top": "90px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 1001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
                         />
@@ -668,7 +668,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         ?
                         <div className={" position-absolute "}
                              style={{
-                                 "width": "420px", "top": "90px", "zIndex": 100001,
+                                 "width": "420px", "top": "90px", "zIndex": 1001,
                                  // "maxHeight": "calc(100vh - 140px)",
                                  // "overflow": "scroll"
                              }}>
@@ -697,7 +697,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                     this.state.leftContentName === "graph-management"
                         ? <DataSidebarViewlet
                             style={{
-                                "width": "420px", "top": "90px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 1001,
                             }}
                             cardBodyStyle={{
                                 "maxHeight": "calc(100vh - 265px)"
@@ -726,7 +726,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         ?
                         <CanvasDisplaySettings
                             style={{
-                                "width": "420px", "top": "90px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 1001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
                             onClose={() => {
@@ -743,7 +743,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         ?
                         <LambdaSettingsView
                             style={{
-                                "width": "420px", "top": "90px", "zIndex": 100001,
+                                "width": "420px", "top": "90px", "zIndex": 1001,
                                 "maxHeight": "calc(100vh - 250px)"
                             }}
                             cardBodyStyle={{
@@ -762,11 +762,15 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 }
                 {
                     this.state.modalContentName === "element-options" && this.state.selectedElementData
-                        ? <Modal.Dialog
+                        ? <Modal
+                            className={"border-0 "}
                             size="lg"
-                            aria-labelledby="contained-modal-title-vcenter"
-
-                            centered>
+                            show={true}
+                            dialogClassName="modal-90w"
+                            backdrop={true}
+                            // aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                        >
 
                             <Modal.Body style={{"width": "600px"}}>
                                 <ElementOptions
@@ -784,20 +788,21 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                     // setShallReRenderD3Canvas={this.setShallReRenderD3Canvas.bind(this)}
                                 />
                             </Modal.Body>
-                        </Modal.Dialog>
+                        </Modal>
                         : <React.Fragment/>
                 }
                 {
                     this.state.modalContentName === "last-response"
-                        ? <Modal.Dialog
+                        ? <Modal
+                            className={"border-0 "}
                             size="lg"
-                            aria-labelledby="contained-modal-title-vcenter"
+                            show={true}
                             dialogClassName="modal-90w"
-
-                            // show={() => this.state.modalContentName === "last-response"}
-                            // onHide={() => this.setModalContentName(null)}
-                            centered>
-                            <Modal.Header className={"pt-1 pb-1 small"}>
+                            backdrop={true}
+                            // aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                        >
+                            <Modal.Header className={"pt-1 pb-1 small"} closeButton>
                                 <Modal.Title className={"h5"} id="contained-modal-title-vcenter">
                                     Response Viewer
                                 </Modal.Title>
@@ -807,10 +812,10 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                     lastResponse={this.state.lastResponse}
                                     lastResponseElapsedTime={this.state.lastResponseElapsedTime}
                                     lastResponseStatusCode={this.state.lastResponseStatusCode}
-                                    onClose={()=> this.setModalContentName(null)}
+                                    onClose={() => this.setModalContentName(null)}
                                 />
                             </Modal.Body>
-                        </Modal.Dialog>
+                        </Modal>
                         : <React.Fragment/>
                 }
                 {
