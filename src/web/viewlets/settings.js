@@ -77,7 +77,7 @@ export default class SettingsComponent extends DefaultRemoteRoutableComponent {
             <Card style={{"minHeight": "220px"}}>
                 <Card.Body className={""}>
                     <h6 className={"pb-2 mb-3 border-bottom"}>
-                        Invana Studio settings.
+                        Invana Studio Settings
                     </h6>
 
                     {/*<h6 className={"mb-0"}>Graph engine name:</h6>*/}
