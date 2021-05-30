@@ -81,7 +81,7 @@ export default class CanvasDisplaySettings extends React.Component {
                             <div className="row">
                                 <div className="col">
                                     <Form>
-                                        <div style={{"overflow-y": "scroll", "maxHeight": "calc(100vh - 215px)"}}>
+                                        <div style={{"overflowY": "scroll", "maxHeight": "calc(100vh - 215px)"}}>
                                             <h6>edges options</h6>
                                             <Form.Group className={"mb-1"}>
                                                 <Form.Check

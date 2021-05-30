@@ -168,7 +168,7 @@ export default class LambdaSettingsView extends React.Component {
                                             })
                                         }
                                     </ul>
-                                    : <p className={"p-3 text-muted"}>No Gremlin lambdas were saved!.</p>
+                                    : <p className={"pl-3 pr-3 text-muted"}>No Gremlin lambdas were saved!.</p>
                                 }
                             </div>
                         </Card.Body>

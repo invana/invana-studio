@@ -758,7 +758,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.modalContentName === "last-response"
                         ? <Modal
-                            className={"border-0 "}
+                            className={"border-0"}
                             size="lg"
                             show={true}
                             dialogClassName="modal-90w"
