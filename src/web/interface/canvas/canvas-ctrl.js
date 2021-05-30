@@ -3,6 +3,8 @@
  */
 
 
+// import {physicsSettings} from "../../../settings/networkOptions";
+
 export default class CanvasController {
 
     constructor(

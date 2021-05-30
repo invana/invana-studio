@@ -1,7 +1,7 @@
 import {STUDIO_SETTINGS} from "./index";
 
 
-const getPhysicsSettings = {
+export const physicsSettings = {
 
     forceAtlas2Based: {
         gravitationalConstant: -56,
@@ -17,7 +17,7 @@ const getPhysicsSettings = {
         enabled: true,
         iterations: 1000,
         updateInterval: 50,
-        fit: true
+        // fit: true
     }
 
 }
@@ -39,7 +39,7 @@ const defaultOptions = {
 
     },
 
-    physics: getPhysicsSettings,
+    physics: physicsSettings,
 
     // physics: {
     //     forceAtlas2Based: {
