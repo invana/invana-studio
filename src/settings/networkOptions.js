@@ -14,7 +14,8 @@ const defaultOptions = {
 
     layout: {
         // randomSeed: 100,
-        hierarchical: true
+        hierarchical: false
+
     },
     physics: {
         forceAtlas2Based: {

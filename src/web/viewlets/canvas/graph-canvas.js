@@ -781,6 +781,31 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         : <React.Fragment/>
                 }
                 {
+                    this.state.modalContentName === "last-response"
+                        ? <Modal
+                            className={"border-0"}
+                            size="lg"
+                            show={true}
+                            dialogClassName="modal-90w"
+                            backdrop={true}
+                            centered>
+                            <Modal.Header className={"pt-1 pb-1 small"}>
+                                <Modal.Title className={"h5"}>
+                                    Response Viewer
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body className={"overflow-auto "}>
+                                <ResponseViewer
+                                    lastResponse={this.state.lastResponse}
+                                    lastResponseElapsedTime={this.state.lastResponseElapsedTime}
+                                    lastResponseStatusCode={this.state.lastResponseStatusCode}
+                                    onClose={() => this.setModalContentName(null)}
+                                />
+                            </Modal.Body>
+                        </Modal>
+                        : <React.Fragment/>
+                }
+                {
                     this.state.isQuerying === true || this.state.isRenderingCanvas === true
                         ? <LoadingDiv statusMessage={this.state.statusMessage}
                                       stopRenderingGraph={this.canvasCtrl.stopRenderingGraph.bind(this)}
