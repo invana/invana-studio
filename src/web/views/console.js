@@ -176,6 +176,10 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
                                         onChange={this.onQueryChange.bind(this)}
                                         onKeyDown={this.onEnterPress.bind(this)}
                                         canvasQueryString={this.state.canvasQueryString || ''}
+                                        style={{
+                                            // "overflow": "scroll",
+                                            // "height": "calc(100vh - 90px)"
+                                        }}
                                     />
                                     <div className={"pl-3  pt-2 pb-2 pr-3 bg-white border-top"}>
                                         <Button variant={"outline-primary position-relative pt-0 pb-0"} size="sm"
@@ -205,18 +209,27 @@ export default class ConsoleView extends DefaultRemoteRoutableComponent {
                         </Col>
 
                         <Col className={"pl-0 pt-3 m-0"} size={"4"} style={{"width": 0}}>
-                            <div id="consoleResultDiv" className={"pl-3 border-left"}
-                                 style={{"minHeight": "120px"}}>
-                                <h6 className={"pb-2 pt-2 border-bottom"}>Responses</h6>
-                                {
-                                    responsesToRender.map((response, key) => {
-                                        console.log("++++=====response", response);
-                                        return <RawResponsesCanvas
-                                            key={key}
-                                            response={response}/>
-                                    })
-                                }
-                                <div className="clearfix"/>
+
+                            <div className={"border"}>
+                                <h6 className={"pb-2 pl-3 pr-3 pt-2 border-bottom"}>Responses</h6>
+
+                                <div id="consoleResultDiv"
+                                     className={"m-3  overflow-scroll"}
+                                     style={{
+                                         "minHeight": "120px",
+                                         "overflow": "scroll",
+                                         "height": "calc(100vh - 95px)"
+                                     }}>
+                                    {
+                                        responsesToRender.map((response, key) => {
+                                            console.log("++++=====response", response);
+                                            return <RawResponsesCanvas
+                                                key={key}
+                                                response={response}/>
+                                        })
+                                    }
+                                    <div className="clearfix"/>
+                                </div>
                             </div>
                         </Col>
                     </Row>
