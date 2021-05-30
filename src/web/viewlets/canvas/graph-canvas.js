@@ -764,8 +764,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             dialogClassName="modal-90w"
                             backdrop={true}
                             centered>
-                            <Modal.Header className={"pt-1 pb-1 small"} closeButton>
-                                <Modal.Title className={"h5"} id="contained-modal-title-vcenter">
+                            <Modal.Header className={"pt-1 pb-1 small"}>
+                                <Modal.Title className={"h5"}>
                                     Response Viewer
                                 </Modal.Title>
                             </Modal.Header>

@@ -17,6 +17,6 @@ RUN npm run-script build --production
 FROM nginx:alpine as production
 COPY --from=react-build /code/dockerfiles/nginx.conf /etc/nginx/conf.d/default.conf.template
 COPY --from=react-build /code/build /usr/share/nginx/html
-ENV PORT=${PORT:-8888}
+ENV PORT=${PORT:-8300}
 EXPOSE $PORT
 CMD envsubst '$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'

@@ -17,9 +17,9 @@ Open source graph visualiser.
 ## Setup Invana Studio
 
 ```shell script.
-docker run -p 8888:8888 -d --name invana-studio invanalabs/invana-studio
+docker run -p 8300:8300 -d --name invana-studio invanalabs/invana-studio
 ```
-This will start a invana-studio service at 8888 port. ex: http://localhost:8888
+This will start a invana-studio service at 8300 port. ex: http://localhost:8300
  
 > Invana Studio uses [Invana Engine](https://github.com/invanalabs/invana-engine) as the backend to 
 connect to graph databases. Invana Engine is a GraphQL API for Apache TinkerPop supported graph databases.
