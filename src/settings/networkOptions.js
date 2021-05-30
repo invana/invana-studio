@@ -1,6 +1,27 @@
 import {STUDIO_SETTINGS} from "./index";
 
 
+export const physicsSettings = {
+
+    forceAtlas2Based: {
+        gravitationalConstant: -56,
+        centralGravity: 0.005,
+        springLength: STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS.length,
+        springConstant: 0.18,
+        avoidOverlap: 1.5
+    },
+    maxVelocity: 146,
+    solver: 'forceAtlas2Based',
+    timestep: 0.35,
+    stabilization: {
+        enabled: true,
+        iterations: 1000,
+        updateInterval: 50,
+        // fit: true
+    }
+
+}
+
 const defaultOptions = {
     // layout: {
     //     hierarchical: false
@@ -14,34 +35,38 @@ const defaultOptions = {
 
     layout: {
         // randomSeed: 100,
-        hierarchical: true
+        hierarchical: false
+
     },
-    physics: {
-        forceAtlas2Based: {
-            gravitationalConstant: -70,
-            centralGravity: 0.005,
-            springLength: STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS.length,
-            springConstant: 0.18,
-            avoidOverlap: 1
-        },
-        // maxVelocity: 146,
-        solver: "forceAtlas2Based", // forceAtlas2Based
-        // timestep: 0.55,
-        stabilization: {
-            enabled: true,
-            // updateInterval: 100,
-            // iterations: 1000    // YMMV
-        },
-        minVelocity: undefined
-        // barnesHut: {
-        //     gravitationalConstant: -23000,
-        //     centralGravity: 0,
-        //     springLength: 0,
-        //     springConstant: 0.5,
-        //     damping: 1,
-        //     avoidOverlap: 1
-        // }
-    },
+
+    physics: physicsSettings,
+
+    // physics: {
+    //     forceAtlas2Based: {
+    //         gravitationalConstant: -70,
+    //         centralGravity: 0.005,
+    //         springLength: STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS.length,
+    //         springConstant: 0.18,
+    //         avoidOverlap: 1
+    //     },
+    //     // maxVelocity: 146,
+    //     solver: "forceAtlas2Based", // forceAtlas2Based
+    //     // timestep: 0.55,
+    //     stabilization: {
+    //         enabled: true,
+    //         // updateInterval: 100,
+    //         // iterations: 1000    // YMMV
+    //     },
+    //     minVelocity: undefined
+    //     // barnesHut: {
+    //     //     gravitationalConstant: -23000,
+    //     //     centralGravity: 0,
+    //     //     springLength: 0,
+    //     //     springConstant: 0.5,
+    //     //     damping: 1,
+    //     //     avoidOverlap: 1
+    //     // }
+    // },
 
     // layout: {
     //     hierarchical: {

@@ -1,4 +1,5 @@
 import DeSerializerBase from "./base";
+import {STUDIO_SETTINGS} from "../settings";
 
 
 export default class InvanaEngineDeSerializer extends DeSerializerBase {
@@ -26,9 +27,9 @@ export default class InvanaEngineDeSerializer extends DeSerializerBase {
         let _this = this;
         data.forEach(function (d) {
             if (ignoreManagement) {
-                if (d.type === "g:Vertex" && d.label !== "InvanaManagement") {
+                if (d.type === "g:Vertex" && d.label !== STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL) {
                     vertices.push(d);
-                } else if (d.type === "g:Edge" && d.label !== "InvanaManagement") {
+                } else if (d.type === "g:Edge" && d.label !== STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL) {
                     edges.push(_this.convertEdge2Json(d));
                 }
             } else {
@@ -39,8 +40,6 @@ export default class InvanaEngineDeSerializer extends DeSerializerBase {
                 }
             }
         });
-
-
         return {"nodes": vertices, "links": edges};
     }
 
