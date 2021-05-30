@@ -73,30 +73,16 @@ export default class CanvasDisplaySettings extends React.Component {
         return (
             <div className={" position-absolute  d-flex"} style={this.props.style}>
                 <div className={" flex-fill ml-3 border border-top-0 bg-white"}>
-
                     <Card className={"border-0 rounded-0"}>
                         <Card.Header className={"bg-secondary text-white pt-2 pb-2t rounded-0"}>
                             <FontAwesomeIcon icon={faDesktop}/> Display Settings
                         </Card.Header>
                         <Card.Body>
-
                             <div className="row">
                                 <div className="col">
-
-
-                                    <Form
-                                        // onSubmit={this.onFormSubmit.bind(this)}
-                                    >
-
-                                        <div className="" style={{
-                                            "overflow-y": "scroll",
-                                            "maxHeight": "calc(100vh - 215px)"
-                                        }}>
-                                            {/*<Form.Control name="labelName" value={this.props.vertexLabel} type={"hidden"}/>*/}
-                                            {/*<Row>*/}
-                                            {/*    <Col md={5} className={"p-0"}>*/}
+                                    <Form>
+                                        <div style={{"overflow-y": "scroll", "maxHeight": "calc(100vh - 215px)"}}>
                                             <h6>edges options</h6>
-
                                             <Form.Group className={"mb-1"}>
                                                 <Form.Check
                                                     type="switch"
@@ -107,9 +93,7 @@ export default class CanvasDisplaySettings extends React.Component {
                                                     defaultChecked={this.state.studioSettings.edges.smooth.enabled}
                                                 />
                                             </Form.Group>
-
                                             {
-
                                                 this.state.studioSettings.edges.smooth && this.state.studioSettings.edges.smooth.enabled
                                                     ? <div>
                                                         <Row className={"mr-0"}>
@@ -167,23 +151,9 @@ export default class CanvasDisplaySettings extends React.Component {
                                                                           defaultValue={this.state.studioSettings.edges.length}
                                                             />
                                                         </Form.Group>
-                                                        {/*<Form.Group>*/}
-                                                        {/*    <Form.Label>roundness</Form.Label>*/}
-
-
-                                                        {/*    <Form.Control type="number" placeholder="0.5"/>*/}
-                                                        {/*    <Form.Text className="text-muted">*/}
-                                                        {/*        We&apos;ll never share your email with anyone else.*/}
-                                                        {/*    </Form.Text>*/}
-                                                        {/*    /!*<input type="roundnessnum" step="1"/>*!/*/}
-                                                        {/*</Form.Group>*/}
-
-                                                        {/*    </Col>*/}
-                                                        {/*</Row>*/}
                                                     </div>
                                                     : <React.Fragment/>
                                             }
-
                                         </div>
                                         <div className={"mt-3"}>
                                             <Button variant="outline-success" size={"sm"}
@@ -192,9 +162,7 @@ export default class CanvasDisplaySettings extends React.Component {
                                             <Button variant="outline-secondary" size={"sm"}
                                                     className={"pt-0 pb-0 pl-2 pr-2 ml-2"}
                                                     onClick={() => this.props.onClose()}>close</Button>
-
                                         </div>
-
                                     </Form>
                                 </div>
                             </div>
