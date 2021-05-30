@@ -14,7 +14,7 @@ const defaultOptions = {
 
     layout: {
         // randomSeed: 100,
-        hierarchical: false
+        hierarchical: true
     },
     physics: {
         forceAtlas2Based: {
@@ -29,8 +29,8 @@ const defaultOptions = {
         // timestep: 0.55,
         stabilization: {
             enabled: true,
-            updateInterval: 100,
-            iterations: 1000    // YMMV
+            // updateInterval: 100,
+            // iterations: 1000    // YMMV
         },
         minVelocity: undefined
         // barnesHut: {
@@ -62,7 +62,7 @@ const defaultOptions = {
         chosen: {
             edge: function (values, id, selected, hovering) {
                 console.log("=====", id, selected, hovering);
-                values.width = 1.5 * 1.4;
+                values.width = values.width * 1.5;
             }
         },
         selectionWidth: function (width) {

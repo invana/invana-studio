@@ -76,6 +76,13 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
 
     searchLabels(event) {
         const label = event.target.value;
+        if (!label) {
+            this.setState({
+                filteredNodeStats: [],
+                filteredEdgeStats: []
+            })
+            return;
+        }
         let reg = new RegExp(label.split('').join('\\w*').replace(/\W/, ""), 'i');
         const _this = this;
 
