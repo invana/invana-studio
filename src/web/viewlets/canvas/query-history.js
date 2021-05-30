@@ -80,12 +80,12 @@ export default class RequestHistoryView extends React.Component {
                 <Card.Body className={"p-0 "}>
                     <div className={"pl-3 pr-3"}>
                         <div className="row">
-                            <div className="col col-7">
+                            <div className="col col-8">
                                 <p className={" text-muted small mt-2 mb-0"}>
                                     showing {this.state.showStartCount} to {this.state.showEndCount} entries of {existingHistory.length}
                                 </p>
                             </div>
-                            <div className="col col-5">
+                            <div className="col col-4">
 
                                 <div className="float-right">
                                     <Button variant={"link"} type={"button"}
@@ -162,7 +162,7 @@ export default class RequestHistoryView extends React.Component {
                                     })
                                 }
                             </ul>
-                            : <p className={"p-3 text-muted"}>Hm! No query history found!.</p>
+                            : <p className={"text-muted"}>Hm! No query history found!.</p>
                         }
                     </div>
                 </Card.Body>

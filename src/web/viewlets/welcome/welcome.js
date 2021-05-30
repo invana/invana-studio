@@ -53,7 +53,7 @@ export default class Welcome extends DefaultRemoteComponent {
                             </p>
                         </Col>
                         <Col md={"7"}>
-                            <div className="border-left">
+                            <div className="border-left" style={{"minHeight": "260px"}}>
                                 <p className={"font-weight-bold pl-2 pb-2 border-bottom text-uppercase"}>Recent
                                     queries :
                                 </p>
@@ -95,7 +95,7 @@ export default class Welcome extends DefaultRemoteComponent {
                                                 })
                                             }
                                         </ul>
-                                        : <p className={"p-3 text-muted"}>Hm! No query history found!.</p>
+                                        : <p className={"p-2 text-muted"}>Hm! No query history found!.</p>
                                     }
                                 </div>
                             </div>

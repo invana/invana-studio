@@ -1,11 +1,9 @@
 import React from "react";
 import CanvasConsoleOptions from "./canvas-console-options";
-import PropTypes from "prop-types";
 import QueryConsole from "./query-console";
 import Welcome from "../welcome/welcome";
 import DefaultRemoteComponent from "../../layouts/default-remote";
 import RequestHistoryView from "./query-history";
-// import CanvasArtBoard from "./canvas-art-board";
 import VisJsGraphCanvasUtils from "./canvas-utils";
 import {getAllNodeShapes, invertColor} from "../../interface/utils";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings/canvas";
@@ -21,37 +19,23 @@ import CanvasDisplaySettings from "./canvas-display-settings";
 import LoadingDiv from "./loading";
 import LambdaSettingsView from "./lambda-settings";
 import ResponseViewer from "./response-viewer";
+import PropTypes from "prop-types";
 
 
 export default class GraphCanvas extends DefaultRemoteComponent {
 
 
     static propTypes = {
-        showWelcome: PropTypes.bool,
-        // canvasQueryString: PropTypes.string,
+        showWelcome: PropTypes.bool
     }
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         showQueryConsole: false,
-    //         showQueryHistory: false,
-    //
-    //         canvasQueryString: null,
-    //         showWelcome: true
-    //     }
-    // }
     constructor(props) {
-        // super(props);
         super(props);
-        // super.constructor(props);
         this.state = {
             ...this.state,
 
-
             canvasQueryString: null,
             showWelcome: true,
-
 
             lastResponseStatusCode: null,
 
@@ -75,7 +59,6 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
             lastResponse: null,
 
-
             leftContentName: false, // query-console, query-history, canvas-display-settings, graph-management
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
@@ -89,24 +72,6 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     }
 
 
-    //
-    // processResponse(response) {
-    //     console.log("processResponse", response, this.state.queryObject);
-    //     const lastResponse = response.getResponseResult();
-    //     console.log("lastResponse", lastResponse);
-    //     const data = response.getResponseResult(this.state.queryObject.queryKey);
-    //     // separate nodes and edges
-    //     if (lastResponse) {
-    //         const {nodes, edges} = this.separateNodesAndEdges(data);
-    //         this.addNewData(nodes, edges);
-    //         this.setState({lastResponseStatusCode: response.transporterStatusCode});
-    //         if (response.transporterStatusCode !== 200) {
-    //             this.setState({rightContentName: "response-viewer"})
-    //         }
-    //         this.setState({lastResponse: response.response});
-    //     }
-    // }
-
     startNewQueryInConsole(queryString) {
         this.setState({canvasQueryString: queryString, leftContentName: "query-console"});
     }
@@ -118,7 +83,6 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     setWelcome(welcomeStatus) {
         this.setState({showWelcome: welcomeStatus});
     }
-
 
     removeItemArray(arr, value) {
         let i = 0;

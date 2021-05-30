@@ -87,28 +87,22 @@ export default class LambdaSettingsView extends React.Component {
                         <Card.Body className={"p-0 "}>
                             <div className={"pl-3 pr-3 pb-0"}>
                                 <div className="row">
-                                    <div className="col col-7">
+                                    <div className="col col-8">
                                         <p className={" text-muted small mt-2 mb-0"}>
                                             showing {this.state.showStartCount} to {this.state.showEndCount} entries
                                             of {lambdaData.length}
                                         </p>
-
                                     </div>
-                                    <div className="col col-5">
-
-
+                                    <div className="col col-4">
                                         <div className="float-right">
-
                                             {lambdaDataToShow.length > 0
-                                                ?
-                                                <React.Fragment>
+                                                ? <React.Fragment>
                                                     <Button variant={"link"} type={"button"}
                                                             className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
                                                             disabled={!(this.state.showStartCount > 0)}
                                                             onClick={() => this.showPrev()}>
                                                         <FontAwesomeIcon icon={faChevronLeft}/>
                                                     </Button>
-
                                                     <Button variant={"link"} type={"button"}
                                                             className={"pr-2 pl-2 mr-2 rounded-0 border-0"}
                                                             disabled={!(lambdaData.length > this.state.showEndCount)}
@@ -118,19 +112,14 @@ export default class LambdaSettingsView extends React.Component {
                                                 </React.Fragment>
                                                 : <React.Fragment/>
                                             }
-
                                             <Button variant={"link"} type={"button"}
                                                     className={"pr-2 pl-2 button-hover-bg-disable rounded-0 border-0"}
                                                     onClick={() => this.props.onClose()}>
                                                 <FontAwesomeIcon icon={faWindowClose}/>
                                             </Button>
                                         </div>
-
                                     </div>
-
                                 </div>
-
-
                             </div>
                             <div style={this.props.cardBodyStyle} className={"mb-3"}>
                                 {lambdaDataToShow.length > 0
@@ -146,13 +135,7 @@ export default class LambdaSettingsView extends React.Component {
                                                              style={{"backgroundColor": "#efefef"}}>
                                                             {this.extractRawQuery(lambdaDataItem.query)}
                                                         </pre>
-                                                        {/*<pre className={"mb-0"}>{JSON.stringify(lambdaDataItem.query, null, 2)}</pre>*/}
-
                                                         <div className={"pr-3 pl-3 pt-1 pb-1 "}>
-                                                            {/*<button className={"btn btn-dark btn-sm  small "}*/}
-                                                            {/*        onClick={() => this.props.makeQuery(this.extractRawQuery(lambdaDataItem.query), {source: 'console'})}>*/}
-                                                            {/*    Run Again*/}
-                                                            {/*</button>*/}
                                                             <button className={"btn btn-link small mt-0 " +
                                                             "font-weight-bold btn-sm p-0 display-inline mr-3"}
                                                                     onClick={() => this.props.startNewQueryInConsole(this.extractRawQuery(lambdaDataItem.query))}>
@@ -172,18 +155,14 @@ export default class LambdaSettingsView extends React.Component {
                                                                         _this.setState(_this.state);
 
                                                                     }
-
                                                                 }}>
                                                                 <FontAwesomeIcon icon={faTrashAlt}/>
                                                             </button>
                                                             <small className={"ml-3"}>
-                                                                {/*created at */}
                                                                 {lambdaDataItem.dt}
                                                             </small>
                                                             <div className="border-bottom pt-3"/>
-
                                                         </div>
-
                                                     </li>
                                                 )
                                             })
@@ -192,11 +171,8 @@ export default class LambdaSettingsView extends React.Component {
                                     : <p className={"p-3 text-muted"}>No Gremlin lambdas were saved!.</p>
                                 }
                             </div>
-
-
                         </Card.Body>
                     </Card>
-
                 </div>
             </div>
         )
