@@ -28,16 +28,16 @@ export default class Welcome extends DefaultRemoteComponent {
             <Card className={"ml-4 mr-4"} style={{
                 "maxWidth": '820px',
                 "minWidth": "420px",
-                "borderRadius": 0, "top": "58px", }}>
+                "borderRadius": 0, "top": "58px",
+            }}>
                 <Card.Body style={{"padding": "5rem 3rem 3rem 3rem"}}>
                     <Row>
-                        <Col md={"6"}>
+                        <Col md={"5"}>
                             <FontAwesomeIcon icon={faUserAstronaut} size={"5x"}/>
                             <Card.Title style={{"fontSize": "1.8rem"}}>Invana Studio
                                 <small style={{"fontSize": "1rem"}}
                                        className={"ml-2"}>v{STUDIO_SETTINGS.VERSION}</small></Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">{STUDIO_SETTINGS.ABOUT_TEXT}</Card.Subtitle>
-
                             <hr/>
                             <Button variant={"outline-primary"} size={"sm"}
                                     onClick={() => this.props.setWelcome(false)}>
@@ -46,22 +46,20 @@ export default class Welcome extends DefaultRemoteComponent {
                                href={"https://docs.invana.io"} target={"_new"}>
                                 Documentation <FontAwesomeIcon icon={faExternalLinkSquareAlt}/>
                             </a>
-
-                            <p className={"mt-3 text-muted"}>For support, visit <a target={"_new"}
-                                                                                   href={STUDIO_SETTINGS.SUPPORT_URL}>
-                                {STUDIO_SETTINGS.SUPPORT_URL}
-                            </a></p>
-
+                            <p className={"mt-3 text-muted"}>For support, visit
+                                <a target={"_new"} href={STUDIO_SETTINGS.SUPPORT_URL}>
+                                    {STUDIO_SETTINGS.SUPPORT_URL}
+                                </a>
+                            </p>
                         </Col>
-                        <Col md={"6"}  className={"overflow-auto"} style={{"maxHeight": "320px"}}>
+                        <Col md={"7"}>
                             <div className="border-left">
-                                {historyToShow.length > 0
-                                    ?
-                                    <div>
-                                        <p className={"font-weight-bold pl-2 pb-2 border-bottom text-uppercase"}>Recent
-                                            queries :
-                                        </p>
-                                        <ul className={"list-group border-0 rounded-0"}>
+                                <p className={"font-weight-bold pl-2 pb-2 border-bottom text-uppercase"}>Recent
+                                    queries :
+                                </p>
+                                <div className={"overflow-auto"} style={{"maxHeight": "300px"}}>
+                                    {historyToShow.length > 0
+                                        ? <ul className={"list-group border-0 rounded-0"}>
                                             {
                                                 historyToShow.map((existingHistoryItem, i) => {
                                                     return (
@@ -97,24 +95,14 @@ export default class Welcome extends DefaultRemoteComponent {
                                                 })
                                             }
                                         </ul>
-                                    </div>
-                                    : <p className={"p-3 text-muted"}>Hm! No query history found!.</p>
-                                }
+                                        : <p className={"p-3 text-muted"}>Hm! No query history found!.</p>
+                                    }
+                                </div>
                             </div>
-
                         </Col>
                     </Row>
-
-                    {/*<Card.Text>*/}
-                    {/*    Some quick example text to build on the card title and make up the bulk of*/}
-                    {/*    the card's content.*/}
-                    {/*</Card.Text>*/}
-
-                    {/*<Card.Link href="https://invana.io" target={"_new"}>Why Invana</Card.Link>*/}
-                    {/*<Card.Link href="https://docs.invana.io" target={"_new"}>documentation</Card.Link>*/}
                 </Card.Body>
             </Card>
         )
     }
-
 }
