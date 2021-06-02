@@ -26,6 +26,10 @@ export default class NodeMenu extends React.Component {
 
     }
     static propTypes = {
+
+        // setElementOptionsToShow: PropTypes.func,
+        showElementSettings: PropTypes.func,
+
         getFocusedNodes: PropTypes.func,
         addNodeToFocusedNodes: PropTypes.func,
         connector: PropTypes.object,
@@ -92,11 +96,16 @@ export default class NodeMenu extends React.Component {
     }
 
     hideMenu() {
-        this.props.setSelectedElementData(null);
+        // this.props.setSelectedElementData(null);
+        // this.props.setElementOptionsToShow(null);
+        this.props.showElementSettings(null, null)
     }
 
     openElementSettings() {
-        this.props.setModalContentName("element-options");
+        this.props.showElementSettings(
+            this.props.selectedElementData._label,
+            this.props.selectedElementData.type
+        )
     }
 
     getVerboseIdentifier() {

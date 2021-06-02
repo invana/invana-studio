@@ -232,6 +232,8 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
                                                             statsData={this.state.filteredNodeStats}
                                                             nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
                                                             edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                                            showElementSettings={this.props.showElementSettings}
+
 
                                                         />
                                                         <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
@@ -241,6 +243,7 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
                                                                             statsData={this.state.filteredEdgeStats}
                                                                             nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
                                                                             edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                                                            showElementSettings={this.props.showElementSettings}
                                                         />
                                                     </div>
                                                     : <React.Fragment/>
@@ -254,6 +257,8 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
                                                                   statsData={this.state.verticesStats}
                                                                   nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
                                                                   edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                                                  showElementSettings={this.props.showElementSettings}
+
                                             />
                                             <DataEdgeManagement onItemClick={this.props.onItemClick} {...this.props}
                                                                 loadElementData={this.props.loadElementData}
@@ -262,6 +267,7 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
                                                                 statsData={this.state.edgeStats}
                                                                 nodeLabelsInCanvas={this.props.nodeLabelsInCanvas}
                                                                 edgeLabelsInCanvas={this.props.edgeLabelsInCanvas}
+                                                                showElementSettings={this.props.showElementSettings}
                                             />
                                         </div>
                                     </React.Fragment>

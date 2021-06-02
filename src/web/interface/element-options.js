@@ -14,7 +14,7 @@ export default class ElementOptions extends DefaultRemoteComponent {
         this.state = {
             ...this.state,
             nodeOptions: null,
-            propertyFieldKeys: ["_id"]
+            propertyFieldKeys: ["_id", "_label"]
         }
     }
 
@@ -37,11 +37,12 @@ export default class ElementOptions extends DefaultRemoteComponent {
     }
 
     getElementLabel() {
-        return this.props.selectedElementData._label;
+        return this.props.elementOptionsToShow.label;
     }
 
     getElementType() {
-        return this.props.selectedElementData.type.replace("g:", "").toLowerCase();
+        console.log("this.props.elementOptionsToShow", this.props.elementOptionsToShow)
+        return this.props.elementOptionsToShow.elementType.replace("g:", "").toLowerCase();
     }
 
     getElementInitialConfig() {
@@ -57,7 +58,8 @@ export default class ElementOptions extends DefaultRemoteComponent {
             STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, {name: this.getElementLabel()}
         );
         const getLabelSchemaPayload = this.connector.requestBuilder.getLabelSchema(
-            this.getElementLabel(), this.getElementType()
+            this.getElementLabel(),
+            this.getElementType()
         );
         const queryObject = this.connector.requestBuilder.combineQueries(
             getOrCreateElementPayload, getLabelSchemaPayload
@@ -69,8 +71,8 @@ export default class ElementOptions extends DefaultRemoteComponent {
         console.log("VO componentDidUpdate")
         // const label = this.getElementLabel();
 
-        const prevGroupName = prevProps.selectedElementData ? prevProps.selectedElementData.group : null;
-        const thisPropGroupName = this.props.selectedElementData ? this.props.selectedElementData.group : null;
+        const prevGroupName = prevProps.elementOptionsToShow ? prevProps.elementOptionsToShow.label : null;
+        const thisPropGroupName = this.props.elementOptionsToShow ? this.props.elementOptionsToShow.label : null;
         if (prevGroupName !== thisPropGroupName) {
             // already data exist
             this.setState({nodeOptions: null});
@@ -185,7 +187,7 @@ export default class ElementOptions extends DefaultRemoteComponent {
         const allNodeShapes = getAllNodeShapes();
         return (
             <div className={"p-2"}>
-                {this.state.nodeOptions && this.props.selectedElementData
+                {this.state.nodeOptions && this.props.elementOptionsToShow
                     ?
 
                     <Form className={"p-2"} onSubmit={this.onFormSubmit.bind(this)}>
@@ -200,7 +202,7 @@ export default class ElementOptions extends DefaultRemoteComponent {
                         <input type="hidden" name={"name"} readOnly={true} spellCheck="false"
                                defaultValue={this.getElementLabel()}/>
                         <input type="hidden" name={"label"} defaultValue={this.getElementLabel()}/>
-                        {/*<input type="hidden" name={"uid"} defaultValue={selectedElementData.id}/>*/}
+                        {/*<input type="hidden" name={"uid"} defaultValue={elementOptionsToShow.id}/>*/}
 
 
                         <div className="row">
@@ -225,7 +227,7 @@ export default class ElementOptions extends DefaultRemoteComponent {
 
                                 {
                                     this.getElementType() === "vertex" &&
-                                        !allNodeShapes['inLabelShapes'].includes(this.state.nodeOptions.properties.elementShape)
+                                    !allNodeShapes['inLabelShapes'].includes(this.state.nodeOptions.properties.elementShape)
                                         ?
                                         <React.Fragment>
                                             <Form.Group controlId="labelFontSize">
@@ -352,7 +354,7 @@ export default class ElementOptions extends DefaultRemoteComponent {
                                 type={"submit"}>update</Button>
                         <Button variant={"outline-secondary"} size={"sm"} className={"mt-3 "}
                                 onClick={() => this.props.onClose()}
-                                type={"type"}>cancel
+                                type={"button"}>cancel
                         </Button>
 
 

@@ -3,7 +3,7 @@ import {Nav} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 // import "./label-hover-options.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircle, faEye, faEyeSlash, faPlayCircle, faTerminal} from "@fortawesome/free-solid-svg-icons";
+import {faCircle, faCog, faEye, faEyeSlash, faPlayCircle, faTerminal} from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 export default class LabelHoverOptions extends React.Component {
@@ -21,6 +21,9 @@ export default class LabelHoverOptions extends React.Component {
         hiddenNodeLabels: PropTypes.array,
         hiddenEdgeLabels: PropTypes.array,
         canvasCtrl: PropTypes.object,
+
+
+        showElementSettings: PropTypes.func,
 
     }
     child = React.createRef();
@@ -51,7 +54,8 @@ export default class LabelHoverOptions extends React.Component {
                     {
                         this.props.startNewQueryInConsole
                             ? <Nav.Item>
-                                <Button size={"sm"} className={"text-muted"} variant={"link"} title={"start query with this label"}
+                                <Button size={"sm"} className={"text-muted"} variant={"link"}
+                                        title={"start query with this label"}
                                         onClick={() => {
                                             if (this.props.hoveredLabelType === "edge") {
                                                 this.props.startNewQueryInConsole('g.E().hasLabel("' + this.props.hoveredLabelName + '")')
@@ -68,7 +72,7 @@ export default class LabelHoverOptions extends React.Component {
                     }
 
                     <Nav.Item>
-                        <Button size={"sm"} variant={"link"}  className={"text-muted"}
+                        <Button size={"sm"} variant={"link"} className={"text-muted"}
                                 title={"load vertices data with neighbouring edges and vertices"}
                                 onClick={() => this.props.onItemClick(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
                             <FontAwesomeIcon icon={faPlayCircle}/>
@@ -77,9 +81,18 @@ export default class LabelHoverOptions extends React.Component {
 
                     <Nav.Item>
 
-                        <Button size={"sm"} variant={"link"} title={"load vertices data"}  className={"text-muted"}
+                        <Button size={"sm"} variant={"link"} title={"load vertices data"} className={"text-muted"}
                                 onClick={() => this.props.loadElementData(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
                             <FontAwesomeIcon icon={faCircle}/>
+
+                        </Button>
+                    </Nav.Item>
+
+                    <Nav.Item>
+
+                        <Button size={"sm"} variant={"link"} title={"load vertices data"} className={"text-muted"}
+                                onClick={() => this.props.showElementSettings(this.props.hoveredLabelName, this.props.hoveredLabelType)}>
+                            <FontAwesomeIcon icon={faCog}/>
 
                         </Button>
                     </Nav.Item>
@@ -89,7 +102,7 @@ export default class LabelHoverOptions extends React.Component {
                         {
                             this.checkIfLabelAlreadyHidden(this.props.hoveredLabelName, this.props.hoveredLabelType)
                                 ? <Button size={"sm"} variant={"link"} title={"show this label data"}
-                                           className={"text-muted"}
+                                          className={"text-muted"}
                                           onClick={() => {
 
                                               this.props.removeFromHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType)
@@ -97,7 +110,7 @@ export default class LabelHoverOptions extends React.Component {
                                 > <FontAwesomeIcon icon={faEyeSlash}/>
                                 </Button>
                                 : <Button size={"sm"} variant={"link"} title={"hide this label data"}
-                                           className={"text-muted"}
+                                          className={"text-muted"}
                                           onClick={() => {
                                               this.props.addToHiddenLabels(this.props.hoveredLabelName, this.props.hoveredLabelType);
                                           }}

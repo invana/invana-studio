@@ -59,6 +59,11 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
             lastResponse: null,
 
+            elementOptionsToShow: {
+                label: null,
+                elementType: null
+            },
+
             leftContentName: false, // query-console, query-history, canvas-display-settings, graph-management
         }
         this.canvasUtils = new VisJsGraphCanvasUtils();
@@ -71,6 +76,9 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         this.setState({modalContentName: contentName});
     }
 
+    setElementOptionsToShow(options) {
+        this.setState({elementOptionsToShow: options});
+    }
 
     startNewQueryInConsole(queryString) {
         this.setState({canvasQueryString: queryString, leftContentName: "query-console"});
@@ -508,6 +516,21 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         this.canvasCtrl.hideData(this.state.hiddenNodeLabels, this.state.hiddenEdgeLabels);
     }
 
+    getSelectedElementDetails() {
+        return {
+            label: this.props.selectedElementData.group,
+            labelType: this.props.selectedElementData.type
+        }
+    }
+
+    showElementSettings(label, elementType) {
+        this.setElementOptionsToShow({
+            label: label,
+            elementType: elementType
+        });
+        this.setModalContentName("element-options");
+    }
+
     render() {
         const _this = this;
         return (
@@ -528,7 +551,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                                     menuPositionX={this.state.menuPositionX}
                                     menuPositionY={this.state.menuPositionY}
 
-                                    setModalContentName={this.setModalContentName.bind(this)}
+                                    showElementSettings={this.showElementSettings.bind(this)}
                                     // setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
 
                                     selectedElementData={this.state.selectedElementData}
@@ -681,6 +704,9 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             canvasCtrl={this.canvasCtrl}
                             nodeLabelsInCanvas={this.state.nodeLabelsInCanvas}
                             edgeLabelsInCanvas={this.state.edgeLabelsInCanvas}
+                            showElementSettings={this.showElementSettings.bind(this)}
+
+
                         />
 
                         : <React.Fragment/>
@@ -725,7 +751,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         : <React.Fragment/>
                 }
                 {
-                    this.state.modalContentName === "element-options" && this.state.selectedElementData
+                    this.state.modalContentName === "element-options" && this.state.elementOptionsToShow
                         ? <Modal
                             className={"border-0 "}
                             size="lg"
@@ -738,14 +764,16 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
                             <Modal.Body style={{"width": "600px"}}>
                                 <ElementOptions
-                                    selectedElementData={this.state.selectedElementData}
+                                    // selectedElementData={this.state.selectedElementData}
+                                    elementOptionsToShow={this.state.elementOptionsToShow}
                                     setModalContentName={this.setModalContentName.bind(this)}
                                     // selectedLabelType={this.state.selectedLabelType}
                                     setStatusMessage={this.setStatusMessage.bind(this)}
                                     setErrorMessage={this.setErrorMessage.bind(this)}
                                     // setHideVertexOptions={this.setHideVertexOptions.bind(this)}
                                     onClose={() => {
-                                        _this.setModalContentName(null)
+                                        _this.setElementOptionsToShow(null);
+                                        _this.setModalContentName(null);
                                     }}
                                     reRenderVisualizer={this.reRenderVisualizer.bind(this)}
                                     // reRenderCanvas={this.reRenderCanvas.bind(this)}

@@ -25,6 +25,9 @@ export default class SidebarListBase extends React.Component {
         canvasCtrl: PropTypes.object,
         edgeLabelsInCanvas: PropTypes.array,
         nodeLabelsInCanvas: PropTypes.array,
+
+
+        showElementSettings: PropTypes.func,
     }
 
     constructor(props) {
@@ -186,6 +189,8 @@ export default class SidebarListBase extends React.Component {
                                                         hoveredLabelType: null
                                                     })
                                                 }}
+
+                                                showElementSettings={this.props.showElementSettings}
                                                 canvasCtrl={this.props.canvasCtrl}
                                             />
                                             : <React.Fragment/>
