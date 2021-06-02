@@ -46,10 +46,10 @@ export default class Welcome extends DefaultRemoteComponent {
                                href={"https://docs.invana.io"} target={"_new"}>
                                 Documentation <FontAwesomeIcon icon={faExternalLinkSquareAlt}/>
                             </a>
-                            <p className={"mt-3 text-muted"}>For support, visit
-                                <a target={"_new"} href={STUDIO_SETTINGS.SUPPORT_URL}>
-                                    {STUDIO_SETTINGS.SUPPORT_URL}
-                                </a>
+                            <p className={"mt-3 text-muted"}>For support, visit <a target={"_new"}
+                                                                                   href={STUDIO_SETTINGS.SUPPORT_URL}>
+                                {STUDIO_SETTINGS.SUPPORT_URL}
+                            </a>
                             </p>
                         </Col>
                         <Col md={"7"}>
