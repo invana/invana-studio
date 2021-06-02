@@ -62,7 +62,7 @@ export default class SelectedData extends React.Component {
                                     ? <div className={'singleProperty dark'} key={cleanedData.outV}>
                                         <div className={"propertyData"}>
                                             <strong className={"propertyKey"}>source:</strong>
-                                            <span
+                                            <span  className={"text-break"}
                                                 style={{"color": this.props.canvasUtils.getElementColor(cleanedData.outVLabel)}}>
                                           &nbsp;{cleanedData.outV}
                                     </span>
@@ -75,7 +75,7 @@ export default class SelectedData extends React.Component {
                                     ? <div className={'singleProperty dark'} key={cleanedData.inV}>
                                         <div className={"propertyData"}>
                                             <strong className={"propertyKey"}>target:</strong>
-                                            <span
+                                            <span className={"text-break"}
                                                 style={{"color": this.props.canvasUtils.getElementColor(cleanedData.inVLabel)}}>
                                          &nbsp;{cleanedData.inV}
                                     </span>
@@ -107,8 +107,8 @@ export default class SelectedData extends React.Component {
                             return (
                                 <div className={'singleProperty'} key={cleanedData.id + "-" + propKey}>
                                     <div className={"propertyData"}>
-                                        <strong className={"propertyKey text-muted"}>{propKey}:</strong>
-                                        <div style={{"marginTop": "5px"}} className={"text-muted"}>{renderPropertyData(propKey, cleanedData.properties[propKey]) ?
+                                        <strong className={"propertyKey text-muted "}>{propKey}:</strong>
+                                        <div style={{"marginTop": "5px"}} className={"text-muted text-break"}>{renderPropertyData(propKey, cleanedData.properties[propKey]) ?
                                             renderPropertyData(propKey, cleanedData.properties[propKey])
                                             : <span>&nbsp;</span>}</div>
                                     </div>

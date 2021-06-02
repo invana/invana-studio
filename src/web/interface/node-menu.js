@@ -166,7 +166,7 @@ export default class NodeMenu extends React.Component {
                 {/*    : <React.Fragment/>*/}
                 {/*}*/}
                 {selectedElement
-                    ? <h5 className={"mb-0 pt-2 font-weight-bold"}
+                    ? <h5 className={"mb-0 pt-2 font-weight-bold text-break"}
                           style={{"color": this.getElementColor()}}>{this.getVerboseIdentifier()}</h5>
                     : <React.Fragment/>
                 }
