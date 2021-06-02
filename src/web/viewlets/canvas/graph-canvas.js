@@ -751,7 +751,9 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                         : <React.Fragment/>
                 }
                 {
-                    this.state.modalContentName === "element-options" && this.state.elementOptionsToShow
+                    this.state.modalContentName === "element-options"
+                    && this.state.elementOptionsToShow
+                    && this.state.elementOptionsToShow.label
                         ? <Modal
                             className={"border-0 "}
                             size="lg"

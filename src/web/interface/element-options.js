@@ -29,11 +29,13 @@ export default class ElementOptions extends DefaultRemoteComponent {
     // }
 
     componentDidMount() {
-        super.componentDidMount();
-        console.log("VO componentDidMount")
-        console.log("======", this.props, this.requestBuilder);
-        this.getElementInitialConfig();
+        if (this.props.elementOptionsToShow && this.props.elementOptionsToShow.label) {
 
+            super.componentDidMount();
+            console.log("VO componentDidMount")
+            console.log("======", this.props, this.requestBuilder);
+            this.getElementInitialConfig();
+        }
     }
 
     getElementLabel() {
@@ -69,14 +71,14 @@ export default class ElementOptions extends DefaultRemoteComponent {
 
     componentDidUpdate(prevProps) {
         console.log("VO componentDidUpdate")
-        // const label = this.getElementLabel();
-
-        const prevGroupName = prevProps.elementOptionsToShow ? prevProps.elementOptionsToShow.label : null;
-        const thisPropGroupName = this.props.elementOptionsToShow ? this.props.elementOptionsToShow.label : null;
-        if (prevGroupName !== thisPropGroupName) {
-            // already data exist
-            this.setState({nodeOptions: null});
-            this.getElementInitialConfig();
+        if (this.props.elementOptionsToShow && this.props.elementOptionsToShow.label) {
+            const prevGroupName = prevProps.elementOptionsToShow ? prevProps.elementOptionsToShow.label : null;
+            const thisPropGroupName = this.props.elementOptionsToShow ? this.props.elementOptionsToShow.label : null;
+            if ((prevGroupName && thisPropGroupName) && (prevGroupName !== thisPropGroupName)) {
+                // already data exist
+                this.setState({nodeOptions: null});
+                this.getElementInitialConfig();
+            }
         }
     }
 
