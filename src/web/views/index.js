@@ -7,20 +7,25 @@ import DefaultRemoteRoutableComponent from "../layouts/default-remote-routable";
 export default class IndexView extends DefaultRemoteRoutableComponent {
 
 
-
-
     componentDidMount() {
         super.componentDidMount();
 
         console.log("this.connector", this.connector);
-        if (this.connector) {
-            console.log("=_this.connector.requestBuilder.initQuery()", this.connector.requestBuilder.initQuery());
-            const showVerticesQuery = this.connector.requestBuilder.filterVertices(
-                STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, 100
-            );
-            const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null);
-            this.makeQuery(queryPayload, {source: "internal"});
+
+        if (!STUDIO_SETTINGS.CONNECTION_URL) {
+            location.href = "/connect";
+        } else {
+            location.href = "/explorer";
+
         }
+        // if (this.connector) {
+        //     console.log("=_this.connector.requestBuilder.initQuery()", this.connector.requestBuilder.initQuery());
+        //     const showVerticesQuery = this.connector.requestBuilder.filterVertices(
+        //         STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, 100
+        //     );
+        //     const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null);
+        //     this.makeQuery(queryPayload, {source: "internal"});
+        // }
     }
 
 

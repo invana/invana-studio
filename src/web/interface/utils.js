@@ -68,6 +68,9 @@ export function renderPropertyData(key, value) {
         } else if (typeof value === "object" && value['@value'] && value['@value'].coordinates) {
             // geo coordinates
             return "(" + value['@value'].coordinates[0] + "," + value['@value'].coordinates[1] + ")";
+
+        } else if (typeof value === "object") {
+            return JSON.stringify(value);
         }
         return value;
     } catch (e) {
