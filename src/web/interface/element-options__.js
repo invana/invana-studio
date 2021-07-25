@@ -1,5 +1,5 @@
 import React from "react";
-// import {STUDIO_SETTINGS} from "../../settings";
+import {STUDIO_SETTINGS} from "../../settings";
 import {getAllNodeShapes, getAllNodeShapesList, getDefaultEdgeOptions, getDefaultNodeOptions} from "./utils";
 import {Button, Form} from "react-bootstrap";
 import DefaultRemoteComponent from "../layouts/default-remote";
@@ -14,8 +14,7 @@ export default class ElementOptions extends DefaultRemoteComponent {
         this.state = {
             ...this.state,
             nodeOptions: null,
-            propertyFieldKeys: ["_id", "_label"],
-
+            propertyFieldKeys: ["_id", "_label"]
         }
     }
 
@@ -57,15 +56,15 @@ export default class ElementOptions extends DefaultRemoteComponent {
         //
         //
 
-        // const getOrCreateElementPayload = this.connector.requestBuilder.getOrCreateVertices(
-        //     STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, {name: this.getElementLabel()}
-        // );
+        const getOrCreateElementPayload = this.connector.requestBuilder.getOrCreateVertices(
+            STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, {name: this.getElementLabel()}
+        );
         const getLabelSchemaPayload = this.connector.requestBuilder.getLabelSchema(
             this.getElementLabel(),
             this.getElementType()
         );
         const queryObject = this.connector.requestBuilder.combineQueries(
-            getLabelSchemaPayload
+            getOrCreateElementPayload, getLabelSchemaPayload
         )
         this.makeQuery(queryObject);
     }
@@ -89,22 +88,10 @@ export default class ElementOptions extends DefaultRemoteComponent {
 
         let properties = this.state.nodeOptions.properties;
         properties['label_type'] = this.getElementType();
-        // const queryObj = this.connector.requestBuilder.updateVertexById(
-        //     this.state.nodeOptions.id, properties
-        // );
-
-        setElementColorOptionsToStorage(this.state.nodeOptions);
-        this.props.setStatusMessage("Updated options for label '" + this.getElementLabel() + "'");
-        // this.setState({nodeOptions: response.response.data.updateVertexById})
-        // // this.props.reRenderCanvas();
-        // // this.props.setShallReRenderD3Canvas(true);
-        // if (response.transporterStatusCode !== 200) {
-        //     this.props.setErrorMessage(response.transporterStatusCode);
-        // }
-        this.props.reRenderVisualizer();
-
-
-        // this.makeQuery(queryObj, {'source': 'canvas'});
+        const queryObj = this.connector.requestBuilder.updateVertexById(
+            this.state.nodeOptions.id, properties
+        );
+        this.makeQuery(queryObj, {'source': 'canvas'});
     }
 
     // add this vertex options to
@@ -131,41 +118,27 @@ export default class ElementOptions extends DefaultRemoteComponent {
         ).queryKey];
         const schemaPropertyKeys = schemaData ? schemaData.propertyKeys : [];
         // let schemaPropertyKeys__ = this.state.prop.concat(schemaPropertyKeys);
-        if (response.response.data && response.response.data.getVertexLabelSchema) {
+        if (response.response.data && response.response.data.getOrCreateVertex) {
             // get the init data of the vertex options.
-            let elementOptions = {};
-            elementOptions.id = this.getElementLabel()
-            elementOptions.label = "";
-
-            if (this.getElementType() === "vertex") {
-                elementOptions.properties = getDefaultNodeOptions(this.getElementLabel());
-            } else if (this.getElementType() === "edge") {
-                elementOptions.properties = getDefaultEdgeOptions(this.getElementLabel());
-            }
-            elementOptions.properties['label_type'] = this.getElementType();
-            elementOptions.properties['name'] = this.getElementLabel();
-
-
-            setElementColorOptionsToStorage(elementOptions);
+            setElementColorOptionsToStorage(response.response.data.getOrCreateVertex);
             this.setState({
-                nodeOptions: elementOptions,
+                nodeOptions: response.response.data.getOrCreateVertex,
                 propertyFieldKeys: schemaPropertyKeys
             })
             this.forceUpdate();
+        } else if (response.response.data && response.response.data.updateVertexById) {
+            // mutation data - update the vertex options.
+            setElementColorOptionsToStorage(response.response.data.updateVertexById);
+            this.props.setStatusMessage("Updated options for label '" + this.getElementLabel() + "'");
+            this.setState({nodeOptions: response.response.data.updateVertexById})
+            // this.props.reRenderCanvas();
+            // this.props.setShallReRenderD3Canvas(true);
+            if (response.transporterStatusCode !== 200) {
+                this.props.setErrorMessage(response.transporterStatusCode);
+            }
+            this.props.reRenderVisualizer();
+
         }
-        // else if (response.response.data && response.response.data.updateVertexById) {
-        //     // mutation data - update the vertex options.
-        //     setElementColorOptionsToStorage(response.response.data.updateVertexById);
-        //     this.props.setStatusMessage("Updated options for label '" + this.getElementLabel() + "'");
-        //     this.setState({nodeOptions: response.response.data.updateVertexById})
-        //     // this.props.reRenderCanvas();
-        //     // this.props.setShallReRenderD3Canvas(true);
-        //     if (response.transporterStatusCode !== 200) {
-        //         this.props.setErrorMessage(response.transporterStatusCode);
-        //     }
-        //     this.props.reRenderVisualizer();
-        //
-        // }
     }
 
     handleValueChange(e) {
