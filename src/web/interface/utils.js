@@ -74,6 +74,7 @@ export function renderPropertyData(key, value) {
         }
         return value;
     } catch (e) {
+        console.error(e)
         return "Failed to render"
     }
 
