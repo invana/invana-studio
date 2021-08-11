@@ -2,8 +2,8 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
-import {setDataToLocalStorage} from "../../../../utils/localStorage";
-import defaultOptions from "../../../../settings/networkOptions";
+import {getDataFromLocalStorage, setDataToLocalStorage} from "../../../../utils/localStorage";
+import defaultNetworkOptions from "../../../../settings/networkOptions";
 
 
 export default class EdgeDisplaySettings extends React.Component {
@@ -16,69 +16,66 @@ export default class EdgeDisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("defaultOptions", JSON.stringify(defaultOptions))
-        console.log("defaultOptions", defaultOptions)
-        this.state = {studioSettings: defaultOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(defaultNetworkOptions))
+        console.log("defaultNetworkOptions", defaultNetworkOptions)
+        this.state = {studioSettings: defaultNetworkOptions};
     }
 
 
-    updateEdgeOptionsInStorage(studioSettings) {
-        console.log("updateEdgeOptionsInStorage", studioSettings);
-
+    updateStateData(studioSettings) {
+        console.log("========updateStateData", JSON.stringify(studioSettings.edges));
         this.setState({studioSettings: studioSettings});
 
     }
 
     updateSettings() {
 
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, {
-                physics: this.state.studioSettings.edges.physics,
-                smooth: this.state.studioSettings.edges.smooth,
-                length: this.state.studioSettings.edges.length
-            }
-        );
+        const existingData = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
+        existingData.edges =   this.state.studioSettings.edges;
+
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingData);
         // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(defaultOptions);
+        this.props.startRenderingGraph(existingData);
 
     }
 
     handleValueChange(e) {
         console.log("handleValueChange=====", e.target.name, e.target.value, parseInt(e.target.value) === 100);
         let studioSettings = this.state.studioSettings;
-        if (e.target.name === "smooth") {
+        if (e.target.name === "smoothEnabled") {
             console.log("====e.target.value === \"on\"", e.target.checked === "on")
             console.log("====e.target.value === e.target.value", e.target.checked, typeof e.target.checked)
-            studioSettings.edges.smooth.enabled = e.target.checked;
-            this.updateEdgeOptionsInStorage(studioSettings)
+            studioSettings.edges.smooth.enabled = e.target.checked ;
+            this.updateStateData(studioSettings);
         } else if (e.target.name === "type") {
             studioSettings.edges.smooth.type = e.target.value;
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings);
         } else if (e.target.name === "forceDirection") {
             studioSettings.edges.smooth.forceDirection = e.target.value;
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings);
         } else if (e.target.name === "roundness") {
             studioSettings.edges.smooth.roundness = parseFloat(e.target.value);
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings);
         } else if (e.target.name === "length") {
-
             studioSettings.edges.length = (parseInt(e.target.value) === 100) ? "undefined" : parseInt(e.target.value);
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings);
         }
     }
 
     render() {
-        console.log("this.state.studioSettings", this.state.studioSettings);
+        console.log("this.state.studioSettings edges", this.state.studioSettings);
         return (
             <Form>
                 <div
                     style={{"overflowY": "scroll", "maxHeight": "calc(100vh - 215px)"}}>
                     <h6>Edges display settings</h6>
-                    <Form.Group className={"mb-1"}>
+                    <hr/>
+                    <Form.Group className={""}>
                         <Form.Check
                             type="switch"
-                            id="custom-switch"
-                            name={"smooth"}
-                            label="smooth"
+                            id="custom-switch-2"
+                            name={"smoothEnabled"}
+                            label="Enable smooth edges"
                             onChange={this.handleValueChange.bind(this)}
                             defaultChecked={this.state.studioSettings.edges.smooth.enabled}
                         />
@@ -89,7 +86,7 @@ export default class EdgeDisplaySettings extends React.Component {
                                 <Row className={"mr-0"}>
                                     <Col size={"6"}>
                                         <Form.Group controlId="type"
-                                                    className={"mb-1 pr-2"}>
+                                                    className={" pr-2"}>
                                             <Form.Label>type</Form.Label>
                                             <Form.Control
                                                 name={"type"} size={"sm"} as={"select"}
@@ -118,7 +115,7 @@ export default class EdgeDisplaySettings extends React.Component {
                                     </Col>
                                     <Col size={"6"}>
                                         <Form.Group controlId="forceDirection"
-                                                    className={"mb-1"}>
+                                                    className={""}>
                                             <Form.Label>forceDirection</Form.Label>
                                             <Form.Control
                                                 name={"forceDirection"} size={"sm"}
@@ -136,7 +133,7 @@ export default class EdgeDisplaySettings extends React.Component {
                                     </Col>
 
                                 </Row>
-                                <Form.Group controlId="roundness" className={"mb-1"}>
+                                <Form.Group controlId="roundness" className={""}>
                                     <Form.Label>roundness <small>({this.state.studioSettings.edges.smooth.roundness})</small></Form.Label>
                                     <Form.Control type="range" name={"roundness"}
                                                   onChange={this.handleValueChange.bind(this)}

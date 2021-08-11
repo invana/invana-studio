@@ -1,4 +1,18 @@
-import {STUDIO_SETTINGS} from "./index";
+
+export const defaultEdgesOptions = {
+    physics: true,
+    // length: undefined,
+    length: 320,
+    smooth: {
+        enabled: true,
+        // dynamic, continuous, discrete, diagonalCross, straightCross,
+        // curvedCW, curvedCCW, cubicBezier, horizontal, vertical
+        type: "continuous",
+        // vertical or horizontal
+        forceDirection: "none",
+        roundness: .5
+    },
+}
 
 export const supportedPhysicsSolvers = [
     "forceAtlas2Based",
@@ -13,7 +27,7 @@ export const defaultPhysicsSettings = {
     forceAtlas2Based: {
         gravitationalConstant: -70,
         centralGravity: 0.005,
-        springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
+        springLength: defaultEdgesOptions.length,
         springConstant: 0.18,
         avoidOverlap: 1.5
     },
@@ -21,7 +35,7 @@ export const defaultPhysicsSettings = {
         theta: 0.5,
         gravitationalConstant: -2000,
         centralGravity: 0.3,
-        springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
+        springLength: defaultEdgesOptions.length,
         springConstant: 0.04,
         avoidOverlap: 0,
         damping: 0.09
@@ -29,7 +43,7 @@ export const defaultPhysicsSettings = {
     repulsion: {
         nodeDistance: 100,
         centralGravity: 0.2,
-        springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
+        springLength: defaultEdgesOptions.length,
         springConstant: 0.05,
         damping: 0.09
     },
@@ -54,11 +68,7 @@ export const defaultPhysicsSettings = {
 
 }
 
-const defaultOptions = {
-    // layout: {
-    //     hierarchical: false
-    // },
-
+const defaultNetworkOptions = {
     interaction: {
         hideEdgesOnDrag: true,
         tooltipDelay: 200,
@@ -67,38 +77,8 @@ const defaultOptions = {
     layout: {
         // randomSeed: 100,
         hierarchical: false
-
     },
-
     physics: defaultPhysicsSettings,
-    //
-    // physics: {
-    //     forceAtlas2Based: {
-    //         gravitationalConstant: -70,
-    //         centralGravity: 0.005,
-    //         springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
-    //         springConstant: 0.18,
-    //         avoidOverlap: 1
-    //     },
-    //     // maxVelocity: 146,
-    //     solver: "forceAtlas2Based", // forceAtlas2Based
-    //     // timestep: 0.55,
-    //     stabilization: {
-    //         enabled: true,
-    //         // updateInterval: 100,
-    //         // iterations: 1000    // YMMV
-    //     },
-    //     minVelocity: undefined
-    //     // barnesHut: {
-    //     //     gravitationalConstant: -23000,
-    //     //     centralGravity: 0,
-    //     //     springLength: 0,
-    //     //     springConstant: 0.5,
-    //     //     damping: 1,
-    //     //     avoidOverlap: 1
-    //     // }
-    // },
-
     // layout: {
     //     hierarchical: {
     //         enabled: true,
@@ -113,8 +93,7 @@ const defaultOptions = {
     // },
     edges: {
         // // color: "#999999",
-
-        ...STUDIO_SETTINGS.DISPLAY_SETTINGS,
+        ...defaultEdgesOptions,
         chosen: {
             edge: function (values, id, selected, hovering) {
                 console.log("=====", id, selected, hovering);
@@ -124,9 +103,6 @@ const defaultOptions = {
         selectionWidth: function (width) {
             return width * 1.2;
         },
-        // hoverWidth: function (width) {
-        //     return width * 1.4;
-        // }
         hoverWidth: function (width) {
             return width + 1;
         },
@@ -147,4 +123,4 @@ const defaultOptions = {
     }
 }
 
-export default defaultOptions;
+export default defaultNetworkOptions;

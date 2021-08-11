@@ -2,7 +2,7 @@ import React from "react";
 import "./canvas.scss";
 import VisNetworkReactComponent from "vis-network-react";
 import PropTypes from "prop-types";
-import defaultOptions from "../../../settings/networkOptions";
+import defaultNetworkOptions from "../../../settings/networkOptions";
 
 // import {STUDIO_SETTINGS} from "../../../settings";
 
@@ -156,13 +156,13 @@ class CanvasArtBoard extends React.Component {
 
     render() {
         const events = this.getEvents();
-        console.log("=====defaultOptions", defaultOptions);
+        console.log("=====defaultNetworkOptions", defaultNetworkOptions);
         return (
             <div className={"canvasContainer w-100 h-100"}>
 
                 {/*<VisNetworkReactComponent*/}
                 {/*    data={{nodes: this.props.nodes, edges: this.props.edges}}*/}
-                {/*    options={defaultOptions}*/}
+                {/*    options={defaultNetworkOptions}*/}
                 {/*    events={events}*/}
                 {/*    getNetwork={this.props.getNetwork}*/}
                 {/*    getNodes={this.props.getNodes}*/}
@@ -173,7 +173,7 @@ class CanvasArtBoard extends React.Component {
 
                 <VisNetworkReactComponent
                     data={{nodes: this.props.nodes, edges: this.props.edges}}
-                    options={defaultOptions}
+                    options={defaultNetworkOptions}
                     events={events}
                     getNetwork={this.setNetwork.bind(this)}
                     // getNodes={this.props.getNodes}

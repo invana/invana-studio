@@ -2,8 +2,8 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
-import {setDataToLocalStorage} from "../../../../utils/localStorage";
-import defaultOptions, {supportedPhysicsSolvers} from "../../../../settings/networkOptions";
+import {getDataFromLocalStorage, setDataToLocalStorage} from "../../../../utils/localStorage";
+import defaultNetworkOptions, {supportedPhysicsSolvers} from "../../../../settings/networkOptions";
 
 
 export default class VertexDisplaySettings extends React.Component {
@@ -16,14 +16,14 @@ export default class VertexDisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("defaultOptions", JSON.stringify(defaultOptions))
-        console.log("defaultOptions", defaultOptions)
-        this.state = {studioSettings: defaultOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(defaultNetworkOptions))
+        console.log("defaultNetworkOptions", defaultNetworkOptions)
+        this.state = {studioSettings: defaultNetworkOptions};
     }
 
 
-    updateEdgeOptionsInStorage(studioSettings) {
-        console.log("updateEdgeOptionsInStorage", studioSettings);
+    updateStateData(studioSettings) {
+        console.log("updateStateData", studioSettings);
 
         this.setState({studioSettings: studioSettings});
 
@@ -31,14 +31,23 @@ export default class VertexDisplaySettings extends React.Component {
 
     updateSettings() {
 
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, {
-                physics: this.state.studioSettings.physics,
-                // smooth: this.state.studioSettings.edges.smooth,
-                // length: this.state.studioSettings.edges.length
-            }
-        );
+        // setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, {
+        //         physics: this.state.studioSettings.physics,
+        //         // smooth: this.state.studioSettings.edges.smooth,
+        //         // length: this.state.studioSettings.edges.length
+        //     }
+        // );
+        // // eslint-disable-next-line react/prop-types
+        // this.props.startRenderingGraph(defaultNetworkOptions);
+        //
+
+        const existingData = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
+        existingData.physics = this.state.studioSettings.physics;
+
+
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingData);
         // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(defaultOptions);
+        this.props.startRenderingGraph(existingData);
 
     }
 
@@ -49,19 +58,19 @@ export default class VertexDisplaySettings extends React.Component {
             console.log("====e.target.value === \"on\"", e.target.checked === "on")
             console.log("====e.target.value === e.target.value", e.target.checked, typeof e.target.checked)
             studioSettings.physics.enabled = e.target.checked;
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings)
         } else if (e.target.name === "gravitationalConstant") {
             studioSettings.physics[studioSettings.physics.solver].gravitationalConstant = parseFloat(e.target.value);
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings)
         } else if (e.target.name === "springLength") {
             studioSettings.physics[studioSettings.physics.solver].springLength = parseFloat(e.target.value);
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings)
         } else if (e.target.name === "springConstant") {
             studioSettings.physics[studioSettings.physics.solver].springConstant = parseFloat(e.target.value);
-            this.updateEdgeOptionsInStorage(studioSettings)
-        }else if (e.target.name === "solverName") {
+            this.updateStateData(studioSettings)
+        } else if (e.target.name === "solverName") {
             studioSettings.physics.solver = e.target.value;
-            this.updateEdgeOptionsInStorage(studioSettings)
+            this.updateStateData(studioSettings)
         }
     }
 
@@ -120,8 +129,6 @@ export default class VertexDisplaySettings extends React.Component {
                             </Form.Group>
 
 
-
-
                             <Form.Group controlId="springLength" className={""}>
                                 <Form.Label>spring length
                                     <small> ({this.state.studioSettings.physics[this.state.studioSettings.physics.solver].springLength})</small>
@@ -134,8 +141,6 @@ export default class VertexDisplaySettings extends React.Component {
                             </Form.Group>
 
 
-
-
                             <Form.Group controlId="springConstant" className={""}>
                                 <Form.Label>spring constant
                                     <small> ({this.state.studioSettings.physics[this.state.studioSettings.physics.solver].springConstant})</small>
@@ -146,8 +151,6 @@ export default class VertexDisplaySettings extends React.Component {
                                               defaultValue={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].springConstant}
                                 />
                             </Form.Group>
-
-
 
 
                         </div>

@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
 import {setDataToLocalStorage} from "../../../../utils/localStorage";
-import defaultOptions from "../../../../settings/networkOptions";
+import defaultNetworkOptions from "../../../../settings/networkOptions";
 import EdgeDisplaySettings from "./edge-settings";
 import VertexDisplaySettings from "./vertex-settings";
 
@@ -20,9 +20,9 @@ export default class DisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("defaultOptions", JSON.stringify(defaultOptions))
-        console.log("defaultOptions", defaultOptions)
-        this.state = {studioSettings: defaultOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(defaultNetworkOptions))
+        console.log("defaultNetworkOptions", defaultNetworkOptions)
+        this.state = {studioSettings: defaultNetworkOptions};
     }
 
 
@@ -42,7 +42,7 @@ export default class DisplaySettings extends React.Component {
             }
         );
         // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(defaultOptions);
+        this.props.startRenderingGraph(defaultNetworkOptions);
 
     }
 
