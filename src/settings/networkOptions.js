@@ -1,24 +1,53 @@
 import {STUDIO_SETTINGS} from "./index";
 
+export const supportedPhysicsSolvers = [
+    "forceAtlas2Based",
+    "barnesHut",
+    "repulsion",
+    "hierarchicalRepulsion",
+]
 
-export const physicsSettings = {
-
+export const defaultPhysicsSettings = {
+    enabled: true,
+    solver: 'forceAtlas2Based',
     forceAtlas2Based: {
         gravitationalConstant: -70,
         centralGravity: 0.005,
-        springLength: STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS.length,
+        springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
         springConstant: 0.18,
         avoidOverlap: 1.5
     },
-    // maxVelocity: 146,
-    solver: 'forceAtlas2Based',
+    barnesHut: {
+        theta: 0.5,
+        gravitationalConstant: -2000,
+        centralGravity: 0.3,
+        springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
+        springConstant: 0.04,
+        avoidOverlap: 0,
+        damping: 0.09
+    },
+    repulsion: {
+        nodeDistance: 100,
+        centralGravity: 0.2,
+        springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
+        springConstant: 0.05,
+        damping: 0.09
+    },
+    hierarchicalRepulsion: {
+        nodeDistance: 120,
+        centralGravity: 0.0,
+        springLength: 100,
+        springConstant: 0.01,
+        damping: 0.09,
+        avoidOverlap: 0
+    },
     // timestep: 0.35,
+    adaptiveTimestep: true,
     // minVelocity: 0.1,
     maxVelocity: 300,
-
     stabilization: {
         enabled: true,
-        // iterations: 1000,
+        iterations: 1000,
         updateInterval: 200,
         // fit: true
     }
@@ -35,20 +64,19 @@ const defaultOptions = {
         tooltipDelay: 200,
         hover: true
     },
-
     layout: {
         // randomSeed: 100,
         hierarchical: false
 
     },
 
-    physics: physicsSettings,
+    physics: defaultPhysicsSettings,
     //
     // physics: {
     //     forceAtlas2Based: {
     //         gravitationalConstant: -70,
     //         centralGravity: 0.005,
-    //         springLength: STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS.length,
+    //         springLength: STUDIO_SETTINGS.DISPLAY_SETTINGS.length,
     //         springConstant: 0.18,
     //         avoidOverlap: 1
     //     },
@@ -86,7 +114,7 @@ const defaultOptions = {
     edges: {
         // // color: "#999999",
 
-        ...STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS,
+        ...STUDIO_SETTINGS.DISPLAY_SETTINGS,
         chosen: {
             edge: function (values, id, selected, hovering) {
                 console.log("=====", id, selected, hovering);

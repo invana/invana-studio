@@ -15,7 +15,7 @@ import "./canvas.scss";
 import DataSidebarViewlet from "../data-management/data-sidebar";
 import ElementOptions from "../../interface/element-options";
 import {Button, ListGroup, Modal} from "react-bootstrap";
-import CanvasDisplaySettings from "./canvas-display-settings";
+import DisplaySettings from "./display-settings";
 import LoadingDiv from "./loading";
 import LambdaSettingsView from "./lambda-settings";
 import ResponseViewer from "./response-viewer";
@@ -716,7 +716,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                 {
                     this.state.leftContentName === "canvas-display-settings"
                         ?
-                        <CanvasDisplaySettings
+                        <DisplaySettings
                             style={{
                                 "width": "420px", "top": "90px", "zIndex": 1001,
                                 "maxHeight": "calc(100vh - 250px)"

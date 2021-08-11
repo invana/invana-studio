@@ -31,7 +31,7 @@ export const STUDIO_SETTINGS = {
     GRAPH_ENGINE_NAME: localStorage.getItem(STUDIO_CONNECT_CONSTANTS.GRAPH_ENGINE_NAME) || "invana-engine",
 
 
-    RENDERING_EDGES_SETTINGS: getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.RENDERING_EDGES_SETTINGS, true) || defaultEdgesOptions,
+    DISPLAY_SETTINGS: getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultEdgesOptions,
 
     MANAGEMENT_VERTEX_LABEL: "InvanaManagement"
 }
