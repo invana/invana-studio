@@ -47,7 +47,7 @@ export default class CanvasController {
     }
 
     startRenderingGraph(newOptions) {
-        console.log("startRenderingGraph");
+        console.log("startRenderingGraph", newOptions);
         if (newOptions) {
             this.network.setOptions(newOptions);
         } else {

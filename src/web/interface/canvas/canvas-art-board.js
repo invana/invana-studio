@@ -3,6 +3,7 @@ import "./canvas.scss";
 import VisNetworkReactComponent from "vis-network-react";
 import PropTypes from "prop-types";
 import defaultOptions from "../../../settings/networkOptions";
+
 // import {STUDIO_SETTINGS} from "../../../settings";
 
 
@@ -131,8 +132,15 @@ class CanvasArtBoard extends React.Component {
                 console.log("stabilized Event:", params);
 
                 // _this.props.setRenderingStatusEnded();
-                _this.props.stopRenderingGraph();
+                if (params.iterations > 1) {
+                    _this.props.stopRenderingGraph();
+                }
             },
+            // stabilizationIterationsDone: function () {
+            //     console.log("stabilizationIterationsDone Event:");
+            //     _this.props.stopRenderingGraph();
+            //
+            // },
             stabilizationProgress: function (params) {
                 console.log("stabilizationProgress Event:", params);
 

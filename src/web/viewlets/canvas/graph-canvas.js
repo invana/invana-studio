@@ -579,6 +579,8 @@ export default class GraphCanvas extends DefaultRemoteComponent {
                             setSelectedElementData={this.setSelectedElementData.bind(this)}
                             setNodeMenuPosition={this.setNodeMenuPosition.bind(this)}
                             stopRenderingGraph={() => {
+
+                                console.log("stopRenderingGraph", this.canvasCtrl);
                                 if (this.canvasCtrl) {
                                     this.canvasCtrl.stopRenderingGraph();
                                 }

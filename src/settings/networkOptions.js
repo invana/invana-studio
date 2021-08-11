@@ -4,19 +4,22 @@ import {STUDIO_SETTINGS} from "./index";
 export const physicsSettings = {
 
     forceAtlas2Based: {
-        gravitationalConstant: -56,
+        gravitationalConstant: -70,
         centralGravity: 0.005,
         springLength: STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS.length,
         springConstant: 0.18,
         avoidOverlap: 1.5
     },
-    maxVelocity: 146,
+    // maxVelocity: 146,
     solver: 'forceAtlas2Based',
-    timestep: 0.35,
+    // timestep: 0.35,
+    // minVelocity: 0.1,
+    maxVelocity: 300,
+
     stabilization: {
         enabled: true,
-        iterations: 1000,
-        updateInterval: 50,
+        // iterations: 1000,
+        updateInterval: 200,
         // fit: true
     }
 
@@ -40,7 +43,7 @@ const defaultOptions = {
     },
 
     physics: physicsSettings,
-
+    //
     // physics: {
     //     forceAtlas2Based: {
     //         gravitationalConstant: -70,
@@ -106,10 +109,10 @@ const defaultOptions = {
         // physics: false,
         shape: "dot",
         // size: 10,
-        scaling: {
-            min: 10,
-            max: 10,
-        },
+        // scaling: {
+        //     min: 10,
+        //     max: 10,
+        // },
         // shapeProperties: {
         //     interpolation: false    // 'true' for intensive zooming
         // }
