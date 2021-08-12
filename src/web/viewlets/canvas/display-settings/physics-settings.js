@@ -166,6 +166,13 @@ export default class PhysicsDisplaySettings extends React.Component {
                             onClick={() => this.loadDefaultSettings()}>load defaults</Button>
 
                 </div>
+                   <div className={"mt-3"}>
+                    <p className={"small text-muted"}>
+                       <strong>Note:</strong> Refer <a target={"_blank"} rel={"noreferrer"}
+                                 href="https://visjs.github.io/vis-network/docs/network/physics.html">
+                        this link</a> for description of the settings.
+                    </p>
+                </div>
             </Form>
         )
     }

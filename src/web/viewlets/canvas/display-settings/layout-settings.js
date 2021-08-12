@@ -138,6 +138,7 @@ export default class LayoutSettings extends React.Component {
                             : <React.Fragment/>
                     }
                 </div>
+
                 <div className={"mt-3"}>
                     <Button variant="outline-success" size={"sm"}
                             className={"pt-0 pb-0 pl-2 pr-2"}
@@ -150,6 +151,13 @@ export default class LayoutSettings extends React.Component {
                             className={"pt-0 pb-0 pl-2 pr-2 ml-2 float-right"}
                             onClick={() => this.loadDefaultSettings()}>load defaults</Button>
 
+                </div>
+                <div className={"mt-3"}>
+                    <p className={"small text-muted"}>
+                       <strong>Note:</strong> Refer <a target={"_blank"} rel={"noreferrer"}
+                                 href="https://visjs.github.io/vis-network/docs/network/layout.html">
+                        this link</a> for description of the settings.
+                    </p>
                 </div>
             </Form>
         )
