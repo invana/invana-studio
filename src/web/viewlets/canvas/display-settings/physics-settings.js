@@ -8,7 +8,7 @@ import {existingNetworkOptions} from "../canvas-utils";
 
 
 
-export default class VertexDisplaySettings extends React.Component {
+export default class PhysicsDisplaySettings extends React.Component {
 
     static propTypes = {
         onClose: PropTypes.func,

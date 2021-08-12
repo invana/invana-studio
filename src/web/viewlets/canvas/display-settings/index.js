@@ -8,7 +8,7 @@ import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
 import {setDataToLocalStorage} from "../../../../utils/localStorage";
 import defaultNetworkOptions from "../../../../settings/networkOptions";
 import EdgeDisplaySettings from "./edge-settings";
-import VertexDisplaySettings from "./vertex-settings";
+import PhysicsDisplaySettings from "./physics-settings";
 import LayoutSettings from "./layout-settings";
 
 export default class DisplaySettings extends React.Component {
@@ -94,7 +94,7 @@ export default class DisplaySettings extends React.Component {
                                                                    startRenderingGraph={this.props.startRenderingGraph}/>
                                         </Tab>
                                         <Tab eventKey="vertex-config" title="Vertex settings">
-                                            <VertexDisplaySettings onClose={this.props.onClose}
+                                            <PhysicsDisplaySettings onClose={this.props.onClose}
                                                                    startRenderingGraph={this.props.startRenderingGraph}/>
                                         </Tab>
                                         <Tab eventKey="edge-config" title="Edge settings">
