@@ -288,7 +288,9 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         } else if (selectedElementType === "g:Edge") {
             selectedElementData = this.network.body.data.edges.get(selectedDataId)
         }
-        this.setState({selectedElementData: selectedElementData});
+        if (selectedElementData){
+            this.setState({selectedElementData: selectedElementData});
+        }
     }
 
     reRenderVisualizer() {
