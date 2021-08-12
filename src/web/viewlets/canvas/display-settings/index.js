@@ -9,6 +9,7 @@ import {setDataToLocalStorage} from "../../../../utils/localStorage";
 import defaultNetworkOptions from "../../../../settings/networkOptions";
 import EdgeDisplaySettings from "./edge-settings";
 import VertexDisplaySettings from "./vertex-settings";
+import LayoutSettings from "./layout-settings";
 
 export default class DisplaySettings extends React.Component {
 
@@ -83,11 +84,15 @@ export default class DisplaySettings extends React.Component {
                             <div className="row  pl-3 pr-3 pb-3">
                                 <div className="col">
                                     <Tabs
-                                        defaultActiveKey="vertex-config"
+                                        defaultActiveKey="layout-config"
                                         transition={false}
                                         id="display-settings"
                                         className="mb-3 border-bottom"
                                     >
+                                        <Tab eventKey="layout-config" title="Layout settings">
+                                            <LayoutSettings onClose={this.props.onClose}
+                                                                   startRenderingGraph={this.props.startRenderingGraph}/>
+                                        </Tab>
                                         <Tab eventKey="vertex-config" title="Vertex settings">
                                             <VertexDisplaySettings onClose={this.props.onClose}
                                                                    startRenderingGraph={this.props.startRenderingGraph}/>

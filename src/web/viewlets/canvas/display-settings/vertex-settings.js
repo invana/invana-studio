@@ -2,8 +2,9 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
-import {getDataFromLocalStorage, setDataToLocalStorage} from "../../../../utils/localStorage";
-import defaultNetworkOptions, {supportedPhysicsSolvers} from "../../../../settings/networkOptions";
+import { setDataToLocalStorage} from "../../../../utils/localStorage";
+import  {supportedPhysicsSolvers} from "../../../../settings/networkOptions";
+import {getNetworkOptions} from "../canvas-utils";
 
 
 export default class VertexDisplaySettings extends React.Component {
@@ -16,9 +17,9 @@ export default class VertexDisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("defaultNetworkOptions", JSON.stringify(defaultNetworkOptions))
-        console.log("defaultNetworkOptions", defaultNetworkOptions)
-        this.state = {studioSettings: defaultNetworkOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(getNetworkOptions))
+        console.log("defaultNetworkOptions", getNetworkOptions)
+        this.state = {studioSettings: getNetworkOptions};
     }
 
 
@@ -41,7 +42,7 @@ export default class VertexDisplaySettings extends React.Component {
         // this.props.startRenderingGraph(defaultNetworkOptions);
         //
 
-        const existingData = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
+        const existingData = getNetworkOptions;
         existingData.physics = this.state.studioSettings.physics;
 
 
@@ -123,7 +124,7 @@ export default class VertexDisplaySettings extends React.Component {
                                 </Form.Label>
                                 <Form.Control type="range" name={"gravitationalConstant"}
                                               onChange={this.handleValueChange.bind(this)}
-                                              min={-2000} max={1000} step={0.05}
+                                              min={-2000} max={1000} step={1}
                                               defaultValue={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].gravitationalConstant}
                                 />
                             </Form.Group>

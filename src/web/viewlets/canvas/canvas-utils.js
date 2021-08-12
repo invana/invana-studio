@@ -5,9 +5,16 @@ import {
     getDefaultNodeOptions,
     invertColor
 } from "../../interface/utils";
-import { RENDERING_CONFIG} from "../../../settings";
+import {RENDERING_CONFIG} from "../../../settings";
 import {GRAPH_CANVAS_SETTINGS} from "../../../settings/canvas";
 import {LightenDarkenColor} from "../../../utils/core";
+import {getDataFromLocalStorage} from "../../../utils/localStorage";
+import {STUDIO_CONNECT_CONSTANTS} from "../../../settings/constants";
+import defaultNetworkOptions from "../../../settings/networkOptions";
+
+
+export const getNetworkOptions = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
+
 
 export default class VisJsGraphCanvasUtils {
     nodeGroups = {};

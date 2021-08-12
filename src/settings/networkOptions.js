@@ -1,4 +1,3 @@
-
 export const defaultEdgesOptions = {
     physics: true,
     // length: undefined,
@@ -74,9 +73,19 @@ const defaultNetworkOptions = {
         tooltipDelay: 200,
         hover: true
     },
-    layout: {
-        // randomSeed: 100,
-        hierarchical: false
+    layout: { // https://visjs.github.io/vis-network/docs/network/layout.html#
+        randomSeed: 100,
+        improvedLayout: true,
+        // clusterThreshold: 150,
+        hierarchical: {
+            enabled: true,
+            nodeSpacing: 100,
+            edgeMinimization: true,
+            parentCentralization: true,
+            direction: "LR",
+            sortMethod: "hubsize",
+            shakeTowards: "root"
+        }
     },
     physics: defaultPhysicsSettings,
     // layout: {

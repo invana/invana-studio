@@ -2,8 +2,8 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
-import {getDataFromLocalStorage, setDataToLocalStorage} from "../../../../utils/localStorage";
-import defaultNetworkOptions from "../../../../settings/networkOptions";
+import { setDataToLocalStorage} from "../../../../utils/localStorage";
+import {getNetworkOptions} from "../canvas-utils";
 
 
 export default class EdgeDisplaySettings extends React.Component {
@@ -16,9 +16,9 @@ export default class EdgeDisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("defaultNetworkOptions", JSON.stringify(defaultNetworkOptions))
-        console.log("defaultNetworkOptions", defaultNetworkOptions)
-        this.state = {studioSettings: defaultNetworkOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(getNetworkOptions))
+        console.log("defaultNetworkOptions", getNetworkOptions)
+        this.state = {studioSettings: getNetworkOptions};
     }
 
 
@@ -30,7 +30,7 @@ export default class EdgeDisplaySettings extends React.Component {
 
     updateSettings() {
 
-        const existingData = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
+        const existingData = getNetworkOptions;
         existingData.edges =   this.state.studioSettings.edges;
 
         setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingData);
