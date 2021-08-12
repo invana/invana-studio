@@ -73,7 +73,7 @@ export default class EdgeDisplaySettings extends React.Component {
             <Form>
                 <div
                     style={{"overflowY": "scroll", "maxHeight": "calc(100vh - 215px)"}}>
-                    <h6>Edges display settings</h6>
+                    <h6>Edges settings</h6>
                     <hr/>
                     <Form.Group className={""}>
                         <Form.Check

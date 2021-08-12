@@ -84,20 +84,21 @@ export default class DisplaySettings extends React.Component {
                             <div className="row  pl-3 pr-3 pb-3">
                                 <div className="col">
                                     <Tabs
-                                        defaultActiveKey="layout-config"
+                                        defaultActiveKey="physics-settings"
                                         transition={false}
                                         id="display-settings"
                                         className="mb-3 border-bottom"
                                     >
-                                        <Tab eventKey="layout-config" title="Layout settings">
-                                            <LayoutSettings onClose={this.props.onClose}
-                                                                   startRenderingGraph={this.props.startRenderingGraph}/>
-                                        </Tab>
-                                        <Tab eventKey="vertex-config" title="Vertex settings">
+
+                                        <Tab eventKey="physics-settings" title="Physics settings">
                                             <PhysicsDisplaySettings onClose={this.props.onClose}
-                                                                   startRenderingGraph={this.props.startRenderingGraph}/>
+                                                                    startRenderingGraph={this.props.startRenderingGraph}/>
                                         </Tab>
-                                        <Tab eventKey="edge-config" title="Edge settings">
+                                        <Tab eventKey="layout-settings" title="Layout settings">
+                                            <LayoutSettings onClose={this.props.onClose}
+                                                            startRenderingGraph={this.props.startRenderingGraph}/>
+                                        </Tab>
+                                        <Tab eventKey="edge-settings" title="Edge settings">
                                             <EdgeDisplaySettings onClose={this.props.onClose}
                                                                  startRenderingGraph={this.props.startRenderingGraph}/>
                                         </Tab>

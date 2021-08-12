@@ -75,7 +75,7 @@ export default class PhysicsDisplaySettings extends React.Component {
             <Form>
                 <div
                     style={{"overflowY": "scroll", "maxHeight": "calc(100vh - 215px)"}}>
-                    <h6>Vertex display settings</h6>
+                    <h6>Physics settings</h6>
                     <hr/>
                     <Form.Group className={""}>
                         <Form.Check
