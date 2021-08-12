@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
 import {setDataToLocalStorage} from "../../../../utils/localStorage";
 import defaultNetworkOptions, {supportedPhysicsSolvers} from "../../../../settings/networkOptions";
-import {existingNetworkOptions} from "../canvas-utils";
-
+import {existingNetworkOptions, getAbsoluteData} from "../canvas-utils";
 
 
 export default class PhysicsDisplaySettings extends React.Component {
@@ -24,11 +23,13 @@ export default class PhysicsDisplaySettings extends React.Component {
     }
 
 
-    updateStateData(studioSettings) {
-        console.log("updateStateData", studioSettings);
-
-        this.setState({studioSettings: studioSettings});
-
+    updateStateData(studioSettings, callback) {
+        console.log("========updateStateData.physics", JSON.stringify(studioSettings.physics));
+        if (callback) {
+            this.setState({studioSettings: studioSettings}, callback());
+        } else {
+            this.setState({studioSettings: studioSettings});
+        }
     }
 
     updateSettings() {
@@ -38,12 +39,10 @@ export default class PhysicsDisplaySettings extends React.Component {
         this.props.startRenderingGraph(existingNetworkOptions);
     }
 
+
     loadDefaultSettings() {
-        existingNetworkOptions.physics = defaultNetworkOptions.physics;
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
-        // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(existingNetworkOptions);
-        this.updateStateData(existingNetworkOptions);
+        existingNetworkOptions.physics = getAbsoluteData(defaultNetworkOptions.physics);
+        this.updateStateData(existingNetworkOptions, this.updateSettings.bind(this));
     }
 
     handleValueChange(e) {
@@ -85,6 +84,7 @@ export default class PhysicsDisplaySettings extends React.Component {
                             label="Enable physics"
                             onChange={this.handleValueChange.bind(this)}
                             defaultChecked={this.state.studioSettings.physics.enabled}
+                            value={this.state.studioSettings.physics.enabled}
                         />
                     </Form.Group>
 
@@ -99,7 +99,8 @@ export default class PhysicsDisplaySettings extends React.Component {
                                         <Form.Control
                                             name={"solverName"} size={"sm"} as={"select"}
                                             onChange={this.handleValueChange.bind(this)}
-                                            defaultValue={this.state.studioSettings.physics.solver}>
+                                            defaultValue={this.state.studioSettings.physics.solver}
+                                            value={this.state.studioSettings.physics.solver}>
                                             {supportedPhysicsSolvers.map((solver, i) => (
                                                 <option key={i} value={solver}>
                                                     {solver}
@@ -120,6 +121,7 @@ export default class PhysicsDisplaySettings extends React.Component {
                                               onChange={this.handleValueChange.bind(this)}
                                               min={-2000} max={1000} step={1}
                                               defaultValue={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].gravitationalConstant}
+                                              value={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].gravitationalConstant}
                                 />
                             </Form.Group>
 
@@ -132,6 +134,7 @@ export default class PhysicsDisplaySettings extends React.Component {
                                               onChange={this.handleValueChange.bind(this)}
                                               min={100} max={600} step={1}
                                               defaultValue={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].springLength}
+                                              value={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].springLength}
                                 />
                             </Form.Group>
 
@@ -144,6 +147,7 @@ export default class PhysicsDisplaySettings extends React.Component {
                                               onChange={this.handleValueChange.bind(this)}
                                               min={0} max={1} step={0.01}
                                               defaultValue={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].springConstant}
+                                              value={this.state.studioSettings.physics[this.state.studioSettings.physics.solver].springConstant}
                                 />
                             </Form.Group>
 
@@ -166,10 +170,10 @@ export default class PhysicsDisplaySettings extends React.Component {
                             onClick={() => this.loadDefaultSettings()}>load defaults</Button>
 
                 </div>
-                   <div className={"mt-3"}>
+                <div className={"mt-3"}>
                     <p className={"small text-muted"}>
-                       <strong>Note:</strong> Refer <a target={"_blank"} rel={"noreferrer"}
-                                 href="https://visjs.github.io/vis-network/docs/network/physics.html">
+                        <strong>Note:</strong> Refer <a target={"_blank"} rel={"noreferrer"}
+                                                        href="https://visjs.github.io/vis-network/docs/network/physics.html">
                         this link</a> for description of the settings.
                     </p>
                 </div>

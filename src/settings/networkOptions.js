@@ -84,7 +84,7 @@ const defaultNetworkOptions = {
             parentCentralization: true,
             direction: "LR",
             sortMethod: "hubsize",
-            shakeTowards: "root"
+            // shakeTowards: "roots"
         }
     },
     physics: defaultPhysicsSettings,

@@ -3,7 +3,7 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
 import {setDataToLocalStorage} from "../../../../utils/localStorage";
-import {existingNetworkOptions} from "../canvas-utils";
+import {existingNetworkOptions, getAbsoluteData} from "../canvas-utils";
 import defaultNetworkOptions from "../../../../settings/networkOptions";
 
 
@@ -24,10 +24,13 @@ export default class LayoutSettings extends React.Component {
     }
 
 
-    updateStateData(studioSettings) {
-        console.log("========updateStateData", JSON.stringify(studioSettings.edges));
-        this.setState({studioSettings: studioSettings});
-
+    updateStateData(studioSettings, callback) {
+        console.log("========updateStateData.layout", JSON.stringify(studioSettings.layout));
+        if (callback) {
+            this.setState({studioSettings: studioSettings}, callback());
+        } else {
+            this.setState({studioSettings: studioSettings});
+        }
     }
 
     updateSettings() {
@@ -37,14 +40,11 @@ export default class LayoutSettings extends React.Component {
         this.props.startRenderingGraph(existingNetworkOptions);
     }
 
-    loadDefaultSettings() {
-        existingNetworkOptions.layout = defaultNetworkOptions.layout;
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
-        // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(existingNetworkOptions);
-        this.updateStateData(existingNetworkOptions);
-    }
 
+    loadDefaultSettings() {
+        existingNetworkOptions.layout = getAbsoluteData(defaultNetworkOptions.layout);
+        this.updateStateData(existingNetworkOptions, this.updateSettings.bind(this));
+    }
 
     handleValueChange(e) {
         console.log("handleValueChange=====", e.target.name, e.target.value, parseInt(e.target.value) === 100);
@@ -85,6 +85,7 @@ export default class LayoutSettings extends React.Component {
                                       onChange={this.handleValueChange.bind(this)}
                                       min={0} max={2000} step={1}
                                       defaultValue={this.state.studioSettings.layout.randomSeed}
+                                      value={this.state.studioSettings.layout.randomSeed}
                         />
                     </Form.Group>
 
@@ -97,6 +98,7 @@ export default class LayoutSettings extends React.Component {
                             label="Enable hierarchical"
                             onChange={this.handleValueChange.bind(this)}
                             defaultChecked={this.state.studioSettings.layout.hierarchical.enabled}
+                            value={this.state.studioSettings.layout.hierarchical.enabled}
                         />
                     </Form.Group>
                     {
@@ -111,6 +113,7 @@ export default class LayoutSettings extends React.Component {
                                                 name={"direction"} size={"sm"} as={"select"}
                                                 onChange={this.handleValueChange.bind(this)}
                                                 defaultValue={this.state.studioSettings.layout.hierarchical.direction}
+                                                value={this.state.studioSettings.layout.hierarchical.direction}
                                             >
                                                 <option value="UD">UD</option>
                                                 <option value="DU">DU</option>
@@ -127,6 +130,7 @@ export default class LayoutSettings extends React.Component {
                                                           onChange={this.handleValueChange.bind(this)}
                                                           min={50} max={1000} step={1}
                                                           defaultValue={this.state.studioSettings.layout.hierarchical.nodeSpacing}
+                                                          value={this.state.studioSettings.layout.hierarchical.nodeSpacing}
                                             />
                                         </Form.Group>
                                     </Col>

@@ -3,7 +3,7 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
 import {setDataToLocalStorage} from "../../../../utils/localStorage";
-import {existingNetworkOptions} from "../canvas-utils";
+import {existingNetworkOptions, getAbsoluteData} from "../canvas-utils";
 import defaultNetworkOptions from "../../../../settings/networkOptions";
 
 
@@ -23,10 +23,13 @@ export default class EdgeDisplaySettings extends React.Component {
     }
 
 
-    updateStateData(studioSettings) {
+    updateStateData(studioSettings, callback) {
         console.log("========updateStateData", JSON.stringify(studioSettings.edges));
-        this.setState({studioSettings: studioSettings});
-
+        if (callback) {
+            this.setState({studioSettings: studioSettings}, callback());
+        } else {
+            this.setState({studioSettings: studioSettings});
+        }
     }
 
     updateSettings() {
@@ -36,12 +39,9 @@ export default class EdgeDisplaySettings extends React.Component {
         this.props.startRenderingGraph(existingNetworkOptions);
     }
 
-    loadDefaultSettings() {
-        existingNetworkOptions.edges = defaultNetworkOptions.edges;
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
-        // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(existingNetworkOptions);
-        this.updateStateData(existingNetworkOptions);
+    loadDefaultEdgeSettings() {
+        existingNetworkOptions.edges = getAbsoluteData(defaultNetworkOptions.edges);
+        this.updateStateData(existingNetworkOptions, this.updateSettings.bind(this));
     }
 
     handleValueChange(e) {
@@ -68,7 +68,7 @@ export default class EdgeDisplaySettings extends React.Component {
     }
 
     render() {
-        console.log("this.state.studioSettings edges", this.state.studioSettings);
+        console.log("this.state.studioSettings edges", this.state.studioSettings.edges);
         return (
             <Form>
                 <div
@@ -83,6 +83,7 @@ export default class EdgeDisplaySettings extends React.Component {
                             label="Enable smooth edges"
                             onChange={this.handleValueChange.bind(this)}
                             defaultChecked={this.state.studioSettings.edges.smooth.enabled}
+                            checked={this.state.studioSettings.edges.smooth.enabled}
                         />
                     </Form.Group>
                     {
@@ -97,6 +98,7 @@ export default class EdgeDisplaySettings extends React.Component {
                                                 name={"type"} size={"sm"} as={"select"}
                                                 onChange={this.handleValueChange.bind(this)}
                                                 defaultValue={this.state.studioSettings.edges.smooth.type}
+                                                value={this.state.studioSettings.edges.smooth.type}
                                             >
                                                 <option value="dynamic">dynamic</option>
                                                 <option value="continuous">continuous
@@ -126,6 +128,7 @@ export default class EdgeDisplaySettings extends React.Component {
                                                 name={"forceDirection"} size={"sm"}
                                                 as={"select"}
                                                 defaultValue={this.state.studioSettings.edges.smooth.forceDirection}
+                                                value={this.state.studioSettings.edges.smooth.forceDirection}
                                                 onChange={this.handleValueChange.bind(this)}
                                                 // defaultValue={this.getValueFromDataOrGetDefault("elementShape")}
                                             >
@@ -144,6 +147,7 @@ export default class EdgeDisplaySettings extends React.Component {
                                                   onChange={this.handleValueChange.bind(this)}
                                                   min={0} max={1} step={0.05}
                                                   defaultValue={this.state.studioSettings.edges.smooth.roundness}
+                                                  value={this.state.studioSettings.edges.smooth.roundness}
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="length">
@@ -152,6 +156,7 @@ export default class EdgeDisplaySettings extends React.Component {
                                                   onChange={this.handleValueChange.bind(this)}
                                                   min={100} max={1000} step={1}
                                                   defaultValue={this.state.studioSettings.edges.length}
+                                                  value={this.state.studioSettings.edges.length}
                                     />
                                 </Form.Group>
                             </div>
@@ -169,13 +174,13 @@ export default class EdgeDisplaySettings extends React.Component {
 
                     <Button variant="outline-secondary" size={"sm"}
                             className={"pt-0 pb-0 pl-2 pr-2 ml-2 float-right"}
-                            onClick={() => this.loadDefaultSettings()}>load defaults</Button>
+                            onClick={() => this.loadDefaultEdgeSettings()}>load defaults</Button>
 
                 </div>
-                   <div className={"mt-3"}>
+                <div className={"mt-3"}>
                     <p className={"small text-muted"}>
-                       <strong>Note:</strong> Refer <a target={"_blank"} rel={"noreferrer"}
-                                 href="https://visjs.github.io/vis-network/docs/network/edges.html">
+                        <strong>Note:</strong> Refer <a target={"_blank"} rel={"noreferrer"}
+                                                        href="https://visjs.github.io/vis-network/docs/network/edges.html">
                         this link</a> for description of the settings.
                     </p>
                 </div>

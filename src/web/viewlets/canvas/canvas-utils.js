@@ -15,6 +15,9 @@ import defaultNetworkOptions from "../../../settings/networkOptions";
 
 export const existingNetworkOptions = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
 
+export function  getAbsoluteData(d) {
+    return JSON.parse(JSON.stringify(d));
+}
 
 export default class VisJsGraphCanvasUtils {
     nodeGroups = {};
