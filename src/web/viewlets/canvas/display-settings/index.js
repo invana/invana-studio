@@ -90,15 +90,15 @@ export default class DisplaySettings extends React.Component {
                                         className="mb-3 border-bottom"
                                     >
 
-                                        <Tab eventKey="physics-settings" title="Physics settings">
+                                        <Tab eventKey="physics-settings" title="Physics">
                                             <PhysicsDisplaySettings onClose={this.props.onClose}
                                                                     startRenderingGraph={this.props.startRenderingGraph}/>
                                         </Tab>
-                                        <Tab eventKey="layout-settings" title="Layout settings">
+                                        <Tab eventKey="layout-settings" title="Layout">
                                             <LayoutSettings onClose={this.props.onClose}
                                                             startRenderingGraph={this.props.startRenderingGraph}/>
                                         </Tab>
-                                        <Tab eventKey="edge-settings" title="Edge settings">
+                                        <Tab eventKey="edge-settings" title="Edge">
                                             <EdgeDisplaySettings onClose={this.props.onClose}
                                                                  startRenderingGraph={this.props.startRenderingGraph}/>
                                         </Tab>
