@@ -78,7 +78,7 @@ const defaultNetworkOptions = {
         improvedLayout: true,
         // clusterThreshold: 150,
         hierarchical: {
-            enabled: true,
+            enabled: false,
             nodeSpacing: 100,
             edgeMinimization: true,
             parentCentralization: true,

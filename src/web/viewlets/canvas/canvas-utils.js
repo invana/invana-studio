@@ -13,7 +13,7 @@ import {STUDIO_CONNECT_CONSTANTS} from "../../../settings/constants";
 import defaultNetworkOptions from "../../../settings/networkOptions";
 
 
-export const getNetworkOptions = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
+export const existingNetworkOptions = getDataFromLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, true) || defaultNetworkOptions;
 
 
 export default class VisJsGraphCanvasUtils {

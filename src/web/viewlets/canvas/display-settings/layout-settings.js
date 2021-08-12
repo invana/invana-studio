@@ -2,8 +2,9 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
-import { setDataToLocalStorage} from "../../../../utils/localStorage";
-import {getNetworkOptions} from "../canvas-utils";
+import {setDataToLocalStorage} from "../../../../utils/localStorage";
+import {existingNetworkOptions} from "../canvas-utils";
+import defaultNetworkOptions from "../../../../settings/networkOptions";
 
 
 export default class LayoutSettings extends React.Component {
@@ -17,9 +18,9 @@ export default class LayoutSettings extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log("defaultNetworkOptions", JSON.stringify(getNetworkOptions))
-        console.log("defaultNetworkOptions", getNetworkOptions)
-        this.state = {studioSettings: getNetworkOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(existingNetworkOptions))
+        console.log("defaultNetworkOptions", existingNetworkOptions)
+        this.state = {studioSettings: existingNetworkOptions};
     }
 
 
@@ -30,15 +31,20 @@ export default class LayoutSettings extends React.Component {
     }
 
     updateSettings() {
-
-        const existingData = getNetworkOptions;
-        existingData.layout = this.state.studioSettings.layout;
-
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingData);
+        existingNetworkOptions.layout = this.state.studioSettings.layout;
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
         // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(existingData);
-
+        this.props.startRenderingGraph(existingNetworkOptions);
     }
+
+    loadDefaultSettings() {
+        existingNetworkOptions.layout = defaultNetworkOptions.layout;
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
+        // eslint-disable-next-line react/prop-types
+        this.props.startRenderingGraph(existingNetworkOptions);
+        this.updateStateData(existingNetworkOptions);
+    }
+
 
     handleValueChange(e) {
         console.log("handleValueChange=====", e.target.name, e.target.value, parseInt(e.target.value) === 100);
@@ -72,14 +78,15 @@ export default class LayoutSettings extends React.Component {
                     <h6>Layout settings</h6>
                     <hr/>
 
-                        <Form.Group controlId="randomSeed" className={""}>
-                            <Form.Label>random seed <small>({this.state.studioSettings.layout.randomSeed})</small></Form.Label>
-                            <Form.Control type="range" name={"randomSeed"}
-                                          onChange={this.handleValueChange.bind(this)}
-                                          min={0} max={2000} step={1}
-                                          defaultValue={this.state.studioSettings.layout.randomSeed}
-                            />
-                        </Form.Group>
+                    <Form.Group controlId="randomSeed" className={""}>
+                        <Form.Label>random
+                            seed <small>({this.state.studioSettings.layout.randomSeed})</small></Form.Label>
+                        <Form.Control type="range" name={"randomSeed"}
+                                      onChange={this.handleValueChange.bind(this)}
+                                      min={0} max={2000} step={1}
+                                      defaultValue={this.state.studioSettings.layout.randomSeed}
+                        />
+                    </Form.Group>
 
 
                     <Form.Group className={""}>
@@ -138,6 +145,11 @@ export default class LayoutSettings extends React.Component {
                     <Button variant="outline-secondary" size={"sm"}
                             className={"pt-0 pb-0 pl-2 pr-2 ml-2"}
                             onClick={() => this.props.onClose()}>close</Button>
+
+                    <Button variant="outline-secondary" size={"sm"}
+                            className={"pt-0 pb-0 pl-2 pr-2 ml-2 float-right"}
+                            onClick={() => this.loadDefaultSettings()}>load defaults</Button>
+
                 </div>
             </Form>
         )

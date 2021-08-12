@@ -2,8 +2,9 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
-import { setDataToLocalStorage} from "../../../../utils/localStorage";
-import {getNetworkOptions} from "../canvas-utils";
+import {setDataToLocalStorage} from "../../../../utils/localStorage";
+import {existingNetworkOptions} from "../canvas-utils";
+import defaultNetworkOptions from "../../../../settings/networkOptions";
 
 
 export default class EdgeDisplaySettings extends React.Component {
@@ -16,9 +17,9 @@ export default class EdgeDisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("defaultNetworkOptions", JSON.stringify(getNetworkOptions))
-        console.log("defaultNetworkOptions", getNetworkOptions)
-        this.state = {studioSettings: getNetworkOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(existingNetworkOptions))
+        console.log("defaultNetworkOptions", existingNetworkOptions)
+        this.state = {studioSettings: existingNetworkOptions};
     }
 
 
@@ -29,14 +30,18 @@ export default class EdgeDisplaySettings extends React.Component {
     }
 
     updateSettings() {
-
-        const existingData = getNetworkOptions;
-        existingData.edges =   this.state.studioSettings.edges;
-
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingData);
+        existingNetworkOptions.edges = this.state.studioSettings.edges;
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
         // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(existingData);
+        this.props.startRenderingGraph(existingNetworkOptions);
+    }
 
+    loadDefaultSettings() {
+        existingNetworkOptions.edges = defaultNetworkOptions.edges;
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
+        // eslint-disable-next-line react/prop-types
+        this.props.startRenderingGraph(existingNetworkOptions);
+        this.updateStateData(existingNetworkOptions);
     }
 
     handleValueChange(e) {
@@ -45,7 +50,7 @@ export default class EdgeDisplaySettings extends React.Component {
         if (e.target.name === "smoothEnabled") {
             console.log("====e.target.value === \"on\"", e.target.checked === "on")
             console.log("====e.target.value === e.target.value", e.target.checked, typeof e.target.checked)
-            studioSettings.edges.smooth.enabled = e.target.checked ;
+            studioSettings.edges.smooth.enabled = e.target.checked;
             this.updateStateData(studioSettings);
         } else if (e.target.name === "type") {
             studioSettings.edges.smooth.type = e.target.value;
@@ -160,6 +165,12 @@ export default class EdgeDisplaySettings extends React.Component {
                     <Button variant="outline-secondary" size={"sm"}
                             className={"pt-0 pb-0 pl-2 pr-2 ml-2"}
                             onClick={() => this.props.onClose()}>close</Button>
+
+
+                    <Button variant="outline-secondary" size={"sm"}
+                            className={"pt-0 pb-0 pl-2 pr-2 ml-2 float-right"}
+                            onClick={() => this.loadDefaultSettings()}>load defaults</Button>
+
                 </div>
             </Form>
         )

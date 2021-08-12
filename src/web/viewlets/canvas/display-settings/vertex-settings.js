@@ -2,9 +2,10 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {STUDIO_CONNECT_CONSTANTS} from "../../../../settings/constants";
-import { setDataToLocalStorage} from "../../../../utils/localStorage";
-import  {supportedPhysicsSolvers} from "../../../../settings/networkOptions";
-import {getNetworkOptions} from "../canvas-utils";
+import {setDataToLocalStorage} from "../../../../utils/localStorage";
+import defaultNetworkOptions, {supportedPhysicsSolvers} from "../../../../settings/networkOptions";
+import {existingNetworkOptions} from "../canvas-utils";
+
 
 
 export default class VertexDisplaySettings extends React.Component {
@@ -17,9 +18,9 @@ export default class VertexDisplaySettings extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("defaultNetworkOptions", JSON.stringify(getNetworkOptions))
-        console.log("defaultNetworkOptions", getNetworkOptions)
-        this.state = {studioSettings: getNetworkOptions};
+        console.log("defaultNetworkOptions", JSON.stringify(existingNetworkOptions))
+        console.log("defaultNetworkOptions", existingNetworkOptions)
+        this.state = {studioSettings: existingNetworkOptions};
     }
 
 
@@ -31,25 +32,18 @@ export default class VertexDisplaySettings extends React.Component {
     }
 
     updateSettings() {
-
-        // setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, {
-        //         physics: this.state.studioSettings.physics,
-        //         // smooth: this.state.studioSettings.edges.smooth,
-        //         // length: this.state.studioSettings.edges.length
-        //     }
-        // );
-        // // eslint-disable-next-line react/prop-types
-        // this.props.startRenderingGraph(defaultNetworkOptions);
-        //
-
-        const existingData = getNetworkOptions;
-        existingData.physics = this.state.studioSettings.physics;
-
-
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingData);
+        existingNetworkOptions.physics = this.state.studioSettings.physics;
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
         // eslint-disable-next-line react/prop-types
-        this.props.startRenderingGraph(existingData);
+        this.props.startRenderingGraph(existingNetworkOptions);
+    }
 
+    loadDefaultSettings() {
+        existingNetworkOptions.physics = defaultNetworkOptions.physics;
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.DISPLAY_SETTINGS, existingNetworkOptions);
+        // eslint-disable-next-line react/prop-types
+        this.props.startRenderingGraph(existingNetworkOptions);
+        this.updateStateData(existingNetworkOptions);
     }
 
     handleValueChange(e) {
@@ -162,9 +156,15 @@ export default class VertexDisplaySettings extends React.Component {
                     <Button variant="outline-success" size={"sm"}
                             className={"pt-0 pb-0 pl-2 pr-2"}
                             onClick={this.updateSettings.bind(this)}>Update</Button>
+
                     <Button variant="outline-secondary" size={"sm"}
                             className={"pt-0 pb-0 pl-2 pr-2 ml-2"}
                             onClick={() => this.props.onClose()}>close</Button>
+
+                    <Button variant="outline-secondary" size={"sm"}
+                            className={"pt-0 pb-0 pl-2 pr-2 ml-2 float-right"}
+                            onClick={() => this.loadDefaultSettings()}>load defaults</Button>
+
                 </div>
             </Form>
         )
