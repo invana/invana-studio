@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/invana-studio-refactors.iml" filepath="$PROJECT_DIR$/.idea/invana-studio-refactors.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/invana-studio.iml" filepath="$PROJECT_DIR$/.idea/invana-studio.iml" />
     </modules>
   </component>
 </project>

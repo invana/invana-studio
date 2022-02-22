@@ -1,77 +1,84 @@
-@import "~bootstrap/scss/bootstrap";
+/*!
+ * Copyright 2021 Invana
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http:www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 
 body {
-  font-size: 14px;
+  background-color: #efefef
 }
 
-// normalise code
-.nav-pills .nav-link {
-  border-radius: 0 !important;
+.studio-container {
+  height: calc(100vh - 56px);
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #007bff;
-}
-
-.btn:focus, .btn:active {
-  outline: none !important;
-  box-shadow: none;
-}
-
-textarea:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
-input[type="number"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="color"]:focus {
-  border-color: none;
-  //box-shadow: none;
-  //-webkit-box-shadow: none;
-  //outline: -webkit-focus-ring-color auto 5px;
-  //border-radius: 0;
-
-  outline: 0 !important;
-  -webkit-appearance: none;
-  box-shadow: none !important;
-  background: #fdfdfd !important;
+.rs-navbar-item {
+  height: 45px;
 }
 
 button {
-  //border-radius: 0 !important;
+  height: 45px !important;
 }
 
-.nav-canvas .nav-link {
-  font-size: 13px !important;
-  //color: #525252 !important;
+.rs-navbar-nav > .rs-dropdown .rs-dropdown-toggle .rs-dropdown-toggle-caret {
+  top: 10px !important;
 }
 
-.small {
-  font-size: 13px !important;
+.navbar-brand.logo:hover {
+  text-decoration: none;
+
 }
 
-
-.modal-dialog {
-  z-index: 1000002;
+header.top-header {
+  background: #3b3b3b
 }
 
-.bg-dark {
-  background: #4e4f55;
-}
-.button-hover-bg-disable:hover{
-  background: transparent !important;
-  color: inherit !important;
+.rs-navbar-header {
+  height: 45px !important;
+
+  .navbar-brand {
+    padding: 2px 15px !important;
+  }
 }
 
-.btn-link{
-  color: #212121;
+.rs-sidebar {
+  height: calc(100vh - 45px);
+  //z-index: 3;
+  background-color: #dcdcdc;
+
+  .rs-sidenav {
+    height: calc(100vh - 45px - 46px);
+  }
+
+  .rs-sidenav-item {
+    //border-bottom: 1px solid #ccc;
+  }
+}
+
+.nav-toggle {
+  border-top: 1px solid #eee;
+}
+
+.rs-header {
+  background: #c4c4c4;
+
+  .rs-breadcrumb {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+}
+
+.rs-loader-wrapper {
+  z-index: 3;
 }
