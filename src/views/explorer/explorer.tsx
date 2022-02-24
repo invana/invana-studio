@@ -67,7 +67,8 @@ const ExplorerView = () => {
                             <Nav activeKey={leftSidebar}>
                                 <Nav.Item eventKey="overview"
                                           onClick={() => setLeftSidebar("overview")}>Graph</Nav.Item>
-                                <Nav.Item eventKey="search">Search</Nav.Item>
+                                <Nav.Item eventKey="search"
+                                   onClick={() => setLeftSidebar("search")}>Search</Nav.Item>
                                 <Nav.Item eventKey="home" onClick={() => addNewData()}>Add data</Nav.Item>
                                 {/*<Nav.Item eventKey="news">News</Nav.Item>*/}
                                 {/*<Nav.Item eventKey="solutions">Solutions</Nav.Item>*/}

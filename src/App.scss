@@ -59,6 +59,11 @@ button {
   .rs-navbar-item {
     height: 35px !important;
   }
+
+  .rs-navbar-item.rs-navbar-item-active {
+    background-color: #707070 !important;
+    color: white !important;
+  }
 }
 
 .rs-tree {
@@ -80,10 +85,19 @@ button {
     //  }
     //
     //}
+    .rs-tree-node-label {
+      width: 100%;
 
+      .rs-tree-node-label-content, .rs-table-cell {
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+      }
+
+    }
 
   }
 }
+
 
 .rs-sidebar {
   height: calc(100vh - 45px);
