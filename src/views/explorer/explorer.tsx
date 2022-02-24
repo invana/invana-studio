@@ -28,12 +28,15 @@ import GenerateEvents from "../../graph/events";
 // import SearchIcon from '@rsuite/icons/Search';
 import PcIcon from '@rsuite/icons/Pc';
 import convertModelDataToVisJsData from "../modeller/utils"
+import GraphOverview from "../../components/graph-overview/graph-overview";
+// import GraphModellerView from "../modeller/modeller";
 
 const ExplorerView = () => {
     // const [expand, setExpand] = React.useState(false);
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
     const events = GenerateEvents()
+    const [leftSidebar, setLeftSidebar] = React.useState("")
 
     const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
     if (error) return <NetworkErrorUI error={error}/>;
@@ -61,14 +64,15 @@ const ExplorerView = () => {
                 <Container>
                     <Header>
                         <Navbar className={"sub-menu"}>
-                            <Nav activeKey={"graph"}>
-                                <Nav.Item eventKey="graph">Graph</Nav.Item>
+                            <Nav activeKey={leftSidebar}>
+                                <Nav.Item eventKey="overview"
+                                          onClick={() => setLeftSidebar("overview")}>Graph</Nav.Item>
                                 <Nav.Item eventKey="search">Search</Nav.Item>
                                 <Nav.Item eventKey="home" onClick={() => addNewData()}>Add data</Nav.Item>
-                                <Nav.Item eventKey="news">News</Nav.Item>
-                                <Nav.Item eventKey="solutions">Solutions</Nav.Item>
-                                <Nav.Item eventKey="products">Products</Nav.Item>
-                                <Nav.Item eventKey="about">About</Nav.Item>
+                                {/*<Nav.Item eventKey="news">News</Nav.Item>*/}
+                                {/*<Nav.Item eventKey="solutions">Solutions</Nav.Item>*/}
+                                {/*<Nav.Item eventKey="products">Products</Nav.Item>*/}
+                                {/*<Nav.Item eventKey="about">About</Nav.Item>*/}
                             </Nav>
 
                             <Nav pullRight>
@@ -81,8 +85,10 @@ const ExplorerView = () => {
                         </Navbar>
                     </Header>
                     <Content>
+
+                        {/*<GraphModellerView />*/}
                         {loading ? (
-                            <Loader backdrop content="Fetching schema model ..." vertical/>
+                            <Loader backdrop content="Fetching data ..." vertical/>
                         ) : (<span></span>)}
                         <CanvasArtBoard
                             containerId={"artboard-1"}
@@ -93,6 +99,15 @@ const ExplorerView = () => {
                             canvasCtrl={canvasCtrl}
                         />
                     </Content>
+                    <div style={{position: "fixed", left: 0, top: 80,
+                        height: document.documentElement.clientHeight - 100}}>
+                        {
+                            leftSidebar === "overview" ? (
+                                <GraphOverview/>
+                            ) : (<span/>)
+                        }
+                    </div>
+
                 </Container>
             </Container>
         </div>

@@ -34,3 +34,4 @@ export function setDataToLocalStorage(itemKey: string, itemData: any) {
     localStorage.setItem(itemKey, itemData);
 }
 
+export const noImplementedAlert = () => alert("not implemented");

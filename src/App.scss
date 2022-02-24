@@ -32,6 +32,25 @@ button {
   top: 10px !important;
 }
 
+.rs-panel {
+  border-radius: 0 !important;
+
+  .rs-panel-header {
+    background-color: #606060 !important;
+    color: white;
+    //margin-left: -1px;
+    margin-bottom: 10px;
+  }
+}
+
+.rs-input {
+  border-radius: 0 !important;
+}
+
+.rs-panel-body, .rs-panel-header {
+  padding: 10px;
+}
+
 .rs-nav-default .rs-nav-item {
   border-radius: 0 !important;
 }
@@ -42,6 +61,29 @@ button {
   }
 }
 
+.rs-tree {
+  max-height: 100% !important;
+
+  .rs-tree-node {
+    //height: 24px !important;
+    //background-color: red;
+    //
+    //.rs-tree-node-expand-icon-wrapper svg{
+    //  height: 24px !important;
+    //}
+    //
+    //.rs-tree-node-label {
+    //  line-height: 14px !important;
+    //
+    //  .rs-tree-node-label-content {
+    //    padding: 3px 12px 3px 8px;
+    //  }
+    //
+    //}
+
+
+  }
+}
 
 .rs-sidebar {
   height: calc(100vh - 45px);

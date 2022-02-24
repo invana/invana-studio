@@ -28,6 +28,7 @@ import GenerateEvents from "../../graph/events";
 // import SearchIcon from '@rsuite/icons/Search';
 // import PcIcon from '@rsuite/icons/Pc';
 import convertModelDataToVisJsData from "./utils";
+import {noImplementedAlert} from "../../utils";
 
 const GraphModellerView = () => {
     // const [expand, setExpand] = React.useState(false);
@@ -61,9 +62,11 @@ const GraphModellerView = () => {
                 <Container>
                     <Header>
                         <Navbar className={"sub-menu"}>
-                            <Nav activeKey={"overview"}>
-                                <Nav.Item eventKey="model">Add Vertex</Nav.Item>
-                                <Nav.Item eventKey="search">Add Edge</Nav.Item>
+                            <Nav activeKey={''}>
+                                <Nav.Item eventKey="add-vertex-label"
+                                          onClick={noImplementedAlert}>Add Vertex</Nav.Item>
+                                <Nav.Item eventKey="add-edge-label"
+                                          onClick={noImplementedAlert}>Add Edge</Nav.Item>
                                 {/*<Nav.Item eventKey="home" onClick={() => addNewData()}>Add data</Nav.Item>*/}
                                 {/*<Nav.Item eventKey="news">News</Nav.Item>*/}
                                 {/*<Nav.Item eventKey="solutions">Solutions</Nav.Item>*/}
