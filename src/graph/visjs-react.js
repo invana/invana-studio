@@ -31,7 +31,7 @@ const Graph = ({
                    data,
                    options = {},
                    events = {},
-                   style = {width: "100%", height: "calc(100vh - 28px - 45px)"},
+                   style = {},
                    getNetwork,
                    getNodes,
                    getEdges,

@@ -32,7 +32,7 @@ export default class App extends React.Component {
             <Router>
                 <Suspense fallback={<div style={{color: "white"}}>Loading...</div>}>
                     <Routes>
-                        <Route path={STUDIO_ROUTES.HOME} element={<Navigate to={STUDIO_ROUTES.MODELLER}/>}/>
+                        <Route path={STUDIO_ROUTES.HOME} element={<Navigate to={STUDIO_ROUTES.EXPLORER}/>}/>
                         <Route path={STUDIO_ROUTES.CONNECT} element={<ConnectView/>}/>
                         <Route path={STUDIO_ROUTES.EXPLORER} element={<ExploreView/>}/>
                         <Route path={STUDIO_ROUTES.GRAPHQL} element={<GraphQLView/>}/>

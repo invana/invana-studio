@@ -16,7 +16,7 @@
 
 
 import React from "react";
-import {Container, Header, Content, Nav, Loader} from 'rsuite';
+import {Container, Header, Content, Nav, Loader, Navbar} from 'rsuite';
 import StudioHeader from "../../layouts/header/header";
 import {useQuery} from '@apollo/client';
 import {GET_SCHEMA_QUERY} from "../../queries/modeller";
@@ -25,28 +25,9 @@ import defaultOptions from "../../graph/networkOptions";
 import NetworkErrorUI from "../../components/networkError";
 import {GraphCanvasCtrl} from "../../graph/canvas-ctrl";
 import GenerateEvents from "../../graph/events";
-
-
-const convertModelDataToVisJsData = (responseData: any) => {
-    console.log("responseData", responseData);
-    let allEdgesModels: any = [];
-    let allVertexModels: any = [];
-    responseData.getAllVertexModels.map((model: any) => {
-        allVertexModels.push({id: model.name, label: model.name,})
-    })
-
-    responseData.getAllEdgesModels.map((model: any) => {
-        model.linkPaths.map((linkPath: any) => {
-            allEdgesModels.push({
-                id: model.name + "-" + linkPath.outvLabel + "-" + linkPath.invLabel,
-                label: model.name, from: linkPath.outvLabel, to: linkPath.invLabel
-            })
-        })
-    })
-    return {nodes: allVertexModels, edges: allEdgesModels}
-
-}
-
+// import SearchIcon from '@rsuite/icons/Search';
+// import PcIcon from '@rsuite/icons/Pc';
+import convertModelDataToVisJsData from "./utils";
 
 const GraphModellerView = () => {
     // const [expand, setExpand] = React.useState(false);
@@ -61,14 +42,14 @@ const GraphModellerView = () => {
         canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
     }
 
-    function getRndInteger(min: any, max: any) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    // function getRndInteger(min: any, max: any) {
+    //     return Math.floor(Math.random() * (max - min + 1)) + min;
+    // }
 
-    function addNewData() {
-        const rand = getRndInteger(1, 1000);
-        canvasCtrl.addNewData([{id: "yolo-" + rand, label: "yolo-" + rand}], []);
-    }
+    // function addNewData() {
+    //     const rand = getRndInteger(1, 1000);
+    //     canvasCtrl.addNewData([{id: "yolo-" + rand, label: "yolo-" + rand}], []);
+    // }
 
     return (
         <div className="show-fake-browser sidebar-page">
@@ -79,13 +60,19 @@ const GraphModellerView = () => {
                 {/*<StudioLeftNavSidebar expand={expand} setExpand={setExpand}/>*/}
                 <Container>
                     <Header>
-                        <Nav activeKey={"home"}>
-                            <Nav.Item eventKey="home" onClick={() => addNewData()}>Add data</Nav.Item>
-                            <Nav.Item eventKey="news">News</Nav.Item>
-                            <Nav.Item eventKey="solutions">Solutions</Nav.Item>
-                            <Nav.Item eventKey="products">Products</Nav.Item>
-                            <Nav.Item eventKey="about">About</Nav.Item>
-                        </Nav>
+                        <Navbar className={"sub-menu"}>
+                            <Nav activeKey={"overview"}>
+                                <Nav.Item eventKey="model">Add Vertex</Nav.Item>
+                                <Nav.Item eventKey="search">Add Edge</Nav.Item>
+                                {/*<Nav.Item eventKey="home" onClick={() => addNewData()}>Add data</Nav.Item>*/}
+                                {/*<Nav.Item eventKey="news">News</Nav.Item>*/}
+                                {/*<Nav.Item eventKey="solutions">Solutions</Nav.Item>*/}
+                                {/*<Nav.Item eventKey="products">Products</Nav.Item>*/}
+                                {/*<Nav.Item eventKey="about">About</Nav.Item>*/}
+                            </Nav>
+
+
+                        </Navbar>
                     </Header>
                     <Content>
                         {loading ? (

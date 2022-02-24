@@ -23,34 +23,25 @@ body {
   height: calc(100vh - 56px);
 }
 
-.rs-navbar-item {
-  height: 45px;
-}
 
 button {
-  height: 45px !important;
+  max-height: 45px !important;
 }
 
 .rs-navbar-nav > .rs-dropdown .rs-dropdown-toggle .rs-dropdown-toggle-caret {
   top: 10px !important;
 }
 
-.navbar-brand.logo:hover {
-  text-decoration: none;
-
+.rs-nav-default .rs-nav-item {
+  border-radius: 0 !important;
 }
 
-header.top-header {
-  background: #3b3b3b
-}
-
-.rs-navbar-header {
-  height: 45px !important;
-
-  .navbar-brand {
-    padding: 2px 15px !important;
+.sub-menu {
+  .rs-navbar-item {
+    height: 35px !important;
   }
 }
+
 
 .rs-sidebar {
   height: calc(100vh - 45px);

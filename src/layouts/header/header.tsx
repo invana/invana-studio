@@ -18,13 +18,15 @@
 import {Header, Nav, Navbar, Dropdown} from "rsuite";
 import ProjectIcon from "@rsuite/icons/Project";
 import GearIcon from "@rsuite/icons/Gear";
-// import ExploreIcon from "@rsuite/icons/Explore";
+import ExploreIcon from "@rsuite/icons/Explore";
 // import CodeIcon from '@rsuite/icons/Code';
 import React from "react";
 // import HistoryIcon from '@rsuite/icons/History';
-// import ScatterIcon from '@rsuite/icons/Scatter';
+import ScatterIcon from '@rsuite/icons/Scatter';
 import {HelpOutline} from "@rsuite/icons";
 import {STUDIO_ROUTES} from "../../settings";
+import "./header.scss";
+
 
 const StudioHeader = () => {
 
@@ -50,8 +52,8 @@ const StudioHeader = () => {
                     <Nav>
                         {/*<Nav.Item icon={<ProjectIcon/>}>Projects</Nav.Item>*/}
                         {/*<Nav.Item icon={<ExploreIcon/>}>Marketplace</Nav.Item>*/}
-                        {/*<Nav.Item href={"/modeller"} icon={<ScatterIcon/>}>Modeller</Nav.Item>*/}
-                        {/*<Nav.Item href={"/explorer"} icon={<ExploreIcon/>}>Explorer</Nav.Item>*/}
+                        <Nav.Item href={"/modeller"} icon={<ScatterIcon/>}>Modeller</Nav.Item>
+                        <Nav.Item href={"/explorer"} icon={<ExploreIcon/>}>Explorer</Nav.Item>
                         {/*<Nav.Item href={"/graphql"} icon={<CodeIcon/>}>GraphQL API</Nav.Item>*/}
                         {/*<Nav.Item icon={<HistoryIcon/>}>History</Nav.Item>*/}
                         {/*<Nav.Item icon={<HistoryIcon/>}>Functions</Nav.Item>*/}

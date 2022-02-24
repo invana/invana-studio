@@ -45,6 +45,7 @@ class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
                     options={this.props.options}
                     events={this.props.events}
                     getNetwork={(network) => this.props.canvasCtrl.setNetwork(network)}
+                    style={{width: "100%", height: "calc(100vh - 28px - 45px - 8px)"}}
                     // getNodes={this.props.getNodes}
                     // getEdges={this.props.getEdges}
                     // getNodes={getNodes}
