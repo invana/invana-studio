@@ -43,6 +43,43 @@ button {
   }
 }
 
+.rs-btn {
+  border-radius: 0 !important;
+}
+
+.rs-modal-content {
+  border-radius: 0 !important;
+  padding: 0 !important;
+
+  .rs-modal-body {
+    padding: 15px 20px !important;
+    margin-top: 0 !important;
+  }
+
+  .rs-modal-header {
+    padding: 15px 20px !important;
+    background: #606060;
+
+    h4 {
+      color: white !important;
+    }
+
+    .rs-modal-header-close {
+      top: 0 !important;
+      padding: 15px 20px !important;
+      color: white !important;
+    }
+  }
+
+  .rs-modal-footer {
+    padding: 15px 20px !important;
+  }
+}
+
+.rs-picker-select-menu {
+  z-index: 10000 !important;
+}
+
 .rs-input {
   border-radius: 0 !important;
 }
@@ -91,7 +128,7 @@ button {
       .rs-tree-node-label-content, .rs-table-cell-content {
         word-wrap: break-word !important;
         word-break: break-word !important;
-         width: 100% !important;
+        width: 100% !important;
       }
 
     }
