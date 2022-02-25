@@ -23,13 +23,13 @@ import {useQuery} from "@apollo/client";
 import {GET_SCHEMA_QUERY} from "../../queries/modeller";
 import NetworkErrorUI from "../networkError";
 import OneColumnIcon from '@rsuite/icons/OneColumn';
-import ArowBackIcon from '@rsuite/icons/ArowBack';
+// import A from '@rsuite/icons/ArowBack';
 import ColumnsIcon from '@rsuite/icons/Columns';
 import GridIcon from '@rsuite/icons/Grid';
 import PcIcon from '@rsuite/icons/Pc';
-// import PropTypes from "prop-types";
-// import PropTypes from "prop-types";
-// import PropTypes from "prop-types";
+import MinusIcon from '@rsuite/icons/Minus';
+import "./graph-overview.scss";
+import {ItemDataType} from "rsuite/esm/@types/common";
 
 const styles = {width: "280px", "backgroundColor": "white", "padding": 0}
 
@@ -42,10 +42,11 @@ const createDisplaySettingsId = (labelName: string) => "display-settings---" + l
 const createPropertiesNotFoundId = (labelName: string) => "property-not-found---" + labelName;
 
 
-function convert2Tree(data: Array<any>) {
-    let __data: Array<any> = [];
-    data.map((item: any, index: any) => (
-        __data.push({
+function convert2Tree(data: Array<any>, labelType: "node" | "relation") {
+    console.log("convert2Tree", data)
+    // let __data = [];
+    const __data: Array<any> = data.map((item: any, index: any) => {
+        let itemData: ItemDataType = {
             label: item.name,
             value: item.name + index.toString(),
             children: [
@@ -78,8 +79,36 @@ function convert2Tree(data: Array<any>) {
                     children: []
                 }
             ]
-        })
-    ))
+        }
+        if (labelType === "node") {
+            // @ts-ignore
+            itemData.children.push({
+                label: "partitioned : " + item.partitioned,
+                value: "other-option---partitioned---" + item.name,
+                // children: []
+            })
+            // @ts-ignore
+            itemData.children.push({
+                label: "static : " + item.static,
+                value: "other-option---static---" + item.name,
+                // children: []
+            })
+        } else if (labelType === "relation") {
+            // @ts-ignore
+            itemData.children.push({
+                label: "directed : " + item.directed,
+                value: "other-option---directed---" + item.directed,
+                // children: []
+            })
+            // @ts-ignore
+            itemData.children.push({
+                label: "unidirected : " + item.unidirected,
+                value: "other-option---unidirected---" + item.unidirected,
+                // children: []
+            })
+        }
+        return itemData;
+    })
     return __data;
 }
 
@@ -118,8 +147,6 @@ const PropertySpeaker = React.forwardRef<HTMLInputElement, PropertySpeakerProps>
                     width={320}
                     height={150}
                     data={convertDict2KeyValues(propertyDataType)}
-                    // data={[]}
-
                 >
                     <Table.Column width={100}>
                         <Table.HeaderCell>key</Table.HeaderCell>
@@ -138,8 +165,7 @@ const PropertySpeaker = React.forwardRef<HTMLInputElement, PropertySpeakerProps>
 const renderTreeNode = (nodeData: any,
                         labelType: "node" | "relation",
                         getPropertyData: any) => {
-    console.log("labelType", labelType)
-    const labelIcon = (labelType == "node") ? <OneColumnIcon/> : <ArowBackIcon/>
+    const labelIcon = (labelType == "node") ? <OneColumnIcon/> : <MinusIcon/>
     if (nodeData.label === "properties") {
         return (<span><ColumnsIcon/> {nodeData.label}</span>)
     } else if (nodeData.label === "indexes") {
@@ -155,11 +181,13 @@ const renderTreeNode = (nodeData: any,
                     title={nodeData.label}
                     propertyDataType={getPropertyData(label)}
                 />}
-                trigger="hover">
+                trigger="click">
                 <span> {nodeData.label}</span>
             </Whisper>)
         } else if (nodeData.value.startsWith("property-not-found---")) {
             return (<span style={{color: "#bbb"}}> {nodeData.label}</span>)
+        } else if (nodeData.value.startsWith("other-option---")) {
+            return (<span> {nodeData.label}</span>)
         } else {
             return (<span> {labelIcon} {nodeData.label} </span>);
         }
@@ -179,23 +207,16 @@ const GraphOverview = () => {
         let propertyDataTypes: any = {}
         d.getAllVertexModels.map((propertyType: any) => {
             propertyType.properties.map((property: any) => {
-                console.log("===property", property)
                 propertyDataTypes[property.name] = property
-                // propertyDataTypes['partitioned'] = propertyType.partitioned
-                // propertyDataTypes['static'] = propertyType.static
             })
         })
         d.getAllEdgesModels.map((propertyType: any) => {
             propertyType.properties.map((property: any) => {
-                console.log("===property", property)
                 propertyDataTypes[property.name] = property
-                // propertyDataTypes['directed'] = propertyType.directed
-                // propertyDataTypes['unidirected'] = propertyType.unidirected
             })
         })
         return propertyDataTypes;
     }
-
 
     const propertyDataTypes: any = createPropertyDatTypes(data)
 
@@ -203,9 +224,8 @@ const GraphOverview = () => {
         return propertyDataTypes[propertyName];
     }
 
-    console.log("===propertyDataTypes", propertyDataTypes)
     return (
-        <Panel header={<div> Graph Schema Model </div>} bordered style={styles}>
+        <Panel className={"graph-overview"} header={<div> Graph Schema Model </div>} bordered style={styles}>
             <Navbar style={{backgroundColor: "transparent", borderBottom: "1px solid #ccc"}}>
                 <Nav activeKey={activeTab}>
                     <Nav.Item eventKey="node-label" onClick={() => setActiveTab("node-label")}>
@@ -222,14 +242,14 @@ const GraphOverview = () => {
                 </Nav>
             </Navbar>
             {activeTab === "node-label" ? (
-                <Tree data={convert2Tree(data.getAllVertexModels)}
+                <Tree data={convert2Tree(data.getAllVertexModels, "node")}
                       showIndentLine={true}
                       height={document.documentElement.clientHeight - 190}
                       renderTreeNode={(nodeData) => renderTreeNode(nodeData, "node", getPropertyData)}
                 />
             ) : <span/>}
             {activeTab === "relationship-label" ? (
-                <Tree data={convert2Tree(data.getAllEdgesModels)}
+                <Tree data={convert2Tree(data.getAllEdgesModels, "relation")}
                       height={document.documentElement.clientHeight - 190}
                       showIndentLine={true}
                       renderTreeNode={(nodeData) => renderTreeNode(nodeData, "relation", getPropertyData)}

@@ -39,7 +39,7 @@ button {
     background-color: #606060 !important;
     color: white;
     //margin-left: -1px;
-    margin-bottom: 10px;
+    //margin-bottom: 10px;
   }
 }
 
@@ -86,11 +86,12 @@ button {
     //
     //}
     .rs-tree-node-label {
-      width: 100%;
+      width: 100% !important;
 
-      .rs-tree-node-label-content, .rs-table-cell {
+      .rs-tree-node-label-content, .rs-table-cell-content {
         word-wrap: break-word !important;
         word-break: break-word !important;
+         width: 100% !important;
       }
 
     }
