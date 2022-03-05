@@ -19,7 +19,7 @@ import {gql} from "@apollo/client";
 
 export const GET_SCHEMA_QUERY = gql`
   query {
-      getAllEdgesModels{
+      get_all_edges_models{
         name
         directed
         unidirected
@@ -29,12 +29,12 @@ export const GET_SCHEMA_QUERY = gql`
           cardinality
           type
         }
-        linkPaths{
-          outvLabel
-          invLabel
+        link_paths{
+          outv_label
+          inv_label
         }
       }
-      getAllVertexModels{
+      get_all_vertex_models{
         name
         partitioned
         static

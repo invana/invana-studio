@@ -96,12 +96,12 @@ const GraphOverview = () => {
 
     function createPropertyDataTypesMap(d: any) {
         let propertyDataTypesMap: any = {}
-        d.getAllVertexModels.map((propertyType: any) => {
+        d.get_all_vertex_models.map((propertyType: any) => {
             propertyType.properties.map((property: any) => {
                 propertyDataTypesMap[property.name] = property
             })
         })
-        d.getAllEdgesModels.map((propertyType: any) => {
+        d.get_all_edges_models.map((propertyType: any) => {
             propertyType.properties.map((property: any) => {
                 propertyDataTypesMap[property.name] = property
             })
@@ -126,8 +126,8 @@ const GraphOverview = () => {
     }
 
     const propertyDataTypesMap: any = createPropertyDataTypesMap(data);
-    const nodeLabelMap = createLabelMap(data.getAllVertexModels)
-    const relationMap = createLabelMap(data.getAllEdgesModels)
+    const nodeLabelMap = createLabelMap(data.get_all_vertex_models)
+    const relationMap = createLabelMap(data.get_all_edges_models)
 
     function getPropertyData(propertyName: string) {
         return propertyDataTypesMap[propertyName];
@@ -138,11 +138,11 @@ const GraphOverview = () => {
             <Navbar style={{backgroundColor: "transparent", borderBottom: "1px solid #ccc"}}>
                 <Nav activeKey={activeTab}>
                     <Nav.Item eventKey="node-label" onClick={() => setActiveTab("node-label")}>
-                        Nodes <Badge content={data.getAllVertexModels.length} color={"cyan"}
+                        Nodes <Badge content={data.get_all_vertex_models.length} color={"cyan"}
                                      style={{marginLeft: '2px'}}/>
                     </Nav.Item>
                     <Nav.Item eventKey="relationship-label" onClick={() => setActiveTab("relationship-label")}>
-                        Relations <Badge content={data.getAllEdgesModels.length} color={"cyan"}
+                        Relations <Badge content={data.get_all_edges_models.length} color={"cyan"}
                                          style={{marginLeft: '2px'}}/>
                     </Nav.Item>
                 </Nav>,
@@ -151,14 +151,14 @@ const GraphOverview = () => {
                 </Nav>
             </Navbar>
             , {activeTab === "node-label" ? (
-            <Tree data={convert2Tree(data.getAllVertexModels, "node")}
+            <Tree data={convert2Tree(data.get_all_vertex_models, "node")}
                   showIndentLine={true}
                   height={document.documentElement.clientHeight - 190}
                   renderTreeNode={(nodeData) => renderTreeNode(nodeData, "node", getPropertyData, handleOpenFunc)}
             />
         ) : <span/>}
             {activeTab === "relationship-label" ? (
-                <Tree data={convert2Tree(data.getAllEdgesModels, "relation")}
+                <Tree data={convert2Tree(data.get_all_edges_models, "relation")}
                       height={document.documentElement.clientHeight - 190}
                       showIndentLine={true}
                       renderTreeNode={(nodeData) => renderTreeNode(nodeData, "relation", getPropertyData, handleOpenFunc)}

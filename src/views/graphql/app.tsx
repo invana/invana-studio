@@ -37,7 +37,7 @@ function fetcher(params: Object): Object {
     });
 }
 
-const DEFAULT_QUERY = `# shift-option/alt-click on a query below to jump to it in the explorer
+const DEFAULT_QUERY_INIT = `# shift-option/alt-click on a query below to jump to it in the explorer
 # option/alt-click on a field in the explorer to select all subfields
 {
   hello
@@ -59,7 +59,7 @@ const DEFAULT_QUERY = `# shift-option/alt-click on a query below to jump to it i
   executeQuery(gremlin:"g.V().elementMap().limit(10).toList()")
 }
 `;
-
+const DEFAULT_QUERY = localStorage.getItem("graphiql:query") || DEFAULT_QUERY_INIT
 // @ts-ignore
 type State = {
   schema: GraphQLSchema,
