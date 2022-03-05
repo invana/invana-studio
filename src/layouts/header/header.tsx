@@ -19,6 +19,7 @@ import {Header, Nav, Navbar, Dropdown} from "rsuite";
 import ProjectIcon from "@rsuite/icons/Project";
 import GearIcon from "@rsuite/icons/Gear";
 import ExploreIcon from "@rsuite/icons/Explore";
+import SendIcon from '@rsuite/icons/Send';
 // import CodeIcon from '@rsuite/icons/Code';
 import React from "react";
 // import HistoryIcon from '@rsuite/icons/History';
@@ -55,7 +56,7 @@ const StudioHeader = () => {
                         <Nav.Item href={"/explorer"} icon={<ExploreIcon/>}>Explorer</Nav.Item>
                         <Nav.Item href={"/modeller"} icon={<ScatterIcon/>}>Modeller</Nav.Item>
 
-                        {/*<Nav.Item href={"/graphql"} icon={<CodeIcon/>}>GraphQL API</Nav.Item>*/}
+                        <Nav.Item href={"/graphql"} icon={<SendIcon/>}>GraphQL API</Nav.Item>
                         {/*<Nav.Item icon={<HistoryIcon/>}>History</Nav.Item>*/}
                         {/*<Nav.Item icon={<HistoryIcon/>}>Functions</Nav.Item>*/}
                         {/*<Nav.Item icon={<HistoryIcon/>}>Views</Nav.Item>*/}

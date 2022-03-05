@@ -1,0 +1,29 @@
+.graphiql-container {
+    line-height: 1.4rem;
+}
+
+.graphiql-container .topBar {
+    background: white !important;
+    height: auto !important;
+    box-sizing: border-box;
+}
+
+.graphiql-container *, .graphiql-container :after, .graphiql-container :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.graphiql-container .doc-explorer-title, .graphiql-container .history-title {
+    overflow-x: visible !important;
+    background: white !important;
+
+}
+
+.graphiql-container .docExplorerShow, .graphiql-container .historyShow {
+    overflow-x: visible !important;
+    background: white !important;
+    height: auto !important;
+}
+.graphiql-explorer-root div:first-child{
+  /*padding: 5px !important;*/
+}

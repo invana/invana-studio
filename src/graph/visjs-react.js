@@ -20,8 +20,9 @@
 import React, {useEffect, useRef} from "react";
 import isEqual from "lodash/isEqual";
 import differenceWith from "lodash/differenceWith";
-import {DataSet} from "vis-data/peer/esm/vis-data";
 import {Network} from "vis-network/peer/esm/vis-network";
+import {DataSet} from "vis-data/peer/esm/vis-data";
+
 import PropTypes from "prop-types";
 import "vis-network/styles/vis-network.css";
 

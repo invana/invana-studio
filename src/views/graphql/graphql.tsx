@@ -16,10 +16,11 @@
 
 
 import React from "react";
-import {Container, Header, Content} from 'rsuite';
+import {Container } from 'rsuite';
 // import StudioLeftSidebar from "../../layouts/sidebar-left/sidebar-left";
 import StudioHeader from "../../layouts/header/header";
 import StudioLeftNavSidebar from "../../layouts/sidebar-nav/sidebar-nav";
+import InvanaGraphExplorer from "./app";
 
 
 const GraphQLView = () => {
@@ -32,10 +33,11 @@ const GraphQLView = () => {
             <Container>
                 <StudioLeftNavSidebar expand={expand} setExpand={setExpand}/>
                 <Container>
-                    <Header>
-                        <h2>GraphQL Title</h2>
-                    </Header>
-                    <Content>Content</Content>
+                    {/*<Header>*/}
+                    {/*    <h2>GraphQL Title</h2>*/}
+                    {/*</Header>*/}
+                    {/*<Content>Content</Content>*/}
+                    <InvanaGraphExplorer />
                 </Container>
             </Container>
         </div>
