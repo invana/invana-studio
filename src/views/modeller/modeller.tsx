@@ -64,9 +64,9 @@ const GraphModellerView = () => {
                         <Navbar className={"sub-menu"}>
                             <Nav activeKey={''}>
                                 <Nav.Item eventKey="add-vertex-label"
-                                          onClick={noImplementedAlert}>Add Vertex</Nav.Item>
-                                <Nav.Item eventKey="add-edge-label"
-                                          onClick={noImplementedAlert}>Add Edge</Nav.Item>
+                                          onClick={noImplementedAlert}>Refresh Model</Nav.Item>
+                                {/*<Nav.Item eventKey="add-edge-label"*/}
+                                {/*          onClick={noImplementedAlert}>Add Edge</Nav.Item>*/}
                                 {/*<Nav.Item eventKey="home" onClick={() => addNewData()}>Add data</Nav.Item>*/}
                                 {/*<Nav.Item eventKey="news">News</Nav.Item>*/}
                                 {/*<Nav.Item eventKey="solutions">Solutions</Nav.Item>*/}

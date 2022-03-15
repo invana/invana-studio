@@ -22,14 +22,15 @@ const convertModelDataToVisJsData = (responseData: any) => {
     let allEdgesModels: any = [];
     let allVertexModels: any = [];
     responseData.get_all_vertex_models.map((model: any) => {
-        allVertexModels.push({id: model.name, label: model.name,})
+        allVertexModels.push({id: model.name, label: model.name, group: model.name})
     })
 
     responseData.get_all_edges_models.map((model: any) => {
         model.link_paths.map((linkPath: any) => {
             allEdgesModels.push({
                 id: model.name + "-" + linkPath.outv_label + "-" + linkPath.inv_label,
-                label: model.name, from: linkPath.outv_label, to: linkPath.inv_label
+                label: model.name, group : model.name + "-" + linkPath.outv_label + "-" + linkPath.inv_label,
+                from: linkPath.outv_label, to: linkPath.inv_label
             })
         })
     })
