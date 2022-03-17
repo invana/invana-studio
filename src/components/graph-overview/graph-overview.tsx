@@ -76,16 +76,19 @@ const renderTreeNode = (nodeData: any,
 const GraphOverview = () => {
     const [selectedLabel, setSelectedLabel] = React.useState<selectedLabelType>();
     const [activeTab, setActiveTab] = React.useState("node-label");
+    // for modal
+    const [open, setOpen] = React.useState(false);
+
+
     const {loading, error, data, refetch} = useQuery(GET_SCHEMA_QUERY)
     if (error) return <NetworkErrorUI error={error}/>;
     if (loading) return <Loader backdrop content="Fetching data ..." vertical/>
 
+    console.log("====data", data)
 
-    // for modal
-    const [open, setOpen] = React.useState(false);
 
     const handleOpenFunc = (props: selectedLabelType) => {
-        console.log("handleOpenFunc==", JSON.stringify(props));
+        console.log("handleOpenFunc==", JSON.stringify(props), setSelectedLabel, setOpen);
         setSelectedLabel(props);
         setOpen(true);
     }
@@ -95,6 +98,7 @@ const GraphOverview = () => {
 
 
     function createPropertyDataTypesMap(d: any) {
+        console.log("createProperty----", d);
         let propertyDataTypesMap: any = {}
         d.get_all_vertex_models.map((propertyType: any) => {
             propertyType.properties.map((property: any) => {
@@ -124,6 +128,7 @@ const GraphOverview = () => {
         return labelMap[label]
 
     }
+
 
     const propertyDataTypesMap: any = createPropertyDataTypesMap(data);
     const nodeLabelMap = createLabelMap(data.get_all_vertex_models)

@@ -15,10 +15,35 @@
  */
 
 
-const GenerateEvents = () => {
+const GenerateEvents = (canvasCtrl: any, setSelectedData: any, setRightSidebar: any = null) => {
 
     return {
+        selectNode: function (params: any) {
+            const selectedNode = canvasCtrl.network.body.data.nodes.get(params.nodes[0])
+            if (setSelectedData) {
+                setSelectedData(selectedNode)
+            }
+            if (setRightSidebar) {
+                setRightSidebar("element-detail")
+            }
+        },
+        // selectEdge: function (params) {
+        //     console.log("selectEdge Event:", params);
+        //
+        // },
+        deselectNode: function (params: any) {
+            console.log("deselectNode Event:", params);
 
+            if (setRightSidebar) {
+                setRightSidebar(null)
+            }
+            if (setSelectedData) {
+                setSelectedData(null)
+            }
+        },
+        // deselectEdge: function (params) {
+        //     console.log("deselectEdge Event:", params);
+        // },
     }
 
     // return {

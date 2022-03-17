@@ -29,19 +29,23 @@ import GenerateEvents from "../../graph/events";
 import PcIcon from '@rsuite/icons/Pc';
 import {convertToVisJsData} from "../modeller/utils"
 import GraphOverview from "../../components/graph-overview/graph-overview";
+import ElementDetail from "../../components/element-detail/element-detail";
 // import GraphModellerView from "../modeller/modeller";
 
 const ExplorerView = () => {
     // const [expand, setExpand] = React.useState(false);
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
-    const events = GenerateEvents()
+    const [selectedData, setSelectedData] = React.useState(null)
+
     const [leftSidebar, setLeftSidebar] = React.useState("")
+    const [rightSidebar, setRightSidebar] = React.useState("")
+
+    const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
 
     const {loading, error, data} = useQuery(GET_GOD_QUERY);
     if (error) return <NetworkErrorUI error={error}/>;
     if (!loading) {
-        console.log("===d=ata", data.god)
         const graphDataConverted =  convertToVisJsData(data.god, [])
         canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
     }
@@ -106,6 +110,14 @@ const ExplorerView = () => {
                         {
                             leftSidebar === "overview" ? (
                                 <GraphOverview/>
+                            ) : (<span/>)
+                        }
+                    </div>
+                    <div style={{position: "fixed", right: 0, top: 80,
+                        height: document.documentElement.clientHeight - (36 + 45)}}>
+                        {
+                            rightSidebar === "element-detail" ? (
+                                <ElementDetail data={selectedData}/>
                             ) : (<span/>)
                         }
                     </div>

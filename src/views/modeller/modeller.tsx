@@ -34,7 +34,7 @@ const GraphModellerView = () => {
     // const [expand, setExpand] = React.useState(false);
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
-    const events = GenerateEvents()
+    const events = GenerateEvents( canvasCtrl, ()=> console.log("ok"), null)
 
     const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
     if (error) return <NetworkErrorUI error={error}/>;
