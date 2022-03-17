@@ -46,3 +46,15 @@ export const GET_SCHEMA_QUERY = gql`
       }
   }
 `
+export const GET_GOD_QUERY = gql`
+  query {
+      god{
+        id
+        label
+        properties{
+          name
+          age
+        } 
+      }
+  }
+`

@@ -18,7 +18,9 @@
 // import {STUDIO_SETTINGS} from "../settings";
 
 export const physicsSettings = {
-
+    // hierarchicalRepulsion: {
+    //     avoidOverlap: 1,
+    // },
     forceAtlas2Based: {
         gravitationalConstant: -56,
         centralGravity: 0.005,
@@ -33,8 +35,8 @@ export const physicsSettings = {
     stabilization: {
         enabled: true,
         iterations: 1000,
-        updateInterval: 50,
-        // fit: true
+        updateInterval: 10,
+        fit: true
     }
 
 }
@@ -50,12 +52,18 @@ const defaultOptions = {
         hover: true
     },
 
-    layout: {
-        // randomSeed: 100,
-        hierarchical: false
+    // layout: {
+    //     randomSeed: 100,
+    //     hierarchical: {
+    //         // enabled: true,
+    //         // levelSeparation: 250,
+    //         nodeSpacing: 150,
+    //         direction: "LR", // UD, DU, LR, RL
+    //         // sortMethod: "directed"
+    //     }
+    // },
 
-    },
-
+    // physics: false,
     physics: physicsSettings,
 
     // physics: {
@@ -101,21 +109,21 @@ const defaultOptions = {
         // // color: "#999999",
 
         // ...STUDIO_SETTINGS.RENDERING_EDGES_SETTINGS,
-        chosen: {
-            edge: function (values) {
-                // console.log("=====", id, selected, hovering);
-                values.width = values.width * 1.5;
-            }
-        },
-        selectionWidth: function (width) {
-            return width * 1.2;
-        },
+        // chosen: {
+        //     edge: function (values) {
+        //         // console.log("=====", id, selected, hovering);
+        //         values.width = values.width * 1.5;
+        //     }
+        // },
+        // selectionWidth: function (width) {
+        //     return width * 1.2;
+        // },
+        // // hoverWidth: function (width) {
+        // //     return width * 1.4;
+        // // }
         // hoverWidth: function (width) {
-        //     return width * 1.4;
-        // }
-        hoverWidth: function (width) {
-            return width + 1;
-        },
+        //     return width + 1;
+        // },
 
 
     },

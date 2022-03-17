@@ -27,7 +27,7 @@ import {GraphCanvasCtrl} from "../../graph/canvas-ctrl";
 import GenerateEvents from "../../graph/events";
 // import SearchIcon from '@rsuite/icons/Search';
 // import PcIcon from '@rsuite/icons/Pc';
-import convertModelDataToVisJsData from "./utils";
+import convertSchemaDataToVisJsData from "./utils";
 import {noImplementedAlert} from "../../utils";
 
 const GraphModellerView = () => {
@@ -39,7 +39,7 @@ const GraphModellerView = () => {
     const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
     if (error) return <NetworkErrorUI error={error}/>;
     if (!loading) {
-        const graphDataConverted = convertModelDataToVisJsData(data);
+        const graphDataConverted = convertSchemaDataToVisJsData(data);
         canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
     }
 

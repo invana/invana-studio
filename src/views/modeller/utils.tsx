@@ -17,24 +17,78 @@
  */
 
 
-const convertModelDataToVisJsData = (responseData: any) => {
+// export const getLabelValue(element, labelPropertyKey){
+//
+// }
+
+const schemaNodeDataFn = (model: any) => {
+    return {id: model.name, label: model.name, group: model.name}
+}
+
+const schemaEdgeDataFn = (model: any) => {
+    let allEdgesModels: any = []
+    model.link_paths.map((linkPath: any) => {
+        allEdgesModels.push({
+            id: model.name + "-" + linkPath.outv_label + "-" + linkPath.inv_label,
+            label: model.name,
+            group: model.name + "-" + linkPath.outv_label + "-" + linkPath.inv_label,
+            from: linkPath.outv_label, to: linkPath.inv_label,
+            arrows: "to"
+        })
+    })
+    return allEdgesModels;
+}
+
+export const convertToNodesData = (nodes: any, nodeDataFn: any) => {
+    let allVertexModels: any = [];
+    nodes.map((model: any) => {
+        allVertexModels.push(nodeDataFn(model))
+    })
+    return allVertexModels;
+}
+
+
+export const convertToEdgesData = (edges: any, edgeDataFn: any) => {
+    let allEdgesModels: any = [];
+    edges.map((model: any) => {
+        const _ = edgeDataFn(model);
+        if (Array.isArray(_)) {
+            allEdgesModels.push(..._)
+        } else {
+            allEdgesModels.push(_)
+        }
+    })
+    return allEdgesModels;
+}
+
+
+const convertSchemaDataToVisJsData = (responseData: any) => {
     console.log("responseData", responseData);
     let allEdgesModels: any = [];
     let allVertexModels: any = [];
-    responseData.get_all_vertex_models.map((model: any) => {
-        allVertexModels.push({id: model.name, label: model.name, group: model.name})
-    })
-
-    responseData.get_all_edges_models.map((model: any) => {
-        model.link_paths.map((linkPath: any) => {
-            allEdgesModels.push({
-                id: model.name + "-" + linkPath.outv_label + "-" + linkPath.inv_label,
-                label: model.name, group : model.name + "-" + linkPath.outv_label + "-" + linkPath.inv_label,
-                from: linkPath.outv_label, to: linkPath.inv_label
-            })
-        })
-    })
+    allVertexModels = convertToNodesData(responseData.get_all_vertex_models, schemaNodeDataFn)
+    allEdgesModels = convertToEdgesData(responseData.get_all_edges_models, schemaEdgeDataFn)
     return {nodes: allVertexModels, edges: allEdgesModels}
 
 }
-export default convertModelDataToVisJsData;
+
+
+const getNodeElementDataFn = (model: any) => {
+    return {id: model.id, label: model.id.toString(), type: "node", group: model.label, properties: model.properties}
+}
+
+const getEdgeElementDataFn = (model: any) => {
+    return {id: model.id, label: model.id.toString(), type: "edge", group: model.label, properties: model.properties}
+}
+
+
+export const convertToVisJsData = (nodes: any, edges: any) => {
+    console.log("responseData", nodes, edges);
+    let allEdgesModels: any = [];
+    let allVertexModels: any = [];
+    allVertexModels = convertToNodesData(nodes, getNodeElementDataFn)
+    allEdgesModels = convertToEdgesData(edges, getEdgeElementDataFn)
+    return {nodes: allVertexModels, edges: allEdgesModels}
+
+}
+export default convertSchemaDataToVisJsData;

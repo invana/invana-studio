@@ -2,6 +2,10 @@
     line-height: 1.4rem;
 }
 
+.graphiql-explorer-root #query-unknown {
+    padding-left: 3px !important;
+}
+
 .graphiql-container .topBar {
     background: white !important;
     height: auto !important;

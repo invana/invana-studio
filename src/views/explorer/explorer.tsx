@@ -19,7 +19,7 @@ import React from "react";
 import {Container, Header, Content, Nav, Loader, Navbar} from 'rsuite';
 import StudioHeader from "../../layouts/header/header";
 import {useQuery} from '@apollo/client';
-import {GET_SCHEMA_QUERY} from "../../queries/modeller";
+import { GET_GOD_QUERY} from "../../queries/modeller";
 import CanvasArtBoard from "../../graph/canvas-artboard";
 import defaultOptions from "../../graph/networkOptions";
 import NetworkErrorUI from "../../components/networkError";
@@ -27,7 +27,7 @@ import {GraphCanvasCtrl} from "../../graph/canvas-ctrl";
 import GenerateEvents from "../../graph/events";
 // import SearchIcon from '@rsuite/icons/Search';
 import PcIcon from '@rsuite/icons/Pc';
-import convertModelDataToVisJsData from "../modeller/utils"
+import {convertToVisJsData} from "../modeller/utils"
 import GraphOverview from "../../components/graph-overview/graph-overview";
 // import GraphModellerView from "../modeller/modeller";
 
@@ -38,10 +38,11 @@ const ExplorerView = () => {
     const events = GenerateEvents()
     const [leftSidebar, setLeftSidebar] = React.useState("")
 
-    const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
+    const {loading, error, data} = useQuery(GET_GOD_QUERY);
     if (error) return <NetworkErrorUI error={error}/>;
     if (!loading) {
-        const graphDataConverted = convertModelDataToVisJsData(data);
+        console.log("===d=ata", data.god)
+        const graphDataConverted =  convertToVisJsData(data.god, [])
         canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
     }
 
