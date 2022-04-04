@@ -155,22 +155,25 @@ const GraphOverview = () => {
                     <Nav.Item eventKey="refresh" onClick={() => refetch()} icon={<ReloadIcon/>}/>
                 </Nav>
             </Navbar>
-            , {activeTab === "node-label" ? (
-            <Tree data={convert2Tree(data.get_all_vertex_models, "node")}
-                  showIndentLine={true}
-                  height={document.documentElement.clientHeight - 190}
-                  renderTreeNode={(nodeData) => renderTreeNode(nodeData, "node", getPropertyData, handleOpenFunc)}
-            />
-        ) : <span/>}
-            {activeTab === "relationship-label" ? (
-                <Tree data={convert2Tree(data.get_all_edges_models, "relation")}
-                      height={document.documentElement.clientHeight - 190}
-                      showIndentLine={true}
-                      renderTreeNode={(nodeData) => renderTreeNode(nodeData, "relation", getPropertyData, handleOpenFunc)}
+            {
+                activeTab === "node-label" ? (
+                    <Tree data={convert2Tree(data.get_all_vertex_models, "node")}
+                          showIndentLine={true}
+                          height={document.documentElement.clientHeight - 190}
+                          renderTreeNode={(nodeData) => renderTreeNode(nodeData, "node", getPropertyData, handleOpenFunc)}
+                    />
+                ) : <span/>
+            }
+            {
+                activeTab === "relationship-label" ? (
+                    <Tree data={convert2Tree(data.get_all_edges_models, "relation")}
+                          height={document.documentElement.clientHeight - 190}
+                          showIndentLine={true}
+                          renderTreeNode={(nodeData) => renderTreeNode(nodeData, "relation", getPropertyData, handleOpenFunc)}
 
-                />
-            ) : <span/>}
-
+                    />
+                ) : <span/>
+            }
             {
                 selectedLabel ? (
 
@@ -183,7 +186,7 @@ const GraphOverview = () => {
 
                         <Modal.Body>
                             <LabelFilterComponent
-                                getLabelData={()=>getLabelData(selectedLabel.label, selectedLabel.labelType)}
+                                getLabelData={() => getLabelData(selectedLabel.label, selectedLabel.labelType)}
                                 label={selectedLabel.label}
                                 labelType={selectedLabel.labelType}
                             />

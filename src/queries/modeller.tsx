@@ -51,6 +51,7 @@ export const GET_GOD_QUERY = gql`
       god{
         id
         label
+        type
         properties{
           name
           age
