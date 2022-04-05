@@ -14,10 +14,21 @@
  * limitations under the License.
  */
 import React from "react";
+import {STUDIO_ROUTES} from "../settings";
+import {Navigate} from "react-router-dom";
 
 const NetworkErrorUI = (error: any) => {
+
+    const statusCode = error.error.networkError.statusCode;
+    if (statusCode === 404) {
+        return <Navigate to={STUDIO_ROUTES.CONNECT}/>
+    }
+
     return (
-        <div>{JSON.stringify(error)}</div>
+        <div style={{paddingTop: "20%", width: "800px", margin: "0 auto"}}>
+            <h1>{statusCode} Error</h1>
+            <pre>{JSON.stringify(error, null, 2)}</pre>
+        </div>
     )
 }
 export default NetworkErrorUI;

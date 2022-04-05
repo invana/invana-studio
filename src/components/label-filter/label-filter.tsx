@@ -62,7 +62,7 @@ const LabelFilterComponent = (props: selectedLabelTypeWithLabelData) => {
                                 {/*<Form.ControlLabel>Value</Form.ControlLabel>*/}
                                 <Form.Control placeholder="ex: search text here" name="value"
                                               style={{width: "260px"}}
-                                              value={1} autoComplete="off"/>
+                                              autoComplete="off"/>
                             </Form.Group>
                             <Form.Group className={"rs-form-group-inline1 rs-form-group-no-right-margin"}
                                         controlId="password-8">

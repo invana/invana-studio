@@ -44,6 +44,7 @@ const ExplorerView = () => {
     const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
 
     const {loading, error, data} = useQuery(GET_GOD_QUERY);
+    console.log("=====error", error);
     if (error) return <NetworkErrorUI error={error}/>;
     if (!loading) {
         const graphDataConverted =  convertToVisJsData(data.god, [])
