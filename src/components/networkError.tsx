@@ -19,7 +19,7 @@ import {Navigate} from "react-router-dom";
 
 const NetworkErrorUI = (error: any) => {
 
-    const statusCode = error.error.networkError.statusCode;
+    const statusCode = error.error.networkError ? error.error.networkError.statusCode : null;
     if (statusCode === 404) {
         return <Navigate to={STUDIO_ROUTES.CONNECT}/>
     }

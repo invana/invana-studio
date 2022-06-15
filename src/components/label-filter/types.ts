@@ -21,5 +21,6 @@ export interface selectedLabelType  {
 export interface selectedLabelTypeWithLabelData  {
     label: string,
     labelType: "node" | "relation",
-    getLabelData:any
+    getLabelData:any,
+    submitSearch: any
 }

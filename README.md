@@ -33,6 +33,10 @@ and JanusGraph for Invana Studio.
 
 Apache License 2.0
 
+
+![Alt](https://repobeats.axiom.co/api/embed/5e71ae59efb105b75ada767794e09613771a6247.svg "Repobeats analytics image")
+
+
 ## Support 
 
 For any other assistance, please feel free to get in touch at hi[at]invana.io.

@@ -138,6 +138,10 @@ const GraphOverview = () => {
         return propertyDataTypesMap[propertyName];
     }
 
+    function  submitSearch(){
+        console.log("submitSearch")
+    }
+
     return (
         <Panel className={"graph-overview"} header={<div> Graph Schema Model </div>} bordered style={styles}>
             <Navbar style={{backgroundColor: "transparent", borderBottom: "1px solid #ccc"}}>
@@ -189,6 +193,7 @@ const GraphOverview = () => {
                                 getLabelData={() => getLabelData(selectedLabel.label, selectedLabel.labelType)}
                                 label={selectedLabel.label}
                                 labelType={selectedLabel.labelType}
+                                submitSearch={submitSearch}
                             />
                         </Modal.Body>
                         <Modal.Footer>

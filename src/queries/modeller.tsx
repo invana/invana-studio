@@ -46,16 +46,24 @@ export const GET_SCHEMA_QUERY = gql`
       }
   }
 `
+// export const GET_GOD_QUERY = gql`
+//   query {
+//       god{
+//         id
+//         label
+//         type
+//         properties{
+//           name
+//           age
+//         }
+//       }
+//   }
+// `
 export const GET_GOD_QUERY = gql`
   query {
-      god{
-        id
-        label
-        type
-        properties{
-          name
-          age
-        } 
-      }
+    _get_client_info{
+        gremlin_traversal_source
+        gremlin_host
+    }
   }
 `

@@ -19,7 +19,7 @@ import React from "react";
 import {Container, Header, Content, Nav, Loader, Navbar} from 'rsuite';
 import StudioHeader from "../../layouts/header/header";
 import {useQuery} from '@apollo/client';
-import { GET_GOD_QUERY} from "../../queries/modeller";
+import {GET_GOD_QUERY} from "../../queries/modeller";
 import CanvasArtBoard from "../../graph/canvas-artboard";
 import defaultOptions from "../../graph/networkOptions";
 import NetworkErrorUI from "../../components/networkError";
@@ -47,8 +47,10 @@ const ExplorerView = () => {
     console.log("=====error", error);
     if (error) return <NetworkErrorUI error={error}/>;
     if (!loading) {
-        const graphDataConverted =  convertToVisJsData(data.god, [])
-        canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
+        if (data.god) {
+            const graphDataConverted = convertToVisJsData(data.god, [])
+            canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
+        }
     }
 
     function getRndInteger(min: any, max: any) {
@@ -74,7 +76,7 @@ const ExplorerView = () => {
                                 <Nav.Item eventKey="overview"
                                           onClick={() => setLeftSidebar("overview")}>Graph</Nav.Item>
                                 <Nav.Item eventKey="search"
-                                   onClick={() => setLeftSidebar("search")}>Search</Nav.Item>
+                                          onClick={() => setLeftSidebar("search")}>Search</Nav.Item>
                                 <Nav.Item eventKey="home" onClick={() => addNewData()}>Add data</Nav.Item>
                                 {/*<Nav.Item eventKey="news">News</Nav.Item>*/}
                                 {/*<Nav.Item eventKey="solutions">Solutions</Nav.Item>*/}
@@ -106,16 +108,20 @@ const ExplorerView = () => {
                             canvasCtrl={canvasCtrl}
                         />
                     </Content>
-                    <div style={{position: "fixed", left: 0, top: 80,
-                        height: document.documentElement.clientHeight - 100}}>
+                    <div style={{
+                        position: "fixed", left: 0, top: 80,
+                        height: document.documentElement.clientHeight - 100
+                    }}>
                         {
                             leftSidebar === "overview" ? (
                                 <GraphOverview/>
                             ) : (<span/>)
                         }
                     </div>
-                    <div style={{position: "fixed", right: 0, top: 80,
-                        height: document.documentElement.clientHeight - (36 + 45)}}>
+                    <div style={{
+                        position: "fixed", right: 0, top: 80,
+                        height: document.documentElement.clientHeight - (36 + 45)
+                    }}>
                         {
                             rightSidebar === "element-detail" ? (
                                 <ElementDetail data={selectedData}/>

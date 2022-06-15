@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 @import '~rsuite/dist/rsuite.min.css';
 
 //body {
@@ -31,3 +29,9 @@
 //  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 //    monospace;
 //}
+
+
+.rs-loader-backdrop {
+  top: 45px;
+  height: calc(100% - 45px);
+}
