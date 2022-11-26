@@ -334,13 +334,14 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     }
 
     separateNodesAndEdges(data) {
+        console.log("====separateNodesAndEdges", data)
         let nodes = [];
         let edges = [];
         if (data) {
             data.forEach((datum) => {
-                if (datum.type === "g:Edge") {
+                if (datum.type === "edge") {
                     edges.push(datum);
-                } else if (datum.type === "g:Vertex") {
+                } else if (datum.type === "vertex") {
                     nodes.push(datum);
                 }
             })
@@ -352,8 +353,11 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         console.log("processResponse", response, this.state.queryObject);
         const lastResponse = response.getResponseResult();
         console.log("lastResponse", lastResponse);
-        const data = response.getResponseResult(this.state.queryObject.queryKey);
+        let data = response.getResponseResult(this.state.queryObject.queryKey);
         // separate nodes and edges
+        if (this.state.queryObject.queryKey === "executeQuery"){
+            data = data.data
+        }
         if (lastResponse) {
             const {nodes, edges} = this.separateNodesAndEdges(data);
             this.addNewData(nodes, edges);

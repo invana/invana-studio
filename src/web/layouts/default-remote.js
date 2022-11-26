@@ -123,8 +123,8 @@ export default class DefaultRemoteComponent extends React.Component {
 
     setQueryStringFromQueryObject(queryPayload) {
         console.log("===queryPayload", queryPayload);
-        if (queryPayload.includes("rawQuery")) {
-            const queryString = queryPayload.split('rawQuery(gremlin:"')[1].split('"){id')[0].replaceAll('\\"', '"');
+        if (queryPayload.includes("executeQuery")) {
+            const queryString = queryPayload.split('executeQuery(gremlin:"')[1].split('"){id')[0].replaceAll('\\"', '"');
             this.setQueryString(queryString);
         }
     }
@@ -144,7 +144,7 @@ export default class DefaultRemoteComponent extends React.Component {
 
 
         if (!queryObj.queryKey) {
-            queryObj.queryKey = "rawQuery";
+            queryObj.queryKey = "executeQuery";
         }
         if (typeof queryOptions === "undefined") {
             queryOptions = {}

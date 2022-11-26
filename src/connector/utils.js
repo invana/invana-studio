@@ -1,14 +1,16 @@
+import { Buffer } from 'buffer';
+
 export async function postData(url = '', extraHeaders = {}, data = {}) {
     // Default options are marked with *
     const urlAnalysed = new URL(url);
     extraHeaders["Content-Type"] = "application/json";
     extraHeaders["Accept"] = "application/json";
     extraHeaders['Content-Length'] = Buffer.byteLength(JSON.stringify(data));
-    if (urlAnalysed.username && urlAnalysed.password) {
-        extraHeaders['Authorization'] = 'Basic ' + btoa(urlAnalysed.username + ':' + urlAnalysed.password);
-    } else if (urlAnalysed.username && urlAnalysed.password !== "") {
-        extraHeaders['Authorization'] = 'Token ' + urlAnalysed.username;
-    }
+    // if (urlAnalysed.username && urlAnalysed.password) {
+    //     extraHeaders['Authorization'] = 'Basic ' + btoa(urlAnalysed.username + ':' + urlAnalysed.password);
+    // } else if (urlAnalysed.username && urlAnalysed.password !== "") {
+    //     extraHeaders['Authorization'] = 'Token ' + urlAnalysed.username;
+    // }
 
     const connectionUrl = urlAnalysed.origin + urlAnalysed.pathname;
     // let response = null

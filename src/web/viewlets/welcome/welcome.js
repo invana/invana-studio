@@ -13,7 +13,7 @@ export default class Welcome extends DefaultRemoteComponent {
 
     extractRawQuery(graphQLQuery) {
         try {
-            return cleanQuery(graphQLQuery.query.split("rawQuery(gremlin:")[1].split("){id,type,label,")[0]);
+            return cleanQuery(graphQLQuery.query.split("executeQuery(gremlin:")[1].split("){id,type,label,")[0]);
         } catch (e) {
             return graphQLQuery.query;
         }

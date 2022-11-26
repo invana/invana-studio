@@ -1,11 +1,10 @@
 {
   "name": "invana-studio",
-  "version": "0.0.11",
+  "version": "1.0.0",
   "description": "Open source graph visualiser.",
-  "private": true,
-  "homepage": "/",
   "repository": {
-    "url": "https://github.com/invanalabs/invana-studio"
+    "type": "git",
+    "url": "git+https://github.com/invana/invana-studio.git"
   },
   "main": "public/electron.js",
   "author": {
@@ -13,36 +12,29 @@
     "email": "ravi@invana.io",
     "url": "https://invana.io"
   },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@fortawesome/free-brands-svg-icons": "^5.15.3",
-    "@fortawesome/free-regular-svg-icons": "^5.15.3",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/react-fontawesome": "^0.1.14",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "bootstrap": "^4.6.0",
-    "color-hash": "^2.0.1",
-    "node-sass": "^5.0.0",
-    "react": "^17.0.2",
-    "react-bootstrap": "^1.6.0",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "vis-network-react": "^1.3.6",
-    "web-vitals": "^1.1.1"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/invana/invana-studio/issues"
   },
-  "devDependencies": {
-    "@babel/core": "^7.13.8",
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "concurrently": "^6.0.0",
-    "electron": "^11.3.0",
-    "electron-builder": "^22.9.1",
-    "electron-packager": "^15.2.0",
-    "eslint-plugin-react": "^7.22.0",
-    "style-loader": "^2.0.0",
-    "wait-on": "^5.2.1"
+  "homepage": "/",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "bootstrap": "^5.2.3",
+    "buffer": "^6.0.3",
+    "color-hash": "^2.0.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.6.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.56.1",
+    "vis-data": "^7.1.4",
+    "vis-network": "^8.2.0",
+    "web-vitals": "^3.1.0"
   },
   "scripts": {
     "start": "PORT=3000 react-scripts start",
@@ -110,5 +102,17 @@
     "directories": {
       "output": "dist"
     }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/eslint-parser": "^7.19.1",
+    "@electron-forge/cli": "^6.0.3",
+    "concurrent": "^0.3.2",
+    "electron": "^21.3.1",
+    "electron-builder": "^23.6.0",
+    "electron-packager": "^17.1.1",
+    "eslint-plugin-react": "^7.31.11",
+    "style-loader": "^3.3.1",
+    "wait-on": "^6.0.1"
   }
 }

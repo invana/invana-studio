@@ -7,8 +7,13 @@ import {
 import {Button} from "react-bootstrap";
 import {STUDIO_SETTINGS} from "../../settings";
 import PropTypes from "prop-types";
+//import { useHistory } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+
+// const     navigate = useNavigate();
 
 export default class MainNav extends React.Component {
+
 
     static defaultProps = {
         connectionUrl: STUDIO_SETTINGS.CONNECTION_URL,
@@ -16,7 +21,7 @@ export default class MainNav extends React.Component {
 
     static propTypes = {
         connectionUrl: PropTypes.string,
-        history: PropTypes.object,
+//        history: PropTypes.object,
         setShowSettings: PropTypes.func
     }
 
@@ -27,7 +32,13 @@ export default class MainNav extends React.Component {
 
     setRedirectToRoute(routeString) {
         console.log("setRedirectToRoute", routeString);
-        this.props.history.push(routeString);
+        // navigate(routeString, { replace: true })
+        const u  = new URL(location.href);
+        const s = decodeURI(u.pathname + u.search)
+        console.log("=====",routeString, s )
+        if (routeString !== s){
+           window.location.href =  routeString;
+        }
     }
 
     routeToConnect(transporterStatusCode) {

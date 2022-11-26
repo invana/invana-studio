@@ -16,7 +16,7 @@ export default class InvanaEngineHTTPConnector extends ConnectorBase {
         requestBuilder
     );
 
-    const  queryPayload = {"query": "{rawQuery(gremlin: 'g.V().limit(3).toList()'){id, type, label, properties}}"};
+    const  queryPayload = {"query": "{executeQuery(gremlin: 'g.V().limit(3).toList()'){id, type, label, properties}}"};
     connector.query(queryPayload)
 
 

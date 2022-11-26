@@ -60,7 +60,7 @@ class ConnectorBase {
     }
 
     gatherDataFromStream(response, transportStatusCode, transportTime) {
-        console.log("onmessage received", response);
+        console.log("onmessage received", JSON.stringify(response));
         const responseObject = new this.responseCls(response, transportStatusCode, transportTime);
         if (transportStatusCode >= 200 && transportStatusCode < 300) {
             if (transportStatusCode === 206) {

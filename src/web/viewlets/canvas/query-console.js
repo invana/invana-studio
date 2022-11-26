@@ -60,11 +60,11 @@ export default class QueryConsole extends React.Component {
         e.stopPropagation();
         console.log("=====_this", _this);
         if (e.target.canvasQueryString.value) {
-            const query = _this.props.connector.requestBuilder.rawQuery(e.target.canvasQueryString.value)
+            const query = _this.props.connector.requestBuilder.executeQuery(e.target.canvasQueryString.value)
             const queryPayloadCleaned = this.props.connector.requestBuilder.combineQueries(query, null);
             _this.props.makeQuery(queryPayloadCleaned, {source: "console"});
         } else {
-            alert("Query cannot be null")
+            // alert("Query cannot be null")
         }
     }
 

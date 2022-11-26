@@ -1,6 +1,6 @@
 import './App.scss';
 import React, {Suspense} from "react";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Page404View from "./web/views/page-404";
 import Explorer from "./web/views/explorer";
 import IndexView from "./web/views";
@@ -15,18 +15,18 @@ export default class App extends React.Component {
     render() {
         return (
             <Router>
-                <Suspense fallback={<div style={{color: "white"}}>Loading...</div>}>
-                    <Switch>
-                        <Route exact path="/" component={IndexView}/>
-                        <Route exact path="/connect" component={ConnectView}/>
-                        <Route exact path="/explorer" component={Explorer}/>
-                        <Route exact path="/data" component={DataManagementView}/>
-                        <Route exact path="/console" component={ConsoleView}/>
-                        <Route exact path="/settings" component={SettingsView}/>
-                        <Route exact path="/label" component={LabelView}/>
-                        <Route component={Page404View}/>
-                    </Switch>
-                </Suspense>
+                 <Suspense fallback={<div style={{color: "white"}}>Loading...</div>}>
+                    <Routes>
+                        <Route exact path="/" element={<IndexView />}/>
+                        <Route exact path="/connect" element={<ConnectView />}/>
+                        <Route exact path="/explorer" element={<Explorer />}/>
+                        <Route exact path="/data" element={<DataManagementView />}/>
+                        <Route exact path="/console" element={<ConsoleView />}/>
+                        <Route exact path="/settings" element={<SettingsView />}/>
+                        <Route exact path="/label" element={<LabelView />}/>
+                        <Route element={<Page404View />}/>
+                    </Routes>
+                 </Suspense>
             </Router>
         );
     }

@@ -96,7 +96,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
 
     initQuery() {
-        return {"query": "{filterVertex(limit: 10){id,type,label,properties, inV, inVLabel, outV, outVLabel}}"};
+        return {"query": "{filterVertex(limit: 1){id,type,label,properties }}"};
     }
 
     getLabelSchema(labelName, labelType) {
@@ -217,11 +217,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         };
     }
 
-    rawQuery(queryString) {
+    executeQuery(queryString) {
         return {
-            query: "rawQuery(gremlin:" + JSON.stringify(queryString) + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            query: "executeQuery(gremlin:" + JSON.stringify(queryString) + "){data}",
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "rawQuery"
+            queryKey: "executeQuery"
 
         };
 

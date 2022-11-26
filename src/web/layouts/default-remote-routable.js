@@ -1,6 +1,8 @@
 import DefaultRemoteComponent from "./default-remote";
 import React from "react";
 import {Container} from "react-bootstrap";
+// import { useNavigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom"
 
 export default class DefaultRemoteRoutableComponent extends DefaultRemoteComponent {
 
@@ -26,10 +28,11 @@ export default class DefaultRemoteRoutableComponent extends DefaultRemoteCompone
         }
 
     */
-
+    // navigate = useNavigate();
     constructor(props) {
         super(props);
         this.state = {
+            // redirectUrl: null,
             ...this.state,
         };
         // this.child = React.createRef();
@@ -42,7 +45,15 @@ export default class DefaultRemoteRoutableComponent extends DefaultRemoteCompone
 
     setRedirectToRoute(routeString) {
         console.log("setRedirectToRoute", routeString);
-        this.props.history.push(routeString);
+        // this.setState({redirectUrl: routeString})
+        const u  = new URL(location.href);
+        const s = decodeURI(u.pathname + u.search)
+        console.log("=====",routeString, s )
+        if (routeString !== s){
+           // window.location.href =  routeString;
+        }
+
+        // this.navigate(routeString);
     }
 
     routeToConnect(transporterStatusCode) {
@@ -59,9 +70,13 @@ export default class DefaultRemoteRoutableComponent extends DefaultRemoteCompone
 
 
     render() {
+
+        console.log("=====redirectUrl", this.state.redirectUrl)
         return (
             <Container fluid>
                 {this.props.children}
+
+
             </Container>
         )
     }

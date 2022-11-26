@@ -12,7 +12,7 @@ export default class QueryManagerBase {
         throw new TypeError("Please implement abstract method initQuery.");
     }
 
-    rawQuery(queryString) {
+    executeQuery(queryString) {
         return queryString;
     }
 
