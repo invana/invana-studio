@@ -44,15 +44,15 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
             console.log("failed to fetch data");
             this.setState({queryFailure: true});
         } else {
-            console.log("this.connector.requestBuilder", this.connector.requestBuilder.getVerticesLabelStats());
-            const verticesStats = response.getResponseResult(this.connector.requestBuilder.getVerticesLabelStats().queryKey) || [];
+            console.log("this.connector.requestBuilder", this.connector.requestBuilder.schemaGetVertexLabels());
+            const verticesStats = response.getResponseResult(this.connector.requestBuilder.schemaGetVertexLabels().queryKey) || [];
             if (this.props.onSideBarLoadedCallBack) {
                 this.props.onSideBarLoadedCallBack(verticesStats);
             }
 
             this.setState({
                 verticesStats: verticesStats,
-                edgeStats: response.getResponseResult(this.connector.requestBuilder.getEdgesLabelStats().queryKey) || [],
+                edgeStats: response.getResponseResult(this.connector.requestBuilder.schemaGetEdgeLabels().queryKey) || [],
                 queryFailure: false,
             });
         }
@@ -60,8 +60,8 @@ export default class DataSidebarViewlet extends DefaultRemoteComponent {
 
     refreshData() {
         if (this.connector) {
-            const verticesStateQuery = this.connector.requestBuilder.getVerticesLabelStats();
-            const edgesStatsQuery = this.connector.requestBuilder.getEdgesLabelStats();
+            const verticesStateQuery = this.connector.requestBuilder.schemaGetVertexLabels();
+            const edgesStatsQuery = this.connector.requestBuilder.schemaGetEdgeLabels();
             const queryPayload = this.connector.requestBuilder.combineQueries(verticesStateQuery, edgesStatsQuery);
             console.log("queryPayload", queryPayload);
             this.makeQuery(queryPayload);

@@ -115,13 +115,13 @@ export default class SidebarListBase extends React.Component {
                             let itemProps = {};
                             if (this.props.showLabelMenu === true) {
                                 itemProps = {
-                                    onMouseEnter: (event) => this.onLabelHover(elementLabel.label, this.getLabelType(), event),
+                                    onMouseEnter: (event) => this.onLabelHover(elementLabel, this.getLabelType(), event),
                                     onMouseLeave: () => this.onLabelHover(null, null)
                                 }
 
                             } else {
                                 itemProps = {
-                                    onClick: () => this.props.onItemClick(elementLabel.label, this.getLabelType())
+                                    onClick: () => this.props.onItemClick(elementLabel, this.getLabelType())
                                 }
                             }
                             let listProps = {};
@@ -143,38 +143,38 @@ export default class SidebarListBase extends React.Component {
                                     <FontAwesomeIcon
                                         className={"mr-1"}
                                         style={{
-                                            'color': this.canvasUtils.getElementColor(elementLabel.label),
+                                            'color': this.canvasUtils.getElementColor(elementLabel),
                                             'fontSize': '.6rem',
                                             'position': 'relative',
                                             'top': '-2px'
                                         }}
                                         icon={listIcon}/>
                                     <span
-                                        style={{"color": this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType() === "hidden") ? "#c9c9c9" : "inherit"}}>
-                                    {elementLabel.label}
+                                        style={{"color": this.checkLabelDisplaySettings(elementLabel, this.getLabelType() === "hidden") ? "#c9c9c9" : "inherit"}}>
+                                    {elementLabel}
 
                                         </span>
                                     <span style={{
 
-                                        "color": this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType() === "hidden") ? "#c9c9c9" : "#656565",
+                                        "color": this.checkLabelDisplaySettings(elementLabel, this.getLabelType() === "hidden") ? "#c9c9c9" : "#656565",
                                         "fontSize": "12px"
                                     }}>({elementLabel.count} entries)                                    </span>
                                     <span className={"float-right"} style={{"position": "relative", "right": "-12px"}}>
                                         {
-                                            this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "hidden"
+                                            this.checkLabelDisplaySettings(elementLabel, this.getLabelType()) === "hidden"
                                                 ? <FontAwesomeIcon className={"text-light small"}
                                                                    icon={faEyeSlash}/>
                                                 : <React.Fragment/>
                                         }
                                         {
-                                            this.checkLabelDisplaySettings(elementLabel.label, this.getLabelType()) === "data-exist"
+                                            this.checkLabelDisplaySettings(elementLabel, this.getLabelType()) === "data-exist"
                                                 ? <FontAwesomeIcon className={"text-light small"} icon={faEye}/>
                                                 : <React.Fragment/>
                                         }
                                     </span>
 
                                     {
-                                        this.state.hoveredLabelName === elementLabel.label
+                                        this.state.hoveredLabelName === elementLabel
                                             // this.state.hoveredLabelName === null
                                             ?
                                             <LabelHoverOptions

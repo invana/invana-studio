@@ -8,11 +8,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
     1. each query method should return an object with following data
 
-        getVerticesLabelStats() {
+        schemaGetVertexLabels() {
             return {
                 type: this.QUERY_TYPES.QUERY,
-                queryKey: "getVerticesLabelStats",
-                query: "getVerticesLabelStats{label, count}"
+                queryKey: "schemaGetVertexLabels",
+                query: "schemaGetVertexLabels{label, count}"
             };
         }
 
@@ -34,26 +34,26 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         let combinedQuery = {query: "", type: query1.type};
 
         const query2String = query2 ? query2.query : ""
-        combinedQuery.query += query1.type + "{" + query1.query + query2String + "}";
+        combinedQuery.query += query1.type + "{" + query1.query + "\n" + query2String + "}";
         if (!query2) {
             combinedQuery.queryKey = query1.queryKey;
         }
         return combinedQuery;
     }
 
-    getVerticesLabelStats() {
+    schemaGetVertexLabels() {
         return {
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "getVerticesLabelStats",
-            query: "getVerticesLabelStats{label, count}"
+            queryKey: "schemaGetVertexLabels",
+            query: "schemaGetVertexLabels"
         };
     }
 
-    getEdgesLabelStats() {
+    schemaGetEdgeLabels() {
         return {
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "getEdgesLabelStats",
-            query: "getEdgesLabelStats{label, count}"
+            queryKey: "schemaGetEdgeLabels",
+            query: "schemaGetEdgeLabels"
         };
     }
 
