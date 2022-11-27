@@ -458,7 +458,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     loadElementData(labelName, labelType) {
         let queryPayload = {};
         if (labelType === "vertex") {
-            queryPayload = this.connector.requestBuilder.filterVertices(labelName, 10, 0);
+            queryPayload = this.connector.requestBuilder.getVerticesByLabel(labelName, 10, 0);
         } else {
             queryPayload = this.connector.requestBuilder.getEdgesAndNeighboursByLabel(labelName, 10, 0);
         }

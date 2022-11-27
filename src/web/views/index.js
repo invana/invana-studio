@@ -15,7 +15,7 @@ export default class IndexView extends DefaultRemoteRoutableComponent {
         console.log("this.connector", this.connector);
         if (this.connector) {
             console.log("=_this.connector.requestBuilder.initQuery()", this.connector.requestBuilder.initQuery());
-            const showVerticesQuery = this.connector.requestBuilder.filterVertices(
+            const showVerticesQuery = this.connector.requestBuilder.getVerticesByLabel(
                 STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, 100
             );
             const queryPayload = this.connector.requestBuilder.combineQueries(showVerticesQuery, null);

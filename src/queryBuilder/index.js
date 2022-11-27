@@ -96,7 +96,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
 
     initQuery() {
-        return {"query": "{filterVertexByLabel(limit: 1){id,type,label,properties }}"};
+        return {"query": "{getVertices(limit: 1){id,type,label,properties }}"};
     }
 
     getLabelSchema(labelName, labelType) {
@@ -145,11 +145,11 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
     }
 
-    filterVertices(label, limit, skip) {
+    getVerticesByLabel(label, limit, skip) {
 
         let queryParams = "";
         if (label) {
-            queryParams += "label: \"" + label + "\",";
+            queryParams += "filters: \"{ \\\"has__label\\\" : \\\"" + label + "\\\"} \","
         }
         if (limit) {
             queryParams += "limit: " + limit + ",";
@@ -157,13 +157,12 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         if (skip) {
             queryParams += "skip: " + skip;
         }
-
         queryParams = queryParams.replace(/,\s*$/, "");
 
         return {
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "filterVertexByLabel",
-            query: "filterVertexByLabel(" + queryParams + "){id,type,label,properties}"
+            queryKey: "getVertices",
+            query: "getVertices(" + queryParams + "){id,type,label,properties}"
         };
     }
 
