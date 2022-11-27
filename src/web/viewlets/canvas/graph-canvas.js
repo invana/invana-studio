@@ -444,9 +444,9 @@ export default class GraphCanvas extends DefaultRemoteComponent {
     onItemClick(labelName, labelType) {
         let queryPayload = {};
         if (labelType === "vertex") {
-            queryPayload = this.connector.requestBuilder.filterVertexAndNeighborEdgesAndVertices(null, labelName, 10, 0);
+            queryPayload = this.connector.requestBuilder.getNodesAndNeighboursByLabel(null, labelName, 10, 0);
         } else {
-            queryPayload = this.connector.requestBuilder.filterEdgeAndGetNeighborVertices(labelName, 10, 0);
+            queryPayload = this.connector.requestBuilder.getEdgesAndNeighboursByLabel(labelName, 10, 0);
         }
 
         const queryPayloadCleaned = this.connector.requestBuilder.combineQueries(queryPayload, null);
@@ -460,7 +460,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         if (labelType === "vertex") {
             queryPayload = this.connector.requestBuilder.filterVertices(labelName, 10, 0);
         } else {
-            queryPayload = this.connector.requestBuilder.filterEdgeAndGetNeighborVertices(labelName, 10, 0);
+            queryPayload = this.connector.requestBuilder.getEdgesAndNeighboursByLabel(labelName, 10, 0);
         }
 
         const queryPayloadCleaned = this.connector.requestBuilder.combineQueries(queryPayload, null);

@@ -57,10 +57,10 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         };
     }
 
-    getOrCreateVertices(label, properties) {
+    getOrCreateVertex(label, properties) {
         return {
             query: "getOrCreateVertex(label:\"" + label + "\", properties: "
-                + JSON.stringify(JSON.stringify(properties)) + "){id,type,label,properties}",
+                + JSON.stringify(JSON.stringify(properties)) + "){isCreated,data{id,type,label,properties}}",
             type: this.QUERY_TYPES.QUERY,
             queryKey: "getOrCreateVertex"
         };
@@ -102,14 +102,31 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
     getLabelSchema(labelName, labelType) {
         let queryName = ""
         if (labelType === "vertex") {
-            queryName = "getVertexLabelSchema";
+            queryName = "schemaGetVertexSchema";
         } else {
-            queryName = "getEdgeLabelSchema"
+            queryName = "schemaGetEdgeSchema"
         }
         return {
             type: this.QUERY_TYPES.QUERY,
             queryKey: queryName,
-            query: queryName + "(label: \"" + labelName + "\"){ label,propertyKeys}"
+            query: queryName + "(label: \"" + labelName + "\"){ " +
+                "name, partitioned, static, properties {" +
+                "name,cardinality,type}}"
+        };
+    }
+
+
+    getLabelPropertyKeys(labelName, labelType) {
+        let queryName = ""
+        if (labelType === "vertex") {
+            queryName = "schemaGetVertexLabelPropertyKeys";
+        } else {
+            queryName = "schemaGetEdgeLabelPropertyKeys"
+        }
+        return {
+            type: this.QUERY_TYPES.QUERY,
+            queryKey: queryName,
+            query: queryName + "(label: \"" + labelName + "\")"
         };
     }
 
@@ -171,7 +188,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         };
     }
 
-    filterVertexAndNeighborEdgesAndVertices(id, label, limit, skip) {
+    getNodesAndNeighboursByLabel(id, label, limit, skip) {
 
 
         let queryParams = "";
@@ -188,14 +205,14 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         queryParams = queryParams.replace(/,\s*$/, "");
 
         return {
-            query: "filterVertexAndNeighborEdgesAndVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            query: label+"(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "filterVertexAndNeighborEdgesAndVertices",
+            queryKey: label,
         };
     }
 
 
-    filterEdgeAndGetNeighborVertices(label, limit, skip) {
+    getEdgesAndNeighboursByLabel(label, limit, skip) {
 
         let queryParams = "";
         if (label) {
@@ -211,9 +228,9 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         queryParams = queryParams.replace(/,\s*$/, "");
 
         return {
-            query: "filterEdgeAndGetNeighborVertices(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            query: "getEdgesAndNeighboursByLabel(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "filterEdgeAndGetNeighborVertices"
+            queryKey: "getEdgesAndNeighboursByLabel"
         };
     }
 

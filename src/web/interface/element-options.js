@@ -48,7 +48,7 @@ export default class ElementOptions extends DefaultRemoteComponent {
     }
 
     getElementInitialConfig() {
-        // const queryPayload = this.connector.requestBuilder.getOrCreateVertices(
+        // const queryPayload = this.connector.requestBuilder.getOrCreateVertex(
         //     STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, {name: this.getElementLabel()}
         // );
         // const queryObject = this.connector.requestBuilder.combineQueries(queryPayload, null)
@@ -56,15 +56,15 @@ export default class ElementOptions extends DefaultRemoteComponent {
         //
         //
 
-        const getOrCreateElementPayload = this.connector.requestBuilder.getOrCreateVertices(
+        const getOrCreateElementPayload = this.connector.requestBuilder.getOrCreateVertex(
             STUDIO_SETTINGS.MANAGEMENT_VERTEX_LABEL, {name: this.getElementLabel()}
         );
-        const getLabelSchemaPayload = this.connector.requestBuilder.getLabelSchema(
+        const getLabelPropertyKeysPayload = this.connector.requestBuilder.getLabelPropertyKeys(
             this.getElementLabel(),
             this.getElementType()
         );
         const queryObject = this.connector.requestBuilder.combineQueries(
-            getOrCreateElementPayload, getLabelSchemaPayload
+            getOrCreateElementPayload, getLabelPropertyKeysPayload
         )
         this.makeQuery(queryObject);
     }
@@ -109,20 +109,20 @@ export default class ElementOptions extends DefaultRemoteComponent {
     processResponse(response) {
         this.shallReload = true;
         console.log("=====response===", response);
-        // console.log("***wow", response.response.data[this.connector.requestBuilder.getLabelSchema(
+        // console.log("***wow", response.response.data[this.connector.requestBuilder.getLabelPropertyKeys(
         //     this.getElementLabel(), this.getElementType()
         // ).queryKey])
 
-        const schemaData = response.response.data[this.connector.requestBuilder.getLabelSchema(
+        const schemaData = response.response.data[this.connector.requestBuilder.getLabelPropertyKeys(
             this.getElementLabel(), this.getElementType()
         ).queryKey];
-        const schemaPropertyKeys = schemaData ? schemaData.propertyKeys : [];
+        const schemaPropertyKeys = schemaData  || [];
         // let schemaPropertyKeys__ = this.state.prop.concat(schemaPropertyKeys);
         if (response.response.data && response.response.data.getOrCreateVertex) {
             // get the init data of the vertex options.
-            setElementColorOptionsToStorage(response.response.data.getOrCreateVertex);
+            setElementColorOptionsToStorage(response.response.data.getOrCreateVertex.data);
             this.setState({
-                nodeOptions: response.response.data.getOrCreateVertex,
+                nodeOptions: response.response.data.getOrCreateVertex.data,
                 propertyFieldKeys: schemaPropertyKeys
             })
             this.forceUpdate();
