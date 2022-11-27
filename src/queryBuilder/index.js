@@ -204,7 +204,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         queryParams = queryParams.replace(/,\s*$/, "");
 
         return {
-            query: label+"(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            query: label + "(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
             type: this.QUERY_TYPES.QUERY,
             queryKey: label,
         };
@@ -216,12 +216,18 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         if (label) {
             queryParams += "filters: \"{ \\\"has__label\\\" : \\\"" + label + "\\\"} \","
         }
-        if (limit) {queryParams += "limit: " + limit + ",";}
-        if (skip) {queryParams += "skip: " + skip;}
+        if (limit) {
+            queryParams += "limit: " + limit + ",";
+        }
+        if (skip) {
+            queryParams += "skip: " + skip;
+        }
         queryParams = queryParams.replace(/,\s*$/, "");
 
         return {
-            query: "getEdges(" + queryParams + "){id,type,label,properties, inv{id, label}, outv{id, label}}",
+            query: "getEdges(" + queryParams + "){id,type,label,properties, " +
+                "inv{id, type, label, properties}, " +
+                "outv{id, type, label, properties}}",
             type: this.QUERY_TYPES.QUERY,
             queryKey: "getEdges"
         };
