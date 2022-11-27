@@ -158,7 +158,8 @@ export default class SidebarListBase extends React.Component {
 
                                         "color": this.checkLabelDisplaySettings(elementLabel, this.getLabelType() === "hidden") ? "#c9c9c9" : "#656565",
                                         "fontSize": "12px"
-                                    }}>({elementLabel.count} entries)                                    </span>
+                                    }}>
+                                                                    </span>
                                     <span className={"float-right"} style={{"position": "relative", "right": "-12px"}}>
                                         {
                                             this.checkLabelDisplaySettings(elementLabel, this.getLabelType()) === "hidden"
