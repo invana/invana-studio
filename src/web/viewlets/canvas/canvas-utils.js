@@ -205,7 +205,7 @@ export default class VisJsGraphCanvasUtils {
                 label = vertexDataaUpdated.id;
             } else if (labelPropertyKey === "_label") {
                 label = vertexDataaUpdated._label;
-            } else if (vertexDataaUpdated.properties[labelPropertyKey]) {
+            } else if (vertexDataaUpdated.properties && vertexDataaUpdated.properties[labelPropertyKey]) {
                 label = vertexDataaUpdated.properties[labelPropertyKey];
             }
         }
@@ -284,8 +284,8 @@ export default class VisJsGraphCanvasUtils {
         edgeDataUpdated.label = this.stringify(label).substring(0, GRAPH_CANVAS_SETTINGS.MAX_LABEL_LENGTH);
         edgeDataUpdated.group = undefined; // groupName
 
-        edgeDataUpdated.from = edgeDataUpdated.outV;
-        edgeDataUpdated.to = edgeDataUpdated.inV;
+        edgeDataUpdated.from = edgeDataUpdated.outv.id;
+        edgeDataUpdated.to = edgeDataUpdated.inv.id;
 
         if (renderingConfigFromStorage && renderingConfigFromStorage.linkLength) {
             edgeDataUpdated.length = renderingConfigFromStorage.linkLength;

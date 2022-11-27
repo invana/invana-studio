@@ -211,25 +211,19 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
     }
 
 
-    getEdgesAndNeighboursByLabel(label, limit, skip) {
-
+    getEdgesByLabel(label, limit, skip) {
         let queryParams = "";
         if (label) {
-            queryParams += "label: \"" + label + "\",";
+            queryParams += "filters: \"{ \\\"has__label\\\" : \\\"" + label + "\\\"} \","
         }
-        if (limit) {
-            queryParams += "limit: " + limit + ",";
-        }
-        if (skip) {
-            queryParams += "skip: " + skip;
-        }
-
+        if (limit) {queryParams += "limit: " + limit + ",";}
+        if (skip) {queryParams += "skip: " + skip;}
         queryParams = queryParams.replace(/,\s*$/, "");
 
         return {
-            query: "getEdgesAndNeighboursByLabel(" + queryParams + "){id,type,label,properties, inV, inVLabel, outV, outVLabel}",
+            query: "getEdges(" + queryParams + "){id,type,label,properties, inv{id, label}, outv{id, label}}",
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "getEdgesAndNeighboursByLabel"
+            queryKey: "getEdges"
         };
     }
 

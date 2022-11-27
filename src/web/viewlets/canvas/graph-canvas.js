@@ -335,18 +335,42 @@ export default class GraphCanvas extends DefaultRemoteComponent {
 
     separateNodesAndEdges(data) {
         console.log("====separateNodesAndEdges", data)
-        let nodes = [];
-        let edges = [];
         if (data) {
-            data.forEach((datum) => {
-                if (datum.type === "edge") {
-                    edges.push(datum);
-                } else if (datum.type === "vertex") {
-                    nodes.push(datum);
+            const edges = data.filter(d => d.type === "edge")
+            const nodes = data.filter(d => d.type === "vertex")
+            // let nodes_dict = {}
+            // nodes.forEach((d)=>{
+            //     nodes_dict[d.id] = d
+            // })
+            console.log("nodes-edges", nodes, edges)
+            const nodes_dict = ((nodes.length > 0) ? Object.assign(...nodes.map(el => ({[el.id]: el}))):  {})
+
+            let edges_dict = {}
+            edges.forEach((d) => {
+                edges_dict[d.id] = d
+                if (d.inv && !Object.keys(nodes_dict).includes(d.inv.id)) {
+                    nodes_dict[d.inv.id] = d.inv
+                }
+                if (d.outv && !Object.keys(nodes_dict).includes(d.outv.id)) {
+                    nodes_dict[d.outv.id] = d.outv
                 }
             })
+            console.log("====nodes_dict", nodes_dict)
+            return {nodes: Object.values(nodes_dict), edges: Object.values(edges_dict)}
+
         }
-        return {nodes, edges};
+
+        return {nodes: [], edges: []}
+        // if (data) {
+        //     data.forEach((datum) => {
+        //         if (datum.type === "edge") {
+        //             edges.push(datum);
+        //         } else if (datum.type === "vertex") {
+        //             nodes.push(datum);
+        //         }
+        //     })
+        // }
+
     }
 
     processResponse(response) {
@@ -355,7 +379,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         console.log("lastResponse", lastResponse);
         let data = response.getResponseResult(this.state.queryObject.queryKey);
         // separate nodes and edges
-        if (this.state.queryObject.queryKey === "executeQuery"){
+        if (this.state.queryObject.queryKey === "executeQuery") {
             data = data.data
         }
         if (lastResponse) {
@@ -446,7 +470,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         if (labelType === "vertex") {
             queryPayload = this.connector.requestBuilder.getNodesAndNeighboursByLabel(null, labelName, 10, 0);
         } else {
-            queryPayload = this.connector.requestBuilder.getEdgesAndNeighboursByLabel(labelName, 10, 0);
+            queryPayload = this.connector.requestBuilder.getEdgesByLabel(labelName, 10, 0);
         }
 
         const queryPayloadCleaned = this.connector.requestBuilder.combineQueries(queryPayload, null);
@@ -460,7 +484,7 @@ export default class GraphCanvas extends DefaultRemoteComponent {
         if (labelType === "vertex") {
             queryPayload = this.connector.requestBuilder.getVerticesByLabel(labelName, 10, 0);
         } else {
-            queryPayload = this.connector.requestBuilder.getEdgesAndNeighboursByLabel(labelName, 10, 0);
+            queryPayload = this.connector.requestBuilder.getEdgesByLabel(labelName, 10, 0);
         }
 
         const queryPayloadCleaned = this.connector.requestBuilder.combineQueries(queryPayload, null);
