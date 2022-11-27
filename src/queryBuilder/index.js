@@ -222,6 +222,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
         if (skip) {
             queryParams += "skip: " + skip;
         }
+        queryParams += "getVertexProperties: true";
         queryParams = queryParams.replace(/,\s*$/, "");
 
         return {
