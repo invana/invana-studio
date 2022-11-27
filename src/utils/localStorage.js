@@ -130,9 +130,9 @@ export function setElementColorOptionsToStorageUsingResponse(response) {
     If sent response from gremlin, it will automatically update those new
     vertex/edge key data only.
      */
-    console.log("setElementColorOptionsToStorageUsingResponse", response.response.data.filterVertex);
+    console.log("setElementColorOptionsToStorageUsingResponse", response.response.data.filterVertexByLabel);
     let nodeLabelsConfig = {};
-    response.response.data.filterVertex.forEach((vertexConfig) => {
+    response.response.data.filterVertexByLabel.forEach((vertexConfig) => {
         nodeLabelsConfig[vertexConfig.properties.name] = vertexConfig.properties;
     });
     setDataToLocalStorage(RENDERING_CONFIG.LOCAL_STORAGE_KEY, nodeLabelsConfig);

@@ -96,7 +96,7 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
 
     initQuery() {
-        return {"query": "{filterVertex(limit: 1){id,type,label,properties }}"};
+        return {"query": "{filterVertexByLabel(limit: 1){id,type,label,properties }}"};
     }
 
     getLabelSchema(labelName, labelType) {
@@ -162,8 +162,8 @@ export default class InvanaEngineQueryManager extends QueryManagerBase {
 
         return {
             type: this.QUERY_TYPES.QUERY,
-            queryKey: "filterVertex",
-            query: "filterVertex(" + queryParams + "){id,type,label,properties}"
+            queryKey: "filterVertexByLabel",
+            query: "filterVertexByLabel(" + queryParams + "){id,type,label,properties}"
         };
     }
 
