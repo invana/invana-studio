@@ -21,7 +21,7 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'rsuite/styles/index.less';
-
+import { CustomProvider } from 'rsuite';
 import {
     ApolloClient,
     InMemoryCache,
@@ -39,7 +39,9 @@ const client = new ApolloClient({
 ReactDOM.render(
     <React.StrictMode>
         <ApolloProvider client={client}>
-            <App/>
+            <CustomProvider 
+            // theme="dark"
+            ><App/></CustomProvider>
         </ApolloProvider>
     </React.StrictMode>,
     document.getElementById('root')

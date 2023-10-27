@@ -61,7 +61,7 @@ export const GET_SCHEMA_QUERY = gql`
 // `
 export const GET_GOD_QUERY = gql`
   query {
-    _get_client_info{
+    get_client_info{
         gremlin_traversal_source
         gremlin_host
     }
