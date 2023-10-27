@@ -184,7 +184,7 @@ const GraphOverview = () => {
                     <Modal size={"md"} keyboard={false} open={open} onClose={handleClose}>
                         <Modal.Header>
                             <Modal.Title>Interactively
-                                query <strong>{selectedLabel.label}</strong> label
+                                query `<strong>{selectedLabel.label}</strong>` label
                             </Modal.Title>
                         </Modal.Header>
 
