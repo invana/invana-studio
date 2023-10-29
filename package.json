@@ -1,33 +1,23 @@
 {
-  "name": "invana-studio-v2",
-  "description": "Open source graph visualiser.",
+  "name": "invana-studio",
   "version": "0.1.0",
   "private": true,
-  "repository": {
-    "url": "https://github.com/invanalabs/invana-studio"
-  },
   "dependencies": {
-    "@apollo/client": "^3.5.9",
-    "@rsuite/icons": "^1.0.2",
-    "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.37",
-    "@types/react": "^17.0.35",
-    "@types/react-dom": "^17.0.11",
-    "graphiql": "^1.6.0",
-    "graphiql-explorer": "^0.9.0",
-    "graphql": "^16.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "4.0.3",
-    "rsuite": "^5.5.2",
-    "typescript": "^4.4.4",
-    "vis-data": "^7.1.3",
-    "vis-network": "^9.1.0",
-    "web-vitals": "^1.1.2"
+    "@reduxjs/toolkit": "^1.9.7",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.59",
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.3",
+    "react-scripts": "5.0.1",
+    "sass": "^1.69.5",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,8 +42,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "node-sass": "^9.0.0"
   }
 }
