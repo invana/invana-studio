@@ -1,0 +1,31 @@
+@import '~rsuite/dist/rsuite.min.css';
+
+// body{
+//   // font-size: 14px;
+//   // line-height: 1.42857143;
+//   color: var(--rs-text-primary);
+//   background-color: var(--rs-body);
+// }
+
+.rs-panel{
+  border-radius: 2px !important;
+}
+
+
+.rs-sidebar {
+  height: 100vh;
+  border-right: 1px solid var(--rs-border-primary);
+  //z-index: 3;
+  // background-color: #dcdcdc;
+  .rs-sidenav-header{
+    text-align: center;
+    font-weight: bold;
+  }
+  .rs-sidenav {
+    height: calc(100vh - 45px );
+  }
+
+  // .rs-sidenav-item {
+  //   //border-bottom: 1px solid #ccc;
+  // }
+}
