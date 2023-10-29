@@ -34,8 +34,10 @@ const DefaultLayout = ({children} : {children: any}) => {
           >
             <Sidenav.Header>
               <div  style={headerStyles}  >
+                <a href="/">
                  <FontAwesomeIcon icon={faUserAstronaut} /> 
                  <div style={{fontSize: 14, marginTop: -5}}>Invana</div>
+                 </a>
               </div>
             </Sidenav.Header>
             <Sidenav expanded={expand} defaultOpenKeys={['3']} appearance="subtle">

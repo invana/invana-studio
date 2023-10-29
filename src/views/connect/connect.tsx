@@ -16,10 +16,14 @@
 
 
 import React from "react";
-import {Container, Content, FlexboxGrid, Panel, Form, ButtonToolbar, Button} from 'rsuite';
-import {STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES, STUDIO_SETTINGS} from "../../settings";
-import {setDataToLocalStorage} from "../../utils";
+import { Container, Content, FlexboxGrid, Panel, Form, ButtonToolbar, Button } from 'rsuite';
+import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES, STUDIO_SETTINGS } from "../../settings";
+import { setDataToLocalStorage } from "../../utils";
 import DefaultLayout from "../../components/layout/layout";
+import { Grid, Row, Col } from 'rsuite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
+
 
 const ConnectView = () => {
     const [invanaEngineUrl, setInvanaEngineUrl] = React.useState("http://localhost:8200");
@@ -30,31 +34,36 @@ const ConnectView = () => {
     }
     return (
         <DefaultLayout>
-                <Content style={{"paddingTop": "16%"}}>
-                    <FlexboxGrid justify="center">
-                        <FlexboxGrid.Item colspan={6}>
-                            <Panel shaded  bordered>
-                                <h3>Invana Graph</h3>
-                                <p style={{"marginBottom": "20px"}}>Connecting the data for finding problems and solutions</p>
-                                <Form fluid >
-                                    <Form.Group>
-                                        <Form.ControlLabel style={{fontWeight: "bold"}}>Invana Engine URL</Form.ControlLabel>
-                                        <Form.Control type={"url"} name="invanaEngineUrl" value={invanaEngineUrl}
-                                                      onChange={(d: any) => setInvanaEngineUrl(d)}/>
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <ButtonToolbar>
-                                            <Button appearance="primary" onClick={connect} size={"sm"}>Connect</Button>
-                                            <Button appearance="link" href={STUDIO_SETTINGS.HELP_LINK}>Help?</Button>
-                                        </ButtonToolbar>
-                                    </Form.Group>
-                                </Form>
-                            </Panel>
-                        </FlexboxGrid.Item>
-                    </FlexboxGrid>
-                </Content>
+            <Content style={{ "paddingTop": "16%" }}>
+                <FlexboxGrid justify="center">
+                    <FlexboxGrid.Item colspan={6}>
+                        <Panel shaded bordered>
+                            <Row >
+                                <Col lg={4} sm={4} xs={4}><FontAwesomeIcon icon={faUserAstronaut} style={{fontSize: 56}} /> </Col>
+                                <Col>
+                                    <h3>Invana Graph</h3>
+                                    <p style={{ "marginBottom": "20px" }}>Connecting the data for finding problems and solutions</p>
+                                </Col>
+                            </Row>
+                            <Form fluid >
+                                <Form.Group>
+                                    <Form.ControlLabel style={{ fontWeight: "bold" }}>Invana Engine URL</Form.ControlLabel>
+                                    <Form.Control type={"url"} name="invanaEngineUrl" value={invanaEngineUrl}
+                                        onChange={(d: any) => setInvanaEngineUrl(d)} />
+                                </Form.Group>
+                                <Form.Group>
+                                    <ButtonToolbar>
+                                        <Button appearance="primary" onClick={connect} size={"sm"}>Connect</Button>
+                                        <Button appearance="link" href={STUDIO_SETTINGS.HELP_LINK}>Help?</Button>
+                                    </ButtonToolbar>
+                                </Form.Group>
+                            </Form>
+                        </Panel>
+                    </FlexboxGrid.Item>
+                </FlexboxGrid>
+            </Content>
         </DefaultLayout>
-         
+
     );
 };
 
