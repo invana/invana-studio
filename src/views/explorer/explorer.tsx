@@ -29,17 +29,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CanvasTabs from "./canvasTabs";
 
 
-
-
 const ExplorerView = () => {
 
 
 
     return (
-        <DefaultLayout header={<DefaultHeader canvasMenu={<ExplorerCanvasMenu />} />}>
-         
-                <CanvasTabs />
-        
+        <DefaultLayout header={<DefaultHeader canvasMenu={<ExplorerCanvasMenu />} />}>         
+                {/* <CanvasTabs /> */}
         </DefaultLayout>
 
     );

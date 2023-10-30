@@ -1,5 +1,5 @@
 import React from "react";
-import TabNav from '@rsuite/responsive-nav';
+import Nav from '@rsuite/responsive-nav';
 import MoreIcon from '@rsuite/icons/More';
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,25 +28,21 @@ const CanvasTabs = () => {
     const [activeCanvas, setActiveCanvas] = React.useState<string>("default-canvas");
     const [canvasList, setCanvasList] = React.useState([defaultCanvasItem,])
 
-
-
     const removeCanvas = (canvasId: string) => {
         const canvasListTemp = canvasList
         console.log("removeCanvas", canvasId, canvasListTemp, canvasList)
-
         canvasListTemp.splice(canvasListTemp.map(item => item.id).indexOf(canvasId), 1);
-        const activeCanvasTempId = canvasListTemp[0] ? canvasListTemp[0].id : defaultCanvasItem.id;
+        const activeCanvasTempId = canvasListTemp[0] ? canvasListTemp[0].id : null;
         if (activeCanvasTempId) {
             setCanvasList(canvasListTemp)
             setActiveCanvas(activeCanvasTempId)
         } else {
             setCanvasList([defaultCanvasItem,])
             setActiveCanvas(defaultCanvasItem.id)
-
         }
     }
     return <React.Fragment>
-        <TabNav
+        <Nav
             removable
             appearance="tabs"
             moreText={<MoreIcon />}
@@ -54,18 +50,15 @@ const CanvasTabs = () => {
             activeKey={activeCanvas}
             onSelect={eventKey => {
                 {/*
-          // @ts-ignore */}
+              // @ts-ignore */}
                 setActiveCanvas(eventKey);
             }}
             onItemRemove={eventKey => removeCanvas(eventKey.toString())}
         >
             {canvasList.map(canvasItem => (
-                <TabNav.Item key={canvasItem.id} eventKey={canvasItem.id}>{canvasItem.name}</TabNav.Item>
-
+                <Nav.Item key={canvasItem.id} eventKey={canvasItem.id}>{canvasItem.name}</Nav.Item>
             ))}
-
-
-        </TabNav>
+        </Nav>
 
         <Button
             onClick={() => {
@@ -77,7 +70,6 @@ const CanvasTabs = () => {
                 });
                 setCanvasList(canvasListTemp)
                 setActiveCanvas(itemKey)
-
             }}
         ><FontAwesomeIcon icon={faAdd} />
         </Button>
