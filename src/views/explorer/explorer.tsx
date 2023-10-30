@@ -31,9 +31,9 @@ import CanvasArtBoard from "../../components/canvas/canvas-artboard";
 import { GraphCanvasCtrl } from "../../components/canvas/canvas-ctrl";
 import GenerateEvents from "../../components/canvas/events";
 import NetworkErrorUI from "../../components/networkError";
-import { GET_GOD_QUERY } from "../../queries/modeller";
+import { GET_GOD_QUERY, GET_SCHEMA_QUERY } from "../../queries/modeller";
 import { useQuery } from "@apollo/client";
-import { convertToVisJsData } from "../../components/canvas/utils";
+import convertSchemaDataToVisJsData, { convertToVisJsData } from "../../components/canvas/utils";
 import defaultOptions from "../../components/canvas/networkOptions";
 
 
@@ -49,14 +49,18 @@ const ExplorerView = () => {
 
 
     const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
-    const {loading, error, data} = useQuery(GET_GOD_QUERY);
+    const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
   
     console.log("=====error", error);
     if (error) return <NetworkErrorUI error={error}/>;
     if (!loading) {
-        if (data.god) {
-            const graphDataConverted = convertToVisJsData(data.god, [])
+        if (data) {
+
+            const graphDataConverted = convertSchemaDataToVisJsData(data);
             canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
+    
+        //     const graphDataConverted = convertToVisJsData(data.god, [])
+        //     canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
         }
     }
     return (
@@ -76,4 +80,4 @@ const ExplorerView = () => {
     );
 };
 
-export default ExplorerView;
+export default ExplorerView

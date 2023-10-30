@@ -67,3 +67,4 @@ export const GET_GOD_QUERY = gql`
     }
   }
 `
+
