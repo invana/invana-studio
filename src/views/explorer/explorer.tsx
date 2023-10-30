@@ -16,7 +16,7 @@
 
 
 import React from "react";
-import { Button, Content } from 'rsuite';
+import { Button, Content, Loader } from 'rsuite';
 import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES } from "../../settings";
 import { setDataToLocalStorage } from "../../utils";
 import DefaultLayout from '../../components/core-ui/layout/layout';
@@ -49,32 +49,34 @@ const ExplorerView = () => {
 
 
     const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
-    const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
-  
+    const { loading, error, data } = useQuery(GET_SCHEMA_QUERY);
+
     console.log("=====error", error);
-    if (error) return <NetworkErrorUI error={error}/>;
+    if (error) return <NetworkErrorUI error={error} />;
     if (!loading) {
         if (data) {
 
             const graphDataConverted = convertSchemaDataToVisJsData(data);
             canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
-    
-        //     const graphDataConverted = convertToVisJsData(data.god, [])
-        //     canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
+
+            //     const graphDataConverted = convertToVisJsData(data.god, [])
+            //     canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
         }
     }
     return (
-        <DefaultLayout header={<DefaultHeader canvasMenu={<ExplorerCanvasMenu />} />}>         
-                {/* <CanvasTabs /> */}
-                <CanvasArtBoard 
-                          containerId={"artboard-1"}
-                          renderCanvas={renderCanvas}
-                          setRenderCanvas={setRenderCanvas}
-                          options={defaultOptions}
-                          events={events}
-                          canvasCtrl={canvasCtrl}
-                
-                />
+        <DefaultLayout header={<DefaultHeader canvasMenu={<ExplorerCanvasMenu />} />}>
+            {loading ? (
+                <Loader backdrop content="Fetching data ..." vertical />
+            ) : (<span></span>)}
+            <CanvasArtBoard
+                containerId={"artboard-1"}
+                renderCanvas={renderCanvas}
+                setRenderCanvas={setRenderCanvas}
+                options={defaultOptions}
+                events={events}
+                canvasCtrl={canvasCtrl}
+
+            />
         </DefaultLayout>
 
     );
