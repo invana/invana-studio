@@ -16,13 +16,12 @@
 
 
 import React from "react";
-import { Container, Content, FlexboxGrid, Panel, Form, ButtonToolbar, Button } from 'rsuite';
+import { Content, FlexboxGrid, Panel, Form, ButtonToolbar, Button, Row, Col  } from 'rsuite';
 import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES, STUDIO_SETTINGS } from "../../settings";
 import { setDataToLocalStorage } from "../../utils";
-import DefaultLayout from '../../components/layout/layout';
-import { Grid, Row, Col } from 'rsuite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
+import DefaultLayout from '../../components/layout/layout';
 
 
 const ConnectView = () => {
@@ -36,13 +35,13 @@ const ConnectView = () => {
         <DefaultLayout>
             <Content style={{ "paddingTop": "16%" }}>
                 <FlexboxGrid justify="center">
-                    <FlexboxGrid.Item colspan={6}>
+                    <FlexboxGrid.Item colspan={7}>
                         <Panel shaded bordered>
                             <Row >
-                                <Col lg={4} sm={4} xs={4}><FontAwesomeIcon icon={faUserAstronaut} style={{fontSize: 56}} /> </Col>
+                                <Col  xs={4}><FontAwesomeIcon icon={faUserAstronaut} style={{fontSize: 56}} /> </Col>
                                 <Col>
                                     <h3>Invana Graph</h3>
-                                    <p style={{ "marginBottom": "30px" }}>Connecting the data for finding problems and solutions</p>
+                                    <p style={{ "marginBottom": "40px" }}>Connecting the data for finding problems and solutions</p>
                                 </Col>
                             </Row>
                             <Form fluid >
@@ -54,7 +53,7 @@ const ConnectView = () => {
                                 <Form.Group>
                                     <ButtonToolbar>
                                         <Button appearance="primary" onClick={connect} size={"sm"}>Connect</Button>
-                                        <Button appearance="link" href={STUDIO_SETTINGS.HELP_LINK}>Help?</Button>
+                                        <Button appearance="link" target="_blank" href={STUDIO_SETTINGS.HELP_LINK}>Help?</Button>
                                     </ButtonToolbar>
                                 </Form.Group>
                             </Form>
