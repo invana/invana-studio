@@ -16,17 +16,10 @@
 
 
 import React from "react";
-import { Button, Content, Loader } from 'rsuite';
-import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES } from "../../settings";
-import { setDataToLocalStorage } from "../../utils";
+import { Loader } from 'rsuite';
 import DefaultLayout from '../../components/core-ui/layout/layout';
 import DefaultHeader from "../../components/core-ui/header/header";
 import ExplorerCanvasMenu from "./canvasMenu";
-import TabNav from '@rsuite/responsive-nav';
-import MoreIcon from '@rsuite/icons/More';
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CanvasTabs from "./canvasTabs";
 import CanvasArtBoard from "../../components/canvas/canvas-artboard";
 import { GraphCanvasCtrl } from "../../components/canvas/canvas-ctrl";
 import GenerateEvents from "../../components/canvas/events";
@@ -83,3 +76,4 @@ const ExplorerView = () => {
 };
 
 export default ExplorerView
+
