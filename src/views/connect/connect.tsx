@@ -19,7 +19,7 @@ import React from "react";
 import { Container, Content, FlexboxGrid, Panel, Form, ButtonToolbar, Button } from 'rsuite';
 import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES, STUDIO_SETTINGS } from "../../settings";
 import { setDataToLocalStorage } from "../../utils";
-import DefaultLayout from "../../components/layout/layout";
+import DefaultLayout from '../../components/layout/layout';
 import { Grid, Row, Col } from 'rsuite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
@@ -42,7 +42,7 @@ const ConnectView = () => {
                                 <Col lg={4} sm={4} xs={4}><FontAwesomeIcon icon={faUserAstronaut} style={{fontSize: 56}} /> </Col>
                                 <Col>
                                     <h3>Invana Graph</h3>
-                                    <p style={{ "marginBottom": "20px" }}>Connecting the data for finding problems and solutions</p>
+                                    <p style={{ "marginBottom": "30px" }}>Connecting the data for finding problems and solutions</p>
                                 </Col>
                             </Row>
                             <Form fluid >

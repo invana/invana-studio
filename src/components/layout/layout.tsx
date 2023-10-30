@@ -6,8 +6,10 @@ import GroupIcon from '@rsuite/icons/legacy/Group';
 import MagicIcon from '@rsuite/icons/legacy/Magic';
 import NavToggle from '../nav/nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
-
+import { faUserAstronaut,faBezierCurve,  faCompass } from '@fortawesome/free-solid-svg-icons'
+import { Bezier } from 'react-bootstrap-icons';
+import { ArrowRight } from 'react-bootstrap-icons';
+import { FontAwesomeIcon } from '../icons/icons';
  
 
 
@@ -43,38 +45,20 @@ const DefaultLayout = ({children} : {children: any}) => {
             <Sidenav expanded={expand} defaultOpenKeys={['3']} appearance="subtle">
               <Sidenav.Body>
                 <Nav>
-                  <Nav.Item eventKey="1" active icon={<DashboardIcon />}>
-                    Dashboard
+                                      {/*
+// @ts-ignore */}
+                  <Nav.Item eventKey="1" active icon={<FontAwesomeIcon  icon={faCompass} />} >
+                    Explorer
                   </Nav.Item>
-                  <Nav.Item eventKey="2" icon={<GroupIcon />}>
-                    User Group
+                    {/*
+// @ts-ignore */}
+                  <Nav.Item eventKey="2" active icon={<FontAwesomeIcon icon={ faBezierCurve} /> }>                    
+                    Modeller 
+
+                    
                   </Nav.Item>
-                  <Nav.Menu
-                    eventKey="3"
-                    trigger="hover"
-                    title="Advanced"
-                    icon={<MagicIcon />}
-                    placement="rightStart"
-                  >
-                    <Nav.Item eventKey="3-1">Geo</Nav.Item>
-                    <Nav.Item eventKey="3-2">Devices</Nav.Item>
-                    <Nav.Item eventKey="3-3">Brand</Nav.Item>
-                    <Nav.Item eventKey="3-4">Loyalty</Nav.Item>
-                    <Nav.Item eventKey="3-5">Visit Depth</Nav.Item>
-                  </Nav.Menu>
-                  <Nav.Menu
-                    eventKey="4"
-                    trigger="hover"
-                    title="Settings"
-                    icon={<GearCircleIcon />}
-                    placement="rightStart"
-                  >
-                    <Nav.Item eventKey="4-1">Applications</Nav.Item>
-                    <Nav.Item eventKey="4-2">Websites</Nav.Item>
-                    <Nav.Item eventKey="4-3">Channels</Nav.Item>
-                    <Nav.Item eventKey="4-4">Tags</Nav.Item>
-                    <Nav.Item eventKey="4-5">Versions</Nav.Item>
-                  </Nav.Menu>
+           
+              
                 </Nav>
               </Sidenav.Body>
             </Sidenav>
