@@ -27,15 +27,50 @@ import MoreIcon from '@rsuite/icons/More';
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CanvasTabs from "./canvasTabs";
+import CanvasArtBoard from "../../components/canvas/canvas-artboard";
+import { GraphCanvasCtrl } from "../../components/canvas/canvas-ctrl";
+import GenerateEvents from "../../components/canvas/events";
+import NetworkErrorUI from "../../components/networkError";
+import { GET_GOD_QUERY } from "../../queries/modeller";
+import { useQuery } from "@apollo/client";
+import { convertToVisJsData } from "../../components/canvas/utils";
+import defaultOptions from "../../components/canvas/networkOptions";
 
 
 const ExplorerView = () => {
 
+    const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
+    const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
+    const [selectedData, setSelectedData] = React.useState(null)
 
 
+    const [leftSidebar, setLeftSidebar] = React.useState("")
+    const [rightSidebar, setRightSidebar] = React.useState("")
+
+
+    const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
+    const {loading, error, data} = useQuery(GET_GOD_QUERY);
+  
+    console.log("=====error", error);
+    if (error) return <NetworkErrorUI error={error}/>;
+    if (!loading) {
+        if (data.god) {
+            const graphDataConverted = convertToVisJsData(data.god, [])
+            canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
+        }
+    }
     return (
         <DefaultLayout header={<DefaultHeader canvasMenu={<ExplorerCanvasMenu />} />}>         
                 {/* <CanvasTabs /> */}
+                <CanvasArtBoard 
+                          containerId={"artboard-1"}
+                          renderCanvas={renderCanvas}
+                          setRenderCanvas={setRenderCanvas}
+                          options={defaultOptions}
+                          events={events}
+                          canvasCtrl={canvasCtrl}
+                
+                />
         </DefaultLayout>
 
     );
