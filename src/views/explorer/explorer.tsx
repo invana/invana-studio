@@ -16,28 +16,33 @@
 
 
 import React from "react";
-import { Content } from 'rsuite';
+import { Button, Content } from 'rsuite';
 import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES } from "../../settings";
 import { setDataToLocalStorage } from "../../utils";
 import DefaultLayout from '../../components/core-ui/layout/layout';
 import DefaultHeader from "../../components/core-ui/header/header";
 import ExplorerCanvasMenu from "./canvasMenu";
+import TabNav from '@rsuite/responsive-nav';
+import MoreIcon from '@rsuite/icons/More';
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CanvasTabs from "./canvasTabs";
 
-const ConnectView = () => {
-    const [invanaEngineUrl, setInvanaEngineUrl] = React.useState("http://localhost:8200");
-    const connect = () => {
-        // TODO - validate url for connectivity
-        window.location.href = STUDIO_ROUTES.HOME;
-        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, invanaEngineUrl)
-    }
+
+
+
+const ExplorerView = () => {
+
+
+
     return (
-        <DefaultLayout header={<DefaultHeader canvasMenu={<ExplorerCanvasMenu />}/>}>
-            <Content >
-                
-            </Content>
+        <DefaultLayout header={<DefaultHeader canvasMenu={<ExplorerCanvasMenu />} />}>
+         
+                <CanvasTabs />
+        
         </DefaultLayout>
 
     );
 };
 
-export default ConnectView;
+export default ExplorerView;
