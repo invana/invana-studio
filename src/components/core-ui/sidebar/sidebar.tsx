@@ -42,20 +42,12 @@ const DefaultLayoutSidebar = ({ expand }: { expand: boolean }) => {
         <Sidenav expanded={expand} defaultOpenKeys={['3']} appearance="subtle">
             <Sidenav.Body>
                 <Nav>
-                    {/*
-// @ts-ignore */}
                     <Nav.Item eventKey="1" active icon={<FontAwesomeIconRenderer icon={faCompass} />} >
                         Explorer
                     </Nav.Item>
-                    {/*
-// @ts-ignore */}
                     <Nav.Item eventKey="2" active icon={<FontAwesomeIconRenderer icon={faBezierCurve} />}>
                         Modeller
-
-
                     </Nav.Item>
-
-
                 </Nav>
             </Sidenav.Body>
         </Sidenav>
