@@ -22,6 +22,7 @@ import { setDataToLocalStorage } from "../../utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
 import DefaultLayout from '../../components/core-ui/layout/layout';
+import DefaultHeader from "../../components/core-ui/header/header";
 
 
 const ConnectView = () => {
@@ -32,7 +33,8 @@ const ConnectView = () => {
         setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, invanaEngineUrl)
     }
     return (
-        <DefaultLayout>
+        <DefaultLayout header={<DefaultHeader />}>
+        
             <Content style={{ "paddingTop": "16%" }}>
                 <FlexboxGrid justify="center">
                     <FlexboxGrid.Item colspan={7}>

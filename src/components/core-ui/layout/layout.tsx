@@ -13,17 +13,16 @@ import { FontAwesomeIconRenderer } from '../icons/icons';
 import DefaultLayoutSidebar from '../sidebar/sidebar';
 
 
-const DefaultLayout = ({ children }: { children: any }) => {
+const DefaultLayout = ({ children, header }: { children: any, header?: any }) => {
   const [expand, setExpand] = React.useState(false);
   return (
     <div className="show-fake-browser sidebar-page">
       <Container>
         <DefaultLayoutSidebar expand={expand} />
-
         <Container>
-          {/* <Header> */}
-          {/* <h2>Page Title</h2> */}
-          {/* </Header> */}
+          <Header>
+            {header}
+          </Header>
           <Content>{children}</Content>
         </Container>
       </Container>
