@@ -1,15 +1,8 @@
-import React from 'react';
-import { Container, Header, Sidebar, Sidenav, Content, Navbar, Nav } from 'rsuite';
-import GearCircleIcon from '@rsuite/icons/legacy/GearCircle';
-import DashboardIcon from '@rsuite/icons/Dashboard';
-import GroupIcon from '@rsuite/icons/legacy/Group';
-import MagicIcon from '@rsuite/icons/legacy/Magic';
-import NavToggle from '../nav/nav';
+import { Sidebar, Sidenav, Nav } from 'rsuite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAstronaut, faBezierCurve, faCompass } from '@fortawesome/free-solid-svg-icons'
-import { Bezier } from 'react-bootstrap-icons';
-import { ArrowRight } from 'react-bootstrap-icons';
 import { FontAwesomeIconRenderer } from '../icons/icons';
+import {STUDIO_ROUTES} from "../../../settings";
 
 
 
@@ -42,10 +35,10 @@ const DefaultLayoutSidebar = ({ expand }: { expand: boolean }) => {
         <Sidenav expanded={expand} defaultOpenKeys={['3']} appearance="subtle">
             <Sidenav.Body>
                 <Nav>
-                    <Nav.Item eventKey="1" active icon={<FontAwesomeIconRenderer icon={faCompass} />} >
+                    <Nav.Item eventKey="1" href={STUDIO_ROUTES.EXPLORER} icon={<FontAwesomeIconRenderer icon={faCompass} />} >
                         Explorer
                     </Nav.Item>
-                    <Nav.Item eventKey="2" active icon={<FontAwesomeIconRenderer icon={faBezierCurve} />}>
+                    <Nav.Item eventKey="2" href={STUDIO_ROUTES.MODELLER} active icon={<FontAwesomeIconRenderer icon={faBezierCurve} />}>
                         Modeller
                     </Nav.Item>
                 </Nav>
