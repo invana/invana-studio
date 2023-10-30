@@ -40,7 +40,7 @@ const ConnectView = () => {
                             <Row >
                                 <Col  xs={4}><FontAwesomeIcon icon={faUserAstronaut} style={{fontSize: 56}} /> </Col>
                                 <Col>
-                                    <h3>Invana Graph</h3>
+                                    <h3>Invana Studio</h3>
                                     <p style={{ "marginBottom": "40px" }}>Connecting the data for finding problems and solutions</p>
                                 </Col>
                             </Row>
