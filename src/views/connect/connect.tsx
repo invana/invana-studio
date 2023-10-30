@@ -21,7 +21,7 @@ import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES, STUDIO_SETTINGS } from "../../
 import { setDataToLocalStorage } from "../../utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
-import DefaultLayout from '../../components/layout/layout';
+import DefaultLayout from '../../components/core-ui/layout/layout';
 
 
 const ConnectView = () => {
