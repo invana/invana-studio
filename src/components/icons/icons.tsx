@@ -20,7 +20,7 @@ import { Icon } from '@rsuite/icons';
   };
   
 
-export const FontAwesomeIcon = ({icon}: {icon: IconDefinition}) => {
+export const FontAwesomeIconRenderer = ({icon}: {icon: IconDefinition}) => {
       {/*
           // @ts-ignore */}
     return <Icon as={FaSvgIcon} faIcon={icon} />

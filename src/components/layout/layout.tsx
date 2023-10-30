@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAstronaut,faBezierCurve,  faCompass } from '@fortawesome/free-solid-svg-icons'
 import { Bezier } from 'react-bootstrap-icons';
 import { ArrowRight } from 'react-bootstrap-icons';
-import { FontAwesomeIcon } from '../icons/icons';
+import { FontAwesomeIconRenderer } from '../icons/icons';
  
 
 
@@ -47,12 +47,12 @@ const DefaultLayout = ({children} : {children: any}) => {
                 <Nav>
                                       {/*
 // @ts-ignore */}
-                  <Nav.Item eventKey="1" active icon={<FontAwesomeIcon  icon={faCompass} />} >
+                  <Nav.Item eventKey="1" active icon={<FontAwesomeIconRenderer  icon={faCompass} />} >
                     Explorer
                   </Nav.Item>
                     {/*
 // @ts-ignore */}
-                  <Nav.Item eventKey="2" active icon={<FontAwesomeIcon icon={ faBezierCurve} /> }>                    
+                  <Nav.Item eventKey="2" active icon={<FontAwesomeIconRenderer icon={ faBezierCurve} /> }>                    
                     Modeller 
 
                     
