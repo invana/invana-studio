@@ -16,45 +16,63 @@
 
 
 import React from "react";
-import {Container, Content, FlexboxGrid, Panel, Form, ButtonToolbar, Button} from 'rsuite';
-import {STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES, STUDIO_SETTINGS} from "../../settings";
-// import {setDataToLocalStorage} from "../../utils";
+import { Content, Nav, Navbar, Row, Col } from 'rsuite';
+import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES, STUDIO_SETTINGS } from "../../settings";
+import { setDataToLocalStorage } from "../../utils";
+import HomeIcon from '@rsuite/icons/legacy/Home';
+import CogIcon from '@rsuite/icons/legacy/Cog';
+import DefaultLayout from '../../components/core-ui/layout/layout';
+import * as BsIcon from "react-bootstrap-icons"
+import { FlexboxGrid } from 'rsuite';
 
 
-const ExplorerView = () => {
+const ConnectView = () => {
     const [invanaEngineUrl, setInvanaEngineUrl] = React.useState("http://localhost:8200");
     const connect = () => {
         // TODO - validate url for connectivity
-        // window.location.href = STUDIO_ROUTES.HOME;
-        // setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, invanaEngineUrl)
+        window.location.href = STUDIO_ROUTES.HOME;
+        setDataToLocalStorage(STUDIO_CONNECT_CONSTANTS.INVANA_ENGINE_URL, invanaEngineUrl)
     }
     return (
-        <div className="show-fake-browser login-page">
-            <Container>
-                <Content style={{"paddingTop": "16%"}}>
-                    <FlexboxGrid justify="center">
-                        <FlexboxGrid.Item colspan={6}>
-                            <Panel shaded header={<h3>Connect to Invana Graph</h3>} bordered>
-                                <Form fluid>
-                                    <Form.Group>
-                                        <Form.ControlLabel>Invana Engine URL</Form.ControlLabel>
-                                        <Form.Control type={"url"} name="invanaEngineUrl" value={invanaEngineUrl}
-                                                      onChange={(d: any) => setInvanaEngineUrl(d)}/>
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <ButtonToolbar>
-                                            <Button appearance="primary" onClick={connect} size={"sm"}>Connect</Button>
-                                            <Button appearance="link" href={STUDIO_SETTINGS.HELP_LINK}>Help?</Button>
-                                        </ButtonToolbar>
-                                    </Form.Group>
-                                </Form>
-                            </Panel>
-                        </FlexboxGrid.Item>
-                    </FlexboxGrid>
-                </Content>
-            </Container>
-        </div>
+        <DefaultLayout>
+            <Content >
+                <Navbar>
+                    {/* <Navbar.Brand href="#">RSUITE</Navbar.Brand> */}
+                    <Row gutter={0}>
+                        <Col xs={6}>
+                            <Nav  >
+                                <Nav.Item ><h4>twitter-data</h4></Nav.Item>
+                            </Nav>
+                        </Col>
+                        <Col xs={18}>
+                            <Nav justified appearance="default">
+                                <Nav.Item icon={<BsIcon.ArrowLeft />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.ArrowClockwise />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.ArrowRight />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Search />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Binoculars />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Camera />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Download />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Cursor />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Palette />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Trash />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.Diagram3 />} onClick={() => console.log("clicked")}></Nav.Item>
+                                <Nav.Item icon={<BsIcon.BoundingBoxCircles />} onClick={() => console.log("clicked")}></Nav.Item>
+
+                            </Nav>
+             
+                            <Nav pullRight>
+                                <Nav.Item icon={<BsIcon.Sliders2Vertical />}></Nav.Item>
+                            </Nav>
+                        </Col>
+                    </Row>
+
+
+                </Navbar>
+            </Content>
+        </DefaultLayout>
+
     );
 };
 
-export default ExplorerView;
+export default ConnectView;

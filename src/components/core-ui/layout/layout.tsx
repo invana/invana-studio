@@ -66,9 +66,9 @@ const DefaultLayout = ({children} : {children: any}) => {
           </Sidebar>
   
           <Container>
-            <Header>
+            {/* <Header> */}
               {/* <h2>Page Title</h2> */}
-            </Header>
+            {/* </Header> */}
             <Content>{children}</Content>
           </Container>
         </Container>
