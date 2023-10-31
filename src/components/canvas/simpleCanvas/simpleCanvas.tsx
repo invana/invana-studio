@@ -18,7 +18,7 @@ import ArtBoard from "../artboard/artBoard";
 import {CanvasArtBoardProps} from "../artboard/types";
 
 
-class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
+class SimpleCanvas extends React.Component<CanvasArtBoardProps, {}> {
 
  
     render() {
@@ -37,4 +37,4 @@ class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
     }
 }
 
-export default CanvasArtBoard;
+export default SimpleCanvas;
