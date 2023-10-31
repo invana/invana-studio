@@ -20,14 +20,14 @@ import {   Loader } from 'rsuite';
  
 import DefaultLayout from '../../components/core-ui/layout/layout';
 import DefaultHeader from "../../components/core-ui/header/header";
-import CanvasArtBoard from "../../components/canvas/canvas-artboard";
-import { GraphCanvasCtrl } from "../../components/canvas/canvas-ctrl";
-import GenerateEvents from "../../components/canvas/events";
+import CanvasArtBoard from "../../components/canvas/artboard/canvas-artboard";
+import { GraphCanvasCtrl } from "../../components/canvas/artboard/canvas-ctrl";
+import GenerateEvents from "../../components/canvas/artboard/events";
 import NetworkErrorUI from "../../components/networkError";
 import { GET_SCHEMA_QUERY } from "../../queries/modeller";
 import { useQuery } from "@apollo/client";
-import convertSchemaDataToVisJsData from "../../components/canvas/utils";
-import defaultOptions from "../../components/canvas/networkOptions";
+import convertSchemaDataToVisJsData from "../../components/canvas/artboard/utils";
+import defaultOptions from "../../components/canvas/artboard/networkOptions";
 import ExplorerCanvasMenu from "../explorer/canvasMenu";
 
 
