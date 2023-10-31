@@ -15,7 +15,7 @@
  */
 
 
-import {GraphCanvasCtrl} from "./canvas-ctrl";
+import {GraphCanvasCtrl} from "./canvasCtrl";
 
 export type GraphDataType = {
     nodes: Array<any>;

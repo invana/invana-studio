@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React from "react";
-import Graph from "./visjs-react";
+import Graph from "./visjsReact";
 import {CanvasArtBoardProps} from "./types";
 
 
