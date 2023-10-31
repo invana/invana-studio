@@ -20,8 +20,8 @@ import {   Loader } from 'rsuite';
  
 import DefaultLayout from '../../components/coreUi/layout/layout';
 import DefaultHeader from "../../components/coreUi/header/header";
-import CanvasArtBoard from "../../components/canvas/artboard/canvasArtboard";
-import { GraphCanvasCtrl } from "../../components/canvas/artboard/canvasCtrl";
+import CanvasArtBoard from "../../components/canvas/simpleCanvas/simpleCanvas";
+import { GraphCanvasCtrl } from "../../components/canvas/artboard/controller";
 import GenerateEvents from "../../components/canvas/artboard/events";
 import NetworkErrorUI from "../../components/networkError";
 import { GET_SCHEMA_QUERY } from "../../queries/modeller";

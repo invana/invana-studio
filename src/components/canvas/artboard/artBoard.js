@@ -26,7 +26,7 @@ import PropTypes from "prop-types";
 import "vis-network/styles/vis-network.css";
 
 
-const Graph = ({
+const ArtBoard = ({
     containerId,
     data,
     options = {},
@@ -141,7 +141,7 @@ const Graph = ({
     return <div id={containerId} ref={container} style={style} />;
 };
 
-Graph.propTypes = {
+ArtBoard.propTypes = {
     containerId: PropTypes.string,
     data: PropTypes.object,
     options: PropTypes.object,
@@ -152,4 +152,4 @@ Graph.propTypes = {
     getEdges: PropTypes.func,
 };
 
-export default Graph;
+export default ArtBoard;

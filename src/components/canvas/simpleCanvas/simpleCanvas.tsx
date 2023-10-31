@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import React from "react";
-import Graph from "./visjsReact";
-import {CanvasArtBoardProps} from "./types";
+import ArtBoard from "../artboard/artBoard";
+import {CanvasArtBoardProps} from "../artboard/types";
 
 
 class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
@@ -24,7 +24,7 @@ class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
     render() {
         return (
             <div className={"canvasContainer w-100 h-100"}>
-                <Graph
+                <ArtBoard
                     containerId={this.props.containerId}
                     data={this.props.canvasCtrl.getData()}
                     options={this.props.options}
