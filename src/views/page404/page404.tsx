@@ -15,14 +15,14 @@
  */
 
 
-import React from "react";
+// import React from "react";
 import {Container, Header, Content, Row, Col} from 'rsuite';
 // import StudioHeader from "../../layouts/header/header";
 // import StudioLeftNavSidebar from "../../layouts/sidebar-nav/sidebar-nav";
 import {useLocation} from "react-router-dom";
 
 const Page404 = () => {
-    const [expand, setExpand] = React.useState(false);
+    // const [expand, setExpand] = React.useState(false);
     let location = useLocation();
 
     return (

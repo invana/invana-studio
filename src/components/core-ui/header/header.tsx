@@ -1,6 +1,5 @@
-import { Content, Nav, Navbar, Row, Col, Divider } from 'rsuite';
+import {  Nav, Navbar, Row, Col } from 'rsuite';
 import * as BsIcon from "react-bootstrap-icons"
-import React from 'react';
 
 
 const DefaultHeader = ({canvasMenu }: {canvasMenu?: any}) => {

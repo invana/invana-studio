@@ -1,15 +1,5 @@
 import React from 'react';
-import { Container, Header, Sidebar, Sidenav, Content, Navbar, Nav } from 'rsuite';
-import GearCircleIcon from '@rsuite/icons/legacy/GearCircle';
-import DashboardIcon from '@rsuite/icons/Dashboard';
-import GroupIcon from '@rsuite/icons/legacy/Group';
-import MagicIcon from '@rsuite/icons/legacy/Magic';
-import NavToggle from '../nav/nav';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserAstronaut, faBezierCurve, faCompass } from '@fortawesome/free-solid-svg-icons'
-import { Bezier } from 'react-bootstrap-icons';
-import { ArrowRight } from 'react-bootstrap-icons';
-import { FontAwesomeIconRenderer } from '../icons/icons';
+import { Container, Header, Content } from 'rsuite';
 import DefaultLayoutSidebar from '../sidebar/sidebar';
 
 

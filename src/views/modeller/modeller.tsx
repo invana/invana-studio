@@ -16,22 +16,17 @@
 
 
 import React from "react";
-import { Button, Content, Loader } from 'rsuite';
-import { STUDIO_CONNECT_CONSTANTS, STUDIO_ROUTES } from "../../settings";
-import { setDataToLocalStorage } from "../../utils";
+import {   Loader } from 'rsuite';
+ 
 import DefaultLayout from '../../components/core-ui/layout/layout';
 import DefaultHeader from "../../components/core-ui/header/header";
-import TabNav from '@rsuite/responsive-nav';
-import MoreIcon from '@rsuite/icons/More';
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CanvasArtBoard from "../../components/canvas/canvas-artboard";
 import { GraphCanvasCtrl } from "../../components/canvas/canvas-ctrl";
 import GenerateEvents from "../../components/canvas/events";
 import NetworkErrorUI from "../../components/networkError";
-import { GET_GOD_QUERY, GET_SCHEMA_QUERY } from "../../queries/modeller";
+import { GET_SCHEMA_QUERY } from "../../queries/modeller";
 import { useQuery } from "@apollo/client";
-import convertSchemaDataToVisJsData, { convertToVisJsData } from "../../components/canvas/utils";
+import convertSchemaDataToVisJsData from "../../components/canvas/utils";
 import defaultOptions from "../../components/canvas/networkOptions";
 import ExplorerCanvasMenu from "../explorer/canvasMenu";
 
@@ -43,7 +38,7 @@ const ModellerView = () => {
     const [selectedData, setSelectedData] = React.useState(null)
 
 
-    const [leftSidebar, setLeftSidebar] = React.useState("")
+    // const [leftSidebar, setLeftSidebar] = React.useState("")
     const [rightSidebar, setRightSidebar] = React.useState("")
 
 

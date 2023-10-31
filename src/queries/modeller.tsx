@@ -68,3 +68,9 @@ export const GET_GOD_QUERY = gql`
   }
 `
 
+
+export const GENERIC_GREMLIN_QUERY = gql`
+  query {
+    execute_query(gremlin: "g.V().limit(5).toList()", timeout: 100)
+  }
+`
