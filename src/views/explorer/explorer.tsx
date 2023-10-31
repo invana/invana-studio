@@ -17,8 +17,8 @@
 
 import React from "react";
 import { Loader } from 'rsuite';
-import DefaultLayout from '../../components/core-ui/layout/layout';
-import DefaultHeader from "../../components/core-ui/header/header";
+import DefaultLayout from '../../components/coreUi/layout/layout';
+import DefaultHeader from "../../components/coreUi/header/header";
 import ExplorerCanvasMenu from "./canvasMenu";
 import CanvasArtBoard from "../../components/canvas/artboard/canvasArtboard";
 import { GraphCanvasCtrl } from "../../components/canvas/artboard/canvasCtrl";

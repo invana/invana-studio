@@ -17,25 +17,25 @@
 
 /* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-filename-extension */
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import isEqual from "lodash/isEqual";
 import differenceWith from "lodash/differenceWith";
-import {Network} from "vis-network/peer/esm/vis-network";
-import {DataSet} from "vis-data/peer/esm/vis-data";
+import { Network } from "vis-network/peer/esm/vis-network";
+import { DataSet } from "vis-data/peer/esm/vis-data";
 import PropTypes from "prop-types";
 import "vis-network/styles/vis-network.css";
 
 
 const Graph = ({
-                   containerId,
-                   data,
-                   options = {},
-                   events = {},
-                   style = {},
-                   getNetwork,
-                   getNodes,
-                   getEdges,
-               }) => {
+    containerId,
+    data,
+    options = {},
+    events = {},
+    style = {},
+    getNetwork,
+    getNodes,
+    getEdges,
+}) => {
     const nodes = useRef(new DataSet(data.nodes));
     const edges = useRef(new DataSet(data.edges));
     const network = useRef(null);
@@ -44,7 +44,7 @@ const Graph = ({
     useEffect(() => {
         network.current = new Network(
             container.current,
-            {nodes: nodes.current, edges: edges.current},
+            { nodes: nodes.current, edges: edges.current },
             options
         );
 
@@ -138,7 +138,7 @@ const Graph = ({
         };
     }, [events]);
 
-    return <div id={containerId} ref={container} style={style}/>;
+    return <div id={containerId} ref={container} style={style} />;
 };
 
 Graph.propTypes = {
