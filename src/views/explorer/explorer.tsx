@@ -28,9 +28,17 @@ import { GENERIC_GREMLIN_QUERY } from "../../queries/modeller";
 import { useQuery } from "@apollo/client";
 import { convertToVisJsData } from "../../components/canvas/artboard/utils";
 import defaultOptions from "../../components/canvas/artboard/networkOptions";
+import { addCanvasData } from "../../state/canvas/canvasSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const ExplorerView = () => {
+
+
+    const dispatch = useDispatch();
+
+
+    
 
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
@@ -51,7 +59,9 @@ const ExplorerView = () => {
             // const graphDataConverted = convertSchemaDataToVisJsData(data);
             // canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
                 const graphDataConverted = convertToVisJsData(data.execute_query, [])
-                canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
+                // canvasCtrl.addNewData(graphDataConverted.nodes, graphDataConverted.edges);
+
+                dispatch(addCanvasData(graphDataConverted))
         }
     }
     return (

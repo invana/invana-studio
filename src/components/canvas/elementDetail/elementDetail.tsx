@@ -1,5 +1,5 @@
 import "./elementDetail.scss"
-import { PanelGroup, Panel, Placeholder } from 'rsuite';
+// import { PanelGroup, Panel, Placeholder } from 'rsuite';
 import { renderPropertyData } from "./utils";
 
 const ElementDetail = ({ element }: { element: any }) => {

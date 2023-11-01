@@ -19,8 +19,12 @@ import { CanvasArtBoardProps } from "../artboard/types";
 import CanvasFooter from "../footer/footer";
 import FocusedNodesList from "../focusedNode/focusedNode";
 import ElementDetail from "../elementDetail/elementDetail";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../state/store";
+import { CanvasData, addCanvasData, clearCanvasData } from "../../../state/canvas/canvasSlice";
 
-class FullCanvas extends React.Component<CanvasArtBoardProps, {}> {
+
+const FullCanvas = (props: CanvasArtBoardProps) => {
 
 
     // Footer 
@@ -30,54 +34,57 @@ class FullCanvas extends React.Component<CanvasArtBoardProps, {}> {
     // ContextMenu
     // ElementProperties
 
-    getFocuseNodes = () => {
-        const nodes = this.props.canvasCtrl.getData().nodes;
-        if (nodes.length > 0) {
-            return nodes.slice(0, 2)
-        }
-        return []
-    }
+    // getFocuseNodes = () => {
+    //     const nodes = this.props.canvasCtrl.getData().nodes;
+    //     if (nodes.length > 0) {
+    //         return nodes.slice(0, 2)
+    //     }
+    //     return []
+    // }
 
-    getSelectedNode = () => {
-        const nodes = this.props.canvasCtrl.getData().nodes;
-        if (nodes.length > 0) {
-            return nodes[0]
-        }
-        return null
-    }
+    // getSelectedNode = () => {
+    //     const nodes = this.props.canvasCtrl.getData().nodes;
+    //     if (nodes.length > 0) {
+    //         return nodes[0]
+    //     }
+    //     return null
+    // }
+    const canvasData: CanvasData = useSelector((state: RootState) => state.canvas.canvasData);
+    const selectedElement: any = useSelector((state: RootState) => state.canvas.selectedElement);
+    const focusedNodes: any = useSelector((state: RootState) => state.canvas.focusedNodes);
 
 
-    selectedNode = this.getSelectedNode()
 
-    render() {
-        return (
-            <div className={"canvasContainer w-100 h-100"}>
-                <FocusedNodesList
-                    style={{ position: "absolute", top: 70, left: 70, right: 10 }}
-                    focusedNodes={this.getFocuseNodes()}
-                    onRemove={(node: any) => console.log("onRemove clicked", node.id)} />
-      
-                {
-                    this.selectedNode ? <ElementDetail element={this.selectedNode} /> : <React.Fragment />
-                }
- 
-                <ArtBoard
-                    containerId={this.props.containerId}
-                    data={this.props.canvasCtrl.getData()}
-                    options={this.props.options}
-                    events={this.props.events}
-                    getNetwork={(network) => this.props.canvasCtrl.setNetwork(network)}
-                    style={{
-                        width: "100%", height: "calc(100vh - 55px - 25px - 1px )",
-                        borderTop: "1px solid var(--rs-border-primary)",
-                        borderBottom: "1px solid var(--rs-border-primary)"
-                    }}
-                />
-                <CanvasFooter />
 
-            </div>
-        )
-    }
+    return (
+        <div className={"canvasContainer w-100 h-100"}>
+            <FocusedNodesList
+                style={{ position: "absolute", top: 70, left: 70, right: 10 }}
+                focusedNodes={focusedNodes}
+                onRemove={(node: any) => console.log("onRemove clicked", node.id)} />
+
+            {
+                selectedElement ? <ElementDetail element={selectedElement} /> : <React.Fragment />
+            }
+
+            <ArtBoard
+                containerId={props.containerId}
+                // data={props.canvasCtrl.getData()}
+                data={canvasData}
+                options={props.options}
+                events={props.events}
+                getNetwork={(network) => props.canvasCtrl.setNetwork(network)}
+                style={{
+                    width: "100%", height: "calc(100vh - 55px - 25px - 1px )",
+                    borderTop: "1px solid var(--rs-border-primary)",
+                    borderBottom: "1px solid var(--rs-border-primary)"
+                }}
+            />
+            <CanvasFooter />
+
+        </div>
+    )
+
 }
 
 export default FullCanvas;
