@@ -1,10 +1,10 @@
 .elementDetail{
-    height: 25px;
+    overflow-y: scroll;
     background-color: var(--rs-navbar-default-bg);
     color: var(--rs-navbar-default-text);
     border: 1px solid var(--rs-border-primary);
     width: 420px;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 81px);
     position: absolute;
     right: 0;
     z-index: 10000;
@@ -15,14 +15,14 @@
         border-top: 5px solid var(--rs-border-primary);
     }
     .body{
-        // padding: 5px 15px;
-        .rs-panel-header{
-            padding: 5px 20px;
-            .rs-icon{
-                top: 10px
-            }
-        }
-        .singleProperty{
+        padding: 5px 15px;
+        // .rs-panel-header{
+        //     padding: 5px 20px;
+        //     .rs-icon{
+        //         top: 10px
+        //     }
+        // }
+         .singleProperty{
             border-bottom: 1px solid var(--rs-border-primary);
             
             .propertyData{

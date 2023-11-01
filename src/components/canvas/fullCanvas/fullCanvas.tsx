@@ -61,7 +61,6 @@ class FullCanvas extends React.Component<CanvasArtBoardProps, {}> {
                     this.selectedNode ? <ElementDetail element={this.selectedNode} /> : <React.Fragment />
                 }
  
-    
                 <ArtBoard
                     containerId={this.props.containerId}
                     data={this.props.canvasCtrl.getData()}

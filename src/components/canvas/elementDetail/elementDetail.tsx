@@ -13,8 +13,8 @@ const ElementDetail = ({ element }: { element: any }) => {
             
         </div>
         <div className="body">
-            <PanelGroup accordion >
-                <Panel header="Properties" defaultExpanded>
+            {/* <PanelGroup accordion >
+                <Panel header="Properties" defaultExpanded> */}
                 {
                         Object.keys(element.properties).length === 0
                             ? <div className={'singleProperty'} key={element.id + "-no-properties-exist"}>
@@ -39,14 +39,14 @@ const ElementDetail = ({ element }: { element: any }) => {
                             )
                         })
                     }
-                </Panel>
+                {/* </Panel>
                 <Panel header="Relationships">
                     <Placeholder.Paragraph />
                 </Panel>
                 <Panel header="Display Settings">
                     <Placeholder.Paragraph />
                 </Panel>
-            </PanelGroup>
+            </PanelGroup> */}
         </div>
     </div>
 }
