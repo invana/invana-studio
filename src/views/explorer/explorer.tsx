@@ -20,7 +20,7 @@ import { Loader } from 'rsuite';
 import DefaultLayout from '../../components/coreUi/layout/layout';
 import DefaultHeader from "../../components/coreUi/header/header";
 import ExplorerCanvasMenu from "./canvasMenu";
-import SimpleCanvas from "../../components/canvas/simpleCanvas/simpleCanvas";
+import FullCanvas from "../../components/canvas/fullCanvas/fullCanvas";
 import { GraphCanvasCtrl } from "../../components/canvas/artboard/controller";
 import GenerateEvents from "../../components/canvas/artboard/events";
 import NetworkErrorUI from "../../components/networkError";
@@ -59,7 +59,7 @@ const ExplorerView = () => {
             {loading ? (
                 <Loader backdrop content="Fetching data ..." vertical />
             ) : (<span></span>)}
-            <SimpleCanvas
+            <FullCanvas
                 containerId={"artboard-1"}
                 renderCanvas={renderCanvas}
                 setRenderCanvas={setRenderCanvas}

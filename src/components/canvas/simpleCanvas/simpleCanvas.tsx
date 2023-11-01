@@ -19,7 +19,7 @@ import {CanvasArtBoardProps} from "../artboard/types";
 
 
 class SimpleCanvas extends React.Component<CanvasArtBoardProps, {}> {
-
+    // Contains only artboard, on hover show properties
  
     render() {
         return (

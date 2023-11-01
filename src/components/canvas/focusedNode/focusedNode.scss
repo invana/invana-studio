@@ -1,0 +1,21 @@
+.focusedNode {
+    border: 1px solid var(--rs-border-primary);
+    padding: 5px 10px;
+    border-left-width: 5px;
+
+    display: inline-block;
+    margin-right: 15px;
+
+    button {
+        margin-left: 10px;
+        padding: 2px 4px;
+        border-radius: 1px;
+        margin-left: 10px;
+    }
+}
+
+.focusedNodesList {
+    // position: absolute;
+    // top: 70px;
+    // left: 70px;
+}
