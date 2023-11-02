@@ -41,11 +41,11 @@ const ExplorerView = () => {
 
 
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
-    const [selectedData, setSelectedData] = React.useState(null)
+    // const [selectedData, setSelectedData] = React.useState(null)
 
 
     // const [leftSidebar, setLeftSidebar] = React.useState("")
-    const [rightSidebar, setRightSidebar] = React.useState("")
+    // const [rightSidebar, setRightSidebar] = React.useState("")
 
 
     const events = GenerateEvents(canvasCtrl)
