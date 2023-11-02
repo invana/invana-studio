@@ -42,7 +42,7 @@ const ModellerView = () => {
     const [rightSidebar, setRightSidebar] = React.useState("")
 
 
-    const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
+    // const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
     const { loading, error, data } = useQuery(GET_SCHEMA_QUERY);
     if (error) return <NetworkErrorUI error={error} />;
     if (!loading) {
@@ -64,7 +64,7 @@ const ModellerView = () => {
                 renderCanvas={renderCanvas}
                 setRenderCanvas={setRenderCanvas}
                 options={defaultOptions}
-                events={events}
+                // events={events}
                 canvasCtrl={canvasCtrl}
 
             />

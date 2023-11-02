@@ -14,18 +14,67 @@
  * limitations under the License.
  */
 
+import { setHoveredElement, setSelectedElement, setContextMenuData } from "../../../state/canvas/canvasSlice"
+import { useDispatch, useSelector } from "react-redux";
+// import { RootState } from "../../../state/store";
 
-const GenerateEvents = (canvasCtrl: any, setSelectedData: any, setRightSidebar: any = null) => {
+const GenerateEvents = (canvasCtrl: any) => {
 
+
+    const dispatch = useDispatch();
+    // const canvasData = useSelector((state: RootState) => state.canvas.canvasData);
+
+    // https://github.com/invana/invana-studio/blob/285940b565cf2a091e8b394e3aa90cabd11541d6/src/web/interface/canvas/canvas-art-board.js#L28
     return {
+
+        hoverNode: function (params: any) {
+            console.log("hoverNode Event:", params);
+            if (params.event) {
+                const node = canvasCtrl.network.body.data.nodes.get(params.node)
+                dispatch(setHoveredElement(node))
+                dispatch(setContextMenuData({node:node, position_x: params.event.pageX, position_y: params.event.pageY}))
+            }
+        },
+
+        blurNode: function (params: any) {
+            console.log("blurNode Event:", params);
+            dispatch(setHoveredElement(null))
+            dispatch(setContextMenuData(null))
+
+        },
+ 
+        hoverEdge: function (params: any) {
+            console.log("hoverEdge Event:", params);
+            if (params.event) {
+                dispatch(setHoveredElement(params.node))
+
+                // _this.props.setSelectedElementData(params.edge, "g:Edge");
+                // _this.props.setNodeMenuPosition(params.event.pageX, params.event.pageY);
+            }
+        },
+        blurEdge: function (params: any) {
+            console.log("blurEdge Event:", params);
+            dispatch(setHoveredElement(null))
+            dispatch(setContextMenuData(null))
+
+        },
+
+        click: function (params: any) {
+            params.event = "[original event]";
+            console.log(
+                "click event, getNodeAt returns: ", params,
+                //  this.getNodeAt(params.pointer.DOM)
+            );
+            // if (params.edges.length === 0 && params.nodes.length === 0) {
+            //     setSelectedElement(selectedNode)        
+            // }
+            // dispatch(setContextMenuData(null))
+
+        },
         selectNode: function (params: any) {
+            console.log("selectNode Event:", params);
             const selectedNode = canvasCtrl.network.body.data.nodes.get(params.nodes[0])
-            if (setSelectedData) {
-                setSelectedData(selectedNode)
-            }
-            if (setRightSidebar) {
-                setRightSidebar("element-detail")
-            }
+            dispatch(setSelectedElement(selectedNode))        
         },
         // selectEdge: function (params) {
         //     console.log("selectEdge Event:", params);
@@ -33,13 +82,7 @@ const GenerateEvents = (canvasCtrl: any, setSelectedData: any, setRightSidebar: 
         // },
         deselectNode: function (params: any) {
             console.log("deselectNode Event:", params);
-
-            if (setRightSidebar) {
-                setRightSidebar(null)
-            }
-            if (setSelectedData) {
-                setSelectedData(null)
-            }
+            dispatch(setSelectedElement(null))
         },
         // deselectEdge: function (params) {
         //     console.log("deselectEdge Event:", params);

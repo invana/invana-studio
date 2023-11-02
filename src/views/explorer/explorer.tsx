@@ -36,11 +36,10 @@ const ExplorerView = () => {
 
 
     const dispatch = useDispatch();
-
-
     
-
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
+
+
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
     const [selectedData, setSelectedData] = React.useState(null)
 
@@ -49,7 +48,7 @@ const ExplorerView = () => {
     const [rightSidebar, setRightSidebar] = React.useState("")
 
 
-    const events = GenerateEvents(canvasCtrl, setSelectedData, setRightSidebar)
+    const events = GenerateEvents(canvasCtrl)
     const { loading, error, data } = useQuery(GENERIC_GREMLIN_QUERY);
 
     console.log("=====error", error);

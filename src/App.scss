@@ -11,7 +11,14 @@
   border-radius: 2px !important;
 }
 
-
+.is-panel.rs-panel{
+  .rs-panel-header{
+    padding: 10px;
+  }
+  .rs-panel-body{
+    padding: 0;
+  }
+}
 .rs-sidebar {
   height: 100vh;
   border-right: 1px solid var(--rs-border-primary);

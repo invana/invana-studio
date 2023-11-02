@@ -21,7 +21,8 @@ import FocusedNodesList from "../focusedNode/focusedNode";
 import ElementDetail from "../elementDetail/elementDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
-import { CanvasData, addCanvasData, clearCanvasData } from "../../../state/canvas/canvasSlice";
+import { CanvasData, addCanvasData, clearCanvasData, removeFromFocuedNodes } from "../../../state/canvas/canvasSlice";
+import ContextMenu from "../../contextMenu/contextMenu";
 
 
 const FullCanvas = (props: CanvasArtBoardProps) => {
@@ -49,24 +50,26 @@ const FullCanvas = (props: CanvasArtBoardProps) => {
     //     }
     //     return null
     // }
+    const dispatch = useDispatch()
     const canvasData: CanvasData = useSelector((state: RootState) => state.canvas.canvasData);
     const selectedElement: any = useSelector((state: RootState) => state.canvas.selectedElement);
     const focusedNodes: any = useSelector((state: RootState) => state.canvas.focusedNodes);
+    const hoveredElement: any = useSelector((state: RootState)=> state.canvas.hoveredElement);
 
-
-
+    console.log("====selectedElement", selectedElement)
+    console.log("=hoveredElement", hoveredElement)
 
     return (
         <div className={"canvasContainer w-100 h-100"}>
             <FocusedNodesList
                 style={{ position: "absolute", top: 70, left: 70, right: 10 }}
                 focusedNodes={focusedNodes}
-                onRemove={(node: any) => console.log("onRemove clicked", node.id)} />
+                onRemove={(node: any) => dispatch(removeFromFocuedNodes(node))} />
 
             {
                 selectedElement ? <ElementDetail element={selectedElement} /> : <React.Fragment />
             }
-
+            <ContextMenu />
             <ArtBoard
                 containerId={props.containerId}
                 // data={props.canvasCtrl.getData()}

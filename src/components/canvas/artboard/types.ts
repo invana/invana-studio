@@ -29,5 +29,5 @@ export interface CanvasArtBoardProps {
     canvasCtrl: GraphCanvasCtrl,
     containerId: string,
     options: object,
-    events: object,
+    events?: object,
 }

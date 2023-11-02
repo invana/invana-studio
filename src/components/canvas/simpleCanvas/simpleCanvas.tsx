@@ -28,7 +28,7 @@ class SimpleCanvas extends React.Component<CanvasArtBoardProps, {}> {
                     containerId={this.props.containerId}
                     data={this.props.canvasCtrl.getData()}
                     options={this.props.options}
-                    events={this.props.events}
+                    // events={this.props.events}
                     getNetwork={(network) => this.props.canvasCtrl.setNetwork(network)}
                     style={{width: "100%", height: "calc(100vh - 60px )"}}
                 />

@@ -16,12 +16,19 @@ export interface CanvasData {
     edges: CanvasEdge[] | null
 }
 
+export interface ContextMenuData {
+    node: CanvasNode,
+    position_x: number,
+    position_y: number
+}
+
 export interface CanvasState {
     // canvasNodes: CanvasNode[],
     canvasData : CanvasData
-    selectedElement : any,
-    hoveredElement : any,
-    focusedNodes: any[]
+    selectedElement : CanvasNode|CanvasEdge|null,
+    hoveredElement : CanvasNode|CanvasEdge|null,
+    focusedNodes: CanvasNode[],
+    contextMenuData: ContextMenuData|null
 }
 
 
@@ -30,7 +37,8 @@ const initialState: CanvasState = {
     canvasData : {nodes: [], edges: []},
     selectedElement: null,
     hoveredElement: null,
-    focusedNodes: []
+    focusedNodes: [],
+    contextMenuData: null
 };
 
 const canvasSlice = createSlice({
@@ -51,10 +59,35 @@ const canvasSlice = createSlice({
         },
         clearCanvasData: (state)=>{
             state.canvasData =  {nodes: [], edges: []}
-        }
+        },
+        setHoveredElement: (state, action: PayloadAction<CanvasEdge|CanvasNode|null>)=>{
+            console.log('=====setHoveredElement', action)
+            // @ts-ignore
+            state.hoveredElement = action.payload;
+        },
+        setSelectedElement : (state, action: PayloadAction<CanvasEdge|CanvasNode|null>)=>{
+            // @ts-ignore
+            state.selectedElement = action.payload;
+        },
+        setContextMenuData : (state, action: PayloadAction<ContextMenuData|null>)=>{
+            // @ts-ignore
+            state.contextMenuData = action.payload;
+        },
+        addToFocuedNodes: (state, action: PayloadAction<CanvasNode>)=>{
+            const existingFocusedNodes = state.focusedNodes
+            // @ts-ignore
+            existingFocusedNodes.push(action.payload)
+            state.focusedNodes = existingFocusedNodes
+        },
+        removeFromFocuedNodes: (state, action: PayloadAction<CanvasNode>)=>{
+            // const existingFocusedNodes = state.focusedNodes;
+            console.log("=====removeFromFocuedNodes", action.payload.id)
+            state.focusedNodes = state.focusedNodes.filter(obj => action.payload.id !== obj.id);
+        },
     }
 })
 
-export const {addCanvasData, clearCanvasData} = canvasSlice.actions;
+export const {addCanvasData, clearCanvasData, setHoveredElement, setSelectedElement, 
+    setContextMenuData, addToFocuedNodes, removeFromFocuedNodes} = canvasSlice.actions;
 
 export default canvasSlice.reducer

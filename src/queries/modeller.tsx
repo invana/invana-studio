@@ -74,3 +74,11 @@ export const GENERIC_GREMLIN_QUERY = gql`
     execute_query(gremlin: "g.V().elementMap().limit(5)", timeout: 100)
   }
 `
+
+
+// export const GENERIC_GREMLIN_QUERY = gql`
+//   query {
+//     # execute_query(gremlin: "g.V().elementMap().limit(5)", timeout: 100)
+//     execute_query(gremlin: "g.V().hasLabel('airport').limit(1).bothE().otherV().path().by(__.valueMap(true))", timeout:100 )
+//   }
+// `

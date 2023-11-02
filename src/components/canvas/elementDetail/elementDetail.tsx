@@ -10,6 +10,40 @@ const ElementDetail = ({ element }: { element: any }) => {
             <div>{element.group} #{element.id}</div>
             <h4 style={{marginTop: 10}}>{element.properties.desc}</h4>
    
+
+
+            {/* {
+                    cleanedData.outV && cleanedData.inV
+                        ? <div className="SelectedDataList mainDetails">
+                            {
+                                cleanedData.outV
+                                    ? <div className={'singleProperty dark'} key={cleanedData.outV}>
+                                        <div className={"propertyData"}>
+                                            <strong className={"propertyKey"}>source:</strong>
+                                            <span
+                                                style={{"color": this.props.canvasUtils.getElementColor(cleanedData.outVLabel)}}>
+                                          &nbsp;{cleanedData.outV}
+                                    </span>
+                                        </div>
+                                    </div>
+                                    : <span></span>
+                            }
+                            {
+                                cleanedData.inV
+                                    ? <div className={'singleProperty dark'} key={cleanedData.inV}>
+                                        <div className={"propertyData"}>
+                                            <strong className={"propertyKey"}>target:</strong>
+                                            <span
+                                                style={{"color": this.props.canvasUtils.getElementColor(cleanedData.inVLabel)}}>
+                                         &nbsp;{cleanedData.inV}
+                                    </span>
+                                        </div>
+                                    </div>
+                                    : <span></span>
+                            }
+                        </div>
+                        : <React.Fragment/>
+                } */}
             
         </div>
         <div className="body">
