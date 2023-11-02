@@ -11,7 +11,7 @@ const CanvasFooter = () => {
 
     console.log("====hoveredElement", hoveredElement)
  
-    return <div className="canvasFooter" style={{paddingRight: 15}}>
+    return <div className="canvasFooter" style={{paddingRight: 15, paddingLeft: 15}}>
         {
             hoveredElement && <span>{hoveredElement.type}#{hoveredElement.id}[{hoveredElement.group}:{hoveredElement.label}] </span>
         }
