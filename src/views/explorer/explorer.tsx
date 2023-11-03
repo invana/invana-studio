@@ -24,12 +24,12 @@ import FullCanvas from "../../components/canvas/fullCanvas/fullCanvas";
 import { GraphCanvasCtrl } from "../../components/canvas/artboard/controller";
 import GenerateEvents from "../../components/canvas/artboard/events";
 import NetworkErrorUI from "../../components/networkError";
-import { GENERIC_GREMLIN_QUERY } from "../../queries/modeller";
+import { GENERIC_GREMLIN_QUERY } from "../../queryBuilders/invanaEngine/explorer";
 import { useQuery } from "@apollo/client";
 import { convertToVisJsData } from "../../components/canvas/artboard/utils";
 import defaultOptions from "../../components/canvas/artboard/networkOptions";
 import { addCanvasData } from "../../state/canvas/canvasSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 const ExplorerView = () => {

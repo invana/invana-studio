@@ -24,7 +24,7 @@ import SimpleCanvas from "../../components/canvas/simpleCanvas/simpleCanvas";
 import { GraphCanvasCtrl } from "../../components/canvas/artboard/controller";
 import GenerateEvents from "../../components/canvas/artboard/events";
 import NetworkErrorUI from "../../components/networkError";
-import { GET_SCHEMA_QUERY } from "../../queries/modeller";
+import { GET_SCHEMA_QUERY } from "../../queryBuilders/invanaEngine/modeller";
 import { useQuery } from "@apollo/client";
 import convertSchemaDataToVisJsData from "../../components/canvas/artboard/utils";
 import defaultOptions from "../../components/canvas/artboard/networkOptions";

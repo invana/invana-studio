@@ -1,14 +1,13 @@
-import { faArrowAltCircleLeft, faArrowAltCircleRight, faCog, faDotCircle, faTerminal } from "@fortawesome/free-solid-svg-icons"
+import { faDotCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useDispatch, useSelector } from "react-redux";
 import { List } from 'rsuite';
-
-import { CanvasData, ContextMenuData, addToFocuedNodes } from "../../state/canvas/canvasSlice";
+import {  ContextMenuData, addToFocuedNodes } from "../../state/canvas/canvasSlice";
 import { RootState } from "../../state/store";
 import React from "react";
 import "./contextMenu.scss";
-import { Panel, Placeholder } from 'rsuite';
-
+import { Panel } from 'rsuite';
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -22,6 +21,16 @@ const ContextMenu = () => {
         {
             icon: <FontAwesomeIcon icon={faDotCircle} />,
             title: 'Focus',
+            onClick: () => dispatch(addToFocuedNodes(node))
+        },
+        {
+            icon: <FontAwesomeIcon icon={faArrowLeft} />,
+            title: 'InV',
+            onClick: () => dispatch(addToFocuedNodes(node))
+        },
+        {
+            icon: <FontAwesomeIcon icon={faArrowRight} />,
+            title: 'outV',
             onClick: () => dispatch(addToFocuedNodes(node))
         }
     ]

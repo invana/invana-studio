@@ -3,7 +3,7 @@ import * as BsIcon from "react-bootstrap-icons"
 import { clearCanvasData } from '../../state/canvas/canvasSlice';
 import { useDispatch } from 'react-redux';
 import React from 'react';
-import { Modal, ButtonToolbar, Button } from 'rsuite';
+import { Modal, Button } from 'rsuite';
 import RemindIcon from '@rsuite/icons/legacy/Remind';
 
 

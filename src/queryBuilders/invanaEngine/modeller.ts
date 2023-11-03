@@ -46,7 +46,7 @@ export const GET_SCHEMA_QUERY = gql`
       }
   }
 `
-// export const GET_GOD_QUERY = gql`
+// export const GET_TEST_CONNECTION_QUERY = gql`
 //   query {
 //       god{
 //         id
@@ -59,21 +59,6 @@ export const GET_SCHEMA_QUERY = gql`
 //       }
 //   }
 // `
-export const GET_GOD_QUERY = gql`
-  query {
-    get_client_info{
-        gremlin_traversal_source
-        gremlin_host
-    }
-  }
-`
-
-
-export const GENERIC_GREMLIN_QUERY = gql`
-  query {
-    execute_query(gremlin: "g.V().elementMap().limit(5)", timeout: 100)
-  }
-`
 
 
 // export const GENERIC_GREMLIN_QUERY = gql`
